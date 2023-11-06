@@ -58,6 +58,10 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
 	ROOT,
 	TRADING
     }
+    
+    // -----------------------------------------------------------------
+    
+    public static String SEPARATOR = "::";
 
     // -----------------------------------------------------------------
 
@@ -116,21 +120,19 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      */
     Collection<GnucashAccount> getChildren();
 
+    /**
+     * @param account the account to test
+     * @return true if this is a child of us or any child's or us.
+     */
+    boolean isChildAccountRecursive(GnucashAccount account);
+
     // ----------------------------
 
-    /**
-     * @return the type-string for this account.
-     * @see #TYPE_ASSET
-     * @see #TYPE_INCOME
-     * @see #TYPE_LIABILITY
-     * @see #TYPE_PAYABLE
-     * @see #TYPE_RECEIVABLE there are other types too
-     */
     Type getType();
 
-    /**
-     */
     GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
+
+    // -----------------------------------------------------------------
 
     /**
      * The returned list ist sorted by the natural order of the Transaction-Splits.
@@ -141,6 +143,38 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     List<? extends GnucashTransactionSplit> getTransactionSplits();
 
     /**
+     * @param id the split-id to look for
+     * @return the identified split or null
+     */
+    GnucashTransactionSplit getTransactionSplitByID(final String id);
+
+    /**
+     * Gets the last transaction-split before the given date.
+     *
+     * @param date if null, the last split of all time is returned
+     * @return the last transaction-split before the given date
+     */
+    GnucashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date);
+
+    /**
+     * @param split split to add to this transaction
+     */
+    void addTransactionSplit(final GnucashTransactionSplit split);
+
+    // ----------------------------
+
+    /**
+     * @return true if ${@link #getTransactionSplits()}.size()>0
+     */
+    boolean hasTransactions();
+
+    /**
+     * @return true if ${@link #hasTransactions()} is true for this or any
+     *         sub-accounts
+     */
+    boolean hasTransactionsRecursive();
+
+    /**
      * The returned list ist sorted by the natural order of the Transaction-Splits.
      *
      * @return all splits
@@ -148,10 +182,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      */
     List<GnucashTransaction> getTransactions();
 
-    /**
-     * @param split split to add to this transaction
-     */
-    void addTransactionSplit(GnucashTransactionSplit split);
+    // -----------------------------------------------------------------
 
     /**
      * same as getBalance(new Date()).<br/>
@@ -163,45 +194,31 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     FixedPointNumber getBalance();
 
     /**
-     * same as getBalanceRecursive(new Date()).<br/>
-     * ignores transactions after the current date+time<br/>
      * Be aware that the result is in the currency of this account!
      *
-     * @return the balance including sub-accounts
-     * @throws InvalidCmdtyCurrTypeException 
+     * @param date if non-null transactions after this date are ignored in the
+     *             calculation
+     * @return the balance formatted using the current locale
      */
-    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalance(final LocalDate date);
 
     /**
-     * @return true if ${@link #hasTransactions()} is true for this or any
-     *         sub-accounts
-     */
-    boolean hasTransactionsRecursive();
-
-    /**
-     * @return true if ${@link #getTransactionSplits()}.size()>0
-     */
-    boolean hasTransactions();
-
-    /**
-     * Ignores accounts for wich this conversion is not possible.
+     * Be aware that the result is in the currency of this account!
      *
-     * @param date     ignores transactions after the given date
-     * @param currency the currency the result shall be in
-     * @return Gets the balance including all sub-accounts.
-     * @throws InvalidCmdtyCurrTypeException 
-     * @see GnucashAccount#getBalanceRecursive(LocalDate)
+     * @param date  if non-null transactions after this date are ignored in the
+     *              calculation
+     * @param after splits that are after date are added here.
+     * @return the balance formatted using the current locale
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after);
 
     /**
-     * same as getBalanceRecursive(new Date()). ignores transactions after the
-     * current date+time
-     *
-     * @return the balance including sub-accounts formatted using the current locale
-     * @throws InvalidCmdtyCurrTypeException 
+     * @param lastIncludesSplit last split to be included
+     * @return the balance up to and including the given split
      */
-    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalance(GnucashTransactionSplit lastIncludesSplit);
+
+    // ----------------------------
 
     /**
      * same as getBalance(new Date()). ignores transactions after the current
@@ -220,26 +237,19 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @return the balance formatted using the given locale
      * @throws InvalidCmdtyCurrTypeException 
      */
-    String getBalanceFormatted(Locale lcl) throws InvalidCmdtyCurrTypeException;
+    String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException;
+
+    // ----------------------------
 
     /**
+     * same as getBalanceRecursive(new Date()).<br/>
+     * ignores transactions after the current date+time<br/>
      * Be aware that the result is in the currency of this account!
      *
-     * @param date if non-null transactions after this date are ignored in the
-     *             calculation
-     * @return the balance formatted using the current locale
+     * @return the balance including sub-accounts
+     * @throws InvalidCmdtyCurrTypeException 
      */
-    FixedPointNumber getBalance(LocalDate date);
-
-    /**
-     * Be aware that the result is in the currency of this account!
-     *
-     * @param date  if non-null transactions after this date are ignored in the
-     *              calculation
-     * @param after splits that are after date are added here.
-     * @return the balance formatted using the current locale
-     */
-    FixedPointNumber getBalance(final LocalDate date, final Collection<GnucashTransactionSplit> after);
+    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException;
 
     /**
      * Gets the balance including all sub-accounts.
@@ -249,46 +259,21 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @return the balance including all sub-accounts
      * @throws InvalidCmdtyCurrTypeException 
      */
-    FixedPointNumber getBalanceRecursive(LocalDate date) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date) throws InvalidCmdtyCurrTypeException;
 
     /**
-     * Gets the last transaction-split before the given date.
+     * Ignores accounts for which this conversion is not possible.
      *
-     * @param date if null, the last split of all time is returned
-     * @return the last transaction-split before the given date
-     */
-    GnucashTransactionSplit getLastSplitBeforeRecursive(LocalDate date);
-
-    /**
-     * Gets the balance including all sub-accounts.
-     *
-     * @param date if non-null transactions after this date are ignored in the
-     *             calculation
-     * @return the balance including all sub-accounts
+     * @param date     ignores transactions after the given date
+     * @param currency the currency the result shall be in
+     * @return Gets the balance including all sub-accounts.
      * @throws InvalidCmdtyCurrTypeException 
+     * @see GnucashAccount#getBalanceRecursive(LocalDate)
      */
-    String getBalanceRecursiveFormatted(LocalDate date) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrTypeException;
 
     /**
-     * @param lastIncludesSplit last split to be included
-     * @return the balance up to and including the given split
-     */
-    FixedPointNumber getBalance(GnucashTransactionSplit lastIncludesSplit);
-
-    /**
-     * @param id the split-id to look for
-     * @return the identified split or null
-     */
-    GnucashTransactionSplit getTransactionSplitByID(String id);
-
-    /**
-     * @param account the account to test
-     * @return true if this is a child of us or any child's or us.
-     */
-    boolean isChildAccountRecursive(GnucashAccount account);
-
-    /**
-     * Ignores accounts for wich this conversion is not possible.
+     * Ignores accounts for which this conversion is not possible.
      *
      * @param date              ignores transactions after the given date
      * @param currencyNameSpace the currency the result shall be in
@@ -297,7 +282,30 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnucashAccount#getBalanceRecursive(Date, Currency)
      */
-    FixedPointNumber getBalanceRecursive(LocalDate date, String currencyNameSpace, String currencyName) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final String currencyNameSpace, final String currencyName) throws InvalidCmdtyCurrTypeException;
+
+    // ----------------------------
+
+    /**
+     * same as getBalanceRecursive(new Date()). ignores transactions after the
+     * current date+time
+     *
+     * @return the balance including sub-accounts formatted using the current locale
+     * @throws InvalidCmdtyCurrTypeException 
+     */
+    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException;
+
+    /**
+     * Gets the balance including all sub-accounts.
+     *
+     * @param date if non-null transactions after this date are ignored in the
+     *             calculation
+     * @return the balance including all sub-accounts
+     * @throws InvalidCmdtyCurrTypeException 
+     */
+    String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrTypeException;
+
+    // -----------------------------------------------------------------
 
     /**
      * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
