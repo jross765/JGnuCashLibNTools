@@ -7,7 +7,7 @@ import org.gnucash.basetypes.GCshCmdtyCurrID;
 import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
-import org.gnucash.currency.ComplexCurrencyTable;
+import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshPrice;
@@ -37,7 +37,7 @@ public interface GnucashFile extends GnucashObject {
      * 
      * @return Returns the currencyTable.
      */
-    ComplexCurrencyTable getCurrencyTable();
+    ComplexPriceTable getCurrencyTable();
 
     /**
      * Use a heuristic to determine the defaultcurrency-id. If we cannot find one,
@@ -107,8 +107,13 @@ public interface GnucashFile extends GnucashObject {
      * @param pCmdtySpace the namespace for pCmdtyId
      * @param pCmdtyId    the currency-name
      * @return the latest price-quote in the gnucash-file in EURO
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      */
-    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId);
+    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+
+    @Deprecated
+    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     // ---------------------------------------------------------------
 
@@ -124,8 +129,9 @@ public interface GnucashFile extends GnucashObject {
 
     /**
      * @return a read-only collection of all accounts that have no parent
+     * @throws UnknownAccountTypeException 
      */
-    Collection<? extends GnucashAccount> getRootAccounts();
+    Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException;
 
     /**
      * @param id the unique id of the job to look for
@@ -202,24 +208,26 @@ public interface GnucashFile extends GnucashObject {
     /**
      * @return a (possibly read-only) collection of all invoices that are fully Paid
      *         Do not modify the returned collection!
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getUnpaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashGenerInvoice> getPaidGenerInvoices();
+    Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException;
 
     /**
      * @return a (possibly read-only) collection of all invoices that are not fully
      *         Paid Do not modify the returned collection!
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashGenerInvoice> getUnpaidGenerInvoices();
+    Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException;
 
     // ----------------------------
 
@@ -257,12 +265,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given customer. Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(GnucashCustomer cust) throws WrongInvoiceTypeException;
+    Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param customer the customer to look for (not null)
@@ -270,12 +279,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given customer. Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashJobInvoice>      getPaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust) throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getPaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param customer the customer to look for (not null)
@@ -283,12 +293,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given customer Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(GnucashCustomer cust)throws WrongInvoiceTypeException;
+    Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(GnucashCustomer cust)throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param customer the customer to look for (not null)
@@ -296,12 +307,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given customer Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashJobInvoice>      getUnpaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust)throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getUnpaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust)throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ----------------------------
 
@@ -337,12 +349,13 @@ public interface GnucashFile extends GnucashObject {
      *         paid and are from the given vendor Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashVendorBill>      getPaidBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException;
+    Collection<GnucashVendorBill>      getPaidBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param vendor the vendor to look for (not null)
@@ -350,12 +363,13 @@ public interface GnucashFile extends GnucashObject {
      *         paid and are from the given vendor Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashJobInvoice>      getPaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getPaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param vendor the vendor to look for (not null)
@@ -363,12 +377,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given vendor Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashVendorBill>      getUnpaidBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException;
+    Collection<GnucashVendorBill>      getUnpaidBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param vendor the vendor to look for (not null)
@@ -376,12 +391,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given vendor Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashJobInvoice>      getUnpaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getUnpaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ----------------------------
 
@@ -404,12 +420,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given job Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashJobInvoice>      getPaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getPaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param vendor the job to look for (not null)
@@ -417,12 +434,13 @@ public interface GnucashFile extends GnucashObject {
      *         been paid and are from the given job Do not modify the returned
      *         collection!
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    Collection<GnucashJobInvoice>      getUnpaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getUnpaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ---------------------------------------------------------------
 

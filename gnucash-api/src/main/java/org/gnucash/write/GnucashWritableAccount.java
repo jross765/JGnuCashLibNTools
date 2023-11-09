@@ -8,6 +8,7 @@ import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashObject;
+import org.gnucash.read.UnknownAccountTypeException;
 
 
 /**
@@ -69,9 +70,10 @@ public interface GnucashWritableAccount extends GnucashAccount,
      * Set the type of the account (income, ...).
      *
      * @param type the new type.
+     * @throws UnknownAccountTypeException 
      * @see {@link GnucashAccount#getType()}
      */
-    void setType(Type type);
+    void setType(Type type) throws UnknownAccountTypeException;
 
     /**
      * @param id the new currency

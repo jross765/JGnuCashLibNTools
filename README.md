@@ -5,7 +5,7 @@ Version 1.2 of the library has been tested with GnuCash 5.3 and 5.4 on Linux (lo
 
 **Caution:** Will not work on other locales (for details, cf. below).
 
-# Modules
+# Modules and Further Details
 
 * [API](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api/README.md)
 
@@ -15,13 +15,13 @@ Version 1.2 of the library has been tested with GnuCash 5.3 and 5.4 on Linux (lo
 
 Special thanks to:
 
-*  Marcus Wolschon (Sofware-Design u. Beratung) for the original version (from 2005) and the pioneering work (which, by the way, contained way more than what you see here) and for putting the base of this project under the GPL.
+*  **Marcus Wolschon (Sofware-Design u. Beratung)** for the original version (from 2005) and the pioneering work (which, by the way, contained way more than what you see here) and for putting the base of this project under the GPL.
 
     This project is based on Marcus's work. There have been major changes since then, but you can still see where it originated from.
 
     (Forked from http://sourceforge.net/projects/jgnucashlib / revived in 2017, after some years of enchanted sleep.)
 
-* Deniss Larka for kissing the beauty awake and taking care of her during the last couple of years.
+* **Deniss Larka** for kissing the beauty awake and taking care of her during the last couple of years.
 
 # Sister Project
 This project has a sister project: 

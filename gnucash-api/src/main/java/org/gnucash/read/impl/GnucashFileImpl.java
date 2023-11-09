@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,13 +31,18 @@ import java.util.zip.GZIPInputStream;
 import org.gnucash.Const;
 import org.gnucash.basetypes.GCshCmdtyCurrID;
 import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.GCshCmdtyID;
+import org.gnucash.basetypes.GCshCurrID;
+import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
-import org.gnucash.currency.ComplexCurrencyTable;
+import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.GncBudget;
 import org.gnucash.generated.GncCountData;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.GncV2;
+import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
+import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -52,6 +58,7 @@ import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
@@ -88,7 +95,7 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * my CurrencyTable.
      */
-    private final ComplexCurrencyTable currencyTable = new ComplexCurrencyTable();
+    private final ComplexPriceTable currencyTable = new ComplexPriceTable();
 
     private static final String PADDING_TEMPLATE = "000000";
 
@@ -98,9 +105,11 @@ public class GnucashFileImpl implements GnucashFile {
      * @param pFile the file to load and initialize from
      * @throws IOException on low level reading-errors (FileNotFoundException if not
      *                     found)
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      * @see #loadFile(File)
      */
-    public GnucashFileImpl(final File pFile) throws IOException {
+    public GnucashFileImpl(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super();
 	loadFile(pFile);
     }
@@ -109,9 +118,11 @@ public class GnucashFileImpl implements GnucashFile {
      * @param pFile the file to load and initialize from
      * @throws IOException on low level reading-errors (FileNotFoundException if not
      *                     found)
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      * @see #loadFile(File)
      */
-    public GnucashFileImpl(final InputStream is) throws IOException {
+    public GnucashFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super();
 	loadInputStream(is);
     }
@@ -122,7 +133,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @return Returns the currencyTable.
      * @link #currencyTable
      */
-    public ComplexCurrencyTable getCurrencyTable() {
+    public ComplexPriceTable getCurrencyTable() {
 	return currencyTable;
     }
 
@@ -269,8 +280,9 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @return a read-only collection of all accounts that have no parent (the
      *         result is sorted)
+     * @throws UnknownAccountTypeException 
      */
-    public Collection<? extends GnucashAccount> getRootAccounts() {
+    public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
 	try {
 	    Collection<GnucashAccount> retval = new TreeSet<GnucashAccount>();
 
@@ -491,11 +503,12 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     /**
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getPaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() {
+    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    // ::TODO use methods is[Invc|Bill]FullyPaid
@@ -536,11 +549,12 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     /**
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getUnpaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() {
+    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    // ::TODO use methods is[Invc|Bill]NotFullyPaid
@@ -626,11 +640,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
@@ -650,11 +665,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -668,11 +684,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
@@ -692,11 +709,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -754,11 +772,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
@@ -778,11 +797,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -796,11 +816,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
@@ -820,11 +841,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -864,11 +886,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
@@ -888,11 +911,12 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
@@ -997,11 +1021,35 @@ public class GnucashFileImpl implements GnucashFile {
         return priceById.values();
     }
 
+//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+//      try {
+//        // See if it's a currency
+//        GCshCurrID currID = new GCshCurrID(cmdtyCurrIDStr);
+//	    return getLatestPrice(currID);
+//      } catch ( Exception exc ) {
+//        // It's a security
+//	    GCshCmdtyID cmdtyID = new GCshCmdtyID(GCshCmdtyCurrID.Type.SECURITY_GENERAL, cmdtyCurrIDStr);
+//	    return getLatestPrice(cmdtyID);
+//      }
+//    }
+    
     /**
      * {@inheritDoc}
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      */
-    public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
-	return getLatestPrice(pCmdtySpace, pCmdtyId, 0);
+    public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	return getLatestPrice(cmdtyCurrID, 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
+     */
+    @Deprecated
+    public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
     }
 
     // ---------------------------------------------------------------
@@ -1104,8 +1152,10 @@ public class GnucashFileImpl implements GnucashFile {
      * Set the new root-element and load all accounts, transactions,... from it.
      *
      * @param pRootElement the new root-element
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    protected void setRootElement(final GncV2 pRootElement) {
+    protected void setRootElement(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	if (pRootElement == null) {
 	    throw new IllegalArgumentException("null not allowed for field this.rootElement");
 	}
@@ -1438,64 +1488,70 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @param pRootElement the root-element of the Gnucash-file
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    private void loadPriceDatabase(final GncV2 pRootElement) {
+    private void loadPriceDatabase(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	boolean noPriceDB = true;
-	List<Object> bookElements = pRootElement.getGncBook().getBookElements();
-	for (Object bookElement : bookElements) {
-	    if (!(bookElement instanceof GncV2.GncBook.GncPricedb)) {
-		continue;
-	    }
+
+	GncV2.GncBook.GncPricedb priceDB = getPriceDB();
+	if ( priceDB.getPrice().size() > 0 )
 	    noPriceDB = false;
-	    GncV2.GncBook.GncPricedb priceDB = (GncV2.GncBook.GncPricedb) bookElement;
-
-	    if (priceDB.getVersion() != 1) {
-
-		LOGGER.warn("We know only the format of the price-db 1, " + "the file has version "
-			+ priceDB.getVersion() + " prices will not be loaded!");
-	    } else {
-		getCurrencyTable().clear();
-		getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
-			                               getDefaultCurrencyID(), 
-			                               new FixedPointNumber(1));
-
-		for (Iterator<GncV2.GncBook.GncPricedb.Price> iter = priceDB.getPrice().iterator(); iter.hasNext();) {
-		    GncV2.GncBook.GncPricedb.Price price = iter.next();
-		    GncV2.GncBook.GncPricedb.Price.PriceCommodity comodity = price.getPriceCommodity();
-
-		    // check if we already have a latest price for this comodity
-		    // (=currency, fund, ...)
-		    if (getCurrencyTable().getConversionFactor(comodity.getCmdtySpace(),
-			    comodity.getCmdtyId()) != null) {
-			continue;
-		    }
-
-		    String baseCurrency = getDefaultCurrencyID();
-		    if ( comodity.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) && 
-			 comodity.getCmdtyId().equals(baseCurrency) ) {
-			LOGGER.warn("Ignoring price-quote for " + baseCurrency + " because " + baseCurrency + " is"
-				+ "our base-currency.");
-			continue;
-		    }
-
-		    // get the latest price in the file and insert it into
-		    // our currency table
-		    FixedPointNumber factor = getLatestPrice(comodity.getCmdtySpace(), comodity.getCmdtyId());
-
-		    if (factor != null) {
-			getCurrencyTable().setConversionFactor(comodity.getCmdtySpace(), comodity.getCmdtyId(), factor);
-		    } else {
-			LOGGER.warn("The gnucash-file defines a factor for a comodity '" + comodity.getCmdtySpace()
-				+ "' - '" + comodity.getCmdtyId() + "' but has no comodity for it");
-		    }
-		}
-	    }
+	    
+	if ( priceDB.getVersion() != 1 ) {
+	    LOGGER.warn("The library only supports the price-DB format V. 1, " 
+		    + "but the file has version " + priceDB.getVersion() + ". " 
+		    + "Prices will not be loaded.");
+	} else {
+	    loadPriceDatabaseCore(priceDB);
 	}
 
-	if (noPriceDB) {
-	    // case: no priceDB in file
+	if ( noPriceDB ) {
+	    // no price DB in file
 	    getCurrencyTable().clear();
 	}
+    }
+
+    private void loadPriceDatabaseCore(GncV2.GncBook.GncPricedb priceDB)
+	    throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+//	getCurrencyTable().clear();
+//	getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
+//		                               getDefaultCurrencyID(), 
+//		                               new FixedPointNumber(1));
+
+	String baseCurrency = getDefaultCurrencyID();
+	
+	for ( GncV2.GncBook.GncPricedb.Price price : priceDB.getPrice() ) {
+	    GncV2.GncBook.GncPricedb.Price.PriceCommodity fromCmdtyCurr = price.getPriceCommodity();
+//	    GncV2.GncBook.GncPricedb.Price.PriceCurrency  toCurr = price.getPriceCurrency();
+//	    System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyId() + 
+//	                       " --> " + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId());
+
+	    // Check if we already have a latest price for this commodity
+	    // (= currency, fund, ...)
+	    if ( getCurrencyTable().getConversionFactor(fromCmdtyCurr.getCmdtySpace(), fromCmdtyCurr.getCmdtyId()) != null ) {
+		continue;
+	    }
+
+	    if ( fromCmdtyCurr.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) && 
+	         fromCmdtyCurr.getCmdtyId().equals(baseCurrency) ) {
+		LOGGER.warn("Ignoring price-quote for " + baseCurrency 
+		    + " because " + baseCurrency + " is our base-currency.");
+		continue;
+	    }
+
+	    // get the latest price in the file and insert it into
+	    // our currency table
+	    FixedPointNumber factor = getLatestPrice(new GCshCmdtyCurrID(fromCmdtyCurr.getCmdtySpace(), fromCmdtyCurr.getCmdtyId()));
+
+	    if ( factor != null ) {
+		getCurrencyTable().setConversionFactor(fromCmdtyCurr.getCmdtySpace(), fromCmdtyCurr.getCmdtyId(), 
+			                               factor);
+	    } else {
+		LOGGER.warn("The GnuCash file defines a factor for a commodity '" 
+	    + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyId() + "' but has no commodity for it");
+	    }
+	} // for price
     }
 
     /**
@@ -1510,131 +1566,153 @@ public class GnucashFileImpl implements GnucashFile {
      *                    recursive quotes (quotes to other then the base- currency)
      *                    we abort if the depth reached 6.
      * @return the latest price-quote in the gnucash-file in the default-currency
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      * @see {@link GnucashFile#getLatestPrice(String, String)}
      * @see #getDefaultCurrencyID()
      */
-    private FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId, final int depth) {
-	if (pCmdtySpace == null) {
-	    throw new IllegalArgumentException("null parameter 'pCmdtySpace' " + "given");
+    private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	if (cmdtyCurrID == null) {
+	    throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
 	}
-	if (pCmdtyId == null) {
-	    throw new IllegalArgumentException("null parameter 'pCmdtyId' " + "given");
-	}
+	// System.err.println("depth: " + depth);
 
 	Date latestDate = null;
 	FixedPointNumber latestQuote = null;
 	FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
-	final int maxRecursionDepth = 5;
+	final int maxRecursionDepth = 5; // ::MAGIC
 
-	for (Object bookElement : getRootElement().getGncBook().getBookElements()) {
-	    if (!(bookElement instanceof GncV2.GncBook.GncPricedb)) {
+	GncV2.GncBook.GncPricedb priceDB = getPriceDB();
+	for ( GncV2.GncBook.GncPricedb.Price priceQuote : priceDB.getPrice() ) {
+	    if (priceQuote == null) {
+		LOGGER.warn("GnuCash file contains null price-quotes - there may be a problem with JWSDP");
 		continue;
 	    }
-	    GncV2.GncBook.GncPricedb priceDB = (GncV2.GncBook.GncPricedb) bookElement;
-	    for (GncV2.GncBook.GncPricedb.Price priceQuote : (List<GncV2.GncBook.GncPricedb.Price>) priceDB.getPrice()) {
+		    
+	    PriceCommodity fromCmdtyCurr = priceQuote.getPriceCommodity();
+	    PriceCurrency  toCurr        = priceQuote.getPriceCurrency();
 
-		try {
-		    if (priceQuote == null) {
-			LOGGER.warn("gnucash-file contains null price-quotes" + " there may be a problem with JWSDP");
-			continue;
-		    }
-		    if (priceQuote.getPriceCurrency() == null) {
-			LOGGER.warn("gnucash-file contains price-quotes" + " with no currency id='"
-				+ priceQuote.getPriceId().getValue() + "'");
-			continue;
-		    }
-		    if (priceQuote.getPriceCurrency().getCmdtyId() == null) {
-			LOGGER.warn("gnucash-file contains price-quotes" + " with no currency-id id='"
-				+ priceQuote.getPriceId().getValue() + "'");
-			continue;
-		    }
-		    if (priceQuote.getPriceCurrency().getCmdtySpace() == null) {
-			LOGGER.warn("gnucash-file contains price-quotes" + " with no currency-namespace id='"
-				+ priceQuote.getPriceId().getValue() + "'");
-			continue;
-		    }
-		    if (priceQuote.getPriceTime() == null) {
-			LOGGER.warn("gnucash-file contains price-quotes" + " with no timestamp id='"
-				+ priceQuote.getPriceId().getValue() + "'");
-			continue;
-		    }
-		    if (priceQuote.getPriceValue() == null) {
-			LOGGER.warn("gnucash-file contains price-quotes" + " with no value id='"
-				+ priceQuote.getPriceId().getValue() + "'");
-			continue;
-		    }
-		    /*
-		     * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		     * priceQuote.getPriceType() == null) {
-		     * LOGGER.warn("gnucash-file contains FUND-price-quotes" + " with no type id='"
-		     * + priceQuote.getPriceId().getValue() + "'"); continue; }
-		     */
-		    if (!priceQuote.getPriceCommodity().getCmdtySpace().equals(pCmdtySpace)) {
-			continue;
-		    }
-		    if (!priceQuote.getPriceCommodity().getCmdtyId().equals(pCmdtyId)) {
-			continue;
-		    }
-		    /*
-		     * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		     * (priceQuote.getPriceType() == null ||
-		     * !priceQuote.getPriceType().equals("last") )) {
-		     * LOGGER.warn("ignoring FUND-price-quote of unknown type '" +
-		     * priceQuote.getPriceType() + "' expecting 'last' "); continue; }
-		     */
+	    if ( fromCmdtyCurr == null ) {
+		LOGGER.warn("GnuCash file contains price-quotes without from-commodity/currency: '"
+			+ priceQuote.toString() + "'");
+		continue;
+	    }
+				
+	    if ( toCurr == null ) {
+		LOGGER.warn("GnuCash file contains price-quotes without to-currency: '"
+			+ priceQuote.toString() + "'");
+		continue;
+	    }
 
-		    if (!priceQuote.getPriceCurrency().getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY)) {
-			if (depth > maxRecursionDepth) {
-			    LOGGER.warn("ignoring price-quote that is not in an ISO4217-currency but in '"
-				    + priceQuote.getPriceCurrency().getCmdtyId());
+	    try {
+		if (fromCmdtyCurr.getCmdtySpace() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes with from-commodity/currency without namespace: id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+			    
+		if (fromCmdtyCurr.getCmdtyId() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes with from-commodity/currency without code: id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+				    
+		if (toCurr.getCmdtySpace() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes with to-currency without namespace: id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+					    
+		if (toCurr.getCmdtyId() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes with to-currency without code: id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+		    
+		if (priceQuote.getPriceTime() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes without timestamp id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+		    
+		if (priceQuote.getPriceValue() == null) {
+		    LOGGER.warn("GnuCash file contains price-quotes without value id='"
+			    + priceQuote.getPriceId().getValue() + "'");
+		    continue;
+		}
+		    
+		/*
+		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
+		 * priceQuote.getPriceType() == null) {
+		 * LOGGER.warn("gnucash-file contains FUND-price-quotes" + " with no type id='"
+		 * + priceQuote.getPriceId().getValue() + "'"); continue; }
+		 */
+		    
+		if ( ! ( fromCmdtyCurr.getCmdtySpace().equals(cmdtyCurrID.getNameSpace()) && 
+		         fromCmdtyCurr.getCmdtyId().equals(cmdtyCurrID.getCode()) ) ) {
+		    continue;
+		}
+		    
+		/*
+		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
+		 * (priceQuote.getPriceType() == null ||
+		 * !priceQuote.getPriceType().equals("last") )) {
+		 * LOGGER.warn("ignoring FUND-price-quote of unknown type '" +
+		 * priceQuote.getPriceType() + "' expecting 'last' "); continue; }
+		 */
+
+		// BEGIN core
+		if ( ! toCurr.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
+		    // is commodity
+		    if ( depth > maxRecursionDepth ) {
+			LOGGER.warn("Ignoring price-quote that is not in an ISO4217-currency" 
+				+ " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
+			continue;
+		    }
+		    factor = getLatestPrice(new GCshCmdtyID(toCurr.getCmdtySpace(), toCurr.getCmdtyId()), depth + 1);
+		} else {
+		    // is currency
+		    if ( ! toCurr.getCmdtyId().equals(getDefaultCurrencyID()) ) {
+			if ( depth > maxRecursionDepth ) {
+			    LOGGER.warn("Ignoring price-quote that is not in " + getDefaultCurrencyID()
+			    + " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
 			    continue;
 			}
-			factor = getLatestPrice(priceQuote.getPriceCurrency().getCmdtySpace(),
-				priceQuote.getPriceCurrency().getCmdtyId(), depth + 1);
-		    } else {
-			if (!priceQuote.getPriceCurrency().getCmdtyId().equals(getDefaultCurrencyID())) {
-			    if (depth > maxRecursionDepth) {
-				LOGGER.warn("ignoring price-quote that is not in " + getDefaultCurrencyID() + " "
-					+ "but in  '" + priceQuote.getPriceCurrency().getCmdtyId());
-				continue;
-			    }
-			    factor = getLatestPrice(priceQuote.getPriceCurrency().getCmdtySpace(),
-				    priceQuote.getPriceCurrency().getCmdtyId(), depth + 1);
-			}
+			factor = getLatestPrice(new GCshCurrID(toCurr.getCmdtyId()), depth + 1);
 		    }
+		}
+		// END core
 
-		    Date date = PRICE_QUOTE_DATE_FORMAT.parse(priceQuote.getPriceTime().getTsDate());
+		Date date = PRICE_QUOTE_DATE_FORMAT.parse(priceQuote.getPriceTime().getTsDate());
 
-		    if (latestDate == null || latestDate.before(date)) {
-			latestDate = date;
-			latestQuote = new FixedPointNumber(priceQuote.getPriceValue());
-			LOGGER.debug("getLatestPrice(pCmdtySpace='" + pCmdtySpace + "', String pCmdtyId='" + pCmdtyId
-				+ "') converted " + latestQuote + " <= " + priceQuote.getPriceValue());
-		    }
-
-		} catch (NumberFormatException e) {
-		    LOGGER.error("[NumberFormatException] Problem in " + getClass().getName()
-			    + ".getLatestPrice(pCmdtySpace='" + pCmdtySpace + "', String pCmdtyId='" + pCmdtyId
-			    + "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-		} catch (ParseException e) {
-		    LOGGER.error("[ParseException] Problem in " + getClass().getName() + ".getLatestPrice(pCmdtySpace='"
-			    + pCmdtySpace + "', String pCmdtyId='" + pCmdtyId + "')! Ignoring a bad price-quote '"
-			    + priceQuote + "'", e);
-		} catch (NullPointerException e) {
-		    LOGGER.error("[NullPointerException] Problem in " + getClass().getName()
-			    + ".getLatestPrice(pCmdtySpace='" + pCmdtySpace + "', String pCmdtyId='" + pCmdtyId
-			    + "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-		} catch (ArithmeticException e) {
-		    LOGGER.error("[ArithmeticException] Problem in " + getClass().getName()
-			    + ".getLatestPrice(pCmdtySpace='" + pCmdtySpace + "', String pCmdtyId='" + pCmdtyId
-			    + "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
+		if (latestDate == null || latestDate.before(date)) {
+		    latestDate = date;
+		    latestQuote = new FixedPointNumber(priceQuote.getPriceValue());
+		    LOGGER.debug("getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
+		    	+ "') converted " + latestQuote + " <= " + priceQuote.getPriceValue());
 		}
 
+	    } catch (NumberFormatException e) {
+		LOGGER.error("[NumberFormatException] Problem in " + getClass().getName()
+			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
+			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
+	    } catch (ParseException e) {
+		LOGGER.error("[ParseException] Problem in " + getClass().getName() + " "
+			+ cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
+			+ priceQuote + "'", e);
+	    } catch (NullPointerException e) {
+		LOGGER.error("[NullPointerException] Problem in " + getClass().getName()
+			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
+			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
+	    } catch (ArithmeticException e) {
+		LOGGER.error("[ArithmeticException] Problem in " + getClass().getName()
+			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
+			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
 	    }
-	}
+	} // for priceQuote
 
-	LOGGER.debug(getClass().getName() + ".getLatestPrice(pCmdtySpace='" + pCmdtySpace + "', String pCmdtyId='"
-		+ pCmdtyId + "')= " + latestQuote + " from " + latestDate);
+	LOGGER.debug(getClass().getName() + ".getLatestPrice(pCmdtyCurrID='"
+		+ cmdtyCurrID.toString() + "')= " + latestQuote + " from " + latestDate);
 
 	if (latestQuote == null) {
 	    return null;
@@ -1751,9 +1829,11 @@ public class GnucashFileImpl implements GnucashFile {
      * @param pFile the file to read
      * @throws IOException on low level reading-errors (FileNotFoundException if not
      *                     found)
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      * @see #setRootElement(GncV2)
      */
-    protected void loadFile(final File pFile) throws IOException {
+    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 
 	long start = System.currentTimeMillis();
 
@@ -1791,7 +1871,7 @@ public class GnucashFileImpl implements GnucashFile {
 
     }
 
-    protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException {
+    protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	long start = System.currentTimeMillis();
 
 	NamespaceRemovererReader reader = new NamespaceRemovererReader(new InputStreamReader(in, "utf-8"));

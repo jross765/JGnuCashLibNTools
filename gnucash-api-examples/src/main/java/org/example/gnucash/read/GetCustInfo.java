@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerInvoice;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -160,7 +161,7 @@ public class GetCustInfo {
 	}
     }
 
-    private void showInvoices(GnucashCustomer cust) throws WrongInvoiceTypeException {
+    private void showInvoices(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	System.out.println("");
 	System.out.println("Invoices:");
 

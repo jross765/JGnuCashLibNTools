@@ -1,6 +1,7 @@
 package org.gnucash.read;
 
 import org.gnucash.basetypes.GCshCmdtyCurrID;
+import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
 import org.gnucash.numbers.FixedPointNumber;
 
@@ -40,7 +41,6 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     // - TYPE_ROOT = "ROOT"; guess ;-)
     // - TYPE_TRADING = "TRADING";
 
-    // ::MAGIC
     public enum Type {
 	BANK,
 	CASH,
@@ -128,7 +128,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
 
     // ----------------------------
 
-    Type getType();
+    Type getType() throws UnknownAccountTypeException;
 
     GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
 
@@ -216,7 +216,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @param lastIncludesSplit last split to be included
      * @return the balance up to and including the given split
      */
-    FixedPointNumber getBalance(GnucashTransactionSplit lastIncludesSplit);
+    FixedPointNumber getBalance(final GnucashTransactionSplit lastIncludesSplit);
 
     // ----------------------------
 
@@ -248,8 +248,9 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      *
      * @return the balance including sub-accounts
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     /**
      * Gets the balance including all sub-accounts.
@@ -258,8 +259,9 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      *             calculation
      * @return the balance including all sub-accounts
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     /**
      * Ignores accounts for which this conversion is not possible.
@@ -268,9 +270,10 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @param currency the currency the result shall be in
      * @return Gets the balance including all sub-accounts.
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      * @see GnucashAccount#getBalanceRecursive(LocalDate)
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     /**
      * Ignores accounts for which this conversion is not possible.
@@ -280,9 +283,10 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @param currencyName      the currency the result shall be in
      * @return Gets the balance including all sub-accounts.
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      * @see GnucashAccount#getBalanceRecursive(Date, Currency)
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date, final String currencyNameSpace, final String currencyName) throws InvalidCmdtyCurrTypeException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID secCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     // ----------------------------
 
@@ -292,8 +296,9 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      *
      * @return the balance including sub-accounts formatted using the current locale
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException;
+    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     /**
      * Gets the balance including all sub-accounts.
@@ -302,8 +307,9 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      *             calculation
      * @return the balance including all sub-accounts
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws InvalidCmdtyCurrIDException 
      */
-    String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrTypeException;
+    String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     // -----------------------------------------------------------------
 

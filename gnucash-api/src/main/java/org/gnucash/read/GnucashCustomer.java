@@ -115,77 +115,88 @@ public interface GnucashCustomer extends GnucashObject {
      * 
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException;
+    int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // -------------------------------------
 
     /**
      * @return the sum of payments for invoices to this client
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getIncomeGenerated(GnucashGenerInvoice.ReadVariant readVar);
+    FixedPointNumber getIncomeGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
      * @return the sum of payments for invoices to this client
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getIncomeGenerated_direct();
+    FixedPointNumber getIncomeGenerated_direct() throws UnknownAccountTypeException;
 
     /**
      * @return the sum of payments for invoices to this client
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getIncomeGenerated_viaAllJobs();
+    FixedPointNumber getIncomeGenerated_viaAllJobs() throws UnknownAccountTypeException;
 
     /**
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted acording to the current locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar);
+    String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted acording to the given locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl);
+    String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
 
     // -------------------------------------
 
     /**
      * @return the sum of left to pay Unpaid invoiced
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar);
+    FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getOutstandingValue_direct();
+    FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getOutstandingValue_viaAllJobs();
+    FixedPointNumber getOutstandingValue_viaAllJobs() throws UnknownAccountTypeException;
 
     /**
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getOutstandingValue() Formatted acording to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar);
+    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
      *
+     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getOutstandingValue() Formatted acording to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl);
+    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
 
     // ------------------------------------------------------------
 
@@ -200,13 +211,13 @@ public interface GnucashCustomer extends GnucashObject {
 
     Collection<GnucashGenerInvoice>    getInvoices() throws WrongInvoiceTypeException;
 
-    Collection<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException;
+    Collection<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    Collection<GnucashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException;
+    Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    Collection<GnucashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
+    Collection<GnucashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ------------------------------------------------------------
 

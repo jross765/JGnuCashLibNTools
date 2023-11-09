@@ -138,14 +138,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
   /**
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -172,14 +174,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
    * 
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -206,14 +210,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
   /**
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -240,14 +246,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
    * 
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -274,14 +282,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
   /**
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -308,14 +318,16 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
    * 
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getJobAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getJobAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
    */
-  String getJobAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+  String getJobAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -419,21 +431,21 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
 
   // ---------------------------------------------------------------
 
-  boolean isInvcFullyPaid() throws WrongInvoiceTypeException;
+  boolean isInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-  boolean isNotInvcFullyPaid() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  boolean isBillFullyPaid() throws WrongInvoiceTypeException;
-
-  boolean isNotBillFullyPaid() throws WrongInvoiceTypeException;
+  boolean isNotInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   // ----------------------------
 
-  boolean isJobFullyPaid() throws WrongInvoiceTypeException;
+  boolean isBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-  boolean isNotJobFullyPaid() throws WrongInvoiceTypeException;
+  boolean isNotBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  // ----------------------------
+
+  boolean isJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  boolean isNotJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   // ---------------------------------------------------------------
 

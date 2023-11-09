@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -147,7 +148,7 @@ public class GetVendInfo {
 	}
     }
 
-    private void showBills(GnucashVendor vend) throws WrongInvoiceTypeException {
+    private void showBills(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	System.out.println("");
 	System.out.println("Bills:");
 

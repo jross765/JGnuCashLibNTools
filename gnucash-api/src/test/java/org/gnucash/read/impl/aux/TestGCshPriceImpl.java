@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 import org.gnucash.ConstTest;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
 import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.GCshCmdtyID;
 import org.gnucash.basetypes.GCshCmdtyID_Exchange;
@@ -103,7 +102,7 @@ public class TestGCshPriceImpl
   {
       Collection<GCshPrice> priceList = gcshFile.getPrices();
       
-      assertEquals(7, priceList.size());
+      assertEquals(9, priceList.size());
 
       // ::TODO: Sort array for predictability
 //      Object[] priceArr = priceList.toArray();

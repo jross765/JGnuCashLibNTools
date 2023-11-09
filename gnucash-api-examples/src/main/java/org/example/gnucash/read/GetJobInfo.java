@@ -3,6 +3,7 @@ package org.example.gnucash.read;
 import java.io.File;
 
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
@@ -87,7 +88,7 @@ public class GetJobInfo {
 
     // -----------------------------------------------------------------
 
-    private void showInvoices(GnucashGenerJob job) throws WrongInvoiceTypeException {
+    private void showInvoices(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	System.out.println("");
 	System.out.println("Invoices:");
 

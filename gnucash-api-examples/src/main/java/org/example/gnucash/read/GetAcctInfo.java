@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashTransaction;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashFileImpl;
 
 public class GetAcctInfo {
@@ -39,7 +40,7 @@ public class GetAcctInfo {
 	printAcctInfo(acct, 0);
     }
 
-    private void printAcctInfo(GnucashAccount acct, int depth) {
+    private void printAcctInfo(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
 	System.out.println("Depth:           " + depth);
 
 	try {
@@ -100,8 +101,9 @@ public class GetAcctInfo {
 
     // -----------------------------------------------------------------
 
-    private void showParents(GnucashAccount acct, int depth) {
-	if (depth <= 0 && !acct.getType().equals("ROOT")) {
+    private void showParents(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
+	if ( depth <= 0 && 
+	     acct.getType() != GnucashAccount.Type.ROOT ) {
 	    System.out.println("");
 	    System.out.println(">>> BEGIN Parent Account");
 	    printAcctInfo(acct.getParentAccount(), depth - 1);
@@ -109,7 +111,7 @@ public class GetAcctInfo {
 	}
     }
 
-    private void showChildren(GnucashAccount acct, int depth) {
+    private void showChildren(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
 	System.out.println("");
 	System.out.println("Children:");
 

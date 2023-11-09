@@ -41,6 +41,7 @@ import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.GnucashAccountImpl;
@@ -108,13 +109,15 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * @param file the file to load
      * @throws IOException on bsic io-problems such as a FileNotFoundException
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      */
-    public GnucashWritableFileImpl(final File file) throws IOException {
+    public GnucashWritableFileImpl(final File file) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super(file);
 	setModified(false);
     }
 
-    public GnucashWritableFileImpl(final InputStream is) throws IOException {
+    public GnucashWritableFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super(is);
     }
 
@@ -365,10 +368,12 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      * @see {@link GnucashFileImpl#loadFile(java.io.File)}
      */
     @Override
-    protected void loadFile(final File pFile) throws IOException {
+    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super.loadFile(pFile);
 	lastWriteTime = Math.max(pFile.lastModified(), System.currentTimeMillis());
     }
@@ -433,11 +438,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
      * @see GnucashFileImpl#setRootElement(GncV2)
      */
     @SuppressWarnings("exports")
     @Override
-    public void setRootElement(final GncV2 rootElement) {
+    public void setRootElement(final GncV2 rootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super.setRootElement(rootElement);
     }
 
@@ -734,9 +741,10 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * @param type the type to look for
      * @return A changable version of all accounts of that type.
+     * @throws UnknownAccountTypeException 
      * @see {@link GnucashWritableFile#getAccountsByType(String)}
      */
-    public Collection<GnucashWritableAccount> getAccountsByType(final String type) {
+    public Collection<GnucashWritableAccount> getAccountsByType(final String type) throws UnknownAccountTypeException {
 	Collection<GnucashWritableAccount> retval = new LinkedList<GnucashWritableAccount>();
 	for (GnucashWritableAccount acct : getWritableAccounts()) {
 
@@ -1083,9 +1091,10 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @return a read-only collection of all accounts that have no parent
+     * @throws UnknownAccountTypeException 
      */
     @SuppressWarnings("unchecked")
-    public Collection<? extends GnucashWritableAccount> getWritableRootAccounts() {
+    public Collection<? extends GnucashWritableAccount> getWritableRootAccounts() throws UnknownAccountTypeException {
 	return (Collection<? extends GnucashWritableAccount>) getRootAccounts();
     }
 
@@ -1158,7 +1167,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see org.gnucash.write.jwsdpimpl.GnucashFileImpl#getRootAccounts()
      */
     @Override
-    public Collection<? extends GnucashAccount> getRootAccounts() {
+    public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
 	// TODO Auto-generated method stub
 	Collection<? extends GnucashAccount> rootAccounts = super.getRootAccounts();
 	if (rootAccounts.size() > 1) {

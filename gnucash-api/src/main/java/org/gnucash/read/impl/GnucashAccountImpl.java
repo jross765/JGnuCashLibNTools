@@ -14,6 +14,7 @@ import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransactionSplit;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,11 +138,21 @@ public class GnucashAccountImpl extends SimpleAccount
 	return jwsdpPeer.getActCode();
     }
 
+    private String getTypeStr() throws UnknownAccountTypeException {
+	return jwsdpPeer.getActType();
+    }
+
     /**
+     * @throws UnknownAccountTypeException 
      * @see GnucashAccount#getType()
      */
-    public Type getType() {
-	return Type.valueOf( jwsdpPeer.getActType() );
+    public Type getType() throws UnknownAccountTypeException {
+	try {
+	    Type result = Type.valueOf( getTypeStr() );
+	    return result;
+	} catch ( Exception exc ) {
+	    throw new UnknownAccountTypeException();
+	}
     }
 
     /**
@@ -236,7 +247,11 @@ public class GnucashAccountImpl extends SimpleAccount
 	buffer.append(getCode() + "'");
 	
 	buffer.append(" type: ");
-	buffer.append(getType());
+	try {
+	    buffer.append(getType());
+	} catch (UnknownAccountTypeException e) {
+	    buffer.append("ERROR");
+	}
 	
 	buffer.append(" qualif-name: '");
 	buffer.append(getQualifiedName() + "'");

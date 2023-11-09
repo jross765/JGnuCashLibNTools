@@ -3,6 +3,7 @@ package org.gnucash.read.spec;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.UnknownAccountTypeException;
 
 /**
  * This class represents a bill that is sent from a vendor
@@ -20,9 +21,9 @@ import org.gnucash.read.GnucashVendor;
  */
 public interface SpecInvoiceCommon {
 
-    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
 
@@ -32,9 +33,9 @@ public interface SpecInvoiceCommon {
 
     // ----------------------------
 
-    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
@@ -44,8 +45,8 @@ public interface SpecInvoiceCommon {
 
     // ---------------------------------------------------------------
 
-    public boolean isFullyPaid() throws WrongInvoiceTypeException;
+    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public boolean isNotFullyPaid() throws WrongInvoiceTypeException;
+    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

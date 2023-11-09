@@ -16,6 +16,7 @@ import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.impl.ObjectCascadeException;
@@ -83,8 +84,9 @@ public interface GnucashWritableFile extends GnucashFile,
     /**
      *
      * @return a read-only collection of all accounts that have no parent
+     * @throws UnknownAccountTypeException 
      */
-    Collection<? extends GnucashWritableAccount> getWritableRootAccounts();
+    Collection<? extends GnucashWritableAccount> getWritableRootAccounts() throws UnknownAccountTypeException;
 
     /**
      *
@@ -117,8 +119,9 @@ public interface GnucashWritableFile extends GnucashFile,
     /**
      * @param type the type to look for
      * @return A changable version of all accounts of that type.
+     * @throws UnknownAccountTypeException 
      */
-    Collection<GnucashWritableAccount> getAccountsByType(String type);
+    Collection<GnucashWritableAccount> getAccountsByType(String type) throws UnknownAccountTypeException;
 
     /**
      * @see GnucashFile#getAccountByID(String)

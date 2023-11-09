@@ -216,7 +216,7 @@
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
 <gnc:count-data cd:type="account">92</gnc:count-data>
 <gnc:count-data cd:type="transaction">12</gnc:count-data>
-<gnc:count-data cd:type="price">7</gnc:count-data>
+<gnc:count-data cd:type="price">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEntry">12</gnc:count-data>
@@ -429,6 +429,40 @@
     <price:source>user:price</price:source>
     <price:type>last</price:type>
     <price:value>51080000000000/1000000</price:value>
+  </price>
+  <price>
+    <price:id type="guid">dcc5dab9e36d4a9cb2ca4013a897ecb7</price:id>
+    <price:commodity>
+      <cmdty:space>ISIN</cmdty:space>
+      <cmdty:id>DE000BASF111</cmdty:id>
+    </price:commodity>
+    <price:currency>
+      <cmdty:space>CURRENCY</cmdty:space>
+      <cmdty:id>EUR</cmdty:id>
+    </price:currency>
+    <price:time>
+      <ts:date>2023-03-06 10:59:00 +0000</ts:date>
+    </price:time>
+    <price:source>user:price-editor</price:source>
+    <price:type>unknown</price:type>
+    <price:value>8651/200</price:value>
+  </price>
+  <price>
+    <price:id type="guid">144582489ce24f3d934699b77d634977</price:id>
+    <price:commodity>
+      <cmdty:space>ISIN</cmdty:space>
+      <cmdty:id>FR0000120644</cmdty:id>
+    </price:commodity>
+    <price:currency>
+      <cmdty:space>CURRENCY</cmdty:space>
+      <cmdty:id>EUR</cmdty:id>
+    </price:currency>
+    <price:time>
+      <ts:date>2023-03-02 10:59:00 +0000</ts:date>
+    </price:time>
+    <price:source>user:price-editor</price:source>
+    <price:type>unknown</price:type>
+    <price:value>2679/50</price:value>
   </price>
 </gnc:pricedb>
 <gnc:account version="2.0.0">

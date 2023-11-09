@@ -11,6 +11,7 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.SpecInvoiceCommon;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
@@ -142,15 +143,17 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * {@inheritDoc}
      * 
      * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
      */
-    public int getNofOpenInvoices() throws WrongInvoiceTypeException {
+    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getFile().getUnpaidInvoicesForJob(this).size();
     }
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public FixedPointNumber getIncomeGenerated() {
+    public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -172,22 +175,25 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public String getIncomeGeneratedFormatted() {
+    public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException {
 	return getCurrencyFormat().format(getIncomeGenerated());
     }
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public String getIncomeGeneratedFormatted(Locale lcl) {
+    public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated());
     }
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public FixedPointNumber getOutstandingValue() {
+    public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -209,15 +215,17 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public String getOutstandingValueFormatted() {
+    public String getOutstandingValueFormatted() throws UnknownAccountTypeException {
 	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
      * {@inheritDoc}
+     * @throws UnknownAccountTypeException 
      */
-    public String getOutstandingValueFormatted(Locale lcl) {
+    public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
@@ -229,12 +237,12 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException {
+    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return file.getPaidInvoicesForJob(this);
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException {
+    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return file.getUnpaidInvoicesForJob(this);
     }
 

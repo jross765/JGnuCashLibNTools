@@ -23,6 +23,7 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashTransactionSplit;
+import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashAccountImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.write.GnucashWritableAccount;
@@ -415,9 +416,10 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	}
 
 	/**
+	 * @throws UnknownAccountTypeException 
 	 * @see GnucashWritableAccount#setInvcType(java.lang.String)
 	 */
-	public void setType(final Type type) {
+	public void setType(final Type type) throws UnknownAccountTypeException {
 		Type oldType = getType();
 		if (oldType == type) {
 			return; // nothing has changed
