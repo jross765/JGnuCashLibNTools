@@ -355,6 +355,7 @@
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
+						<xs:element type="slots_type" name="vendor_slots" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute name="version" type="xs:string" use="required"/>
 				</xs:complexType>
@@ -546,7 +547,7 @@
 								</xs:simpleContent>
 							</xs:complexType>
 						</xs:element>
-						<xs:element type="slots_type" name="cust_slots" minOccurs="0" maxOccurs="1"/>
+						<xs:element type="slots_type" name="employee_slots" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute name="version" type="xs:string" use="required"/>
 				</xs:complexType>
@@ -691,6 +692,7 @@
 						<xs:element name="invoice_notes" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="invoice_billing_id" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="invoice_active" type="xs:int"/>
+						
 						<xs:element name="invoice_posttxn" minOccurs="0" maxOccurs="1">
 							<xs:complexType>
 								<xs:simpleContent>
@@ -750,6 +752,8 @@
 								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
+													
+						<xs:element type="slots_type" name="invoice_slots" minOccurs="0" maxOccurs="1"/>
 					</xs:all>
 					<xs:attribute name="version" type="xs:string" use="required"/>
 				</xs:complexType>

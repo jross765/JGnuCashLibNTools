@@ -1,6 +1,7 @@
 package org.gnucash.read.impl.spec;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.TreeSet;
@@ -25,6 +26,7 @@ public class TestGnucashJobInvoiceImpl
   private GnucashJobInvoice   invcSpec = null;
   
   private static final String INVC_3_ID = TestGnucashGenerInvoiceImpl.INVC_3_ID;
+  private static final String INVC_5_ID = TestGnucashGenerInvoiceImpl.INVC_5_ID;
   
   // -----------------------------------------------------------------
   
@@ -74,6 +76,8 @@ public class TestGnucashJobInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
     invcSpec = new GnucashJobInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashJobInvoiceImpl);
     assertEquals(INVC_3_ID, invcSpec.getId());
@@ -90,6 +94,8 @@ public class TestGnucashJobInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
     invcSpec = new GnucashJobInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -113,6 +119,8 @@ public class TestGnucashJobInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
     invcSpec = new GnucashJobInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -137,6 +145,8 @@ public class TestGnucashJobInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
     invcSpec = new GnucashJobInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // ::TODO
     // Note: That the following two return the same result
@@ -162,5 +172,17 @@ public class TestGnucashJobInvoiceImpl
     assertEquals(false, invcGen.isInvcFullyPaid());
     assertEquals(false, invcSpec.isInvcFullyPaid());
     assertEquals(false, ((SpecInvoiceCommon) invcSpec).isFullyPaid());
+  }
+
+  @Test
+  public void test05() throws Exception
+  {
+    invcGen = gcshFile.getGenerInvoiceByID(INVC_5_ID);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
+
+    assertEquals("https://my.job.invoice.link.01", invcGen.getURL());
+    assertEquals(invcGen.getURL(), invcSpec.getURL());
   }
 }

@@ -1,6 +1,7 @@
 package org.gnucash.read.impl.spec;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -28,6 +29,7 @@ public class TestGnucashCustomerInvoiceImpl
   private GnucashCustomerInvoice invcSpec = null;
   
   private static final String INVC_1_ID = TestGnucashGenerInvoiceImpl.INVC_1_ID;
+  private static final String INVC_6_ID = TestGnucashGenerInvoiceImpl.INVC_6_ID;
   
   // -----------------------------------------------------------------
   
@@ -77,6 +79,8 @@ public class TestGnucashCustomerInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
     invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashCustomerInvoiceImpl);
     assertEquals(INVC_1_ID, invcSpec.getId());
@@ -93,6 +97,8 @@ public class TestGnucashCustomerInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
     invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -114,6 +120,8 @@ public class TestGnucashCustomerInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
     invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -135,6 +143,8 @@ public class TestGnucashCustomerInvoiceImpl
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
     invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
 
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -159,5 +169,17 @@ public class TestGnucashCustomerInvoiceImpl
     assertEquals(true, invcGen.isInvcFullyPaid());
     assertEquals(true, invcSpec.isInvcFullyPaid());
     assertEquals(true, ((SpecInvoiceCommon) invcSpec).isFullyPaid());
+  }
+
+  @Test
+  public void test05() throws Exception
+  {
+    invcGen = gcshFile.getGenerInvoiceByID(INVC_6_ID);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
+    assertNotEquals(null, invcGen);
+    assertNotEquals(null, invcSpec);
+
+    assertEquals("https://my.customer.invoice.link.01", invcGen.getURL());
+    assertEquals(invcGen.getURL(), invcSpec.getURL());
   }
 }

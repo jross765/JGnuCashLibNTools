@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.generated.GncV2;
-import org.gnucash.generated.GncV2.GncBook.GncGncVendor.VendorTerms;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashFile;
@@ -21,7 +20,6 @@ import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshAddressImpl;
 import org.gnucash.read.impl.spec.GnucashVendorJobImpl;
-import org.gnucash.read.spec.GnucashCustomerInvoice;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.GnucashVendorBill;
 import org.gnucash.read.spec.GnucashVendorJob;
@@ -55,9 +53,12 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * @param gncFile the file to register under
      */
     protected GnucashVendorImpl(final GncV2.GncBook.GncGncVendor peer, final GnucashFile gncFile) {
-	super(new ObjectFactory().createSlotsType(), gncFile);
+	super((peer.getVendorSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getVendorSlots(), gncFile);
 
-        // ::TODO: Slots
+	if (peer.getVendorSlots() == null) {
+	    peer.setVendorSlots(getSlots());
+	}
+
 	jwsdpPeer = peer;
     }
 

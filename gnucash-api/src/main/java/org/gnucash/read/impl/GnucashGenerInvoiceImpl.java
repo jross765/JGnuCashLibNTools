@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.gnucash.Const;
 import org.gnucash.generated.GncV2;
+import org.gnucash.generated.ObjectFactory;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
 import org.gnucash.numbers.FixedPointNumber;
@@ -20,6 +21,7 @@ import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.UnknownAccountTypeException;
@@ -33,7 +35,8 @@ import org.slf4j.LoggerFactory;
 /**
  * Implementation of GnucashInvoice that uses JWSDP.
  */
-public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
+public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice 
+{
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GnucashGenerInvoiceImpl.class);
 
@@ -58,6 +61,11 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
    */
   protected final GnucashFile file;
   
+  /**
+   * Helper to implement the {@link GnucashObject}-interface.
+   */
+  protected GnucashObjectImpl helper;
+
   // ------------------------------
 
   /**
@@ -106,19 +114,54 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
   public GnucashGenerInvoiceImpl(
           final GncV2.GncBook.GncGncInvoice peer,
           final GnucashFile gncFile) {
-    super();
-    
-    jwsdpPeer = peer;
-    file = gncFile;
+      super();
+
+	if (peer.getInvoiceSlots() == null) {
+	    peer.setInvoiceSlots(new ObjectFactory().createSlotsType());
+	}
+
+
+      jwsdpPeer = peer;
+      file = gncFile;
+      
+	helper = new GnucashObjectImpl(peer.getInvoiceSlots(), gncFile);
   }
 
   // Copy-constructor
   public GnucashGenerInvoiceImpl(final GnucashGenerInvoice invc)
   {
-    super();
-    
-    this.jwsdpPeer = invc.getJwsdpPeer();
-    this.file      = invc.getFile();
+      super();
+
+	if (invc.getJwsdpPeer().getInvoiceSlots() == null) {
+	    invc.getJwsdpPeer().setInvoiceSlots(new ObjectFactory().createSlotsType());
+	}
+
+
+      this.jwsdpPeer = invc.getJwsdpPeer();
+      this.file      = invc.getFile();
+
+	helper = new GnucashObjectImpl(invc.getJwsdpPeer().getInvoiceSlots(), invc.getFile());
+  }
+
+  // -----------------------------------------------------------------
+
+  /**
+   * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
+   * in gnucash2.0 to hide accounts.
+   *
+   * @param name the name of the user-defined attribute
+   * @return the value or null if not set
+   */
+  public String getUserDefinedAttribute(final String name) {
+	return helper.getUserDefinedAttribute(name);
+  }
+
+  /**
+   * @return all keys that can be used with
+   *         ${@link #getUserDefinedAttribute(String)}}.
+   */
+  public Collection<String> getUserDefinedAttributeKeys() {
+	return helper.getUserDefinedAttributeKeys();
   }
 
   // -----------------------------------------------------------------
@@ -982,6 +1025,13 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
     }
     
 	// -----------------------------------------------------------
+    
+    @Override
+    public String getURL() {
+	return getUserDefinedAttribute("assoc_uri");
+    }
+
+	// -----------------------------------------------------------
 
 	/**
 	 * sorts primarily on the date the transaction happened
@@ -1055,8 +1105,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		return currencyFormat;
 	}
 
-	// ---------------------------------------------------------------
-	
 	@SuppressWarnings("exports")
 	@Override
 	public InvoiceOwner getOwnerPeerObj() {

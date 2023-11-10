@@ -1,6 +1,7 @@
 package org.gnucash.read.impl.spec;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -78,6 +79,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
     assertEquals(BLL_1_ID, bllSpec.getId());
@@ -95,6 +98,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
     assertEquals(BLL_2_ID, bllSpec.getId());
@@ -112,6 +117,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -131,6 +138,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -152,6 +161,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -175,6 +186,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -196,6 +209,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -228,6 +243,8 @@ public class TestGnucashVendorBillImpl
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
     bllSpec = new GnucashVendorBillImpl(bllGen);
+    assertNotEquals(null, bllGen);
+    assertNotEquals(null, bllSpec);
 
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implemetation error was
@@ -252,5 +269,17 @@ public class TestGnucashVendorBillImpl
     assertEquals(true, bllGen.isBillFullyPaid());
     assertEquals(true, bllSpec.isBillFullyPaid());
     assertEquals(true, ((SpecInvoiceCommon) bllSpec).isFullyPaid());
+  }
+
+  @Test
+  public void test05() throws Exception
+  {
+      bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+      bllSpec = new GnucashVendorBillImpl(bllGen);
+      assertNotEquals(null, bllGen);
+      assertNotEquals(null, bllSpec);
+
+      assertEquals("https://my.vendor.bill.link.01", bllGen.getURL());
+      assertEquals(bllGen.getURL(), bllSpec.getURL());
   }
 }

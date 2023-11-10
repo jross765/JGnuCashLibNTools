@@ -2431,6 +2431,10 @@
   <trn:description>Liqu-Mgt</trn:description>
   <trn:slots>
     <slot>
+      <slot:key>assoc_uri</slot:key>
+      <slot:value type="string">https://my.transaction.link.01</slot:value>
+    </slot>
+    <slot>
       <slot:key>date-posted</slot:key>
       <slot:value type="gdate">
         <gdate>2023-10-01</gdate>
@@ -3043,6 +3047,10 @@
   </invoice:currency>
   <invoice:slots>
     <slot>
+      <slot:key>assoc_uri</slot:key>
+      <slot:value type="string">https://my.job.invoice.link.01</slot:value>
+    </slot>
+    <slot>
       <slot:key>credit-note</slot:key>
       <slot:value type="integer">0</slot:value>
     </slot>
@@ -3089,6 +3097,10 @@
   </invoice:currency>
   <invoice:slots>
     <slot>
+      <slot:key>assoc_uri</slot:key>
+      <slot:value type="string">https://my.vendor.bill.link.01</slot:value>
+    </slot>
+    <slot>
       <slot:key>credit-note</slot:key>
       <slot:value type="integer">0</slot:value>
     </slot>
@@ -3117,6 +3129,10 @@
     <cmdty:id>EUR</cmdty:id>
   </invoice:currency>
   <invoice:slots>
+    <slot>
+      <slot:key>assoc_uri</slot:key>
+      <slot:value type="string">https://my.customer.invoice.link.01</slot:value>
+    </slot>
     <slot>
       <slot:key>credit-note</slot:key>
       <slot:value type="integer">0</slot:value>

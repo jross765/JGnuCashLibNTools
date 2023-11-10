@@ -134,6 +134,10 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
   String getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
 
   // ---------------------------------------------------------------
+  
+  String getURL();
+
+  // ---------------------------------------------------------------
 
   /**
    * @return what the customer must still pay (incl. taxes)
