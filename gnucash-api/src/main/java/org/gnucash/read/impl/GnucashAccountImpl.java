@@ -45,8 +45,6 @@ public class GnucashAccountImpl extends SimpleAccount
 	}
 
 	jwsdpPeer = peer;
-	// ::TODO
-	// file = gncfile;
 
 	helper = new GnucashObjectImpl(peer.getActSlots(), gncFile);
     }
