@@ -1,8 +1,10 @@
 package org.example.gnucash.read;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -11,6 +13,7 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
 public class GetJobInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
+    private static Helper.Mode mode    = Helper.Mode.ID;
     private static String jobID        = "xyz";
     private static String jobName      = "abc";
     // END Example data
@@ -31,12 +34,27 @@ public class GetJobInfo {
     protected void kernel() throws Exception {
 	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
 
-	// Choose one of the following variants:
-	// Var. 1)
-	GnucashGenerJob job = gcshFile.getGenerJobByID(jobID);
-	// Var. 2)
-	// Collection<GnucashGenerJob> jobList = gcshFile.getGenerJobsByName(jobName);
-	// GnucashGenerJob job = jobList.iterator().next(); // first element
+	GnucashGenerJob job = null;
+	if ( mode == Helper.Mode.ID ) {
+	    job = gcshFile.getGenerJobByID(jobID);
+	    if (job == null) {
+		System.err.println("Found no job with that ID");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Helper.Mode.NAME ) {
+	    Collection<GnucashGenerJob> jobList = null;
+	    jobList = gcshFile.getGenerJobsByName(jobName, true);
+	    if (jobList.size() == 0) {
+		System.err.println("Found no job with that name.");
+		throw new NoEntryFoundException();
+	    } else if (jobList.size() > 1) {
+		System.err.println("Found several jobs with that name.");
+		System.err.println("Taking first one.");
+	    }
+	    job = jobList.iterator().next(); // first element
+	}
+
+	// ------------------------
 
 	try {
 	    System.out.println("ID:              " + job.getId());

@@ -1,20 +1,32 @@
 package org.example.gnucash.read;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
 import org.gnucash.read.GnucashCommodity;
+import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.impl.GnucashFileImpl;
 
 public class GetCmdtyInfo {
+
+    enum Mode {
+	ISIN, 
+	EXCHANGE_TICKER, 
+	NAME
+    }
+
+    // -----------------------------------------------------------------
+
     // BEGIN Example data -- adapt to your needs
-    private static String gcshFileName                  = "example_in.gnucash";
+    private static String gcshFileName     = "example_in.gnucash";
+    private static Mode   mode             = Mode.ISIN;
     private static GCshCmdtyCurrNameSpace.Exchange exchange = GCshCmdtyCurrNameSpace.Exchange.EURONEXT;
-    private static String ticker                        = "MBG";
-    private static String isin                          = "DE0007100000";
-    private static String searchName                    = "merced";
+    private static String ticker           = "MBG";
+    private static String isin             = "DE0007100000";
+    private static String searchName       = "merced";
     // END Example data
 
     // -----------------------------------------------------------------
@@ -33,16 +45,33 @@ public class GetCmdtyInfo {
     protected void kernel() throws Exception {
 	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
 
-	// Choose one of the following variants:
-	// Var 1)
-	GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(exchange.toString(), ticker);
-	// Var 2)
-	// GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(exchange + ":" + ticker);
-	// Var 3)
-	// GnucashCommodity cmdty = gcshFile.getCommodityByXCode(isin);
-	// Var 4)
-	// Collection<GnucashCommodity> cmdtyList = gcshFile.getCommoditiesByName(searchName);
-	// GnucashCommodity cmdty = (GnucashCommodity) cmdtyList.iterator().next(); // first element
+	GnucashCommodity cmdty = null;
+	if ( mode == Mode.ISIN ) {
+	    cmdty = gcshFile.getCommodityByXCode(isin);
+	    if (cmdty == null) {
+		System.err.println("Could not find commodities with this ISIN.");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Mode.EXCHANGE_TICKER ) {
+	    cmdty = gcshFile.getCommodityByQualifID(exchange, ticker);
+	    if (cmdty == null) {
+		System.err.println("Could not find commodities with this exchange/ticker.");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Mode.NAME ) {
+	    Collection<GnucashCommodity> cmdtyList = gcshFile.getCommoditiesByName(searchName);
+	    if (cmdtyList.size() == 0) {
+		System.err.println("Could not find commodities matching this name.");
+		throw new NoEntryFoundException();
+	    }
+	    if (cmdtyList.size() > 1) {
+		System.err.println("Found several commodities with that name.");
+		System.err.println("Taking first one.");
+	    }
+	    cmdty = cmdtyList.iterator().next(); // first element
+	}
+	
+	// ------------------------
 
 	try {
 	    System.out.println("Qualified ID:      '" + cmdty.getQualifId() + "'");
@@ -67,7 +96,7 @@ public class GetCmdtyInfo {
 	} catch (Exception exc) {
 	    System.out.println("Fraction:          " + "ERROR");
 	}
-	
+
 	// ---
 
 	showQuotes(cmdty);

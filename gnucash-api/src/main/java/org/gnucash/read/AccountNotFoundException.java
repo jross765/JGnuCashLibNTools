@@ -1,4 +1,4 @@
-package org.gnucash.read.impl;
+package org.gnucash.read;
 
 public class AccountNotFoundException extends Exception
 {

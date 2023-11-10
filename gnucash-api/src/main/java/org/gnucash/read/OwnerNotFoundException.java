@@ -1,6 +1,6 @@
 // $Header: svn://gila_svn_priv/finanzen/GnuCashToolsXML/trunk/GnuCashToolsXML/src/main/java/de/riegelmuenchen/gnucash/tools/xml/gen/NoOwnerFoundException.java 7808 2023-08-30 15:39:06Z thilo $
 
-package org.gnucash.read.impl;
+package org.gnucash.read;
 
 public class OwnerNotFoundException extends Exception
 {

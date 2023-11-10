@@ -33,6 +33,8 @@ public class GetTrxInfo {
 	// transactions and then choosing from them.
 	GnucashTransaction trx = gcshFile.getTransactionByID(trxID);
 
+	// ------------------------
+
 	try {
 	    System.out.println("ID:              " + trx.getId());
 	} catch (Exception exc) {

@@ -1,9 +1,11 @@
 package org.example.gnucash.read;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshTaxTable;
@@ -16,6 +18,7 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
 public class GetVendInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
+    private static Helper.Mode mode    = Helper.Mode.ID;
     private static String vendID       = "xyz";
     private static String vendName     = "abc";
     // END Example data
@@ -36,12 +39,27 @@ public class GetVendInfo {
     protected void kernel() throws Exception {
 	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
 
-	// Choose one of the following variants:
-	// Var. 1)
 	GnucashVendor vend = gcshFile.getVendorByID(vendID);
-	// Var. 2)
-	// Collection<GnucashVendor> vendList = gcshFile.getVendorsByName(vendName);
-	// GnucashVendor vend = vendList.iterator().next(); // first element
+	if ( mode == Helper.Mode.ID ) {
+	    vend = gcshFile.getVendorByID(vendID);
+	    if (vend == null) {
+		System.err.println("Found no vendor with that ID");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Helper.Mode.NAME ) {
+	    Collection<GnucashVendor> vendList = null;
+	    vendList = gcshFile.getVendorsByName(vendName, true);
+	    if (vendList.size() == 0) {
+		System.err.println("Found no vendor with that name.");
+		throw new NoEntryFoundException();
+	    } else if (vendList.size() > 1) {
+		System.err.println("Found several vendors with that name.");
+		System.err.println("Taking first one.");
+	    }
+	    vend = vendList.iterator().next(); // first element
+	}
+
+	// ------------------------
 
 	try {
 	    System.out.println("ID:                " + vend.getId());

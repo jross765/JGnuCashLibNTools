@@ -19,6 +19,7 @@ import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.IllegalTransactionSplitActionException;
+import org.gnucash.read.TaxTableNotFoundException;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.aux.GCshTaxTableEntry;
 import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;

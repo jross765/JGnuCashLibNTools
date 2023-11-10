@@ -10,7 +10,6 @@ import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.numbers.FixedPointNumber;
-import org.gnucash.read.impl.SplitNotFoundException;
 
 /**
  * It is comparable and sorts primarily on the date the transaction happened

@@ -7,8 +7,8 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.IllegalTransactionSplitActionException;
+import org.gnucash.read.TaxTableNotFoundException;
 import org.gnucash.read.aux.GCshTaxTable;
-import org.gnucash.read.impl.TaxTableNotFoundException;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.impl.UnknownInvoiceTypeException;
 

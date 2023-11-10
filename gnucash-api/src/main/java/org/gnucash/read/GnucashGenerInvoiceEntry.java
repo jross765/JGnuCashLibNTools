@@ -5,7 +5,6 @@ import java.time.ZonedDateTime;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshTaxTable;
-import org.gnucash.read.impl.TaxTableNotFoundException;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 
 /**

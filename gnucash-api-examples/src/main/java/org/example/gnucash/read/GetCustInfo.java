@@ -1,9 +1,11 @@
 package org.example.gnucash.read;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerInvoice;
+import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshTaxTable;
@@ -16,6 +18,7 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
 public class GetCustInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
+    private static Helper.Mode mode    = Helper.Mode.ID;
     private static String custID       = "xyz";
     private static String custName     = "abc";
     // END Example data
@@ -36,12 +39,27 @@ public class GetCustInfo {
     protected void kernel() throws Exception {
 	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
 
-	// Choose one of the following variants:
-	// Var. 1)
 	GnucashCustomer cust = gcshFile.getCustomerByID(custID);
-	// Var. 2)
-	// Collection<GnucashCustomer> custList = gcshFile.getCustomersByName(custName);
-	// GnucashCustomer cust = custList.iterator().next(); // first element
+	if ( mode == Helper.Mode.ID ) {
+	    cust = gcshFile.getCustomerByID(custID);
+	    if (cust == null) {
+		System.err.println("Found no account with that ID");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Helper.Mode.NAME ) {
+	    Collection<GnucashCustomer> custList = null;
+	    custList = gcshFile.getCustomersByName(custName, true);
+	    if (custList.size() == 0) {
+		System.err.println("Found no account with that name.");
+		throw new NoEntryFoundException();
+	    } else if (custList.size() > 1) {
+		System.err.println("Found several accounts with that name.");
+		System.err.println("Taking first one.");
+	    }
+	    cust = custList.iterator().next(); // first element
+	}
+	
+	// ------------------------
 
 	try {
 	    System.out.println("ID:                " + cust.getId());

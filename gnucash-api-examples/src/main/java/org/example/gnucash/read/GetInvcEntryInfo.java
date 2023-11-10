@@ -36,6 +36,8 @@ public class GetInvcEntryInfo {
 	// and then choosing from them.
 	GnucashGenerInvoiceEntry entr = gcshFile.getGenerInvoiceEntryByID(invcEntrID);
 
+	// ------------------------
+
 	try {
 	    System.out.println("ID:                " + entr.getId());
 	} catch (Exception exc) {

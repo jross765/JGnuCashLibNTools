@@ -9,7 +9,7 @@ import org.gnucash.basetypes.GCshCmdtyCurrID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
-import org.gnucash.read.impl.SplitNotFoundException;
+import org.gnucash.read.SplitNotFoundException;
 
 /**
  * Transaction that can be modified.<br/>

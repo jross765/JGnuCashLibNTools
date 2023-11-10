@@ -97,12 +97,12 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
   String getDateOpenedFormatted();
 
   /**
-   * @return the date when this transaction hapened.
+   * @return the date when this transaction happened.
    */
   ZonedDateTime getDatePosted();
 
   /**
-   * @return the date when this transaction hapened.
+   * @return the date when this transaction happened.
    */
   String getDatePostedFormatted();
 

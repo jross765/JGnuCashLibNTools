@@ -1,15 +1,18 @@
 package org.example.gnucash.read;
 
 import java.io.File;
+import java.util.Collection;
 
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashTransaction;
+import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashFileImpl;
 
 public class GetAcctInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
+    private static Helper.Mode mode    = Helper.Mode.ID;
     private static String acctID       = "xyz";
     private static String acctName     = "abc";
     // END Example data
@@ -30,12 +33,27 @@ public class GetAcctInfo {
     protected void kernel() throws Exception {
 	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
 
-	// Choose one of the following variants:
-	// Var. 1)
-	GnucashAccount acct = gcshFile.getAccountByID(acctID);
-	// Var. 2)
-	// Collection<GnucashAccount> acctList = gcshFile.getAccountsByName(acctName);
-	// GnucashAccount acct = acctList.iterator().next(); // first element
+	GnucashAccount acct = null;
+	if ( mode == Helper.Mode.ID ) {
+	    acct = gcshFile.getAccountByID(acctID);
+	    if (acct == null) {
+		System.err.println("Found no account with that ID");
+		throw new NoEntryFoundException();
+	    }
+	} else if ( mode == Helper.Mode.NAME ) {
+	    Collection<GnucashAccount> acctList = null;
+	    acctList = gcshFile.getAccountsByName(acctName, true, true);
+	    if (acctList.size() == 0) {
+		System.err.println("Found no account with that name.");
+		throw new NoEntryFoundException();
+	    } else if (acctList.size() > 1) {
+		System.err.println("Found several accounts with that name.");
+		System.err.println("Taking first one.");
+	    }
+	    acct = acctList.iterator().next(); // first element
+	}
+
+	// ------------------------
 
 	printAcctInfo(acct, 0);
     }

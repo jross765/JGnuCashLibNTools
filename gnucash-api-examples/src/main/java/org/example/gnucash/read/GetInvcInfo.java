@@ -45,6 +45,8 @@ public class GetInvcInfo {
 	// list of invoices and then choosing from them.
 	GnucashGenerInvoice invc = gcshFile.getGenerInvoiceByID(invcID);
 
+	// ------------------------
+
 	try {
 	    System.out.println("ID:                " + invc.getId());
 	} catch (Exception exc) {

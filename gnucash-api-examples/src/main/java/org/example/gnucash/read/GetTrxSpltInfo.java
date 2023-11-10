@@ -31,6 +31,8 @@ public class GetTrxSpltInfo {
 	// a specific transaction (cf. GetTrxInfo), getting its list of splits
 	// and then choosing from them.
 	GnucashTransactionSplit splt = gcshFile.getTransactionSplitByID(spltID);
+	
+	// ------------------------
 
 	try {
 	    System.out.println("ID:          " + splt.getId());
