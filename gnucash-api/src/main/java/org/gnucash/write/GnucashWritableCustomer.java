@@ -24,20 +24,22 @@ public interface GnucashWritableCustomer extends GnucashCustomer,
      */
     void setNumber(String number);
 
+    void setName(String name);
+
     void setDiscount(FixedPointNumber discount);
 
     void setCredit(FixedPointNumber credit);
 
+    void setAddress(GCshAddress adr);
+
+    void setShippingAddress(GCshAddress adr);
+    
     /**
      * @param notes user-defined notes about the customer (may be null)
      */
     void setNotes(String notes);
 
-    void setName(String name);
-
-    void setAddress(GCshAddress adr);
-
-    void setShippingAddress(GCshAddress adr);
+    // ---------------------------------------------------------------
 
     GCshWritableAddress getWritableAddress();
 
@@ -46,6 +48,8 @@ public interface GnucashWritableCustomer extends GnucashCustomer,
     GCshWritableAddress getAddress();
 
     GCshWritableAddress getShippingAddress();
+    
+    // ---------------------------------------------------------------
 
     /**
      * @param name  the name of the user-defined attribute

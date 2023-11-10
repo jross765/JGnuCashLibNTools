@@ -13,7 +13,7 @@ public interface GnucashWritableVendor extends GnucashVendor,
 {
 
     void remove();
-    
+   
     // ---------------------------------------------------------------
 
     /**
@@ -27,9 +27,18 @@ public interface GnucashWritableVendor extends GnucashVendor,
 
     void setAddress(GCshAddress adr);
 
+    /**
+     * @param notes user-defined notes about the customer (may be null)
+     */
+    void setNotes(String notes);
+
+    // ---------------------------------------------------------------
+
     GCshWritableAddress getWritableAddress();
 
     GCshWritableAddress getAddress();
+
+    // ---------------------------------------------------------------
 
     /**
      * @param name  the name of the user-defined attribute
