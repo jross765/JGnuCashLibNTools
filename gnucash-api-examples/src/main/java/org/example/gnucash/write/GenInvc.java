@@ -199,7 +199,10 @@ public class GenInvc {
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
-	invc.post(incAcct, recvblAcct, datePost, dateDue);
+	// CAUTION: Posting an invoice directly after its generation 
+	// will not work in the current version.  
+	// Cf. the "Known Issues" section in the project README
+	// invc.post(incAcct, recvblAcct, datePost, dateDue);
 
 	return invc;
     }
@@ -243,7 +246,10 @@ public class GenInvc {
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
-	bll.post(expAcct, payblAcct, datePost, dateDue);
+	// CAUTION: Posting an bill directly after its generation 
+	// will not work in the current version.  
+	// Cf. the "Known Issues" section in the project README
+	// bll.post(expAcct, payblAcct, datePost, dateDue);
 
 	return bll;
     }
@@ -288,7 +294,10 @@ public class GenInvc {
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
-	invc.post(incAcct, recvblAcct, datePost, dateDue);
+	// CAUTION: Posting an invoice directly after its generation 
+	// will not work in the current version.  
+	// Cf. the "Known Issues" section in the project README
+	// invc.post(incAcct, recvblAcct, datePost, dateDue);
 
 	return invc;
     }
