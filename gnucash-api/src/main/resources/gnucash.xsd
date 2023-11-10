@@ -313,6 +313,7 @@
 						</xs:element>
 						<xs:element name="vendor_id" type="xs:string"/>
 						<xs:element name="vendor_addr" type="address"/>
+						<xs:element name="vendor_notes" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="vendor_terms" minOccurs="0" maxOccurs="1">
 							<xs:complexType>
 								<xs:simpleContent>

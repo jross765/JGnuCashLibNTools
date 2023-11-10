@@ -53,6 +53,11 @@ public interface GnucashVendor extends GnucashObject {
      */
     GCshAddress getAddress();
 
+    /**
+     * @return user-defined notes about the customer (may be null)
+     */
+    String getNotes();
+
     // ------------------------------------------------------------
 
     /**

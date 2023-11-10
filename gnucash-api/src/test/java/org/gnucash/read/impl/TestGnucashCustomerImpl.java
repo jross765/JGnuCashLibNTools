@@ -86,6 +86,8 @@ public class TestGnucashCustomerImpl
     assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
+    assertEquals(null, cust.getNotes());
+
     assertEquals(null, cust.getTaxTableID());
     
     assertEquals(BLLTRM_2_ID, cust.getTermsID());
@@ -105,6 +107,8 @@ public class TestGnucashCustomerImpl
 
     assertEquals(3.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(2000.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    
+    assertEquals("So you want to sell to us, right?", cust.getNotes());
 
     assertEquals(null, cust.getTaxTableID());
     assertEquals(null, cust.getTermsID());
@@ -121,6 +125,8 @@ public class TestGnucashCustomerImpl
 
     assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    assertEquals("Nous n'achetons rien!", cust.getNotes());
 
     assertEquals(TAXTABLE_FR_1_ID, cust.getTaxTableID());
     assertEquals("FR_TVA_Std", cust.getTaxTable().getName());

@@ -101,6 +101,13 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 	return new GCshAddressImpl(jwsdpPeer.getVendorAddr());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public String getNotes() {
+	return jwsdpPeer.getVendorNotes();
+    }
+
     // ---------------------------------------------------------------
 
     /**

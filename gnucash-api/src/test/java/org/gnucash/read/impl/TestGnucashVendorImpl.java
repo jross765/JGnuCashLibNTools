@@ -90,6 +90,7 @@ public class TestGnucashVendorImpl
     assertEquals(BLLTRM_1_ID, vend.getTermsID());
     assertEquals("sofort", vend.getTerms().getName());
     assertEquals(GCshBillTerms.Type.DAYS, vend.getTerms().getType());
+    assertEquals(null, vend.getNotes());
     // etc., cf. class TestGCshBillTermsImpl
   }
 
@@ -101,6 +102,7 @@ public class TestGnucashVendorImpl
     assertEquals(VEND_2_ID, vend.getId());
     assertEquals("000002", vend.getNumber());
     assertEquals("Super Suppliers Corp.", vend.getName());
+    assertEquals("We are so super, man!", vend.getNotes());
 
     assertEquals(TAXTABLE_UK_1_ID, vend.getTaxTableID());
     
@@ -115,6 +117,7 @@ public class TestGnucashVendorImpl
     assertEquals(VEND_3_ID, vend.getId());
     assertEquals("000003", vend.getNumber());
     assertEquals("Achetez Chez Nous S.A.", vend.getName());
+    assertEquals("Nous sommes vraiment les meilleurs! Venez chez nous!", vend.getNotes());
 
     assertEquals(null, vend.getTaxTableID());
 

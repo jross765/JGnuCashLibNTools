@@ -2721,6 +2721,7 @@
   <cust:id>000003</cust:id>
   <cust:addr version="2.0.0"/>
   <cust:shipaddr version="2.0.0"/>
+  <cust:notes>Nous n'achetons rien!</cust:notes>
   <cust:taxincluded>USEGLOBAL</cust:taxincluded>
   <cust:active>1</cust:active>
   <cust:discount>0/1</cust:discount>
@@ -2778,6 +2779,7 @@
   <cust:id>000002</cust:id>
   <cust:addr version="2.0.0"/>
   <cust:shipaddr version="2.0.0"/>
+  <cust:notes>So you want to sell to us, right?</cust:notes>
   <cust:taxincluded>USEGLOBAL</cust:taxincluded>
   <cust:active>1</cust:active>
   <cust:discount>300000/100000</cust:discount>
@@ -3317,6 +3319,7 @@
   <vendor:name>Super Suppliers Corp.</vendor:name>
   <vendor:id>000002</vendor:id>
   <vendor:addr version="2.0.0"/>
+  <vendor:notes>We are so super, man!</vendor:notes>
   <vendor:taxincluded>USEGLOBAL</vendor:taxincluded>
   <vendor:active>1</vendor:active>
   <vendor:currency>
@@ -3331,6 +3334,7 @@
   <vendor:name>Achetez Chez Nous S.A.</vendor:name>
   <vendor:id>000003</vendor:id>
   <vendor:addr version="2.0.0"/>
+  <vendor:notes>Nous sommes vraiment les meilleurs! Venez chez nous!</vendor:notes>
   <vendor:terms type="guid">f4310c65486a47a5a787348b7de6ca40</vendor:terms>
   <vendor:taxincluded>USEGLOBAL</vendor:taxincluded>
   <vendor:active>1</vendor:active>

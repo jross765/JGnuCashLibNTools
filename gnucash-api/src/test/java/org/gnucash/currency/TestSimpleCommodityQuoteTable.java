@@ -6,7 +6,6 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.ConstTest;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
 import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashFile;
@@ -16,7 +15,7 @@ import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestSimplePriceTable
+public class TestSimpleCommodityQuoteTable
 {
   private GnucashFile       gcshFile = null;
   private ComplexPriceTable complPriceTab = null;
@@ -32,7 +31,7 @@ public class TestSimplePriceTable
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestSimplePriceTable.class);  
+    return new JUnit4TestAdapter(TestSimpleCommodityQuoteTable.class);  
   }
   
   @Before
