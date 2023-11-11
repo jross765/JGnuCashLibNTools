@@ -20,7 +20,8 @@ public class TestGnucashTransactionImpl
   
   public static final String TRX_1_ID = "32b216aa73a44137aa5b041ab8739058";
   public static final String TRX_2_ID = "c97032ba41684b2bb5d1391c9d7547e9";
-
+  public static final String TRX_3_ID = "d465b802d5c940c9bba04b87b63ba23f";
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
@@ -97,5 +98,12 @@ public class TestGnucashTransactionImpl
     assertEquals(2, trx.getSplitsCount());
     assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getId());
     assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getId());
+  }
+
+  @Test
+  public void test03() throws Exception {
+      trx = gcshFile.getTransactionByID(TRX_3_ID);
+      assertNotEquals(null, trx);
+      assertEquals("https://my.transaction.link.01", trx.getURL());
   }
 }

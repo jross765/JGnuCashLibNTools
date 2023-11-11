@@ -1,6 +1,7 @@
 package org.gnucash.read.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -80,6 +81,7 @@ public class TestGnucashVendorImpl
   public void test01_1() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_1_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(VEND_1_ID, vend.getId());
     assertEquals("000001", vend.getNumber());
@@ -98,6 +100,7 @@ public class TestGnucashVendorImpl
   public void test01_2() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_2_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(VEND_2_ID, vend.getId());
     assertEquals("000002", vend.getNumber());
@@ -113,6 +116,7 @@ public class TestGnucashVendorImpl
   public void test01_3() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_3_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(VEND_3_ID, vend.getId());
     assertEquals("000003", vend.getNumber());
@@ -131,6 +135,7 @@ public class TestGnucashVendorImpl
   public void test02_1() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_1_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(1, vend.getNofOpenBills());
     assertEquals(1, vend.getUnpaidBills_direct().size());
@@ -151,6 +156,7 @@ public class TestGnucashVendorImpl
   public void test02_2() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_2_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(0, vend.getUnpaidBills_direct().size());
 //    assertEquals("[GnucashVendorBillImpl: id: 4eb0dc387c3f4daba57b11b2a657d8a4 vendor-id (dir.): 087e1a3d43fa4ef9a9bdd4b4797c4231 bill-number: '1730-383/2' description: 'Sie wissen schon: Gefälligkeiten, ne?' #entries: 1 date-opened: 2023-08-31]", 
@@ -163,6 +169,7 @@ public class TestGnucashVendorImpl
   public void test02_3() throws Exception
   {
     vend = gcshFile.getVendorByID(VEND_3_ID);
+    assertNotEquals(null, vend);
     
     assertEquals(0, vend.getUnpaidBills_direct().size());
 //    assertEquals("[GnucashVendorBillImpl: id: 4eb0dc387c3f4daba57b11b2a657d8a4 vendor-id (dir.): 087e1a3d43fa4ef9a9bdd4b4797c4231 bill-number: '1730-383/2' description: 'Sie wissen schon: Gefälligkeiten, ne?' #entries: 1 date-opened: 2023-08-31]", 

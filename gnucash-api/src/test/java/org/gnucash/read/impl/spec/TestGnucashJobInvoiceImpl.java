@@ -75,8 +75,8 @@ public class TestGnucashJobInvoiceImpl
   public void test01_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
-    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashJobInvoiceImpl);
@@ -93,8 +93,8 @@ public class TestGnucashJobInvoiceImpl
   public void test02_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
-    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
@@ -118,8 +118,8 @@ public class TestGnucashJobInvoiceImpl
   public void test03_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
-    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
@@ -144,8 +144,8 @@ public class TestGnucashJobInvoiceImpl
   public void test04_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
-    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // ::TODO
@@ -178,8 +178,8 @@ public class TestGnucashJobInvoiceImpl
   public void test05() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_5_ID);
-    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashJobInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     assertEquals("https://my.job.invoice.link.01", invcGen.getURL());

@@ -1,6 +1,7 @@
 package org.gnucash.read.impl.spec;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
@@ -71,7 +72,9 @@ public class TestGnucashVendorJobImpl
   public void test01() throws Exception
   {
     jobGener = gcshFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobGener);
     jobSpec  = new GnucashVendorJobImpl(jobGener);
+    assertNotEquals(null, jobSpec);
 
     assertTrue(jobSpec instanceof GnucashVendorJob);
     assertEquals(JOB_2_ID, jobSpec.getId());
@@ -83,7 +86,9 @@ public class TestGnucashVendorJobImpl
   public void test02() throws Exception
   {
     jobGener = gcshFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobGener);
     jobSpec  = new GnucashVendorJobImpl(jobGener);
+    assertNotEquals(null, jobSpec);
       
     // ::TODO
     // Note: That the following two return the same result
@@ -104,7 +109,9 @@ public class TestGnucashVendorJobImpl
   public void test03() throws Exception
   {
     jobGener = gcshFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobGener);
     jobSpec  = new GnucashVendorJobImpl(jobGener);
+    assertNotEquals(null, jobSpec);
       
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was

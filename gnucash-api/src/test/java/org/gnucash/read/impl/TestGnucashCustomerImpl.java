@@ -1,6 +1,7 @@
 package org.gnucash.read.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 
@@ -78,6 +79,7 @@ public class TestGnucashCustomerImpl
   public void test01_1() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_1_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(CUST_1_ID, cust.getId());
     assertEquals("000001", cust.getNumber());
@@ -100,6 +102,7 @@ public class TestGnucashCustomerImpl
   public void test01_2() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_2_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(CUST_2_ID, cust.getId());
     assertEquals("000002", cust.getNumber());
@@ -118,6 +121,7 @@ public class TestGnucashCustomerImpl
   public void test01_3() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_3_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(CUST_3_ID, cust.getId());
     assertEquals("000003", cust.getNumber());
@@ -140,6 +144,7 @@ public class TestGnucashCustomerImpl
   public void test02_1() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_1_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(1, cust.getPaidInvoices_direct().size());
     assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
@@ -154,6 +159,7 @@ public class TestGnucashCustomerImpl
   public void test02_2() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_2_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(0, cust.getUnpaidInvoices_direct().size());
 //    assertEquals("[GnucashCustomerInvoiceImpl: id: d9967c10fdf1465e9394a3e4b1e7bd79 customer-id (dir.): 5d1dd9afa7554553988669830cc1f696 invoice-number: 'R1730' description: 'null' #entries: 0 date-opened: 2023-07-29]", 
@@ -164,6 +170,7 @@ public class TestGnucashCustomerImpl
   public void test02_3() throws Exception
   {
     cust = gcshFile.getCustomerByID(CUST_3_ID);
+    assertNotEquals(null, cust);
     
     assertEquals(0, cust.getUnpaidInvoices_direct().size());
 //    assertEquals("[GnucashCustomerInvoiceImpl: id: d9967c10fdf1465e9394a3e4b1e7bd79 customer-id (dir.): 5d1dd9afa7554553988669830cc1f696 invoice-number: 'R1730' description: 'null' #entries: 0 date-opened: 2023-07-29]", 

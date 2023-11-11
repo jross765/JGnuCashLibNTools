@@ -1028,7 +1028,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     
     @Override
     public String getURL() {
-	return getUserDefinedAttribute("assoc_uri");
+	return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
     }
 
 	// -----------------------------------------------------------

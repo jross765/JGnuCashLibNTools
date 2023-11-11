@@ -25,6 +25,7 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
+import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.SplitNotFoundException;
@@ -495,6 +496,15 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	return datePosted;
     }
 
+	// -----------------------------------------------------------
+    
+    @Override
+    public String getURL() {
+	return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
+    }
+
+	// -----------------------------------------------------------
+    
     /**
      * @see java.lang.Object#toString()
      */

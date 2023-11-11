@@ -1,6 +1,7 @@
 package org.gnucash.read.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 
@@ -72,6 +73,7 @@ public class TestGnucashAccountImpl
   public void test01_1() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_1_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_1_ID, acct.getId());
     assertEquals(GnucashAccount.Type.BANK, acct.getType());
@@ -98,6 +100,7 @@ public class TestGnucashAccountImpl
   public void test01_2() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_2_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_2_ID, acct.getId());
     assertEquals(GnucashAccount.Type.ASSET, acct.getType());
@@ -122,6 +125,7 @@ public class TestGnucashAccountImpl
   public void test01_3() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_3_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_3_ID, acct.getId());
     assertEquals(GnucashAccount.Type.LIABILITY, acct.getType());
@@ -145,6 +149,7 @@ public class TestGnucashAccountImpl
   public void test01_4() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_4_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_4_ID, acct.getId());
     assertEquals(GnucashAccount.Type.PAYABLE, acct.getType());
@@ -169,6 +174,7 @@ public class TestGnucashAccountImpl
   public void test01_5() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_5_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_5_ID, acct.getId());
     assertEquals(GnucashAccount.Type.RECEIVABLE, acct.getType());
@@ -193,6 +199,7 @@ public class TestGnucashAccountImpl
   public void test01_6() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_6_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_6_ID, acct.getId());
     assertEquals(GnucashAccount.Type.EQUITY, acct.getType());
@@ -215,6 +222,7 @@ public class TestGnucashAccountImpl
   public void test01_7() throws Exception
   {
     acct = gcshFile.getAccountByID(ACCT_7_ID);
+    assertNotEquals(null, acct);
     
     assertEquals(ACCT_7_ID, acct.getId());
     assertEquals(GnucashAccount.Type.STOCK, acct.getType());

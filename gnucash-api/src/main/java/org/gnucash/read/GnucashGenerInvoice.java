@@ -20,7 +20,9 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
  * @see GnucashGenerJob
  * @see GnucashCustomer
  */
-public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
+public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
+                                             HasAttachment
+{
   
   // For the following types cf.:
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncInvoice.h
@@ -132,10 +134,6 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice> {
 //    InvoiceOwner getOwner();
 
   String getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
-
-  // ---------------------------------------------------------------
-  
-  String getURL();
 
   // ---------------------------------------------------------------
 

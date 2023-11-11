@@ -78,8 +78,8 @@ public class TestGnucashVendorBillImpl
   public void test01_1() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
@@ -97,8 +97,8 @@ public class TestGnucashVendorBillImpl
   public void test01_2() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
@@ -116,8 +116,8 @@ public class TestGnucashVendorBillImpl
   public void test02_1() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
@@ -137,8 +137,8 @@ public class TestGnucashVendorBillImpl
   public void test02_2() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
@@ -160,8 +160,8 @@ public class TestGnucashVendorBillImpl
   public void test03_1() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
@@ -185,8 +185,8 @@ public class TestGnucashVendorBillImpl
   public void test03_2() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following three return the same result
@@ -208,8 +208,8 @@ public class TestGnucashVendorBillImpl
   public void test04_1() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following two return the same result
@@ -242,8 +242,8 @@ public class TestGnucashVendorBillImpl
   public void test04_2() throws Exception
   {
     bllGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
-    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllGen);
+    bllSpec = new GnucashVendorBillImpl(bllGen);
     assertNotEquals(null, bllSpec);
 
     // Note: That the following two return the same result
@@ -275,8 +275,8 @@ public class TestGnucashVendorBillImpl
   public void test05() throws Exception
   {
       bllGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
-      bllSpec = new GnucashVendorBillImpl(bllGen);
       assertNotEquals(null, bllGen);
+      bllSpec = new GnucashVendorBillImpl(bllGen);
       assertNotEquals(null, bllSpec);
 
       assertEquals("https://my.vendor.bill.link.01", bllGen.getURL());

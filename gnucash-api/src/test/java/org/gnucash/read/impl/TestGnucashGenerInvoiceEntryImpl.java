@@ -1,6 +1,7 @@
 package org.gnucash.read.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 
@@ -76,6 +77,7 @@ public class TestGnucashGenerInvoiceEntryImpl
   public void test02_1() throws Exception
   {
     invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_1_ID);
+    assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_1_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
@@ -93,6 +95,7 @@ public class TestGnucashGenerInvoiceEntryImpl
   public void test02_2() throws Exception
   {
     invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_2_ID);
+    assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_2_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
@@ -113,6 +116,7 @@ public class TestGnucashGenerInvoiceEntryImpl
   public void test02_3() throws Exception
   {
     invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_3_ID);
+    assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_3_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_CUSTOMER, invcEntr.getType());
