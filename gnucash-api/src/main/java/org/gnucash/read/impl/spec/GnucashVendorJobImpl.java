@@ -33,7 +33,7 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( ! job.getOwnerType().equals(GnucashGenerInvoice.TYPE_VENDOR) )
+	if ( job.getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	    throw new WrongInvoiceTypeException();
 
 	// ::TODO

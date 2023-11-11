@@ -60,6 +60,7 @@ import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshBillTermsImpl;
@@ -515,7 +516,7 @@ public class GnucashFileImpl implements GnucashFile {
 //            if (!invoice.getInvcAmountUnpaidWithTaxes().isPositive()) {
 //                retval.add(invoice);
 //            }
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER)) {
+	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
 		try {
 		    if (invc.isInvcFullyPaid()) {
 			retval.add(invc);
@@ -524,7 +525,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getPaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR)) {
+	    } else if ( invc.getType() == GCshOwner.Type.VENDOR ) {
 		try {
 		    if (invc.isBillFullyPaid()) {
 			retval.add(invc);
@@ -533,7 +534,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getPaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB)) {
+	    } else if (invc.getType().equals(GCshOwner.Type.JOB)) {
 		try {
 		    if (invc.isJobFullyPaid()) {
 			retval.add(invc);
@@ -561,7 +562,7 @@ public class GnucashFileImpl implements GnucashFile {
 //			if (invoice.getInvcAmountUnpaidWithTaxes().isPositive()) {
 //				retval.add(invoice);
 //			}
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER)) {
+	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
 		try {
 		    if (invc.isNotInvcFullyPaid()) {
 			retval.add(invc);
@@ -570,7 +571,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getUnpaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR)) {
+	    } else if ( invc.getType() == GCshOwner.Type.VENDOR ) {
 		try {
 		    if (invc.isNotBillFullyPaid()) {
 			retval.add(invc);
@@ -579,7 +580,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getUnpaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB)) {
+	    } else if (invc.getType().equals(GCshOwner.Type.JOB)) {
 		try {
 		    if (invc.isNotJobFullyPaid()) {
 			retval.add(invc);

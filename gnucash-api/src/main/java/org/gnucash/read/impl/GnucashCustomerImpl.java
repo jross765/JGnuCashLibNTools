@@ -394,7 +394,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	List<GnucashCustomerJob> retval = new LinkedList<GnucashCustomerJob>();
 
 	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
-	    if ( jobGener.getOwnerType().equals(GCshOwner.TYPE_CUSTOMER) ) {
+	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
 		GnucashCustomerJob jobSpec = new GnucashCustomerJobImpl(jobGener);
 		if ( jobSpec.getCustomerId().equals(getId()) ) {
 		    retval.add(jobSpec);

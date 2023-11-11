@@ -5,6 +5,7 @@ import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashGenerJobImpl;
 import org.gnucash.read.spec.GnucashCustomerJob;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
@@ -34,7 +35,7 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( ! job.getOwnerType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) )
+	if ( job.getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	    throw new WrongInvoiceTypeException();
 
 	// ::TODO

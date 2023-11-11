@@ -7,6 +7,7 @@ import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshOwner;
+import org.gnucash.read.aux.GCshOwner.Type;
 import org.gnucash.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 
@@ -25,24 +26,12 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
 {
   
   // For the following types cf.:
-  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncInvoice.h
+  //  - https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncInvoice.h
   
-  /**
-   * @deprecated Use {@link GCshOwner#TYPE_CUSTOMER} instead
-   */
-  public static final String TYPE_CUSTOMER = GCshOwner.TYPE_CUSTOMER;
-  /**
-   * @deprecated Use {@link GCshOwner#TYPE_VENDOR} instead
-   */
-  public static final String TYPE_VENDOR   = GCshOwner.TYPE_VENDOR;
-  /**
-   * @deprecated Use {@link GCshOwner#TYPE_EMPLOYEE} instead
-   */
-  public static final String TYPE_EMPLOYEE = GCshOwner.TYPE_EMPLOYEE; // Not used yet, for future releases
-  /**
-   * @deprecated Use {@link GCshOwner#TYPE_JOB} instead
-   */
-  public static final String TYPE_JOB      = GCshOwner.TYPE_JOB;
+  public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
+  public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
+  public static final GCshOwner.Type TYPE_EMPLOYEE = GCshOwner.Type.EMPLOYEE; // Not used yet, for future releases
+  public static final GCshOwner.Type TYPE_JOB      = GCshOwner.Type.JOB;
   
   // ------------------------------
 
@@ -66,7 +55,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    */
   String getId();
 
-  String getType();
+  GCshOwner.Type getType();
 
   /**
    * @return the user-defined description for this object (may contain multiple
@@ -133,7 +122,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
 //    */
 //    InvoiceOwner getOwner();
 
-  String getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
+  GCshOwner.Type getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
 
   // ---------------------------------------------------------------
 

@@ -4,6 +4,7 @@ import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.spec.GnucashVendorBill;
@@ -34,7 +35,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! invoice.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) )
+    if ( invoice.getType() != GCshOwner.Type.VENDOR )
       throw new WrongInvoiceTypeException();
   }
 
@@ -71,7 +72,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
     if ( myInvoice == null )
     {
       myInvoice = getGenerInvoice();
-      if ( ! myInvoice.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) )
+      if ( myInvoice.getType() != GCshOwner.Type.VENDOR )
         throw new WrongInvoiceTypeException();
         
       if ( myInvoice == null )

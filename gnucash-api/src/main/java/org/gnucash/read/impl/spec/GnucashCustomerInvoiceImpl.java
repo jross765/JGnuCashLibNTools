@@ -12,6 +12,7 @@ import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.UnknownAccountTypeException;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
 import org.gnucash.read.spec.GnucashCustomerInvoiceEntry;
@@ -38,8 +39,8 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_CUSTOMER)  &&
-	 ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_JOB) )
+    if ( ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GCshOwner.Type.CUSTOMER)  &&
+	 ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GCshOwner.Type.JOB) )
       throw new WrongInvoiceTypeException();
     
     for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() )
@@ -83,7 +84,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   }
 
   public GnucashCustomer getCustomer_direct() throws WrongInvoiceTypeException {
-    if ( ! getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) )
+    if ( ! getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GCshOwner.Type.CUSTOMER) )
       throw new WrongInvoiceTypeException();
     
     return file.getCustomerByID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
@@ -104,7 +105,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
     
     for ( GnucashGenerInvoiceEntry entry : getGenerEntries() )
     {
-      if ( entry.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) )
+      if ( entry.getType().equals(GCshOwner.Type.CUSTOMER) )
       {
         castEntries.add(new GnucashCustomerInvoiceEntryImpl(entry));
       }

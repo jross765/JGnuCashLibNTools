@@ -4,6 +4,7 @@ import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -34,7 +35,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! invoice.getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+    if ( invoice.getType() != GCshOwner.Type.JOB )
       throw new WrongInvoiceTypeException();
   }
 
@@ -50,7 +51,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! entry.getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+    if ( ! entry.getType().equals(GCshOwner.Type.JOB) )
       throw new WrongInvoiceTypeException();
   }
 
@@ -71,7 +72,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
     if ( myInvoice == null )
     {
       myInvoice = getGenerInvoice();
-      if ( ! myInvoice.getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+      if ( myInvoice.getType() != GCshOwner.Type.JOB )
         throw new WrongInvoiceTypeException();
         
       if ( myInvoice == null )

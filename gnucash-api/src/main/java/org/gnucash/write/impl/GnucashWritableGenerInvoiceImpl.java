@@ -548,7 +548,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	// owner (customer)
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceOwner custRef = fact.createGncV2GncBookGncGncInvoiceInvoiceOwner();
-	    custRef.setOwnerType(GCshOwner.TYPE_CUSTOMER);
+	    custRef.setOwnerType(GCshOwner.Type.CUSTOMER.getCode());
 	    custRef.setVersion(Const.XML_FORMAT_VERSION);
 	    {
 		OwnerId ownerIdRef = fact.createOwnerId();
@@ -643,7 +643,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	// owner (vendor)
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceOwner vendRef = fact.createGncV2GncBookGncGncInvoiceInvoiceOwner();
-	    vendRef.setOwnerType(GCshOwner.TYPE_VENDOR);
+	    vendRef.setOwnerType(GCshOwner.Type.VENDOR.getCode());
 	    vendRef.setVersion(Const.XML_FORMAT_VERSION);
 	    {
 		OwnerId ownerIdRef = fact.createOwnerId();
@@ -739,7 +739,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	// owner (job)
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceOwner jobRef = fact.createGncV2GncBookGncGncInvoiceInvoiceOwner();
-	    jobRef.setOwnerType(GCshOwner.TYPE_JOB);
+	    jobRef.setOwnerType(GCshOwner.Type.JOB.getCode());
 	    jobRef.setVersion(Const.XML_FORMAT_VERSION);
 	    {
 		OwnerId ownerIdRef = fact.createOwnerId();
@@ -907,7 +907,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    
 	    
 	    GnucashWritableTransaction postTrx = createPostTransaction(file, fact, 
-		    					invcGUID, GnucashGenerInvoice.TYPE_CUSTOMER, 
+		    					invcGUID, GCshOwner.Type.CUSTOMER, 
 		    					invcNumber, cust.getName(),
 		    					incomeAcct, receivableAcct,
 		    					acctLotID,
@@ -974,7 +974,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
             postTrxRef.setType(Const.XML_DATA_TYPE_GUID);
             
             GnucashWritableTransaction postTrx = createPostTransaction(file, fact, 
-        	    					invcGUID, GnucashGenerInvoice.TYPE_VENDOR, 
+        	    					invcGUID, GCshOwner.Type.VENDOR, 
         	    					invcNumber, vend.getName(),
         	    					expensesAcct, payableAcct,  
 		    					acctLotID,
@@ -1069,7 +1069,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
 	    final String invcID, 
-	    final String invcOwnerType, 
+	    final GCshOwner.Type invcOwnerType, 
 	    final String invcNumber, 
 	    final String descr,
 	    final GnucashAccount fromAcct, // receivable/payable account
@@ -1079,8 +1079,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final FixedPointNumber quantity,
 	    final LocalDate postDate,
 	    final LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! invcOwnerType.equals(GCshOwner.TYPE_CUSTOMER) &&
-	     ! invcOwnerType.equals(GCshOwner.TYPE_VENDOR) ) // sic, TYPE_JOB not allowed here
+	if ( invcOwnerType != GCshOwner.Type.CUSTOMER &&
+	     invcOwnerType != GCshOwner.Type.VENDOR ) // sic, TYPE_JOB not allowed here
 	    throw new WrongOwnerTypeException();
 	
 	GnucashWritableTransaction postTrx = file.createWritableTransaction();
@@ -1091,17 +1091,17 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	GnucashWritableTransactionSplit split1 = postTrx.createWritingSplit(fromAcct);
 	split1.setValue(amount.negate());
 	split1.setQuantity(quantity.negate());
-	if ( invcOwnerType.equals(GCshOwner.TYPE_CUSTOMER) )
+	if ( invcOwnerType == GCshOwner.Type.CUSTOMER )
 	    split1.setAction(GnucashTransactionSplit.ACTION_INVOICE);
-	else if ( invcOwnerType.equals(GCshOwner.TYPE_VENDOR) )
+	else if ( invcOwnerType == GCshOwner.Type.VENDOR )
 	    split1.setAction(GnucashTransactionSplit.ACTION_BILL);
 	    
 	GnucashWritableTransactionSplit split2 = postTrx.createWritingSplit(toAcct);
 	split2.setValue(amount);
 	split2.setQuantity(quantity);
-	if ( invcOwnerType.equals(GCshOwner.TYPE_CUSTOMER) )
+	if ( invcOwnerType == GCshOwner.Type.CUSTOMER )
 	    split2.setAction(GnucashTransactionSplit.ACTION_INVOICE);
-	else if ( invcOwnerType.equals(GCshOwner.TYPE_VENDOR) )
+	else if ( invcOwnerType == GCshOwner.Type.VENDOR )
 	    split2.setAction(GnucashTransactionSplit.ACTION_BILL);
 	split2.setLotID(acctLotID); // set reference to account lot, which in turn
 	                            // references the invoice
@@ -1191,7 +1191,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	return createInvcPostLot_Gener(file, factory, 
 		                       invcID, invcNumber, 
 		                       postAcct, 
-                                       GCshOwner.Type.CUSTOMER, GnucashGenerInvoice.TYPE_CUSTOMER, // second one is dummy
+                                       GCshOwner.Type.CUSTOMER, GCshOwner.Type.CUSTOMER, // second one is dummy
                                        cust.getId());
     }
 
@@ -1205,7 +1205,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	return createInvcPostLot_Gener(file, factory, 
 		                       invcID, invcNumber,
 		                       postAcct, 
-		                       GCshOwner.Type.VENDOR, GnucashGenerInvoice.TYPE_VENDOR, // second one is dummy
+		                       GCshOwner.Type.VENDOR, GCshOwner.Type.VENDOR, // second one is dummy
 		                       vend.getId());
     }
 
@@ -1232,7 +1232,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final String invcNumber,
 	    final GnucashAccountImpl postAcct,
 	    final GCshOwner.Type ownerType1, // of invoice (direct)
-	    final String ownerType2, // of invoice's owner (indirect, only relevant if ownerType1 is JOB)
+	    final GCshOwner.Type ownerType2, // of invoice's owner (indirect, only relevant if ownerType1 is JOB)
 	    final String ownerID) {
 
 	GncAccount.ActLots acctLots = postAcct.getJwsdpPeer().getActLots();
@@ -1269,9 +1269,9 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    } else if ( ownerType1 == GCshOwner.Type.VENDOR ) {
 		contentStr = GnucashTransactionSplit.ACTION_BILL;
 	    } else if ( ownerType1 == GCshOwner.Type.JOB ) {
-		if ( ownerType2.equals(GCshOwner.TYPE_CUSTOMER)) {
+		if ( ownerType2 == GCshOwner.Type.CUSTOMER ) {
 		    contentStr = GnucashTransactionSplit.ACTION_INVOICE;
-    		} else if ( ownerType2.equals(GCshOwner.TYPE_VENDOR)) {
+    		} else if ( ownerType2 == GCshOwner.Type.VENDOR ) {
 		    contentStr = GnucashTransactionSplit.ACTION_BILL;
 		}
 	    }
@@ -1322,8 +1322,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     protected void removeInvcEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(TYPE_CUSTOMER) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
@@ -1345,8 +1345,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     protected void removeBillEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(TYPE_VENDOR) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.VENDOR &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
@@ -1368,7 +1368,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     protected void removeJobEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
@@ -1413,8 +1413,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     public void addInvcEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_CUSTOMER) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.addInvcEntry " + generInvcEntr.toString());
@@ -1458,8 +1458,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     public void addBillEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_VENDOR) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.VENDOR &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.addBillEntry " + generInvcEntr.toString());
@@ -1503,7 +1503,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     public void addJobEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.addJobEntry " + generInvcEntr.toString());
@@ -1539,8 +1539,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     protected void subtractInvcEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_CUSTOMER) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.subtractInvcEntry " + entry.toString());
@@ -1570,8 +1570,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     protected void subtractBillEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_VENDOR) &&
-	     ! getType().equals(TYPE_JOB) ) // ::CHECK
+	if ( getType() != GCshOwner.Type.VENDOR &&
+	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.subtractBillEntry " + entry.toString());
@@ -1601,7 +1601,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     protected void subtractJobEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashGenerInvoiceWritingImpl.subtractJobEntry " + entry.toString());
@@ -1614,9 +1614,9 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	FixedPointNumber sumInclTaxes = entry.getJobSumInclTaxes().negate();
 	
 	String postAcctID = "(unset)";
-	if ( entry.getGenerInvoice().getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB).equals(GCshOwner.TYPE_CUSTOMER) )
+	if ( entry.getGenerInvoice().getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER )
 	    postAcctID = entry.getJwsdpPeer().getEntryIAcct().getValue();
-	else if ( entry.getGenerInvoice().getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB).equals(GCshOwner.TYPE_VENDOR) )
+	else if ( entry.getGenerInvoice().getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR )
 	    postAcctID = entry.getJwsdpPeer().getEntryBAcct().getValue();
 
 	GCshTaxTable taxTab = null;
@@ -1642,8 +1642,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     protected String getInvcPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
-	if ( ! getType().equals(TYPE_CUSTOMER) &&
-	     ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	return entry.getJwsdpPeer().getEntryIAcct().getValue();
@@ -1655,8 +1655,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     protected String getBillPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
-	if ( ! getType().equals(TYPE_VENDOR) &&
-	     ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR &&
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	return entry.getJwsdpPeer().getEntryBAcct().getValue();
@@ -1668,7 +1668,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     protected String getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
-	if ( ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -1916,7 +1916,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws WrongInvoiceTypeException
      */
     public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException {
-	if (!getType().equals(TYPE_CUSTOMER))
+	if ( getType() != GCshOwner.Type.CUSTOMER )
 	    throw new WrongInvoiceTypeException();
 
 	attemptChange();
@@ -1928,7 +1928,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws WrongInvoiceTypeException
      */
     public void setVendor(final GnucashVendor vend) throws WrongInvoiceTypeException {
-	if (!getType().equals(TYPE_VENDOR))
+	if ( getType() != GCshOwner.Type.VENDOR )
 	    throw new WrongInvoiceTypeException();
 
 	attemptChange();
@@ -1941,7 +1941,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashWritableGenerInvoice#setGenerJob(GnucashGenerJob)
      */
     public void setGenerJob(final GnucashGenerJob job) throws WrongInvoiceTypeException {
-	if (!getType().equals(TYPE_JOB))
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	attemptChange();

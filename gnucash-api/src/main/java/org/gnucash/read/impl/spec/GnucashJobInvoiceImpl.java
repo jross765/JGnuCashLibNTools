@@ -14,6 +14,7 @@ import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.UnknownAccountTypeException;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.read.spec.GnucashCustomerJob;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -42,8 +43,8 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_CUSTOMER)  &&
-	 ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_JOB) )
+    if ( ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GCshOwner.Type.CUSTOMER)  &&
+	 ! invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GCshOwner.Type.JOB) )
       throw new WrongInvoiceTypeException();
     
     for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() )
@@ -85,7 +86,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   /**
    * {@inheritDoc}
    */
-  public String getJobType() {
+  public GCshOwner.Type getJobType() {
       return getGenerJob().getOwnerType();
   }
 
@@ -109,7 +110,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   public String getCustomerId() throws WrongInvoiceTypeException {
-    if ( ! getGenerJob().getOwnerType().equals(TYPE_CUSTOMER) )
+    if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	throw new WrongInvoiceTypeException();
     
     return getOwnerId_viaJob();
@@ -119,7 +120,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   public String getVendorId() throws WrongInvoiceTypeException {
-    if ( ! getGenerJob().getOwnerType().equals(TYPE_VENDOR) )
+    if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	throw new WrongInvoiceTypeException();
     
     return getOwnerId_viaJob();
@@ -134,7 +135,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
   public GnucashCustomerJob getCustJob() throws WrongInvoiceTypeException
   {
-      if ( ! getGenerJob().getOwnerType().equals(TYPE_CUSTOMER) )
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	  throw new WrongInvoiceTypeException();
       
       return new GnucashCustomerJobImpl(getGenerJob());
@@ -142,7 +143,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
   public GnucashVendorJob getVendJob() throws WrongInvoiceTypeException
   {
-      if ( ! getGenerJob().getOwnerType().equals(TYPE_VENDOR) )
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	  throw new WrongInvoiceTypeException();
 
       return new GnucashVendorJobImpl(getGenerJob());
@@ -152,7 +153,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
   @Override
   public GnucashCustomer getCustomer() throws WrongInvoiceTypeException {
-      if ( ! getGenerJob().getOwnerType().equals(TYPE_CUSTOMER) )
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 		throw new WrongInvoiceTypeException();
       
       return getFile().getCustomerByID(getCustomerId());
@@ -160,7 +161,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
   @Override
   public GnucashVendor getVendor() throws WrongInvoiceTypeException {
-      if ( ! getGenerJob().getOwnerType().equals(TYPE_VENDOR) )
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 		throw new WrongInvoiceTypeException();
 
       return getFile().getVendorByID(getVendorId());
@@ -181,7 +182,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     
     for ( GnucashGenerInvoiceEntry entry : getGenerEntries() )
     {
-      if ( entry.getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+      if ( entry.getType().equals(GCshOwner.Type.JOB) )
       {
         castEntries.add(new GnucashJobInvoiceEntryImpl(entry));
       }

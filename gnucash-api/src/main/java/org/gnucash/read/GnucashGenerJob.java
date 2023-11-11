@@ -20,14 +20,8 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
  */
 public interface GnucashGenerJob {
 
-    /**
-     * @deprecated Use {@link GCshOwner#TYPE_CUSTOMER} instead
-     */
-    public static final String TYPE_CUSTOMER = GCshOwner.TYPE_CUSTOMER;
-    /**
-     * @deprecated Use {@link GCshOwner#TYPE_VENDOR} instead
-     */
-    public static final String TYPE_VENDOR = GCshOwner.TYPE_VENDOR;
+    public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
+    public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
 
     // -----------------------------------------------------------------
 
@@ -73,7 +67,7 @@ public interface GnucashGenerJob {
      * 
      * @return CUSTOMETYPE_CUSTOMER
      */
-    String getOwnerType();
+    GCshOwner.Type getOwnerType();
 
     /**
      *

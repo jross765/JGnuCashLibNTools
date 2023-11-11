@@ -12,9 +12,9 @@ import java.util.List;
 
 import org.gnucash.Const;
 import org.gnucash.generated.GncV2;
-import org.gnucash.generated.ObjectFactory;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
+import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
@@ -25,6 +25,7 @@ import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.UnknownAccountTypeException;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -310,8 +311,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
    */
   public FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
   
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-	     ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
   	return ((FixedPointNumber) getInvcAmountWithTaxes().clone()).subtract(getInvcAmountPaidWithTaxes());
@@ -324,8 +325,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	 */
 	public FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 
-		if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-		     ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+		if ( getType() != GCshOwner.Type.CUSTOMER &&
+		     getType() != GCshOwner.Type.JOB )
 			    throw new WrongInvoiceTypeException();
 
       FixedPointNumber takenFromReceivableAccount = new FixedPointNumber();
@@ -345,8 +346,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	@Override
 	public FixedPointNumber getInvcAmountPaidWithoutTaxes() throws WrongInvoiceTypeException {
 
-	    if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-		 ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	    if ( getType() != GCshOwner.Type.CUSTOMER &&
+		 getType() != GCshOwner.Type.JOB )
 		throw new WrongInvoiceTypeException();
 
 	  FixedPointNumber retval = new FixedPointNumber();
@@ -366,8 +367,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
    */
   public FixedPointNumber getInvcAmountWithTaxes() throws WrongInvoiceTypeException {
   
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-	     ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
   	FixedPointNumber retval = new FixedPointNumber();
@@ -391,8 +392,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
    */
   public FixedPointNumber getInvcAmountWithoutTaxes() throws WrongInvoiceTypeException {
   
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-	     ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER &&
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
   	FixedPointNumber retval = new FixedPointNumber();
@@ -492,7 +493,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
       FixedPointNumber retval = new FixedPointNumber();
       
       for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-        if ( entry.getType().equals(getType()) ) {
+        if ( entry.getType() == getType() ) {
           retval.add(entry.getBillSumExclTaxes());
         }
       }
@@ -513,7 +514,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
       //      correctly
     
       for ( GnucashGenerInvoiceEntry entry : getGenerEntries() ) {
-        if ( entry.getType().equals(getType()) ) {
+        if ( entry.getType() == getType() ) {
           retval.add(entry.getBillSumInclTaxes());
         }
       }
@@ -530,7 +531,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
       FixedPointNumber retval = new FixedPointNumber();
     
       for ( GnucashGenerInvoiceEntry entry : getGenerEntries() ) {
-        if ( entry.getType().equals(getType()) ) {
+        if ( entry.getType() == getType() ) {
           retval.add(entry.getBillSumExclTaxes());
         }
       }
@@ -590,7 +591,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      * @throws UnknownAccountTypeException 
      */
     public FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -608,7 +609,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      * @throws UnknownAccountTypeException 
      */
     public FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -625,7 +626,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getJobAmountPaidWithoutTaxes() throws WrongInvoiceTypeException {
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -642,7 +643,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getJobAmountWithTaxes() throws WrongInvoiceTypeException {
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -659,7 +660,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getJobAmountWithoutTaxes() throws WrongInvoiceTypeException {
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
@@ -727,8 +728,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	 */
 	public GCshTaxedSumImpl[] getInvcTaxes() throws WrongInvoiceTypeException {
 
-		if ( ! getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) &&
-		     ! getType().equals(GnucashGenerInvoice.TYPE_JOB))
+		if ( getType() != GCshOwner.Type.CUSTOMER &&
+		     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
 		List<GCshTaxedSumImpl> taxedSums = new LinkedList<GCshTaxedSumImpl>();
@@ -765,8 +766,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      */
     public GCshTaxedSumImpl[] getBillTaxes() throws WrongInvoiceTypeException {
 
-	if ( ! getType().equals(GnucashGenerInvoice.TYPE_VENDOR) &&
-	     ! getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	if ( getType() != GCshOwner.Type.VENDOR &&
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
         List<GCshTaxedSumImpl> taxedSums = new LinkedList<GCshTaxedSumImpl>();
@@ -803,13 +804,13 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     * @see GCshTaxedSumImpl
     */
     GCshTaxedSumImpl[] getJobTaxes() throws WrongInvoiceTypeException {
-	if (!getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
-	if (jobInvc.getJobType().equals(GnucashGenerJob.TYPE_CUSTOMER))
+	if ( jobInvc.getJobType() == GCshOwner.Type.CUSTOMER )
 	    return getInvcTaxes();
-	if (jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR))
+	if ( jobInvc.getJobType() == GCshOwner.Type.VENDOR )
 	    return getBillTaxes();
 
 	return null; // Compiler happy
@@ -827,7 +828,12 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     /**
      * {@inheritDoc}
      */
-    public String getType() {
+    public GCshOwner.Type getType() {
+        return GCshOwner.Type.valueOff( getJwsdpPeer().getInvoiceOwner().getOwnerType() );
+    }
+
+    @Deprecated
+    public String getTypeStr() {
         return getJwsdpPeer().getInvoiceOwner().getOwnerType();
     }
 
@@ -993,7 +999,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     }
 
     protected String getOwnerId_viaJob() throws WrongInvoiceTypeException {
-	if ( ! getType().equals(TYPE_JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
 	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
@@ -1003,23 +1009,28 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     // ----------------------------
 
     @Override
-    public String getOwnerType(ReadVariant readVar) throws WrongInvoiceTypeException {
-	      if ( readVar == ReadVariant.DIRECT )
-	        return getOwnerType_direct();
-	      else if ( readVar == ReadVariant.VIA_JOB )
-	        return getOwnerType_viaJob();
-	      
-	      return null; // Compiler happy
-	    }
+    public GCshOwner.Type getOwnerType(ReadVariant readVar) throws WrongInvoiceTypeException {
+	if (readVar == ReadVariant.DIRECT)
+	    return getOwnerType_direct();
+	else if (readVar == ReadVariant.VIA_JOB)
+	    return getOwnerType_viaJob();
 
-    public String getOwnerType_direct() {
-      return getJwsdpPeer().getInvoiceOwner().getOwnerType();
+	return null; // Compiler happy
     }
 
-    protected String getOwnerType_viaJob() throws WrongInvoiceTypeException {
-	if ( ! getType().equals(TYPE_JOB) )
+    public GCshOwner.Type getOwnerType_direct() {
+	return GCshOwner.Type.valueOff( getJwsdpPeer().getInvoiceOwner().getOwnerType() );
+    }
+
+    @Deprecated
+    public String getOwnerType_directStr() {
+	return getJwsdpPeer().getInvoiceOwner().getOwnerType();
+    }
+
+    protected GCshOwner.Type getOwnerType_viaJob() throws WrongInvoiceTypeException {
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
-	
+
 	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
 	return job.getOwnerType();
     }

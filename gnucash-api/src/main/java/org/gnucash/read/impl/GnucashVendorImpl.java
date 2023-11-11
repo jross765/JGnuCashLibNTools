@@ -366,7 +366,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 	List<GnucashVendorJob> retval = new LinkedList<GnucashVendorJob>();
 
 	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
-	    if ( jobGener.getOwnerType().equals(GCshOwner.TYPE_VENDOR) ) {
+	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
 		GnucashVendorJob jobSpec = new GnucashVendorJobImpl(jobGener);
 		if ( jobSpec.getVendorId().equals(getId()) ) {
 		    retval.add(jobSpec);

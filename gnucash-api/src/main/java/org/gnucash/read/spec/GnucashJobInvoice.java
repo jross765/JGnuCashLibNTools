@@ -6,6 +6,7 @@ import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.aux.GCshOwner;
 
 /**
  * This class represents an invoice that is sent to a customer
@@ -32,7 +33,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      */
     String getJobId();
 
-    String getJobType();
+    GCshOwner.Type getJobType();
 
     /**
      * @return ID of customer this invoice/bill has been sent to.

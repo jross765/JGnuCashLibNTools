@@ -111,7 +111,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
 	{
 	    GncV2.GncBook.GncGncJob.JobOwner owner = factory.createGncV2GncBookGncGncJobJobOwner();
-	    owner.setOwnerType(GCshOwner.TYPE_VENDOR);
+	    owner.setOwnerType(GCshOwner.Type.VENDOR.getCode());
 
 	    OwnerId ownerid = factory.createOwnerId();
 	    ownerid.setType(Const.XML_DATA_TYPE_GUID);

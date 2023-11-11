@@ -12,6 +12,7 @@ import org.gnucash.ConstTest;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.TestGnucashGenerInvoiceImpl;
 import org.gnucash.read.spec.GnucashVendorBill;
@@ -84,7 +85,7 @@ public class TestGnucashVendorBillImpl
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
     assertEquals(BLL_1_ID, bllSpec.getId());
-    assertEquals("gncVendor", bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
+    assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("1730-383/2", bllSpec.getNumber());
     assertEquals("Sie wissen schon: Gefälligkeiten, ne?", bllSpec.getDescription());
 
@@ -103,7 +104,7 @@ public class TestGnucashVendorBillImpl
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
     assertEquals(BLL_2_ID, bllSpec.getId());
-    assertEquals("gncVendor", bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
+    assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("2740921", bllSpec.getNumber());
     assertEquals("Dat isjamaol eine schöne jepflejgte Reschnung!", bllSpec.getDescription());
 

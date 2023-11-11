@@ -12,6 +12,7 @@ import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.UnknownAccountTypeException;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.SpecInvoiceCommon;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
@@ -125,7 +126,12 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * {@inheritDoc}
      */
-    public String getOwnerType() {
+    public GCshOwner.Type getOwnerType() {
+	return GCshOwner.Type.valueOff( jwsdpPeer.getJobOwner().getOwnerType() );
+    }
+
+    @Deprecated
+    public String getOwnerTypeStr() {
 	return jwsdpPeer.getJobOwner().getOwnerType();
     }
 

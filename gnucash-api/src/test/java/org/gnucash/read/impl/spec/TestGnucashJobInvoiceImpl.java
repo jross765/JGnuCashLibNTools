@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import org.gnucash.ConstTest;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.TestGnucashGenerInvoiceImpl;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -81,7 +82,7 @@ public class TestGnucashJobInvoiceImpl
     
     assertEquals(true, invcSpec instanceof GnucashJobInvoiceImpl);
     assertEquals(INVC_3_ID, invcSpec.getId());
-    assertEquals("gncJob", invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
+    assertEquals(GCshOwner.Type.JOB, invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("R94871", invcSpec.getNumber());
     assertEquals("With customer job / with taxes", invcSpec.getDescription());
 

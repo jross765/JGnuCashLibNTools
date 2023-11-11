@@ -12,6 +12,7 @@ import org.gnucash.ConstTest;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
+import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.TestGnucashGenerInvoiceImpl;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
@@ -78,13 +79,13 @@ public class TestGnucashCustomerInvoiceImpl
   public void test01_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
-    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashCustomerInvoiceImpl);
     assertEquals(INVC_1_ID, invcSpec.getId());
-    assertEquals("gncCustomer", invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
+    assertEquals(GCshOwner.Type.CUSTOMER, invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("R1730", invcSpec.getNumber());
     assertEquals("Alles ohne Steuern / voll bezahlt", invcSpec.getDescription());
 
@@ -96,8 +97,8 @@ public class TestGnucashCustomerInvoiceImpl
   public void test02_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
-    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
@@ -119,8 +120,8 @@ public class TestGnucashCustomerInvoiceImpl
   public void test03_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
-    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
@@ -142,8 +143,8 @@ public class TestGnucashCustomerInvoiceImpl
   public void test04_1() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_1_ID);
-    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     // Note: That the following two return the same result
@@ -175,8 +176,8 @@ public class TestGnucashCustomerInvoiceImpl
   public void test05() throws Exception
   {
     invcGen = gcshFile.getGenerInvoiceByID(INVC_6_ID);
-    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcGen);
+    invcSpec = new GnucashCustomerInvoiceImpl(invcGen);
     assertNotEquals(null, invcSpec);
 
     assertEquals("https://my.customer.invoice.link.01", invcGen.getURL());
