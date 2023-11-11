@@ -51,7 +51,7 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! entry.getType().equals(GCshOwner.Type.CUSTOMER) )
+    if ( entry.getType() != GCshOwner.Type.CUSTOMER )
       throw new WrongInvoiceTypeException();
   }
 

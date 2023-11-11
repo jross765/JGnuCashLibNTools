@@ -12,7 +12,6 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -534,7 +533,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getPaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GCshOwner.Type.JOB)) {
+	    } else if ( invc.getType() == GCshOwner.Type.JOB ) {
 		try {
 		    if (invc.isJobFullyPaid()) {
 			retval.add(invc);
@@ -580,7 +579,7 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getUnpaidInvoices: Serious error");
 		}
-	    } else if (invc.getType().equals(GCshOwner.Type.JOB)) {
+	    } else if ( invc.getType() == GCshOwner.Type.JOB ) {
 		try {
 		    if (invc.isNotJobFullyPaid()) {
 			retval.add(invc);

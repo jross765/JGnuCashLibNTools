@@ -51,7 +51,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
     // No, we cannot check that first, because the super() method
     // always has to be called first.
-    if ( ! entry.getType().equals(GCshOwner.Type.JOB) )
+    if ( entry.getType() != GCshOwner.Type.JOB )
       throw new WrongInvoiceTypeException();
   }
 

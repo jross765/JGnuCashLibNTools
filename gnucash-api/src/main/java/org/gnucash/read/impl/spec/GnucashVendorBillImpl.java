@@ -82,7 +82,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   }
 
   public GnucashVendor getVendor_direct() throws WrongInvoiceTypeException {
-    if ( ! getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GnucashGenerInvoice.TYPE_VENDOR) )
+    if ( ! getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GnucashGenerInvoice.TYPE_VENDOR.getCode()) )
       throw new WrongInvoiceTypeException();
     
     return file.getVendorByID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
@@ -103,7 +103,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
     
     for ( GnucashGenerInvoiceEntry entry : getGenerEntries() )
     {
-      if ( entry.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) )
+      if ( entry.getType() == GnucashGenerInvoice.TYPE_VENDOR )
       {
         castEntries.add(new GnucashVendorBillEntryImpl(entry));
       }

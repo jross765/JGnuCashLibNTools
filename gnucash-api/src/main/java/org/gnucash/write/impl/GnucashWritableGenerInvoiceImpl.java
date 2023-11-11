@@ -1672,9 +1672,9 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	    GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(this);
-	    if ( jobInvc.getType().equals(GnucashGenerJob.TYPE_CUSTOMER) )
+	    if ( jobInvc.getType() == GnucashGenerJob.TYPE_CUSTOMER )
 		return getInvcPostAccountID(entry);
-	    else if ( jobInvc.getType().equals(GnucashGenerJob.TYPE_VENDOR) )
+	    else if ( jobInvc.getType() == GnucashGenerJob.TYPE_VENDOR )
 		return getBillPostAccountID(entry);
 	    
 	    return "ERROR"; // Compiler happy

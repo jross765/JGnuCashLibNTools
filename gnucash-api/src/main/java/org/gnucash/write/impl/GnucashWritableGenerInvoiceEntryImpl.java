@@ -16,6 +16,7 @@ import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoice.ReadVariant;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
+import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.IllegalGenerInvoiceEntryActionException;
 import org.gnucash.read.IllegalTransactionSplitActionException;
 import org.gnucash.read.TaxTableNotFoundException;
@@ -246,9 +247,9 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    throw new IllegalArgumentException("The given job invoice has payments and is thus not modifiable");
 	}
 	
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB).equals(GCshOwner.Type.CUSTOMER) )
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER )
 	    return createCustInvoiceEntry_int(invc, acct, quantity, price);
-	else if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB).equals(GCshOwner.Type.VENDOR) )
+	else if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR )
 	    return createVendBillEntry_int(invc, acct, quantity, price);
 	
 	return null; // Compiler happy
@@ -433,8 +434,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     @Override
     public void setInvcTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(GCshOwner.Type.CUSTOMER) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractInvcEntry(this);
@@ -446,8 +447,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     private void setInvcTaxable_core(final boolean val) throws WrongInvoiceTypeException {
-	if ( ! getType().equals(GCshOwner.Type.CUSTOMER) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER && 
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
 	if (val) {
@@ -467,8 +468,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws IllegalTransactionSplitActionException 
      */
     public void setInvcTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(GCshOwner.Type.CUSTOMER) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractInvcEntry(this);
@@ -482,8 +483,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     private void setInvcTaxTable_core(final GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException {
-	if ( ! getType().equals(GCshOwner.Type.CUSTOMER) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER && 
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
 	if (taxTab == null) {
@@ -512,8 +513,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      */
     public void setBillTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(GCshOwner.Type.VENDOR) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractBillEntry(this);
@@ -525,8 +526,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     private void setBillTaxable_core(final boolean val) throws WrongInvoiceTypeException {
-	if ( ! getType().equals(GCshOwner.Type.VENDOR) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR && 
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
 	if (val) {
@@ -546,8 +547,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws IllegalTransactionSplitActionException 
      */
     public void setBillTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(GCshOwner.Type.VENDOR) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractBillEntry(this);
@@ -561,8 +562,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     private void setBillTaxTable_core(final GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException {
-	if ( ! getType().equals(GCshOwner.Type.VENDOR) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR && 
+	     getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 
 	if (taxTab == null) {
@@ -592,7 +593,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      */
     public void setJobTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractJobEntry(this);
@@ -604,12 +605,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     private void setJobTaxable_core(final boolean val) throws WrongInvoiceTypeException, UnknownInvoiceTypeException {
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.CUSTOMER))
+	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER)
 	    setInvcTaxable_core(val);
-        else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.VENDOR))
+        else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR)
 	    setBillTaxable_core(val);
 	else
 	    throw new UnknownInvoiceTypeException();
@@ -626,7 +627,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws IllegalTransactionSplitActionException 
      */
     public void setJobTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractJobEntry(this);
@@ -640,12 +641,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     private void setJobTaxTable_core(final GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException {
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.CUSTOMER))
+	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER)
 	    setInvcTaxTable_core(taxTab);
-	else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.VENDOR))
+	else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR)
 	    setBillTaxTable_core(taxTab);
 	else
 	    throw new UnknownInvoiceTypeException();
@@ -675,8 +676,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @see GnucashWritableGenerInvoiceEntry#setInvcPrice(FixedPointNumber)
      */
     public void setInvcPrice(final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(GCshOwner.Type.CUSTOMER) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.CUSTOMER && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	if (!this.getGenerInvoice().isModifiable()) {
@@ -729,8 +730,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     @Override
     public void setBillPrice(final FixedPointNumber price)
 	    throws NumberFormatException, WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException {
-	if ( ! getType().equals(GCshOwner.Type.VENDOR) && 
-	     ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.VENDOR && 
+	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	if (!this.getGenerInvoice().isModifiable()) {
@@ -772,13 +773,13 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     public void setJobPrice(final String n)
 	    throws NumberFormatException, WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	// ::TODO: not quite so -- call "core" variant, as with setTaxable/setTaxTable
-	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.CUSTOMER))
+	if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER)
 	    setInvcPrice(n);
-	else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB).equals(GCshOwner.Type.VENDOR))
+	else if (getGenerInvoice().getOwnerType(ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR)
 	    setBillPrice(n);
 	else
 	    throw new UnknownInvoiceTypeException();
@@ -797,14 +798,14 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     public void setJobPrice(final FixedPointNumber price)
 	    throws NumberFormatException, WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException {
 
-	if ( ! getType().equals(GCshOwner.Type.JOB) )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	// ::TODO: not quite so -- call "core" variant, as with setTaxable/setTaxTable
 	GnucashWritableJobInvoiceEntry jobInvcEntr = new GnucashWritableJobInvoiceEntryImpl(this);
-	if (jobInvcEntr.getType().equals(GCshOwner.Type.CUSTOMER))
+	if ( jobInvcEntr.getType() == GnucashGenerJob.TYPE_CUSTOMER )
 	    setInvcPrice(price);
-	else if (jobInvcEntr.getType().equals(GCshOwner.Type.VENDOR))
+	else if ( jobInvcEntr.getType() == GnucashGenerJob.TYPE_VENDOR )
 	    setBillPrice(price);
 	else
 	    throw new UnknownInvoiceTypeException();

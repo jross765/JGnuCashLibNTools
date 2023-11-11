@@ -60,13 +60,13 @@ public class GetInvcInfo {
 	}
 
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER)) {
+	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		GnucashCustomerInvoiceImpl spec = new GnucashCustomerInvoiceImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR)) {
+	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		GnucashVendorBillImpl spec = new GnucashVendorBillImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB)) {
+	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		GnucashJobInvoiceImpl spec = new GnucashJobInvoiceImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
 	    }
@@ -133,55 +133,55 @@ public class GetInvcInfo {
 
 	System.out.println("");
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( invc.getType() ==  GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount w/o tax:       " + invc.getInvcAmountWithoutTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount w/o tax:       " + invc.getBillAmountWithoutTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount w/o tax:       " + invc.getJobAmountWithoutTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount w/o tax:       " + "ERROR");
 	}
 
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount w/ tax:        " + invc.getInvcAmountWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount w/ tax:        " + invc.getBillAmountWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount w/ tax:        " + invc.getJobAmountWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount w/ tax:        " + "ERROR");
 	}
 
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount paid w/ tax:   " + invc.getInvcAmountPaidWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount paid:          " + invc.getBillAmountPaidWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount paid:          " + invc.getJobAmountPaidWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount paid w/ tax:   " + "ERROR");
 	}
 
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount Unpaid w/ tax: " + invc.getInvcAmountUnpaidWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount Unpaid:        " + invc.getBillAmountUnpaidWithTaxesFormatted());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount Unpaid:        " + invc.getJobAmountUnpaidWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount Unpaid w/ tax: " + "ERROR");
 	}
 
 	try {
-	    if (invc.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Fully paid:           " + invc.isInvcFullyPaid());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Fully paid:           " + invc.isBillFullyPaid());
-	    else if (invc.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Fully paid:           " + invc.isJobFullyPaid());
 	} catch (Exception exc) {
 	    System.out.println("Fully paid:           " + "ERROR");
@@ -206,21 +206,21 @@ public class GetInvcInfo {
 
     private void showOneEntry(GnucashGenerInvoiceEntry entry) {
 	try {
-	    if (entry.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER)) {
+	    if ( entry.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
 		    GnucashCustomerInvoiceEntry entrySpec = new GnucashCustomerInvoiceEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
 		}
-	    } else if (entry.getType().equals(GnucashGenerInvoice.TYPE_VENDOR)) {
+	    } else if ( entry.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		try {
 		    GnucashVendorBillEntry entrySpec = new GnucashVendorBillEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
 		}
-	    } else if (entry.getType().equals(GnucashGenerInvoice.TYPE_JOB)) {
+	    } else if ( entry.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		try {
 		    GnucashJobInvoiceEntry entrySpec = new GnucashJobInvoiceEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());

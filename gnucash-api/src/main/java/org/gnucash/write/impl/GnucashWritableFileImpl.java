@@ -744,7 +744,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws UnknownAccountTypeException 
      * @see {@link GnucashWritableFile#getAccountsByType(String)}
      */
-    public Collection<GnucashWritableAccount> getAccountsByType(final String type) throws UnknownAccountTypeException {
+    public Collection<GnucashWritableAccount> getAccountsByType(final GnucashAccount.Type type) throws UnknownAccountTypeException {
 	Collection<GnucashWritableAccount> retval = new LinkedList<GnucashWritableAccount>();
 	for (GnucashWritableAccount acct : getWritableAccounts()) {
 
@@ -752,7 +752,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		if (type == null) {
 		    retval.add(acct);
 		}
-	    } else if (acct.getType().equals(type)) {
+	    } else if (acct.getType() == type ) {
 		retval.add(acct);
 	    }
 

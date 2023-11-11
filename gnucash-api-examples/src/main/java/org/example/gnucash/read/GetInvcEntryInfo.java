@@ -51,13 +51,13 @@ public class GetInvcEntryInfo {
 	}
 
 	try {
-	    if (entr.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER)) {
+	    if ( entr.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		GnucashCustomerInvoiceEntryImpl spec = new GnucashCustomerInvoiceEntryImpl(entr);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if (entr.getType().equals(GnucashGenerInvoice.TYPE_VENDOR)) {
+	    } else if ( entr.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		GnucashVendorBillEntryImpl spec = new GnucashVendorBillEntryImpl(entr);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if (entr.getType().equals(GnucashGenerInvoice.TYPE_JOB)) {
+	    } else if ( entr.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		GnucashJobInvoiceEntryImpl spec = new GnucashJobInvoiceEntryImpl(entr);
 		System.out.println("toString (spec):   " + spec.toString());
 	    }
@@ -93,22 +93,22 @@ public class GetInvcEntryInfo {
 	System.err.println("");
 	System.err.println("Taxes:");
 	try {
-	    if (entr.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( entr.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Taxable:           " + entr.isInvcTaxable());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Taxable:           " + entr.isBillTaxable());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Taxable:           " + entr.isJobTaxable());
 	} catch (Exception exc) {
 	    System.out.println("Taxable:           " + "ERROR");
 	}
 
 	try {
-	    if (entr.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( entr.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Tax perc.:         " + entr.getInvcApplicableTaxPercentFormatted());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Tax perc.:         " + entr.getBillApplicableTaxPercentFormatted());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Tax perc.:         " + entr.getJobApplicableTaxPercentFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Tax perc.:         " + "ERROR");
@@ -116,11 +116,11 @@ public class GetInvcEntryInfo {
 
 	try {
 	    System.out.println("Tax-table:");
-	    if (entr.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( entr.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println(entr.getInvcTaxTable().toString());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println(entr.getBillTaxTable().toString());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println(entr.getJobTaxTable().toString());
 	} catch (Exception exc) {
 	    System.out.println("ERROR");
@@ -128,11 +128,11 @@ public class GetInvcEntryInfo {
 
 	System.out.println("");
 	try {
-	    if (entr.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER))
+	    if ( entr.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Price:             " + entr.getInvcPriceFormatted());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_VENDOR))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Price:             " + entr.getBillPriceFormatted());
-	    else if (entr.getType().equals(GnucashGenerInvoice.TYPE_JOB))
+	    else if ( entr.getType() == GnucashGenerInvoice.TYPE_JOB )
 		System.out.println("Price:             " + entr.getJobPriceFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Price:             " + "ERROR");

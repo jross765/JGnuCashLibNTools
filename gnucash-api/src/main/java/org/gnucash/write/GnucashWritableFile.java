@@ -121,7 +121,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return A changable version of all accounts of that type.
      * @throws UnknownAccountTypeException 
      */
-    Collection<GnucashWritableAccount> getAccountsByType(String type) throws UnknownAccountTypeException;
+    Collection<GnucashWritableAccount> getAccountsByType(GnucashAccount.Type type) throws UnknownAccountTypeException;
 
     /**
      * @see GnucashFile#getAccountByID(String)

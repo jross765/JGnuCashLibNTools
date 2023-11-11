@@ -7,7 +7,6 @@ import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshOwner;
-import org.gnucash.read.aux.GCshOwner.Type;
 import org.gnucash.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 

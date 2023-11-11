@@ -353,7 +353,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	  FixedPointNumber retval = new FixedPointNumber();
 	  
 	  for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-        if ( entry.getType().equals(getType()) ) {
+        if ( entry.getType() == getType() ) {
           retval.add(entry.getInvcSumExclTaxes());
         }
 	  }
@@ -378,7 +378,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   	//      correctly
   
   	for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-      if ( entry.getType().equals(getType()) ) {
+      if ( entry.getType() == getType() ) {
   		retval.add(entry.getInvcSumInclTaxes());
       }
   	}
@@ -399,7 +399,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   	FixedPointNumber retval = new FixedPointNumber();
   
   	for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-      if ( entry.getType().equals(getType()) ) {
+      if ( entry.getType() == getType() ) {
   		retval.add(entry.getInvcSumExclTaxes());
       }
   	}
@@ -736,7 +736,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 
 		invoiceentries:
 		for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-          if ( entry.getType().equals(getType()) ) {
+          if ( entry.getType() == getType() ) {
 			FixedPointNumber taxPerc = entry.getInvcApplicableTaxPercent();
 
 			for (GCshTaxedSumImpl taxedSum2 : taxedSums) {
@@ -774,7 +774,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 
         invoiceentries:
         for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
-          if ( entry.getType().equals(getType()) ) {
+          if ( entry.getType() == getType() ) {
             FixedPointNumber taxPerc = entry.getBillApplicableTaxPercent();
 
             for (GCshTaxedSumImpl taxedSum2 : taxedSums) {
