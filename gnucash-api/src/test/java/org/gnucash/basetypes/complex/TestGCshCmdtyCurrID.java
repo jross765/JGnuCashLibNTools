@@ -1,8 +1,10 @@
-package org.gnucash.basetypes;
+package org.gnucash.basetypes.complex;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;

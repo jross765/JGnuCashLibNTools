@@ -3,6 +3,7 @@ package org.gnucash.read.spec;
 import java.util.Collection;
 
 import org.gnucash.read.GnucashCustomer;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
@@ -35,15 +36,22 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
 
     GCshOwner.Type getJobType();
 
+    // ----------------------------
+
     /**
-     * @return ID of customer this invoice/bill has been sent to.
+     * @return ID of customer this invoice has been sent to.
      */
     String getCustomerId() throws WrongInvoiceTypeException;
 
     /**
-     * @return ID of vendor this invoice/bill has been sent from.
+     * @return ID of vendor this bill has been sent from.
      */
     String getVendorId() throws WrongInvoiceTypeException;
+    
+    /**
+     * @return ID of employee this voucher has been sent from.
+     */
+    String getEmployeeId() throws WrongInvoiceTypeException;
     
     // ----------------------------
 
@@ -53,16 +61,22 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
     GnucashGenerJob getGenerJob();
 	
     /**
-     * @return Customer this invoice has been sent to.
+     * @return Job of customer this invoice has been sent to.
      * @throws WrongInvoiceTypeException 
      */
     GnucashCustomerJob getCustJob() throws WrongInvoiceTypeException;
 	
     /**
-     * @return Vendor this bill has been sent from.
+     * @return Job of vendor this bill has been sent from.
      * @throws WrongInvoiceTypeException 
      */
     GnucashVendorJob getVendJob() throws WrongInvoiceTypeException;
+	
+    /**
+     * @return Job of employee this voucher has been sent from.
+     * @throws WrongInvoiceTypeException 
+     */
+    GnucashEmployeeJob getEmplJob() throws WrongInvoiceTypeException;
 	
     // ----------------------------
 
@@ -77,6 +91,12 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      * @throws WrongInvoiceTypeException 
      */
     GnucashVendor getVendor() throws WrongInvoiceTypeException;
+	
+    /**
+     * @return Emloyee this voucher has been sent from.
+     * @throws WrongInvoiceTypeException 
+     */
+    GnucashEmployee getEmployee() throws WrongInvoiceTypeException;
 	
     // ---------------------------------------------------------------
 

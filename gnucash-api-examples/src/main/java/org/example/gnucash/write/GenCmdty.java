@@ -2,9 +2,9 @@ package org.example.gnucash.write;
 
 import java.io.File;
 
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.GCshCmdtyID_Exchange;
-import org.gnucash.basetypes.GCshCmdtyID_SecIdType;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.write.GnucashWritableCommodity;
 import org.gnucash.write.impl.GnucashWritableFileImpl;
 

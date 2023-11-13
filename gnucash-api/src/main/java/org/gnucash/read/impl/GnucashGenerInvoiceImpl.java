@@ -188,6 +188,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   {
     return getInvcAmountWithTaxes().isGreaterThan(getInvcAmountPaidWithTaxes(), Const.DIFF_TOLERANCE);
   }
+  
+  // ------------------------------
 
   /**
    * @return getAmountWithoutTaxes().isGreaterThan(getAmountPaidWithoutTaxes())
@@ -210,6 +212,32 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   {
     return getBillAmountWithTaxes().isGreaterThan(getBillAmountPaidWithTaxes(), Const.DIFF_TOLERANCE);
   }
+
+  // ------------------------------
+
+  /**
+   * @return getAmountWithoutTaxes().isGreaterThan(getAmountPaidWithoutTaxes())
+   * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
+   * @see GnucashGenerInvoice#isNotInvcFullyPaid()
+   */
+  public boolean isVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException
+  {
+    return ! isNotVoucherFullyPaid();
+  }
+
+  /**
+   * @return getAmountWithoutTaxes().isGreaterThan(getAmountPaidWithoutTaxes())
+   * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
+   * @see GnucashGenerInvoice#isNotInvcFullyPaid()
+   */
+  public boolean isNotVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException
+  {
+    return getVoucherAmountWithTaxes().isGreaterThan(getVoucherAmountPaidWithTaxes(), Const.DIFF_TOLERANCE);
+  }
+
+  // ------------------------------
 
   /**
    * @return getAmountWithoutTaxes().isGreaterThan(getAmountPaidWithoutTaxes())
@@ -581,6 +609,138 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
      */
     public String getBillAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException {
         return this.getCurrencyFormat().format(this.getBillAmountWithoutTaxes());
+    }
+
+    // -----------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     * @throws UnknownAccountTypeException 
+     */
+    public FixedPointNumber getVoucherAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    
+      // System.err.println("debug: GnucashInvoiceImpl.getAmountUnpaid(): "
+      // + "getVoucherAmountUnpaid()="+getVoucherAmountWithoutTaxes()+" getVoucherAmountPaidWithTaxes()="+getAmountPaidWithTaxes() );
+    
+      return ((FixedPointNumber) getVoucherAmountWithTaxes().clone()).subtract(getVoucherAmountPaidWithTaxes());
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     * @throws UnknownAccountTypeException 
+     */
+    public FixedPointNumber getVoucherAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+
+      FixedPointNumber takenFromPayableAccount = new FixedPointNumber();
+        for ( GnucashTransaction trx : getPayingTransactions() ) {
+            for ( GnucashTransactionSplit split : trx.getSplits() ) {
+                if ( split.getAccount().getType() == GnucashAccount.Type.PAYABLE ) {
+                  if ( split.getValue().isPositive() ) {
+                    takenFromPayableAccount.add(split.getValue());
+                  }
+                }
+            } // split
+        } // trx
+
+        //        System.err.println("getVoucherAmountPaidWithTaxes="+takenFromPayableAccount.doubleValue());
+
+        return takenFromPayableAccount;
+    }
+
+    public FixedPointNumber getVoucherAmountPaidWithoutTaxes() throws WrongInvoiceTypeException {
+      FixedPointNumber retval = new FixedPointNumber();
+      
+      for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
+        if ( entry.getType() == getType() ) {
+          retval.add(entry.getVoucherSumExclTaxes());
+        }
+      }
+      
+      return retval;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     */
+    public FixedPointNumber getVoucherAmountWithTaxes() throws WrongInvoiceTypeException {
+    
+      FixedPointNumber retval = new FixedPointNumber();
+    
+      //TODO: we should sum them without taxes grouped by tax% and
+      //      multiply the sums with the tax% to be calculatng
+      //      correctly
+    
+      for ( GnucashGenerInvoiceEntry entry : getGenerEntries() ) {
+        if ( entry.getType() == getType() ) {
+          retval.add(entry.getVoucherSumInclTaxes());
+        }
+      }
+      
+      return retval;
+    }
+
+      /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     */
+    public FixedPointNumber getVoucherAmountWithoutTaxes() throws WrongInvoiceTypeException {
+    
+      FixedPointNumber retval = new FixedPointNumber();
+    
+      for ( GnucashGenerInvoiceEntry entry : getGenerEntries() ) {
+        if ( entry.getType() == getType() ) {
+          retval.add(entry.getVoucherSumExclTaxes());
+        }
+      }
+    
+      return retval;
+    }
+
+    // ------------------------------
+    
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     * @throws UnknownAccountTypeException 
+     */
+    public String getVoucherAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+        return this.getCurrencyFormat().format(this.getVoucherAmountUnpaidWithTaxes());
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     * @throws UnknownAccountTypeException 
+     */
+    public String getVoucherAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+      return this.getCurrencyFormat().format(this.getVoucherAmountPaidWithTaxes());
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     */
+    public String getVoucherAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException {
+      return this.getCurrencyFormat().format(this.getVoucherAmountPaidWithoutTaxes());
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     */
+    public String getVoucherAmountWithTaxesFormatted() throws WrongInvoiceTypeException {
+        return this.getCurrencyFormat().format(this.getVoucherAmountWithTaxes());
+    }
+
+    /**
+     * {@inheritDoc}
+     * @throws WrongInvoiceTypeException 
+     */
+    public String getVoucherAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException {
+        return this.getCurrencyFormat().format(this.getVoucherAmountWithoutTaxes());
     }
 
     // ---------------------------------------------------------------

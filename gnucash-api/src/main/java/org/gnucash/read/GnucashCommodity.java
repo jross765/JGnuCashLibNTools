@@ -2,8 +2,8 @@ package org.gnucash.read;
 
 import java.util.Collection;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.read.aux.GCshPrice;
 
 public interface GnucashCommodity {

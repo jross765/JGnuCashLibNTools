@@ -22,6 +22,7 @@ public interface GnucashGenerJob {
 
     public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
     public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
+    public static final GCshOwner.Type TYPE_EMPLOYEE = GCshOwner.Type.EMPLOYEE;
 
     // -----------------------------------------------------------------
 
@@ -98,7 +99,7 @@ public interface GnucashGenerJob {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getIncomeGenerated() Formatted acording to the current locale's
+     * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
     String getIncomeGeneratedFormatted() throws UnknownAccountTypeException;
@@ -106,7 +107,7 @@ public interface GnucashGenerJob {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getIncomeGenerated() Formatted acording to the given locale's
+     * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
     String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException;
@@ -121,7 +122,7 @@ public interface GnucashGenerJob {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getOutstandingValue() Formatted acording to the current locale's
+     * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
     String getOutstandingValueFormatted() throws UnknownAccountTypeException;
@@ -130,7 +131,7 @@ public interface GnucashGenerJob {
      *
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getOutstandingValue() Formatted acording to the given locale's
+     * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
     String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException;

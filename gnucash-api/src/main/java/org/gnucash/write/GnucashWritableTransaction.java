@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;

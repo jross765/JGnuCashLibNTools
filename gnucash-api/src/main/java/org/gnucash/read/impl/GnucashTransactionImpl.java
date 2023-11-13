@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.generated.Slot;

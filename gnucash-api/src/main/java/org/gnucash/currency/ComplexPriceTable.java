@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.numbers.FixedPointNumber;
 
 public class ComplexPriceTable implements Serializable {

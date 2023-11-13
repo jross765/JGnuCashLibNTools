@@ -198,36 +198,70 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   // ---------------------------------------------------------------
 
   /**
-   * @return what the customer must still pay (incl. taxes)
+   * @return what the vendor is yet to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
    */
   FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
-   * @return what the customer has already pay (incl. taxes)
+   * @return what the vendor has already received (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
    */
   FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
-   * @return what the customer has already pay (incl. taxes)
+   * @return what the vendor has already received (incl. taxes)
    * @throws WrongInvoiceTypeException
    */
   FixedPointNumber getBillAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
 
   /**
-   * @return what the customer needs to pay in total (incl. taxes)
+   * @return what the vendor receives in total (incl. taxes)
    * @throws WrongInvoiceTypeException
    */
   FixedPointNumber getBillAmountWithTaxes() throws WrongInvoiceTypeException;
 
   /**
-   * @return what the customer needs to pay in total (excl. taxes)
+   * @return what the vendor receives in total (excl. taxes)
    * @throws WrongInvoiceTypeException
    */
   FixedPointNumber getBillAmountWithoutTaxes() throws WrongInvoiceTypeException;
+
+  // ---------------------------------------------------------------
+
+  /**
+   * @return what the employee is yet to receive (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   * @throws UnknownAccountTypeException
+   */
+  FixedPointNumber getVoucherAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  /**
+   * @return what the employee has already received (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   * @throws UnknownAccountTypeException
+   */
+  FixedPointNumber getVoucherAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  /**
+   * @return what the employee has already received (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  FixedPointNumber getVoucherAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+
+  /**
+   * @return what the employee receives in total (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  FixedPointNumber getVoucherAmountWithTaxes() throws WrongInvoiceTypeException;
+
+  /**
+   * @return what the employee receives in total (excl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  FixedPointNumber getVoucherAmountWithoutTaxes() throws WrongInvoiceTypeException;
 
   // ----------------------------
 
@@ -430,6 +464,12 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   boolean isBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   boolean isNotBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  // ----------------------------
+
+  boolean isVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  boolean isNotVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   // ----------------------------
 

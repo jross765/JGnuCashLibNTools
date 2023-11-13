@@ -8,7 +8,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;

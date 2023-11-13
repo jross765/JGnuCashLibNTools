@@ -6,6 +6,7 @@ import java.util.HashSet;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCustomer;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -79,6 +80,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getJobId() {
     return getOwnerId_direct();
   }
@@ -86,6 +88,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   /**
    * {@inheritDoc}
    */
+  @Override
   public GCshOwner.Type getJobType() {
       return getGenerJob().getOwnerType();
   }
@@ -102,13 +105,17 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       return null; // Compiler happy
   }
 
+  @Override
   protected String getOwnerId_viaJob() {
       return getGenerJob().getOwnerId();
   }
 
+  // -----------------------------------------------------------------
+
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getCustomerId() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	throw new WrongInvoiceTypeException();
@@ -119,6 +126,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   /**
    * {@inheritDoc}
    */
+  @Override
   public String getVendorId() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	throw new WrongInvoiceTypeException();
@@ -126,13 +134,32 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     return getOwnerId_viaJob();
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String getEmployeeId() throws WrongInvoiceTypeException {
+    if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
+	throw new WrongInvoiceTypeException();
+    
+    return getOwnerId_viaJob();
+  }
+
   // ----------------------------
   
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public GnucashGenerJob getGenerJob() 
   {
       return file.getGenerJobByID(getJobId());
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public GnucashCustomerJob getCustJob() throws WrongInvoiceTypeException
   {
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
@@ -141,6 +168,10 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       return new GnucashCustomerJobImpl(getGenerJob());
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
   public GnucashVendorJob getVendJob() throws WrongInvoiceTypeException
   {
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
@@ -149,8 +180,23 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       return new GnucashVendorJobImpl(getGenerJob());
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public GnucashEmployeeJobImpl getEmplJob() throws WrongInvoiceTypeException
+  {
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
+	  throw new WrongInvoiceTypeException();
+
+      return new GnucashEmployeeJobImpl(getGenerJob());
+  }
+
   // ------------------------------
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public GnucashCustomer getCustomer() throws WrongInvoiceTypeException {
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
@@ -159,12 +205,26 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       return getFile().getCustomerByID(getCustomerId());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   public GnucashVendor getVendor() throws WrongInvoiceTypeException {
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 		throw new WrongInvoiceTypeException();
 
       return getFile().getVendorByID(getVendorId());
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public GnucashEmployee getEmployee() throws WrongInvoiceTypeException {
+      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
+		throw new WrongInvoiceTypeException();
+
+      return getFile().getEmployeeByID(getEmployeeId());
   }
 
   // ---------------------------------------------------------------

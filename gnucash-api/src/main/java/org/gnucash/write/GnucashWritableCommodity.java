@@ -1,8 +1,8 @@
 package org.gnucash.write;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.read.GnucashCommodity;
 import org.gnucash.write.impl.ObjectCascadeException;
 

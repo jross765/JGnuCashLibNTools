@@ -14,8 +14,8 @@ import org.gnucash.read.GnucashVendor;
  * as used in the GnuCash documentation. However, on a technical level, both 
  * customer invoices and vendor bills are referred to as "GncInvoice" objects.
  * <br>
- * Implementations of this interface are comparable and sorts primarily on the date the Invoice was
- * created and secondarily on the date it should be paid.
+ * Implementations of this interface are comparable and sorts primarily on the date the 
+ * bill was created and secondarily on the date it should be paid.
  *
  * @see GnucashGenerJob
  * @see GnucashVendor

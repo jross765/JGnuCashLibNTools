@@ -16,7 +16,6 @@ import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshAddress;
 import org.gnucash.read.aux.GCshBillTerms;
-import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshAddressImpl;
 import org.gnucash.read.impl.spec.GnucashCustomerJobImpl;
@@ -277,7 +276,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return formatted acording to the current locale's currency-format
+     * @return formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated()
@@ -289,7 +288,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 
     /**
      * @param lcl the locale to format for
-     * @return formatted acording to the given locale's currency-format
+     * @return formatted according to the given locale's currency-format
      * @throws UnknownAccountTypeException 
      * @see #getIncomeGenerated()
      */
@@ -364,7 +363,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return Formatted acording to the current locale's currency-format
+     * @return Formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @see #getOutstandingValue()
      */
@@ -375,7 +374,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getOutstandingValue() Formatted acording to the given locale's
+     * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
     public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException {

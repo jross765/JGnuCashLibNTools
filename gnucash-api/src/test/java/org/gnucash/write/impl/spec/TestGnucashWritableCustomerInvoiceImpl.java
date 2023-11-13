@@ -191,7 +191,7 @@ public class TestGnucashWritableCustomerInvoiceImpl
 //      System.err.println("xxxx XML normalized");
       
       NodeList nList = document.getElementsByTagName("gnc:GncInvoice");
-      assertEquals(7, nList.getLength());
+      assertEquals(8, nList.getLength());
 
       // Last (new) node
       Node lastNode = nList.item(nList.getLength() - 1);

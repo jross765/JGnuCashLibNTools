@@ -145,7 +145,7 @@ public interface GnucashCustomer extends GnucashObject {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getIncomeGenerated() Formatted acording to the current locale's
+     * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
     String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
@@ -153,7 +153,7 @@ public interface GnucashCustomer extends GnucashObject {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getIncomeGenerated() Formatted acording to the given locale's
+     * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
     String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
@@ -184,7 +184,7 @@ public interface GnucashCustomer extends GnucashObject {
     /**
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getOutstandingValue() Formatted acording to the current locale's
+     * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
     String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
@@ -193,7 +193,7 @@ public interface GnucashCustomer extends GnucashObject {
      *
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @see #getOutstandingValue() Formatted acording to the given locale's
+     * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
     String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;

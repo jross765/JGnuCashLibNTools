@@ -10,8 +10,8 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.GncV2;

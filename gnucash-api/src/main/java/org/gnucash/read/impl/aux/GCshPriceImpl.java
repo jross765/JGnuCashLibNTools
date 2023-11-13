@@ -7,12 +7,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.GCshCmdtyID;
-import org.gnucash.basetypes.GCshCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyID;
+import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
 import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;

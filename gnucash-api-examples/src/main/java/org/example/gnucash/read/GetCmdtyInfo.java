@@ -3,8 +3,8 @@ package org.example.gnucash.read;
 import java.io.File;
 import java.util.Collection;
 
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.read.GnucashCommodity;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.aux.GCshPrice;

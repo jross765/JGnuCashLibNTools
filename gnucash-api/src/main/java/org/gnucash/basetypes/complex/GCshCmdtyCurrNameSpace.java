@@ -1,4 +1,4 @@
-package org.gnucash.basetypes;
+package org.gnucash.basetypes.complex;
 
 public class GCshCmdtyCurrNameSpace {
 

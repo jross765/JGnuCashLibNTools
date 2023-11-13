@@ -40,7 +40,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
     // No, we cannot check that first, because the super() method
     // always has to be called first.
     if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.CUSTOMER  &&
-	     invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.JOB )
+	 invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.JOB )
       throw new WrongInvoiceTypeException();
     
     for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() )

@@ -3,16 +3,17 @@ package org.gnucash.read;
 import java.io.File;
 import java.util.Collection;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
+import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.GnucashVendorBill;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
@@ -402,6 +403,90 @@ public interface GnucashFile extends GnucashObject {
     // ----------------------------
 
     /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have fully been
+     *         paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException;
+
+    /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have fully been
+     *         paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashJobInvoice>      getVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException;
+
+    /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have fully been
+     *         paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+    /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have fully been
+     *         paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashJobInvoice>      getPaidVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+    /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have not fully
+     *         been paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+    /**
+     * @param employee the employee to look for (not null)
+     * @return a (possibly read-only) collection of all vouchers that have not fully
+     *         been paid and are from the given employee Do not modify the returned
+     *         collection!
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
+     */
+    Collection<GnucashJobInvoice>      getUnpaidVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+    // ----------------------------
+
+    /**
      * @param vendor the job to look for (not null)
      * @return a (possibly read-only) collection of all invoices that have fully
      *         been paid and are from the given job Do not modify the returned
@@ -563,6 +648,35 @@ public interface GnucashFile extends GnucashObject {
     // ----------------------------
 
     /**
+     * @param id the unique id of the employee to look for
+     * @return the employee or null if it's not found
+     */
+    GnucashEmployee getEmployeeByID(String id);
+
+    /**
+     * warning: this function has to traverse all employees. If it much faster to
+     * try getEmployeeByID first and only call this method if the returned account
+     * does not have the right name.
+     *
+     * @param name the name to look for
+     * @return null if not found
+     * @see #getEmployeeByID(String)
+     */
+    Collection<GnucashEmployee> getEmployeesByName(String expr);
+
+    Collection<GnucashEmployee> getEmployeesByName(String expr, boolean relaxed);
+
+    GnucashEmployee getEmployeeByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * @return a (possibly read-only) collection of all employees Do not modify the
+     *         returned collection!
+     */
+    Collection<GnucashEmployee> getEmployees();
+
+    // ----------------------------
+
+    /**
      * @param id the unique id of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
      */
@@ -645,11 +759,17 @@ public interface GnucashFile extends GnucashObject {
 
     public int getHighestVendorNumber();
 
+    public int getHighestEmployeeNumber();
+
     public int getHighestJobNumber();
+    
+    // ----------------------------
 
     public String getNewCustomerNumber();
 
     public String getNewVendorNumber();
+
+    public String getNewEmployeeNumber();
 
     public String getNewJobNumber();
 

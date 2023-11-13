@@ -3,7 +3,7 @@ package org.gnucash.write.impl;
 import java.beans.PropertyChangeSupport;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.read.GnucashVendor;

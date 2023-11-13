@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncEntry.EntryBTaxtable;
 import org.gnucash.generated.GncV2.GncBook.GncGncEntry.EntryBill;
@@ -369,13 +369,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     // ---------------------------------------------------------------
 
     /**
-     * @return e.g. "0.19" for "19%"
-     * @throws WrongInvoiceTypeException
+     * {@inheritDoc}
      */
+    @Override
     public FixedPointNumber getInvcApplicableTaxPercent() throws WrongInvoiceTypeException {
 
-	if ( getType() != GCshOwner.Type.CUSTOMER && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_CUSTOMER && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	if (!isInvcTaxable()) {
@@ -455,13 +455,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return e.g. "0.19" for "19%"
-     * @throws WrongInvoiceTypeException
+     * {@inheritDoc}
      */
+    @Override
     public FixedPointNumber getBillApplicableTaxPercent() throws WrongInvoiceTypeException {
 
-	if ( getType() != GCshOwner.Type.VENDOR && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_VENDOR && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	if (!isBillTaxable()) {
@@ -512,16 +512,80 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FixedPointNumber getVoucherApplicableTaxPercent() throws WrongInvoiceTypeException {
+
+	if ( getType() != GnucashGenerInvoice.TYPE_EMPLOYEE && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
+	    throw new WrongInvoiceTypeException();
+
+	if (!isVoucherTaxable()) {
+	    return new FixedPointNumber();
+	}
+
+	if (jwsdpPeer.getEntryBTaxtable() != null) {
+	    if (!jwsdpPeer.getEntryBTaxtable().getType().equals(Const.XML_DATA_TYPE_GUID)) {
+		LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + "' has b-taxtable with type='"
+			+ jwsdpPeer.getEntryBTaxtable().getType() + "' != 'guid'");
+	    }
+	}
+
+	GCshTaxTable taxTab = null;
+	try {
+	    taxTab = getBillTaxTable();
+	} catch (TaxTableNotFoundException exc) {
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() +
+		    "' is taxable but JWSDP peer has no b-taxtable-entry! " + 
+		    "Assuming 0%");
+	    return new FixedPointNumber("0");
+	}
+
+	// Cf. getInvcApplicableTaxPercent()
+	if (taxTab == null) {
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + 
+		    "' is taxable but has an unknown b-taxtable! "
+		    + "Assuming 0%");
+	    return new FixedPointNumber("0");
+	}
+
+	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().iterator().next();
+	// ::TODO ::CHECK
+	// Cf. getInvcApplicableTaxPercent()
+	// ::TODO
+	if ( taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_VALUE) ) {
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + 
+		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
+		    "NOT IMPLEMENTED YET " +
+	            "Assuming 0%");
+	    return new FixedPointNumber("0");
+	}
+
+	FixedPointNumber val = taxTabEntr.getAmount();
+
+	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
+	return ((FixedPointNumber) val.clone()).divideBy(new FixedPointNumber("100"));
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException {
 
-	if ( getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_CUSTOMER )
 	    return getInvcApplicableTaxPercent();
-	if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
+	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillApplicableTaxPercent();
+	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
+	    return getVoucherApplicableTaxPercent();
 
 	return null; // Compiler happy
     }
@@ -569,6 +633,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @see GnucashGenerInvoiceEntry#getInvcPrice()
      */
+    @Override
     public FixedPointNumber getInvcPrice() throws WrongInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.CUSTOMER && 
 	     getType() != GCshOwner.Type.JOB )
@@ -580,6 +645,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @see GnucashGenerInvoiceEntry#getInvcPrice()
      */
+    @Override
     public FixedPointNumber getBillPrice() throws WrongInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.VENDOR && 
 	     getType() != GCshOwner.Type.JOB )
@@ -591,6 +657,19 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @see GnucashGenerInvoiceEntry#getInvcPrice()
      */
+    @Override
+    public FixedPointNumber getVoucherPrice() throws WrongInvoiceTypeException {
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+	    throw new WrongInvoiceTypeException();
+
+	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
+    }
+
+    /**
+     * @see GnucashGenerInvoiceEntry#getInvcPrice()
+     */
+    @Override
     public FixedPointNumber getJobPrice() throws WrongInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -598,8 +677,10 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_CUSTOMER )
 	    return getInvcPrice();
-	if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
+	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillPrice();
+	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
+	    return getVoucherPrice();
 
 	return null; // Compiler happy
     }
@@ -609,6 +690,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getInvcPriceFormatted() throws WrongInvoiceTypeException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getInvcPrice());
     }
@@ -616,6 +698,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getBillPriceFormatted() throws WrongInvoiceTypeException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getBillPrice());
     }
@@ -623,6 +706,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
+    @Override
+    public String getVoucherPriceFormatted() throws WrongInvoiceTypeException {
+	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVoucherPrice());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public String getJobPriceFormatted() throws WrongInvoiceTypeException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobPrice());
     }
@@ -764,6 +856,72 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @see GnucashGenerInvoiceEntry#getInvcSum()
      */
+    public FixedPointNumber getVoucherSum() throws WrongInvoiceTypeException {
+	return getVoucherPrice().multiply(getQuantity());
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @see GnucashGenerInvoiceEntry#getInvcSumInclTaxes()
+     */
+    public FixedPointNumber getVoucherSumInclTaxes() throws WrongInvoiceTypeException {
+	if (jwsdpPeer.getEntryBTaxincluded() == 1) {
+	    return getBillSum();
+	}
+
+	return getVoucherSum().multiply(getVoucherApplicableTaxPercent().add(1));
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @see GnucashGenerInvoiceEntry#getInvcSumExclTaxes()
+     */
+    public FixedPointNumber getVoucherSumExclTaxes() throws WrongInvoiceTypeException {
+
+	// System.err.println("debug: GnucashInvoiceEntryImpl.getSumExclTaxes():"
+	// taxIncluded="+jwsdpPeer.getEntryITaxincluded()+" getSum()="+getSum()+"
+	// getApplicableTaxPercend()="+getApplicableTaxPercent());
+
+	if (jwsdpPeer.getEntryBTaxincluded() == 0) {
+	    return getBillSum();
+	}
+
+	return getVoucherSum().divideBy(getVoucherApplicableTaxPercent().add(1));
+    }
+
+    // ----------------------------
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @see GnucashGenerInvoiceEntry#getInvcSum()
+     */
+    public String getVoucherSumFormatted() throws WrongInvoiceTypeException {
+	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVoucherSum());
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws WrongInvoiceTypeException
+     */
+    public String getVoucherSumInclTaxesFormatted() throws WrongInvoiceTypeException {
+	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVoucherSumInclTaxes());
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws WrongInvoiceTypeException
+     */
+    public String getVoucherSumExclTaxesFormatted() throws WrongInvoiceTypeException {
+	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVoucherSumExclTaxes());
+    }
+
+    // ----------------------------
+
+    /**
+     * @see GnucashGenerInvoiceEntry#getInvcSum()
+     */
     public FixedPointNumber getJobSum() throws WrongInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -842,35 +1000,47 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     // ---------------------------------------------------------------
 
     /**
-     * @throws WrongInvoiceTypeException
-     * @see GnucashGenerInvoiceEntry#isInvcTaxable()
+     * {@inheritDoc}
      */
+    @Override
     public boolean isInvcTaxable() throws WrongInvoiceTypeException {
-	if ( getType() != GCshOwner.Type.CUSTOMER && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_CUSTOMER && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	return (jwsdpPeer.getEntryITaxable() == 1);
     }
 
     /**
-     * @throws WrongInvoiceTypeException
-     * @see GnucashGenerInvoiceEntry#isInvcTaxable()
+     * {@inheritDoc}
      */
+    @Override
     public boolean isBillTaxable() throws WrongInvoiceTypeException {
-	if ( getType() != GCshOwner.Type.VENDOR && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_VENDOR && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	return (jwsdpPeer.getEntryBTaxable() == 1);
     }
 
     /**
-     * @throws WrongInvoiceTypeException
-     * @see GnucashGenerInvoiceEntry#isInvcTaxable()
+     * {@inheritDoc}
      */
+    @Override
+    public boolean isVoucherTaxable() throws WrongInvoiceTypeException {
+	if ( getType() != GnucashGenerInvoice.TYPE_EMPLOYEE && 
+	     getType() != GnucashGenerInvoice.TYPE_JOB )
+	    throw new WrongInvoiceTypeException();
+
+	return (jwsdpPeer.getEntryBTaxable() == 1);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isJobTaxable() throws WrongInvoiceTypeException {
-	if ( getType() != GCshOwner.Type.JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
 	GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(getGenerInvoice());
@@ -878,6 +1048,8 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return isInvcTaxable();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return isBillTaxable();
+	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
+	    return isVoucherTaxable();
 
 	return false; // Compiler happy
     }

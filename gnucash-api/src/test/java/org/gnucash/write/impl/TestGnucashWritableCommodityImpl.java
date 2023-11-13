@@ -12,10 +12,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.ConstTest;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.GCshCmdtyID_Exchange;
-import org.gnucash.basetypes.GCshCmdtyID_MIC;
-import org.gnucash.basetypes.GCshCmdtyID_SecIdType;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.basetypes.complex.GCshCmdtyID_MIC;
+import org.gnucash.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.write.GnucashWritableCommodity;
 import org.junit.Before;
 import org.junit.Rule;

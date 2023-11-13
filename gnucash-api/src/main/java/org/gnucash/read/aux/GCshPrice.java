@@ -2,11 +2,11 @@ package org.gnucash.read.aux;
 
 import java.time.LocalDate;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyID;
-import org.gnucash.basetypes.GCshCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyID;
+import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCommodity;
 

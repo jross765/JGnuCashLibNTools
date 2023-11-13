@@ -28,12 +28,12 @@ import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
-import org.gnucash.basetypes.GCshCmdtyID;
-import org.gnucash.basetypes.GCshCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrIDException;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyID;
+import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.GncBudget;
@@ -47,6 +47,7 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashCommodity;
 import org.gnucash.read.GnucashCustomer;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -69,8 +70,11 @@ import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashVendorBillImpl;
+import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
 import org.gnucash.read.spec.GnucashCustomerJob;
+import org.gnucash.read.spec.GnucashEmployeeJob;
+import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.GnucashVendorBill;
 import org.gnucash.read.spec.GnucashVendorJob;
@@ -579,6 +583,15 @@ public class GnucashFileImpl implements GnucashFile {
 		    // This should not happen
 		    LOGGER.error("getUnpaidInvoices: Serious error");
 		}
+	    } else if ( invc.getType() == GCshOwner.Type.EMPLOYEE ) {
+		try {
+		    if (invc.isNotVoucherFullyPaid()) {
+			retval.add(invc);
+		    }
+		} catch (WrongInvoiceTypeException e) {
+		    // This should not happen
+		    LOGGER.error("getUnpaidInvoices: Serious error");
+		}
 	    } else if ( invc.getType() == GCshOwner.Type.JOB ) {
 		try {
 		    if (invc.isNotJobFullyPaid()) {
@@ -605,14 +618,14 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
-	for (GnucashGenerInvoice invc : getGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getInvoicesForCustomer: Cannot instantiate GnucashCustomerInvoiceImpl");
+		    LOGGER.error("getInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
 		}
 	    }
 	}
@@ -648,7 +661,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
-	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
@@ -692,7 +705,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
-	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
@@ -737,14 +750,14 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
-	for (GnucashGenerInvoice invc : getGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getBillsForVendor: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
 		}
 	    }
 	}
@@ -780,7 +793,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
-	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
@@ -824,7 +837,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
-	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
@@ -857,6 +870,138 @@ public class GnucashFileImpl implements GnucashFile {
 
 	return retval;
     }
+    
+    // ----------------------------
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     */
+    @Override
+    public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException {
+	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+
+	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+		try {
+		    retval.add(new GnucashEmployeeVoucherImpl(invc));
+		} catch (WrongInvoiceTypeException e) {
+		    // This really should not happen, one can almost
+		    // throw a fatal log here.
+		    LOGGER.error("getVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		}
+	    }
+	}
+
+	return retval;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     */
+    @Override
+    public Collection<GnucashJobInvoice> getVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException {
+	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+
+	for ( GnucashEmployeeJob job : empl.getJobs() ) {
+	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
+		retval.add(jobInvc);
+	    }
+	}
+
+	return retval;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     */
+    @Override
+    public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+
+	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+		try {
+		    retval.add(new GnucashEmployeeVoucherImpl(invc));
+		} catch (WrongInvoiceTypeException e) {
+		    // This really should not happen, one can almost
+		    // throw a fatal log here.
+		    LOGGER.error("getPaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		}
+	    }
+	}
+
+	return retval;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     */
+    @Override
+    public Collection<GnucashJobInvoice> getPaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+
+	for ( GnucashEmployeeJob job : empl.getJobs() ) {
+	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
+		retval.add(jobInvc);
+	    }
+	}
+
+	return retval;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     */
+    @Override
+    public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+
+	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+		try {
+		    retval.add(new GnucashEmployeeVoucherImpl(invc));
+		} catch (WrongInvoiceTypeException e) {
+		    // This really should not happen, one can almost
+		    // throw a fatal log here.
+		    LOGGER.error("getUnpaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		}
+	    }
+	}
+
+	return retval;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException 
+     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     */
+    @Override
+    public Collection<GnucashJobInvoice> getUnpaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+
+	for ( GnucashEmployeeJob job : empl.getJobs() ) {
+	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
+		retval.add(jobInvc);
+	    }
+	}
+
+	return retval;
+    }
 
     // ----------------------------
 
@@ -869,7 +1014,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
-	for (GnucashGenerInvoice invc : getGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
@@ -894,7 +1039,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
-	for (GnucashGenerInvoice invc : getPaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
@@ -919,7 +1064,7 @@ public class GnucashFileImpl implements GnucashFile {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
-	for (GnucashGenerInvoice invc : getUnpaidGenerInvoices()) {
+	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
 	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
@@ -1123,6 +1268,14 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashVendorImpl
      */
     protected Map<String, GnucashVendor> vendorID2vendor;
+
+    /**
+     * All emloyees indexed by their unique id-String.
+     *
+     * @see GnucashEmployee
+     * @see GnucashEmployeeImpl
+     */
+    protected Map<String, GnucashEmployee> employeeID2employee;
 
     /**
      * All vendors indexed by their unique id-String.
@@ -2106,6 +2259,77 @@ public class GnucashFileImpl implements GnucashFile {
 
     // ---------------------------------------------------------------
 
+    /**
+     * @see GnucashFile#getEmployeeByID(java.lang.String)
+     */
+    public GnucashEmployee getEmployeeByID(final String id) {
+	if (employeeID2employee == null) {
+	    throw new IllegalStateException("no root-element loaded");
+	}
+
+	GnucashEmployee retval = employeeID2employee.get(id);
+	if (retval == null) {
+	    LOGGER.warn("No Employee with id '" + id + "'. We know " + employeeID2employee.size() + " employees.");
+	}
+	return retval;
+    }
+
+    /**
+     * @see GnucashFile#getEmployeesByName(java.lang.String)
+     */
+    @Override
+    public Collection<GnucashEmployee> getEmployeesByName(final String name) {
+	return getEmployeesByName(name, true);
+    }
+
+    /**
+     * @see GnucashFile#getEmployeesByName(java.lang.String)
+     */
+    @Override
+    public Collection<GnucashEmployee> getEmployeesByName(final String expr, boolean relaxed) {
+
+	if (employeeID2employee == null) {
+	    throw new IllegalStateException("no root-element loaded");
+	}
+
+	Collection<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
+
+	for ( GnucashEmployee empl : getEmployees() ) {
+	    if ( relaxed ) {
+		if ( empl.getName().trim().toLowerCase().
+			contains(expr.trim().toLowerCase()) ) {
+		    result.add(empl);
+		}
+	    } else {
+		if ( empl.getName().equals(expr) ) {
+		    result.add(empl);
+		}
+	    }
+	}
+	
+	return result;
+    }
+
+    @Override
+    public GnucashEmployee getEmployeeByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+	Collection<GnucashEmployee> emplList = getEmployeesByName(name);
+	if ( emplList.size() == 0 )
+	    throw new NoEntryFoundException();
+	else if ( emplList.size() > 1 )
+	    throw new TooManyEntriesFoundException();
+	else
+	    return emplList.iterator().next();
+    }
+    
+    /**
+     * @see GnucashFile#getEmployees()
+     */
+    public Collection<GnucashEmployee> getEmployees() {
+	return employeeID2employee.values();
+    }
+
+    // ---------------------------------------------------------------
+
     @Override
     public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrID qualifID) {
 	return getCommodityByQualifID(qualifID.toString());
@@ -2747,6 +2971,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public int getHighestCustomerNumber() {
 	int highest = -1;
 
@@ -2775,6 +3000,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public int getHighestVendorNumber() {
 	int highest = -1;
 
@@ -2794,6 +3020,32 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     /**
+     * Assuming that all employee numbers (manually set IDs, not GUIDs) are numeric as
+     * generated by default.
+     * 
+     * @param gcshFile
+     * @return
+     */
+    @Override
+    public int getHighestEmployeeNumber() {
+	int highest = -1;
+
+	for (GnucashEmployee empl : employeeID2employee.values()) {
+	    try {
+		int newNum = Integer.parseInt(empl.getNumber());
+		if (newNum > highest)
+		    highest = newNum;
+	    } catch (Exception exc) {
+		// Cf. .getHighestCustomerNumber() above.
+		// ==> ::TODO Adapt how a vendor object is created.
+		LOGGER.warn("getHighestEmployeeNumber: Found employee with non-numerical number");
+	    }
+	}
+
+	return highest;
+    }
+
+    /**
      * Assuming that all job numbers (manually set IDs, not GUIDs) are numeric as
      * generated by default.
      * 
@@ -2803,6 +3055,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public int getHighestJobNumber() {
 	int highest = -1;
 
@@ -2833,6 +3086,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public String getNewCustomerNumber() {
 	int newNo = getHighestCustomerNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
@@ -2850,8 +3104,27 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public String getNewVendorNumber() {
 	int newNo = getHighestVendorNumber() + 1;
+	String newNoStr = Integer.toString(newNo);
+	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
+	// 10 zeroes if you need a string of length 10 in the end
+	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
+
+	return newNoStrPadded;
+    }
+
+    /**
+     * Assuming that all employee numbers (manually set IDs, not GUIDs) are numeric
+     * as generated by default.
+     * 
+     * @param gcshFile
+     * @return
+     */
+    @Override
+    public String getNewEmployeeNumber() {
+	int newNo = getHighestEmployeeNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
 	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
 	// 10 zeroes if you need a string of length 10 in the end
@@ -2870,6 +3143,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @param gcshFile
      * @return
      */
+    @Override
     public String getNewJobNumber() {
 	int newNo = getHighestJobNumber() + 1;
 	String newNoStr = Integer.toString(newNo);

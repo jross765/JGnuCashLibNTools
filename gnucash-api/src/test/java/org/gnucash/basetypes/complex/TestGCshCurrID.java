@@ -1,9 +1,11 @@
-package org.gnucash.basetypes;
+package org.gnucash.basetypes.complex;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.Currency;
 
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCurrID;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;

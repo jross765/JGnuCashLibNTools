@@ -2,7 +2,7 @@ package org.gnucash.write;
 
 import java.beans.PropertyChangeListener;
 
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashTransactionSplit;

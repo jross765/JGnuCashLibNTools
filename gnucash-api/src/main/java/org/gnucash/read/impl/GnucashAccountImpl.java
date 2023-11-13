@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCurrID;
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.read.GnucashAccount;

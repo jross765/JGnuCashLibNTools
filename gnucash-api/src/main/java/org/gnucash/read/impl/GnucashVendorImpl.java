@@ -250,7 +250,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return formatted acording to the current locale's currency-format
+     * @return formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @see #getExpensesGenerated()
      */
@@ -261,7 +261,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 
     /**
      * @param lcl the locale to format for
-     * @return formatted acording to the given locale's currency-format
+     * @return formatted according to the given locale's currency-format
      * @throws UnknownAccountTypeException 
      * @see #getExpensesGenerated()
      */
@@ -336,7 +336,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return Formatted acording to the current locale's currency-format
+     * @return Formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @see #getOutstandingValue()
      */
@@ -347,7 +347,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @see #getOutstandingValue() Formatted acording to the given locale's
+     * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
     public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException {

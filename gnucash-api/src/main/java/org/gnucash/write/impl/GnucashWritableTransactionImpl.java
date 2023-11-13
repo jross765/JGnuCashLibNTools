@@ -10,8 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.gnucash.Const;
-import org.gnucash.basetypes.GCshCmdtyCurrID;
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.read.GnucashAccount;

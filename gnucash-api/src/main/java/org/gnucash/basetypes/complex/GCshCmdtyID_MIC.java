@@ -1,4 +1,4 @@
-package org.gnucash.basetypes;
+package org.gnucash.basetypes.complex;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

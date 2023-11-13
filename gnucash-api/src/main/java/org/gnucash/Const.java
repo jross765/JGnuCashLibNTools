@@ -1,6 +1,6 @@
 package org.gnucash;
 
-import org.gnucash.basetypes.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 
 public class Const
 {

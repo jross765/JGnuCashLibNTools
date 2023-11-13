@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.basetypes.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -93,7 +93,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if (!invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_VENDOR))
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_VENDOR )
 	    throw new WrongInvoiceTypeException();
 
 	// Caution: In the following two loops, we may *not* iterate directly over

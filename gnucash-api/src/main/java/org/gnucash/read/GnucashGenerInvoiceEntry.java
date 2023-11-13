@@ -94,6 +94,12 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   FixedPointNumber getBillPrice() throws WrongInvoiceTypeException;
 
   /**
+   * @return For an employee voucher, return the price of one single of the
+   *         ${@link #getQuantity()} items of type ${@link #getAction()}.
+   */
+  FixedPointNumber getVoucherPrice() throws WrongInvoiceTypeException;
+
+  /**
    * @return For a job invoice, return the price of one single of the
    *         ${@link #getQuantity()} items of type ${@link #getAction()}.
    */
@@ -110,6 +116,11 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @return As ${@link #getBillPrice()}, but formatted.
    */
   String getBillPriceFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * @return As ${@link #getVoucherPrice()}, but formatted.
+   */
+  String getVoucherPriceFormatted() throws WrongInvoiceTypeException;
 
   /**
    * @return As ${@link #getJobPrice()}, but formatted.
@@ -170,6 +181,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    */
   boolean isBillTaxable() throws WrongInvoiceTypeException;
 
+  /**
+   *
+   * @return true if any sales-tax applies at all to this item.
+   * @throws WrongInvoiceTypeException 
+   */
+  boolean isVoucherTaxable() throws WrongInvoiceTypeException;
+
   boolean isJobTaxable() throws WrongInvoiceTypeException;
   
   // ------------------------------
@@ -185,21 +203,28 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    *
    * @return e.g. "0.16" for "16%"
- * @throws WrongInvoiceTypeException 
+   * @throws WrongInvoiceTypeException 
    */
   FixedPointNumber getInvcApplicableTaxPercent() throws WrongInvoiceTypeException;
 
   /**
    *
    * @return e.g. "0.16" for "16%"
- * @throws WrongInvoiceTypeException 
+   * @throws WrongInvoiceTypeException 
    */
   FixedPointNumber getBillApplicableTaxPercent() throws WrongInvoiceTypeException;
 
   /**
    *
    * @return e.g. "0.16" for "16%"
- * @throws WrongInvoiceTypeException 
+   * @throws WrongInvoiceTypeException 
+   */
+  FixedPointNumber getVoucherApplicableTaxPercent() throws WrongInvoiceTypeException;
+
+  /**
+   *
+   * @return e.g. "0.16" for "16%"
+   * @throws WrongInvoiceTypeException 
    */
   FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException;
 
@@ -300,6 +325,31 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @throws WrongInvoiceTypeException
    */
   FixedPointNumber getBillSumExclTaxes() throws WrongInvoiceTypeException;
+
+  // ----------------------------
+
+  /**
+   * This is the employee voucher sum as entered by the user. The user can decide to
+   * include or exclude taxes.
+   * 
+   * @return count*single-unit-price excluding or including taxes.
+   * @throws WrongInvoiceTypeException
+   * @see #getInvcSumExclTaxes()
+   * @see #getInvcSumInclTaxes()
+   */
+  FixedPointNumber getVoucherSum() throws WrongInvoiceTypeException;
+
+  /**
+   * @return count*single-unit-price including taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  FixedPointNumber getVoucherSumInclTaxes() throws WrongInvoiceTypeException;
+
+  /**
+   * @return count*single-unit-price excluding taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  FixedPointNumber getVoucherSumExclTaxes() throws WrongInvoiceTypeException;
 
   // ----------------------------
 
