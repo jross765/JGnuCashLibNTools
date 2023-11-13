@@ -83,11 +83,11 @@
       </slot>
       <slot>
         <slot:key>gncEmployee</slot:key>
-        <slot:value type="integer">0</slot:value>
+        <slot:value type="integer">1</slot:value>
       </slot>
       <slot>
         <slot:key>gncExpVoucher</slot:key>
-        <slot:value type="integer">0</slot:value>
+        <slot:value type="integer">1</slot:value>
       </slot>
       <slot>
         <slot:key>gncInvoice</slot:key>
@@ -214,13 +214,14 @@
   </slot>
 </book:slots>
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
-<gnc:count-data cd:type="account">92</gnc:count-data>
+<gnc:count-data cd:type="account">93</gnc:count-data>
 <gnc:count-data cd:type="transaction">12</gnc:count-data>
 <gnc:count-data cd:type="price">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncEntry">12</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncInvoice">6</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncEntry">15</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncInvoice">7</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncJob">2</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncTaxTable">7</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncVendor">3</gnc:count-data>
@@ -1913,6 +1914,17 @@
   <act:parent type="guid">23aa4227ddda457592998d18f888a662</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
+  <act:name>Spesen</act:name>
+  <act:id type="guid">626aa7a18ea840a69844ad612c28fe29</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">23aa4227ddda457592998d18f888a662</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
   <act:name>Fremdkapital</act:name>
   <act:id type="guid">5008258df86243ee86d37dee64327c27</act:id>
   <act:type>LIABILITY</act:type>
@@ -2794,6 +2806,28 @@
   </cust:currency>
   <cust:use-tt>0</cust:use-tt>
 </gnc:GncCustomer>
+<gnc:GncEmployee version="2.0.0">
+  <employee:guid type="guid">7f70b352dcf44a5d8085767a53a9bc37</employee:guid>
+  <employee:username>otwist</employee:username>
+  <employee:id>000001</employee:id>
+  <employee:addr version="2.0.0">
+    <addr:name>Oliver Twist</addr:name>
+    <addr:addr1>Street Gang's Area</addr:addr1>
+    <addr:addr2>Bad Neighbourhood</addr:addr2>
+    <addr:addr3>London</addr:addr3>
+    <addr:addr4>United Kingdom</addr:addr4>
+    <addr:phone>+44 - 12 - 345 678 9</addr:phone>
+    <addr:email>otwist@myco.com</addr:email>
+  </employee:addr>
+  <employee:language>English</employee:language>
+  <employee:active>1</employee:active>
+  <employee:workday>1400000/100000</employee:workday>
+  <employee:rate>100/100</employee:rate>
+  <employee:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </employee:currency>
+</gnc:GncEmployee>
 <gnc:GncEntry version="2.0.0">
   <entry:guid type="guid">0041b8d397f04ae4a2e9e3c7f991c4ec</entry:guid>
   <entry:date>
@@ -2892,6 +2926,25 @@
   <entry:i-taxtable type="guid">cba6011c826f426fbc4a1a72c3d6c8ee</entry:i-taxtable>
 </gnc:GncEntry>
 <gnc:GncEntry version="2.0.0">
+  <entry:guid type="guid">9218e269422d4c08b3b9a8c27fbd051a</entry:guid>
+  <entry:date>
+    <ts:date>2023-11-13 11:00:00 +0000</ts:date>
+  </entry:date>
+  <entry:entered>
+    <ts:date>2023-11-13 16:46:43 +0000</ts:date>
+  </entry:entered>
+  <entry:description>Tanken</entry:description>
+  <entry:action>Material</entry:action>
+  <entry:qty>1/1</entry:qty>
+  <entry:b-acct type="guid">626aa7a18ea840a69844ad612c28fe29</entry:b-acct>
+  <entry:b-price>85/1</entry:b-price>
+  <entry:bill type="guid">8de4467c17e04bb2895fb68cc07fc4df</entry:bill>
+  <entry:billable>0</entry:billable>
+  <entry:b-taxable>1</entry:b-taxable>
+  <entry:b-taxincluded>0</entry:b-taxincluded>
+  <entry:b-pay>CASH</entry:b-pay>
+</gnc:GncEntry>
+<gnc:GncEntry version="2.0.0">
   <entry:guid type="guid">92e54c04b66f4682a9afb48e27dfe397</entry:guid>
   <entry:date>
     <ts:date>2023-08-30 10:00:00 +0000</ts:date>
@@ -2969,6 +3022,25 @@
   <entry:i-taxable>1</entry:i-taxable>
   <entry:i-taxincluded>0</entry:i-taxincluded>
   <entry:i-taxtable type="guid">cba6011c826f426fbc4a1a72c3d6c8ee</entry:i-taxtable>
+</gnc:GncEntry>
+<gnc:GncEntry version="2.0.0">
+  <entry:guid type="guid">b6e2313e32d44bb4a8a701c1063e03a7</entry:guid>
+  <entry:date>
+    <ts:date>2023-11-13 11:00:00 +0000</ts:date>
+  </entry:date>
+  <entry:entered>
+    <ts:date>2023-11-13 16:47:31 +0000</ts:date>
+  </entry:entered>
+  <entry:description>Übernachtung</entry:description>
+  <entry:action>Material</entry:action>
+  <entry:qty>1/1</entry:qty>
+  <entry:b-acct type="guid">626aa7a18ea840a69844ad612c28fe29</entry:b-acct>
+  <entry:b-price>145/1</entry:b-price>
+  <entry:bill type="guid">8de4467c17e04bb2895fb68cc07fc4df</entry:bill>
+  <entry:billable>0</entry:billable>
+  <entry:b-taxable>1</entry:b-taxable>
+  <entry:b-taxincluded>0</entry:b-taxincluded>
+  <entry:b-pay>CASH</entry:b-pay>
 </gnc:GncEntry>
 <gnc:GncEntry version="2.0.0">
   <entry:guid type="guid">dc3c53f07ff64199ad4ea38988b3f40a</entry:guid>
@@ -3133,6 +3205,29 @@
       <slot:key>assoc_uri</slot:key>
       <slot:value type="string">https://my.customer.invoice.link.01</slot:value>
     </slot>
+    <slot>
+      <slot:key>credit-note</slot:key>
+      <slot:value type="integer">0</slot:value>
+    </slot>
+  </invoice:slots>
+</gnc:GncInvoice>
+<gnc:GncInvoice version="2.0.0">
+  <invoice:guid type="guid">8de4467c17e04bb2895fb68cc07fc4df</invoice:guid>
+  <invoice:id>000001</invoice:id>
+  <invoice:owner version="2.0.0">
+    <owner:type>gncEmployee</owner:type>
+    <owner:id type="guid">7f70b352dcf44a5d8085767a53a9bc37</owner:id>
+  </invoice:owner>
+  <invoice:opened>
+    <ts:date>2023-11-13 10:59:00 +0000</ts:date>
+  </invoice:opened>
+  <invoice:notes>Spesen Geschäftsreise</invoice:notes>
+  <invoice:active>1</invoice:active>
+  <invoice:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </invoice:currency>
+  <invoice:slots>
     <slot>
       <slot:key>credit-note</slot:key>
       <slot:value type="integer">0</slot:value>
