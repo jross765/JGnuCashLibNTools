@@ -3,6 +3,7 @@ package org.gnucash.read.impl.spec;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashFile;
@@ -85,7 +86,8 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
     if ( ! getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GnucashGenerInvoice.TYPE_EMPLOYEE.getCode()) )
       throw new WrongInvoiceTypeException();
     
-    return file.getEmployeeByID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
+    GCshID ownerID = new GCshID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
+    return file.getEmployeeByID(ownerID);
   }
 
   // ---------------------------------------------------------------

@@ -3,9 +3,9 @@ package org.gnucash.read;
 import java.util.Collection;
 import java.util.Locale;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshAddress;
-import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.spec.GnucashEmployeeJob;
 import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.read.spec.GnucashJobInvoice;
@@ -32,7 +32,7 @@ public interface GnucashEmployee extends GnucashObject {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    String getId();
+    GCshID getId();
 
     /**
      *

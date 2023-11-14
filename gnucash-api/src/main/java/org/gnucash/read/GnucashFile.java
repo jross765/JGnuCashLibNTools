@@ -652,7 +652,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the employee to look for
      * @return the employee or null if it's not found
      */
-    GnucashEmployee getEmployeeByID(String id);
+    GnucashEmployee getEmployeeByID(GCshID id);
 
     /**
      * warning: this function has to traverse all employees. If it much faster to
@@ -663,9 +663,15 @@ public interface GnucashFile extends GnucashObject {
      * @return null if not found
      * @see #getEmployeeByID(String)
      */
+    Collection<GnucashEmployee> getEmployeesByUserName(String expr);
+
     Collection<GnucashEmployee> getEmployeesByName(String expr);
 
+    Collection<GnucashEmployee> getEmployeesByUserName(String expr, boolean relaxed);
+
     Collection<GnucashEmployee> getEmployeesByName(String expr, boolean relaxed);
+
+    GnucashEmployee getEmployeeByUserNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     GnucashEmployee getEmployeeByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
 

@@ -1,5 +1,6 @@
 package org.gnucash.read.spec;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashGenerJob;
 
@@ -16,6 +17,6 @@ public interface GnucashEmployeeJob extends GnucashGenerJob {
 	 * @return the id of the customer this job is from.
 	 * @see #getEmployee()
 	 */
-	String getEmployeeId();
+	GCshID getEmployeeId();
 	
 }

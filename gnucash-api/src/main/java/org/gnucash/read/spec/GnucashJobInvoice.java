@@ -52,7 +52,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
     /**
      * @return ID of employee this voucher has been sent from.
      */
-    String getEmployeeId() throws WrongInvoiceTypeException;
+    GCshID getEmployeeId() throws WrongInvoiceTypeException;
     
     // ----------------------------
 

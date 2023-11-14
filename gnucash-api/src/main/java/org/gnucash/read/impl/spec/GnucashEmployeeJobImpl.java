@@ -1,5 +1,6 @@
 package org.gnucash.read.impl.spec;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
@@ -48,8 +49,8 @@ public class GnucashEmployeeJobImpl extends GnucashGenerJobImpl
     /**
      * {@inheritDoc}
      */
-    public String getEmployeeId() {
-        return getOwnerId();
+    public GCshID getEmployeeId() {
+        return new GCshID(getOwnerId());
     }
 
     /**

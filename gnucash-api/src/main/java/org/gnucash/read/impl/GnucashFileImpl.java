@@ -1278,7 +1278,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashEmployee
      * @see GnucashEmployeeImpl
      */
-    protected Map<String, GnucashEmployee> employeeID2employee;
+    protected Map<GCshID, GnucashEmployee> employeeID2employee;
 
     /**
      * All vendors indexed by their unique id-String.
@@ -1542,7 +1542,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initEmployeeMap(final GncV2 pRootElement) {
-	employeeID2employee = new HashMap<>();
+	employeeID2employee = new HashMap<GCshID, GnucashEmployee>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -1552,8 +1552,8 @@ public class GnucashFileImpl implements GnucashFile {
 	    GncV2.GncBook.GncGncEmployee jwsdpEmpl = (GncV2.GncBook.GncGncEmployee) bookElement;
 
 	    try {
-		GnucashEmployeeImpl vend = createEmployee(jwsdpEmpl);
-		employeeID2employee.put(vend.getId(), vend);
+		GnucashEmployeeImpl empl = createEmployee(jwsdpEmpl);
+		employeeID2employee.put(empl.getId(), empl);
 	    } catch (RuntimeException e) {
 		LOGGER.error("[RuntimeException] Problem in " + getClass().getName() + ".initEmployeeMap: "
 			+ "ignoring illegal Employee-Entry with id=" + jwsdpEmpl.getEmployeeId(), e);
@@ -2298,7 +2298,7 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @see GnucashFile#getEmployeeByID(java.lang.String)
      */
-    public GnucashEmployee getEmployeeByID(final String id) {
+    public GnucashEmployee getEmployeeByID(final GCshID id) {
 	if (employeeID2employee == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
@@ -2314,8 +2314,44 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashFile#getEmployeesByName(java.lang.String)
      */
     @Override
+    public Collection<GnucashEmployee> getEmployeesByUserName(final String userName) {
+	return getEmployeesByUserName(userName, true);
+    }
+
+    /**
+     * @see GnucashFile#getEmployeesByName(java.lang.String)
+     */
+    @Override
     public Collection<GnucashEmployee> getEmployeesByName(final String name) {
 	return getEmployeesByName(name, true);
+    }
+
+    /**
+     * @see GnucashFile#getEmployeesByName(java.lang.String)
+     */
+    @Override
+    public Collection<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
+
+	if (employeeID2employee == null) {
+	    throw new IllegalStateException("no root-element loaded");
+	}
+
+	Collection<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
+
+	for ( GnucashEmployee empl : getEmployees() ) {
+	    if ( relaxed ) {
+		if ( empl.getUserName().trim().toLowerCase().
+			contains(expr.trim().toLowerCase()) ) {
+		    result.add(empl);
+		}
+	    } else {
+		if ( empl.getUserName().equals(expr) ) {
+		    result.add(empl);
+		}
+	    }
+	}
+	
+	return result;
     }
 
     /**
@@ -2346,6 +2382,17 @@ public class GnucashFileImpl implements GnucashFile {
 	return result;
     }
 
+    @Override
+    public GnucashEmployee getEmployeeByUserNameUniq(final String userName) throws NoEntryFoundException, TooManyEntriesFoundException {
+	Collection<GnucashEmployee> emplList = getEmployeesByUserName(userName);
+	if ( emplList.size() == 0 )
+	    throw new NoEntryFoundException();
+	else if ( emplList.size() > 1 )
+	    throw new TooManyEntriesFoundException();
+	else
+	    return emplList.iterator().next();
+    }
+    
     @Override
     public GnucashEmployee getEmployeeByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
 	Collection<GnucashEmployee> emplList = getEmployeesByName(name);
