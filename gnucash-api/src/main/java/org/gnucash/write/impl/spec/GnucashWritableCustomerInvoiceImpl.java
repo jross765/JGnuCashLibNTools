@@ -223,7 +223,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	    return; // nothing has changed
 	}
 
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getId());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getId().toString());
 	getWritingFile().setModified(true);
 
 	// <<insert code to react further to this change here
@@ -378,8 +378,8 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
     /**
      * {@inheritDoc}
      */
-    public String getCustomerId() {
-	return getOwnerId();
+    public GCshID getCustomerId() {
+	return new GCshID(getOwnerId());
     }
 
     /**

@@ -541,7 +541,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
     @Override
-    public GnucashWritableCustomer getCustomerByID(final String arg0) {
+    public GnucashWritableCustomer getCustomerByID(final GCshID arg0) {
 	return (GnucashWritableCustomer) super.getCustomerByID(arg0);
     }
 

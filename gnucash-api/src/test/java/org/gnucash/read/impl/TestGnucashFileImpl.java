@@ -105,4 +105,10 @@ public class TestGnucashFileImpl
   {    
     assertEquals(3, gcshFile.getNofEntriesVendorMap());
   }
+
+  @Test
+  public void test09() throws Exception
+  {    
+    assertEquals(1, gcshFile.getNofEntriesEmployeeMap());
+  }
 }

@@ -3,6 +3,7 @@ package org.example.gnucash.write;
 import java.io.File;
 import java.time.LocalDateTime;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
@@ -25,7 +26,7 @@ public class GenJob {
     private static String gcshInFileName  = "example_in.gnucash";
     private static String gcshOutFileName = "example_out.gnucash";
     private static JobType type           = JobType.CUSTOMER;
-    private static String custID          = "1d2081e8a10e4d5e9312d9fff17d470d";
+    private static GCshID custID          = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
     private static String vendID          = "bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7";
     private static String number          = "1234";
     private static String name            = "Jobbo McJob";

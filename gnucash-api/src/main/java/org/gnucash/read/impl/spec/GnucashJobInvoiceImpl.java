@@ -3,6 +3,7 @@ package org.gnucash.read.impl.spec;
 import java.util.Collection;
 import java.util.HashSet;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCustomer;
@@ -116,11 +117,11 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public String getCustomerId() throws WrongInvoiceTypeException {
+  public GCshID getCustomerId() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	throw new WrongInvoiceTypeException();
     
-    return getOwnerId_viaJob();
+    return new GCshID(getOwnerId_viaJob());
   }
 
   /**

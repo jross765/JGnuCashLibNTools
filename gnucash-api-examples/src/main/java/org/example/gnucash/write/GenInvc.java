@@ -42,7 +42,7 @@ public class GenInvc {
     private static String gcshInFileName    = "example_in.gnucash";
     private static String gcshOutFileName   = "example_out.gnucash";
     private static InvoiceType type         = InvoiceType.CUSTOMER;
-    private static String custID            = "1d2081e8a10e4d5e9312d9fff17d470d";
+    private static GCshID custID            = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
     private static String vendID            = "bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7";
     private static String job1ID            = "e91b99cd6fbb48a985cbf1e8041f378c"; // customer job
     private static String job2ID            = "028cfb5993ef4d6b83206bc844e2fe56"; // vendor job

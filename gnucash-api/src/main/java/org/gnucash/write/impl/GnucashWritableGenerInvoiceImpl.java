@@ -554,7 +554,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    {
 		OwnerId ownerIdRef = fact.createOwnerId();
 		ownerIdRef.setType(Const.XML_DATA_TYPE_GUID);
-		ownerIdRef.setValue(cust.getId());
+		ownerIdRef.setValue(cust.getId().toString());
 		custRef.setOwnerId(ownerIdRef);
 	    }
 	    invc.setInvoiceOwner(custRef);
@@ -1193,7 +1193,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		                       invcID, invcNumber, 
 		                       postAcct, 
                                        GCshOwner.Type.CUSTOMER, GCshOwner.Type.CUSTOMER, // second one is dummy
-                                       cust.getId());
+                                       cust.getId().toString());
     }
 
     private static GncAccount.ActLots.GncLot createBillPostLot_Vendor(
@@ -1938,7 +1938,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	attemptChange();
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getId());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getId().toString());
 	getFile().setModified(true);
     }
 

@@ -17,23 +17,15 @@ import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerInvoice;
-import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashTransaction;
-import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.TestGnucashCustomerImpl;
 import org.gnucash.read.impl.TestGnucashGenerJobImpl;
 import org.gnucash.read.impl.TestGnucashVendorImpl;
 import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
-import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;
-import org.gnucash.read.impl.spec.GnucashVendorBillImpl;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
-import org.gnucash.read.spec.GnucashJobInvoice;
-import org.gnucash.read.spec.GnucashVendorBill;
 import org.gnucash.write.impl.GnucashWritableFileImpl;
 import org.gnucash.write.spec.GnucashWritableCustomerInvoice;
-import org.gnucash.write.spec.GnucashWritableJobInvoice;
-import org.gnucash.write.spec.GnucashWritableVendorBill;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,9 +40,9 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableCustomerInvoiceImpl
 {
-    private static final String CUST_1_ID = TestGnucashCustomerImpl.CUST_1_ID;
-    private static final String CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
-    private static final String CUST_3_ID = TestGnucashCustomerImpl.CUST_3_ID;
+    private static final GCshID CUST_1_ID = TestGnucashCustomerImpl.CUST_1_ID;
+    private static final GCshID CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
+    private static final GCshID CUST_3_ID = TestGnucashCustomerImpl.CUST_3_ID;
 
     private static final String VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
     private static final String VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;

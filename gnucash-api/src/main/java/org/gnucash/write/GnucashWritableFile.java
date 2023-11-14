@@ -80,7 +80,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param id the unique id of the customer to look for
      * @return the customer or null if it's not found
      */
-    GnucashWritableCustomer getCustomerByID(String id);
+    GnucashWritableCustomer getCustomerByID(GCshID id);
 
     /**
      *

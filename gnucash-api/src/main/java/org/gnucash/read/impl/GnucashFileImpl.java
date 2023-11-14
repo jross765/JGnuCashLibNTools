@@ -622,7 +622,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId().toString())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -665,7 +665,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId().toString())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -709,7 +709,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId().toString())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -1262,7 +1262,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashCustomer
      * @see GnucashCustomerImpl
      */
-    protected Map<String, GnucashCustomer> customerID2customer;
+    protected Map<GCshID, GnucashCustomer> customerID2customer;
 
     /**
      * All vendors indexed by their unique id-String.
@@ -1341,6 +1341,8 @@ public class GnucashFileImpl implements GnucashFile {
 	initCustomerMap(pRootElement);
 
 	initVendorMap(pRootElement);
+
+	initEmployeeMap(pRootElement);
 
 	initCommodityMap(pRootElement);
 
@@ -1496,7 +1498,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initCustomerMap(final GncV2 pRootElement) {
-	customerID2customer = new HashMap<>();
+	customerID2customer = new HashMap<GCshID, GnucashCustomer>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -1537,6 +1539,28 @@ public class GnucashFileImpl implements GnucashFile {
 	} // for
 
 	LOGGER.debug("No. of entries in vendor map: " + vendorID2vendor.size());
+    }
+
+    private void initEmployeeMap(final GncV2 pRootElement) {
+	employeeID2employee = new HashMap<>();
+
+	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
+	    Object bookElement = iter.next();
+	    if (!(bookElement instanceof GncV2.GncBook.GncGncEmployee)) {
+		continue;
+	    }
+	    GncV2.GncBook.GncGncEmployee jwsdpEmpl = (GncV2.GncBook.GncGncEmployee) bookElement;
+
+	    try {
+		GnucashEmployeeImpl vend = createEmployee(jwsdpEmpl);
+		employeeID2employee.put(vend.getId(), vend);
+	    } catch (RuntimeException e) {
+		LOGGER.error("[RuntimeException] Problem in " + getClass().getName() + ".initEmployeeMap: "
+			+ "ignoring illegal Employee-Entry with id=" + jwsdpEmpl.getEmployeeId(), e);
+	    }
+	} // for
+
+	LOGGER.debug("No. of entries in vendor map: " + employeeID2employee.size());
     }
 
     private void initCommodityMap(final GncV2 pRootElement) {
@@ -1940,6 +1964,15 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     /**
+     * @param jwsdpVend the JWSDP-peer (parsed xml-element) to fill our object with
+     * @return the new GnucashVendor to wrap the given JAXB object.
+     */
+    protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
+	GnucashEmployeeImpl empl = new GnucashEmployeeImpl(jwsdpEmpl, this);
+	return empl;
+    }
+
+    /**
      * @param jwsdpCmdty the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashCommodity to wrap the given JAXB object.
      */
@@ -2130,7 +2163,7 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
-    public GnucashCustomer getCustomerByID(final String id) {
+    public GnucashCustomer getCustomerByID(final GCshID id) {
 	if (customerID2customer == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
@@ -2951,6 +2984,11 @@ public class GnucashFileImpl implements GnucashFile {
     @Override
     public int getNofEntriesVendorMap() {
 	return vendorID2vendor.size();
+    }
+
+    @Override
+    public int getNofEntriesEmployeeMap() {
+	return employeeID2employee.size();
     }
 
     @Override

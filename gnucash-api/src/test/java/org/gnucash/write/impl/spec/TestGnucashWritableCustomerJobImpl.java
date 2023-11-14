@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -34,9 +35,9 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableCustomerJobImpl
 {
-    private static final String CUST_1_ID = TestGnucashCustomerImpl.CUST_1_ID;
-    private static final String CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
-    private static final String CUST_3_ID = TestGnucashCustomerImpl.CUST_3_ID;
+    private static final GCshID CUST_1_ID = TestGnucashCustomerImpl.CUST_1_ID;
+    private static final GCshID CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
+    private static final GCshID CUST_3_ID = TestGnucashCustomerImpl.CUST_3_ID;
 
     // ----------------------------
 
@@ -174,8 +175,8 @@ public class TestGnucashWritableCustomerJobImpl
       assertEquals(newInvcID, jobGener.getId());
       assertEquals(newInvcID, jobSpec.getId());
       
-      assertEquals(CUST_1_ID, jobGener.getOwnerId());
-      assertEquals(CUST_1_ID, jobSpec.getOwnerId());
+      assertEquals(CUST_1_ID.toString(), jobGener.getOwnerId());
+      assertEquals(CUST_1_ID.toString(), jobSpec.getOwnerId());
       assertEquals(CUST_1_ID, jobSpec.getCustomerId());
       
       assertEquals("J123", jobGener.getNumber());

@@ -594,7 +594,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the customer to look for
      * @return the customer or null if it's not found
      */
-    GnucashCustomer getCustomerByID(String id);
+    GnucashCustomer getCustomerByID(GCshID id);
 
     /**
      * warning: this function has to traverse all customers. If it much faster to
@@ -744,6 +744,8 @@ public interface GnucashFile extends GnucashObject {
     public int getNofEntriesCustomerMap();
 
     public int getNofEntriesVendorMap();
+
+    public int getNofEntriesEmployeeMap();
 
     public int getNofEntriesCommodityMap();
 

@@ -2,6 +2,7 @@ package org.gnucash.read.spec;
 
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashGenerInvoice;
@@ -41,7 +42,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
     /**
      * @return ID of customer this invoice has been sent to.
      */
-    String getCustomerId() throws WrongInvoiceTypeException;
+    GCshID getCustomerId() throws WrongInvoiceTypeException;
 
     /**
      * @return ID of vendor this bill has been sent from.

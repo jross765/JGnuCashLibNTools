@@ -115,7 +115,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	    OwnerId ownerid = factory.createOwnerId();
 	    ownerid.setType(Const.XML_DATA_TYPE_GUID);
-	    ownerid.setValue(cust.getId());
+	    ownerid.setValue(cust.getId().toString());
 
 	    owner.setOwnerId(ownerid);
 	    owner.setVersion(Const.XML_FORMAT_VERSION);
@@ -175,7 +175,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	if (oldCust == cust) {
 	    return; // nothing has changed
 	}
-	getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getId());
+	getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getId().toString());
 	getWritingFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
