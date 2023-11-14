@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -34,9 +35,9 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableVendorJobImpl
 {
-    private static final String VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
-    private static final String VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
-    private static final String VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
+    private static final GCshID VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
+    private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
+    private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
     // ----------------------------
 
@@ -174,8 +175,8 @@ public class TestGnucashWritableVendorJobImpl
       assertEquals(newInvcID, jobGener.getId());
       assertEquals(newInvcID, jobSpec.getId());
       
-      assertEquals(VEND_1_ID, jobGener.getOwnerId());
-      assertEquals(VEND_1_ID, jobSpec.getOwnerId());
+      assertEquals(VEND_1_ID.toString(), jobGener.getOwnerId());
+      assertEquals(VEND_1_ID.toString(), jobSpec.getOwnerId());
       assertEquals(VEND_1_ID, jobSpec.getVendorId());
       
       assertEquals("J456", jobGener.getNumber());

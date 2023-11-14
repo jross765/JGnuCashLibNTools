@@ -3,6 +3,7 @@ package org.gnucash.read;
 import java.util.Collection;
 import java.util.Locale;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshAddress;
 import org.gnucash.read.aux.GCshBillTerms;
@@ -34,7 +35,7 @@ public interface GnucashVendor extends GnucashObject {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    String getId();
+    GCshID getId();
 
     /**
      *

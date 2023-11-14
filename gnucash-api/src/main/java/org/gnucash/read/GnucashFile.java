@@ -623,7 +623,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the vendor to look for
      * @return the vendor or null if it's not found
      */
-    GnucashVendor getVendorByID(String id);
+    GnucashVendor getVendorByID(GCshID id);
 
     /**
      * warning: this function has to traverse all vendors. If it much faster to try

@@ -115,7 +115,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
 	    OwnerId ownerid = factory.createOwnerId();
 	    ownerid.setType(Const.XML_DATA_TYPE_GUID);
-	    ownerid.setValue(vend.getId());
+	    ownerid.setValue(vend.getId().toString());
 
 	    owner.setOwnerId(ownerid);
 	    owner.setVersion(Const.XML_FORMAT_VERSION);
@@ -175,7 +175,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	if (oldVend == vend) {
 	    return; // nothing has changed
 	}
-	getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getId());
+	getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getId().toString());
 	getWritingFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();

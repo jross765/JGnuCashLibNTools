@@ -3,6 +3,7 @@ package org.example.gnucash.read;
 import java.io.File;
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.NoEntryFoundException;
@@ -19,7 +20,7 @@ public class GetVendInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static String vendID       = "xyz";
+    private static GCshID vendID       = new GCshID("xyz");
     private static String vendName     = "abc";
     // END Example data
 

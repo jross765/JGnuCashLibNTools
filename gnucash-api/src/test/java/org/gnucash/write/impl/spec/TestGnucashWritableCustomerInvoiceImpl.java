@@ -44,9 +44,9 @@ public class TestGnucashWritableCustomerInvoiceImpl
     private static final GCshID CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
     private static final GCshID CUST_3_ID = TestGnucashCustomerImpl.CUST_3_ID;
 
-    private static final String VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
-    private static final String VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
-    private static final String VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
+    private static final GCshID VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
+    private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
+    private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
     private static final String JOB_1_ID  = TestGnucashGenerJobImpl.JOB_1_ID;
     private static final String JOB_2_ID  = TestGnucashGenerJobImpl.JOB_2_ID;

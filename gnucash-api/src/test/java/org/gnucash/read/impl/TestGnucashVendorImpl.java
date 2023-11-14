@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.aux.GCshBillTerms;
@@ -24,9 +25,9 @@ public class TestGnucashVendorImpl
   private GnucashFile   gcshFile = null;
   private GnucashVendor vend = null;
   
-  public static final String VEND_1_ID = "087e1a3d43fa4ef9a9bdd4b4797c4231";
-  public static final String VEND_2_ID = "4f16fd55c0d64ebe82ffac0bb25fe8f5";
-  public static final String VEND_3_ID = "bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7";
+  public static final GCshID VEND_1_ID = new GCshID("087e1a3d43fa4ef9a9bdd4b4797c4231");
+  public static final GCshID VEND_2_ID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+  public static final GCshID VEND_3_ID = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
 
   private static final String TAXTABLE_UK_1_ID   = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 

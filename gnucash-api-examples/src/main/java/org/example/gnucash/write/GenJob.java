@@ -27,7 +27,7 @@ public class GenJob {
     private static String gcshOutFileName = "example_out.gnucash";
     private static JobType type           = JobType.CUSTOMER;
     private static GCshID custID          = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
-    private static String vendID          = "bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7";
+    private static GCshID vendID          = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
     private static String number          = "1234";
     private static String name            = "Jobbo McJob";
     // END Example data

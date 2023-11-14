@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
@@ -77,8 +78,8 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public String getId() {
-	return jwsdpPeer.getVendorGuid().getValue();
+    public GCshID getId() {
+	return new GCshID(jwsdpPeer.getVendorGuid().getValue());
     }
 
     /**

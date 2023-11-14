@@ -128,11 +128,11 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public String getVendorId() throws WrongInvoiceTypeException {
+  public GCshID getVendorId() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	throw new WrongInvoiceTypeException();
     
-    return getOwnerId_viaJob();
+    return new GCshID(getOwnerId_viaJob());
   }
 
   /**

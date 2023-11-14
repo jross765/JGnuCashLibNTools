@@ -754,7 +754,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId().toString())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -797,7 +797,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId().toString())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -841,7 +841,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId().toString())) {
 		try {
 		    retval.add(new GnucashVendorBillImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -1270,7 +1270,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashVendor
      * @see GnucashVendorImpl
      */
-    protected Map<String, GnucashVendor> vendorID2vendor;
+    protected Map<GCshID, GnucashVendor> vendorID2vendor;
 
     /**
      * All emloyees indexed by their unique id-String.
@@ -1520,7 +1520,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initVendorMap(final GncV2 pRootElement) {
-	vendorID2vendor = new HashMap<>();
+	vendorID2vendor = new HashMap<GCshID, GnucashVendor>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -2232,7 +2232,7 @@ public class GnucashFileImpl implements GnucashFile {
     // ---------------------------------------------------------------
 
     @Override
-    public GnucashVendor getVendorByID(String id) {
+    public GnucashVendor getVendorByID(GCshID id) {
 	if (vendorID2vendor == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}

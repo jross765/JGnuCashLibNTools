@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.InputStream;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -116,9 +117,9 @@ public class TestGnucashVendorJobImpl
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implemetation error was
     // found with this test)
-    String vendID = "4f16fd55c0d64ebe82ffac0bb25fe8f5";
-    assertEquals(vendID, jobGener.getOwnerId());
-    assertEquals(vendID, jobSpec.getOwnerId());
+    GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+    assertEquals(vendID.toString(), jobGener.getOwnerId());
+    assertEquals(vendID.toString(), jobSpec.getOwnerId());
     assertEquals(vendID, jobSpec.getVendorId());
   }
 }
