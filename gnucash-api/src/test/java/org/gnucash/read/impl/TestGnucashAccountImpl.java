@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
 import org.junit.Before;
@@ -18,13 +19,13 @@ public class TestGnucashAccountImpl
   private GnucashFile    gcshFile = null;
   private GnucashAccount acct = null;
   
-  private static final String ACCT_1_ID = "bbf77a599bd24a3dbfec3dd1d0bb9f5c"; // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
-  private static final String ACCT_2_ID = "cc2c4709633943c39293bfd73de88c9b"; // Root Account::Aktiva::Depots::Depot RaiBa
-  private static final String ACCT_3_ID = "5008258df86243ee86d37dee64327c27"; // Root Account::Fremdkapital
-  private static final String ACCT_4_ID = "68a4c19f9a8c48909fc69d0dc18c37a6"; // Root Account::Fremdkapital::Lieferanten::Lieferfanto
-  private static final String ACCT_5_ID = "7e223ee2260d4ba28e8e9e19ce291f43"; // Root Account::Aktiva::Forderungen::Unfug_Quatsch
-  private static final String ACCT_6_ID = "ebc834e7f20e4be38f445d655142d6b1"; // Root Account::Anfangsbestand
-  private static final String ACCT_7_ID = "d49554f33a0340bdb6611a1ab5575998"; // Root Account::Aktiva::Depots::Depot RaiBa::DE0007100000 Mercedes-Benz
+  private static final GCshID ACCT_1_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
+  private static final GCshID ACCT_2_ID = new GCshID("cc2c4709633943c39293bfd73de88c9b"); // Root Account::Aktiva::Depots::Depot RaiBa
+  private static final GCshID ACCT_3_ID = new GCshID("5008258df86243ee86d37dee64327c27"); // Root Account::Fremdkapital
+  private static final GCshID ACCT_4_ID = new GCshID("68a4c19f9a8c48909fc69d0dc18c37a6"); // Root Account::Fremdkapital::Lieferanten::Lieferfanto
+  private static final GCshID ACCT_5_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root Account::Aktiva::Forderungen::Unfug_Quatsch
+  private static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account::Anfangsbestand
+  private static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account::Aktiva::Depots::Depot RaiBa::DE0007100000 Mercedes-Benz
 
   // -----------------------------------------------------------------
   
@@ -82,7 +83,7 @@ public class TestGnucashAccountImpl
     assertEquals("Girokonto 1", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
          
-    assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountId());
+    assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountId().toString());
     
     assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -109,7 +110,7 @@ public class TestGnucashAccountImpl
     assertEquals("Aktiendepot 1", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("7ee6fe4de6db46fd957f3513c9c6f983", acct.getParentAccountId());
+    assertEquals("7ee6fe4de6db46fd957f3513c9c6f983", acct.getParentAccountId().toString());
 
     // ::TODO
     assertEquals(0.0, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -134,7 +135,7 @@ public class TestGnucashAccountImpl
     assertEquals("alle Verbindlichkeiten", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountId());
+    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountId().toString());
 
     assertEquals(0.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     // ::CHECK: Should'nt the value in the following assert be positive
@@ -158,7 +159,7 @@ public class TestGnucashAccountImpl
     assertEquals(null, acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("a6d76c8d72764905adecd78d955d25c0", acct.getParentAccountId());
+    assertEquals("a6d76c8d72764905adecd78d955d25c0", acct.getParentAccountId().toString());
 
     // ::TODO
     assertEquals(0.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -183,7 +184,7 @@ public class TestGnucashAccountImpl
     assertEquals(null, acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("74401ce4880c4f4487c4301027a71bde", acct.getParentAccountId());
+    assertEquals("74401ce4880c4f4487c4301027a71bde", acct.getParentAccountId().toString());
 
     assertEquals(709.95, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(709.95, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -208,7 +209,7 @@ public class TestGnucashAccountImpl
     assertEquals("Anfangsbestand", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountId());
+    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountId().toString());
 
     assertEquals(-4128.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(-4128.00, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);

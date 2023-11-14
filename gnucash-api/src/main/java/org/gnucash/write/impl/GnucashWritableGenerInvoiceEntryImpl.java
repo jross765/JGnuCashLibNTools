@@ -89,7 +89,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	{
 	    GncV2.GncBook.GncGncEntry.EntryIAcct iacct = factory.createGncV2GncBookGncGncEntryEntryIAcct();
 	    iacct.setType(Const.XML_DATA_TYPE_GUID);
-	    iacct.setValue(acct.getId());
+	    iacct.setValue(acct.getId().toString());
 	    entry.setEntryIAcct(iacct);
 	}
 	
@@ -174,7 +174,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	{
 	    GncV2.GncBook.GncGncEntry.EntryBAcct iacct = factory.createGncV2GncBookGncGncEntryEntryBAcct();
 	    iacct.setType(Const.XML_DATA_TYPE_GUID);
-	    iacct.setValue(acct.getId());
+	    iacct.setValue(acct.getId().toString());
 	    entry.setEntryBAcct(iacct);
 	}
 

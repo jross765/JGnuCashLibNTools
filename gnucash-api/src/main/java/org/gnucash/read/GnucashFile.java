@@ -7,6 +7,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshBillTerms;
@@ -126,7 +127,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the account to look for
      * @return the account or null if it's not found
      */
-    GnucashAccount getAccountByID(String id);
+    GnucashAccount getAccountByID(GCshID id);
 
     /**
      * @return a read-only collection of all accounts that have no parent
@@ -174,7 +175,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id if null, gives all account that have no parent
      * @return all accounts with that parent in no particular order
      */
-    Collection<GnucashAccount> getAccountsByParentID(String id);
+    Collection<GnucashAccount> getAccountsByParentID(GCshID id);
 
     /**
      * @param id the unique id of the (generic) invoice to look for
@@ -570,7 +571,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getAccountByID(String)
      * @see #getAccountsByName(String)
      */
-    GnucashAccount getAccountByIDorName(String id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnucashAccount getAccountByIDorName(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * First try to fetch the account by id, then fall back to traversing all
@@ -585,7 +586,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getAccountByID(String)
      * @see #getAccountsByName(String)
      */
-    GnucashAccount getAccountByIDorNameEx(String id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnucashAccount getAccountByIDorNameEx(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     // ----------------------------
 

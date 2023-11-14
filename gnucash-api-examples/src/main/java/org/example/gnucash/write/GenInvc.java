@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.AccountNotFoundException;
 import org.gnucash.read.GnucashAccount;
@@ -45,10 +46,10 @@ public class GenInvc {
     private static String vendID            = "bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7";
     private static String job1ID            = "e91b99cd6fbb48a985cbf1e8041f378c"; // customer job
     private static String job2ID            = "028cfb5993ef4d6b83206bc844e2fe56"; // vendor job
-    private static String incAcctID         = "fed745c4da5c49ebb0fde0f47222b35b"; // Root Account:Erträge:Sonstiges
-    private static String expAcctID         = "7d4c7bf08901493ab346cc24595fdb97"; // Root Account:Aufwendungen:Sonstiges
-    private static String recvblAcctID      = "ee7561449e61448fb8fefdc27a35d559"; // Root Account:Aktiva:Forderungen:sonstige
-    private static String paybleAcctID      = "55711b4e6f564709bf880f292448237a"; // Root Account:Fremdkapital:Lieferanten:sonstige
+    private static GCshID incAcctID         = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root Account:Erträge:Sonstiges
+    private static GCshID expAcctID         = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
+    private static GCshID recvblAcctID      = new GCshID("ee7561449e61448fb8fefdc27a35d559"); // Root Account:Aktiva:Forderungen:sonstige
+    private static GCshID paybleAcctID      = new GCshID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige
     private static String number            = "1234";
     private static LocalDate dateOpen       = LocalDate.now();
     private static LocalDate datePost       = LocalDate.now();

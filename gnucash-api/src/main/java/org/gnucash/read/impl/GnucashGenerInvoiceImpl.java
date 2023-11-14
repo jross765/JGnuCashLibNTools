@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.gnucash.Const;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
@@ -289,9 +290,9 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getPostAccountId() {
+	public GCshID getPostAccountId() {
 	    try {
-		return jwsdpPeer.getInvoicePostacc().getValue();
+		return new GCshID(jwsdpPeer.getInvoicePostacc().getValue());
 	    } catch ( NullPointerException exc ) {
 		return null;
 	    }

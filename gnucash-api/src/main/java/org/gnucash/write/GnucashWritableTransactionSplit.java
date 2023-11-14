@@ -3,6 +3,7 @@ package org.gnucash.write;
 import java.beans.PropertyChangeListener;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashTransactionSplit;
@@ -34,7 +35,7 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 	 * @param accountId the new account to give this
 	 *        money to/take it from.
 	 */
-	void setAccountID(final String accountId);
+	void setAccountID(final GCshID accountId);
 
 	/**
 	 * Does not convert the quantity to another

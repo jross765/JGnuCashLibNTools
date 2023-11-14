@@ -8,6 +8,7 @@ import java.util.List;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.read.GnucashAccount;
@@ -76,20 +77,20 @@ public class GnucashAccountImpl extends SimpleAccount
     /**
      * @see GnucashAccount#getId()
      */
-    public String getId() {
-	return jwsdpPeer.getActId().getValue();
+    public GCshID getId() {
+	return new GCshID(jwsdpPeer.getActId().getValue());
     }
 
     /**
      * @see GnucashAccount#getParentAccountId()
      */
-    public String getParentAccountId() {
+    public GCshID getParentAccountId() {
 	GncAccount.ActParent parent = jwsdpPeer.getActParent();
 	if (parent == null) {
 	    return null;
 	}
 
-	return parent.getValue();
+	return new GCshID(parent.getValue());
     }
 
     /**

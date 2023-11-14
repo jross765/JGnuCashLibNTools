@@ -3,6 +3,7 @@ package org.gnucash.read;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
 import org.gnucash.numbers.FixedPointNumber;
@@ -396,7 +397,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   /**
    * @return the id of the {@link GnucashAccount} the payment is made to.
    */
-  String getPostAccountId();
+  GCshID getPostAccountId();
   
   String getPostTransactionId();
 

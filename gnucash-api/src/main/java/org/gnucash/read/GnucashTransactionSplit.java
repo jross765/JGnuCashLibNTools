@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.numbers.FixedPointNumber;
 
@@ -81,7 +82,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      *
      * @return the id of the account we transfer from/to.
      */
-    String getAccountID();
+    GCshID getAccountID();
 
     /**
      * This may be null if an account-id is specified in

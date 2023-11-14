@@ -3,6 +3,7 @@ package org.gnucash.read;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 
 import java.time.LocalDate;
@@ -68,7 +69,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     /**
      * @return the unique id for that account (not meaningfull to human users)
      */
-    String getId();
+    GCshID getId();
 
     /**
      * @return a user-defined description to acompany the name of the account. Can
@@ -97,7 +98,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     /**
      * @return null if the account is below the root
      */
-    String getParentAccountId();
+    GCshID getParentAccountId();
 
     /**
      * @return the parent-account we are a child of or null if we are a top-level

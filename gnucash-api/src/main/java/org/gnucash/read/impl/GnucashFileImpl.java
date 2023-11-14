@@ -34,6 +34,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.GncBudget;
@@ -312,7 +313,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @return the sorted collection of children of that account
      */
     @Override
-    public Collection<GnucashAccount> getAccountsByParentID(final String id) {
+    public Collection<GnucashAccount> getAccountsByParentID(final GCshID id) {
 	if (accountID2account == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
@@ -322,13 +323,15 @@ public class GnucashFileImpl implements GnucashFile {
 	for (Object element : accountID2account.values()) {
 	    GnucashAccount account = (GnucashAccount) element;
 
-	    String parent = account.getParentAccountId();
-	    if (parent == null) {
+	    GCshID parentID = account.getParentAccountId();
+	    if (parentID == null) {
 		if (id == null) {
+		    retval.add((GnucashAccount) account);
+		} else if ( ! id.isSet() ) {
 		    retval.add((GnucashAccount) account);
 		}
 	    } else {
-		if (parent.equals(id)) {
+		if (parentID.equals(id)) {
 		    retval.add((GnucashAccount) account);
 		}
 	    }
@@ -442,7 +445,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see #getAccountsByName(String)
      */
     @Override
-    public GnucashAccount getAccountByIDorName(final String id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+    public GnucashAccount getAccountByIDorName(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
 	GnucashAccount retval = getAccountByID(id);
 	if (retval == null) {
 	    retval = getAccountByNameUniq(name, true);
@@ -465,7 +468,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see #getAccountsByName(String)
      */
     @Override
-    public GnucashAccount getAccountByIDorNameEx(final String id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+    public GnucashAccount getAccountByIDorNameEx(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
 	GnucashAccount retval = getAccountByID(id);
 	if (retval == null) {
 	    retval = getAccountByNameEx(name);
@@ -1211,7 +1214,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashAccount
      * @see GnucashAccountImpl
      */
-    protected Map<String, GnucashAccount> accountID2account;
+    protected Map<GCshID, GnucashAccount> accountID2account;
 
     /**
      * All transactions indexed by their unique id-String.
@@ -1400,7 +1403,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initAccountMap(final GncV2 pRootElement) {
-	accountID2account = new HashMap<>();
+	accountID2account = new HashMap<GCshID, GnucashAccount>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -2109,7 +2112,7 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @see GnucashFile#getAccountByID(java.lang.String)
      */
-    public GnucashAccount getAccountByID(final String id) {
+    public GnucashAccount getAccountByID(final GCshID id) {
 	if (accountID2account == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}

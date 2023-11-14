@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -353,7 +354,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @return the ID of the Account to transfer the money from
      * @throws WrongInvoiceTypeException
      */
-    private String getAccountIDToTransferMoneyFrom(final GnucashJobInvoiceEntryImpl entry)
+    private GCshID getAccountIDToTransferMoneyFrom(final GnucashJobInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
 	return getJobPostAccountID(entry);
     }

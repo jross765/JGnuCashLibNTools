@@ -8,6 +8,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
@@ -136,11 +137,11 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @see GnucashTransactionSplit#getAccountID()
      */
-    public String getAccountID() {
+    public GCshID getAccountID() {
 	assert jwsdpPeer.getSplitAccount().getType().equals(Const.XML_DATA_TYPE_GUID);
 	String id = jwsdpPeer.getSplitAccount().getValue();
 	assert id != null;
-	return id;
+	return new GCshID(id);
     }
 
     /**

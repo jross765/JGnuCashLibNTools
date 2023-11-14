@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -128,7 +129,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param id the id of the account to fetch
      * @return A changable version of the account or null of not found.
      */
-    GnucashWritableAccount getAccountByID(String id);
+    GnucashWritableAccount getAccountByID(GCshID id);
 
     /**
      * @see GnucashFile#getGenerJobByID(String)

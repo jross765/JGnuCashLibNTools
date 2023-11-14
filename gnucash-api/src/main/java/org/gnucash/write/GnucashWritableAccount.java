@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashObject;
@@ -93,7 +94,7 @@ public interface GnucashWritableAccount extends GnucashAccount,
      *
      * @see {@link #setParentAccount(GnucashAccount)}
      */
-    void setParentAccountId(String newparent);
+    void setParentAccountId(GCshID newParentID);
 
     /**
      * Remove this account from the sytem.<br/>

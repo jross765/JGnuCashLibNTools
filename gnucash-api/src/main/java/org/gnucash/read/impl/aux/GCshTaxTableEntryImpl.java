@@ -1,6 +1,7 @@
 package org.gnucash.read.impl.aux;
 
 import org.gnucash.Const;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -28,7 +29,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     /**
      * initialised lazy.
      */
-    private String myAccountID;
+    private GCshID myAccountID;
     /**
      * initialised lazy.
      */
@@ -82,9 +83,9 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @return Returns the accountID.
      * @link #myAccountID
      */
-    public String getAccountID() {
+    public GCshID getAccountID() {
 	if (myAccountID == null) {
-	    myAccountID = getJwsdpPeer().getTteAcct().getValue();
+	    myAccountID = new GCshID(getJwsdpPeer().getTteAcct().getValue());
 	}
 
 	return myAccountID;
@@ -106,7 +107,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @param account The account to set.
      * @link #myAccount
      */
-    public void setAccountID(final String acctId) {
+    public void setAccountID(final GCshID acctId) {
 	if (acctId == null) {
 	    throw new IllegalArgumentException("null 'accountId' given!");
 	}
@@ -114,7 +115,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 	myAccountID = acctId;
 	
 	getJwsdpPeer().getTteAcct().setType(Const.XML_DATA_TYPE_GUID);
-	getJwsdpPeer().getTteAcct().setValue(acctId);
+	getJwsdpPeer().getTteAcct().setValue(acctId.toString());
     }
 
     /**

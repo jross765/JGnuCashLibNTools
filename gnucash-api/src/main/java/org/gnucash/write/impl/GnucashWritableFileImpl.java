@@ -24,6 +24,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.GncBudget;
 import org.gnucash.generated.GncCountData;
@@ -766,7 +767,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashFile#getAccountByID(String)
      */
     @Override
-    public GnucashWritableAccount getAccountByID(final String id) {
+    public GnucashWritableAccount getAccountByID(final GCshID id) {
 	return (GnucashWritableAccount) super.getAccountByID(id);
     }
 

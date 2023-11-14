@@ -6,6 +6,7 @@ import org.gnucash.Const;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.numbers.FixedPointNumber;
@@ -138,7 +139,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		{
 			GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory.createGncTransactionTrnSplitsTrnSplitSplitAccount();
 			splitaccount.setType(Const.XML_DATA_TYPE_GUID);
-			splitaccount.setValue(account.getId());
+			splitaccount.setValue(account.getId().toString());
 			split.setSplitAccount(splitaccount);
 		}
 		return split;
@@ -154,7 +155,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	/**
 	 * @see GnucashWritableTransactionSplit#setAccount(GnucashAccount)
 	 */
-	public void setAccountID(final String accountId) {
+	public void setAccountID(final GCshID accountId) {
 		setAccount(getTransaction().getGnucashFile().getAccountByID(accountId));
 	}
 
@@ -169,7 +170,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 				:
 						getJwsdpPeer().getSplitAccount().getValue());
 		getJwsdpPeer().getSplitAccount().setType(Const.XML_DATA_TYPE_GUID);
-		getJwsdpPeer().getSplitAccount().setValue(account.getId());
+		getJwsdpPeer().getSplitAccount().setValue(account.getId().toString());
 		((GnucashWritableFile) getGnucashFile()).setModified(true);
 
 		if (old == null || !old.equals(account.getId())) {

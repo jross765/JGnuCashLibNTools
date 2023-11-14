@@ -14,6 +14,7 @@ import org.gnucash.Const;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncAccount;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.generated.Slot;
@@ -436,11 +437,13 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	/**
 	 * @see GnucashWritableAccount#setParentAccount(GnucashAccount)
 	 */
-	public void setParentAccountId(final String newParent) {
-		if (newParent == null || newParent.trim().length() == 0) {
-			setParentAccount(null);
+	public void setParentAccountId(final GCshID newParentID) {
+		if ( newParentID == null ) {
+		    setParentAccount(null);
+		} else if ( ! newParentID.isSet() ) {
+		    setParentAccount(null);
 		} else {
-			setParentAccount(getGnucashFile().getAccountByID(newParent));
+		    setParentAccount(getGnucashFile().getAccountByID(newParentID));
 		}
 	}
 
@@ -469,12 +472,12 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			parent = ((GnucashWritableFileImpl) getWritableGnucashFile())
 					.getObjectFactory().createGncAccountActParent();
 			parent.setType(Const.XML_DATA_TYPE_GUID);
-			parent.setValue(prntAcct.getId());
+			parent.setValue(prntAcct.getId().toString());
 			getJwsdpPeer().setActParent(parent);
 
 		} else {
 			oldPrntAcct = getParentAccount();
-			parent.setValue(prntAcct.getId());
+			parent.setValue(prntAcct.getId().toString());
 		}
 		setIsModified();
 

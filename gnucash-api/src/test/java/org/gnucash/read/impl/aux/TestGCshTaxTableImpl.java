@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.aux.GCshTaxTableEntry;
@@ -31,7 +32,7 @@ public class TestGCshTaxTableImpl
   public  static final String TAXTABLE_UK_1_ID   = "0bc4e576896a4fb4a2779dcf310f82f1"; // UK_VAT_Std
   private static final String TAXTABLE_UK_2_ID   = "9d33a0082d9241ac89aa8e907f30d1db"; // UK_VAT_red
     
-  private static final String TAX_ACCT_ID        = "1a5b06dada56466197edbd15e64fd425"; // Root Account::Fremdkapital::Steuerverbindl
+  private static final GCshID TAX_ACCT_ID        = new GCshID("1a5b06dada56466197edbd15e64fd425"); // Root Account::Fremdkapital::Steuerverbindl
 
   private GnucashFile  gcshFile = null;
   private GCshTaxTable taxTab = null;

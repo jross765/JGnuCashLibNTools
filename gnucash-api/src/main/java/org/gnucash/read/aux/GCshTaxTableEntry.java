@@ -1,5 +1,6 @@
 package org.gnucash.read.aux;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 
@@ -29,7 +30,7 @@ public interface GCshTaxTableEntry {
      * @return Returns the accountID.
      * @see ${@link #myAccountID}
      */
-    String getAccountID();
+    GCshID getAccountID();
 
     /**
      * @return Returns the account.
@@ -43,7 +44,7 @@ public interface GCshTaxTableEntry {
      * @return Returns the accountID.
      * @see ${@link #myAccountID}
      */
-    void setAccountID(final String acctID);
+    void setAccountID(final GCshID acctID);
 
     /**
      * @return Returns the account.

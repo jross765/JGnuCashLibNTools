@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.write.GnucashWritableTransaction;
 import org.gnucash.write.GnucashWritableTransactionSplit;
@@ -13,8 +14,8 @@ public class GenTrx {
     // BEGIN Example data -- adapt to your needs
     private static String gcshInFileName     = "example_in.gnucash";
     private static String gcshOutFileName    = "example_out.gnucash";
-    private static String fromAcctID         = "bbf77a599bd24a3dbfec3dd1d0bb9f5c"; // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
-    private static String toAcctID           = "87b7dc076d684bb78044795a89d665c8"; // Root Account::Aktiva::Sichteinlagen::nicht-KK::Tagesgeld RaiBa
+    private static GCshID fromAcctID         = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
+    private static GCshID toAcctID           = new GCshID("87b7dc076d684bb78044795a89d665c8"); // Root Account::Aktiva::Sichteinlagen::nicht-KK::Tagesgeld RaiBa
     private static FixedPointNumber amount   = new FixedPointNumber("1250/100");
     private static FixedPointNumber quantity = amount;
     private static LocalDate datePosted      = LocalDate.now();

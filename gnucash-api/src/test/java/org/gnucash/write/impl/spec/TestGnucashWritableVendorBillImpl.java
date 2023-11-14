@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
@@ -41,8 +42,8 @@ public class TestGnucashWritableVendorBillImpl
     private static final String VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
     private static final String VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
-    static final String EXPENSES_ACCT_ID   = "7d4c7bf08901493ab346cc24595fdb97"; // Root Account:Aufwendungen:Sonstiges
-    static final String PAYABLE_ACCT_ID    = "55711b4e6f564709bf880f292448237a"; // Root Account:Fremdkapital:Lieferanten:sonstige    
+    static final GCshID EXPENSES_ACCT_ID   = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
+    static final GCshID PAYABLE_ACCT_ID    = new GCshID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige    
     
     // ----------------------------
 
@@ -229,9 +230,9 @@ public class TestGnucashWritableVendorBillImpl
       assertEquals(2, postTrx.getSplits().size());
       String postTrxFirstSpltId = postTrx.getFirstSplit().getId();
       assertNotEquals(postTrxFirstSpltId, postTrx);
-      String postTrxFirstSpltAcctId = postTrx.getFirstSplit().getAccount().getId();
+      GCshID postTrxFirstSpltAcctId = postTrx.getFirstSplit().getAccount().getId();
       assertNotEquals(postTrxFirstSpltAcctId, postTrx);
-      String postTrxSecondSpltAcctId = postTrx.getSecondSplit().getAccount().getId();
+      GCshID postTrxSecondSpltAcctId = postTrx.getSecondSplit().getAccount().getId();
       assertNotEquals(postTrxSecondSpltAcctId, postTrx);
 //      System.out.println("ptrx1 " + postTrxFirstSpltAcctId);
 //      System.out.println("ptrx2 " + postTrxSecondSpltAcctId);

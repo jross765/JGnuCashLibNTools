@@ -17,6 +17,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.currency.ComplexPriceTable;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
@@ -139,7 +140,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 	 * @see GnucashAccount#getParentAccount()
 	 */
 	public GnucashAccount getParentAccount() {
-		String id = getParentAccountId();
+		GCshID id = getParentAccountId();
 		if (id == null) {
 			return null;
 		}
@@ -544,6 +545,8 @@ public abstract class SimpleAccount implements GnucashAccount {
 	public GnucashTransactionSplit getTransactionSplitByID(final String id) {
 		if (id == null) {
 			throw new IllegalArgumentException("null id given!");
+//		} else if (! id.isSet() ) {
+//			throw new IllegalArgumentException("ID not set");
 		}
 
 		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
@@ -583,7 +586,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 		}
 
 		GnucashAccount other = otherAcc;
-		i = other.getId().compareTo(getId());
+		i = other.getId().toString().compareTo(getId().toString());
 		if (i != 0) {
 		  return i;
 		}
@@ -625,7 +628,8 @@ public abstract class SimpleAccount implements GnucashAccount {
 				&&
 				getParentAccountId() != null
 				&&
-				((GnucashAccount) o).getParentAccountId().equalsIgnoreCase(getParentAccountId())) {
+				((GnucashAccount) o).getParentAccountId().toString().
+					equalsIgnoreCase(getParentAccountId().toString())) {
 			other = ((GnucashAccount) o).getName();
 			me = getName();
 		}

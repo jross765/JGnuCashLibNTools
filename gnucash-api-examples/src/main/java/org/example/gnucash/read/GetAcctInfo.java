@@ -3,6 +3,7 @@ package org.example.gnucash.read;
 import java.io.File;
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.NoEntryFoundException;
@@ -13,7 +14,7 @@ public class GetAcctInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static String acctID       = "xyz";
+    private static GCshID acctID       = new GCshID("xyz");
     private static String acctName     = "abc";
     // END Example data
 
