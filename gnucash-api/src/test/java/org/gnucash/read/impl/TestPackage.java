@@ -22,9 +22,12 @@ public class TestPackage extends TestCase
     suite.addTest(org.gnucash.read.impl.TestGnucashTransactionImpl.suite());
     // ::TODO
     // suite.addTest(org.gnucash.read.impl.TestGnucashTransactionSplitImpl.suite());
+    
     suite.addTest(org.gnucash.read.impl.TestGnucashCustomerImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashVendorImpl.suite());
+    suite.addTest(org.gnucash.read.impl.TestGnucashEmployeeImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashGenerJobImpl.suite());
+    
     suite.addTest(org.gnucash.read.impl.TestGnucashGenerInvoiceImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashGenerInvoiceEntryImpl.suite());
     

@@ -92,13 +92,13 @@ public class TestGnucashCustomerJobImpl
     assertNotEquals(null, jobSpec);
       
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(0, jobGener.getPaidInvoices().size());
     assertEquals(0, jobSpec.getPaidInvoices().size());
 
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(1, jobGener.getUnpaidInvoices().size());
     assertEquals(1, jobSpec.getUnpaidInvoices().size());
@@ -113,7 +113,7 @@ public class TestGnucashCustomerJobImpl
     assertNotEquals(null, jobSpec);
       
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
     assertEquals(custID.toString(), jobGener.getOwnerId());

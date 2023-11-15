@@ -73,6 +73,12 @@ public class GetEmplInfo {
 	}
 
 	try {
+	    System.out.println("User name:         '" + empl.getUserName() + "'");
+	} catch (Exception exc) {
+	    System.out.println("User name:         " + "ERROR");
+	}
+
+	try {
 	    System.out.println("Name:              '" + empl.getName() + "'");
 	} catch (Exception exc) {
 	    System.out.println("Name:              " + "ERROR");

@@ -30,6 +30,7 @@ public class TestGnucashGenerInvoiceImpl
   public static final String INVC_4_ID = "4eb0dc387c3f4daba57b11b2a657d8a4";
   public static final String INVC_5_ID = "169331c9860642cf84b04f3e3151058a";
   public static final String INVC_6_ID = "6588f1757b9e4e24b62ad5b37b8d8e07";
+  public static final String INVC_7_ID = "8de4467c17e04bb2895fb68cc07fc4df";
 
   // -----------------------------------------------------------------
   

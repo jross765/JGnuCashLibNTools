@@ -99,7 +99,7 @@ public class TestGnucashJobInvoiceImpl
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(3, invcGen.getGenerEntries().size());
     assertEquals(3, invcSpec.getGenerEntries().size());
@@ -124,7 +124,7 @@ public class TestGnucashJobInvoiceImpl
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     // ::TODO
 //    assertEquals(1327.60, invcGen.getJobAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -132,7 +132,7 @@ public class TestGnucashJobInvoiceImpl
     assertEquals(4125.0, ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     // ::TODO
 //    assertEquals(1327.60, invcGen.getJobAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -151,13 +151,13 @@ public class TestGnucashJobInvoiceImpl
 
     // ::TODO
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
 //    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getId());
 //    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getId());
     
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(0, invcGen.getPayingTransactions().size());
     assertEquals(0, invcSpec.getPayingTransactions().size());
@@ -168,7 +168,7 @@ public class TestGnucashJobInvoiceImpl
 //                 ((GnucashTransaction) trxList.toArray()[0]).getId());
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(false, invcGen.isInvcFullyPaid());
     assertEquals(false, invcSpec.isInvcFullyPaid());

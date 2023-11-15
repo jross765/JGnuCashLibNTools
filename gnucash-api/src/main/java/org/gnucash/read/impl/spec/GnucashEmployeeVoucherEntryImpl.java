@@ -110,6 +110,18 @@ public class GnucashEmployeeVoucherEntryImpl extends GnucashGenerInvoiceEntryImp
     throw new WrongInvoiceTypeException();
   }
 
+  // ---------------------------------------------------------------
+
+  @Override
+  public FixedPointNumber getBillPrice() throws WrongInvoiceTypeException {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getBillPriceFormatted() throws WrongInvoiceTypeException {
+    throw new WrongInvoiceTypeException();
+  }
+
   // ------------------------------
 
   @Override

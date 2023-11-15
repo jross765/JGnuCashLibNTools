@@ -16,8 +16,6 @@ import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshAddress;
-import org.gnucash.read.aux.GCshBillTerms;
-import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshAddressImpl;
 import org.gnucash.read.impl.spec.GnucashEmployeeJobImpl;
 import org.gnucash.read.spec.GnucashEmployeeJob;

@@ -196,6 +196,8 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 
   public GCshTaxTable getBillTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
 
+  public GCshTaxTable getVoucherTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
+
   public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
 
   // ------------------------------
@@ -241,6 +243,12 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
  * @throws WrongInvoiceTypeException 
    */
   String getBillApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * @return never null, "0%" if no taxtable is there
+ * @throws WrongInvoiceTypeException 
+   */
+  String getVoucherApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
 
   /**
    * @return never null, "0%" if no taxtable is there
@@ -329,6 +337,34 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // ----------------------------
 
   /**
+   * As ${@link #getInvcSum()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding or including taxes.
+   * @throws WrongInvoiceTypeException
+   * @see #getInvcSumExclTaxes()
+   * @see #getInvcSumInclTaxes()
+   */
+  String getBillSumFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumInclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price including taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getBillSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumExclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getBillSumExclTaxesFormatted() throws WrongInvoiceTypeException;
+
+  // ----------------------------
+
+  /**
    * This is the employee voucher sum as entered by the user. The user can decide to
    * include or exclude taxes.
    * 
@@ -354,6 +390,34 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // ----------------------------
 
   /**
+   * As ${@link #getInvcSum()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding or including taxes.
+   * @throws WrongInvoiceTypeException
+   * @see #getInvcSumExclTaxes()
+   * @see #getInvcSumInclTaxes()
+   */
+  String getVoucherSumFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumInclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price including taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getVoucherSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumExclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getVoucherSumExclTaxesFormatted() throws WrongInvoiceTypeException;
+
+  // ----------------------------
+
+  /**
    * This is the vendor bill sum as entered by the user. The user can decide to
    * include or exclude taxes.
    * 
@@ -375,6 +439,34 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @throws WrongInvoiceTypeException
    */
   FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException;
+
+  // ----------------------------
+
+  /**
+   * As ${@link #getInvcSum()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding or including taxes.
+   * @throws WrongInvoiceTypeException
+   * @see #getInvcSumExclTaxes()
+   * @see #getInvcSumInclTaxes()
+   */
+  String getJobSumFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumInclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price including taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * As ${@link #getInvcSumExclTaxes()}. but formatted.
+   * 
+   * @return count*single-unit-price excluding taxes.
+   * @throws WrongInvoiceTypeException
+   */
+  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException;
 
   // ---------------------------------------------------------------
 

@@ -269,21 +269,21 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   /**
    * Formating uses the default-locale's currency-format.
    * 
-   * @return what the customer must still pay (incl. taxes)
+   * @return what the vendor is still to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
    */
   String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
-   * @return what the customer has already pay (incl. taxes)
+   * @return what the vendor already has received (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
    */
   String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
   /**
-   * @return what the customer has already pay (incl. taxes)
+   * @return what the vendor already has received (incl. taxes)
    * @throws WrongInvoiceTypeException
    */
   String getBillAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
@@ -291,16 +291,54 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   /**
    * Formating uses the default-locale's currency-format.
    * 
-   * @return what the customer needs to pay in total (incl. taxes)
+   * @return what the vendor will receive in total (incl. taxes)
    * @throws WrongInvoiceTypeException
    */
   String getBillAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
 
   /**
-   * @return what the customer needs to pay in total (excl. taxes)
+   * @return what the vendor will receive in total (excl. taxes)
    * @throws WrongInvoiceTypeException
    */
   String getBillAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+
+  // ----------------------------
+
+  /**
+   * Formating uses the default-locale's currency-format.
+   * 
+   * @return what the employee is still to receive (incl. taxes)
+   * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
+   */
+  String getVoucherAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  /**
+   * @return what the employee already has received (incl. taxes)
+   * @throws WrongInvoiceTypeException
+ * @throws UnknownAccountTypeException 
+   */
+  String getVoucherAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+
+  /**
+   * @return what the employee already has received (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  String getVoucherAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * Formating uses the default-locale's currency-format.
+   * 
+   * @return what the employee will receive in in total (incl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  String getVoucherAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+
+  /**
+   * @return what the employee will receive in total (excl. taxes)
+   * @throws WrongInvoiceTypeException
+   */
+  String getVoucherAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
   // ---------------------------------------------------------------
 
@@ -391,6 +429,14 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @see GCshTaxedSumImpl
    */
   GCshTaxedSumImpl[] getBillTaxes() throws WrongInvoiceTypeException;
+
+  /**
+   *
+   * @return For a vendor bill: How much sales-taxes are to pay.
+   * @throws WrongInvoiceTypeException
+   * @see GCshTaxedSumImpl
+   */
+  GCshTaxedSumImpl[] getVoucherTaxes() throws WrongInvoiceTypeException;
 
   // ---------------------------------------------------------------
 

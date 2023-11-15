@@ -10,7 +10,6 @@ import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;

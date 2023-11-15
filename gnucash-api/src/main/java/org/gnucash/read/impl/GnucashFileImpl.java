@@ -518,10 +518,6 @@ public class GnucashFileImpl implements GnucashFile {
     public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
-	    // ::TODO use methods is[Invc|Bill]FullyPaid
-//            if (!invoice.getInvcAmountUnpaidWithTaxes().isPositive()) {
-//                retval.add(invoice);
-//            }
 	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
 		try {
 		    if (invc.isInvcFullyPaid()) {
@@ -534,6 +530,15 @@ public class GnucashFileImpl implements GnucashFile {
 	    } else if ( invc.getType() == GCshOwner.Type.VENDOR ) {
 		try {
 		    if (invc.isBillFullyPaid()) {
+			retval.add(invc);
+		    }
+		} catch (WrongInvoiceTypeException e) {
+		    // This should not happen
+		    LOGGER.error("getPaidInvoices: Serious error");
+		}
+	    } else if ( invc.getType() == GCshOwner.Type.EMPLOYEE ) {
+		try {
+		    if (invc.isVoucherFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -564,10 +569,6 @@ public class GnucashFileImpl implements GnucashFile {
     public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
-	    // ::TODO use methods is[Invc|Bill]NotFullyPaid
-//			if (invoice.getInvcAmountUnpaidWithTaxes().isPositive()) {
-//				retval.add(invoice);
-//			}
 	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
 		try {
 		    if (invc.isNotInvcFullyPaid()) {
@@ -886,7 +887,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId().toString())) {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -929,7 +930,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId().toString())) {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -973,7 +974,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId().toString())) {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {

@@ -102,7 +102,7 @@ public class TestGnucashCustomerInvoiceImpl
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(2, invcGen.getGenerEntries().size());
     assertEquals(2, invcSpec.getGenerEntries().size());
@@ -125,14 +125,14 @@ public class TestGnucashCustomerInvoiceImpl
     assertNotEquals(null, invcSpec);
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(1327.60, invcGen.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(1327.60, invcSpec.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(1327.60, ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(1327.60, invcGen.getInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(1327.60, invcSpec.getInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -148,13 +148,13 @@ public class TestGnucashCustomerInvoiceImpl
     assertNotEquals(null, invcSpec);
 
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getId());
     assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getId());
     
     // Note: That the following two return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(1, invcGen.getPayingTransactions().size());
     assertEquals(1, invcSpec.getPayingTransactions().size());
@@ -165,7 +165,7 @@ public class TestGnucashCustomerInvoiceImpl
                  ((GnucashTransaction) trxList.toArray()[0]).getId());
 
     // Note: That the following three return the same result
-    // is *not* trivial (in fact, a serious implemetation error was
+    // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     assertEquals(true, invcGen.isInvcFullyPaid());
     assertEquals(true, invcSpec.isInvcFullyPaid());
