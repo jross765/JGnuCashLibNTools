@@ -1,6 +1,8 @@
 package org.gnucash.read;
 
+import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
+import java.util.Locale;
 
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
@@ -15,35 +17,43 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
 public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoiceEntry> {
 
   // For the following enumerations cf.:
-  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h
-  
-  // ::TODO: Locale-specific, make generic
+  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
   public enum Action {
       
-      JOB      ( "Auftrag" ),
-      MATERIAL ( "Material" ),
-      HOURS    ( "Stunden" );
+      JOB      ("INVC_ENTR_ACTION_JOB"),
+      MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
+      HOURS    ("INVC_ENTR_ACTION_HOURS");
       
       // ---
 
-      private String fullStr = "UNSET";
+      private String code = "UNSET";
 	
       // ---
 	
-      Action(String fullStr) {
-	  this.fullStr = fullStr;
+      Action(String code) {
+	  this.code = code;
       }
 
       // ---
 	
-      public String getFullString() {
-	  return fullStr;
+      public String getCode() {
+	  return code;
       }
 	
+      public String getLocaleString() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	  return getLocaleString(Locale.getDefault());
+      }
+
+      public String getLocaleString(Locale lcl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	  Class<?> cls = Class.forName("org.gnucash.Const_" + lcl.getLanguage().toUpperCase());
+	  Field fld = cls.getDeclaredField(code);
+	  return (String) fld.get(null);
+      }
+		
       // no typo!
-      public static Action valueOff(String code) {
+      public static Action valueOff(String code) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	  for ( Action val : values() ) {
-	      if ( val.getFullString().equals(code) ) {
+	      if ( val.getLocaleString().equals(code) ) {
 		  return val;
 	      }
 	  }
@@ -163,8 +173,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * for Germany.
    * 
    * @return HOURS or ITEMS, ....
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  Action getAction();
+  Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   /**
    * @return the number of items of price ${@link #getInvcPrice()} and type

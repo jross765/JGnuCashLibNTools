@@ -54,21 +54,21 @@ public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     // ---------------------------------------------------------------
     

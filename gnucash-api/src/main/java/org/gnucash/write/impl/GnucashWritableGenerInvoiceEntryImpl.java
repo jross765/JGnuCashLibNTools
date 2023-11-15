@@ -62,13 +62,18 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     /**
      * @throws WrongInvoiceTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createCustInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableCustomerInvoiceImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
-	    final FixedPointNumber price) throws WrongInvoiceTypeException {
+	    final FixedPointNumber price) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	if ( invc.getType() != GCshOwner.Type.CUSTOMER &&
 	     invc.getType() != GCshOwner.Type.JOB )
@@ -147,13 +152,18 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     /**
      * @throws WrongInvoiceTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createVendBillEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableVendorBillImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
-	    final FixedPointNumber price) throws WrongInvoiceTypeException {
+	    final FixedPointNumber price) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	if ( invc.getType() != GCshOwner.Type.VENDOR &&
 	     invc.getType() != GCshOwner.Type.JOB )
@@ -229,13 +239,18 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     /**
      * @throws WrongInvoiceTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createJobInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableJobInvoiceImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
-	    final FixedPointNumber price) throws WrongInvoiceTypeException {
+	    final FixedPointNumber price) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	
 	if ( invc.getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -259,7 +274,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     private static GncV2.GncBook.GncGncEntry createGenerInvoiceEntryCommon(
 	    final GnucashWritableGenerInvoiceImpl invoice,
 	    final GnucashWritableFileImpl gnucashFileWritingImpl,
-	    final ObjectFactory factory) {
+	    final ObjectFactory factory) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
@@ -277,7 +292,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    entry.setEntryGuid(guid);
 	}
 
-	entry.setEntryAction(Action.HOURS.getFullString());
+	entry.setEntryAction(Action.HOURS.getLocaleString());
 	
 	{
 	    GncV2.GncBook.GncGncEntry.EntryDate entryDate = factory.createGncV2GncBookGncGncEntryEntryDate();
@@ -340,13 +355,18 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public GnucashWritableGenerInvoiceEntryImpl(
 	    final GnucashWritableGenerInvoiceImpl invoice,
 	    final GnucashAccount account, 
 	    final FixedPointNumber quantity, 
 	    final FixedPointNumber price)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super(invoice, createCustInvoiceEntry_int(invoice, account, quantity, price), true);
 
 	invoice.addRawGenerEntry(this);
@@ -820,15 +840,20 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     // -----------------------------------------------------------
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashWritableGenerInvoiceEntry#setAction(java.lang.String)
      */
-    public void setAction(final Action act) {
+    public void setAction(final Action act) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
 
 	Action oldAction = getAction();
-	getJwsdpPeer().setEntryAction(act.getFullString());
+	getJwsdpPeer().setEntryAction(act.getLocaleString());
 
 	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {

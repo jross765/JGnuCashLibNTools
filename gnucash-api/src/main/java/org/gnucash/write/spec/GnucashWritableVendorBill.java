@@ -35,21 +35,21 @@ public interface GnucashWritableVendorBill extends GnucashWritableGenerInvoice {
     GnucashWritableVendorBillEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     GnucashWritableVendorBillEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     GnucashWritableVendorBillEntry createEntry(
 	    GnucashAccount acct, 
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     // ---------------------------------------------------------------
     

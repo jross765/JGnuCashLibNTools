@@ -156,7 +156,11 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
 	buffer.append(getDate().toLocalDate().toString());
     }
     buffer.append(" action: '");
-    buffer.append(getAction() + "'");
+    try {
+	buffer.append(getAction() + "'");
+    } catch (Exception e) {
+	buffer.append("ERROR" + "'");
+    }
     buffer.append(" price: ");
     try
     {

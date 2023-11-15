@@ -60,7 +60,7 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
 
     // -----------------------------------------------------------
 
-    void setAction(Action act);
+    void setAction(Action act) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     void setQuantity(String quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
 

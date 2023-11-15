@@ -1156,9 +1156,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     }
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getAction()
      */
-    public Action getAction() {
+    public Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return Action.valueOff( jwsdpPeer.getEntryAction() );
     }
 
@@ -1330,7 +1335,11 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    buffer.append(getDate().toLocalDate().toString());
 	}
 	buffer.append(" action: '");
-	buffer.append(getAction() + "'");
+	try {
+	    buffer.append(getAction() + "'");
+	} catch (Exception e) {
+	    buffer.append("ERROR" + "'");
+	}
 	buffer.append(" price: ");
 	try {
 	    if ( getType() == GCshOwner.Type.CUSTOMER ) {

@@ -256,13 +256,16 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public GnucashWritableJobInvoiceEntry createEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, 
 		                                                  singleUnitPrice, quantity);
 	return entry;
@@ -276,14 +279,17 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public GnucashWritableJobInvoiceEntry createEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
-	    final String taxTabName) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    final String taxTabName) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, 
 		                                                  singleUnitPrice, quantity, 
 		                                                  taxTabName);
@@ -298,14 +304,17 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public GnucashWritableJobInvoiceEntry createEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, 
 		                                                  singleUnitPrice, quantity, 
 		                                                  taxTab);

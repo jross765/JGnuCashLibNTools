@@ -72,12 +72,17 @@ public class GnucashWritableCustomerInvoiceEntryImpl extends GnucashWritableGene
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
 	 */
 	public GnucashWritableCustomerInvoiceEntryImpl(
 		final GnucashWritableCustomerInvoiceImpl invc,
 		final GnucashAccount account,
 		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException {
+		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 		super(invc, 
 		      createCustInvoiceEntry_int(invc, account, quantity, price));
 		

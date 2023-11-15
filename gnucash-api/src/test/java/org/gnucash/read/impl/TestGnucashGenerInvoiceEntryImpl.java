@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.gnucash.ConstTest;
 import org.gnucash.read.GnucashFile;
@@ -127,6 +128,17 @@ public class TestGnucashGenerInvoiceEntryImpl
     assertEquals(0.19, invcEntr.getInvcApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(120.00, invcEntr.getInvcPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(10, invcEntr.getQuantity().intValue());
+  }
+
+  @Test
+  public void test03() throws Exception
+  {
+    // Works only in German locale:
+    // assertEquals("Material", GnucashGenerInvoiceEntry.Action.MATERIAL.getLocaleString());
+    
+    assertEquals("Hours",   GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.ENGLISH));
+    assertEquals("Stunden", GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.GERMAN));
+    assertEquals("Heures",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.FRENCH));
   }
 
 }
