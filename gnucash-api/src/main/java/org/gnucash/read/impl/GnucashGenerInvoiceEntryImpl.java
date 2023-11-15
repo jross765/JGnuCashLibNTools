@@ -494,7 +494,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 //	}
 	// Instead:
 	// ::TODO
-	if ( taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_VALUE) ) {
+	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
 		    "' is taxable but has a i-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +
@@ -552,7 +552,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	// ::TODO ::CHECK
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO
-	if ( taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_VALUE) ) {
+	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getId() + 
 		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +
@@ -610,7 +610,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	// ::TODO ::CHECK
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO
-	if ( taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_VALUE) ) {
+	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + 
 		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +

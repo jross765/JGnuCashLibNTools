@@ -9,8 +9,10 @@ public interface GCshTaxTableEntry {
     /**
      * @see ${@link #getType()}
      */
-    public static final String TYPE_VALUE   = "VALUE";
-    public static final String TYPE_PERCENT = "PERCENT";
+    public enum Type {
+	VALUE,
+	PERCENT
+    }
     
     // ---------------------------------------------------------------
 
@@ -18,7 +20,7 @@ public interface GCshTaxTableEntry {
      * usually ${@link GCshTaxTableEntry#TYPE_PERCENT}.
      * @see ${@link #getAmount())
      */
-    String getType();
+    Type getType();
 
     /**
      * @return the amount the tax is ("16" for "16%")

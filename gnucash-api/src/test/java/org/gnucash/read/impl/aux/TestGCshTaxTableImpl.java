@@ -110,7 +110,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -125,7 +125,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -140,7 +140,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -155,7 +155,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -170,7 +170,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -185,7 +185,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -200,7 +200,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -215,7 +215,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -230,7 +230,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 
@@ -245,7 +245,7 @@ public class TestGCshTaxTableImpl
 
       assertEquals(1, taxTab.getEntries().size());
       assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshTaxTableEntry.TYPE_PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
+      assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType() );
       assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
   }
 }

@@ -67,8 +67,8 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * 
      * @link #getAmount()
      */
-    public String getType() {
-	return getJwsdpPeer().getTteType();
+    public Type getType() {
+	return Type.valueOf( getJwsdpPeer().getTteType() );
     }
 
     /**
