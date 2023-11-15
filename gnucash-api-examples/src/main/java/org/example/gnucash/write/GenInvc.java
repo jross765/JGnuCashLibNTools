@@ -180,7 +180,7 @@ public class GenInvc {
 	GnucashWritableCustomerInvoiceEntry entry1 = invc.createEntry(incAcct, 
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.ACTION_JOB);
+	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
@@ -188,7 +188,7 @@ public class GenInvc {
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1), 
 		                                                      "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.ACTION_HOURS);
+	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
@@ -196,7 +196,7 @@ public class GenInvc {
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1), 
 		                                                      gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.ACTION_MATERIAL);
+	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -227,7 +227,7 @@ public class GenInvc {
 	GnucashWritableVendorBillEntry entry1 = bll.createEntry(expAcct, 
 		                                                new FixedPointNumber(amount),
 		                                                new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.ACTION_JOB);
+	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
@@ -235,7 +235,7 @@ public class GenInvc {
 		                                                new FixedPointNumber(amount),
 		                                                new FixedPointNumber(1), 
 		                                                "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.ACTION_HOURS);
+	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
@@ -243,7 +243,7 @@ public class GenInvc {
                                                                 new FixedPointNumber(amount),
                                                                 new FixedPointNumber(1), 
                                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.ACTION_MATERIAL);
+	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -275,7 +275,7 @@ public class GenInvc {
 	GnucashWritableJobInvoiceEntry entry1 = invc.createEntry(incAcct, 
                                                                  new FixedPointNumber(amount),
                                                                  new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.ACTION_JOB);
+	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
@@ -283,7 +283,7 @@ public class GenInvc {
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.ACTION_HOURS);
+	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
@@ -291,7 +291,7 @@ public class GenInvc {
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.ACTION_MATERIAL);
+	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -323,7 +323,7 @@ public class GenInvc {
 	GnucashWritableJobInvoiceEntry entry1 = invc.createEntry(expAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.ACTION_JOB);
+	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
@@ -331,7 +331,7 @@ public class GenInvc {
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.ACTION_HOURS);
+	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
@@ -339,7 +339,7 @@ public class GenInvc {
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.ACTION_MATERIAL);
+	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 

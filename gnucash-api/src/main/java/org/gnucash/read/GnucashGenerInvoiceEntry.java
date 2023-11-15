@@ -18,10 +18,39 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h
   
   // ::TODO: Locale-specific, make generic
-  // ::MAGIC
-  public static final String ACTION_JOB      = "Auftrag";
-  public static final String ACTION_MATERIAL = "Material";
-  public static final String ACTION_HOURS    = "Stunden";
+  public enum Action {
+      
+      JOB      ( "Auftrag" ),
+      MATERIAL ( "Material" ),
+      HOURS    ( "Stunden" );
+      
+      // ---
+
+      private String fullStr = "UNSET";
+	
+      // ---
+	
+      Action(String fullStr) {
+	  this.fullStr = fullStr;
+      }
+
+      // ---
+	
+      public String getFullString() {
+	  return fullStr;
+      }
+	
+      // no typo!
+      public static Action valueOff(String code) {
+	  for ( Action val : values() ) {
+	      if ( val.getFullString().equals(code) ) {
+		  return val;
+	      }
+	  }
+	    
+	  return null;
+      }
+  }
   
   // Not yet, for future releases:
 //  public static final String ENTRY_DATE          = "date";
@@ -135,7 +164,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * 
    * @return HOURS or ITEMS, ....
    */
-  String getAction();
+  Action getAction();
 
   /**
    * @return the number of items of price ${@link #getInvcPrice()} and type

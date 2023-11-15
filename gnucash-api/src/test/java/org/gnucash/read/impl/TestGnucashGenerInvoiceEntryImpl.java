@@ -99,11 +99,11 @@ public class TestGnucashGenerInvoiceEntryImpl
     assertEquals(INVCENTR_2_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
     assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", invcEntr.getGenerInvoiceID());
-    assertEquals(GnucashGenerInvoiceEntry.ACTION_HOURS, invcEntr.getAction());
+    assertEquals(GnucashGenerInvoiceEntry.Action.HOURS, invcEntr.getAction());
     assertEquals("Gefälligkeiten", invcEntr.getDescription());
     
     assertEquals(true, invcEntr.isBillTaxable());
-    // Following: sic, because there is no tax table entry assigned
+    // Following: sic, because there is n	o tax table entry assigned
     // (this is an error in real life, but we have done it on purpose here
     // for the tests).
     assertEquals(0.00, invcEntr.getBillApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -120,7 +120,7 @@ public class TestGnucashGenerInvoiceEntryImpl
     assertEquals(INVCENTR_3_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_CUSTOMER, invcEntr.getType());
     assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", invcEntr.getGenerInvoiceID());
-    assertEquals(GnucashGenerInvoiceEntry.ACTION_MATERIAL, invcEntr.getAction());
+    assertEquals(GnucashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
     assertEquals("Posten 3", invcEntr.getDescription());
     
     assertEquals(true, invcEntr.isInvcTaxable());

@@ -277,7 +277,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    entry.setEntryGuid(guid);
 	}
 
-	entry.setEntryAction(ACTION_HOURS);
+	entry.setEntryAction(Action.HOURS.getFullString());
 	
 	{
 	    GncV2.GncBook.GncGncEntry.EntryDate entryDate = factory.createGncV2GncBookGncGncEntryEntryDate();
@@ -822,24 +822,17 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * @see GnucashWritableGenerInvoiceEntry#setAction(java.lang.String)
      */
-    public void setAction(final String action) {
-	if (action != null && 
-		!action.equals(ACTION_JOB) && 
-		!action.equals(ACTION_MATERIAL) && 
-		!action.equals(ACTION_HOURS)) {
-	    throw new IllegalGenerInvoiceEntryActionException();
-	}
-
+    public void setAction(final Action act) {
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
 
-	String oldAction = getAction();
-	getJwsdpPeer().setEntryAction(action);
+	Action oldAction = getAction();
+	getJwsdpPeer().setEntryAction(act.getFullString());
 
 	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("action", oldAction, action);
+	    propertyChangeSupport.firePropertyChange("action", oldAction, act);
 	}
 
     }

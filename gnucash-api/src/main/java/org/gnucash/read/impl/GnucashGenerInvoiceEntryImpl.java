@@ -1158,8 +1158,8 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @see GnucashGenerInvoiceEntry#getAction()
      */
-    public String getAction() {
-	return jwsdpPeer.getEntryAction();
+    public Action getAction() {
+	return Action.valueOff( jwsdpPeer.getEntryAction() );
     }
 
     /**
