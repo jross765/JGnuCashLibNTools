@@ -20,6 +20,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
   public enum Action {
       
+      // ::MAGIC (actually "half-magic")
       JOB      ("INVC_ENTR_ACTION_JOB"),
       MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
       HOURS    ("INVC_ENTR_ACTION_HOURS");

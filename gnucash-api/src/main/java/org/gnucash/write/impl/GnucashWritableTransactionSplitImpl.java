@@ -132,7 +132,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 			split.setSplitId(id);
 		}
 
-		split.setSplitReconciledState(GnucashTransactionSplit.NREC);
+		split.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
 
 		split.setSplitQuantity("0/100");
 		split.setSplitValue("0/100");

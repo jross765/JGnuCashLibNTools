@@ -18,6 +18,7 @@ public interface GCshOwner {
 
     public enum Type {
 	
+	// ::MAGIC
 	CUSTOMER  (2, "gncCustomer"),
 	JOB       (3, "gncJob"),
 	VENDOR    (4, "gncVendor"),

@@ -18,15 +18,45 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
 
   // For the following enumerations cf.:
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Split.h
-  
-  // Note: The following should be chars, but the method where they are 
-  // used is generated and accepts a String.
-  // ::MAGIC
-  public static final String CREC = "c"; // cleared
-  public static final String YREC = "y"; // reconciled  
-  public static final String FREC = "f"; // frozen into accounting period
-  public static final String NREC = "n"; // not reconciled or cleared
-  public static final String VREC = "v"; // void
+  public enum ReconStatus {
+      
+      // ::MAGIC
+      CREC ("c"), // cleared
+      YREC ("y"), // reconciled  
+      FREC ("f"), // frozen into accounting period
+      NREC ("n"), // not reconciled or cleared
+      VREC ("v"); // void
+      
+      // ---
+      
+      // Note: The following should be chars, but the method where they are 
+      // used is generated and accepts a String.
+      
+      private String code = "X";
+
+      // ---
+      
+      ReconStatus(String code) {
+	  this.code = code;
+      }
+      
+      // ---
+	
+      public String getCode() {
+	  return code;
+      }
+	
+      // no typo!
+      public static ReconStatus valueOff(String code) {
+	  for ( ReconStatus reconStat : values() ) {
+	      if ( reconStat.getCode().equals(code) ) {
+		  return reconStat;
+	      }
+	  }
+	    
+	  return null;
+      }
+  }
     
   // ::TODO: Locale-specific, make generic
   // ::MAGIC

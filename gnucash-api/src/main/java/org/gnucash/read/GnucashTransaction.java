@@ -18,11 +18,12 @@ import org.gnucash.numbers.FixedPointNumber;
 public interface GnucashTransaction extends Comparable<GnucashTransaction>,
                                             HasAttachment
 {
-  
+    
   // For the following types cf.:
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Transaction.h
   public enum Type {
 
+      // ::MAGIC
       NONE    (""),
       INVOICE ("I"),
       PAYMENT ("P"),
@@ -30,7 +31,7 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
       
       // ---
       
-      // Caution: In theory, the code should be a char, not a String.
+      // Note: In theory, the code should be a char, not a String.
       // However, if we use a char, we would have to convert it to a String
       // anyway when actually using this Type (or else, we have weird 
       // errors writing the GnuCash file).
@@ -41,8 +42,6 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
       Type(String code) {
 	  this.code = code;
       }
-      
-      // ---
       
       // ---
 	
