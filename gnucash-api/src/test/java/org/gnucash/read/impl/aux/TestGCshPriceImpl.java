@@ -12,6 +12,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.basetypes.complex.GCshCmdtyID;
 import org.gnucash.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.basetypes.complex.GCshCurrID;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCommodity;
 import org.gnucash.read.GnucashFile;
@@ -26,10 +27,10 @@ public class TestGCshPriceImpl
 {
   // DE
   // Note the funny parent/child pair.
-  private static final String PRICE_1_ID = "b7fe7eb916164f1d9d43f41262530381"; // MBG/EUR
-  private static final String PRICE_2_ID = "8f2d1e3263aa4efba4a8e0e892c166b3"; // SAP/EUR
-  private static final String PRICE_3_ID = "d2db5e4108b9413aa678045ca66b205f"; // SAP/EUR
-  private static final String PRICE_4_ID = "037c268b47fb46d385360b1c9788a459"; // USD/EUR
+  private static final GCshID PRICE_1_ID = new GCshID("b7fe7eb916164f1d9d43f41262530381"); // MBG/EUR
+  private static final GCshID PRICE_2_ID = new GCshID("8f2d1e3263aa4efba4a8e0e892c166b3"); // SAP/EUR
+  private static final GCshID PRICE_3_ID = new GCshID("d2db5e4108b9413aa678045ca66b205f"); // SAP/EUR
+  private static final GCshID PRICE_4_ID = new GCshID("037c268b47fb46d385360b1c9788a459"); // USD/EUR
 
   // -----------------------------------------------------------------
   

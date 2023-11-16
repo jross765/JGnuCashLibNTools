@@ -97,7 +97,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id id of a price
      * @return the identified price or null
      */
-    GCshPrice getPriceByID(String id);
+    GCshPrice getPriceByID(GCshID id);
 
     /**
      * @return all prices defined in the book

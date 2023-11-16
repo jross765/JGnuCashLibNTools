@@ -1249,12 +1249,12 @@ public class GnucashFileImpl implements GnucashFile {
      *
      * @see #getTaxTables()
      */
-    protected Map<String, GCshPrice> priceById = null;
+    protected Map<GCshID, GCshPrice> priceById = null;
 
     /**
      * {@inheritDoc}
      */
-    public GCshPrice getPriceByID(String id) {
+    public GCshPrice getPriceByID(GCshID id) {
         if (priceById == null) {
             getPrices();
         }
@@ -1278,7 +1278,7 @@ public class GnucashFileImpl implements GnucashFile {
      */
     public Collection<GCshPrice> getPrices() {
         if (priceById == null) {
-            priceById = new HashMap<String, GCshPrice>();
+            priceById = new HashMap<GCshID, GCshPrice>();
 
             GncV2.GncBook.GncPricedb priceDB = getPriceDB();
             List<GncV2.GncBook.GncPricedb.Price> prices = priceDB.getPrice();

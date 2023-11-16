@@ -7,6 +7,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCommodity;
 
@@ -29,7 +30,7 @@ public interface GCshPrice {
 	
     // ---------------------------------------------------------------
 	
-    String getId();
+    GCshID getId();
 
     // ----------------------------
 

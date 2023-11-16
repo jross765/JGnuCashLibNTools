@@ -13,6 +13,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
 import org.gnucash.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
@@ -61,11 +62,11 @@ public class GCshPriceImpl implements GCshPrice {
     // -----------------------------------------------------------
 
     @Override
-    public String getId() {
+    public GCshID getId() {
 	if ( jwsdpPeer.getPriceId() == null )
 	    return null;
 		    
-	return jwsdpPeer.getPriceId().getValue();
+	return new GCshID( jwsdpPeer.getPriceId().getValue() );
     }
 
     // ----------------------------
