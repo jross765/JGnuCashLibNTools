@@ -20,8 +20,7 @@ public class TestPackage extends TestCase
     suite.addTest(org.gnucash.read.impl.TestGnucashAccountImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashCommodityImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashTransactionImpl.suite());
-    // ::TODO
-    // suite.addTest(org.gnucash.read.impl.TestGnucashTransactionSplitImpl.suite());
+    suite.addTest(org.gnucash.read.impl.TestGnucashTransactionSplitImpl.suite());
     
     suite.addTest(org.gnucash.read.impl.TestGnucashCustomerImpl.suite());
     suite.addTest(org.gnucash.read.impl.TestGnucashVendorImpl.suite());
