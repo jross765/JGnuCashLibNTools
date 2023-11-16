@@ -100,7 +100,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @see GnucashFile#getTransactionByID(String)
      * @return A changable version of the transaction.
      */
-    GnucashWritableTransaction getTransactionByID(String id);
+    GnucashWritableTransaction getTransactionByID(GCshID id);
 
     public Collection<GnucashWritableGenerInvoice> getWritableGenerInvoices();
     

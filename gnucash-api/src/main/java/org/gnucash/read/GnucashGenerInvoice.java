@@ -555,7 +555,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    */
   GCshID getPostAccountId();
   
-  String getPostTransactionId();
+  GCshID getPostTransactionId();
 
   // ---------------------------------------------------------------
 

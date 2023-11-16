@@ -9,6 +9,7 @@ import java.net.URL;
 import java.time.LocalDate;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.TestGnucashTransactionImpl;
@@ -22,8 +23,8 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableTransactionImpl
 {
-    private static final String TRX_1_ID = TestGnucashTransactionImpl.TRX_1_ID;
-    private static final String TRX_2_ID = TestGnucashTransactionImpl.TRX_2_ID;
+    private static final GCshID TRX_1_ID = TestGnucashTransactionImpl.TRX_1_ID;
+    private static final GCshID TRX_2_ID = TestGnucashTransactionImpl.TRX_2_ID;
 
     // -----------------------------------------------------------------
 

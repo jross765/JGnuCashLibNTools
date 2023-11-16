@@ -331,7 +331,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	 */
 	public GCshID getPostAccountId() {
 	    try {
-		return new GCshID(jwsdpPeer.getInvoicePostacc().getValue());
+		return new GCshID( jwsdpPeer.getInvoicePostacc().getValue() );
 	    } catch ( NullPointerException exc ) {
 		return null;
 	    }
@@ -340,9 +340,9 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getPostTransactionId() {
+	public GCshID getPostTransactionId() {
 	    try {
-		return jwsdpPeer.getInvoicePosttxn().getValue();
+		return new GCshID( jwsdpPeer.getInvoicePosttxn().getValue() );
 	    } catch ( NullPointerException exc ) {
 		return null;
 	    }

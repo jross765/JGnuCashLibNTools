@@ -157,7 +157,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the transaction to look for
      * @return the transaction or null if it's not found
      */
-    GnucashTransaction getTransactionByID(String id);
+    GnucashTransaction getTransactionByID(GCshID id);
 
     /**
      * @return a (possibly read-only) collection of all transactions Do not modify

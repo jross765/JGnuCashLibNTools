@@ -296,8 +296,8 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     /**
      * @see GnucashTransaction#getId()
      */
-    public String getId() {
-	return jwsdpPeer.getTrnId().getValue();
+    public GCshID getId() {
+	return new GCshID( jwsdpPeer.getTrnId().getValue() );
     }
 
     /**

@@ -652,7 +652,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashWritableFile#getTransactionByID(java.lang.String)
      */
     @Override
-    public GnucashWritableTransaction getTransactionByID(final String id) {
+    public GnucashWritableTransaction getTransactionByID(final GCshID id) {
 	return (GnucashWritableTransaction) super.getTransactionByID(id);
     }
 
