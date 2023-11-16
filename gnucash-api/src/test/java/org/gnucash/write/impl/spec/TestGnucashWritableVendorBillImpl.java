@@ -228,7 +228,7 @@ public class TestGnucashWritableVendorBillImpl
       GnucashTransaction postTrx = gcshOutFile.getTransactionByID(bllSpec.getPostTransactionId());
       assertNotEquals(null, postTrx);
       assertEquals(2, postTrx.getSplits().size());
-      String postTrxFirstSpltId = postTrx.getFirstSplit().getId();
+      GCshID postTrxFirstSpltId = postTrx.getFirstSplit().getId();
       assertNotEquals(postTrxFirstSpltId, postTrx);
       GCshID postTrxFirstSpltAcctId = postTrx.getFirstSplit().getAccount().getId();
       assertNotEquals(postTrxFirstSpltAcctId, postTrx);

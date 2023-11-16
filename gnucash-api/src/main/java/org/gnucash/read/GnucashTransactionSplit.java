@@ -147,7 +147,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      *
      * @return the unique-id to identify this object with across name- and hirarchy-changes
      */
-    String getId();
+    GCshID getId();
 
     /**
      *

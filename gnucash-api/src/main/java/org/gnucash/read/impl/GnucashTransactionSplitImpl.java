@@ -135,8 +135,8 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @see GnucashTransactionSplit#getId()
      */
-    public String getId() {
-	return jwsdpPeer.getSplitId().getValue();
+    public GCshID getId() {
+	return new GCshID( jwsdpPeer.getSplitId().getValue() );
     }
 
     /**
@@ -388,7 +388,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 		return c;
 	    }
 
-	    c = otherSplt.getId().compareTo(getId());
+	    c = otherSplt.getId().toString().compareTo(getId().toString());
 	    if (c != 0) {
 		return c;
 	    }

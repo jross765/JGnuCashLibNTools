@@ -79,9 +79,9 @@ public class TestGnucashTransactionImpl
     assertEquals("2023-08-06T08:21:44Z", trx.getDateEntered().toString());
         
     assertEquals(3, trx.getSplitsCount());
-    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId());
-    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId());
-    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId());
+    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId().toString());
+    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId().toString());
+    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString());
   }
   
   @Test
@@ -97,8 +97,8 @@ public class TestGnucashTransactionImpl
     assertEquals("2023-09-13T08:36:54Z", trx.getDateEntered().toString());
         
     assertEquals(2, trx.getSplitsCount());
-    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getId());
-    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getId());
+    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getId().toString());
+    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getId().toString());
   }
 
   @Test

@@ -542,7 +542,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 	/**
 	 * @see GnucashAccount#getTransactionSplitByID(java.lang.String)
 	 */
-	public GnucashTransactionSplit getTransactionSplitByID(final String id) {
+	public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if (id == null) {
 			throw new IllegalArgumentException("null id given!");
 //		} else if (! id.isSet() ) {

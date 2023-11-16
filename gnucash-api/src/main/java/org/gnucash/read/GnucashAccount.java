@@ -147,7 +147,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @param id the split-id to look for
      * @return the identified split or null
      */
-    GnucashTransactionSplit getTransactionSplitByID(final String id);
+    GnucashTransactionSplit getTransactionSplitByID(final GCshID id);
 
     /**
      * Gets the last transaction-split before the given date.

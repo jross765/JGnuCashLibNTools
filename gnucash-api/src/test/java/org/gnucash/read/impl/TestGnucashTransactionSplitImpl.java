@@ -1,15 +1,10 @@
 package org.gnucash.read.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
-import java.io.InputStream;
 import java.util.Locale;
 
-import org.gnucash.ConstTest;
-import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashTransactionSplit;
-import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;

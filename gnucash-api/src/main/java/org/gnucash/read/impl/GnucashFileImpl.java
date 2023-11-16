@@ -1352,7 +1352,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashTransactionSplit
      * @see GnucashTransactionSplitImpl
      */
-    protected Map<String, GnucashTransactionSplit> transactionSplitID2transactionSplit;
+    protected Map<GCshID, GnucashTransactionSplit> transactionSplitID2transactionSplit;
 
     /**
      * All customer/vendor invoices indexed by their unique id-String.
@@ -1598,7 +1598,7 @@ public class GnucashFileImpl implements GnucashFile {
 
     private void initTransactionMap(final GncV2 pRootElement) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	transactionID2transaction = new HashMap<GCshID, GnucashTransaction>();
-	transactionSplitID2transactionSplit = new HashMap<>();
+	transactionSplitID2transactionSplit = new HashMap<GCshID, GnucashTransactionSplit>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -2798,7 +2798,7 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
-    public GnucashTransactionSplit getTransactionSplitByID(final String id) {
+    public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
 	if (transactionSplitID2transactionSplit == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
