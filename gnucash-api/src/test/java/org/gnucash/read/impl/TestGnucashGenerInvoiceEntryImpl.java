@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -20,9 +21,9 @@ public class TestGnucashGenerInvoiceEntryImpl
   private GnucashFile              gcshFile = null;
   private GnucashGenerInvoiceEntry invcEntr = null;
   
-  private static final String INVCENTR_1_ID = "513589a11391496cbb8d025fc1e87eaa";
-  private static final String INVCENTR_2_ID = "0041b8d397f04ae4a2e9e3c7f991c4ec";
-  private static final String INVCENTR_3_ID = "83e78ce224d94c3eafc55e33d3d5f3e6";
+  private static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa");
+  private static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec");
+  private static final GCshID INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6");
 
   // -----------------------------------------------------------------
   

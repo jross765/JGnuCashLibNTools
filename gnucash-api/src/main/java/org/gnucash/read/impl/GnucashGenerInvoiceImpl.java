@@ -1282,7 +1282,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     /**
      * {@inheritDoc}
      */
-    public GnucashGenerInvoiceEntry getGenerEntryById(final String id) {
+    public GnucashGenerInvoiceEntry getGenerEntryById(final GCshID id) {
         for (GnucashGenerInvoiceEntry element : getGenerEntries()) {
             if (element.getId().equals(id)) {
                 return element;

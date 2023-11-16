@@ -95,7 +95,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashCustomerInvoiceEntry getEntryById(String id) throws WrongInvoiceTypeException
+  public GnucashCustomerInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
   {
     return new GnucashCustomerInvoiceEntryImpl(getGenerEntryById(id));
   }

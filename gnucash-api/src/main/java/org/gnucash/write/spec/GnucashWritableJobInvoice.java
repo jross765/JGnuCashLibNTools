@@ -3,6 +3,7 @@ package org.gnucash.write.spec;
 import java.time.LocalDate;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashGenerJob;
@@ -21,7 +22,7 @@ import org.gnucash.write.impl.UnknownInvoiceTypeException;
  */
 public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
 
-    GnucashWritableJobInvoiceEntry getWritableEntryById(String id);
+    GnucashWritableJobInvoiceEntry getWritableEntryById(GCshID id);
     
     // ---------------------------------------------------------------
 

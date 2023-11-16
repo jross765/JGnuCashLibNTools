@@ -3,6 +3,7 @@ package org.gnucash.write;
 import java.time.LocalDate;
 
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashCustomer;
@@ -88,7 +89,7 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice {
      * @return the modifiable version of the entry
      * @see GnucashGenerInvoice#getGenerInvcEntryById(String)
      */
-    GnucashWritableGenerInvoiceEntry getWritableGenerEntryById(String id);
+    GnucashWritableGenerInvoiceEntry getWritableGenerEntryById(GCshID id);
 
     /**
      * remove this invoice from the system.

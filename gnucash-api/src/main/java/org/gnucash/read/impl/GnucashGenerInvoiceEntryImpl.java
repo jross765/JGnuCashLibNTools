@@ -170,8 +170,8 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public String getId() {
-	return jwsdpPeer.getEntryGuid().getValue();
+    public GCshID getId() {
+	return new GCshID( jwsdpPeer.getEntryGuid().getValue() );
     }
 
     /**
@@ -1354,7 +1354,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		}
 	    }
 
-	    int c = otherEntr.getId().compareTo(getId());
+	    int c = otherEntr.getId().toString().compareTo(getId().toString());
 	    if (c != 0) {
 		return c;
 	    }

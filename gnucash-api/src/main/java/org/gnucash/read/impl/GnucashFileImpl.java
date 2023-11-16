@@ -1210,7 +1210,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashFile#getGenerInvoiceByID(java.lang.String)
      */
     @Override
-    public GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(final String id) {
+    public GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID id) {
 	if (invoiceEntryID2invoiceEntry == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
@@ -1368,7 +1368,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashGenerInvoiceEnctry
      * @see GnucashGenerInvoiceEntryImpl
      */
-    protected Map<String, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
+    protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
 
     /**
      * All jobs indexed by their unique id-String.
@@ -1574,7 +1574,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initGenerInvoiceEntryMap(final GncV2 pRootElement) {
-	invoiceEntryID2invoiceEntry = new HashMap<>();
+	invoiceEntryID2invoiceEntry = new HashMap<GCshID, GnucashGenerInvoiceEntry>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();

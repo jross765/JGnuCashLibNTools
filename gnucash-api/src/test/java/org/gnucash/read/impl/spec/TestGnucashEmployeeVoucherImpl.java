@@ -110,9 +110,9 @@ public class TestGnucashEmployeeVoucherImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(vchSpec.getEntries());
     assertEquals("b6e2313e32d44bb4a8a701c1063e03a7", 
-                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[0]).getId());
+                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[0]).getId().toString());
     assertEquals("9218e269422d4c08b3b9a8c27fbd051a", 
-                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[1]).getId());
+                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[1]).getId().toString());
   }
 
   @Test

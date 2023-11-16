@@ -110,9 +110,9 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("92e54c04b66f4682a9afb48e27dfe397", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
     assertEquals("3c67a99b5fe34387b596bb1fbab21a74", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId().toString());
   }
 
   @Test
@@ -188,7 +188,7 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("0041b8d397f04ae4a2e9e3c7f991c4ec", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
   }
 
   @Test
@@ -202,9 +202,9 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("513589a11391496cbb8d025fc1e87eaa", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId().toString());
     assertEquals("dc3c53f07ff64199ad4ea38988b3f40a", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
   }
 
   @Test

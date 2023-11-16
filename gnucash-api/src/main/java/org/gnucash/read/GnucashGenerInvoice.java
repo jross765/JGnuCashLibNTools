@@ -594,7 +594,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @param id the id to look for
    * @return the Entry found or null
    */
-  GnucashGenerInvoiceEntry getGenerEntryById(String id);
+  GnucashGenerInvoiceEntry getGenerEntryById(GCshID id);
 
   /**
    *

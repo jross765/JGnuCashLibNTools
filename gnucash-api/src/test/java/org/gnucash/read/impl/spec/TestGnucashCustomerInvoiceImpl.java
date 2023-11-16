@@ -112,9 +112,9 @@ public class TestGnucashCustomerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invcSpec.getEntries());
     assertEquals("92e54c04b66f4682a9afb48e27dfe397", 
-                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[0]).getId());
+                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[0]).getId().toString());
     assertEquals("3c67a99b5fe34387b596bb1fbab21a74", 
-                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[1]).getId());
+                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[1]).getId().toString());
   }
 
   @Test

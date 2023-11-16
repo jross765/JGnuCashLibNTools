@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashEmployee;
 
 /**
@@ -36,7 +37,7 @@ public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashEmployeeVoucherEntry getEntryById(String id) throws WrongInvoiceTypeException;
+    GnucashEmployeeVoucherEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashEmployeeVoucherEntry> getEntries() throws WrongInvoiceTypeException;
 

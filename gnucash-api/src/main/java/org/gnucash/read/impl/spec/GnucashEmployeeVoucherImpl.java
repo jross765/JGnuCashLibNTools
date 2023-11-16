@@ -93,7 +93,7 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashEmployeeVoucherEntry getEntryById(String id) throws WrongInvoiceTypeException
+  public GnucashEmployeeVoucherEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
   {
     return new GnucashEmployeeVoucherEntryImpl(getGenerEntryById(id));
   }

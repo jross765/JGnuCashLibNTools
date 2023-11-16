@@ -132,7 +132,7 @@ public class TestGnucashVendorBillImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(bllSpec.getEntries());
     assertEquals("0041b8d397f04ae4a2e9e3c7f991c4ec", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId());
+                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId().toString());
   }
 
   @Test
@@ -153,9 +153,9 @@ public class TestGnucashVendorBillImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(bllSpec.getEntries());
     assertEquals("513589a11391496cbb8d025fc1e87eaa", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[1]).getId());
+                 ((GnucashVendorBillEntry) entrList.toArray()[1]).getId().toString());
     assertEquals("dc3c53f07ff64199ad4ea38988b3f40a", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId());
+                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId().toString());
   }
 
   @Test

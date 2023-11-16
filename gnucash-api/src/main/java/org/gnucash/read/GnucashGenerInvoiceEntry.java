@@ -99,7 +99,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @return the unique-id to identify this object with across name- and
    *         hirarchy-changes
    */
-  String getId();
+  GCshID getId();
 
   /**
    * @return the type of the customer/vendor invoice entry, i.e. the owner type of

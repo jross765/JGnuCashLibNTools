@@ -101,7 +101,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashJobInvoiceEntry getEntryById(String id) throws WrongInvoiceTypeException;
+    GnucashJobInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashJobInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
 

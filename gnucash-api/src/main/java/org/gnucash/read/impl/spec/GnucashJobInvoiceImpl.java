@@ -231,7 +231,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashJobInvoiceEntry getEntryById(String id) throws WrongInvoiceTypeException
+  public GnucashJobInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
   {
     return new GnucashJobInvoiceEntryImpl(getGenerEntryById(id));
   }

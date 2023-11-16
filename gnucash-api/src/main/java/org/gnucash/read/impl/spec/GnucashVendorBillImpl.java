@@ -93,7 +93,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashVendorBillEntry getEntryById(String id) throws WrongInvoiceTypeException
+  public GnucashVendorBillEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
   {
     return new GnucashVendorBillEntryImpl(getGenerEntryById(id));
   }

@@ -109,11 +109,11 @@ public class TestGnucashJobInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invcSpec.getEntries());
     assertEquals("fa483972d10a4ce0abf2a7e1319706e7", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[0]).getId());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[0]).getId().toString());
     assertEquals("eb5eb3b7c1e34965b36fb6d5af183e82", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[1]).getId());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[1]).getId().toString());
     assertEquals("993eae09ce664094adf63b85509de2bc", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[2]).getId());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[2]).getId().toString());
   }
 
   @Test

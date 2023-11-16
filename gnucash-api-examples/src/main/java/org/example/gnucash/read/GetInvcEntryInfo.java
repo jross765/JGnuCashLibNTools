@@ -2,6 +2,7 @@ package org.example.gnucash.read;
 
 import java.io.File;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.impl.GnucashFileImpl;
@@ -12,7 +13,7 @@ import org.gnucash.read.impl.spec.GnucashVendorBillEntryImpl;
 public class GetInvcEntryInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
-    private static String invcEntrID   = "xyz";
+    private static GCshID invcEntrID   = new GCshID("xyz");
     // END Example data
 
     // -----------------------------------------------------------------
