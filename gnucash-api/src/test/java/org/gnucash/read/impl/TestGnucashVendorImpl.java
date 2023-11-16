@@ -145,12 +145,12 @@ public class TestGnucashVendorImpl
     LinkedList<GnucashVendorBill> bllList = (LinkedList<GnucashVendorBill>) vend.getUnpaidBills_direct();
     Collections.sort(bllList);
     assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
-                 ((GnucashVendorBill) bllList.toArray()[0]).getId() );
+                 ((GnucashVendorBill) bllList.toArray()[0]).getId().toString() );
 
     bllList = (LinkedList<GnucashVendorBill>) vend.getPaidBills_direct();
     Collections.sort(bllList);
     assertEquals("286fc2651a7848038a23bb7d065c8b67", 
-                 ((GnucashVendorBill) bllList.toArray()[0]).getId() );
+                 ((GnucashVendorBill) bllList.toArray()[0]).getId().toString() );
   }
 
   @Test

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -24,13 +25,13 @@ public class TestGnucashGenerInvoiceImpl
   private GnucashFile         gcshFile = null;
   private GnucashGenerInvoice invc     = null;
   
-  public static final String INVC_1_ID = "d9967c10fdf1465e9394a3e4b1e7bd79";
-  public static final String INVC_2_ID = "286fc2651a7848038a23bb7d065c8b67";
-  public static final String INVC_3_ID = "b1e981f796b94ca0b17a9dccb91fedc0";
-  public static final String INVC_4_ID = "4eb0dc387c3f4daba57b11b2a657d8a4";
-  public static final String INVC_5_ID = "169331c9860642cf84b04f3e3151058a";
-  public static final String INVC_6_ID = "6588f1757b9e4e24b62ad5b37b8d8e07";
-  public static final String INVC_7_ID = "8de4467c17e04bb2895fb68cc07fc4df";
+  public static final GCshID INVC_1_ID = new GCshID("d9967c10fdf1465e9394a3e4b1e7bd79");
+  public static final GCshID INVC_2_ID = new GCshID("286fc2651a7848038a23bb7d065c8b67");
+  public static final GCshID INVC_3_ID = new GCshID("b1e981f796b94ca0b17a9dccb91fedc0");
+  public static final GCshID INVC_4_ID = new GCshID("4eb0dc387c3f4daba57b11b2a657d8a4");
+  public static final GCshID INVC_5_ID = new GCshID("169331c9860642cf84b04f3e3151058a");
+  public static final GCshID INVC_6_ID = new GCshID("6588f1757b9e4e24b62ad5b37b8d8e07");
+  public static final GCshID INVC_7_ID = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
 
   // -----------------------------------------------------------------
   

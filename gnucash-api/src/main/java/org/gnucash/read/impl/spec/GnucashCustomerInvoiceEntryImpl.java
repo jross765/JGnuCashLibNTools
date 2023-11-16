@@ -1,5 +1,6 @@
 package org.gnucash.read.impl.spec;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerInvoice;
@@ -62,7 +63,7 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 
   // ---------------------------------------------------------------
 
-  public String getInvoiceID()
+  public GCshID getInvoiceID()
   {
     return getGenerInvoiceID();
   }

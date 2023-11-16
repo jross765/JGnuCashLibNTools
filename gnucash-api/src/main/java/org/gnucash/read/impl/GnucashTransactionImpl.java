@@ -16,6 +16,7 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.generated.Slot;
@@ -304,10 +305,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      *         transaction belonging to handing out the invoice)
      */
     public Collection<GnucashGenerInvoice> getInvoices() {
-	Collection<String> invoiceIDs = getInvoiceIDs();
+	Collection<GCshID> invoiceIDs = getInvoiceIDs();
 	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>(invoiceIDs.size());
 
-	for (String invoiceID : invoiceIDs) {
+	for (GCshID invoiceID : invoiceIDs) {
 
 	    GnucashGenerInvoice invoice = file.getGenerInvoiceByID(invoiceID);
 	    if (invoice == null) {
@@ -326,9 +327,9 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @return the invoices this transaction belongs to (not payments but the
      *         transaction belonging to handing out the invoice)
      */
-    public Collection<String> getInvoiceIDs() {
+    public Collection<GCshID> getInvoiceIDs() {
 
-	List<String> retval = new LinkedList<String>();
+	List<GCshID> retval = new LinkedList<GCshID>();
 
 	SlotsType slots = jwsdpPeer.getTrnSlots();
 	if (slots == null) {
@@ -357,7 +358,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 		continue;
 	    }
 
-	    retval.add((String) subSlot.getSlotValue().getContent().get(0));
+	    retval.add(new GCshID( (String) subSlot.getSlotValue().getContent().get(0) ));
 
 	}
 

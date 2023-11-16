@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.gnucash.Const;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncEntry.EntryBTaxtable;
 import org.gnucash.generated.GncV2.GncBook.GncGncEntry.EntryBill;
@@ -185,7 +186,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * MAY RETURN NULL. {@inheritDoc}
      */
-    public String getGenerInvoiceID() {
+    public GCshID getGenerInvoiceID() {
 	EntryInvoice entrInvc = null;
 	EntryBill entrBill = null;
 
@@ -204,18 +205,18 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	if (entrInvc == null && entrBill == null) {
 	    LOGGER.error("file contains an invoice-entry with GUID=" + getId()
 		    + " without an invoice-element (customer) AND " + "without a bill-element (vendor)");
-	    return "ERROR";
+	    return null;
 	} else if (entrInvc != null && entrBill == null) {
-	    return entrInvc.getValue();
+	    return new GCshID(entrInvc.getValue());
 	} else if (entrInvc == null && entrBill != null) {
-	    return entrBill.getValue();
+	    return new GCshID(entrBill.getValue());
 	} else if (entrInvc != null && entrBill != null) {
 	    LOGGER.error("file contains an invoice-entry with GUID=" + getId()
 		    + " with BOTH an invoice-element (customer) and " + "a bill-element (vendor)");
-	    return "ERROR";
+	    return null;
 	}
 
-	return "ERROR";
+	return null;
     }
 
     /**
@@ -228,7 +229,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     public GnucashGenerInvoice getGenerInvoice() {
 	if (myInvoice == null) {
-	    String invcId = getGenerInvoiceID();
+	    GCshID invcId = getGenerInvoiceID();
 	    if (invcId != null) {
 		myInvoice = getGnucashFile().getGenerInvoiceByID(invcId);
 		if (myInvoice == null) {

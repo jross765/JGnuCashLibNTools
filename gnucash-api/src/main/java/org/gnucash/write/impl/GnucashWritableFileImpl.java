@@ -750,7 +750,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashFile#getGenerInvoiceByID(String)
      */
     @Override
-    public GnucashWritableGenerInvoice getGenerInvoiceByID(final String id) {
+    public GnucashWritableGenerInvoice getGenerInvoiceByID(final GCshID id) {
 	return (GnucashWritableGenerInvoice) super.getGenerInvoiceByID(id);
     }
 

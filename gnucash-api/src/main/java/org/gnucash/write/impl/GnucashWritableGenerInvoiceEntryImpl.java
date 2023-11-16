@@ -104,7 +104,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
 	    GncV2.GncBook.GncGncEntry.EntryInvoice inv = factory.createGncV2GncBookGncGncEntryEntryInvoice();
 	    inv.setType(Const.XML_DATA_TYPE_GUID);
-	    inv.setValue(invc.getId());
+	    inv.setValue(invc.getId().toString());
 	    entry.setEntryInvoice(inv);
 	}
 	
@@ -191,7 +191,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
 	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
 	    bll.setType(Const.XML_DATA_TYPE_GUID);
-	    bll.setValue(invc.getId());
+	    bll.setValue(invc.getId().toString());
 	    entry.setEntryBill(bll);
 	}
 	

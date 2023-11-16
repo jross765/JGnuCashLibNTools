@@ -149,11 +149,11 @@ public class TestGnucashCustomerImpl
     
     assertEquals(1, cust.getPaidInvoices_direct().size());
     assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
-                 ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getId());
+                 ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getId().toString());
     assertEquals(1, cust.getNofOpenInvoices());
     assertEquals(1, cust.getUnpaidInvoices_direct().size());
     assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 
-                 ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getId());
+                 ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getId().toString());
   }
 
   @Test

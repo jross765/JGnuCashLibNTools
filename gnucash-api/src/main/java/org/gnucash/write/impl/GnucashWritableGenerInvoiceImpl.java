@@ -562,7 +562,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	String invcGUID = file.createGUID();
+	GCshID invcGUID = new GCshID(file.createGUID());
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -570,7 +570,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
-	    invcRef.setValue(invcGUID);
+	    invcRef.setValue(invcGUID.toString());
 	    invc.setInvoiceGuid(invcRef);
 	}
 	
@@ -662,7 +662,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	String invcGUID = file.createGUID();
+	GCshID invcGUID = new GCshID(file.createGUID());
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -670,7 +670,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
-	    invcRef.setValue(invcGUID);
+	    invcRef.setValue(invcGUID.toString());
 	    invc.setInvoiceGuid(invcRef);
 	}
 	
@@ -760,7 +760,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	String invcGUID = file.createGUID();
+	GCshID invcGUID = new GCshID(file.createGUID());
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -768,7 +768,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
-	    invcRef.setValue(invcGUID);
+	    invcRef.setValue(invcGUID.toString());
 	    invc.setInvoiceGuid(invcRef);
 	}
 	
@@ -920,7 +920,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashWritableFileImpl file,
 	    ObjectFactory fact, 
 	    GncV2.GncBook.GncGncInvoice invcRef,
-	    final String invcGUID, String invcNumber,
+	    final GCshID invcGUID, String invcNumber,
 	    final GnucashCustomer cust,
 	    final GnucashAccountImpl incomeAcct, 
 	    final GnucashAccountImpl receivableAcct,
@@ -989,7 +989,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashWritableFileImpl file, 
             ObjectFactory fact, 
             GncV2.GncBook.GncGncInvoice invcRef,
-            final String invcGUID, String invcNumber,
+            final GCshID invcGUID, String invcNumber,
 	    final GnucashVendor vend,
             final GnucashAccountImpl expensesAcct, 
             final GnucashAccountImpl payableAcct, 
@@ -1056,7 +1056,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashWritableFileImpl file,
             ObjectFactory fact, 
             GncV2.GncBook.GncGncInvoice invcRef,
-	    final String invcGUID, String invcNumber,
+	    final GCshID invcGUID, String invcNumber,
 	    final GnucashGenerJob job,
             final GnucashAccountImpl incExpAcct, 
             final GnucashAccountImpl recvblPayblAcct, 
@@ -1136,7 +1136,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     private static GnucashWritableTransaction createPostTransaction(
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
-	    final String invcID, 
+	    final GCshID invcID, 
 	    final GCshOwner.Type invcOwnerType, 
 	    final String invcNumber, 
 	    final String descr,
@@ -1234,7 +1234,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 		subslot.setSlotKey("invoice-guid");
 		subvalue.setType(Const.XML_DATA_TYPE_GUID);
-		subvalue.getContent().add(invcID);
+		subvalue.getContent().add(invcID.toString());
 		subslot.setSlotValue(subvalue);
 
 		value.getContent().add(subslot);
@@ -1252,7 +1252,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     private static GncAccount.ActLots.GncLot createInvcPostLot_Customer(
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
-	    final String invcID, 
+	    final GCshID invcID, 
 	    final String invcNumber,
 	    final GnucashAccountImpl postAcct,
 	    final GnucashCustomer cust) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -1266,7 +1266,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     private static GncAccount.ActLots.GncLot createBillPostLot_Vendor(
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
-	    final String invcID, 
+	    final GCshID invcID, 
 	    final String invcNumber,
 	    final GnucashAccountImpl postAcct,
 	    final GnucashVendor vend) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -1280,7 +1280,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     private static GncAccount.ActLots.GncLot createInvcPostLot_Job(
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
-	    final String invcID,
+	    final GCshID invcID,
 	    final String invcNumber,
 	    final GnucashAccountImpl postAcct,
 	    final GnucashGenerJob job) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -1296,7 +1296,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     private static GncAccount.ActLots.GncLot createInvcPostLot_Gener(
 	    final GnucashWritableFileImpl file,
 	    final ObjectFactory factory, 
-	    final String invcID, 
+	    final GCshID invcID, 
 	    final String invcNumber,
 	    final GnucashAccountImpl postAcct,
 	    final GCshOwner.Type ownerType1, // of invoice (direct)
@@ -1362,7 +1362,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 		subslot.setSlotKey("invoice-guid");
 		subvalue.setType(Const.XML_DATA_TYPE_GUID);
-		subvalue.getContent().add(invcID);
+		subvalue.getContent().add(invcID.toString());
 		subslot.setSlotValue(subvalue);
 
 		value.getContent().add(subslot);

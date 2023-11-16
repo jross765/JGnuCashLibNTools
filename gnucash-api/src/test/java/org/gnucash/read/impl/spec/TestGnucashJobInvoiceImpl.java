@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.TreeSet;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.aux.GCshOwner;
@@ -26,8 +27,8 @@ public class TestGnucashJobInvoiceImpl
   private GnucashGenerInvoice invcGen = null;
   private GnucashJobInvoice   invcSpec = null;
   
-  private static final String INVC_3_ID = TestGnucashGenerInvoiceImpl.INVC_3_ID;
-  private static final String INVC_5_ID = TestGnucashGenerInvoiceImpl.INVC_5_ID;
+  private static final GCshID INVC_3_ID = TestGnucashGenerInvoiceImpl.INVC_3_ID;
+  private static final GCshID INVC_5_ID = TestGnucashGenerInvoiceImpl.INVC_5_ID;
   
   // -----------------------------------------------------------------
   

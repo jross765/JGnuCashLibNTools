@@ -1,11 +1,12 @@
 package org.gnucash.read.spec;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
 
 public interface GnucashEmployeeVoucherEntry extends GnucashGenerInvoiceEntry 
 {
-  String getVoucherID();
+  GCshID getVoucherID();
 
   GnucashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
   

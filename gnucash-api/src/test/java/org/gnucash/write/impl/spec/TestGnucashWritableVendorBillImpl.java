@@ -128,7 +128,7 @@ public class TestGnucashWritableVendorBillImpl
 //                                                                  new FixedPointNumber(13));
 
       assertNotEquals(null, bll);
-      String newInvcID = bll.getId();
+      GCshID newInvcID = bll.getId();
 //      System.out.println("New Invoice ID (1): " + newInvcID);
       
       assertEquals("19327", bll.getNumber());
@@ -159,7 +159,7 @@ public class TestGnucashWritableVendorBillImpl
       // Check if generated XML file is valid
   }
   
-  private void test01_3(File outFile, String newInvcID) throws ParserConfigurationException, SAXException, IOException 
+  private void test01_3(File outFile, GCshID newInvcID) throws ParserConfigurationException, SAXException, IOException 
   {
       //    assertNotEquals(null, outFileGlob);
       //    assertEquals(true, outFileGlob.exists());
@@ -185,11 +185,11 @@ public class TestGnucashWritableVendorBillImpl
       assertEquals("19327", elt.getElementsByTagName("invoice:id").item(0).getTextContent());
       String locNewInvcID = elt.getElementsByTagName("invoice:guid").item(0).getTextContent();
 //      System.out.println("New Invoice ID (2): " + locNewInvcID);
-      assertEquals(newInvcID, locNewInvcID);
+      assertEquals(newInvcID.toString(), locNewInvcID);
   }
 
   // Before post
-  private void test01_4(File outFile, String newInvcID) throws Exception
+  private void test01_4(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -208,7 +208,7 @@ public class TestGnucashWritableVendorBillImpl
   }
 
   // After post
-  private void test01_5(File outFile, String newInvcID) throws Exception
+  private void test01_5(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());

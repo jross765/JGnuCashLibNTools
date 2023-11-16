@@ -185,7 +185,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getGenerInvoiceByID(String)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    GnucashGenerInvoice getGenerInvoiceByID(String id);
+    GnucashGenerInvoice getGenerInvoiceByID(GCshID id);
 
     /**
      * @param id the unique id of the (generic) invoice entry to look for

@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
@@ -29,7 +29,7 @@ public class TestGnucashEmployeeVoucherImpl
   private GnucashGenerInvoice    invcGen = null;
   private GnucashEmployeeVoucher vchSpec = null;
   
-  private static final String INVC_7_ID = TestGnucashGenerInvoiceImpl.INVC_7_ID;
+  private static final GCshID INVC_7_ID = TestGnucashGenerInvoiceImpl.INVC_7_ID;
   
   // -----------------------------------------------------------------
   

@@ -81,7 +81,7 @@ public class TestGnucashGenerInvoiceEntryImpl
 
     assertEquals(INVCENTR_1_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
-    assertEquals("286fc2651a7848038a23bb7d065c8b67", invcEntr.getGenerInvoiceID());
+    assertEquals("286fc2651a7848038a23bb7d065c8b67", invcEntr.getGenerInvoiceID().toString());
     assertEquals(null, invcEntr.getAction());
     assertEquals("Item 1", invcEntr.getDescription());
     
@@ -99,7 +99,7 @@ public class TestGnucashGenerInvoiceEntryImpl
 
     assertEquals(INVCENTR_2_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
-    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", invcEntr.getGenerInvoiceID());
+    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", invcEntr.getGenerInvoiceID().toString());
     assertEquals(GnucashGenerInvoiceEntry.Action.HOURS, invcEntr.getAction());
     assertEquals("Gefälligkeiten", invcEntr.getDescription());
     
@@ -120,7 +120,7 @@ public class TestGnucashGenerInvoiceEntryImpl
 
     assertEquals(INVCENTR_3_ID, invcEntr.getId());
     assertEquals(GnucashGenerInvoice.TYPE_CUSTOMER, invcEntr.getType());
-    assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", invcEntr.getGenerInvoiceID());
+    assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", invcEntr.getGenerInvoiceID().toString());
     assertEquals(GnucashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
     assertEquals("Posten 3", invcEntr.getDescription());
     

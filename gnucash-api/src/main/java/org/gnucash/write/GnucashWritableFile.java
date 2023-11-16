@@ -109,7 +109,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param id the id to look for
      * @return A changable version of the invoice.
      */
-    GnucashWritableGenerInvoice getGenerInvoiceByID(String id);
+    GnucashWritableGenerInvoice getGenerInvoiceByID(GCshID id);
 
     /**
      * @see GnucashFile#getAccountsByName(String)

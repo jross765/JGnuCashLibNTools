@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.TreeSet;
 
 import org.gnucash.ConstTest;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
@@ -29,8 +30,8 @@ public class TestGnucashVendorBillImpl
   private GnucashGenerInvoice invcGen = null;
   private GnucashVendorBill      bllSpec = null;
   
-  private static final String BLL_1_ID = TestGnucashGenerInvoiceImpl.INVC_4_ID;
-  private static final String BLL_2_ID = TestGnucashGenerInvoiceImpl.INVC_2_ID;
+  private static final GCshID BLL_1_ID = TestGnucashGenerInvoiceImpl.INVC_4_ID;
+  private static final GCshID BLL_2_ID = TestGnucashGenerInvoiceImpl.INVC_2_ID;
 
   // -----------------------------------------------------------------
   

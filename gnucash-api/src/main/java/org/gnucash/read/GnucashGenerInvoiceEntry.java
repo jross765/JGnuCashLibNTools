@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.aux.GCshOwner;
@@ -112,7 +113,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @return the unique-id of the invoice we belong to to
    * @see GnucashGenerInvoice#getId()
    */
-  String getGenerInvoiceID();
+  GCshID getGenerInvoiceID();
 
   /**
    * @return the invoice this entry belongs to

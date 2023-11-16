@@ -53,7 +53,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return the unique-id to identify this object with across name- and
    *         hirarchy-changes
    */
-  String getId();
+  GCshID getId();
 
   GCshOwner.Type getType();
 

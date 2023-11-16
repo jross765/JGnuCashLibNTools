@@ -1227,8 +1227,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getId() {
-		return getJwsdpPeer().getInvoiceGuid().getValue();
+	public GCshID getId() {
+		return new GCshID(getJwsdpPeer().getInvoiceGuid().getValue());
 	}
 
     /**

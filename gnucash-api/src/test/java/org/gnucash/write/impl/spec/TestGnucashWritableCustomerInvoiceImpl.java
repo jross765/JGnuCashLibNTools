@@ -6,12 +6,14 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDate;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.io.FileUtils;
 import org.gnucash.ConstTest;
 import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
@@ -137,7 +139,7 @@ public class TestGnucashWritableCustomerInvoiceImpl
 //                                                                  new FixedPointNumber(13));
 
       assertNotEquals(null, invc);
-      String newInvcID = invc.getId();
+      GCshID newInvcID = invc.getId();
 //      System.out.println("New Invoice ID (1): " + newInvcID);
       
       assertEquals("19327", invc.getNumber());
@@ -168,7 +170,7 @@ public class TestGnucashWritableCustomerInvoiceImpl
       // Check if generated XML file is valid
   }
   
-  private void test01_3(File outFile, String newInvcID) throws ParserConfigurationException, SAXException, IOException 
+  private void test01_3(File outFile, GCshID newInvcID) throws ParserConfigurationException, SAXException, IOException 
   {
       //    assertNotEquals(null, outFileGlob);
       //    assertEquals(true, outFileGlob.exists());
@@ -194,11 +196,11 @@ public class TestGnucashWritableCustomerInvoiceImpl
       assertEquals("19327", elt.getElementsByTagName("invoice:id").item(0).getTextContent());
       String locNewInvcID = elt.getElementsByTagName("invoice:guid").item(0).getTextContent();
 //      System.out.println("New Invoice ID (2): " + locNewInvcID);
-      assertEquals(newInvcID, locNewInvcID);
+      assertEquals(newInvcID.toString(), locNewInvcID);
   }
 
   // Before post
-  private void test01_4(File outFile, String newInvcID) throws Exception
+  private void test01_4(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -217,7 +219,7 @@ public class TestGnucashWritableCustomerInvoiceImpl
   }
 
   // After post
-  private void test01_5(File outFile, String newInvcID) throws Exception
+  private void test01_5(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
