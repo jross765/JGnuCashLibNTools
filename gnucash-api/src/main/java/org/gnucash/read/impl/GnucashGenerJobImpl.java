@@ -150,16 +150,27 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * 
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    @Override
+    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return getFile().getUnpaidInvoicesForJob(this).size();
     }
 
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException {
+    public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -182,24 +193,39 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException {
+    public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return getCurrencyFormat().format(getIncomeGenerated());
     }
 
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException {
+    public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated());
     }
 
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException {
+    public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -222,33 +248,43 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public String getOutstandingValueFormatted() throws UnknownAccountTypeException {
+    public String getOutstandingValueFormatted() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
      * {@inheritDoc}
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException {
+    public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
     // -----------------------------------------------------------------
 
     @Override
-    public Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
+    public Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return file.getInvoicesForJob(this);
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return file.getPaidInvoicesForJob(this);
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return file.getUnpaidInvoicesForJob(this);
     }
 

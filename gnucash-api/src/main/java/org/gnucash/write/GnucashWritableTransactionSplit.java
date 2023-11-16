@@ -25,8 +25,13 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 
 	/**
 	 * Remove this split from the sytem.
+	 * @throws IllegalAccessException 
+	 * @throws IllegalArgumentException 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchFieldException 
 	 */
-	void remove();
+	void remove() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
 	/**
 	 * Does not convert the quantity to another

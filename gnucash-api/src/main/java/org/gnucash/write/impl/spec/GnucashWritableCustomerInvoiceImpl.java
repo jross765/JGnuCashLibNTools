@@ -61,7 +61,12 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @param file the file we are associated with.
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
      */
     public GnucashWritableCustomerInvoiceImpl(
 	    final GnucashWritableFileImpl file, 
@@ -71,7 +76,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	    final GnucashAccountImpl receivableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super(createCustomerInvoice_int(file, 
 		                        number, cust,
 		                        false, // <-- caution!
@@ -85,11 +90,14 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     public GnucashWritableCustomerInvoiceImpl(final GnucashWritableGenerInvoiceImpl invc)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super(invc.getJwsdpPeer(), invc.getFile());
 
 	// No, we cannot check that first, because the super() method
@@ -124,7 +132,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 			if (lotID != null && lotID.equals(lot)) {
 			    // Check if it's a payment transaction.
 			    // If so, add it to the invoice's list of payment transactions.
-			    if (splt.getAction().equals(GnucashTransactionSplit.ACTION_PAYMENT)) {
+			    if (splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString())) {
 				addPayingTransaction(splt);
 			    }
 			} // if lotID
@@ -310,12 +318,15 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
     protected void removeEntry(final GnucashWritableCustomerInvoiceEntryImpl impl)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	removeInvcEntry(impl);
     }
@@ -328,17 +339,20 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     protected void addEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	addInvcEntry(entry);
     }
 
     protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	subtractInvcEntry(entry);
     }
 
@@ -404,7 +418,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
     public void post(final GnucashAccount incomeAcct, 
 	             final GnucashAccount receivableAcct, 
 	             final LocalDate postDate,
-		     final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException {
+		     final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	postCustomerInvoice(
 		getFile(), 
 		this, getCustomer(), 

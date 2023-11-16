@@ -20,7 +20,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
   public enum Action {
       
-      // ::MAGIC (actually "half-magic")
+      // ::MAGIC (actually kind of "half-magic")
       JOB      ("INVC_ENTR_ACTION_JOB"),
       MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
       HOURS    ("INVC_ENTR_ACTION_HOURS");
@@ -142,8 +142,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    * @return For a job invoice, return the price of one single of the
    *         ${@link #getQuantity()} items of type ${@link #getAction()}.
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobPrice() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobPrice() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ----------------------------
 
@@ -164,8 +169,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 
   /**
    * @return As ${@link #getJobPrice()}, but formatted.
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  String getJobPriceFormatted() throws WrongInvoiceTypeException;
+  String getJobPriceFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ---------------------------------------------------------------
 
@@ -233,7 +243,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    */
   boolean isVoucherTaxable() throws WrongInvoiceTypeException;
 
-  boolean isJobTaxable() throws WrongInvoiceTypeException;
+  boolean isJobTaxable() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
   
   // ------------------------------
 
@@ -243,7 +253,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 
   public GCshTaxTable getVoucherTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
 
-  public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
+  public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ------------------------------
 
@@ -272,8 +282,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    *
    * @return e.g. "0.16" for "16%"
    * @throws WrongInvoiceTypeException 
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ------------------------------
 
@@ -298,8 +313,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    * @return never null, "0%" if no taxtable is there
  * @throws WrongInvoiceTypeException 
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
+  String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ---------------------------------------------------------------
 
@@ -468,22 +488,37 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * 
    * @return count*single-unit-price excluding or including taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    * @see #getInvcSumExclTaxes()
    * @see #getInvcSumInclTaxes()
    */
-  FixedPointNumber getJobSum() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobSum() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   /**
    * @return count*single-unit-price including taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   /**
    * @return count*single-unit-price excluding taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException;
+  FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ----------------------------
 
@@ -492,26 +527,41 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * 
    * @return count*single-unit-price excluding or including taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    * @see #getInvcSumExclTaxes()
    * @see #getInvcSumInclTaxes()
    */
-  String getJobSumFormatted() throws WrongInvoiceTypeException;
+  String getJobSumFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   /**
    * As ${@link #getInvcSumInclTaxes()}. but formatted.
    * 
    * @return count*single-unit-price including taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   /**
    * As ${@link #getInvcSumExclTaxes()}. but formatted.
    * 
    * @return count*single-unit-price excluding taxes.
    * @throws WrongInvoiceTypeException
+ * @throws IllegalAccessException 
+ * @throws IllegalArgumentException 
+ * @throws ClassNotFoundException 
+ * @throws SecurityException 
+ * @throws NoSuchFieldException 
    */
-  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException;
+  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
   // ---------------------------------------------------------------
 

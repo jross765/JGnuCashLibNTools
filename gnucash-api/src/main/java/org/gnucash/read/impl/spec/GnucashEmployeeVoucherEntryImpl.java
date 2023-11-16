@@ -67,7 +67,8 @@ public class GnucashEmployeeVoucherEntryImpl extends GnucashGenerInvoiceEntryImp
     return getGenerInvoiceID();
   }
   
-  public GnucashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException
+  @Override
+  public GnucashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
   {
     if ( myInvoice == null )
     {

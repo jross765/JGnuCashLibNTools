@@ -75,6 +75,6 @@ public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
     void post(final GnucashAccount incExpAcct,
 	      final GnucashAccount recvblPayablAcct,
 	      final LocalDate postDate,
-	      final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	      final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
 }

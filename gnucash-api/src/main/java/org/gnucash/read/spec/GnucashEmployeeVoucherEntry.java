@@ -7,7 +7,7 @@ public interface GnucashEmployeeVoucherEntry extends GnucashGenerInvoiceEntry
 {
   String getVoucherID();
 
-  GnucashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException;
+  GnucashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
   
   // -----------------------------------------------------------------
 

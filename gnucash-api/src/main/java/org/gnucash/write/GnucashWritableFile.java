@@ -15,6 +15,7 @@ import org.gnucash.read.GnucashCustomer;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.IllegalTransactionSplitActionException;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
@@ -178,8 +179,13 @@ public interface GnucashWritableFile extends GnucashFile,
     /**
      *
      * @param impl the transaction to remove.
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    void removeTransaction(GnucashWritableTransaction impl);
+    void removeTransaction(GnucashWritableTransaction impl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     // ---------------------------------------------------------------
 
@@ -228,6 +234,12 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
      */
     GnucashWritableCustomerInvoice createWritableCustomerInvoice(
 	    final String invoiceNumber, 
@@ -236,7 +248,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount receivableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -244,6 +256,12 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a new invoice with no entries that is already added to this file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
      */
     GnucashWritableVendorBill createWritableVendorBill(
 	    final String invoiceNumber, 
@@ -252,7 +270,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -260,6 +278,12 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a new invoice with no entries that is already added to this file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
      */
     GnucashWritableJobInvoice createWritableJobInvoice(
 	    final String invoiceNumber, 
@@ -268,7 +292,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount recvblPayblAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     // -----------------------------------------------------------
 

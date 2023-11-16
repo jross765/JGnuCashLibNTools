@@ -167,7 +167,7 @@ public class GetVendInfo {
 	}
     }
 
-    private void showBills(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    private void showBills(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	System.out.println("");
 	System.out.println("Bills:");
 

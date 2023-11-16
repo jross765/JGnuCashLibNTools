@@ -249,9 +249,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     protected void setInvcTaxTable(final GCshTaxTable aTaxtable)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	myInvcTaxtable = aTaxtable;
     }
 
@@ -262,9 +267,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     protected void setBillTaxTable(final GCshTaxTable aTaxtable)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	myBillTaxtable = aTaxtable;
     }
 
@@ -282,7 +292,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     }
 
     protected void setJobTaxTable(final GCshTaxTable aTaxtable)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	
 	if ( getType() == GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -406,7 +416,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     }
 
     @Override
-    public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException {
+    public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -627,9 +637,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * {@inheritDoc}
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException {
+    public FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	if ( getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
@@ -689,9 +704,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * @return never null, "0%" if no taxtable is there
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException {
+    public String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	FixedPointNumber applTaxPerc = getJobApplicableTaxPercent();
 	if (applTaxPerc == null) {
 	    return this.getPercentFormat().format(0);
@@ -738,10 +758,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     }
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getInvcPrice()
      */
     @Override
-    public FixedPointNumber getJobPrice() throws WrongInvoiceTypeException {
+    public FixedPointNumber getJobPrice() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -784,9 +809,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * {@inheritDoc}
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public String getJobPriceFormatted() throws WrongInvoiceTypeException {
+    public String getJobPriceFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobPrice());
     }
 
@@ -1009,10 +1039,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     // ----------------------------
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getInvcSum()
      */
     @Override
-    public FixedPointNumber getJobSum() throws WrongInvoiceTypeException {
+    public FixedPointNumber getJobSum() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -1029,10 +1064,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getInvcSumInclTaxes()
      */
     @Override
-    public FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException {
+    public FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -1049,10 +1089,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getInvcSumExclTaxes()
      */
     @Override
-    public FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException {
+    public FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -1071,10 +1116,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoiceEntry#getInvcSum()
      */
     @Override
-    public String getJobSumFormatted() throws WrongInvoiceTypeException {
+    public String getJobSumFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobSum());
     }
 
@@ -1082,9 +1132,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * {@inheritDoc}
      * 
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException {
+    public String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobSumInclTaxes());
     }
 
@@ -1092,9 +1147,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * {@inheritDoc}
      * 
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException {
+    public String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return ((GnucashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobSumExclTaxes());
     }
 
@@ -1138,9 +1198,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     /**
      * {@inheritDoc}
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     @Override
-    public boolean isJobTaxable() throws WrongInvoiceTypeException {
+    public boolean isJobTaxable() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if ( getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -1349,7 +1414,11 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    } else if ( getType() == GCshOwner.Type.EMPLOYEE ) {
 		buffer.append(getVoucherPrice());
 	    } else if ( getType() == GCshOwner.Type.JOB ) {
-		buffer.append(getJobPrice());
+		try {
+		    buffer.append(getJobPrice());
+		} catch (Exception e2) {
+		    buffer.append("ERROR");
+		}
 	    } else
 		buffer.append("ERROR");
 	} catch (WrongInvoiceTypeException e) {

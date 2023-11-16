@@ -182,7 +182,7 @@ public class TestGnucashWritableTransactionImpl
       // ::TODO
   }
 
-  private void test02_1_check_memory(GnucashWritableTransaction trx) 
+  private void test02_1_check_memory(GnucashWritableTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException 
   {
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
     assertEquals("Super dividend", trx.getDescription()); // changed

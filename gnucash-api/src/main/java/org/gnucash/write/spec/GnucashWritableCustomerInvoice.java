@@ -56,6 +56,6 @@ public interface GnucashWritableCustomerInvoice extends GnucashWritableGenerInvo
     void post(final GnucashAccount incomeAcct,
 	      final GnucashAccount receivableAcct,
 	      final LocalDate postDate,
-	      final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	      final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
 }

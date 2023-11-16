@@ -51,55 +51,90 @@ public interface GnucashWritableTransaction extends GnucashTransaction
     void setNumber(String string);
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashTransaction#getFirstSplit()
      */
-    GnucashWritableTransactionSplit getWritingFirstSplit() throws SplitNotFoundException;
+    GnucashWritableTransactionSplit getWritingFirstSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSecondSplit()
      */
-    GnucashWritableTransactionSplit getWritingSecondSplit() throws SplitNotFoundException;
+    GnucashWritableTransactionSplit getWritingSecondSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSplitByID(String)
      */
-    GnucashWritableTransactionSplit getWritingSplitByID(String id);
+    GnucashWritableTransactionSplit getWritingSplitByID(String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      *
      * @return the first split of this transaction or null.
      */
-    GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException;
+    GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * @return the second split of this transaction or null.
      */
-    GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException;
+    GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSplits()
      */
-    List<GnucashWritableTransactionSplit> getWritingSplits();
+    List<GnucashWritableTransactionSplit> getWritingSplits() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * Create a new split, already atached to this transaction.
      * 
      * @param account the account for the new split
      * @return a new split, already atached to this transaction
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    GnucashWritableTransactionSplit createWritingSplit(GnucashAccount account);
+    GnucashWritableTransactionSplit createWritingSplit(GnucashAccount account) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * Also removes the split from it's account.
      * 
      * @param impl the split to remove from this transaction
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    void remove(GnucashWritableTransactionSplit impl);
+    void remove(GnucashWritableTransactionSplit impl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * remove this transaction.
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    void remove();
+    void remove() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered

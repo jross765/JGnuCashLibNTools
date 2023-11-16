@@ -1,5 +1,6 @@
 package org.gnucash.read;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Locale;
 
@@ -18,6 +19,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
 
   // For the following enumerations cf.:
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Split.h
+
   public enum ReconStatus {
       
       // ::MAGIC
@@ -58,13 +60,52 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
       }
   }
     
-  // ::TODO: Locale-specific, make generic
-  // ::MAGIC
-  public static final String ACTION_INVOICE = "Rechnung";
-  public static final String ACTION_BILL    = "Lieferantenrechnung";
-  public static final String ACTION_PAYMENT = "Zahlung";
-  public static final String ACTION_BUY     = "Kauf";
-  public static final String ACTION_SELL    = "Verkauf";
+  public enum Action {
+      
+      // ::MAGIC (actually kind of "half-magic")
+      INVOICE ("TRX_SPLT_ACTION_INVOICE"),
+      BILL    ("TRX_SPLT_ACTION_BILL"),
+      PAYMENT ("TRX_SPLT_ACTION_PAYMENT"),
+      BUY     ("TRX_SPLT_ACTION_BUY"),
+      SELL    ("TRX_SPLT_ACTION_SELL");
+      
+      // ---
+
+      private String code = "UNSET";
+	
+      // ---
+	
+      Action(String code) {
+	  this.code = code;
+      }
+
+      // ---
+	
+      public String getCode() {
+	  return code;
+      }
+	
+      public String getLocaleString() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	  return getLocaleString(Locale.getDefault());
+      }
+
+      public String getLocaleString(Locale lcl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	  Class<?> cls = Class.forName("org.gnucash.Const_" + lcl.getLanguage().toUpperCase());
+	  Field fld = cls.getDeclaredField(code);
+	  return (String) fld.get(null);
+      }
+		
+      // no typo!
+      public static Action valueOff(String code) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	  for ( Action val : values() ) {
+	      if ( val.getLocaleString().equals(code) ) {
+		  return val;
+	      }
+	  }
+	    
+	  return null;
+      }
+  }
   
   // Not yet, for future releases:
 //  public static final String SPLIT_DATE_RECONCILED    = "date-reconciled";

@@ -42,13 +42,18 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @param peer the JWSDP-object we are facading.
      * @param trx  the transaction this split belongs to
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see #jwsdpPeer
      * @see #myTransaction
      */
     @SuppressWarnings("exports")
     public GnucashTransactionSplitImpl(
 	    final GncTransaction.TrnSplits.TrnSplit peer, 
-	    final GnucashTransaction trx) {
+	    final GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
 		trx.getGnucashFile());
 
@@ -71,7 +76,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 		if (lotID != null && lotID.equals(lot)) {
 		    // Check if it's a payment transaction.
 		    // If so, add it to the invoice's list of payment transactions.
-		    if (getAction().equals(ACTION_PAYMENT)) {
+		    if (getAction().equals(Action.PAYMENT.getLocaleString())) {
 			invc.addPayingTransaction(this);
 		    }
 		}

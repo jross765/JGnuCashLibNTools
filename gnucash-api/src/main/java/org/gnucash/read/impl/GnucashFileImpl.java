@@ -112,9 +112,12 @@ public class GnucashFileImpl implements GnucashFile {
      *                     found)
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchFieldException 
      * @see #loadFile(File)
      */
-    public GnucashFileImpl(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    public GnucashFileImpl(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	super();
 	loadFile(pFile);
     }
@@ -125,9 +128,12 @@ public class GnucashFileImpl implements GnucashFile {
      *                     found)
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchFieldException 
      * @see #loadFile(File)
      */
-    public GnucashFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    public GnucashFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	super();
 	loadInputStream(is);
     }
@@ -511,11 +517,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getPaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
+    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
@@ -562,11 +573,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getUnpaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
+    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
@@ -615,11 +631,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -639,11 +660,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -658,11 +684,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
@@ -683,11 +714,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -702,11 +738,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
@@ -727,11 +768,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -747,11 +793,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -771,11 +822,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -790,11 +846,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
@@ -815,11 +876,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -834,11 +900,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
@@ -859,11 +930,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -879,11 +955,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -903,11 +984,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashEmployeeJob job : empl.getJobs() ) {
@@ -922,11 +1008,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
@@ -947,11 +1038,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashEmployeeJob job : empl.getJobs() ) {
@@ -966,11 +1062,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
@@ -991,11 +1092,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashEmployeeJob job : empl.getJobs() ) {
@@ -1011,11 +1117,16 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException {
+	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -1036,11 +1147,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
@@ -1061,11 +1177,16 @@ public class GnucashFileImpl implements GnucashFile {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
@@ -1311,8 +1432,11 @@ public class GnucashFileImpl implements GnucashFile {
      * @param pRootElement the new root-element
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
+     * @throws IllegalAccessException 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchFieldException 
      */
-    protected void setRootElement(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    protected void setRootElement(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	if (pRootElement == null) {
 	    throw new IllegalArgumentException("null not allowed for field this.rootElement");
 	}
@@ -1472,7 +1596,7 @@ public class GnucashFileImpl implements GnucashFile {
 	LOGGER.debug("No. of entries in (generic) invoice-entry map: " + invoiceEntryID2invoiceEntry.size());
     }
 
-    private void initTransactionMap(final GncV2 pRootElement) {
+    private void initTransactionMap(final GncV2 pRootElement) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	transactionID2transaction = new HashMap<>();
 	transactionSplitID2transactionSplit = new HashMap<>();
 
@@ -2021,9 +2145,12 @@ public class GnucashFileImpl implements GnucashFile {
      *                     found)
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
+     * @throws IllegalAccessException 
+     * @throws ClassNotFoundException 
+     * @throws NoSuchFieldException 
      * @see #setRootElement(GncV2)
      */
-    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 
 	long start = System.currentTimeMillis();
 
@@ -2061,7 +2188,7 @@ public class GnucashFileImpl implements GnucashFile {
 
     }
 
-    protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	long start = System.currentTimeMillis();
 
 	NamespaceRemovererReader reader = new NamespaceRemovererReader(new InputStreamReader(in, "utf-8"));
