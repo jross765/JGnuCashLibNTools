@@ -21,16 +21,46 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
   
   // For the following types cf.:
   // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Transaction.h
-  
-  // ::MAGIC
-  // Caution: In theory, these should be chars, not Strings.
-  // However, if we used chars, we would have to convert to Strings
-  // anyway when using them (or else, we have weird errors writing
-  // the GnuCash file).
-  public static final String TYPE_NONE    = "";
-  public static final String TYPE_INVOICE = "I";
-  public static final String TYPE_PAYMENT = "P";
-  public static final String TYPE_LINK    = "L";
+  public enum Type {
+
+      NONE    (""),
+      INVOICE ("I"),
+      PAYMENT ("P"),
+      LINK    ("L");
+      
+      // ---
+      
+      // Caution: In theory, the code should be a char, not a String.
+      // However, if we use a char, we would have to convert it to a String
+      // anyway when actually using this Type (or else, we have weird 
+      // errors writing the GnuCash file).
+      private String code = "X";
+      
+      // ---
+      
+      Type(String code) {
+	  this.code = code;
+      }
+      
+      // ---
+      
+      // ---
+	
+      public String getCode() {
+	  return code;
+      }
+	
+      // no typo!
+      public static Type valueOff(String code) {
+	  for ( Type type : values() ) {
+	      if ( type.getCode().equals(code) ) {
+		  return type;
+	      }
+	  }
+	    
+	  return null;
+      }
+  }
   
   // -----------------------------------------------------------------
 

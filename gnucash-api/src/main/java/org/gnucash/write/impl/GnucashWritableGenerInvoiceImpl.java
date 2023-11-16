@@ -1152,7 +1152,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    SlotValue value = factory.createSlotValue();
 	    slot.setSlotKey("trans-txn-type");
 	    value.setType("string");
-	    value.getContent().add(GnucashTransaction.TYPE_INVOICE);
+	    value.getContent().add(GnucashTransaction.Type.INVOICE.getCode());
 
 	    slot.setSlotValue(value);
 	    slots.getSlot().add(slot);
