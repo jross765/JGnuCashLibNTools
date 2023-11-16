@@ -1130,7 +1130,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId().toString())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -1160,7 +1160,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId().toString())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -1190,7 +1190,7 @@ public class GnucashFileImpl implements GnucashFile {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId().toString())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -1376,7 +1376,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashGenerJob
      * @see GnucashCustomerJobImpl
      */
-    protected Map<String, GnucashGenerJob> jobID2job;
+    protected Map<GCshID, GnucashGenerJob> jobID2job;
 
     /**
      * All customers indexed by their unique id-String.
@@ -1735,7 +1735,7 @@ public class GnucashFileImpl implements GnucashFile {
     }
 
     private void initJobMap(final GncV2 pRootElement) {
-	jobID2job = new HashMap<String, GnucashGenerJob>();
+	jobID2job = new HashMap<GCshID, GnucashGenerJob>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -1746,10 +1746,10 @@ public class GnucashFileImpl implements GnucashFile {
 
 	    try {
 		GnucashGenerJobImpl job = createGenerJob(jwsdpJob);
-		String jobID = job.getId();
+		GCshID jobID = job.getId();
 		if (jobID == null) {
-		    LOGGER.error("File contains a (generic) Job w/o an ID. indexing it with the ID ''");
-		    jobID = "";
+		    LOGGER.error("File contains a (generic) Job w/o an ID. indexing it with the Null-ID '" + GCshID.NULL_ID + "'");
+		    jobID = new GCshID(GCshID.NULL_ID);
 		}
 		jobID2job.put(job.getId(), job);
 	    } catch (RuntimeException e) {
@@ -2716,7 +2716,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashFile#getGenerJobByID(java.lang.String)
      */
     @Override
-    public GnucashGenerJob getGenerJobByID(final String id) {
+    public GnucashGenerJob getGenerJobByID(final GCshID id) {
 	if (jobID2job == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}

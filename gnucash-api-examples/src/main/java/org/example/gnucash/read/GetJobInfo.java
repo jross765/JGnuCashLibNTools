@@ -3,6 +3,7 @@ package org.example.gnucash.read;
 import java.io.File;
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
@@ -14,7 +15,7 @@ public class GetJobInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static String jobID        = "xyz";
+    private static GCshID jobID        = new GCshID("xyz");
     private static String jobName      = "abc";
     // END Example data
 

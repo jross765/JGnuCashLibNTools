@@ -3,6 +3,7 @@ package org.gnucash.read;
 import java.util.Collection;
 import java.util.Locale;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncJob.JobOwner;
 import org.gnucash.numbers.FixedPointNumber;
@@ -42,7 +43,7 @@ public interface GnucashGenerJob {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    String getId();
+    GCshID getId();
 
     /**
      * @return true if the job is still active

@@ -137,7 +137,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param jobID the id of the job to fetch
      * @return A changable version of the job or null of not found.
      */
-    GnucashWritableGenerJob getGenerJobByID(String jobID);
+    GnucashWritableGenerJob getGenerJobByID(GCshID jobID);
 
     /**
      * @param jnr the job-number to look for.

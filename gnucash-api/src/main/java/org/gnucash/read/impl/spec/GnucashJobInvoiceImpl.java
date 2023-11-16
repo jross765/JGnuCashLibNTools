@@ -82,8 +82,8 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public String getJobId() {
-    return getOwnerId_direct();
+  public GCshID getJobId() {
+    return new GCshID( getOwnerId_direct() );
   }
 
   /**

@@ -721,7 +721,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashWritableFile#getGenerJobByID(String)
      */
     @Override
-    public GnucashWritableGenerJob getGenerJobByID(final String jobID) {
+    public GnucashWritableGenerJob getGenerJobByID(final GCshID jobID) {
 	return (GnucashWritableGenerJob) super.getGenerJobByID(jobID);
     }
 

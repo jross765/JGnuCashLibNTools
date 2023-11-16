@@ -139,7 +139,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id the unique id of the job to look for
      * @return the job or null if it's not found
      */
-    GnucashGenerJob getGenerJobByID(String id);
+    GnucashGenerJob getGenerJobByID(GCshID id);
 
     Collection<GnucashGenerJob> getGenerJobsByName(String expr);
 

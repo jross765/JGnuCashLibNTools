@@ -7,8 +7,10 @@ public class GCshID {
     // Logger
     private static final Logger logger = LoggerFactory.getLogger(GCshID.class);
 
-    private final static int STANDARD_LENGTH = 32;
+    public final static String NULL_ID = "00000000000000000000000000000000";
 
+    private final static int STANDARD_LENGTH = 32;
+    
     // -----------------------------------------------------------------
 
     protected String gcshID;

@@ -235,7 +235,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	    return; // nothing has changed
 	}
 
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getId());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getId().toString());
 	getWritingFile().setModified(true);
 
 	// <<insert code to react further to this change here
@@ -426,8 +426,8 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
     /**
      * {@inheritDoc}
      */
-    public String getJobId() {
-	return getOwnerId();
+    public GCshID getJobId() {
+	return new GCshID( getOwnerId() );
     }
 
     /**

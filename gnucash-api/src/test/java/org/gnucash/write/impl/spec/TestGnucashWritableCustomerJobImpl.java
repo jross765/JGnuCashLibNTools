@@ -108,7 +108,7 @@ public class TestGnucashWritableCustomerJobImpl
 	      						"New job for customer 1");
       
       assertNotEquals(null, job);
-      String newJobID = job.getId();
+      GCshID newJobID = job.getId();
 //      System.out.println("New Job ID (1): " + newJobID);
       
       assertEquals("J123", job.getNumber());
@@ -130,7 +130,7 @@ public class TestGnucashWritableCustomerJobImpl
       // Check if generated XML file is valid
   }
   
-  private void test01_3(File outFile, String newJobID) throws ParserConfigurationException, SAXException, IOException 
+  private void test01_3(File outFile, GCshID newJobID) throws ParserConfigurationException, SAXException, IOException 
   {
       //    assertNotEquals(null, outFileGlob);
       //    assertEquals(true, outFileGlob.exists());
@@ -156,10 +156,10 @@ public class TestGnucashWritableCustomerJobImpl
       assertEquals("J123", elt.getElementsByTagName("job:id").item(0).getTextContent());
       String locNewJobID = elt.getElementsByTagName("job:guid").item(0).getTextContent();
 //      System.out.println("New Job ID (2): " + locNewJobID);
-      assertEquals(newJobID, locNewJobID);
+      assertEquals(newJobID.toString(), locNewJobID);
   }
 
-  private void test01_4(File outFile, String newInvcID) throws Exception
+  private void test01_4(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());

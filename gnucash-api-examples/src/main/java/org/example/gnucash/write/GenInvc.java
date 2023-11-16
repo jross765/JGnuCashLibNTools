@@ -31,6 +31,7 @@ import org.gnucash.write.spec.GnucashWritableVendorBill;
 import org.gnucash.write.spec.GnucashWritableVendorBillEntry;
 
 public class GenInvc {
+    
     enum InvoiceType {
 	CUSTOMER, 
 	VENDOR, 
@@ -45,8 +46,8 @@ public class GenInvc {
     private static InvoiceType type         = InvoiceType.CUSTOMER;
     private static GCshID custID            = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
     private static GCshID vendID            = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
-    private static String job1ID            = "e91b99cd6fbb48a985cbf1e8041f378c"; // customer job
-    private static String job2ID            = "028cfb5993ef4d6b83206bc844e2fe56"; // vendor job
+    private static GCshID job1ID            = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c"); // customer job
+    private static GCshID job2ID            = new GCshID("028cfb5993ef4d6b83206bc844e2fe56"); // vendor job
     private static GCshID incAcctID         = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root Account:Erträge:Sonstiges
     private static GCshID expAcctID         = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
     private static GCshID recvblAcctID      = new GCshID("ee7561449e61448fb8fefdc27a35d559"); // Root Account:Aktiva:Forderungen:sonstige

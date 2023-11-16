@@ -1409,7 +1409,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
-	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
+	GnucashGenerJob job = file.getGenerJobByID(new GCshID(getOwnerId()));
 	return job.getOwnerId();
     }
     
@@ -1438,7 +1438,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
+	GnucashGenerJob job = file.getGenerJobByID(new GCshID(getOwnerId()));
 	return job.getOwnerType();
     }
     

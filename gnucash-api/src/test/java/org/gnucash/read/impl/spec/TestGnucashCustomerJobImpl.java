@@ -24,7 +24,7 @@ public class TestGnucashCustomerJobImpl
   private GnucashGenerJob    jobGener = null;
   private GnucashCustomerJob jobSpec = null;
   
-  private static final String JOB_1_ID = TestGnucashGenerJobImpl.JOB_1_ID;
+  private static final GCshID JOB_1_ID = TestGnucashGenerJobImpl.JOB_1_ID;
 
   // -----------------------------------------------------------------
   

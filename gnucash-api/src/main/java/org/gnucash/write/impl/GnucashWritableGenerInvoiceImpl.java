@@ -807,7 +807,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    {
 		OwnerId ownerIdRef = fact.createOwnerId();
 		ownerIdRef.setType(Const.XML_DATA_TYPE_GUID);
-		ownerIdRef.setValue(job.getId());
+		ownerIdRef.setValue(job.getId().toString());
 		jobRef.setOwnerId(ownerIdRef);
 	    }
 	    invc.setInvoiceOwner(jobRef);
@@ -1260,7 +1260,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		                       invcID, invcNumber, 
 		                       postAcct, 
                                        GCshOwner.Type.CUSTOMER, GCshOwner.Type.CUSTOMER, // second one is dummy
-                                       cust.getId().toString());
+                                       cust.getId());
     }
 
     private static GncAccount.ActLots.GncLot createBillPostLot_Vendor(
@@ -1274,7 +1274,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		                       invcID, invcNumber,
 		                       postAcct, 
 		                       GCshOwner.Type.VENDOR, GCshOwner.Type.VENDOR, // second one is dummy
-		                       vend.getId().toString());
+		                       vend.getId());
     }
 
     private static GncAccount.ActLots.GncLot createInvcPostLot_Job(
@@ -1301,7 +1301,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl postAcct,
 	    final GCshOwner.Type ownerType1, // of invoice (direct)
 	    final GCshOwner.Type ownerType2, // of invoice's owner (indirect, only relevant if ownerType1 is JOB)
-	    final String ownerID) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final GCshID ownerID) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	GncAccount.ActLots acctLots = postAcct.getJwsdpPeer().getActLots();
 	if (acctLots == null) {
@@ -2059,7 +2059,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	attemptChange();
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getId());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getId().toString());
 	getFile().setModified(true);
     }
 

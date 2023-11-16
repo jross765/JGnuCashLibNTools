@@ -33,7 +33,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      * (e.g. a monthly payment for a long lasting contract.)
      * @return the ID of the job this invoice is for.
      */
-    String getJobId();
+    GCshID getJobId();
 
     GCshOwner.Type getJobType();
 

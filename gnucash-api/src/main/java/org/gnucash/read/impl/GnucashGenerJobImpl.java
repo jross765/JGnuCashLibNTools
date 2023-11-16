@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Locale;
 
 import org.gnucash.Const;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncJob.JobOwner;
 import org.gnucash.numbers.FixedPointNumber;
@@ -78,7 +79,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    public String getId() {
+    public GCshID getId() {
 	assert jwsdpPeer.getJobGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 	String guid = jwsdpPeer.getJobGuid().getValue();
@@ -86,7 +87,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	    throw new IllegalStateException("job has a null guid-value! guid-type=" + jwsdpPeer.getJobGuid().getType());
 	}
 
-	return guid;
+	return new GCshID(guid);
     }
 
     /**

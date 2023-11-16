@@ -50,8 +50,8 @@ public class TestGnucashWritableCustomerInvoiceImpl
     private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
     private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
-    private static final String JOB_1_ID  = TestGnucashGenerJobImpl.JOB_1_ID;
-    private static final String JOB_2_ID  = TestGnucashGenerJobImpl.JOB_2_ID;
+    private static final GCshID JOB_1_ID  = TestGnucashGenerJobImpl.JOB_1_ID;
+    private static final GCshID JOB_2_ID  = TestGnucashGenerJobImpl.JOB_2_ID;
 
     static final GCshID INCOME_ACCT_ID     = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root Account::Erträge::Sonstiges
     static final GCshID RECEIVABLE_ACCT_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root Account::Aktiva::Forderungen::Unfug_Quatsch

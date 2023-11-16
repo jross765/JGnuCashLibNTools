@@ -38,8 +38,8 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableJobInvoiceImpl
 {
-    private static final String JOB_1_ID  = TestGnucashGenerJobImpl.JOB_1_ID;
-    private static final String JOB_2_ID  = TestGnucashGenerJobImpl.JOB_2_ID;
+    private static final GCshID JOB_1_ID  = TestGnucashGenerJobImpl.JOB_1_ID;
+    private static final GCshID JOB_2_ID  = TestGnucashGenerJobImpl.JOB_2_ID;
 
     private static final GCshID INCOME_ACCT_ID     = TestGnucashWritableCustomerInvoiceImpl.INCOME_ACCT_ID;
     private static final GCshID EXPENSES_ACCT_ID   = TestGnucashWritableVendorBillImpl.EXPENSES_ACCT_ID;
