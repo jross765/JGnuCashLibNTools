@@ -385,7 +385,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this customer invoice is NOT changable because there are already payment for it made!");
+		    "this customer invoice is NOT changeable because there are already payment for it made!");
 	}
     }
 

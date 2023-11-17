@@ -385,7 +385,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this vendor bill is NOT changable because there are already payment for it made!");
+		    "this vendor bill is NOT changeable because there are already payment for it made!");
 	}
     }
 

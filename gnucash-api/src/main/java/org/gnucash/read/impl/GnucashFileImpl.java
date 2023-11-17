@@ -412,7 +412,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     @Override
@@ -447,7 +447,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     @Override
@@ -470,7 +470,7 @@ public class GnucashFileImpl implements GnucashFile {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     @Override

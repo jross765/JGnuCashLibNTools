@@ -97,45 +97,45 @@ public interface GnucashWritableFile extends GnucashFile,
     Collection<? extends GnucashWritableAccount> getWritableAccounts();
 
     /**
-     * @see GnucashFile#getTransactionByID(String)
-     * @return A changable version of the transaction.
+     * @see GnucashFile#getTransactionByID(GCshID)
+     * @return A changeable version of the transaction.
      */
     GnucashWritableTransaction getTransactionByID(GCshID id);
 
     public Collection<GnucashWritableGenerInvoice> getWritableGenerInvoices();
     
     /**
-     * @see GnucashFile#getGenerInvoiceByID(String)
+     * @see GnucashFile#getGenerInvoiceByID(GCshID)
      * @param id the id to look for
-     * @return A changable version of the invoice.
+     * @return A changeable version of the invoice.
      */
     GnucashWritableGenerInvoice getGenerInvoiceByID(GCshID id);
 
     /**
      * @see GnucashFile#getAccountsByName(String)
      * @param name the name to look for
-     * @return A changable version of the account.
+     * @return A changeable version of the account.
      */
     GnucashWritableAccount getAccountByNameUniq(String name, boolean qualif) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * @param type the type to look for
-     * @return A changable version of all accounts of that type.
+     * @return A changeable version of all accounts of that type.
      * @throws UnknownAccountTypeException 
      */
     Collection<GnucashWritableAccount> getAccountsByType(GnucashAccount.Type type) throws UnknownAccountTypeException;
 
     /**
-     * @see GnucashFile#getAccountByID(String)
+     * @see GnucashFile#getAccountByID(GCshID)
      * @param id the id of the account to fetch
-     * @return A changable version of the account or null of not found.
+     * @return A changeable version of the account or null of not found.
      */
     GnucashWritableAccount getAccountByID(GCshID id);
 
     /**
-     * @see GnucashFile#getGenerJobByID(String)
+     * @see GnucashFile#getGenerJobByID(GCshID)
      * @param jobID the id of the job to fetch
-     * @return A changable version of the job or null of not found.
+     * @return A changeable version of the job or null of not found.
      */
     GnucashWritableGenerJob getGenerJobByID(GCshID jobID);
 

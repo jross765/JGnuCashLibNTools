@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
@@ -76,9 +77,9 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see GnucashTransaction#getSplitByID(String)
+     * @see GnucashTransaction#getSplitByID(GCshID)
      */
-    GnucashWritableTransactionSplit getWritingSplitByID(String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransactionSplit getWritingSplitByID(GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      *

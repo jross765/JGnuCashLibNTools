@@ -419,7 +419,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSplitByID(java.lang.String)
      */
-    public GnucashTransactionSplit getSplitByID(final String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public GnucashTransactionSplit getSplitByID(final GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	for (GnucashTransactionSplit split : getSplits()) {
 	    if (split.getId().equals(id)) {
 		return split;

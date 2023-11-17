@@ -115,7 +115,7 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashTransactionSplit getSplitByID(String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashTransactionSplit getSplitByID(GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      *

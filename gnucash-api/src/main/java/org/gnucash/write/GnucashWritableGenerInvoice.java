@@ -87,7 +87,7 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice {
     /**
      * @param id the id to look for
      * @return the modifiable version of the entry
-     * @see GnucashGenerInvoice#getGenerInvcEntryById(String)
+     * @see GnucashGenerInvoice#getGenerInvcEntryById(GCshID)
      */
     GnucashWritableGenerInvoiceEntry getWritableGenerEntryById(GCshID id);
 

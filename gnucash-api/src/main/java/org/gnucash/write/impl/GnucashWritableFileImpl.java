@@ -716,9 +716,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param jobID the id of the job to fetch
-     * @return A changable version of the job or null of not found.
-     * @see GnucashFile#getGenerJobByID(String)
-     * @see GnucashWritableFile#getGenerJobByID(String)
+     * @return A changeable version of the job or null of not found.
+     * @see GnucashFile#getGenerJobByID(GCshID)
+     * @see GnucashWritableFile#getGenerJobByID(GCshID)
      */
     @Override
     public GnucashWritableGenerJob getGenerJobByID(final GCshID jobID) {
@@ -746,8 +746,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param id the unique invoice-id
-     * @return A changable version of the Invoice or null if not found.
-     * @see GnucashFile#getGenerInvoiceByID(String)
+     * @return A changeable version of the Invoice or null if not found.
+     * @see GnucashFile#getGenerInvoiceByID(GCshID)
      */
     @Override
     public GnucashWritableGenerInvoice getGenerInvoiceByID(final GCshID id) {
@@ -756,7 +756,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param type the type to look for
-     * @return A changable version of all accounts of that type.
+     * @return A changeable version of all accounts of that type.
      * @throws UnknownAccountTypeException 
      * @see {@link GnucashWritableFile#getAccountsByType(String)}
      */
@@ -778,8 +778,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param id the unique account-id
-     * @return A changable version of the account or null if not found.
-     * @see GnucashFile#getAccountByID(String)
+     * @return A changeable version of the account or null if not found.
+     * @see GnucashFile#getAccountByID(GCshID)
      */
     @Override
     public GnucashWritableAccount getAccountByID(final GCshID id) {
@@ -788,7 +788,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param name the name of the account
-     * @return A changable version of the first account with that name.
+     * @return A changeable version of the first account with that name.
      * @see GnucashFile#getAccountsByName(String)
      */
     @Override

@@ -182,7 +182,7 @@ public interface GnucashFile extends GnucashObject {
      * @return the invoice or null if it's not found
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     GnucashGenerInvoice getGenerInvoiceByID(GCshID id);
@@ -202,7 +202,7 @@ public interface GnucashFile extends GnucashObject {
      *         returned collection!
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashGenerInvoice> getGenerInvoices();
@@ -219,7 +219,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @see #getUnpaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -236,7 +236,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -256,7 +256,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(GnucashCustomer cust)
@@ -275,7 +275,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashJobInvoice>      getInvoicesForCustomer_viaAllJobs(GnucashCustomer cust)
@@ -295,7 +295,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -314,7 +314,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashJobInvoice>      getPaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -333,7 +333,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(GnucashCustomer cust)throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -352,7 +352,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashJobInvoice>      getUnpaidInvoicesForCustomer_viaAllJobs(GnucashCustomer cust)throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -372,7 +372,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashVendorBill>      getBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -390,7 +390,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -428,7 +428,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getPaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -447,7 +447,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashVendorBill>      getUnpaidBillsForVendor_direct(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -466,7 +466,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getUnpaidBillsForVendor_viaAllJobs(GnucashVendor vend) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -486,7 +486,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -504,7 +504,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -523,7 +523,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -542,7 +542,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getPaidVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -561,7 +561,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -580,7 +580,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getUnpaidVouchersForEmployee_viaAllJobs(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -600,7 +600,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -619,7 +619,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getPaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -638,7 +638,7 @@ public interface GnucashFile extends GnucashObject {
      * @throws NoSuchFieldException 
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     Collection<GnucashJobInvoice>      getUnpaidInvoicesForJob(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
@@ -652,7 +652,7 @@ public interface GnucashFile extends GnucashObject {
      *
      * @param name the UNQUaLIFIED name to look for
      * @return null if not found
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      */
     Collection<GnucashAccount> getAccountsByName(String expr);
 
@@ -669,7 +669,7 @@ public interface GnucashFile extends GnucashObject {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     GnucashAccount getAccountByNameEx(String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -683,7 +683,7 @@ public interface GnucashFile extends GnucashObject {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     GnucashAccount getAccountByIDorName(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -698,7 +698,7 @@ public interface GnucashFile extends GnucashObject {
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(String)
+     * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
     GnucashAccount getAccountByIDorNameEx(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -718,7 +718,7 @@ public interface GnucashFile extends GnucashObject {
      *
      * @param name the name to look for
      * @return null if not found
-     * @see #getCustomerByID(String)
+     * @see #getCustomerByID(GCshID)
      */
     Collection<GnucashCustomer> getCustomersByName(String expr);
 
@@ -747,7 +747,7 @@ public interface GnucashFile extends GnucashObject {
      *
      * @param name the name to look for
      * @return null if not found
-     * @see #getVendorByID(String)
+     * @see #getVendorByID(GCshID)
      */
     Collection<GnucashVendor> getVendorsByName(String expr);
 
@@ -776,7 +776,7 @@ public interface GnucashFile extends GnucashObject {
      *
      * @param name the name to look for
      * @return null if not found
-     * @see #getEmployeeByID(String)
+     * @see #getEmployeeByID(GCshID)
      */
     Collection<GnucashEmployee> getEmployeesByUserName(String expr);
 
@@ -833,7 +833,7 @@ public interface GnucashFile extends GnucashObject {
      *
      * @param name the name to look for
      * @return null if not found
-     * @see #getCommodityByID(String)
+     * @see #getCommodityByID(GCshID)
      */
     Collection<GnucashCommodity> getCommoditiesByName(String expr);
 

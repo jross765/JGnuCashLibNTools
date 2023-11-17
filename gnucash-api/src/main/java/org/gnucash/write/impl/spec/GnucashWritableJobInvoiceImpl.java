@@ -410,7 +410,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this job invoice is NOT changable because there are already payment for it made!");
+		    "this job invoice is NOT changeable because there are already payment for it made!");
 	}
     }
 

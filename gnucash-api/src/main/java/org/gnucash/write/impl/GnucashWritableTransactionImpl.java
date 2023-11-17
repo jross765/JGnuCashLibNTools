@@ -12,6 +12,7 @@ import java.util.List;
 import org.gnucash.Const;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncTransaction;
 import org.gnucash.generated.ObjectFactory;
 import org.gnucash.read.GnucashAccount;
@@ -282,7 +283,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws NoSuchFieldException 
      * @see GnucashWritableTransaction#getWritingSplitByID(java.lang.String)
      */
-    public GnucashWritableTransactionSplit getWritingSplitByID(final String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public GnucashWritableTransactionSplit getWritingSplitByID(final GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return (GnucashWritableTransactionSplit) super.getSplitByID(id);
     }
 
