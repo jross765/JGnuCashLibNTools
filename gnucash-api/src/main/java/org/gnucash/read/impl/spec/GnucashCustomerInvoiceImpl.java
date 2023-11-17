@@ -53,10 +53,10 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
     {
       for ( GnucashTransactionSplit splt : trx.getSplits() ) 
       {
-        String lot = splt.getLotID();
+        GCshID lot = splt.getLotID();
         if ( lot != null ) {
             for ( GnucashGenerInvoice invc1 : splt.getTransaction().getGnucashFile().getGenerInvoices() ) {
-                String lotID = invc1.getLotID();
+                GCshID lotID = invc1.getLotID();
                 if ( lotID != null &&
                      lotID.equals(lot) ) {
                     // Check if it's a payment transaction. 

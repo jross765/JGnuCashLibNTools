@@ -1246,11 +1246,11 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public String getLotID() {
+	public GCshID getLotID() {
 		if (getJwsdpPeer().getInvoicePostlot() == null) {
 			return null; //unposted invoices have no postlot
 		}
-		return getJwsdpPeer().getInvoicePostlot().getValue();
+		return new GCshID( getJwsdpPeer().getInvoicePostlot().getValue() );
 	}
 
 	/**

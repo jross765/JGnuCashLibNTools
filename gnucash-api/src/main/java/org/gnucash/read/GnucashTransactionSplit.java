@@ -270,7 +270,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      */
     String getDescription();
 
-    public String getLotID();
+    public GCshID getLotID();
 
       /**
      * Get the type of association this split has with

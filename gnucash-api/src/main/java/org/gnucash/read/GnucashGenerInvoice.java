@@ -101,7 +101,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return the lot-id that identifies transactions to belong to an invoice with
    *         that lot-id.
    */
-  String getLotID();
+  GCshID getLotID();
 
   /**
    *

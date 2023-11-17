@@ -125,10 +125,10 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	}
 	for ( GnucashTransaction trx : trxs ) {
 	    for (GnucashTransactionSplit splt : trx.getSplits()) {
-		String lot = splt.getLotID();
+		GCshID lot = splt.getLotID();
 		if (lot != null) {
 		    for (GnucashGenerInvoice invc1 : splt.getTransaction().getGnucashFile().getGenerInvoices()) {
-			String lotID = invc1.getLotID();
+			GCshID lotID = invc1.getLotID();
 			if (lotID != null && lotID.equals(lot)) {
 			    // Check if it's a payment transaction.
 			    // If so, add it to the invoice's list of payment transactions.

@@ -69,10 +69,10 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    acct.addTransactionSplit(this);
 	}
 
-	String lot = getLotID();
+	GCshID lot = getLotID();
 	if (lot != null) {
 	    for (GnucashGenerInvoice invc : getTransaction().getGnucashFile().getGenerInvoices()) {
-		String lotID = invc.getLotID();
+		GCshID lotID = invc.getLotID();
 		if (lotID != null && lotID.equals(lot)) {
 		    // Check if it's a payment transaction.
 		    // If so, add it to the invoice's list of payment transactions.
@@ -112,12 +112,12 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @return the lot-id that identifies this transaction to belong to an invoice
      *         with that lot-id.
      */
-    public String getLotID() {
+    public GCshID getLotID() {
 	if (getJwsdpPeer().getSplitLot() == null) {
 	    return null;
 	}
 
-	return getJwsdpPeer().getSplitLot().getValue();
+	return new GCshID( getJwsdpPeer().getSplitLot().getValue() );
 
     }
 
