@@ -83,7 +83,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    */
   @Override
   public GCshID getJobId() {
-    return new GCshID( getOwnerId_direct() );
+    return getOwnerId_direct();
   }
 
   /**
@@ -97,7 +97,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public String getOwnerId(ReadVariant readVar) {
+  public GCshID getOwnerId(ReadVariant readVar) {
       if (readVar == ReadVariant.DIRECT)
 	  return getOwnerId_direct();
       else if (readVar == ReadVariant.VIA_JOB)
@@ -107,7 +107,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   }
 
   @Override
-  protected String getOwnerId_viaJob() {
+  protected GCshID getOwnerId_viaJob() {
       return getGenerJob().getOwnerId();
   }
 
@@ -121,7 +121,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	throw new WrongInvoiceTypeException();
     
-    return new GCshID(getOwnerId_viaJob());
+    return getOwnerId_viaJob();
   }
 
   /**
@@ -132,7 +132,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	throw new WrongInvoiceTypeException();
     
-    return new GCshID(getOwnerId_viaJob());
+    return getOwnerId_viaJob();
   }
 
   /**
@@ -143,7 +143,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
 	throw new WrongInvoiceTypeException();
     
-    return new GCshID(getOwnerId_viaJob());
+    return getOwnerId_viaJob();
   }
 
   // ----------------------------

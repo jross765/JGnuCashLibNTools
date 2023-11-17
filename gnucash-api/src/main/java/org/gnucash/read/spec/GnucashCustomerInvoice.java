@@ -26,7 +26,7 @@ public interface GnucashCustomerInvoice extends GnucashGenerInvoice {
     /**
      * @return ID of customer this invoice has been sent to.
      */
-    String getCustomerId();
+    GCshID getCustomerId();
 
     /**
      * @return Customer this invoice has been sent to.

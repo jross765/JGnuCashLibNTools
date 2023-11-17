@@ -50,7 +50,7 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
      * {@inheritDoc}
      */
     public GCshID getVendorId() {
-        return new GCshID(getOwnerId());
+        return getOwnerId();
     }
 
     /**

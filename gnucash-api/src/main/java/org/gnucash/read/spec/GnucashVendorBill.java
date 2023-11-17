@@ -26,7 +26,7 @@ public interface GnucashVendorBill extends GnucashGenerInvoice {
     /**
      * @return ID of vendor this invoice has been sent from 
      */
-    String getVendorId();
+    GCshID getVendorId();
 
     /**
      * @return Customer this invoice has been sent to.

@@ -175,8 +175,8 @@ public class TestGnucashWritableVendorJobImpl
       assertEquals(newInvcID, jobGener.getId());
       assertEquals(newInvcID, jobSpec.getId());
       
-      assertEquals(VEND_1_ID.toString(), jobGener.getOwnerId());
-      assertEquals(VEND_1_ID.toString(), jobSpec.getOwnerId());
+      assertEquals(VEND_1_ID, jobGener.getOwnerId());
+      assertEquals(VEND_1_ID, jobSpec.getOwnerId());
       assertEquals(VEND_1_ID, jobSpec.getVendorId());
       
       assertEquals("J456", jobGener.getNumber());

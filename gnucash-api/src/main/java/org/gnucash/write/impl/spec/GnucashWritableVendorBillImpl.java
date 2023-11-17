@@ -402,7 +402,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
      * {@inheritDoc}
      */
     public GCshID getVendorId() {
-	return new GCshID(getOwnerId());
+	return getOwnerId();
     }
 
     /**

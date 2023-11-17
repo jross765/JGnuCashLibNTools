@@ -27,7 +27,7 @@ public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
     /**
      * @return ID of employee this invoice has been sent from 
      */
-    String getEmployeeId();
+    GCshID getEmployeeId();
 
     /**
      * @return Customer this invoice has been sent to.

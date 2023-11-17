@@ -175,8 +175,8 @@ public class TestGnucashWritableCustomerJobImpl
       assertEquals(newInvcID, jobGener.getId());
       assertEquals(newInvcID, jobSpec.getId());
       
-      assertEquals(CUST_1_ID.toString(), jobGener.getOwnerId());
-      assertEquals(CUST_1_ID.toString(), jobSpec.getOwnerId());
+      assertEquals(CUST_1_ID, jobGener.getOwnerId());
+      assertEquals(CUST_1_ID, jobSpec.getOwnerId());
       assertEquals(CUST_1_ID, jobSpec.getCustomerId());
       
       assertEquals("J123", jobGener.getNumber());

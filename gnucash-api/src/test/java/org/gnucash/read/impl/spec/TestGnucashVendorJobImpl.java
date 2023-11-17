@@ -118,8 +118,8 @@ public class TestGnucashVendorJobImpl
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-    assertEquals(vendID.toString(), jobGener.getOwnerId());
-    assertEquals(vendID.toString(), jobSpec.getOwnerId());
+    assertEquals(vendID, jobGener.getOwnerId());
+    assertEquals(vendID, jobSpec.getOwnerId());
     assertEquals(vendID, jobSpec.getVendorId());
   }
 }

@@ -73,7 +73,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public String getVendorId() {
+  public GCshID getVendorId() {
       return getOwnerId();
   }
 

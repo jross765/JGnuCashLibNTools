@@ -73,7 +73,7 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public String getEmployeeId() {
+  public GCshID getEmployeeId() {
       return getOwnerId();
   }
 

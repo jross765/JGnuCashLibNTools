@@ -93,7 +93,7 @@ public class TestGnucashGenerJobImpl
     job = gcshFile.getGenerJobByID(JOB_1_ID);
     assertNotEquals(null, job);
       
-    String custID = "f44645d2397946bcac90dff68cc03b76";
+    GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
     assertEquals(custID, job.getOwnerId());
   }
 
@@ -127,7 +127,7 @@ public class TestGnucashGenerJobImpl
     job = gcshFile.getGenerJobByID(JOB_2_ID);
     assertNotEquals(null, job);
       
-    String vendID = "4f16fd55c0d64ebe82ffac0bb25fe8f5";
+    GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
     assertEquals(vendID, job.getOwnerId());
   }
 }

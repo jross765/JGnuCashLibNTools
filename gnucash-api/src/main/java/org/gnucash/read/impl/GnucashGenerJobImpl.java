@@ -139,9 +139,9 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * {@inheritDoc}
      */
-    public String getOwnerId() {
+    public GCshID getOwnerId() {
 	assert jwsdpPeer.getJobOwner().getOwnerId().getType().equals(Const.XML_DATA_TYPE_GUID);
-	return jwsdpPeer.getJobOwner().getOwnerId().getValue();
+	return new GCshID( jwsdpPeer.getJobOwner().getOwnerId().getValue() );
     }
 
     // ---------------------------------------------------------------

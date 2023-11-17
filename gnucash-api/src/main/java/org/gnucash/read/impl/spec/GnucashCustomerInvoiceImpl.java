@@ -74,7 +74,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public String getCustomerId() {
+  public GCshID getCustomerId() {
     return getOwnerId();
   }
 

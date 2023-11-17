@@ -427,7 +427,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * {@inheritDoc}
      */
     public GCshID getJobId() {
-	return new GCshID( getOwnerId() );
+	return getOwnerId();
     }
 
     /**

@@ -114,7 +114,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return Invoice' owner ID
    * @throws WrongInvoiceTypeException
    */
-  String getOwnerId(ReadVariant readvar) throws WrongInvoiceTypeException;
+  GCshID getOwnerId(ReadVariant readvar) throws WrongInvoiceTypeException;
 
 //    /**
 //    *

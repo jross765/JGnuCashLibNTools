@@ -1387,11 +1387,11 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	
 	// -----------------------------------------------------------
 
-	public String getOwnerId() {
+	public GCshID getOwnerId() {
 	    return getOwnerId_direct();
 	}
 
-    public String getOwnerId(ReadVariant readVar) throws WrongInvoiceTypeException {
+    public GCshID getOwnerId(ReadVariant readVar) throws WrongInvoiceTypeException {
       if ( readVar == ReadVariant.DIRECT )
         return getOwnerId_direct();
       else if ( readVar == ReadVariant.VIA_JOB )
@@ -1400,16 +1400,16 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
       return null; // Compiler happy
     }
 
-    protected String getOwnerId_direct() {
+    protected GCshID getOwnerId_direct() {
       assert getJwsdpPeer().getInvoiceOwner().getOwnerId().getType().equals(Const.XML_DATA_TYPE_GUID);
-        return getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue();
+        return new GCshID( getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue() );
     }
 
-    protected String getOwnerId_viaJob() throws WrongInvoiceTypeException {
+    protected GCshID getOwnerId_viaJob() throws WrongInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
-	GnucashGenerJob job = file.getGenerJobByID(new GCshID(getOwnerId()));
+	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
 	return job.getOwnerId();
     }
     
@@ -1438,7 +1438,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	GnucashGenerJob job = file.getGenerJobByID(new GCshID(getOwnerId()));
+	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
 	return job.getOwnerType();
     }
     
