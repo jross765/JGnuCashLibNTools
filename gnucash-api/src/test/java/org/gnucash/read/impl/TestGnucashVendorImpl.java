@@ -29,11 +29,11 @@ public class TestGnucashVendorImpl
   public static final GCshID VEND_2_ID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
   public static final GCshID VEND_3_ID = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
 
-  private static final String TAXTABLE_UK_1_ID   = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+  private static final GCshID TAXTABLE_UK_1_ID   = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
-  private static final String BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-  private static final String BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
-  private static final String BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+  private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+  private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+  private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
   // -----------------------------------------------------------------
   

@@ -136,7 +136,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	     * 
 	     * taxtableref.setValue(taxtable.getTaxtableGuid().getValue());
 	     */
-	    taxTabRef.setValue(taxTab.getId());
+	    taxTabRef.setValue(taxTab.getId().toString());
 	    entry.setEntryITaxtable(taxTabRef);
 	}
 
@@ -223,7 +223,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	     * 
 	     * taxtableref.setValue(taxtable.getTaxtableGuid().getValue());
 	     */
-	    taxTabRef.setValue(taxTab.getId());
+	    taxTabRef.setValue(taxTab.getId().toString());
 	    entry.setEntryBTaxtable(taxTabRef);
 	}
 
@@ -522,7 +522,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 				.getObjectFactory().createGncV2GncBookGncGncEntryEntryITaxtable());
 		getJwsdpPeer().getEntryITaxtable().setType(Const.XML_DATA_TYPE_GUID);
 	    }
-	    getJwsdpPeer().getEntryITaxtable().setValue(taxTab.getId());
+	    getJwsdpPeer().getEntryITaxtable().setValue(taxTab.getId().toString());
 	}
     }
 
@@ -607,7 +607,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 				.getObjectFactory().createGncV2GncBookGncGncEntryEntryBTaxtable());
 		getJwsdpPeer().getEntryBTaxtable().setType(Const.XML_DATA_TYPE_GUID);
 	    }
-	    getJwsdpPeer().getEntryBTaxtable().setValue(taxTab.getId());
+	    getJwsdpPeer().getEntryBTaxtable().setValue(taxTab.getId().toString());
 	}
     }
 

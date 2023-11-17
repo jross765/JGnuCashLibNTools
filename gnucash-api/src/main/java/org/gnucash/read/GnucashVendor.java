@@ -66,7 +66,7 @@ public interface GnucashVendor extends GnucashObject {
      * 
      * @see {@link #getTaxTable()}
      */
-    String getTaxTableID();
+    GCshID getTaxTableID();
 
     /**
      * The default tax table to use with this customer (may be null).
@@ -82,7 +82,7 @@ public interface GnucashVendor extends GnucashObject {
      * 
      * @see {@link #getTaxTable()}
      */
-    String getTermsID();
+    GCshID getTermsID();
 
     /**
      * The default terms to use with this customer (may be null).

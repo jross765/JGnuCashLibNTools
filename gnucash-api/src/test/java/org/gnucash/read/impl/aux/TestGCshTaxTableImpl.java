@@ -20,18 +20,18 @@ public class TestGCshTaxTableImpl
 {
   // DE
   // Note the funny parent/child pair.
-  private static final String TAXTABLE_DE_1_1_ID = "3c9690f9f31b4cd0baa936048b833c06"; // DE_USt_Std "parent"
-  private static final String TAXTABLE_DE_1_2_ID = "cba6011c826f426fbc4a1a72c3d6c8ee"; // DE_USt_Std "child"
-  private static final String TAXTABLE_DE_2_ID   = "c518af53a93c4a5cb3e2161b7b358e68"; // DE_USt_red
+  private static final GCshID TAXTABLE_DE_1_1_ID = new GCshID("3c9690f9f31b4cd0baa936048b833c06"); // DE_USt_Std "parent"
+  private static final GCshID TAXTABLE_DE_1_2_ID = new GCshID("cba6011c826f426fbc4a1a72c3d6c8ee"); // DE_USt_Std "child"
+  private static final GCshID TAXTABLE_DE_2_ID   = new GCshID("c518af53a93c4a5cb3e2161b7b358e68"); // DE_USt_red
     
   // FR
-  public  static final String TAXTABLE_FR_1_ID   = "de4c17d1eb0e4f088ba73d4c697032f0"; // FR_TVA_Std
-  private static final String TAXTABLE_FR_2_ID   = "e279d5cc81204f1bb6cf672ef3357c0c"; // FR_TVA_red
+  public  static final GCshID TAXTABLE_FR_1_ID   = new GCshID("de4c17d1eb0e4f088ba73d4c697032f0"); // FR_TVA_Std
+  private static final GCshID TAXTABLE_FR_2_ID   = new GCshID("e279d5cc81204f1bb6cf672ef3357c0c"); // FR_TVA_red
     
   // UK
-  public  static final String TAXTABLE_UK_1_ID   = "0bc4e576896a4fb4a2779dcf310f82f1"; // UK_VAT_Std
-  private static final String TAXTABLE_UK_2_ID   = "9d33a0082d9241ac89aa8e907f30d1db"; // UK_VAT_red
-    
+  public  static final GCshID TAXTABLE_UK_1_ID   = new GCshID("0bc4e576896a4fb4a2779dcf310f82f1"); // UK_VAT_Std
+  private static final GCshID TAXTABLE_UK_2_ID   = new GCshID("9d33a0082d9241ac89aa8e907f30d1db"); // UK_VAT_red
+  
   private static final GCshID TAX_ACCT_ID        = new GCshID("1a5b06dada56466197edbd15e64fd425"); // Root Account::Fremdkapital::Steuerverbindl
 
   private GnucashFile  gcshFile = null;
@@ -91,12 +91,12 @@ public class TestGCshTaxTableImpl
       Object[] taxTableArr = taxTableList.toArray();
       
       assertEquals(TAXTABLE_UK_2_ID,   ((GCshTaxTable) taxTableArr[0]).getId());
-      assertEquals(TAXTABLE_FR_2_ID,   ((GCshTaxTable) taxTableArr[1]).getId());
-      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshTaxTable) taxTableArr[2]).getId());
-      assertEquals(TAXTABLE_UK_1_ID,   ((GCshTaxTable) taxTableArr[3]).getId());
+      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshTaxTable) taxTableArr[1]).getId());
+      assertEquals(TAXTABLE_UK_1_ID,   ((GCshTaxTable) taxTableArr[2]).getId());
+      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshTaxTable) taxTableArr[3]).getId());
       assertEquals(TAXTABLE_DE_2_ID,   ((GCshTaxTable) taxTableArr[4]).getId());
       assertEquals(TAXTABLE_FR_1_ID,   ((GCshTaxTable) taxTableArr[5]).getId());
-      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshTaxTable) taxTableArr[6]).getId());
+      assertEquals(TAXTABLE_FR_2_ID,   ((GCshTaxTable) taxTableArr[6]).getId());
   }
 
   @Test

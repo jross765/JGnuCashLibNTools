@@ -154,20 +154,20 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public String getTaxTableID() {
+    public GCshID getTaxTableID() {
 	GncV2.GncBook.GncGncCustomer.CustTaxtable custTaxtable = jwsdpPeer.getCustTaxtable();
 	if (custTaxtable == null) {
 	    return null;
 	}
 
-	return custTaxtable.getValue();
+	return new GCshID( custTaxtable.getValue() );
     }
 
     /**
      * {@inheritDoc}
      */
     public GCshTaxTable getTaxTable() {
-	String id = getTaxTableID();
+	GCshID id = getTaxTableID();
 	if (id == null) {
 	    return null;
 	}
@@ -179,20 +179,20 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public String getTermsID() {
+    public GCshID getTermsID() {
 	GncV2.GncBook.GncGncCustomer.CustTerms custTerms = jwsdpPeer.getCustTerms();
 	if (custTerms == null) {
 	    return null;
 	}
 
-	return custTerms.getValue();
+	return new GCshID( custTerms.getValue() );
     }
 
     /**
      * {@inheritDoc}
      */
     public GCshBillTerms getTerms() {
-	String id = getTermsID();
+	GCshID id = getTermsID();
 	if (id == null) {
 	    return null;
 	}

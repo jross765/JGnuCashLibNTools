@@ -325,13 +325,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		throw new TaxTableNotFoundException();
 	    }
 
-	    String taxTableId = taxTableEntry.getValue();
-	    if (taxTableId == null) {
+	    String taxTableIdStr = taxTableEntry.getValue();
+	    if (taxTableIdStr == null) {
 		LOGGER.error(
 			"getInvcTaxTable: Customer invoice with id '" + getId() + 
 			"' is i-taxable but has empty id for the i-taxtable");
 		return null;
 	    }
+	    GCshID taxTableId = new GCshID( taxTableIdStr );
 	    myInvcTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myInvcTaxtable == null) {
@@ -362,12 +363,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		throw new TaxTableNotFoundException();
 	    }
 
-	    String taxTableId = taxTableEntry.getValue();
-	    if (taxTableId == null) {
+	    String taxTableIdStr = taxTableEntry.getValue();
+	    if (taxTableIdStr == null) {
 		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getId() + 
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
+	    GCshID taxTableId = new GCshID( taxTableIdStr );
 	    myBillTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxtable == null) {
@@ -398,12 +400,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		throw new TaxTableNotFoundException();
 	    }
 
-	    String taxTableId = taxTableEntry.getValue();
-	    if (taxTableId == null) {
+	    String taxTableIdStr = taxTableEntry.getValue();
+	    if (taxTableIdStr == null) {
 		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getId() + 
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
+	    GCshID taxTableId = new GCshID( taxTableIdStr );
 	    myBillTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxtable == null) {

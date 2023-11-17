@@ -56,7 +56,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id id of a tax table
      * @return the identified tax table or null
      */
-    GCshTaxTable getTaxTableByID(String id);
+    GCshTaxTable getTaxTableByID(GCshID id);
 
     /**
      * @param id name of a tax table
@@ -76,7 +76,7 @@ public interface GnucashFile extends GnucashObject {
      * @param id id of a tax table
      * @return the identified tax table or null
      */
-    GCshBillTerms getBillTermsByID(String id);
+    GCshBillTerms getBillTermsByID(GCshID id);
 
     /**
      * @param id name of a tax table

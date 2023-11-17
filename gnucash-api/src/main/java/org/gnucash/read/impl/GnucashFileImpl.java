@@ -166,14 +166,14 @@ public class GnucashFileImpl implements GnucashFile {
      *
      * @see #getTaxTables()
      */
-    protected Map<String, GCshTaxTable> taxTablesById = null;
+    protected Map<GCshID, GCshTaxTable> taxTablesById = null;
 
     /**
      * @param id ID of a tax table
      * @return the identified tax table or null
      */
     @Override
-    public GCshTaxTable getTaxTableByID(final String id) {
+    public GCshTaxTable getTaxTableByID(final GCshID id) {
 	if (taxTablesById == null) {
 	    getTaxTables();
 	}
@@ -207,7 +207,7 @@ public class GnucashFileImpl implements GnucashFile {
     @Override
     public Collection<GCshTaxTable> getTaxTables() {
 	if (taxTablesById == null) {
-	    taxTablesById = new HashMap<String, GCshTaxTable>();
+	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
 
 	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
 	    for (Object bookElement : bookElements) {
@@ -230,14 +230,14 @@ public class GnucashFileImpl implements GnucashFile {
      *
      * @see #getVendorTerms()
      */
-    protected Map<String, GCshBillTerms> billTermsByID = null;
+    protected Map<GCshID, GCshBillTerms> billTermsByID = null;
 
     /**
      * @param id ID of a bill terms item
      * @return the identified bill terms item or null
      */
     @Override
-    public GCshBillTerms getBillTermsByID(final String id) {
+    public GCshBillTerms getBillTermsByID(final GCshID id) {
         if (billTermsByID == null) {
             getBillTerms();
         }
@@ -270,7 +270,7 @@ public class GnucashFileImpl implements GnucashFile {
      */
     public Collection<GCshBillTerms> getBillTerms() {
         if (billTermsByID == null) {
-            billTermsByID = new HashMap<String, GCshBillTerms>();
+            billTermsByID = new HashMap<GCshID, GCshBillTerms>();
 
             List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
             for (Object bookElement : bookElements) {

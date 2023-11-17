@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.gnucash.Const;
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.aux.GCshTaxTable;
@@ -61,7 +62,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    public String getId() {
+    public GCshID getId() {
 	assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 	String guid = jwsdpPeer.getTaxtableGuid().getValue();
@@ -70,7 +71,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 		    "taxtable has a null guid-value! guid-type=" + jwsdpPeer.getTaxtableGuid().getType());
 	}
 
-	return guid;
+	return new GCshID(guid);
     }
 
     /**
@@ -90,12 +91,12 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * @see GCshTaxTable#getParentID()
      */
-    public String getParentID() {
+    public GCshID getParentID() {
 	GncV2.GncBook.GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
 	if (parent == null) {
 	    return null;
 	}
-	return parent.getValue();
+	return new GCshID( parent.getValue() );
     }
 
     /**

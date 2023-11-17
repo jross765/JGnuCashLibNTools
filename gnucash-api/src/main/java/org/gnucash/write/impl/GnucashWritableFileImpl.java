@@ -358,7 +358,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public Collection<GCshTaxTable> getTaxTables() {
 	if (taxTablesById == null) {
 
-	    taxTablesById = new HashMap<String, GCshTaxTable>();
+	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
 	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
 	    for (Object bookElement : bookElements) {
 		if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {

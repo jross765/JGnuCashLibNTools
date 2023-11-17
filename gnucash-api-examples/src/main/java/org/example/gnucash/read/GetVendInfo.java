@@ -88,7 +88,7 @@ public class GetVendInfo {
 
 	System.out.println("");
 	try {
-	    String taxTabID = vend.getTaxTableID();
+	    GCshID taxTabID = vend.getTaxTableID();
 	    System.out.println("Tax table ID:      " + taxTabID);
 
 	    if (vend.getTaxTableID() != null) {
@@ -105,7 +105,7 @@ public class GetVendInfo {
 
 	System.out.println("");
 	try {
-	    String bllTrmID = vend.getTermsID();
+	    GCshID bllTrmID = vend.getTermsID();
 	    System.out.println("Bill terms ID:     " + bllTrmID);
 
 	    if (vend.getTermsID() != null) {

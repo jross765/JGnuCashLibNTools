@@ -2,6 +2,8 @@ package org.gnucash.read.aux;
 
 import java.util.List;
 
+import org.gnucash.basetypes.simple.GCshID;
+
 public interface GCshBillTerms {
 
     public enum Type {
@@ -11,7 +13,7 @@ public interface GCshBillTerms {
 
     // -----------------------------------------------------------
 
-    public String getId();
+    public GCshID getId();
 
     public int getRefcount();
 

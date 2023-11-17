@@ -2,6 +2,7 @@ package org.gnucash.read.aux;
 
 import java.util.Collection;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashCustomer;
 
 
@@ -16,7 +17,7 @@ public interface GCshTaxTable {
     /**
      * @return the unique-id to identify this object with across name- and hirarchy-changes
      */
-    String getId();
+    GCshID getId();
 
     /**
      *
@@ -32,7 +33,7 @@ public interface GCshTaxTable {
     /**
      * @return id of the parent-taxtable
      */
-    String getParentID();
+    GCshID getParentID();
 
     /**
      * @return the parent-taxtable

@@ -27,11 +27,11 @@ public class TestGnucashCustomerImpl
   public static final GCshID CUST_2_ID = new GCshID("f44645d2397946bcac90dff68cc03b76"); // Is That So Ltd.
   public static final GCshID CUST_3_ID = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d"); // N'importe Quoi S.A.
 
-  private static final String TAXTABLE_FR_1_ID   = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
+  private static final GCshID TAXTABLE_FR_1_ID   = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
 
-  private static final String BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-  private static final String BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
-  private static final String BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+  private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+  private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+  private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
   // -----------------------------------------------------------------
   

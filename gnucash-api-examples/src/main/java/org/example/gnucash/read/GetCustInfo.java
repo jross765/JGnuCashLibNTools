@@ -101,7 +101,7 @@ public class GetCustInfo {
 
 	System.out.println("");
 	try {
-	    String taxTabID = cust.getTaxTableID();
+	    GCshID taxTabID = cust.getTaxTableID();
 	    System.out.println("Tax table ID:      " + taxTabID);
 
 	    if (cust.getTaxTableID() != null) {
@@ -118,7 +118,7 @@ public class GetCustInfo {
 
 	System.out.println("");
 	try {
-	    String bllTrmID = cust.getTermsID();
+	    GCshID bllTrmID = cust.getTermsID();
 	    System.out.println("Bill terms ID:     " + bllTrmID);
 
 	    if (cust.getTermsID() != null) {

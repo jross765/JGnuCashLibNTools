@@ -3,6 +3,7 @@ package org.gnucash.read.impl.aux;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.generated.GncV2.GncBook.GncGncBillTerm.BilltermChild;
 import org.gnucash.read.aux.BillTermsTypeException;
@@ -48,8 +49,8 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 
     // -----------------------------------------------------------
 
-    public String getId() {
-	return jwsdpPeer.getBilltermGuid().getValue();
+    public GCshID getId() {
+	return new GCshID( jwsdpPeer.getBilltermGuid().getValue() );
     }
 
     public int getRefcount() {
