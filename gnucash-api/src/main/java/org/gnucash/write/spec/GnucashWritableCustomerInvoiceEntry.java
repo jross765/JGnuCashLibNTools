@@ -10,7 +10,7 @@ import org.gnucash.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.write.GnucashWritableObject;
 
 /**
- * Invoice-Entry that can be modified.
+ * Customer invoice entry that can be modified.
  */
 public interface GnucashWritableCustomerInvoiceEntry extends GnucashWritableGenerInvoiceEntry, 
                                                              GnucashWritableObject 

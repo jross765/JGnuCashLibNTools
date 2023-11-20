@@ -65,6 +65,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
       // ::MAGIC (actually kind of "half-magic")
       INVOICE ("TRX_SPLT_ACTION_INVOICE"),
       BILL    ("TRX_SPLT_ACTION_BILL"),
+      VOUCHER ("TRX_SPLT_ACTION_VOUCHER"),
       PAYMENT ("TRX_SPLT_ACTION_PAYMENT"),
       BUY     ("TRX_SPLT_ACTION_BUY"),
       SELL    ("TRX_SPLT_ACTION_SELL");

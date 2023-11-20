@@ -286,9 +286,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
     protected void setVoucherTaxTable(final GCshTaxTable aTaxtable)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	myBillTaxtable = aTaxtable;
     }
 

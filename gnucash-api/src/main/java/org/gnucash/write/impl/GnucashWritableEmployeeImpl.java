@@ -61,7 +61,8 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
             org.gnucash.generated.Address addr = factory.createAddress();
             addr.setAddrAddr1("");
             addr.setAddrAddr2("");
-            addr.setAddrName("");
+            addr.setAddrName("no name given"); // not absolutely necessary, but recommendable,
+                                               // since it's an important part of the preview mask
             addr.setAddrAddr3("");
             addr.setAddrAddr4("");
             addr.setAddrName("");

@@ -17,13 +17,13 @@ import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashTransaction;
-import org.gnucash.read.GnucashVendor;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.impl.GnucashFileImpl;
-import org.gnucash.read.impl.TestGnucashVendorImpl;
-import org.gnucash.read.impl.spec.GnucashVendorBillImpl;
-import org.gnucash.read.spec.GnucashVendorBill;
+import org.gnucash.read.impl.TestGnucashEmployeeImpl;
+import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
+import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.write.impl.GnucashWritableFileImpl;
-import org.gnucash.write.spec.GnucashWritableVendorBill;
+import org.gnucash.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,11 +36,11 @@ import org.xml.sax.SAXException;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGnucashWritableVendorBillImpl
+public class TestGnucashWritableEmployeeVoucherImpl
 {
-    private static final GCshID VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
-    private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
-    private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
+    private static final GCshID EMPL_1_ID = TestGnucashEmployeeImpl.EMPL_1_ID;
+//    private static final GCshID EMPL_2_ID = TestGnucashEmployeeImpl.EMPL_2_ID;
+//    private static final GCshID EMPL_3_ID = TestGnucashEmployeeImpl.EMPL_3_ID;
 
     static final GCshID EXPENSES_ACCT_ID   = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
     static final GCshID PAYABLE_ACCT_ID    = new GCshID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige    
@@ -50,7 +50,7 @@ public class TestGnucashWritableVendorBillImpl
     private GnucashWritableFileImpl gcshInFile = null;
     private GnucashFileImpl         gcshOutFile = null;
 
-    private GnucashVendor   vend1 = null;
+    private GnucashEmployee   empl1 = null;
     
     private GnucashAccount  expensesAcct = null;
     private GnucashAccount  payableAcct = null;
@@ -72,7 +72,7 @@ public class TestGnucashWritableVendorBillImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGnucashWritableVendorBillImpl.class);  
+    return new JUnit4TestAdapter(TestGnucashWritableEmployeeVoucherImpl.class);  
   }
   
   @Before
@@ -104,7 +104,7 @@ public class TestGnucashWritableVendorBillImpl
     
     // ----------------------------
     
-    vend1 = gcshInFile.getVendorByID(VEND_1_ID);
+    empl1 = gcshInFile.getEmployeeByID(EMPL_1_ID);
     
     expensesAcct   = gcshInFile.getAccountByID(EXPENSES_ACCT_ID);
     payableAcct    = gcshInFile.getAccountByID(PAYABLE_ACCT_ID);
@@ -118,23 +118,23 @@ public class TestGnucashWritableVendorBillImpl
       LocalDate postDate = LocalDate.of(2023, 8, 1);
       LocalDate openedDate = LocalDate.of(2023, 8, 3);
       LocalDate dueDate = LocalDate.of(2023, 8, 10);
-      GnucashWritableVendorBill bll = gcshInFile.createWritableVendorBill("19327", 
-	      							vend1, 
+      GnucashWritableEmployeeVoucher bll = gcshInFile.createWritableEmployeeVoucher("19431", 
+	      							empl1, 
 	      							expensesAcct, payableAcct, 
 	      							openedDate, postDate, dueDate);
       
-//      GnucashWritableVendorBillEntry entr = invc.createEntry(acct2, 
-//                                                             new FixedPointNumber(12), 
-//                                                             new FixedPointNumber(13));
+//      GnucashWritableEmployeeVoucherEntry entr = invc.createEntry(acct2, 
+//                                                                  new FixedPointNumber(12), 
+//                                                                  new FixedPointNumber(13));
 
       assertNotEquals(null, bll);
       GCshID newInvcID = bll.getId();
 //      System.out.println("New Invoice ID (1): " + newInvcID);
       
-      assertEquals("19327", bll.getNumber());
+      assertEquals("19431", bll.getNumber());
 
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-//      System.err.println("Outfile for TestGnucashWritableVendorImpl.test01_1: '" + outFile.getPath() + "'");
+//      System.err.println("Outfile for TestGnucashWritableEmployeeImpl.test01_1: '" + outFile.getPath() + "'");
       outFile.delete(); // sic, the temp. file is already generated (empty), 
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
@@ -182,7 +182,7 @@ public class TestGnucashWritableVendorBillImpl
       assertEquals(lastNode.getNodeType(), Node.ELEMENT_NODE);
       
       Element elt = (Element) lastNode;
-      assertEquals("19327", elt.getElementsByTagName("invoice:id").item(0).getTextContent());
+      assertEquals("19431", elt.getElementsByTagName("invoice:id").item(0).getTextContent());
       String locNewInvcID = elt.getElementsByTagName("invoice:guid").item(0).getTextContent();
 //      System.out.println("New Invoice ID (2): " + locNewInvcID);
       assertEquals(newInvcID.toString(), locNewInvcID);
@@ -199,10 +199,10 @@ public class TestGnucashWritableVendorBillImpl
 //      System.out.println("New Invoice ID (3): " + newInvcID);
       GnucashGenerInvoice invcGener = gcshOutFile.getGenerInvoiceByID(newInvcID);
       assertNotEquals(null, invcGener);
-      GnucashVendorBill bllSpec = new GnucashVendorBillImpl(invcGener);
+      GnucashEmployeeVoucher bllSpec = new GnucashEmployeeVoucherImpl(invcGener);
       assertNotEquals(null, bllSpec);
       
-      assertEquals("19327", bllSpec.getNumber());
+      assertEquals("19431", bllSpec.getNumber());
       assertEquals(null, bllSpec.getPostAccountId());      
       assertEquals(null, bllSpec.getPostTransactionId());
   }
@@ -218,10 +218,10 @@ public class TestGnucashWritableVendorBillImpl
 //      System.out.println("New Invoice ID (3): " + newInvcID);
       GnucashGenerInvoice invcGener = gcshOutFile.getGenerInvoiceByID(newInvcID);
       assertNotEquals(null, invcGener);
-      GnucashVendorBill bllSpec = new GnucashVendorBillImpl(invcGener);
+      GnucashEmployeeVoucher bllSpec = new GnucashEmployeeVoucherImpl(invcGener);
       assertNotEquals(null, bllSpec);
       
-      assertEquals("19327", bllSpec.getNumber());
+      assertEquals("19431", bllSpec.getNumber());
       assertEquals(PAYABLE_ACCT_ID, bllSpec.getPostAccountId());
       
       assertNotEquals(null, bllSpec.getPostTransactionId());

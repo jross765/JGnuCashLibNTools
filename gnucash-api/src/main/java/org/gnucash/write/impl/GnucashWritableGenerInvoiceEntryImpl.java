@@ -245,6 +245,93 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws NoSuchFieldException 
      * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
+    protected static GncV2.GncBook.GncGncEntry createEmplVchEntry_int(
+	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableEmployeeVoucherImpl
+	    final GnucashAccount acct, 
+	    final FixedPointNumber quantity, 
+	    final FixedPointNumber price) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+
+	if ( invc.getType() != GCshOwner.Type.EMPLOYEE &&
+	     invc.getType() != GCshOwner.Type.JOB )
+	    throw new WrongInvoiceTypeException();
+
+	// TODO: keep count-data in file intact <gnc:count-data
+	// cd:type="gnc:GncEntry">18</gnc:count-data>
+
+	if (!invc.isModifiable()) {
+	    throw new IllegalArgumentException("The given employee voucher has payments and is thus not modifiable");
+	}
+
+	GnucashWritableFileImpl gcshWFile = (GnucashWritableFileImpl) invc.getFile();
+	ObjectFactory factory = gcshWFile.getObjectFactory();
+
+	GncV2.GncBook.GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
+		
+	{
+	    GncV2.GncBook.GncGncEntry.EntryBAcct iacct = factory.createGncV2GncBookGncGncEntryEntryBAcct();
+	    iacct.setType(Const.XML_DATA_TYPE_GUID);
+	    iacct.setValue(acct.getId().toString());
+	    entry.setEntryBAcct(iacct);
+	}
+
+	{
+
+	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
+	    bll.setType(Const.XML_DATA_TYPE_GUID);
+	    bll.setValue(invc.getId().toString());
+	    entry.setEntryBill(bll);
+	}
+	
+	entry.setEntryBPrice(price.toGnucashString());
+	entry.setEntryBTaxable(1);
+	entry.setEntryBTaxincluded(0);
+	
+	{
+	    // TODO: use not the first but the default taxtable
+	    GncV2.GncBook.GncGncEntry.EntryBTaxtable taxTabRef = factory.createGncV2GncBookGncGncEntryEntryBTaxtable();
+	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
+
+	    GCshTaxTable taxTab = null;
+	    // ::TODO
+	    // GnucashEmployee empl = invoice.getEmployee();
+	    // if (empl != null) {
+	    // taxTable = vend.getTaxTable();
+	    // }
+
+	    // use first tax-table found
+	    if (taxTab == null) {
+		taxTab = invc.getFile().getTaxTables().iterator().next();
+	    }
+
+	    /*
+	     * GncV2Type.GncBookType.GncGncTaxTableType taxtable =
+	     * (GncV2Type.GncBookType.GncGncTaxTableType) ((GnucashFileImpl)
+	     * invoice.getFile()).getRootElement().getGncBook().getGncGncTaxTable().get(0);
+	     * 
+	     * taxtableref.setValue(taxtable.getTaxtableGuid().getValue());
+	     */
+	    taxTabRef.setValue(taxTab.getId().toString());
+	    entry.setEntryBTaxtable(taxTabRef);
+	}
+
+	entry.setEntryQty(quantity.toGnucashString());
+	entry.setVersion(Const.XML_FORMAT_VERSION);
+
+	invc.getFile().getRootElement().getGncBook().getBookElements().add(entry);
+	invc.getFile().setModified(true);
+
+	return entry;
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
+     */
     protected static GncV2.GncBook.GncGncEntry createJobInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableJobInvoiceImpl
 	    final GnucashAccount acct, 
@@ -611,8 +698,91 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	}
     }
 
-    // ------------------------
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws TaxTableNotFoundException
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @see GnucashGenerInvoiceEntry#isInvcTaxable()
+     */
+    public void setVoucherTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+	    throw new WrongInvoiceTypeException();
+
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractVoucherEntry(this);
+	
+	setVoucherTaxable_core(val);
+	
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addVoucherEntry(this);
+
+    }
+
+    private void setVoucherTaxable_core(final boolean val) throws WrongInvoiceTypeException {
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+		    throw new WrongInvoiceTypeException();
+
+	if (val) {
+	    getJwsdpPeer().setEntryBTaxable(1);
+	} else {
+	    getJwsdpPeer().setEntryBTaxable(0);
+	}
+    }
+
+    /**
+     * {@inheritDoc}
+     * 
+     * @throws WrongInvoiceTypeException
+     * @throws TaxTableNotFoundException
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     */
+    public void setVoucherTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+	    throw new WrongInvoiceTypeException();
+
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractVoucherEntry(this);
+
+	super.setVoucherTaxTable(taxTab);
+	setVoucherTaxTable_core(taxTab);
+
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addVoucherEntry(this);
+
+    }
+
+    private void setVoucherTaxTable_core(final GCshTaxTable taxTab)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException {
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+		    throw new WrongInvoiceTypeException();
+
+	if (taxTab == null) {
+	    getJwsdpPeer().setEntryBTaxable(0);
+	} else {
+	    getJwsdpPeer().setEntryBTaxable(1);
+	    if (getJwsdpPeer().getEntryBTaxtable() == null) {
+		getJwsdpPeer().setEntryBTaxtable(
+			((GnucashWritableFileImpl) getGenerInvoice().getFile())
+				.getObjectFactory().createGncV2GncBookGncGncEntryEntryBTaxtable());
+		getJwsdpPeer().getEntryBTaxtable().setType(Const.XML_DATA_TYPE_GUID);
+	    }
+	    getJwsdpPeer().getEntryBTaxtable().setValue(taxTab.getId().toString());
+	}
+    }
+
+    // ------------------------
+    
     /**
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
@@ -806,6 +976,67 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     public void setBillPriceFormatted(final String n)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	this.setBillPrice(new FixedPointNumber(n));
+    }
+
+    // ------------------------
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws TaxTableNotFoundException
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @see GnucashWritableGenerInvoiceEntry#setInvcPrice(FixedPointNumber)
+     */
+    @Override
+    public void setVoucherPrice(final String n)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	this.setVoucherPrice(new FixedPointNumber(n));
+    }
+
+    /**
+     * @throws WrongInvoiceTypeException
+     * @throws TaxTableNotFoundException
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @see GnucashWritableGenerInvoiceEntry#setInvcPrice(FixedPointNumber)
+     */
+    @Override
+    public void setVoucherPrice(final FixedPointNumber price)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( getType() != GCshOwner.Type.EMPLOYEE && 
+	     getType() != GCshOwner.Type.JOB )
+	    throw new WrongInvoiceTypeException();
+
+	if (!this.getGenerInvoice().isModifiable()) {
+	    throw new IllegalStateException("This employee voucher has payments and is not modifiable!");
+	}
+
+	FixedPointNumber oldPrice = getVoucherPrice();
+
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).subtractVoucherEntry(this);
+	
+	getJwsdpPeer().setEntryBPrice(price.toGnucashString());
+	
+	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addVoucherEntry(this);
+
+	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	if (propertyChangeSupport != null) {
+	    propertyChangeSupport.firePropertyChange("price", oldPrice, price);
+	}
+
+    }
+
+    public void setVoucherPriceFormatted(final String n)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	this.setVoucherPrice(new FixedPointNumber(n));
     }
 
     // ------------------------

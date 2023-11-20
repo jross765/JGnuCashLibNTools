@@ -69,11 +69,13 @@ import org.gnucash.write.GnucashWritableTransactionSplit;
 import org.gnucash.write.GnucashWritableVendor;
 import org.gnucash.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
 import org.gnucash.write.impl.spec.GnucashWritableCustomerJobImpl;
+import org.gnucash.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
 import org.gnucash.write.impl.spec.GnucashWritableJobInvoiceImpl;
 import org.gnucash.write.impl.spec.GnucashWritableVendorBillImpl;
 import org.gnucash.write.impl.spec.GnucashWritableVendorJobImpl;
 import org.gnucash.write.spec.GnucashWritableCustomerInvoice;
 import org.gnucash.write.spec.GnucashWritableCustomerJob;
+import org.gnucash.write.spec.GnucashWritableEmployeeVoucher;
 import org.gnucash.write.spec.GnucashWritableJobInvoice;
 import org.gnucash.write.spec.GnucashWritableVendorBill;
 import org.gnucash.write.spec.GnucashWritableVendorJob;
@@ -1005,6 +1007,44 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		new GnucashWritableVendorBillImpl(
 			this, 
 			number, vend,
+			(GnucashAccountImpl) expensesAcct, 
+			(GnucashAccountImpl) payableAcct, 
+			openedDate, postDate, dueDate);
+
+	invoiceID2invoice.put(retval.getId(), retval);
+	return retval;
+    }
+
+    /**
+     * FOR USE BY EXTENSIONS ONLY!
+     * 
+     * @throws WrongInvoiceTypeException
+     * @throws WrongOwnerTypeException 
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
+     * @see GnucashWritableFile#createWritableTransaction()
+     */
+    public GnucashWritableEmployeeVoucher createWritableEmployeeVoucher(
+	    final String number, 
+	    final GnucashEmployee empl,
+	    final GnucashAccount expensesAcct,
+	    final GnucashAccount payableAcct,
+	    final LocalDate openedDate,
+	    final LocalDate postDate,
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if (empl == null) {
+	    throw new IllegalArgumentException("null empl given");
+	}
+
+	GnucashWritableEmployeeVoucher retval = 
+		new GnucashWritableEmployeeVoucherImpl(
+			this, 
+			number, empl,
 			(GnucashAccountImpl) expensesAcct, 
 			(GnucashAccountImpl) payableAcct, 
 			openedDate, postDate, dueDate);

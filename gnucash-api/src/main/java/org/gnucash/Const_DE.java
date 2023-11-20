@@ -5,6 +5,7 @@ public class Const_DE {
 
     public static final String TRX_SPLT_ACTION_INVOICE = "Rechnung";
     public static final String TRX_SPLT_ACTION_BILL    = "Lieferantenrechnung";
+    public static final String TRX_SPLT_ACTION_VOUCHER = "Auslagenerstattung";
     public static final String TRX_SPLT_ACTION_PAYMENT = "Zahlung";
     public static final String TRX_SPLT_ACTION_BUY     = "Kauf";
     public static final String TRX_SPLT_ACTION_SELL    = "Verkauf";
