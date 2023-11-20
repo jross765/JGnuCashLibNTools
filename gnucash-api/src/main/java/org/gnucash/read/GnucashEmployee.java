@@ -47,12 +47,6 @@ public interface GnucashEmployee extends GnucashObject {
     String getUserName();
 
     /**
-     *
-     * @return the name of the employee
-     */
-    String getName();
-
-    /**
      * @return the address including the name
      */
     GCshAddress getAddress();
@@ -245,11 +239,11 @@ public interface GnucashEmployee extends GnucashObject {
     // ------------------------------------------------------------
 
     public static int getHighestNumber(GnucashEmployee empl) {
-	return empl.getGnucashFile().getHighestCustomerNumber();
+	return empl.getGnucashFile().getHighestEmployeeNumber();
     }
 
     public static String getNewNumber(GnucashEmployee cust) {
-	return cust.getGnucashFile().getNewCustomerNumber();
+	return cust.getGnucashFile().getNewEmployeeNumber();
     }
 
 }

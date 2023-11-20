@@ -780,15 +780,10 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<GnucashEmployee> getEmployeesByUserName(String expr);
 
-    Collection<GnucashEmployee> getEmployeesByName(String expr);
-
     Collection<GnucashEmployee> getEmployeesByUserName(String expr, boolean relaxed);
-
-    Collection<GnucashEmployee> getEmployeesByName(String expr, boolean relaxed);
 
     GnucashEmployee getEmployeeByUserNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
 
-    GnucashEmployee getEmployeeByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * @return a (possibly read-only) collection of all employees Do not modify the

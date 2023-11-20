@@ -1,4 +1,25 @@
 # Major Changes 
+## V. 1.2 &rarr; 1.3
+* Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1: 
+  * `Gnucash(Writable)Employee(Impl)` 
+  * `Gnucash(Writable)EmployeeVoucher(Impl)` 
+  * `Gnucash(Writable)EmployeeJob(Impl)` 
+
+* Generalized (technically) locale-specific code (e.g., GnuCash stores certain semi-internal XML-tags with locale-specific values for transaction splits' actions). Until V. 1.2, all this was tightly tied to the german locale with hard-coded valus (de_DE). Now, we have a generalized approach open for all locales (still hard-coded, though), and support for the following locales is actually implemented:
+  * English
+  * French
+  * German
+
+* Enhanced type safety by: 
+  * introducing package `org.gnucash.basetypes`, containing, among other things, the class GCshID as a wrapper for the UUIDs used throughout the system (instead of just treating them as unsafe strings).
+  * introducing several enums where before we had string constants,
+
+* Partially re-wrote package `org.gnucash.currency`: Safer and clearer implementation, now leveraging newly introduced types from package `org.gnucash.basetypes`.
+
+* Improved test coverage.
+
+* Last not least: From this version on, the author tries to keep the project as symmetrical as possible with its sister project, `JKMyMoneyLib`.
+
 ## V. 1.1 &rarr; 1.2
 * Introduced interfaces/classes `Gnucash(Writable)Commodity(Impl)` for reading and writing "commodities", in GnuCash lingo an umbrella term for 
   * Currencies
@@ -100,17 +121,9 @@ It should go without saying, but the following points are of course subject to c
 
 * Methods for buying/selling securities ("commodities") in investment accounts.
 
-* Classes for employees and employee vouchers.
-
 * Invoices and bills: Support more variants, such as choosing the terms of payment or the "tax included" flag for entries.
 
-* Generalize (technically) locale-specific code (e.g., GnuCash stores certain interal XML-tags with locale-specific values for transaction splits' actions). Currently, all this is too tightly tied to the german locale (de_DE).
-
-* Re-iterate package `org.gnucash.currency`: leverage `GCshCmdtyCurrID` and descendtants.
-
 * Get rid of ugly code redundancies here and there, esp. in the class `Gnucash(Writable)GenerInvoiceImpl`.
-
-* Even more type safety (e.g., possibly wrapper type for internally-used UUIDs).
 
 * Better test case coverage.
 

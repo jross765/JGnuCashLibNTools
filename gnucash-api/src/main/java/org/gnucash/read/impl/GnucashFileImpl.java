@@ -2450,14 +2450,6 @@ public class GnucashFileImpl implements GnucashFile {
      * @see GnucashFile#getEmployeesByName(java.lang.String)
      */
     @Override
-    public Collection<GnucashEmployee> getEmployeesByName(final String name) {
-	return getEmployeesByName(name, true);
-    }
-
-    /**
-     * @see GnucashFile#getEmployeesByName(java.lang.String)
-     */
-    @Override
     public Collection<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
 
 	if (employeeID2employee == null) {
@@ -2482,48 +2474,9 @@ public class GnucashFileImpl implements GnucashFile {
 	return result;
     }
 
-    /**
-     * @see GnucashFile#getEmployeesByName(java.lang.String)
-     */
-    @Override
-    public Collection<GnucashEmployee> getEmployeesByName(final String expr, boolean relaxed) {
-
-	if (employeeID2employee == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
-
-	for ( GnucashEmployee empl : getEmployees() ) {
-	    if ( relaxed ) {
-		if ( empl.getName().trim().toLowerCase().
-			contains(expr.trim().toLowerCase()) ) {
-		    result.add(empl);
-		}
-	    } else {
-		if ( empl.getName().equals(expr) ) {
-		    result.add(empl);
-		}
-	    }
-	}
-	
-	return result;
-    }
-
     @Override
     public GnucashEmployee getEmployeeByUserNameUniq(final String userName) throws NoEntryFoundException, TooManyEntriesFoundException {
 	Collection<GnucashEmployee> emplList = getEmployeesByUserName(userName);
-	if ( emplList.size() == 0 )
-	    throw new NoEntryFoundException();
-	else if ( emplList.size() > 1 )
-	    throw new TooManyEntriesFoundException();
-	else
-	    return emplList.iterator().next();
-    }
-    
-    @Override
-    public GnucashEmployee getEmployeeByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	Collection<GnucashEmployee> emplList = getEmployeesByName(name);
 	if ( emplList.size() == 0 )
 	    throw new NoEntryFoundException();
 	else if ( emplList.size() > 1 )

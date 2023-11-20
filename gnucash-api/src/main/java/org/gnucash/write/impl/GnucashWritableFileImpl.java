@@ -34,6 +34,7 @@ import org.gnucash.generated.Slot;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashCustomer;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -48,6 +49,7 @@ import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.GnucashAccountImpl;
 import org.gnucash.read.impl.GnucashCustomerImpl;
+import org.gnucash.read.impl.GnucashEmployeeImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
 import org.gnucash.read.impl.GnucashTransactionImpl;
 import org.gnucash.read.impl.GnucashVendorImpl;
@@ -58,6 +60,7 @@ import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.GnucashWritableAccount;
 import org.gnucash.write.GnucashWritableCommodity;
 import org.gnucash.write.GnucashWritableCustomer;
+import org.gnucash.write.GnucashWritableEmployee;
 import org.gnucash.write.GnucashWritableFile;
 import org.gnucash.write.GnucashWritableGenerInvoice;
 import org.gnucash.write.GnucashWritableGenerJob;
@@ -515,6 +518,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	return retval;
     }
 
+    // ----------------------------
+
     /**
      */
     protected GncV2.GncBook.GncGncCustomer createGncGncCustomerType() {
@@ -532,6 +537,16 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
+     */
+    protected GncV2.GncBook.GncGncEmployee createGncGncEmployeeType() {
+	GncV2.GncBook.GncGncEmployee retval = getObjectFactory().createGncV2GncBookGncGncEmployee();
+	incrementCountDataFor("gnc:GncEmployee");
+	return retval;
+    }
+    
+    // ----------------------------
+
+    /**
      * @return the jaxb-job
      */
     @SuppressWarnings("exports")
@@ -546,6 +561,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	incrementCountDataFor("gnc:GncCommodity");
 	return retval;
     }
+    
+    // ---------------------------------------------------------------
 
     /**
      * @see GnucashFile#getCustomerByID(java.lang.String)
@@ -554,6 +571,24 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public GnucashWritableCustomer getCustomerByID(final GCshID arg0) {
 	return (GnucashWritableCustomer) super.getCustomerByID(arg0);
     }
+
+    /**
+     * @see GnucashFile#getCustomerByID(java.lang.String)
+     */
+    @Override
+    public GnucashWritableVendor getVendorByID(final GCshID arg0) {
+	return (GnucashWritableVendor) super.getVendorByID(arg0);
+    }
+
+    /**
+     * @see GnucashFile#getCustomerByID(java.lang.String)
+     */
+    @Override
+    public GnucashWritableEmployee getEmployeeByID(final GCshID arg0) {
+	return (GnucashWritableEmployee) super.getEmployeeByID(arg0);
+    }
+
+    // ---------------------------------------------------------------
 
     /**
      * This overridden method creates the writable version of the returned object.
@@ -600,9 +635,11 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	GnucashCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, this);
 	return job;
     }
+    
+    // ----------------------------
 
     /**
-     * This overridden method creates the writable version of the returned object.
+     * {@inheritDoc}
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new customer
@@ -615,7 +652,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
-     * This overridden method creates the writable version of the returned object.
+     * {@inheritDoc}
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new customer
@@ -626,6 +663,21 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	GnucashVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, this);
 	return vend;
     }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param jwsdpCust the jwsdp-object the customer shall wrap
+     * @return the new customer
+     * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
+     */
+    @Override
+    protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
+	GnucashEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl, this);
+	return empl;
+    }
+
+    // ----------------------------
 
     /**
      * This overridden method creates the writable version of the returned object.
@@ -1012,18 +1064,18 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
-     * @param impl what to remove
+     * @param cust the customer to remove
      */
-    public void removeCustomer(final GnucashWritableCustomer impl) {
-	customerID2customer.remove(impl.getId());
-	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCustomerImpl) impl).getJwsdpPeer());
+    public void removeCustomer(final GnucashWritableCustomer cust) {
+	customerID2customer.remove(cust.getId());
+	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCustomerImpl) cust).getJwsdpPeer());
 	setModified(true);
     }
 
     // ----------------------------
 
     /**
-     * @see GnucashWritableFile#createWritableCustomer()
+     * @see GnucashWritableFile#createWritableVendor()
      */
     public GnucashWritableVendor createWritableVendor() {
 	GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(this);
@@ -1032,11 +1084,31 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     /**
-     * @param impl what to remove
+     * @param impl the vendor to remove
      */
     public void removeVendor(final GnucashWritableVendor impl) {
 	vendorID2vendor.remove(impl.getId());
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableVendorImpl) impl).getJwsdpPeer());
+	setModified(true);
+    }
+
+    // ----------------------------
+
+    /**
+     * @see GnucashWritableFile#createWritableEmployee()
+     */
+    public GnucashWritableEmployee createWritableEmployee() {
+	GnucashWritableEmployeeImpl empl = new GnucashWritableEmployeeImpl(this);
+	super.employeeID2employee.put(empl.getId(), empl);
+	return empl;
+    }
+
+    /**
+     * @param empl the employee to remove
+     */
+    public void removeEmployee(final GnucashWritableEmployee empl) {
+	employeeID2employee.remove(empl.getId());
+	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableEmployeeImpl) empl).getJwsdpPeer());
 	setModified(true);
     }
 
@@ -1073,6 +1145,22 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	super.jobID2job.put(job.getId(), job);
 	return job;
     }
+
+//    /**
+//     * @see GnucashWritableFile#createWritableCustomerJob(GnucashCustomer)
+//     */
+//    public GnucashWritableEmployeeJob createWritableEmployeeJob(
+//	    final GnucashEmployee vend, 
+//	    final String number,
+//	    final String name) {
+//	if (vend == null) {
+//	    throw new IllegalArgumentException("null vendor given");
+//	}
+//
+//	GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(this, vend, number, name);
+//	super.jobID2job.put(job.getId(), job);
+//	return job;
+//    }
 
     /**
      * @param impl what to remove

@@ -47,7 +47,7 @@ public class GetEmplInfo {
 	    }
 	} else if ( mode == Helper.Mode.NAME ) {
 	    Collection<GnucashEmployee> emplList = null;
-	    emplList = gcshFile.getEmployeesByName(emplName, true);
+	    emplList = gcshFile.getEmployeesByUserName(emplName, true);
 	    if (emplList.size() == 0) {
 		System.err.println("Found no account with that name.");
 		throw new NoEntryFoundException();
@@ -76,12 +76,6 @@ public class GetEmplInfo {
 	    System.out.println("User name:         '" + empl.getUserName() + "'");
 	} catch (Exception exc) {
 	    System.out.println("User name:         " + "ERROR");
-	}
-
-	try {
-	    System.out.println("Name:              '" + empl.getName() + "'");
-	} catch (Exception exc) {
-	    System.out.println("Name:              " + "ERROR");
 	}
 
 	try {

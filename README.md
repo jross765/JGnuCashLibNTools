@@ -1,15 +1,24 @@
-A Java-library for reading and writing the XML file format of the GnuCash open source accounting software.
+A Java library for reading and writing the XML file format of the GnuCash open source accounting software.
 
 # Compatibility
-Version 1.2 of the library has been tested with GnuCash 5.3 and 5.4 on Linux (locale de_DE) and OpenJDK 18.0.
+## System Compatibility
+Version 1.3 of the library has been tested with 5.4 on Linux (locale de_DE) and OpenJDK 18.0.
 
+## Locale/Language Compatibility
 **Caution:** Will only work on systems with the following locale languages:
 
 * English
-* German
 * French
+* German
 
-However, **it has only not been thoroughly tested on a system with locale de_DE.** (for details, cf. the API module documentation).
+However, it has **not** been thoroughly tested with all of them, but just on a system with locale de_DE. (for details, cf. the API module documentation).
+
+## Version Compatibility
+| Version | Backward Compat. | Note                           |
+|---------|------------------|--------------------------------|
+| 1.3     | no               | "medium" changes in interfaces |
+| 1.2     | no               | minor changes in interfaces    |
+| 1.1     | no               | major changes in interfaces    |
 
 # Modules and Further Details
 

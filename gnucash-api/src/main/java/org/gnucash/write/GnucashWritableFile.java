@@ -12,6 +12,7 @@ import org.gnucash.generated.GncV2;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashCustomer;
+import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
@@ -77,11 +78,27 @@ public interface GnucashWritableFile extends GnucashFile,
     @SuppressWarnings("exports")
     GncV2 getRootElement();
 
+    // ---------------------------------------------------------------
+
     /**
      * @param id the unique id of the customer to look for
      * @return the customer or null if it's not found
      */
     GnucashWritableCustomer getCustomerByID(GCshID id);
+
+    /**
+     * @param id the unique id of the customer to look for
+     * @return the customer or null if it's not found
+     */
+    GnucashWritableVendor getVendorByID(GCshID id);
+
+    /**
+     * @param id the unique id of the customer to look for
+     * @return the customer or null if it's not found
+     */
+    GnucashWritableEmployee getEmployeeByID(GCshID id);
+    
+    // ---------------------------------------------------------------
 
     /**
      *
@@ -199,6 +216,11 @@ public interface GnucashWritableFile extends GnucashFile,
      */
     GnucashWritableVendor createWritableVendor();
     
+    /**
+     * @return a new employeer with no values that is already added to this file
+     */
+    GnucashWritableEmployee createWritableEmployee();
+    
     // ---------------------------------------------------------------
 
     /**
@@ -216,6 +238,14 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashVendor vend, 
 	    final String number, 
 	    final String name);
+
+    /**
+     * @return a new vendor job with no values that is already added to this file
+     */
+//    GnucashWritableVendorJob createWritableEmployeeJob(
+//	    final GnucashEmployee empl, 
+//	    final String number, 
+//	    final String userName);
 
     // ---------------------------------------------------------------
 
@@ -271,6 +301,28 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
 	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+
+    /**
+     * FOR USE BY EXTENSIONS ONLY
+     * 
+     * @return a new invoice with no entries that is already added to this file
+     * @throws InvalidCmdtyCurrTypeException 
+     * @throws NumberFormatException 
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @throws IllegalTransactionSplitActionException 
+     */
+//    GnucashWritableEmployeeVoucher createWritableEmployeeVoucher(
+//	    final String invoiceNumber, 
+//	    final GnucashEmployee empl,
+//	    final GnucashAccount expensesAcct,
+//	    final GnucashAccount payableAcct,
+//	    final LocalDate openedDate,
+//	    final LocalDate postDate,
+//	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY

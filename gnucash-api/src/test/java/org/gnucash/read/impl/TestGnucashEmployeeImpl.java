@@ -80,7 +80,7 @@ public class TestGnucashEmployeeImpl
     assertEquals(EMPL_1_ID, empl.getId());
     assertEquals("000001", empl.getNumber());
     assertEquals("otwist", empl.getUserName());
-    assertEquals("Oliver Twist", empl.getName());
+    assertEquals("Oliver Twist", empl.getAddress().getAddressName());
   }
 
   @Test

@@ -96,13 +96,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public String getName() {
-	return jwsdpPeer.getEmployeeAddr().getAddrName();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public GCshAddress getAddress() {
 	return new GCshAddressImpl(jwsdpPeer.getEmployeeAddr());
     }
