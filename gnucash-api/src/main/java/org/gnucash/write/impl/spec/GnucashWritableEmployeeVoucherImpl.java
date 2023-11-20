@@ -102,7 +102,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_VENDOR )
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	// Caution: In the following two loops, we may *not* iterate directly over

@@ -12,8 +12,14 @@ public class Const_DE {
 
     // ---
 
+    public static final String INVC_READ_ONLY_SLOT_TEXT = "Aus einer Rechnung erzeugt. " + 
+                                                          "Für Änderungen müssen Sie die Buchung der Rechnung löschen.";
+
+    // ---
+
     public static final String INVC_ENTR_ACTION_JOB      = "Auftrag";
     public static final String INVC_ENTR_ACTION_MATERIAL = "Material";
     public static final String INVC_ENTR_ACTION_HOURS    = "Stunden";
+    
     
 }

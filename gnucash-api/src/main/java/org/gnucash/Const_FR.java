@@ -12,6 +12,11 @@ public class Const_FR {
 
     // ---
 
+    public static final String INVC_READ_ONLY_SLOT_TEXT = "Généré depuis une facture. " + 
+                                                          "Essayez de suspendre la facture.";
+
+    // ---
+
     public static final String INVC_ENTR_ACTION_JOB      = "Projet";
     public static final String INVC_ENTR_ACTION_MATERIAL = "Matières premières";
     public static final String INVC_ENTR_ACTION_HOURS    = "Heures";

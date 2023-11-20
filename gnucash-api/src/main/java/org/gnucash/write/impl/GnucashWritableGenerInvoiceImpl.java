@@ -453,7 +453,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 								new GnucashWritableEmployeeVoucherImpl(this), 
 								acct, quantity, singleUnitPrice);
 	
-	entry.setBillTaxable(false);
+	entry.setVoucherTaxable(false);
 	
 	addVoucherEntry(entry);
 	return entry;
@@ -525,9 +525,9 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	if ( taxTab.getEntries().isEmpty() || 
 	     taxTab.getEntries().iterator().next().getAmount().equals(new FixedPointNumber()) ) {
 	    // no taxes
-	    entry.setBillTaxable(false);
+	    entry.setVoucherTaxable(false);
 	} else {
-	    entry.setBillTaxTable(taxTab);
+	    entry.setVoucherTaxTable(taxTab);
 	}
 	
 	addVoucherEntry(entry);
@@ -1521,7 +1521,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    SlotValue value = factory.createSlotValue();
 	    slot.setSlotKey("trans-read-only");
 	    value.setType("string");
-	    value.getContent().add(Const.INVC_READ_ONLY_SLOT_TEXT);
+	    value.getContent().add(Const.getLocaleString("INVC_READ_ONLY_SLOT_TEXT"));
 	    
 	    slot.setSlotValue(value);
 	    slots.getSlot().add(slot);
