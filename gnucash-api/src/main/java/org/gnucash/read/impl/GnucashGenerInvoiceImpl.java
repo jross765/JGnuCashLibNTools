@@ -894,8 +894,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		return getInvcAmountUnpaidWithTaxes();
 	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR) )
 		return getBillAmountUnpaidWithTaxes();
-	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_EMPLOYEE) )
-		return getBillAmountUnpaidWithTaxes();
 	    
 	    return null; // Compiler happy
     }
@@ -920,8 +918,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		return getInvcAmountPaidWithTaxes();
 	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR) )
 		return getBillAmountPaidWithTaxes();
-	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_EMPLOYEE) )
-		return getVoucherAmountPaidWithTaxes();
 	    
 	    return null; // Compiler happy
     }
@@ -945,8 +941,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		return getInvcAmountPaidWithoutTaxes();
 	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR) )
 		return getBillAmountPaidWithoutTaxes();
-	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_EMPLOYEE) )
-		return getVoucherAmountPaidWithoutTaxes();
 	    
 	    return null; // Compiler happy
     }
@@ -970,8 +964,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		return getInvcAmountWithTaxes();
 	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR) )
 		return getBillAmountWithTaxes();
-	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_EMPLOYEE) )
-		return getVoucherAmountWithTaxes();
 	    
 	    return null; // Compiler happy
     }
@@ -995,8 +987,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		return getInvcAmountWithoutTaxes();
 	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_VENDOR) )
 		return getBillAmountWithoutTaxes();
-	    else if ( jobInvc.getJobType().equals(GnucashGenerJob.TYPE_EMPLOYEE) )
-		return getVoucherAmountWithoutTaxes();
 	    
 	    return null; // Compiler happy
     }

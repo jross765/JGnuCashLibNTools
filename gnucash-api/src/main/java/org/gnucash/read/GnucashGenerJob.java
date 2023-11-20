@@ -23,7 +23,6 @@ public interface GnucashGenerJob {
 
     public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
     public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
-    public static final GCshOwner.Type TYPE_EMPLOYEE = GCshOwner.Type.EMPLOYEE;
 
     // -----------------------------------------------------------------
 

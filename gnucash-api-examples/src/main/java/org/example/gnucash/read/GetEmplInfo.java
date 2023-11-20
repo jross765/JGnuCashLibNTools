@@ -9,9 +9,7 @@ import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashFileImpl;
-import org.gnucash.read.spec.GnucashEmployeeJob;
 import org.gnucash.read.spec.GnucashEmployeeVoucher;
-import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 
 public class GetEmplInfo {
@@ -88,48 +86,25 @@ public class GetEmplInfo {
 	System.out.println("Expenses generated:");
 	try {
 	    System.out
-		    .println(" - direct:  " + empl.getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant.DIRECT));
+		    .println(" - direct:  " + empl.getExpensesGeneratedFormatted());
 	} catch (Exception exc) {
 	    System.out.println(" - direct:  " + "ERROR");
-	}
-
-	try {
-	    System.out.println(
-		    " - via all jobs:  " + empl.getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant.VIA_JOB));
-	} catch (Exception exc) {
-	    System.out.println(" - via all jobs:  " + "ERROR");
 	}
 
 	System.out.println("Outstanding value:");
 	try {
 	    System.out
-		    .println(" - direct: " + empl.getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant.DIRECT));
+		    .println(" - direct: " + empl.getOutstandingValueFormatted());
 	} catch (Exception exc) {
 	    System.out.println(" - direct: " + "ERROR");
 	}
 
-	try {
-	    System.out.println(
-		    " - via all jobs: " + empl.getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant.VIA_JOB));
-	} catch (Exception exc) {
-	    System.out.println(" - via all jobs: " + "ERROR");
-	}
-
 	// ---
 
-	showJobs(empl);
 	showVouchers(empl);
     }
 
     // -----------------------------------------------------------------
-
-    private void showJobs(GnucashEmployee empl) throws WrongInvoiceTypeException {
-	System.out.println("");
-	System.out.println("Jobs:");
-	for (GnucashEmployeeJob job : empl.getJobs()) {
-	    System.out.println(" - " + job.toString());
-	}
-    }
 
     private void showVouchers(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	System.out.println("");
@@ -142,23 +117,14 @@ public class GetEmplInfo {
 	for (GnucashEmployeeVoucher vch : empl.getPaidVouchers_direct()) {
 	    System.out.println(" - " + vch.toString());
 	}
-
-	System.out.println("");
-	System.out.println("Paid vouchers (via all jobs):");
-	for (GnucashJobInvoice invc : empl.getPaidVouchers_viaAllJobs()) {
-	    System.out.println(" - " + invc.toString());
-	}
-
+	
 	System.out.println("");
 	System.out.println("Unpaid vouchers (direct):");
 	for (GnucashEmployeeVoucher vch : empl.getUnpaidVouchers_direct()) {
 	    System.out.println(" - " + vch.toString());
 	}
-
-	System.out.println("");
-	System.out.println("Unpaid vouchers (via all jobs):");
-	for (GnucashJobInvoice invc : empl.getUnpaidVouchers_viaAllJobs()) {
-	    System.out.println(" - " + invc.toString());
-	}
+	
+	// There are no "employee jobs" and thus no paid / unpaid vouchers
+	// "via jobs"
     }
 }

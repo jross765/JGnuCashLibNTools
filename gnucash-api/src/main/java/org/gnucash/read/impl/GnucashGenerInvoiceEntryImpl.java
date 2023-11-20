@@ -308,8 +308,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    setInvcTaxTable(aTaxtable);
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    setBillTaxTable(aTaxtable);
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    setBillTaxTable(aTaxtable);
     }
 
     /**
@@ -433,8 +431,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_CUSTOMER )
 	    return getInvcTaxTable();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
-	    return getBillTaxTable();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
 	    return getBillTaxTable();
 
 	return null; // Compiler happy
@@ -663,8 +659,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return getInvcApplicableTaxPercent();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillApplicableTaxPercent();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return getVoucherApplicableTaxPercent();
 
 	return null; // Compiler happy
     }
@@ -784,8 +778,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return getInvcPrice();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillPrice();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return getVoucherPrice();
 
 	return null; // Compiler happy
     }
@@ -1065,8 +1057,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return getInvcSum();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillSum();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return getVoucherSum();
 
 	return null; // Compiler happy
     }
@@ -1090,8 +1080,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return getInvcSumInclTaxes();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillSumInclTaxes();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return getVoucherSumInclTaxes();
 
 	return null; // Compiler happy
     }
@@ -1115,8 +1103,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return getInvcSumExclTaxes();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return getBillSumExclTaxes();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return getVoucherSumExclTaxes();
 
 	return null; // Compiler happy
     }
@@ -1223,8 +1209,6 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return isInvcTaxable();
 	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_VENDOR )
 	    return isBillTaxable();
-	else if ( jobInvc.getJobType() == GnucashGenerJob.TYPE_EMPLOYEE )
-	    return isVoucherTaxable();
 
 	return false; // Compiler happy
     }

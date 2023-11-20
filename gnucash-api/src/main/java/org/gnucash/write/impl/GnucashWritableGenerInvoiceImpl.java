@@ -2210,8 +2210,6 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		return getInvcPostAccountID(entry);
 	    else if ( jobInvc.getType() == GnucashGenerJob.TYPE_VENDOR )
 		return getBillPostAccountID(entry);
-	    else if ( jobInvc.getType() == GnucashGenerJob.TYPE_EMPLOYEE )
-		return getVoucherPostAccountID(entry);
 	    
 	    return null; // Compiler happy
     }

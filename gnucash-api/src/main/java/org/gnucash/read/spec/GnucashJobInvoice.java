@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.read.GnucashCustomer;
-import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
@@ -49,11 +48,6 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      */
     GCshID getVendorId() throws WrongInvoiceTypeException;
     
-    /**
-     * @return ID of employee this voucher has been sent from.
-     */
-    GCshID getEmployeeId() throws WrongInvoiceTypeException;
-    
     // ----------------------------
 
     /**
@@ -73,12 +67,6 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      */
     GnucashVendorJob getVendJob() throws WrongInvoiceTypeException;
 	
-    /**
-     * @return Job of employee this voucher has been sent from.
-     * @throws WrongInvoiceTypeException 
-     */
-    GnucashEmployeeJob getEmplJob() throws WrongInvoiceTypeException;
-	
     // ----------------------------
 
     /**
@@ -92,12 +80,6 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      * @throws WrongInvoiceTypeException 
      */
     GnucashVendor getVendor() throws WrongInvoiceTypeException;
-	
-    /**
-     * @return Emloyee this voucher has been sent from.
-     * @throws WrongInvoiceTypeException 
-     */
-    GnucashEmployee getEmployee() throws WrongInvoiceTypeException;
 	
     // ---------------------------------------------------------------
 

@@ -69,12 +69,11 @@ import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashCustomerJobImpl;
+import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashVendorBillImpl;
-import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
 import org.gnucash.read.spec.GnucashCustomerJob;
-import org.gnucash.read.spec.GnucashEmployeeJob;
 import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.GnucashVendorBill;
@@ -984,29 +983,6 @@ public class GnucashFileImpl implements GnucashFile {
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
-    @Override
-    public Collection<GnucashJobInvoice> getVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashEmployeeJob job : empl.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
-    }
-
-    /**
-     * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalAccessException 
      * @throws IllegalArgumentException 
@@ -1043,30 +1019,6 @@ public class GnucashFileImpl implements GnucashFile {
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
-    @Override
-    public Collection<GnucashJobInvoice> getPaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashEmployeeJob job : empl.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
-    }
-
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
@@ -1083,30 +1035,6 @@ public class GnucashFileImpl implements GnucashFile {
 		    // throw a fatal log here.
 		    LOGGER.error("getUnpaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
-	    }
-	}
-
-	return retval;
-    }
-
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
-    @Override
-    public Collection<GnucashJobInvoice> getUnpaidVouchersForEmployee_viaAllJobs(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashEmployeeJob job : empl.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
-		retval.add(jobInvc);
 	    }
 	}
 

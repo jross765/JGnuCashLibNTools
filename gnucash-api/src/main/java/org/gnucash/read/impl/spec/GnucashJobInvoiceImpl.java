@@ -7,7 +7,6 @@ import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2.GncBook.GncGncInvoice;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashCustomer;
-import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerInvoiceEntry;
@@ -135,17 +134,6 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
     return getOwnerId_viaJob();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public GCshID getEmployeeId() throws WrongInvoiceTypeException {
-    if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
-	throw new WrongInvoiceTypeException();
-    
-    return getOwnerId_viaJob();
-  }
-
   // ----------------------------
   
   /**
@@ -181,18 +169,6 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       return new GnucashVendorJobImpl(getGenerJob());
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public GnucashEmployeeJobImpl getEmplJob() throws WrongInvoiceTypeException
-  {
-      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
-	  throw new WrongInvoiceTypeException();
-
-      return new GnucashEmployeeJobImpl(getGenerJob());
-  }
-
   // ------------------------------
 
   /**
@@ -215,17 +191,6 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 		throw new WrongInvoiceTypeException();
 
       return getFile().getVendorByID(getVendorId());
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public GnucashEmployee getEmployee() throws WrongInvoiceTypeException {
-      if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_EMPLOYEE )
-		throw new WrongInvoiceTypeException();
-
-      return getFile().getEmployeeByID(getEmployeeId());
   }
 
   // ---------------------------------------------------------------

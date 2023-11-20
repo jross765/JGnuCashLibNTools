@@ -3,7 +3,6 @@ package org.gnucash.read.impl;
 import java.text.NumberFormat;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.basetypes.simple.GCshID;
@@ -13,14 +12,10 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
-import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshAddress;
 import org.gnucash.read.impl.aux.GCshAddressImpl;
-import org.gnucash.read.impl.spec.GnucashEmployeeJobImpl;
-import org.gnucash.read.spec.GnucashEmployeeJob;
 import org.gnucash.read.spec.GnucashEmployeeVoucher;
-import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.SpecInvoiceCommon;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
@@ -185,13 +180,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public FixedPointNumber getExpensesGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	if ( readVar == GnucashGenerInvoice.ReadVariant.DIRECT )
-	    return getExpensesGenerated_direct();
-	else if ( readVar == GnucashGenerInvoice.ReadVariant.VIA_JOB )
-	    return getExpensesGenerated_viaAllJobs();
-	
-	return null; // Compiler happy
+    public FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return getExpensesGenerated_direct();
     }
 
     /**
@@ -224,35 +214,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return the net sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    public FixedPointNumber getExpensesGenerated_viaAllJobs() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	FixedPointNumber retval = new FixedPointNumber();
-
-	try {
-	    for (GnucashJobInvoice vchSpec : getPaidVouchers_viaAllJobs()) {
-//		    if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_EMPLOYEE) ) {
-//		      GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
-		GnucashEmployee empl = vchSpec.getEmployee();
-		if (empl.getId().equals(this.getId())) {
-		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountWithoutTaxes());
-		}
-//            } // if vch type
-	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getExpensesGenerated_viaAllJobs: Serious error");
-	}
-
-	return retval;
-    }
-
-    /**
      * @return formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @throws IllegalAccessException 
@@ -262,8 +223,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws NoSuchFieldException 
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getCurrencyFormat().format(getExpensesGenerated(readVar));
+    public String getExpensesGeneratedFormatted() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return getCurrencyFormat().format(getExpensesGenerated());
 
     }
 
@@ -278,8 +239,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws NoSuchFieldException 
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated(readVar));
+    public String getExpensesGeneratedFormatted(final Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated());
     }
 
     // -------------------------------------
@@ -294,13 +255,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	if ( readVar == GnucashGenerInvoice.ReadVariant.DIRECT )
-	    return getOutstandingValue_direct();
-	else if ( readVar == GnucashGenerInvoice.ReadVariant.VIA_JOB )
-	    return getOutstandingValue_viaAllJobs();
-	
-	return null; // Compiler happy
+    public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return getOutstandingValue_direct();
     }
 
     /**
@@ -334,36 +290,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     /**
-     * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    public FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	FixedPointNumber retval = new FixedPointNumber();
-
-	try {
-	    for (GnucashJobInvoice vchSpec : getUnpaidVouchers_viaAllJobs()) {
-//            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) ) {
-//              GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
-		GnucashEmployee empl = vchSpec.getEmployee();
-		if (empl.getId().equals(this.getId())) {
-		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountUnpaidWithTaxes());
-		}
-//            } // if invc type
-	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getOutstandingValue_viaAllJobs: Serious error");
-	}
-
-	return retval;
-    }
-
-    /**
      * @return Formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      * @throws IllegalAccessException 
@@ -373,8 +299,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws NoSuchFieldException 
      * @see #getOutstandingValue()
      */
-    public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getCurrencyFormat().format(getOutstandingValue(readVar));
+    public String getOutstandingValueFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
@@ -388,32 +314,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
-    }
-
-    // -----------------------------------------------------------------
-
-    /**
-     * @return the jobs that have this employee associated with them.
-     * @throws WrongInvoiceTypeException 
-     * @see GnucashEmployee#getGenerJobs()
-     */
-    @Override
-    public java.util.Collection<GnucashEmployeeJob> getJobs() throws WrongInvoiceTypeException {
-
-	List<GnucashEmployeeJob> retval = new LinkedList<GnucashEmployeeJob>();
-
-	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
-	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_EMPLOYEE ) {
-		GnucashEmployeeJob jobSpec = new GnucashEmployeeJobImpl(jobGener);
-		if ( jobSpec.getEmployeeId().equals(getId()) ) {
-		    retval.add(jobSpec);
-		}
-	    }
-	}
-
-	return retval;
+    public String getOutstandingValueFormatted(final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
     // -----------------------------------------------------------------
@@ -426,10 +328,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	    retval.add(invc);
 	}
 	
-	for ( GnucashJobInvoice invc : getGnucashFile().getVouchersForEmployee_viaAllJobs(this) ) {
-	    retval.add(invc);
-	}
-	
 	return retval;
     }
 
@@ -439,18 +337,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getPaidVouchers_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getGnucashFile().getPaidVouchersForEmployee_viaAllJobs(this);
-    }
-
-    @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return getGnucashFile().getUnpaidVouchersForEmployee_direct(this);
-    }
-
-    @Override
-    public Collection<GnucashJobInvoice> getUnpaidVouchers_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getGnucashFile().getUnpaidVouchersForEmployee_viaAllJobs(this);
     }
 
     // -----------------------------------------------------------------
