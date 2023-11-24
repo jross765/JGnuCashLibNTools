@@ -19,13 +19,13 @@ public class TestGnucashAccountImpl
   private GnucashFile    gcshFile = null;
   private GnucashAccount acct = null;
   
-  private static final GCshID ACCT_1_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
-  private static final GCshID ACCT_2_ID = new GCshID("cc2c4709633943c39293bfd73de88c9b"); // Root Account::Aktiva::Depots::Depot RaiBa
-  private static final GCshID ACCT_3_ID = new GCshID("5008258df86243ee86d37dee64327c27"); // Root Account::Fremdkapital
-  private static final GCshID ACCT_4_ID = new GCshID("68a4c19f9a8c48909fc69d0dc18c37a6"); // Root Account::Fremdkapital::Lieferanten::Lieferfanto
-  private static final GCshID ACCT_5_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root Account::Aktiva::Forderungen::Unfug_Quatsch
-  private static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account::Anfangsbestand
-  private static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account::Aktiva::Depots::Depot RaiBa::DE0007100000 Mercedes-Benz
+  public static final GCshID ACCT_1_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
+  public static final GCshID ACCT_2_ID = new GCshID("cc2c4709633943c39293bfd73de88c9b"); // Root Account::Aktiva::Depots::Depot RaiBa
+  public static final GCshID ACCT_3_ID = new GCshID("5008258df86243ee86d37dee64327c27"); // Root Account::Fremdkapital
+  public static final GCshID ACCT_4_ID = new GCshID("68a4c19f9a8c48909fc69d0dc18c37a6"); // Root Account::Fremdkapital::Lieferanten::Lieferfanto
+  public static final GCshID ACCT_5_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root Account::Aktiva::Forderungen::Unfug_Quatsch
+  public static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account::Anfangsbestand
+  public static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account::Aktiva::Depots::Depot RaiBa::DE0007100000 Mercedes-Benz
 
   // -----------------------------------------------------------------
   

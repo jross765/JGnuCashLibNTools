@@ -3,7 +3,6 @@ package org.gnucash.read.impl.hlp;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.gnucash.read.impl.GnucashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NamespaceRemoverReader extends Reader {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashFileImpl.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(NamespaceRemoverReader.class);
     
     // ---------------------------------------------------------------
 

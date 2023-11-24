@@ -53,20 +53,23 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     @SuppressWarnings("exports")
     public GnucashTransactionSplitImpl(
 	    final GncTransaction.TrnSplits.TrnSplit peer, 
-	    final GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final GnucashTransaction trx,
+	    final boolean addTrxSplits) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
 		trx.getGnucashFile());
 
 	jwsdpPeer = peer;
 	myTransaction = trx;
 
-	GnucashAccount acct = getAccount();
-	if (acct == null) {
-	    LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getId()
-		    + "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getId()
-		    + "' description '" + getTransaction().getDescription() + "'");
-	} else {
-	    acct.addTransactionSplit(this);
+	if ( addTrxSplits ) {
+	    GnucashAccount acct = getAccount();
+	    if (acct == null) {
+		LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getId()
+			+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getId()
+			+ "' description '" + getTransaction().getDescription() + "'");
+	    } else {
+		acct.addTransactionSplit(this);
+	    }
 	}
 
 	GCshID lot = getLotID();
@@ -154,6 +157,13 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      */
     public GnucashAccount getAccount() {
 	return myTransaction.getGnucashFile().getAccountByID(getAccountID());
+    }
+
+    /**
+     * @see GnucashTransactionSplit#getAccountID()
+     */
+    public GCshID getTransactionID() {
+	return myTransaction.getId();
     }
 
     /**

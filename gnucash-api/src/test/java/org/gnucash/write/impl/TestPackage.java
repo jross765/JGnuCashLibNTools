@@ -16,10 +16,12 @@ public class TestPackage extends TestCase
   {
     TestSuite suite = new TestSuite();
     
+    suite.addTest(org.gnucash.write.impl.TestGnucashWritableAccountImpl.suite());
+    suite.addTest(org.gnucash.write.impl.TestGnucashWritableTransactionImpl.suite());
+
     suite.addTest(org.gnucash.write.impl.TestGnucashWritableCustomerImpl.suite());
     suite.addTest(org.gnucash.write.impl.TestGnucashWritableVendorImpl.suite());
-
-    suite.addTest(org.gnucash.write.impl.TestGnucashWritableTransactionImpl.suite());
+    suite.addTest(org.gnucash.write.impl.TestGnucashWritableEmployeeImpl.suite());
 
     suite.addTest(org.gnucash.write.impl.TestGnucashWritableCommodityImpl.suite());
 

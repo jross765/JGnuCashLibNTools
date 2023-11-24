@@ -88,7 +88,7 @@ public class TestGnucashWritableTransactionImpl
   }
 
   // -----------------------------------------------------------------
-  // PART 1: Read existing objects as modifyable ones
+  // PART 1: Read existing objects as modifiable ones
   //         (and see whether they are fully symmetrical to their read-only
   //         counterparts)
   // -----------------------------------------------------------------

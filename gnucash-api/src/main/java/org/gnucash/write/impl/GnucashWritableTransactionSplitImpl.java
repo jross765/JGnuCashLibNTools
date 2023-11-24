@@ -49,7 +49,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	public GnucashWritableTransactionSplitImpl(
 		final GncTransaction.TrnSplits.TrnSplit jwsdpPeer, 
 		final GnucashWritableTransaction transaction) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		super(jwsdpPeer, transaction);
+		super(jwsdpPeer, transaction, true);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		final GnucashAccount account) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 		super(createTransactionSplit(transaction, account, 
 				(transaction.getWritingFile()).createGUID()), 
-				transaction);
+				transaction, true);
 
 		// this is a workaound.
 		// if super does account.addSplit(this) it adds an instance on GnucashTransactionSplitImpl that is "!=
@@ -82,7 +82,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	}
 
 	public GnucashWritableTransactionSplitImpl(GnucashTransactionSplit split) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	    super(split.getJwsdpPeer(), split.getTransaction());
+	    super(split.getJwsdpPeer(), split.getTransaction(), true);
 	}
 
 	// -----------------------------------------------------------

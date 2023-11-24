@@ -164,10 +164,14 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
     GnucashAccount getAccount();
 
     /**
+     * @return the ID of the transaction this is a split of.
+     */
+    GCshID getTransactionID();
+
+    /**
      * @return the transaction this is a split of.
      */
     GnucashTransaction getTransaction();
-
 
     /**
      * The value is in the currency of the transaction!

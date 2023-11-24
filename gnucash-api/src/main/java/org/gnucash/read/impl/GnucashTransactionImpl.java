@@ -497,7 +497,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @throws NoSuchFieldException 
      */
     protected GnucashTransactionSplitImpl createSplit(final GncTransaction.TrnSplits.TrnSplit element) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return new GnucashTransactionSplitImpl(element, this);
+	return new GnucashTransactionSplitImpl(element, this, true);
     }
 
     /**

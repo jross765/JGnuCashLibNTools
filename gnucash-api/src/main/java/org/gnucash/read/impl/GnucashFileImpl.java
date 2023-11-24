@@ -20,10 +20,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.Const;
@@ -65,6 +62,7 @@ import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
+import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
@@ -124,8 +122,11 @@ public class GnucashFileImpl implements GnucashFile,
     protected Map<GCshID, GCshPrice>     priceById = null;
 
     // ----------------------------
+    
+    protected FileAccountManager acctMgr = null;
 
-    protected Map<GCshID, GnucashAccount>           accountID2account;
+    // ----------------------------
+
     protected Map<GCshID, GnucashTransaction>       transactionID2transaction;
     protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
     protected Map<GCshID, GnucashGenerInvoice>      invoiceID2invoice;
@@ -323,16 +324,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getAccountByID(java.lang.String)
      */
     public GnucashAccount getAccountByID(final GCshID id) {
-	if (accountID2account == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashAccount retval = accountID2account.get(id);
-	if (retval == null) {
-	    LOGGER.error("getAccountByID: No Account with id '" + id + "'. " + 
-	                 "We know " + accountID2account.size() + " accounts.");
-	}
-	return retval;
+	return acctMgr.getAccountByID(id);
     }
 
     /**
@@ -341,39 +333,12 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GnucashAccount> getAccountsByParentID(final GCshID id) {
-        if (accountID2account == null) {
-            throw new IllegalStateException("no root-element loaded");
-        }
-    
-        SortedSet<GnucashAccount> retval = new TreeSet<GnucashAccount>();
-    
-        for (Object element : accountID2account.values()) {
-            GnucashAccount account = (GnucashAccount) element;
-    
-            GCshID parentID = account.getParentAccountId();
-            if (parentID == null) {
-        	if (id == null) {
-        	    retval.add((GnucashAccount) account);
-        	} else if ( ! id.isSet() ) {
-        	    retval.add((GnucashAccount) account);
-        	}
-            } else {
-        	if (parentID.equals(id)) {
-        	    retval.add((GnucashAccount) account);
-        	}
-            }
-        }
-    
-        return retval;
+        return acctMgr.getAccountsByParentID(id);
     }
-
-    
-
-    // ---------------------------------------------------------------
 
     @Override
     public Collection<GnucashAccount> getAccountsByName(final String name) {
-	return getAccountsByName(name, true, true);
+	return acctMgr.getAccountsByName(name);
     }
     
     /**
@@ -381,51 +346,12 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GnucashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
-
-	if (accountID2account == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
-	
-	for ( GnucashAccount acct : accountID2account.values() ) {
-	    if ( relaxed ) {
-		if ( qualif ) {
-		    if ( acct.getQualifiedName().trim().toLowerCase().
-			    contains(expr.trim().toLowerCase()) ) {
-			result.add(acct);
-		    }
-		} else {
-		    if ( acct.getName().trim().toLowerCase().
-			    contains(expr.trim().toLowerCase()) ) {
-			result.add(acct);
-		    }
-		}
-	    } else {
-		if ( qualif ) {
-		    if ( acct.getQualifiedName().equals(expr) ) {
-			result.add(acct);
-		    }
-		} else {
-		    if ( acct.getName().equals(expr) ) {
-			result.add(acct);
-		    }
-		}
-	    }
-	}
-
-	return result;
+	return acctMgr.getAccountsByName(expr, qualif, relaxed);
     }
 
     @Override
     public GnucashAccount getAccountByNameUniq(final String name, final boolean qualif) throws NoEntryFoundException, TooManyEntriesFoundException {
-	Collection<GnucashAccount> acctList = getAccountsByName(name, qualif, false);
-	if ( acctList.size() == 0 )
-	    throw new NoEntryFoundException();
-	else if ( acctList.size() > 1 )
-	    throw new TooManyEntriesFoundException();
-	else
-	    return acctList.iterator().next();
+	return acctMgr.getAccountByNameUniq(name, qualif);
     }
     
     /**
@@ -442,25 +368,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GnucashAccount getAccountByNameEx(final String nameRegEx) throws NoEntryFoundException, TooManyEntriesFoundException {
-
-	if (accountID2account == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashAccount foundAccount = getAccountByNameUniq(nameRegEx, true);
-	if (foundAccount != null) {
-	    return foundAccount;
-	}
-	Pattern pattern = Pattern.compile(nameRegEx);
-
-	for (GnucashAccount account : accountID2account.values()) {
-	    Matcher matcher = pattern.matcher(account.getName());
-	    if (matcher.matches()) {
-		return account;
-	    }
-	}
-
-	return null;
+	return acctMgr.getAccountByNameEx(nameRegEx);
     }
 
     /**
@@ -477,12 +385,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GnucashAccount getAccountByIDorName(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	GnucashAccount retval = getAccountByID(id);
-	if (retval == null) {
-	    retval = getAccountByNameUniq(name, true);
-	}
-
-	return retval;
+	return acctMgr.getAccountByIDorName(id, name);
     }
 
     /**
@@ -500,23 +403,14 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GnucashAccount getAccountByIDorNameEx(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	GnucashAccount retval = getAccountByID(id);
-	if (retval == null) {
-	    retval = getAccountByNameEx(name);
-	}
-
-	return retval;
+	return acctMgr.getAccountByIDorNameEx(id, name);
     }
 
     /**
      * @return a read-only collection of all accounts
      */
     public Collection<GnucashAccount> getAccounts() {
-        if (accountID2account == null) {
-            throw new IllegalStateException("no root-element loaded");
-        }
-    
-        return Collections.unmodifiableCollection(new TreeSet<>(accountID2account.values()));
+        return acctMgr.getAccounts();
     }
 
     // ---------------------------------------------------------------
@@ -588,9 +482,16 @@ public class GnucashFileImpl implements GnucashFile,
         GnucashTransactionSplit retval = transactionSplitID2transactionSplit.get(id);
         if (retval == null) {
             LOGGER.warn("getTransactionSplitByID: No Transaction-Split with id '" + id + "'. We know "
-        	    + transactionSplitID2transactionSplit.size() + " transactions.");
+        	    + transactionSplitID2transactionSplit.size() + " transaction splits.");
         }
         return retval;
+    }
+
+    public Collection<GnucashTransactionSplit> getTransactionSplits() {
+	if (transactionSplitID2transactionSplit == null) {
+	    throw new IllegalStateException("no root-element loaded");
+	}
+	return Collections.unmodifiableCollection(transactionSplitID2transactionSplit.values());
     }
 
     // ---------------------------------------------------------------
@@ -1877,7 +1778,8 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @return the underlying JAXB-element
      */
-    protected GncV2 getRootElement() {
+    @SuppressWarnings("exports")
+    public GncV2 getRootElement() {
 	return rootElement;
     }
 
@@ -1905,8 +1807,8 @@ public class GnucashFileImpl implements GnucashFile,
 	}
 	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
 
-	// fill maps
-	initAccountMap(pRootElement);
+	// Init helper entiy managers / fill maps
+	acctMgr = new FileAccountManager(this);
 
 	initGenerInvoiceMap(pRootElement);
 
@@ -1971,28 +1873,6 @@ public class GnucashFileImpl implements GnucashFile,
 	    throw new IllegalArgumentException(
 		    "<gnc:book> contains unknown element [" + bookElement.getClass().getName() + "]");
 	}
-    }
-
-    private void initAccountMap(final GncV2 pRootElement) {
-	accountID2account = new HashMap<GCshID, GnucashAccount>();
-
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncAccount)) {
-		continue;
-	    }
-	    GncAccount jwsdpAcct = (GncAccount) bookElement;
-
-	    try {
-		GnucashAccount acct = createAccount(jwsdpAcct);
-		accountID2account.put(acct.getId(), acct);
-	    } catch (RuntimeException e) {
-		LOGGER.error("initAccountMap: [RuntimeException] Problem in " + getClass().getName() + ".initAccountMap: "
-			+ "ignoring illegal Account-Entry with id=" + jwsdpAcct.getActId().getValue(), e);
-	    }
-	} // for
-
-	LOGGER.debug("initAccountMap: No. of entries in account map: " + accountID2account.size());
     }
 
     private void initTransactionMap(final GncV2 pRootElement) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
@@ -2442,15 +2322,6 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param jwsdpAcct the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashAccount to wrap the given jaxb-object.
-     */
-    protected GnucashAccount createAccount(final GncAccount jwsdpAcct) {
-	GnucashAccount acct = new GnucashAccountImpl(jwsdpAcct, this);
-	return acct;
-    }
-
-    /**
      * @param jwsdpTrx the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashTransaction to wrap the given jaxb-object.
      */
@@ -2639,7 +2510,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesAccountMap() {
-	return accountID2account.size();
+	return acctMgr.getNofEntriesAccountMap();
     }
 
     @Override

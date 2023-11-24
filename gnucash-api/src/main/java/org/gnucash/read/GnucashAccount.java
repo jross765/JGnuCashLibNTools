@@ -4,6 +4,8 @@ import org.gnucash.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.basetypes.simple.GCshID;
+import org.gnucash.generated.GncAccount;
+import org.gnucash.generated.GncTransaction;
 import org.gnucash.numbers.FixedPointNumber;
 
 import java.time.LocalDate;
@@ -64,6 +66,17 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     
     public static String SEPARATOR = "::";
 
+    // -----------------------------------------------------------------
+
+    @SuppressWarnings("exports")
+    GncAccount getJwsdpPeer();
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     * @return the file we are associated with
+     */
+    GnucashFile getGnucashFile();
+    
     // -----------------------------------------------------------------
 
     /**

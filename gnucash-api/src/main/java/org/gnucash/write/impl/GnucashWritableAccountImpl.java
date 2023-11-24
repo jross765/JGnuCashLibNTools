@@ -27,6 +27,7 @@ import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.impl.GnucashAccountImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
+import org.gnucash.read.impl.GnucashTransactionSplitImpl;
 import org.gnucash.write.GnucashWritableAccount;
 import org.gnucash.write.GnucashWritableFile;
 import org.gnucash.write.GnucashWritableObject;
@@ -93,6 +94,18 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		super(createAccount(file, file.createGUID()), file);
 	}
 
+	public GnucashWritableAccountImpl(final GnucashAccount acct) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, UnknownAccountTypeException {
+	    super(acct.getJwsdpPeer(), acct.getGnucashFile());
+
+	    for ( GnucashTransactionSplit splt : acct.getGnucashFile().getTransactionSplits() ) {
+		if ( acct.getType() != Type.ROOT && 
+		     splt.getAccountID().equals(acct.getId()) ) {
+		    addTransactionSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), splt.getTransaction(), false));
+		}
+	    }
+	}
+	
+	
 	/**
 	 * @param file
 	 * @return

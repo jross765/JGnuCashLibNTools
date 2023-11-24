@@ -595,9 +595,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see GnucashFileImpl#createAccount(GncAccount)
+     * @see FileAccountManager#createAccount(GncAccount)
      */
-    @Override
     protected GnucashAccount createAccount(final GncAccount jwsdpAccount) {
 	GnucashAccount account = new GnucashWritableAccountImpl(jwsdpAccount, this);
 	return account;
@@ -837,7 +836,12 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @Override
     public GnucashWritableAccount getAccountByID(final GCshID id) {
-	return (GnucashWritableAccount) super.getAccountByID(id);
+	try {
+	    return new GnucashWritableAccountImpl(super.getAccountByID(id));
+	} catch ( Exception exc ) {
+	    LOGGER.error("getAccountByID: Could not instantiate writable account object from read-only account object (ID: )" + id);
+	    throw new RuntimeException("Could not instantiate writable account object from read-only account object (ID: )" + id);
+	}
     }
 
     /**
@@ -1218,7 +1222,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     public GnucashWritableAccount createWritableAccount() {
 	GnucashWritableAccount acct = new GnucashWritableAccountImpl(this);
-	super.accountID2account.put(acct.getId(), acct);
+	super.acctMgr.addAccount(acct);
 	return acct;
     }
 
@@ -1232,7 +1236,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableAccountImpl) impl).getJwsdpPeer());
 	setModified(true);
-	super.accountID2account.remove(impl.getId());
+	super.acctMgr.removeAccount(impl);
     }
 
     /**

@@ -28,10 +28,19 @@ public class GnucashAccountImpl extends SimpleAccount
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashAccountImpl.class);
 
+    // ---------------------------------------------------------------
+
+    /**
+     * the JWSDP-object we are facading.
+     */
+    private GncAccount jwsdpPeer;
+    
     /**
      * Helper to implement the {@link GnucashObject}-interface.
      */
     protected GnucashObjectImpl helper;
+
+    // ---------------------------------------------------------------
 
     /**
      * @param peer    the JWSDP-object we are facading.
@@ -48,6 +57,16 @@ public class GnucashAccountImpl extends SimpleAccount
 	jwsdpPeer = peer;
 
 	helper = new GnucashObjectImpl(peer.getActSlots(), gncFile);
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @return the JWSDP-object we are wrapping.
+     */
+    @SuppressWarnings("exports")
+    public GncAccount getJwsdpPeer() {
+	return jwsdpPeer;
     }
 
     /**
@@ -69,10 +88,7 @@ public class GnucashAccountImpl extends SimpleAccount
 	return helper.getUserDefinedAttributeKeys();
     }
 
-    /**
-     * the JWSDP-object we are facading.
-     */
-    private GncAccount jwsdpPeer;
+    // ---------------------------------------------------------------
 
     /**
      * @see GnucashAccount#getId()
@@ -212,25 +228,6 @@ public class GnucashAccountImpl extends SimpleAccount
 	}
 
 	mySplits.add(impl);
-    }
-
-    /**
-     * @return the JWSDP-object we are wrapping.
-     */
-    @SuppressWarnings("exports")
-    public GncAccount getJwsdpPeer() {
-	return jwsdpPeer;
-    }
-
-    /**
-     * @param newPeer the JWSDP-object we are wrapping.
-     */
-    protected void setJwsdpPeer(final GncAccount newPeer) {
-	if (newPeer == null) {
-	    throw new IllegalArgumentException("null not allowed for field this.jwsdpPeer");
-	}
-
-	jwsdpPeer = newPeer;
     }
 
     // -----------------------------------------------------------------

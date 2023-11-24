@@ -158,6 +158,8 @@ public interface GnucashFile extends GnucashObject {
      */
     GnucashTransactionSplit getTransactionSplitByID(GCshID id);
 
+    Collection<GnucashTransactionSplit> getTransactionSplits();
+
     // ---------------------------------------------------------------
 
     /**
