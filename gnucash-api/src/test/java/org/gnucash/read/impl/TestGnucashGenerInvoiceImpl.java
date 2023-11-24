@@ -79,7 +79,7 @@ public class TestGnucashGenerInvoiceImpl
   @Test
   public void test01() throws Exception
   {
-    assertEquals(7, gcshFile.getNofEntriesGenerInvoiceMap());
+    assertEquals(7, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceMap());
   }
 
   // -----------------------------------------------------------------

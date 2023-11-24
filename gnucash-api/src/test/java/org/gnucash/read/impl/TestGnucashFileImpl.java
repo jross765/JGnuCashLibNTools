@@ -61,54 +61,54 @@ public class TestGnucashFileImpl
   @Test
   public void test01() throws Exception
   {    
-    assertEquals(93, gcshFile.getNofEntriesAccountMap());
+    assertEquals(93, ((GnucashFileStats) gcshFile).getNofEntriesAccountMap());
   }
 
   @Test
   public void test02() throws Exception
   {    
-    assertEquals(12, gcshFile.getNofEntriesTransactionMap());
+    assertEquals(12, ((GnucashFileStats) gcshFile).getNofEntriesTransactionMap());
   }
 
   @Test
   public void test03() throws Exception
   {    
-    assertEquals(31, gcshFile.getNofEntriesTransactionSplitsMap());
+    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitsMap());
   }
 
   @Test
   public void test04() throws Exception
   {    
-    assertEquals(7, gcshFile.getNofEntriesGenerInvoiceMap());
+    assertEquals(7, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceMap());
   }
 
   @Test
   public void test05() throws Exception
   {    
-    assertEquals(14, gcshFile.getNofEntriesGenerInvoiceEntriesMap());
+    assertEquals(14, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceEntriesMap());
   }
 
   @Test
   public void test06() throws Exception
   {    
-    assertEquals(2, gcshFile.getNofEntriesGenerJobMap());
+    assertEquals(2, ((GnucashFileStats) gcshFile).getNofEntriesGenerJobMap());
   }
 
   @Test
   public void test07() throws Exception
   {    
-    assertEquals(3, gcshFile.getNofEntriesCustomerMap());
+    assertEquals(3, ((GnucashFileStats) gcshFile).getNofEntriesCustomerMap());
   }
 
   @Test
   public void test08() throws Exception
   {    
-    assertEquals(3, gcshFile.getNofEntriesVendorMap());
+    assertEquals(3, ((GnucashFileStats) gcshFile).getNofEntriesVendorMap());
   }
 
   @Test
   public void test09() throws Exception
   {    
-    assertEquals(1, gcshFile.getNofEntriesEmployeeMap());
+    assertEquals(1, ((GnucashFileStats) gcshFile).getNofEntriesEmployeeMap());
   }
 }

@@ -33,6 +33,8 @@ public interface GnucashFile extends GnucashObject {
      */
     File getFile();
 
+    // ---------------------------------------------------------------
+
     /**
      * The Currency-Table gets initialized with the latest prices found in the
      * gnucash-file.
@@ -53,81 +55,80 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param id id of a tax table
-     * @return the identified tax table or null
-     */
-    GCshTaxTable getTaxTableByID(GCshID id);
-
-    /**
-     * @param id name of a tax table
-     * @return the identified tax table or null
-     */
-    GCshTaxTable getTaxTableByName(String name);
-
-    /**
-     * @return all TaxTables defined in the book
-     * @link GnucashTaxTable
-     */
-    Collection<GCshTaxTable> getTaxTables();
-
-    // ---------------------------------------------------------------
-
-    /**
-     * @param id id of a tax table
-     * @return the identified tax table or null
-     */
-    GCshBillTerms getBillTermsByID(GCshID id);
-
-    /**
-     * @param id name of a tax table
-     * @return the identified tax table or null
-     */
-    GCshBillTerms getBillTermsByName(String name);
-
-    /**
-     * @return all TaxTables defined in the book
-     * @link GnucashTaxTable
-     */
-    Collection<GCshBillTerms> getBillTerms();
-
-
-    // ---------------------------------------------------------------
-
-    /**
-     * @param id id of a price
-     * @return the identified price or null
-     */
-    GCshPrice getPriceByID(GCshID id);
-
-    /**
-     * @return all prices defined in the book
-     * @link GCshPrice
-     */
-    Collection<GCshPrice> getPrices();
-
-    /**
-     * @param pCmdtySpace the namespace for pCmdtyId
-     * @param pCmdtyId    the currency-name
-     * @return the latest price-quote in the gnucash-file in EURO
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     */
-    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
-
-    @Deprecated
-    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
-
-    // ---------------------------------------------------------------
-
-    // public abstract void setFile(File file);
-
-    // public abstract void loadFile(File file) throws Exception;
-
-    /**
      * @param id the unique id of the account to look for
      * @return the account or null if it's not found
      */
     GnucashAccount getAccountByID(GCshID id);
+
+    /**
+     *
+     * @param id if null, gives all account that have no parent
+     * @return all accounts with that parent in no particular order
+     */
+    Collection<GnucashAccount> getAccountsByParentID(GCshID id);
+
+    /**
+     * warning: this function has to traverse all accounts. If it much faster to try
+     * getAccountByID first and only call this method if the returned account does
+     * not have the right name.
+     *
+     * @param name the UNQUaLIFIED name to look for
+     * @return null if not found
+     * @see #getAccountByID(GCshID)
+     */
+    Collection<GnucashAccount> getAccountsByName(String expr);
+
+    Collection<GnucashAccount> getAccountsByName(String expr, boolean qualif, boolean relaxed);
+
+    GnucashAccount getAccountByNameUniq(String expr, boolean qualif) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * warning: this function has to traverse all accounts. If it much faster to try
+     * getAccountByID first and only call this method if the returned account does
+     * not have the right name.
+     *
+     * @param name the regular expression of the name to look for
+     * @return null if not found
+     * @throws TooManyEntriesFoundException 
+     * @throws NoEntryFoundException 
+     * @see #getAccountByID(GCshID)
+     * @see #getAccountsByName(String)
+     */
+    GnucashAccount getAccountByNameEx(String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * First try to fetch the account by id, then fall back to traversing all
+     * accounts to get if by it's name.
+     *
+     * @param id   the id to look for
+     * @param name the name to look for if nothing is found for the id
+     * @return null if not found
+     * @throws TooManyEntriesFoundException 
+     * @throws NoEntryFoundException 
+     * @see #getAccountByID(GCshID)
+     * @see #getAccountsByName(String)
+     */
+    GnucashAccount getAccountByIDorName(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * First try to fetch the account by id, then fall back to traversing all
+     * accounts to get if by it's name.
+     *
+     * @param id   the id to look for
+     * @param name the regular expression of the name to look for if nothing is
+     *             found for the id
+     * @return null if not found
+     * @throws TooManyEntriesFoundException 
+     * @throws NoEntryFoundException 
+     * @see #getAccountByID(GCshID)
+     * @see #getAccountsByName(String)
+     */
+    GnucashAccount getAccountByIDorNameEx(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * @return all accounts
+     */
+    Collection<GnucashAccount> getAccounts();
 
     /**
      * @return a read-only collection of all accounts that have no parent
@@ -135,23 +136,7 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException;
 
-    /**
-     * @param id the unique id of the job to look for
-     * @return the job or null if it's not found
-     */
-    GnucashGenerJob getGenerJobByID(GCshID id);
-
-    Collection<GnucashGenerJob> getGenerJobsByName(String expr);
-
-    Collection<GnucashGenerJob> getGenerJobsByName(String expr, boolean relaxed);
-
-    GnucashGenerJob getGenerJobByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
-
-    /**
-     * @return a (possibly read-only) collection of all jobs Do not modify the
-     *         returned collection!
-     */
-    Collection<GnucashGenerJob> getGenerJobs();
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the transaction to look for
@@ -165,17 +150,15 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<? extends GnucashTransaction> getTransactions();
 
+    // ---------------------------------------------------------------
+    
     /**
-     * @return all accounts
+     * @param id the unique id of the transaction split to look for
+     * @return the transaction split or null if it's not found
      */
-    Collection<GnucashAccount> getAccounts();
+    GnucashTransactionSplit getTransactionSplitByID(GCshID id);
 
-    /**
-     *
-     * @param id if null, gives all account that have no parent
-     * @return all accounts with that parent in no particular order
-     */
-    Collection<GnucashAccount> getAccountsByParentID(GCshID id);
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the (generic) invoice to look for
@@ -188,16 +171,6 @@ public interface GnucashFile extends GnucashObject {
     GnucashGenerInvoice getGenerInvoiceByID(GCshID id);
 
     /**
-     * @param id the unique id of the (generic) invoice entry to look for
-     * @return the invoice entry or null if it's not found
-     * @see #getUnpaidGenerInvoices()
-     * @see #getPaidGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
-     * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
-     */
-    GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshID id);
-
-    /**
      * @return a (possibly read-only) collection of all invoices Do not modify the
      *         returned collection!
      * @see #getUnpaidGenerInvoices()
@@ -206,6 +179,8 @@ public interface GnucashFile extends GnucashObject {
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     Collection<GnucashGenerInvoice> getGenerInvoices();
+
+    // ----------------------------
 
     /**
      * @return a (possibly read-only) collection of all invoices that are fully Paid
@@ -590,64 +565,38 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * warning: this function has to traverse all accounts. If it much faster to try
-     * getAccountByID first and only call this method if the returned account does
-     * not have the right name.
-     *
-     * @param name the UNQUaLIFIED name to look for
-     * @return null if not found
-     * @see #getAccountByID(GCshID)
+     * @param id the unique id of the (generic) invoice entry to look for
+     * @return the invoice entry or null if it's not found
+     * @see #getUnpaidGenerInvoices()
+     * @see #getPaidGenerInvoices()
+     * @see #getGenerInvoiceByID(String)
+     * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
-    Collection<GnucashAccount> getAccountsByName(String expr);
+    GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshID id);
 
-    Collection<GnucashAccount> getAccountsByName(String expr, boolean qualif, boolean relaxed);
-
-    GnucashAccount getAccountByNameUniq(String expr, boolean qualif) throws NoEntryFoundException, TooManyEntriesFoundException;
+    Collection<GnucashGenerInvoiceEntry> getGenerInvoiceEntries();
+    
+    // ---------------------------------------------------------------
 
     /**
-     * warning: this function has to traverse all accounts. If it much faster to try
-     * getAccountByID first and only call this method if the returned account does
-     * not have the right name.
-     *
-     * @param name the regular expression of the name to look for
-     * @return null if not found
-     * @throws TooManyEntriesFoundException 
-     * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
-     * @see #getAccountsByName(String)
+     * @param id the unique id of the job to look for
+     * @return the job or null if it's not found
      */
-    GnucashAccount getAccountByNameEx(String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnucashGenerJob getGenerJobByID(GCshID id);
+
+    Collection<GnucashGenerJob> getGenerJobsByName(String expr);
+
+    Collection<GnucashGenerJob> getGenerJobsByName(String expr, boolean relaxed);
+
+    GnucashGenerJob getGenerJobByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
-     * First try to fetch the account by id, then fall back to traversing all
-     * accounts to get if by it's name.
-     *
-     * @param id   the id to look for
-     * @param name the name to look for if nothing is found for the id
-     * @return null if not found
-     * @throws TooManyEntriesFoundException 
-     * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
-     * @see #getAccountsByName(String)
+     * @return a (possibly read-only) collection of all jobs Do not modify the
+     *         returned collection!
      */
-    GnucashAccount getAccountByIDorName(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    Collection<GnucashGenerJob> getGenerJobs();
 
-    /**
-     * First try to fetch the account by id, then fall back to traversing all
-     * accounts to get if by it's name.
-     *
-     * @param id   the id to look for
-     * @param name the regular expression of the name to look for if nothing is
-     *             found for the id
-     * @return null if not found
-     * @throws TooManyEntriesFoundException 
-     * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
-     * @see #getAccountsByName(String)
-     */
-    GnucashAccount getAccountByIDorNameEx(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
-
-    // ----------------------------
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the customer to look for
@@ -676,7 +625,7 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<GnucashCustomer> getCustomers();
 
-    // ----------------------------
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the vendor to look for
@@ -705,7 +654,7 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<GnucashVendor> getVendors();
 
-    // ----------------------------
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the employee to look for
@@ -735,7 +684,7 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<GnucashEmployee> getEmployees();
 
-    // ----------------------------
+    // ---------------------------------------------------------------
 
     /**
      * @param id the unique id of the currency/security/commodity to look for
@@ -787,27 +736,70 @@ public interface GnucashFile extends GnucashObject {
     Collection<GnucashCommodity> getCommodities();
 
     // ---------------------------------------------------------------
-    // Statistics (for test purposes)
 
-    public int getNofEntriesAccountMap();
+    /**
+     * @param id id of a tax table
+     * @return the identified tax table or null
+     */
+    GCshTaxTable getTaxTableByID(GCshID id);
 
-    public int getNofEntriesTransactionMap();
+    /**
+     * @param id name of a tax table
+     * @return the identified tax table or null
+     */
+    GCshTaxTable getTaxTableByName(String name);
 
-    public int getNofEntriesTransactionSplitsMap();
+    /**
+     * @return all TaxTables defined in the book
+     * @link GnucashTaxTable
+     */
+    Collection<GCshTaxTable> getTaxTables();
 
-    public int getNofEntriesGenerInvoiceMap();
+    // ---------------------------------------------------------------
 
-    public int getNofEntriesGenerInvoiceEntriesMap();
+    /**
+     * @param id id of a tax table
+     * @return the identified tax table or null
+     */
+    GCshBillTerms getBillTermsByID(GCshID id);
 
-    public int getNofEntriesGenerJobMap();
+    /**
+     * @param id name of a tax table
+     * @return the identified tax table or null
+     */
+    GCshBillTerms getBillTermsByName(String name);
 
-    public int getNofEntriesCustomerMap();
+    /**
+     * @return all TaxTables defined in the book
+     * @link GnucashTaxTable
+     */
+    Collection<GCshBillTerms> getBillTerms();
 
-    public int getNofEntriesVendorMap();
+    // ---------------------------------------------------------------
 
-    public int getNofEntriesEmployeeMap();
+    /**
+     * @param id id of a price
+     * @return the identified price or null
+     */
+    GCshPrice getPriceByID(GCshID id);
 
-    public int getNofEntriesCommodityMap();
+    /**
+     * @return all prices defined in the book
+     * @link GCshPrice
+     */
+    Collection<GCshPrice> getPrices();
+
+    /**
+     * @param pCmdtySpace the namespace for pCmdtyId
+     * @param pCmdtyId    the currency-name
+     * @return the latest price-quote in the gnucash-file in EURO
+     * @throws InvalidCmdtyCurrIDException 
+     * @throws InvalidCmdtyCurrTypeException 
+     */
+    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+
+    @Deprecated
+    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     // ---------------------------------------------------------------
     // In this section, we assume that customer, vendor and job numbers
@@ -818,22 +810,22 @@ public interface GnucashFile extends GnucashObject {
     // For jobs, however, things are typically different, so think twice
     // before using the job-methods!
 
-    public int getHighestCustomerNumber();
+    int getHighestCustomerNumber();
 
-    public int getHighestVendorNumber();
+    int getHighestVendorNumber();
 
-    public int getHighestEmployeeNumber();
+    int getHighestEmployeeNumber();
 
-    public int getHighestJobNumber();
+    int getHighestJobNumber();
     
     // ----------------------------
 
-    public String getNewCustomerNumber();
+    String getNewCustomerNumber();
 
-    public String getNewVendorNumber();
+    String getNewVendorNumber();
 
-    public String getNewEmployeeNumber();
+    String getNewEmployeeNumber();
 
-    public String getNewJobNumber();
+    String getNewJobNumber();
 
 }
