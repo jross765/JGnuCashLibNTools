@@ -56,13 +56,13 @@ import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
 import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
-import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.hlp.FileAccountManager;
+import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
@@ -123,13 +123,13 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ----------------------------
     
-    protected FileAccountManager acctMgr = null;
+    protected FileAccountManager      acctMgr = null;
+    protected FileGenerInvoiceManager invcMgr = null;
 
     // ----------------------------
 
     protected Map<GCshID, GnucashTransaction>       transactionID2transaction;
     protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
-    protected Map<GCshID, GnucashGenerInvoice>      invoiceID2invoice;
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
     protected Map<GCshID, GnucashGenerJob>          jobID2job;
     protected Map<GCshID, GnucashCustomer>          customerID2customer;
@@ -501,17 +501,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GnucashGenerInvoice getGenerInvoiceByID(final GCshID id) {
-	if (invoiceID2invoice == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashGenerInvoice retval = invoiceID2invoice.get(id);
-	if (retval == null) {
-	    LOGGER.error("getGenerInvoiceByID: No (generic) Invoice with id '" + id + "'. " + 
-	                 "We know " + invoiceID2invoice.size() + " accounts.");
-	}
-
-	return retval;
+	return invcMgr.getGenerInvoiceByID(id);
     }
 
     /**
@@ -519,13 +509,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GnucashGenerInvoice> getGenerInvoices() {
-
-	Collection<GnucashGenerInvoice> c = invoiceID2invoice.values();
-
-	ArrayList<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>(c);
-	Collections.sort(retval);
-
-	return retval;
+	return invcMgr.getGenerInvoices();
     }
     
     // ----------------------------
@@ -542,48 +526,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
-	for (GnucashGenerInvoice invc : getGenerInvoices()) {
-	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
-		try {
-		    if (invc.isInvcFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getPaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.VENDOR ) {
-		try {
-		    if (invc.isBillFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getPaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.EMPLOYEE ) {
-		try {
-		    if (invc.isVoucherFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getPaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.JOB ) {
-		try {
-		    if (invc.isJobFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getPaidGenerInvoices: Serious error");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidGenerInvoices();
     }
 
     /**
@@ -598,48 +541,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
-	for (GnucashGenerInvoice invc : getGenerInvoices()) {
-	    if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
-		try {
-		    if (invc.isNotInvcFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getUnpaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.VENDOR ) {
-		try {
-		    if (invc.isNotBillFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getUnpaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.EMPLOYEE ) {
-		try {
-		    if (invc.isNotVoucherFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getUnpaidGenerInvoices: Serious error");
-		}
-	    } else if ( invc.getType() == GCshOwner.Type.JOB ) {
-		try {
-		    if (invc.isNotJobFullyPaid()) {
-			retval.add(invc);
-		    }
-		} catch (WrongInvoiceTypeException e) {
-		    // This should not happen
-		    LOGGER.error("getUnpaidGenerInvoices: Serious error");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidGenerInvoices();
     }
 
     // ----------------------------
@@ -656,21 +558,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getInvoicesForCustomer_direct(cust);
     }
 
     /**
@@ -685,15 +573,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getInvoicesForCustomer_viaAllJobs(cust);
     }
 
     /**
@@ -709,21 +589,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidInvoicesForCustomer_direct(cust);
     }
 
     /**
@@ -739,15 +605,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
     /**
@@ -763,21 +621,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidInvoicesForCustomer_direct(cust);
     }
 
     /**
@@ -793,15 +637,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
     // ----------------------------
@@ -818,21 +654,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getBillsForVendor_direct(vend);
     }
 
     /**
@@ -847,15 +669,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getBillsForVendor_viaAllJobs(vend);
     }
 
     /**
@@ -871,21 +685,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidBillsForVendor_direct(vend);
     }
 
     /**
@@ -901,15 +701,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidBillsForVendor_viaAllJobs(vend);
     }
 
     /**
@@ -925,21 +717,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidBillsForVendor_direct(vend);
     }
 
     /**
@@ -955,15 +733,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidBillsForVendor_viaAllJobs(vend);
     }
     
     // ----------------------------
@@ -980,21 +750,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getVouchersForEmployee_direct(empl);
     }
 
     /**
@@ -1010,21 +766,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidVouchersForEmployee_direct(empl);
     }
 
     /**
@@ -1040,21 +782,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidVouchersForEmployee_direct(empl);
     }
 
     // ----------------------------
@@ -1071,21 +799,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getInvoicesForJob(job);
     }
 
     /**
@@ -1101,21 +815,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getPaidInvoicesForJob(job);
     }
 
     /**
@@ -1131,21 +831,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return invcMgr.getUnpaidInvoicesForJob(job);
     }
 
     // ---------------------------------------------------------------
@@ -1810,7 +1496,7 @@ public class GnucashFileImpl implements GnucashFile,
 	// Init helper entiy managers / fill maps
 	acctMgr = new FileAccountManager(this);
 
-	initGenerInvoiceMap(pRootElement);
+	invcMgr = new FileGenerInvoiceManager(this);
 
 	// Caution: invoice entries refer to invoices, therefore they must be loaded after
 	// them
@@ -1899,28 +1585,6 @@ public class GnucashFileImpl implements GnucashFile,
 	} // for
 
 	LOGGER.debug("initTransactionMap: No. of entries in transaction map: " + transactionID2transaction.size());
-    }
-
-    private void initGenerInvoiceMap(final GncV2 pRootElement) {
-	invoiceID2invoice = new HashMap<GCshID, GnucashGenerInvoice>();
-
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncInvoice)) {
-		continue;
-	    }
-	    GncV2.GncBook.GncGncInvoice jwsdpInvc = (GncV2.GncBook.GncGncInvoice) bookElement;
-
-	    try {
-		GnucashGenerInvoice invc = createGenerInvoice(jwsdpInvc);
-		invoiceID2invoice.put(invc.getId(), invc);
-	    } catch (RuntimeException e) {
-		LOGGER.error("initGenerInvoiceMap: [RuntimeException] Problem in " + getClass().getName() + ".initInvoiceMap: "
-			+ "ignoring illegal (generic) Invoice-Entry with id=" + jwsdpInvc.getInvoiceId(), e);
-	    }
-	} // for
-
-	LOGGER.debug("initGenerInvoiceMap: No. of entries in (generic) invoice map: " + invoiceID2invoice.size());
     }
 
     private void initGenerInvoiceEntryMap(final GncV2 pRootElement) {
@@ -2331,15 +1995,6 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     /**
-     * @param jwsdpInvc the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashInvoice to wrap the given jaxb-object.
-     */
-    protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
-	GnucashGenerInvoice invc = new GnucashGenerInvoiceImpl(jwsdpInvc, this);
-	return invc;
-    }
-
-    /**
      * @param jwsdpInvcEntr the JWSDP-peer (parsed xml-element) to fill our object
      *                      with
      * @return the new GnucashInvoiceEntry to wrap the given jaxb-object.
@@ -2525,7 +2180,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesGenerInvoiceMap() {
-	return invoiceID2invoice.size();
+	return invcMgr.getNofEntriesGenerInvoiceMap();
     }
 
     @Override

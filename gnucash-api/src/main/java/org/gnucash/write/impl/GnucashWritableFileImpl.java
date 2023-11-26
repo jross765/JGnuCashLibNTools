@@ -607,7 +607,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @see GnucashFileImpl#createGenerInvoice(GncV2.GncBook.GncGncInvoice)
      */
-    @Override
     protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvoice) {
 	GnucashGenerInvoice invoice = new GnucashWritableGenerInvoiceImpl(jwsdpInvoice, this);
 	return invoice;
@@ -977,7 +976,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			(GnucashAccountImpl) receivableAcct, 
 			openedDate, postDate, dueDate);
 
-	invoiceID2invoice.put(retval.getId(), retval);
+	super.invcMgr.addGenerInvoice(retval);
 	return retval;
     }
 
@@ -1015,7 +1014,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			(GnucashAccountImpl) payableAcct, 
 			openedDate, postDate, dueDate);
 
-	invoiceID2invoice.put(retval.getId(), retval);
+	super.invcMgr.addGenerInvoice(retval);
 	return retval;
     }
 
@@ -1053,7 +1052,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			(GnucashAccountImpl) payableAcct, 
 			openedDate, postDate, dueDate);
 
-	invoiceID2invoice.put(retval.getId(), retval);
+	super.invcMgr.addGenerInvoice(retval);
 	return retval;
     }
 
@@ -1092,7 +1091,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			(GnucashAccountImpl) recvblPayblAcct, 
 			openedDate, postDate, dueDate);
 
-	invoiceID2invoice.put(retval.getId(), retval);
+	super.invcMgr.addGenerInvoice(retval);
 	return retval;
     }
 
@@ -1299,7 +1298,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    ((GnucashWritableTransaction) postTransaction).remove();
 	}
 
-	invoiceID2invoice.remove(impl.getId());
+	super.invcMgr.removeGenerInvoice(impl);
 	getRootElement().getGncBook().getBookElements().remove(impl.getJwsdpPeer());
 	this.decrementCountDataFor("gnc:GncInvoice");
 	setModified(true);
