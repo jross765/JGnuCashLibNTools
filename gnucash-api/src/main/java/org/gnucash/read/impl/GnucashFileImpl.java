@@ -63,6 +63,7 @@ import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
+import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
 import org.gnucash.read.impl.hlp.FileVendorManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
@@ -125,6 +126,7 @@ public class GnucashFileImpl implements GnucashFile,
     protected FileGenerInvoiceManager invcMgr = null;
     protected FileCustomerManager     custMgr = null;
     protected FileVendorManager       vendMgr = null;
+    protected FileEmployeeManager     emplMgr = null;
 
     // ----------------------------
 
@@ -132,7 +134,6 @@ public class GnucashFileImpl implements GnucashFile,
     protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
     protected Map<GCshID, GnucashGenerJob>          jobID2job;
-    protected Map<GCshID, GnucashEmployee>          employeeID2employee;
     protected Map<String, GnucashCommodity>         cmdtyQualifID2Cmdty; // Keys: Sic String not CmdtyCurrID
     protected Map<String, String>                   cmdtyXCode2QualifID; // Values: Sic String not CmdtyCurrID,
                                                                          // dto.
@@ -867,6 +868,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
+    @Override
     public GnucashCustomer getCustomerByID(final GCshID id) {
 	return custMgr.getCustomerByID(id);
     }
@@ -886,6 +888,7 @@ public class GnucashFileImpl implements GnucashFile,
 	return custMgr.getCustomerByNameUniq(name);
     }
     
+    @Override
     public Collection<GnucashCustomer> getCustomers() {
 	return custMgr.getCustomers();
     }
@@ -919,61 +922,29 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
+    @Override
     public GnucashEmployee getEmployeeByID(final GCshID id) {
-	if (employeeID2employee == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashEmployee retval = employeeID2employee.get(id);
-	if (retval == null) {
-	    LOGGER.warn("getEmployeeByID: No Employee with id '" + id + "'. We know " + employeeID2employee.size() + " employees.");
-	}
-	return retval;
+	return emplMgr.getEmployeeByID(id);
     }
 
     @Override
     public Collection<GnucashEmployee> getEmployeesByUserName(final String userName) {
-	return getEmployeesByUserName(userName, true);
+	return emplMgr.getEmployeesByUserName(userName);
     }
 
     @Override
     public Collection<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
-
-	if (employeeID2employee == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
-
-	for ( GnucashEmployee empl : getEmployees() ) {
-	    if ( relaxed ) {
-		if ( empl.getUserName().trim().toLowerCase().
-			contains(expr.trim().toLowerCase()) ) {
-		    result.add(empl);
-		}
-	    } else {
-		if ( empl.getUserName().equals(expr) ) {
-		    result.add(empl);
-		}
-	    }
-	}
-	
-	return result;
+	return emplMgr.getEmployeesByUserName(expr, relaxed);
     }
 
     @Override
     public GnucashEmployee getEmployeeByUserNameUniq(final String userName) throws NoEntryFoundException, TooManyEntriesFoundException {
-	Collection<GnucashEmployee> emplList = getEmployeesByUserName(userName);
-	if ( emplList.size() == 0 )
-	    throw new NoEntryFoundException();
-	else if ( emplList.size() > 1 )
-	    throw new TooManyEntriesFoundException();
-	else
-	    return emplList.iterator().next();
+	return emplMgr.getEmployeeByUserNameUniq(userName);
     }
     
+    @Override
     public Collection<GnucashEmployee> getEmployees() {
-	return employeeID2employee.values();
+	return emplMgr.getEmployees();
     }
 
     // ---------------------------------------------------------------
@@ -1415,7 +1386,7 @@ public class GnucashFileImpl implements GnucashFile,
 
 	vendMgr = new FileVendorManager(this);
 
-	initEmployeeMap(pRootElement);
+	emplMgr = new FileEmployeeManager(this);
 
 	initCommodityMap(pRootElement);
 
@@ -1538,28 +1509,6 @@ public class GnucashFileImpl implements GnucashFile,
         } // for
     
         LOGGER.debug("initJobMap: No. of entries in (generic) Job map: " + jobID2job.size());
-    }
-
-    private void initEmployeeMap(final GncV2 pRootElement) {
-	employeeID2employee = new HashMap<GCshID, GnucashEmployee>();
-
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncEmployee)) {
-		continue;
-	    }
-	    GncV2.GncBook.GncGncEmployee jwsdpEmpl = (GncV2.GncBook.GncGncEmployee) bookElement;
-
-	    try {
-		GnucashEmployeeImpl empl = createEmployee(jwsdpEmpl);
-		employeeID2employee.put(empl.getId(), empl);
-	    } catch (RuntimeException e) {
-		LOGGER.error("initEmployeeMap: [RuntimeException] Problem in " + getClass().getName() + ".initEmployeeMap: "
-			+ "ignoring illegal Employee-Entry with id=" + jwsdpEmpl.getEmployeeId(), e);
-	    }
-	} // for
-
-	LOGGER.debug("initEmployeeMap: No. of entries in vendor map: " + employeeID2employee.size());
     }
 
     private void initCommodityMap(final GncV2 pRootElement) {
@@ -1874,15 +1823,6 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     /**
-     * @param jwsdpVend the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashVendor to wrap the given JAXB object.
-     */
-    protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
-	GnucashEmployeeImpl empl = new GnucashEmployeeImpl(jwsdpEmpl, this);
-	return empl;
-    }
-
-    /**
      * @param jwsdpCmdty the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashCommodity to wrap the given JAXB object.
      */
@@ -2030,11 +1970,6 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public int getNofEntriesGenerJobMap() {
-	return jobID2job.size();
-    }
-
-    @Override
     public int getNofEntriesCustomerMap() {
 	return custMgr.getNofEntriesCustomerMap();
     }
@@ -2046,7 +1981,12 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesEmployeeMap() {
-	return employeeID2employee.size();
+	return emplMgr.getNofEntriesCustomerMap();
+    }
+
+    @Override
+    public int getNofEntriesGenerJobMap() {
+	return jobID2job.size();
     }
 
     @Override
@@ -2140,7 +2080,7 @@ public class GnucashFileImpl implements GnucashFile,
     public int getHighestEmployeeNumber() {
 	int highest = -1;
 
-	for (GnucashEmployee empl : employeeID2employee.values()) {
+	for (GnucashEmployee empl : emplMgr.getEmployees()) {
 	    try {
 		int newNum = Integer.parseInt(empl.getNumber());
 		if (newNum > highest)

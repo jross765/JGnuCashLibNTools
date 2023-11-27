@@ -137,6 +137,10 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	super(createEmployee(file, file.createGUID()), file);
     }
 
+    public GnucashWritableEmployeeImpl(GnucashEmployeeImpl empl) {
+	super(empl.getJwsdpPeer(), empl.getGnucashFile());
+    }
+
     // ---------------------------------------------------------------
 
     /**

@@ -55,6 +55,7 @@ import org.gnucash.read.impl.GnucashTransactionImpl;
 import org.gnucash.read.impl.GnucashVendorImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.aux.WrongOwnerTypeException;
+import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.GnucashWritableAccount;
@@ -589,7 +590,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @Override
     public GnucashWritableEmployee getEmployeeByID(final GCshID emplID) {
-	return (GnucashWritableEmployee) super.getEmployeeByID(emplID);
+	GnucashEmployee empl = super.getEmployeeByID(emplID);
+	return new GnucashWritableEmployeeImpl((GnucashEmployeeImpl) empl);
     }
 
     // ---------------------------------------------------------------
@@ -671,7 +673,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return the new customer
      * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
      */
-    @Override
     protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
 	GnucashEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl, this);
 	return empl;
@@ -1142,7 +1143,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     public GnucashWritableEmployee createWritableEmployee() {
 	GnucashWritableEmployeeImpl empl = new GnucashWritableEmployeeImpl(this);
-	super.employeeID2employee.put(empl.getId(), empl);
+	super.emplMgr.addEmployee(empl);
 	return empl;
     }
 
@@ -1150,7 +1151,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @param empl the employee to remove
      */
     public void removeEmployee(final GnucashWritableEmployee empl) {
-	employeeID2employee.remove(empl.getId());
+	emplMgr.removeEmployee(empl);
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableEmployeeImpl) empl).getJwsdpPeer());
 	setModified(true);
     }

@@ -13,13 +13,13 @@ public interface GnucashFileStats {
 
     public int getNofEntriesGenerInvoiceEntriesMap();
 
-    public int getNofEntriesGenerJobMap();
-
     public int getNofEntriesCustomerMap();
 
     public int getNofEntriesVendorMap();
 
     public int getNofEntriesEmployeeMap();
+
+    public int getNofEntriesGenerJobMap();
 
     public int getNofEntriesCommodityMap();
 
