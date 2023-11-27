@@ -16,6 +16,8 @@ public class TestPackage extends TestCase
   {
     TestSuite suite = new TestSuite();
     
+    suite.addTest(org.gnucash.write.impl.TestGnucashWritableFileImpl.suite());
+
     suite.addTest(org.gnucash.write.impl.TestGnucashWritableAccountImpl.suite());
     suite.addTest(org.gnucash.write.impl.TestGnucashWritableTransactionImpl.suite());
 

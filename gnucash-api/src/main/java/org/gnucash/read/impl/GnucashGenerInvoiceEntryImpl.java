@@ -98,27 +98,27 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * This constructor is used when an invoice is created by java-code.
      *
-     * @param invoice The invoice we belong to.
+     * @param invc The invoice we belong to.
      * @param peer    the JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
     public GnucashGenerInvoiceEntryImpl(
-	    final GnucashGenerInvoice invoice, 
+	    final GnucashGenerInvoice invc, 
 	    final GncV2.GncBook.GncGncEntry peer,
-	    final boolean addEntryToInvoice) {
+	    final boolean addEntrToInvc) {
 	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(),
-		invoice.getFile());
+		invc.getFile());
 
 	if (peer.getEntrySlots() == null) {
 	    peer.setEntrySlots(getSlots());
 	}
 
-	this.myInvoice = invoice;
+	this.myInvoice = invc;
 	this.jwsdpPeer = peer;
 
-	if (addEntryToInvoice) {
-	    if (invoice != null) {
-		invoice.addGenerEntry(this);
+	if ( addEntrToInvc ) {
+	    if (invc != null) {
+		invc.addGenerEntry(this);
 	    }
 	}
     }
@@ -144,10 +144,10 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	// an exception is thrown here if we have an invoice-ID but the invoice does not
 	// exist
-	GnucashGenerInvoice invoice = getGenerInvoice();
-	if (invoice != null) {
+	GnucashGenerInvoice invc = getGenerInvoice();
+	if (invc != null) {
 	    // ...so we only need to handle the case of having no invoice-id at all
-	    invoice.addGenerEntry(this);
+	    invc.addGenerEntry(this);
 	}
     }
 
@@ -233,8 +233,8 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    if (invcId != null) {
 		myInvoice = getGnucashFile().getGenerInvoiceByID(invcId);
 		if (myInvoice == null) {
-		    throw new IllegalStateException("No customer/vendor invoice/bill with id '" + getGenerInvoiceID()
-			    + "' for invoiceEntry with id '" + getId() + "'");
+		    throw new IllegalStateException("No generic invoice with ID '" + getGenerInvoiceID()
+			    + "' for invoice entry with ID '" + getId() + "'");
 		}
 	    }
 	}

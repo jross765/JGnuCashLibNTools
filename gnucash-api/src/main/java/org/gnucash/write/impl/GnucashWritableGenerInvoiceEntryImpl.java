@@ -356,7 +356,6 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	return null; // Compiler happy
     }
 
-    @SuppressWarnings("unused")
     private static GncV2.GncBook.GncGncEntry createGenerInvoiceEntryCommon(
 	    final GnucashWritableGenerInvoiceImpl invoice,
 	    final GnucashWritableFileImpl gnucashFileWritingImpl,
@@ -417,18 +416,18 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     /**
-     * @param invoice   tne invoice this entry shall belong to
+     * @param invc   tne invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
      *      GncV2.GncBook.GncGncEntry)
      */
     @SuppressWarnings("exports")
     public GnucashWritableGenerInvoiceEntryImpl(
-	    final GnucashWritableGenerInvoiceImpl invoice,
+	    final GnucashWritableGenerInvoiceImpl invc,
 	    final GncV2.GncBook.GncGncEntry jwsdpPeer) {
-	super(invoice, jwsdpPeer, true);
+	super(invc, jwsdpPeer, true);
 
-	this.invoice = invoice;
+	this.invoice = invc;
     }
 
     /**

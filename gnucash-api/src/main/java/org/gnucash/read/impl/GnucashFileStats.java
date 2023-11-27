@@ -7,7 +7,7 @@ public interface GnucashFileStats {
 
     public int getNofEntriesTransactionMap();
 
-    public int getNofEntriesTransactionSplitsMap();
+    public int getNofEntriesTransactionSplitMap();
 
     public int getNofEntriesGenerInvoiceMap();
 

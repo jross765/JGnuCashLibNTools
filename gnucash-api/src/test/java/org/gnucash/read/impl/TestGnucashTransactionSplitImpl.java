@@ -75,7 +75,7 @@ public class TestGnucashTransactionSplitImpl
   @Test
   public void test04() throws Exception
   {
-    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitsMap());
+    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitMap());
   }
 
 }

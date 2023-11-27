@@ -2174,7 +2174,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public int getNofEntriesTransactionSplitsMap() {
+    public int getNofEntriesTransactionSplitMap() {
 	return transactionSplitID2transactionSplit.size();
     }
 

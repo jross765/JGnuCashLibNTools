@@ -73,7 +73,7 @@ public class TestGnucashFileImpl
   @Test
   public void test03() throws Exception
   {    
-    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitsMap());
+    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitMap());
   }
 
   @Test
