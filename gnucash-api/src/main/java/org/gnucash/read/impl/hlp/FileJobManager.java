@@ -41,14 +41,6 @@ public class FileJobManager {
     public FileJobManager(GnucashFileImpl gcshFile) {
 	this.gcshFile = gcshFile;
 	init(gcshFile.getRootElement());
-	
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
-	
-	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-	    LOGGER.error("Numbers of entries in three map objects are not consistent");
-	}
     }
 
     // ---------------------------------------------------------------
@@ -98,7 +90,13 @@ public class FileJobManager {
             }
         } // for
     
-        LOGGER.debug("init: No. of entries in (generic) Job map: " + jobMap.size());
+        LOGGER.debug("init: No. of entries in generic Job map: " + jobMap.size());
+        LOGGER.debug("init: No. of entries in customer Job map: " + custJobMap.size());
+        LOGGER.debug("init: No. of entries in vendor Job map: " + vendJobMap.size());
+	
+	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
+	    LOGGER.error("init: Numbers of entries in three map objects are not consistent");
+	}
     }
 
     /**
@@ -137,9 +135,9 @@ public class FileJobManager {
 	    }
 	}
 
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("addGenerJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("addGenerJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("addGenerJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("addGenerJob: Numbers of entries in three map objects are not consistent");
@@ -161,9 +159,9 @@ public class FileJobManager {
 	    }
 	}
 
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("removeGenerJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("removeGenerJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("removeGenerJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("removeGenerJob: Numbers of entries in three map objects are not consistent");
@@ -183,9 +181,9 @@ public class FileJobManager {
 	    addGenerJob(job, false);
 	}
 
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("addCustomerJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("addCustomerJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("addCustomerJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("addCustomerJob: Numbers of entries in three map objects are not consistent");
@@ -203,9 +201,9 @@ public class FileJobManager {
 	    removeGenerJob(job, false);
 	}
 
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("removeCustomerJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("removeCustomerJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("removeCustomerJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("removeCustomerJob: Numbers of entries in three map objects are not consistent");
@@ -225,9 +223,9 @@ public class FileJobManager {
 	    addGenerJob(job, false);
 	}
 
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("addVendorJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("addVendorJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("addVendorJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("addVendorJob: Numbers of entries in three map objects are not consistent");
@@ -245,9 +243,9 @@ public class FileJobManager {
 	    removeGenerJob(job, false);
 	}
 	
-	LOGGER.debug("No. of generic jobs: " + jobMap.size());
-	LOGGER.debug("No. of customer jobs: " + custJobMap.size());
-	LOGGER.debug("No. of vendor jobs: " + vendJobMap.size());
+	LOGGER.debug("removeVendorJob: No. of generic jobs: " + jobMap.size());
+	LOGGER.debug("removeVendorJob: No. of customer jobs: " + custJobMap.size());
+	LOGGER.debug("removeVendorJob: No. of vendor jobs: " + vendJobMap.size());
 	
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("removeVendorJob: Numbers of entries in three map objects are not consistent");
@@ -266,7 +264,7 @@ public class FileJobManager {
 
 	GnucashGenerJob retval = jobMap.get(id);
 	if (retval == null) {
-	    LOGGER.warn("getGenerJobByID: No (generic) Job with ID '" + id + "'. We know " + jobMap.size() + " jobs.");
+	    LOGGER.warn("getGenerJobByID: No generic Job with ID '" + id + "'. We know " + jobMap.size() + " jobs.");
 	}
 
 	return retval;
@@ -472,8 +470,8 @@ public class FileJobManager {
     }
 
     /**
-     * @param vend the customer to look for.
-     * @return all jobs that have this customer, never null
+     * @param vend the vendor to look for.
+     * @return all jobs that have this vendor, never null
      */
     public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
 	if (vendJobMap == null) {
