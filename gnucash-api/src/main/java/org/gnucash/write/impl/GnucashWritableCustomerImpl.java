@@ -136,6 +136,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	super(createCustomer(file, file.createGUID()), file);
     }
 
+    public GnucashWritableCustomerImpl(GnucashCustomerImpl cust) {
+	super(cust.getJwsdpPeer(), cust.getGnucashFile());
+    }
+
     // ---------------------------------------------------------------
 
     /**

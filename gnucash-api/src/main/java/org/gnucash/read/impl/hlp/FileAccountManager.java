@@ -71,7 +71,7 @@ public class FileAccountManager {
      * @return the new GnucashAccount to wrap the given jaxb-object.
      */
     private GnucashAccount createAccount(final GncAccount jwsdpAcct) {
-	GnucashAccount acct = new GnucashAccountImpl(jwsdpAcct, gcshFile.getGnucashFile());
+	GnucashAccount acct = new GnucashAccountImpl(jwsdpAcct, gcshFile);
 	return acct;
     }
 

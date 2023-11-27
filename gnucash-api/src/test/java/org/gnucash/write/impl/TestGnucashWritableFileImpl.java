@@ -113,6 +113,7 @@ public class TestGnucashWritableFileImpl
     assertEquals(7, gcshInFile.getNofEntriesGenerInvoiceMap());
   }
 
+  // ::TODO
 //  @Test
 //  public void test05() throws Exception
 //  {    

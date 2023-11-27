@@ -570,24 +570,25 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
     @Override
-    public GnucashWritableCustomer getCustomerByID(final GCshID arg0) {
-	return (GnucashWritableCustomer) super.getCustomerByID(arg0);
+    public GnucashWritableCustomer getCustomerByID(final GCshID custID) {
+	GnucashCustomer cust = super.getCustomerByID(custID);
+	return new GnucashWritableCustomerImpl((GnucashCustomerImpl) cust);
     }
 
     /**
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
     @Override
-    public GnucashWritableVendor getVendorByID(final GCshID arg0) {
-	return (GnucashWritableVendor) super.getVendorByID(arg0);
+    public GnucashWritableVendor getVendorByID(final GCshID vendID) {
+	return (GnucashWritableVendor) super.getVendorByID(vendID);
     }
 
     /**
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
     @Override
-    public GnucashWritableEmployee getEmployeeByID(final GCshID arg0) {
-	return (GnucashWritableEmployee) super.getEmployeeByID(arg0);
+    public GnucashWritableEmployee getEmployeeByID(final GCshID emplID) {
+	return (GnucashWritableEmployee) super.getEmployeeByID(emplID);
     }
 
     // ---------------------------------------------------------------
@@ -645,7 +646,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return the new customer
      * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
      */
-    @Override
     protected GnucashCustomerImpl createCustomer(final GncV2.GncBook.GncGncCustomer jwsdpCust) {
 	GnucashCustomerImpl cust = new GnucashWritableCustomerImpl(jwsdpCust, this);
 	return cust;
@@ -1102,7 +1102,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     public GnucashWritableCustomer createWritableCustomer() {
 	GnucashWritableCustomerImpl cust = new GnucashWritableCustomerImpl(this);
-	super.customerID2customer.put(cust.getId(), cust);
+	super.custMgr.addCustomer(cust);
 	return cust;
     }
 
@@ -1110,7 +1110,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @param cust the customer to remove
      */
     public void removeCustomer(final GnucashWritableCustomer cust) {
-	customerID2customer.remove(cust.getId());
+	super.custMgr.removeCustomer(cust);
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCustomerImpl) cust).getJwsdpPeer());
 	setModified(true);
     }

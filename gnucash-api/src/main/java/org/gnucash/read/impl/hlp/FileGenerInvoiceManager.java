@@ -80,7 +80,7 @@ public class FileGenerInvoiceManager {
      * @return the new GnucashInvoice to wrap the given jaxb-object.
      */
     protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
-	GnucashGenerInvoice invc = new GnucashGenerInvoiceImpl(jwsdpInvc, gcshFile.getGnucashFile());
+	GnucashGenerInvoice invc = new GnucashGenerInvoiceImpl(jwsdpInvc, gcshFile);
 	return invc;
     }
 
