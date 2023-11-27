@@ -580,7 +580,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @Override
     public GnucashWritableVendor getVendorByID(final GCshID vendID) {
-	return (GnucashWritableVendor) super.getVendorByID(vendID);
+	GnucashVendor vend = super.getVendorByID(vendID);
+	return new GnucashWritableVendorImpl((GnucashVendorImpl) vend);
     }
 
     /**
@@ -658,7 +659,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return the new customer
      * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
      */
-    @Override
     protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
 	GnucashVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, this);
 	return vend;
@@ -1122,16 +1122,16 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     public GnucashWritableVendor createWritableVendor() {
 	GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(this);
-	super.vendorID2vendor.put(vend.getId(), vend);
+	super.vendMgr.addVendor(vend);
 	return vend;
     }
 
     /**
      * @param impl the vendor to remove
      */
-    public void removeVendor(final GnucashWritableVendor impl) {
-	vendorID2vendor.remove(impl.getId());
-	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableVendorImpl) impl).getJwsdpPeer());
+    public void removeVendor(final GnucashWritableVendor vend) {
+	super.vendMgr.removeVendor(vend);
+	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableVendorImpl) vend).getJwsdpPeer());
 	setModified(true);
     }
 

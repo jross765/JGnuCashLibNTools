@@ -58,12 +58,12 @@ public class FileAccountManager {
 		GnucashAccount acct = createAccount(jwsdpAcct);
 		acctMap.put(acct.getId(), acct);
 	    } catch (RuntimeException e) {
-		LOGGER.error("initAccountMap: [RuntimeException] Problem in " + getClass().getName() + ".initAccountMap: "
+		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Account-Entry with id=" + jwsdpAcct.getActId().getValue(), e);
 	    }
 	} // for
 
-	LOGGER.debug("initAccountMap: No. of entries in account map: " + acctMap.size());
+	LOGGER.debug("init: No. of entries in account map: " + acctMap.size());
     }
 
     /**

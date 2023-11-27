@@ -118,6 +118,10 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	super(createVendor(file, file.createGUID()), file);
     }
 
+    public GnucashWritableVendorImpl(GnucashVendorImpl vend) {
+	super(vend.getJwsdpPeer(), vend.getGnucashFile());
+    }
+
     // ---------------------------------------------------------------
 
     /**

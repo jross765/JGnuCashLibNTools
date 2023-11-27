@@ -2,38 +2,18 @@ package org.gnucash.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.read.GnucashCustomer;
-import org.gnucash.read.GnucashEmployee;
 import org.gnucash.read.GnucashFile;
-import org.gnucash.read.GnucashGenerInvoice;
-import org.gnucash.read.GnucashGenerJob;
-import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.NoEntryFoundException;
 import org.gnucash.read.TooManyEntriesFoundException;
-import org.gnucash.read.UnknownAccountTypeException;
-import org.gnucash.read.aux.GCshOwner;
 import org.gnucash.read.impl.GnucashCustomerImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
-import org.gnucash.read.impl.GnucashGenerInvoiceImpl;
-import org.gnucash.read.impl.spec.GnucashCustomerInvoiceImpl;
-import org.gnucash.read.impl.spec.GnucashEmployeeVoucherImpl;
-import org.gnucash.read.impl.spec.GnucashJobInvoiceImpl;
-import org.gnucash.read.impl.spec.GnucashVendorBillImpl;
-import org.gnucash.read.spec.GnucashCustomerInvoice;
-import org.gnucash.read.spec.GnucashCustomerJob;
-import org.gnucash.read.spec.GnucashEmployeeVoucher;
-import org.gnucash.read.spec.GnucashJobInvoice;
-import org.gnucash.read.spec.GnucashVendorBill;
-import org.gnucash.read.spec.GnucashVendorJob;
-import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +25,7 @@ public class FileCustomerManager {
     
     private GnucashFileImpl gcshFile;
 
-    protected Map<GCshID, GnucashCustomer> customerID2customer;
+    private Map<GCshID, GnucashCustomer> custMap;
 
     // ---------------------------------------------------------------
     
@@ -57,7 +37,7 @@ public class FileCustomerManager {
     // ---------------------------------------------------------------
 
     private void init(final GncV2 pRootElement) {
-	customerID2customer = new HashMap<GCshID, GnucashCustomer>();
+	custMap = new HashMap<GCshID, GnucashCustomer>();
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -68,14 +48,14 @@ public class FileCustomerManager {
 
 	    try {
 		GnucashCustomerImpl cust = createCustomer(jwsdpCust);
-		customerID2customer.put(cust.getId(), cust);
+		custMap.put(cust.getId(), cust);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Customer-Entry with id=" + jwsdpCust.getCustId(), e);
 	    }
 	} // for
 
-	LOGGER.debug("init: No. of entries in customer map: " + customerID2customer.size());
+	LOGGER.debug("init: No. of entries in customer map: " + custMap.size());
     }
 
     /**
@@ -90,11 +70,11 @@ public class FileCustomerManager {
     // ---------------------------------------------------------------
 
     public void addCustomer(GnucashCustomer cust) {
-	customerID2customer.put(cust.getId(), cust);
+	custMap.put(cust.getId(), cust);
     }
 
     public void removeCustomer(GnucashCustomer cust) {
-	customerID2customer.remove(cust.getId());
+	custMap.remove(cust.getId());
     }
 
     // ---------------------------------------------------------------
@@ -103,13 +83,13 @@ public class FileCustomerManager {
      * @see GnucashFile#getCustomerByID(java.lang.String)
      */
     public GnucashCustomer getCustomerByID(final GCshID id) {
-	if (customerID2customer == null) {
+	if (custMap == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
 
-	GnucashCustomer retval = customerID2customer.get(id);
+	GnucashCustomer retval = custMap.get(id);
 	if (retval == null) {
-	    LOGGER.warn("getCustomerByID: No Customer with id '" + id + "'. We know " + customerID2customer.size() + " customers.");
+	    LOGGER.warn("getCustomerByID: No Customer with id '" + id + "'. We know " + custMap.size() + " customers.");
 	}
 	return retval;
     }
@@ -126,7 +106,7 @@ public class FileCustomerManager {
      */
     public Collection<GnucashCustomer> getCustomersByName(final String expr, boolean relaxed) {
 
-	if (customerID2customer == null) {
+	if (custMap == null) {
 	    throw new IllegalStateException("no root-element loaded");
 	}
 
@@ -162,13 +142,13 @@ public class FileCustomerManager {
      * @see GnucashFile#getCustomers()
      */
     public Collection<GnucashCustomer> getCustomers() {
-	return customerID2customer.values();
+	return custMap.values();
     }
 
     // ---------------------------------------------------------------
 
     public int getNofEntriesCustomerMap() {
-	return customerID2customer.size();
+	return custMap.size();
     }
 
 }

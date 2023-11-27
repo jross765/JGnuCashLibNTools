@@ -67,12 +67,12 @@ public class FileGenerInvoiceManager {
 		GnucashGenerInvoice invc = createGenerInvoice(jwsdpInvc);
 		invcMap.put(invc.getId(), invc);
 	    } catch (RuntimeException e) {
-		LOGGER.error("initGenerInvoiceMap: [RuntimeException] Problem in " + getClass().getName() + ".initInvoiceMap: "
+		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal (generic) Invoice-Entry with id=" + jwsdpInvc.getInvoiceId(), e);
 	    }
 	} // for
 
-	LOGGER.debug("initGenerInvoiceMap: No. of entries in (generic) invoice map: " + invcMap.size());
+	LOGGER.debug("init: No. of entries in (generic) invoice map: " + invcMap.size());
     }
 
     /**

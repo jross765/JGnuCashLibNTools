@@ -53,7 +53,8 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * @param peer    the JWSDP-object we are facading.
      * @param gncFile the file to register under
      */
-    protected GnucashVendorImpl(final GncV2.GncBook.GncGncVendor peer, final GnucashFile gncFile) {
+    @SuppressWarnings("exports")
+    public GnucashVendorImpl(final GncV2.GncBook.GncGncVendor peer, final GnucashFile gncFile) {
 	super((peer.getVendorSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getVendorSlots(), gncFile);
 
 	if (peer.getVendorSlots() == null) {
