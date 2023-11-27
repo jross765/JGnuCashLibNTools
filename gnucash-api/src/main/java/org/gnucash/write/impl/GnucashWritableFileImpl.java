@@ -51,12 +51,16 @@ import org.gnucash.read.impl.GnucashAccountImpl;
 import org.gnucash.read.impl.GnucashCustomerImpl;
 import org.gnucash.read.impl.GnucashEmployeeImpl;
 import org.gnucash.read.impl.GnucashFileImpl;
+import org.gnucash.read.impl.GnucashGenerJobImpl;
 import org.gnucash.read.impl.GnucashTransactionImpl;
 import org.gnucash.read.impl.GnucashVendorImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.spec.GnucashCustomerJobImpl;
+import org.gnucash.read.impl.spec.GnucashVendorJobImpl;
+import org.gnucash.read.spec.GnucashCustomerJob;
+import org.gnucash.read.spec.GnucashVendorJob;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.GnucashWritableAccount;
 import org.gnucash.write.GnucashWritableCommodity;
@@ -634,7 +638,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @see GnucashFileImpl#createGenerJob(GncV2.GncBook.GncGncJob)
      */
-    @Override
     protected GnucashCustomerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
 	GnucashCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, this);
 	return job;
@@ -775,7 +778,17 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @Override
     public GnucashWritableGenerJob getGenerJobByID(final GCshID jobID) {
-	return (GnucashWritableGenerJob) super.getGenerJobByID(jobID);
+	GnucashGenerJob generJob = super.getGenerJobByID(jobID);
+	if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
+	    GnucashCustomerJob custJob = super.getCustomerJobByID(jobID);
+	    return new GnucashWritableCustomerJobImpl((GnucashCustomerJobImpl) custJob);
+	}
+	else if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
+	    GnucashVendorJob vendJob = super.getVendorJobByID(jobID);
+	    return new GnucashWritableVendorJobImpl((GnucashVendorJobImpl) vendJob);
+	}
+	
+	return null; // Compiler happy
     }
 
     // ----------------------------
@@ -1170,7 +1183,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	}
 
 	GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(this, cust, number, name);
-	super.jobID2job.put(job.getId(), job);
+	super.jobMgr.addGenerJob(job);
 	return job;
     }
 
@@ -1186,7 +1199,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	}
 
 	GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(this, vend, number, name);
-	super.jobID2job.put(job.getId(), job);
+	super.jobMgr.addGenerJob(job);
 	return job;
     }
 
@@ -1209,9 +1222,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * @param impl what to remove
      */
-    public void removeGenerJob(final GnucashWritableGenerJob impl) {
-	jobID2job.remove(impl.getId());
-	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCustomerJobImpl) impl).getJwsdpPeer());
+    public void removeGenerJob(final GnucashWritableGenerJob job) {
+	super.jobMgr.removeGenerJob(job);
+	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCustomerJobImpl) job).getJwsdpPeer());
 	setModified(true);
     }
 
@@ -1266,11 +1279,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return the (first) jobs that have this number or null if not found
      */
     public GnucashWritableGenerJob getGenerJobByNumber(final String jnr) {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	for (GnucashGenerJob gnucashJob : jobID2job.values()) {
+	for (GnucashGenerJob gnucashJob : jobMgr.getGenerJobs()) {
 	    GnucashWritableGenerJob job = (GnucashWritableGenerJob) gnucashJob;
 	    if (job.getNumber().equals(jnr)) {
 		return job;

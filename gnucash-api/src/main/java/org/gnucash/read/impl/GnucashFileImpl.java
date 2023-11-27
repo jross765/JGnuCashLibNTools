@@ -65,6 +65,7 @@ import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
+import org.gnucash.read.impl.hlp.FileGenerJobManager;
 import org.gnucash.read.impl.hlp.FileVendorManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
@@ -127,13 +128,13 @@ public class GnucashFileImpl implements GnucashFile,
     protected FileCustomerManager     custMgr = null;
     protected FileVendorManager       vendMgr = null;
     protected FileEmployeeManager     emplMgr = null;
+    protected FileGenerJobManager     jobMgr  = null;
 
     // ----------------------------
 
     protected Map<GCshID, GnucashTransaction>       transactionID2transaction;
     protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
-    protected Map<GCshID, GnucashGenerJob>          jobID2job;
     protected Map<String, GnucashCommodity>         cmdtyQualifID2Cmdty; // Keys: Sic String not CmdtyCurrID
     protected Map<String, String>                   cmdtyXCode2QualifID; // Values: Sic String not CmdtyCurrID,
                                                                          // dto.
@@ -949,71 +950,83 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashFile#getGenerJobByID(java.lang.String)
-     */
     @Override
     public GnucashGenerJob getGenerJobByID(final GCshID id) {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashGenerJob retval = jobID2job.get(id);
-	if (retval == null) {
-	    LOGGER.warn("getGenerJobByID: No Job with id '" + id + "'. We know " + jobID2job.size() + " jobs.");
-	}
-
-	return retval;
+	return jobMgr.getGenerJobByID(id);
     }
 
     @Override
     public Collection<GnucashGenerJob> getGenerJobsByName(String name) {
-	return getGenerJobsByName(name, true);
+	return jobMgr.getGenerJobsByName(name);
     }
     
     @Override
     public Collection<GnucashGenerJob> getGenerJobsByName(final String expr, final boolean relaxed) {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashGenerJob> result = new ArrayList<GnucashGenerJob>();
-	
-	for ( GnucashGenerJob job : jobID2job.values() ) {
-	    if ( relaxed ) {
-		if ( job.getName().trim().toLowerCase().
-			contains(expr.trim().toLowerCase()) ) {
-		    result.add(job);
-		}
-	    } else {
-		if ( job.getName().equals(expr) ) {
-		    result.add(job);
-		}
-	    }
-	}
-
-	return result;
+	return jobMgr.getGenerJobsByName(expr, relaxed);
     }
     
     @Override
     public GnucashGenerJob getGenerJobByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	Collection<GnucashGenerJob> jobList = getGenerJobsByName(name, false);
-	if ( jobList.size() == 0 )
-	    throw new NoEntryFoundException();
-	else if ( jobList.size() > 1 )
-	    throw new TooManyEntriesFoundException();
-	else
-	    return jobList.iterator().next();
+	return jobMgr.getGenerJobByNameUniq(name);
+    }
+
+    @Override
+    public Collection<GnucashGenerJob> getGenerJobs() {
+	return jobMgr.getGenerJobs();
+    }
+
+    // ----------------------------
+
+    @Override
+    public GnucashCustomerJob getCustomerJobByID(final GCshID id) {
+	return jobMgr.getCustomerJobByID(id);
+    }
+
+    @Override
+    public Collection<GnucashCustomerJob> getCustomerJobsByName(String name) {
+	return jobMgr.getCustomerJobsByName(name);
     }
     
-    /**
-     * @see GnucashFile#getGenerJobs()
-     */
-    public Collection<GnucashGenerJob> getGenerJobs() {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-	return jobID2job.values();
+    @Override
+    public Collection<GnucashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
+	return jobMgr.getCustomerJobsByName(expr, relaxed);
+    }
+    
+    @Override
+    public GnucashCustomerJob getCustomerJobByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+	return jobMgr.getCustomerJobByNameUniq(name);
+    }
+
+    @Override
+    public Collection<GnucashCustomerJob> getCustomerJobs() {
+	return jobMgr.getCustomerJobs();
+    }
+
+    // ----------------------------
+
+    @Override
+    public GnucashVendorJob getVendorJobByID(final GCshID id) {
+	return jobMgr.getVendorJobByID(id);
+    }
+
+    @Override
+    public Collection<GnucashVendorJob> getVendorJobsByName(String name) {
+	return jobMgr.getVendorJobsByName(name);
+    }
+    
+    @Override
+    public Collection<GnucashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
+	return jobMgr.getVendorJobsByName(expr, relaxed);
+    }
+    
+    @Override
+    public GnucashVendorJob getVendorJobByNameUniq(final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+	return jobMgr.getVendorJobByNameUniq(name);
+    }
+
+    @Override
+    public Collection<GnucashVendorJob> getVendorJobs() {
+	return jobMgr.getVendorJobs();
     }
 
     // ---------------------------------------------------------------
@@ -1380,13 +1393,13 @@ public class GnucashFileImpl implements GnucashFile,
 	// loaded after them
 	initTransactionMap(pRootElement);
 
-	initJobMap(pRootElement);
-
 	custMgr = new FileCustomerManager(this);
 
 	vendMgr = new FileVendorManager(this);
 
 	emplMgr = new FileEmployeeManager(this);
+
+	jobMgr  = new FileGenerJobManager(this);
 
 	initCommodityMap(pRootElement);
 
@@ -1482,33 +1495,6 @@ public class GnucashFileImpl implements GnucashFile,
 	} // for
 
 	LOGGER.debug("initGenerInvoiceEntryMap: No. of entries in (generic) invoice-entry map: " + invoiceEntryID2invoiceEntry.size());
-    }
-
-    private void initJobMap(final GncV2 pRootElement) {
-        jobID2job = new HashMap<GCshID, GnucashGenerJob>();
-    
-        for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-            Object bookElement = iter.next();
-            if (!(bookElement instanceof GncV2.GncBook.GncGncJob)) {
-        	continue;
-            }
-            GncV2.GncBook.GncGncJob jwsdpJob = (GncV2.GncBook.GncGncJob) bookElement;
-    
-            try {
-        	GnucashGenerJobImpl job = createGenerJob(jwsdpJob);
-        	GCshID jobID = job.getId();
-        	if (jobID == null) {
-        	    LOGGER.error("initJobMap: File contains a (generic) Job w/o an ID. indexing it with the Null-ID '" + GCshID.NULL_ID + "'");
-        	    jobID = new GCshID(GCshID.NULL_ID);
-        	}
-        	jobID2job.put(job.getId(), job);
-            } catch (RuntimeException e) {
-        	LOGGER.error("initJobMap: [RuntimeException] Problem in " + getClass().getName() + ".initJobMap: "
-        		+ "ignoring illegal (generic) Job entry with id=" + jwsdpJob.getJobId(), e);
-            }
-        } // for
-    
-        LOGGER.debug("initJobMap: No. of entries in (generic) Job map: " + jobID2job.size());
     }
 
     private void initCommodityMap(final GncV2 pRootElement) {
@@ -1813,16 +1799,6 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     /**
-     * @param jwsdpJob the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashJob to wrap the given jaxb-object.
-     */
-    protected GnucashGenerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
-
-	GnucashGenerJobImpl job = new GnucashGenerJobImpl(jwsdpJob, this);
-	return job;
-    }
-
-    /**
      * @param jwsdpCmdty the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashCommodity to wrap the given JAXB object.
      */
@@ -1876,43 +1852,19 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param customer the customer to look for.
+     * @param cust the customer to look for.
      * @return all jobs that have this customer, never null
      */
-    public Collection<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer customer) {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashCustomerJob> retval = new LinkedList<GnucashCustomerJob>();
-
-	for (Object element : jobID2job.values()) {
-	    GnucashGenerJob job = (GnucashGenerJob) element;
-	    if (job.getOwnerId().equals(customer.getId())) {
-		retval.add((GnucashCustomerJob) job);
-	    }
-	}
-	return retval;
+    public Collection<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
+	return jobMgr.getJobsByCustomer(cust);
     }
 
     /**
-     * @param vendor the customer to look for.
+     * @param vend the customer to look for.
      * @return all jobs that have this customer, never null
      */
-    public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vendor) {
-	if (jobID2job == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	Collection<GnucashVendorJob> retval = new LinkedList<GnucashVendorJob>();
-
-	for (Object element : jobID2job.values()) {
-	    GnucashGenerJob job = (GnucashGenerJob) element;
-	    if (job.getOwnerId().equals(vendor.getId())) {
-		retval.add((GnucashVendorJob) job);
-	    }
-	}
-	return retval;
+    public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
+	return jobMgr.getJobsByVendor(vend);
     }
 
     // ---------------------------------------------------------------
@@ -1986,7 +1938,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesGenerJobMap() {
-	return jobID2job.size();
+	return jobMgr.getNofEntriesGenerJobMap();
     }
 
     @Override
@@ -2109,7 +2061,7 @@ public class GnucashFileImpl implements GnucashFile,
     public int getHighestJobNumber() {
 	int highest = -1;
 
-	for (GnucashGenerJob job : jobID2job.values()) {
+	for (GnucashGenerJob job : jobMgr.getGenerJobs()) {
 	    try {
 		int newNum = Integer.parseInt(job.getNumber());
 		if (newNum > highest)

@@ -57,6 +57,10 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	super(createJob(file, file.createGUID(), owner, number, name), file);
     }
 
+    public GnucashWritableCustomerJobImpl(GnucashCustomerJobImpl job) {
+	super(job.getJwsdpPeer(), job.getFile());
+    }
+
     // -----------------------------------------------------------------
 
     /**

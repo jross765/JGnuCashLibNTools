@@ -3,7 +3,6 @@ package org.gnucash.read.impl.spec;
 import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
 import org.gnucash.read.GnucashFile;
-import org.gnucash.read.GnucashGenerInvoice;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.GnucashVendor;
 import org.gnucash.read.impl.GnucashGenerJobImpl;

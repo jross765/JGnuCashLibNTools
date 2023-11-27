@@ -57,6 +57,10 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	super(createJob(file, file.createGUID(), owner, number, name), file);
     }
 
+    public GnucashWritableVendorJobImpl(GnucashVendorJobImpl job) {
+	super(job.getJwsdpPeer(), job.getFile());
+    }
+
     // -----------------------------------------------------------------
 
     /**

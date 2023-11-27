@@ -14,9 +14,11 @@ import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
+import org.gnucash.read.spec.GnucashCustomerJob;
 import org.gnucash.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.read.spec.GnucashJobInvoice;
 import org.gnucash.read.spec.GnucashVendorBill;
+import org.gnucash.read.spec.GnucashVendorJob;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 
 /**
@@ -597,6 +599,46 @@ public interface GnucashFile extends GnucashObject {
      *         returned collection!
      */
     Collection<GnucashGenerJob> getGenerJobs();
+
+    // ----------------------------
+
+    /**
+     * @param id the unique id of the customer job to look for
+     * @return the job or null if it's not found
+     */
+    GnucashCustomerJob getCustomerJobByID(GCshID id);
+
+    Collection<GnucashCustomerJob> getCustomerJobsByName(String expr);
+
+    Collection<GnucashCustomerJob> getCustomerJobsByName(String expr, boolean relaxed);
+
+    GnucashCustomerJob getCustomerJobByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * @return a (possibly read-only) collection of all customer jobs Do not modify the
+     *         returned collection!
+     */
+    Collection<GnucashCustomerJob> getCustomerJobs();
+
+    // ----------------------------
+
+    /**
+     * @param id the unique id of the vendor job to look for
+     * @return the job or null if it's not found
+     */
+    GnucashVendorJob getVendorJobByID(GCshID id);
+
+    Collection<GnucashVendorJob> getVendorJobsByName(String expr);
+
+    Collection<GnucashVendorJob> getVendorJobsByName(String expr, boolean relaxed);
+
+    GnucashVendorJob getVendorJobByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
+
+    /**
+     * @return a (possibly read-only) collection of all vendor jobs Do not modify the
+     *         returned collection!
+     */
+    Collection<GnucashVendorJob> getVendorJobs();
 
     // ---------------------------------------------------------------
 

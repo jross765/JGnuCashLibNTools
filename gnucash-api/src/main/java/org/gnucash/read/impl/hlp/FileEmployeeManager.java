@@ -24,7 +24,7 @@ public class FileEmployeeManager {
     
     private GnucashFileImpl gcshFile;
 
-    protected Map<GCshID, GnucashEmployee> emplMap;
+    private Map<GCshID, GnucashEmployee> emplMap;
 
     // ---------------------------------------------------------------
     
