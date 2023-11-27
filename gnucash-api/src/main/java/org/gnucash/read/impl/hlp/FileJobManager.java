@@ -24,9 +24,9 @@ import org.gnucash.read.spec.GnucashVendorJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileGenerJobManager {
+public class FileJobManager {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(FileGenerJobManager.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(FileJobManager.class);
     
     // ---------------------------------------------------------------
     
@@ -38,7 +38,7 @@ public class FileGenerJobManager {
 
     // ---------------------------------------------------------------
     
-    public FileGenerJobManager(GnucashFileImpl gcshFile) {
+    public FileJobManager(GnucashFileImpl gcshFile) {
 	this.gcshFile = gcshFile;
 	init(gcshFile.getRootElement());
 	

@@ -65,7 +65,7 @@ import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
-import org.gnucash.read.impl.hlp.FileGenerJobManager;
+import org.gnucash.read.impl.hlp.FileJobManager;
 import org.gnucash.read.impl.hlp.FileVendorManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
@@ -128,7 +128,7 @@ public class GnucashFileImpl implements GnucashFile,
     protected FileCustomerManager     custMgr = null;
     protected FileVendorManager       vendMgr = null;
     protected FileEmployeeManager     emplMgr = null;
-    protected FileGenerJobManager     jobMgr  = null;
+    protected FileJobManager          jobMgr  = null;
 
     // ----------------------------
 
@@ -1399,7 +1399,7 @@ public class GnucashFileImpl implements GnucashFile,
 
 	emplMgr = new FileEmployeeManager(this);
 
-	jobMgr  = new FileGenerJobManager(this);
+	jobMgr  = new FileJobManager(this);
 
 	initCommodityMap(pRootElement);
 
