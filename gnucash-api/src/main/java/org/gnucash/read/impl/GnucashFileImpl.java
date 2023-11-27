@@ -62,6 +62,7 @@ import org.gnucash.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.hlp.FileAccountManager;
+import org.gnucash.read.impl.hlp.FileCommodityManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
@@ -129,15 +130,13 @@ public class GnucashFileImpl implements GnucashFile,
     protected FileVendorManager       vendMgr = null;
     protected FileEmployeeManager     emplMgr = null;
     protected FileJobManager          jobMgr  = null;
+    protected FileCommodityManager    cmdtyMgr  = null;
 
     // ----------------------------
 
     protected Map<GCshID, GnucashTransaction>       transactionID2transaction;
     protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
-    protected Map<String, GnucashCommodity>         cmdtyQualifID2Cmdty; // Keys: Sic String not CmdtyCurrID
-    protected Map<String, String>                   cmdtyXCode2QualifID; // Values: Sic String not CmdtyCurrID,
-                                                                         // dto.
     
     // ----------------------------
 
@@ -1033,131 +1032,57 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrID qualifID) {
-	return getCommodityByQualifID(qualifID.toString());
+	return cmdtyMgr.getCommodityByQualifID(qualifID);
     }
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final String nameSpace, final String id) {
-	return getCommodityByQualifID(nameSpace + GCshCmdtyCurrID.SEPARATOR + id);
+	return cmdtyMgr.getCommodityByQualifID(nameSpace, id);
     }
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.Exchange exchange, String id) {
-	return getCommodityByQualifID(exchange.toString() + GCshCmdtyCurrID.SEPARATOR + id);
+	return cmdtyMgr.getCommodityByQualifID(exchange, id);
     }
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.MIC mic, String id) {
-	return getCommodityByQualifID(mic.toString() + GCshCmdtyCurrID.SEPARATOR + id);
+	return cmdtyMgr.getCommodityByQualifID(mic, id);
     }
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.SecIdType secIdType, String id) {
-	return getCommodityByQualifID(secIdType.toString() + GCshCmdtyCurrID.SEPARATOR + id);
+	return cmdtyMgr.getCommodityByQualifID(secIdType, id);
     }
 
     @Override
     public GnucashCommodity getCommodityByQualifID(final String qualifID) {
-	if (qualifID == null) {
-	    throw new IllegalStateException("null string given");
-	}
-
-	if (qualifID.trim().equals("")) {
-	    throw new IllegalStateException("Search string is empty");
-	}
-
-	if (cmdtyQualifID2Cmdty == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashCommodity retval = cmdtyQualifID2Cmdty.get(qualifID.trim());
-	if (retval == null) {
-	    LOGGER.warn("getCommodityByQualifID: No Commodity with qualified id '" + qualifID + "'. We know " + cmdtyQualifID2Cmdty.size()
-		    + " commodities.");
-	}
-	
-	return retval;
+	return cmdtyMgr.getCommodityByQualifID(qualifID);
     }
 
     @Override
     public GnucashCommodity getCommodityByXCode(final String xCode) {
-	if ( cmdtyQualifID2Cmdty == null ||
-             cmdtyXCode2QualifID == null ) {
-	    throw new IllegalStateException("no root-element(s) loaded");
-	}
-
-	if ( cmdtyQualifID2Cmdty.size() != cmdtyXCode2QualifID.size() ) {
-	    // CAUTION: Don't throw an exception, at least not in all cases,
-	    // because this is not necessarily an error: Only if the GnuCash
-	    // file does not contain quotes for foreign currencies (i.e. currency-
-	    // commodities but only security-commodities is this an error.
-	    // throw new IllegalStateException("Sizes of root elements are not equal");
-	    LOGGER.debug("getCommodityByXCode: Sizes of root elements are not equal.");
-	}
-	
-	String qualifIDStr = cmdtyXCode2QualifID.get(xCode);
-	if (qualifIDStr == null) {
-	    LOGGER.warn("getCommodityByXCode: No Commodity with X-Code '" + xCode + "'. We know " + cmdtyXCode2QualifID.size() + " commodities in map 2.");
-	}
-	
-	GnucashCommodity retval = cmdtyQualifID2Cmdty.get(qualifIDStr);
-	if (retval == null) {
-	    LOGGER.warn("getCommodityByXCode: No Commodity with qualified ID '" + qualifIDStr + "'. We know " + cmdtyQualifID2Cmdty.size() + " commodities in map 1.");
-	}
-	
-	return retval;
+	return cmdtyMgr.getCommodityByXCode(xCode);
     }
 
     @Override
     public Collection<GnucashCommodity> getCommoditiesByName(final String expr) {
-	return getCommoditiesByName(expr, true);
+	return cmdtyMgr.getCommoditiesByName(expr);
     }
     
     @Override
     public Collection<GnucashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
-	if (cmdtyQualifID2Cmdty == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-	
-	Collection<GnucashCommodity> result = new ArrayList<GnucashCommodity>();
-
-	for ( GnucashCommodity cmdty : getCommodities() ) {
-	    if ( cmdty.getName() != null ) // yes, that can actually happen! 
-	    {
-		if ( relaxed ) {
-		    if ( cmdty.getName().trim().toLowerCase().
-			    contains(expr.trim().toLowerCase()) ) {
-			result.add(cmdty);
-		    }
-		} else {
-		    if ( cmdty.getName().equals(expr) ) {
-			result.add(cmdty);
-		    }
-		}
-	    }
-	}
-	
-	return result;
+	return cmdtyMgr.getCommoditiesByName(expr, relaxed);
     }
 
     @Override
     public GnucashCommodity getCommodityByNameUniq(final String expr) throws NoEntryFoundException, TooManyEntriesFoundException {
-	Collection<GnucashCommodity> cmdtyList = getCommoditiesByName(expr, false);
-	if ( cmdtyList.size() == 0 )
-	    throw new NoEntryFoundException();
-	else if ( cmdtyList.size() > 1 )
-	    throw new TooManyEntriesFoundException();
-	else
-	    return cmdtyList.iterator().next();
+	return cmdtyMgr.getCommodityByNameUniq(expr);
     }
 
     @Override
     public Collection<GnucashCommodity> getCommodities() {
-	if (cmdtyQualifID2Cmdty == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-	
-	return cmdtyQualifID2Cmdty.values();
+	return cmdtyMgr.getCommodities();
     }
 
     // ---------------------------------------------------------------
@@ -1380,10 +1305,10 @@ public class GnucashFileImpl implements GnucashFile,
 	}
 	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
 
-	// Init helper entiy managers / fill maps
-	acctMgr = new FileAccountManager(this);
+	// Init helper entity managers / fill maps
+	acctMgr  = new FileAccountManager(this);
 
-	invcMgr = new FileGenerInvoiceManager(this);
+	invcMgr  = new FileGenerInvoiceManager(this);
 
 	// Caution: invoice entries refer to invoices, therefore they must be loaded after
 	// them
@@ -1393,15 +1318,15 @@ public class GnucashFileImpl implements GnucashFile,
 	// loaded after them
 	initTransactionMap(pRootElement);
 
-	custMgr = new FileCustomerManager(this);
+	custMgr  = new FileCustomerManager(this);
 
-	vendMgr = new FileVendorManager(this);
+	vendMgr  = new FileVendorManager(this);
 
-	emplMgr = new FileEmployeeManager(this);
+	emplMgr  = new FileEmployeeManager(this);
 
-	jobMgr  = new FileJobManager(this);
+	jobMgr   = new FileJobManager(this);
 
-	initCommodityMap(pRootElement);
+	cmdtyMgr = new FileCommodityManager(this);
 
 	// check for unknown book-elements
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
@@ -1495,52 +1420,6 @@ public class GnucashFileImpl implements GnucashFile,
 	} // for
 
 	LOGGER.debug("initGenerInvoiceEntryMap: No. of entries in (generic) invoice-entry map: " + invoiceEntryID2invoiceEntry.size());
-    }
-
-    private void initCommodityMap(final GncV2 pRootElement) {
-	initCommodityMap1(pRootElement);
-	initCommodityMap2(pRootElement);
-    }
-    
-    private void initCommodityMap1(final GncV2 pRootElement) {
-    cmdtyQualifID2Cmdty = new HashMap<String, GnucashCommodity>();
-
-    for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-        Object bookElement = iter.next();
-        if (!(bookElement instanceof GncV2.GncBook.GncCommodity)) {
-        continue;
-        }
-        GncV2.GncBook.GncCommodity jwsdpCmdty = (GncV2.GncBook.GncCommodity) bookElement;
-
-        try {
-            GnucashCommodityImpl cmdty = createCommodity(jwsdpCmdty);
-            try {
-        	cmdtyQualifID2Cmdty.put(cmdty.getQualifId().toString(), cmdty);
-            } catch (InvalidCmdtyCurrTypeException e) {
-        	LOGGER.error("initCommodityMap1: Could not add Commodity to map: " + cmdty.toString());
-            }
-        } catch (RuntimeException e) {
-            LOGGER.error("initCommodityMap1: [RuntimeException] Problem in " + getClass().getName() + ".initCommodityMap: "
-        	    + "ignoring illegal Commodity entry with id=" + jwsdpCmdty.getCmdtyId(), e);
-        }
-    } // for
-
-    LOGGER.debug("initCommodityMap1: No. of entries in Commodity map (1): " + cmdtyQualifID2Cmdty.size());
-    }
-
-    private void initCommodityMap2(final GncV2 pRootElement) {
-    cmdtyXCode2QualifID = new HashMap<String, String>();
-
-    for ( String qualifID : cmdtyQualifID2Cmdty.keySet() ) {
-	GnucashCommodity cmdty = cmdtyQualifID2Cmdty.get(qualifID);
-	try {
-	    cmdtyXCode2QualifID.put(cmdty.getXCode(), cmdty.getQualifId().toString());
-	} catch (InvalidCmdtyCurrTypeException e) {
-	    LOGGER.error("initCommodityMap2: Could not add element to map: " + cmdty.getXCode());
-	}
-    } 
-
-    LOGGER.debug("initCommodityMap2: No. of entries in Commodity map (2): " + cmdtyXCode2QualifID.size());
     }
 
     /**
@@ -1798,15 +1677,6 @@ public class GnucashFileImpl implements GnucashFile,
 	return entr;
     }
 
-    /**
-     * @param jwsdpCmdty the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashCommodity to wrap the given JAXB object.
-     */
-    protected GnucashCommodityImpl createCommodity(final GncV2.GncBook.GncCommodity jwsdpCmdty) {
-      GnucashCommodityImpl cmdty = new GnucashCommodityImpl(jwsdpCmdty, this);
-    return cmdty;
-    }
-
     // ----------------------------
 
     /**
@@ -1943,7 +1813,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesCommodityMap() {
-    return cmdtyQualifID2Cmdty.size();
+	return cmdtyMgr.getNofEntriesCommodityMap();
     }
     
     // ----------------------------

@@ -1405,12 +1405,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    throw new ObjectCascadeException();
 	}
 	
-	cmdtyQualifID2Cmdty.remove(cmdty.getQualifId().toString());
-	
-	for ( String xCode : cmdtyXCode2QualifID.keySet() ) {
-	    if ( cmdtyQualifID2Cmdty.get(xCode).equals(cmdty.getQualifId().toString()) )
-		cmdtyXCode2QualifID.remove(xCode);
-	}
+	super.cmdtyMgr.removeCommodity(cmdty);
 
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableCommodityImpl) cmdty).getJwsdpPeer());
 	setModified(true);

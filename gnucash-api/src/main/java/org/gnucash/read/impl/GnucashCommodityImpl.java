@@ -35,7 +35,8 @@ public class GnucashCommodityImpl implements GnucashCommodity
      * @param peer    the JWSDP-object we are facading.
      * @param gncFile the file to register under
      */
-    protected GnucashCommodityImpl(final GncV2.GncBook.GncCommodity peer, final GnucashFile gncFile) {
+    @SuppressWarnings("exports")
+    public GnucashCommodityImpl(final GncV2.GncBook.GncCommodity peer, final GnucashFile gncFile) {
 	this.jwsdpPeer = peer;
 	this.file = gncFile;
     }
