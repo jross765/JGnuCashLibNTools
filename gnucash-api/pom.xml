@@ -135,7 +135,7 @@
 				</executions>
 				<configuration>
 					<!-- The package of your generated sources -->
-					<packageName>org.gnucash.generated</packageName>
+					<packageName>org.gnucash.api.generated</packageName>
 					<sources>
 						<source>src/main/resources</source>
 					</sources>
