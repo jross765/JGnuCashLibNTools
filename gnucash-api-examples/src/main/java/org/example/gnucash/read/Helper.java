@@ -1,6 +1,6 @@
 package org.example.gnucash.read;
 
-public class Helper {
+class Helper {
     
   public enum Mode {
     ID,
