@@ -67,6 +67,7 @@ import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
 import org.gnucash.read.impl.hlp.FileJobManager;
+import org.gnucash.read.impl.hlp.FileTransactionManager;
 import org.gnucash.read.impl.hlp.FileVendorManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.read.spec.GnucashCustomerInvoice;
@@ -124,18 +125,17 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ----------------------------
     
-    protected FileAccountManager      acctMgr = null;
-    protected FileGenerInvoiceManager invcMgr = null;
-    protected FileCustomerManager     custMgr = null;
-    protected FileVendorManager       vendMgr = null;
-    protected FileEmployeeManager     emplMgr = null;
-    protected FileJobManager          jobMgr  = null;
-    protected FileCommodityManager    cmdtyMgr  = null;
+    protected FileAccountManager      acctMgr  = null;
+    protected FileTransactionManager  trxMgr   = null;
+    protected FileGenerInvoiceManager invcMgr  = null;
+    protected FileCustomerManager     custMgr  = null;
+    protected FileVendorManager       vendMgr  = null;
+    protected FileEmployeeManager     emplMgr  = null;
+    protected FileJobManager          jobMgr   = null;
+    protected FileCommodityManager    cmdtyMgr = null;
 
     // ----------------------------
 
-    protected Map<GCshID, GnucashTransaction>       transactionID2transaction;
-    protected Map<GCshID, GnucashTransactionSplit>  transactionSplitID2transactionSplit;
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
     
     // ----------------------------
@@ -446,26 +446,18 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
     public GnucashTransaction getTransactionByID(final GCshID id) {
-	if (transactionID2transaction == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashTransaction retval = transactionID2transaction.get(id);
-	if (retval == null) {
-	    LOGGER.warn("getTransactionByID: No Transaction with id '" + id + "'. We know " + transactionID2transaction.size()
-		    + " transactions.");
-	}
-	return retval;
+	return trxMgr.getTransactionByID(id);
     }
 
     /**
      * @see GnucashFile#getTransactions()
      */
     public Collection<? extends GnucashTransaction> getTransactions() {
-	if (transactionID2transaction == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-	return Collections.unmodifiableCollection(transactionID2transaction.values());
+	return trxMgr.getTransactions();
+    }
+
+    public Collection<GnucashTransactionImpl> getTransactions_readAfresh() {
+	return trxMgr.getTransactions_readAfresh();
     }
 
     // ---------------------------------------------------------------
@@ -474,23 +466,19 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
     public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
-        if (transactionSplitID2transactionSplit == null) {
-            throw new IllegalStateException("no root-element loaded");
-        }
-    
-        GnucashTransactionSplit retval = transactionSplitID2transactionSplit.get(id);
-        if (retval == null) {
-            LOGGER.warn("getTransactionSplitByID: No Transaction-Split with id '" + id + "'. We know "
-        	    + transactionSplitID2transactionSplit.size() + " transaction splits.");
-        }
-        return retval;
+        return trxMgr.getTransactionSplitByID(id);
     }
 
     public Collection<GnucashTransactionSplit> getTransactionSplits() {
-	if (transactionSplitID2transactionSplit == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-	return Collections.unmodifiableCollection(transactionSplitID2transactionSplit.values());
+	return trxMgr.getTransactionSplits();
+    }
+
+    public Collection<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh() throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+	return trxMgr.getTransactionSplits_readAfresh();
+    }
+
+    public Collection<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+	return trxMgr.getTransactionSplits_readAfresh(trxID);
     }
 
     // ---------------------------------------------------------------
@@ -1316,7 +1304,7 @@ public class GnucashFileImpl implements GnucashFile,
 
 	// Caution: transactions refer to invoices, therefore they must be 
 	// loaded after them
-	initTransactionMap(pRootElement);
+	trxMgr   = new FileTransactionManager(this);
 
 	custMgr  = new FileCustomerManager(this);
 
@@ -1371,32 +1359,6 @@ public class GnucashFileImpl implements GnucashFile,
 	    throw new IllegalArgumentException(
 		    "<gnc:book> contains unknown element [" + bookElement.getClass().getName() + "]");
 	}
-    }
-
-    private void initTransactionMap(final GncV2 pRootElement) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
-	transactionID2transaction = new HashMap<GCshID, GnucashTransaction>();
-	transactionSplitID2transactionSplit = new HashMap<GCshID, GnucashTransactionSplit>();
-
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncTransaction)) {
-		continue;
-	    }
-	    GncTransaction jwsdpTrx = (GncTransaction) bookElement;
-
-	    try {
-		GnucashTransactionImpl trx = createTransaction(jwsdpTrx);
-		transactionID2transaction.put(trx.getId(), trx);
-		for (GnucashTransactionSplit splt : trx.getSplits()) {
-		    transactionSplitID2transactionSplit.put(splt.getId(), splt);
-		}
-	    } catch (RuntimeException e) {
-		LOGGER.error("initTransactionMap: [RuntimeException] Problem in " + getClass().getName() + ".initTransactionMap: "
-			+ "ignoring illegal Transaction-Entry with id=" + jwsdpTrx.getTrnId().getValue(), e);
-	    }
-	} // for
-
-	LOGGER.debug("initTransactionMap: No. of entries in transaction map: " + transactionID2transaction.size());
     }
 
     private void initGenerInvoiceEntryMap(final GncV2 pRootElement) {
@@ -1659,15 +1621,6 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param jwsdpTrx the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashTransaction to wrap the given jaxb-object.
-     */
-    protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
-	GnucashTransactionImpl trx = new GnucashTransactionImpl(jwsdpTrx, this);
-	return trx;
-    }
-
-    /**
      * @param jwsdpInvcEntr the JWSDP-peer (parsed xml-element) to fill our object
      *                      with
      * @return the new GnucashInvoiceEntry to wrap the given jaxb-object.
@@ -1773,12 +1726,12 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesTransactionMap() {
-	return transactionID2transaction.size();
+	return trxMgr.getNofEntriesTransactionMap();
     }
 
     @Override
     public int getNofEntriesTransactionSplitMap() {
-	return transactionSplitID2transactionSplit.size();
+	return trxMgr.getNofEntriesTransactionSplitMap();
     }
 
     @Override
@@ -1819,14 +1772,6 @@ public class GnucashFileImpl implements GnucashFile,
     // ----------------------------
     // Statistics, var 2 (low-level)
     
-    /**
-     * @return the number of transactions
-     */
-    protected int getTransactionCount() {
-	GncCountData count = findCountDataByType("transaction");
-	return count.getValue();
-    }
-
     // ---------------------------------------------------------------
     // In this section, we assume that all customer, vendor and job numbers
     // (internally, the IDs, not the GUIDs) are purely numeric, resp. (as
@@ -2024,6 +1969,27 @@ public class GnucashFileImpl implements GnucashFile,
 	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
 
 	return newNoStrPadded;
+    }
+    
+    // ---------------------------------------------------------------
+    
+    public String toString() {
+	String result = "GnucashFileImpl: [\n";
+	
+	result += "  no. of accounts:                  " + getNofEntriesAccountMap() + "\n"; 
+	result += "  no. of transactions:              " + getNofEntriesTransactionMap() + "\n"; 
+	result += "  no. of transaction splits:        " + getNofEntriesTransactionSplitMap() + "\n"; 
+	result += "  no. of (generic) invoices:        " + getNofEntriesGenerInvoiceMap() + "\n"; 
+	result += "  no. of (generic) invoice entries: " + getNofEntriesGenerInvoiceEntriesMap() + "\n"; 
+	result += "  no. of customers:                 " + getNofEntriesCustomerMap() + "\n"; 
+	result += "  no. of vendors:                   " + getNofEntriesVendorMap() + "\n"; 
+	result += "  no. of employees:                 " + getNofEntriesVendorMap() + "\n"; 
+	result += "  no. of (generic) jobs:            " + getNofEntriesGenerJobMap() + "\n"; 
+	result += "  no. of commodities:               " + getNofEntriesCommodityMap() + "\n";
+	
+	result += "]";
+	
+	return result;
     }
 
 }

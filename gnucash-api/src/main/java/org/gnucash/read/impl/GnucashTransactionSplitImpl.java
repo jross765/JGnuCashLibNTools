@@ -54,14 +54,15 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     public GnucashTransactionSplitImpl(
 	    final GncTransaction.TrnSplits.TrnSplit peer, 
 	    final GnucashTransaction trx,
-	    final boolean addTrxSplits) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final boolean addSpltToAcct,
+	    final boolean addSpltToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
 		trx.getGnucashFile());
 
 	jwsdpPeer = peer;
 	myTransaction = trx;
 
-	if ( addTrxSplits ) {
+	if ( addSpltToAcct ) {
 	    GnucashAccount acct = getAccount();
 	    if (acct == null) {
 		LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getId()
@@ -72,20 +73,21 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    }
 	}
 
-	GCshID lot = getLotID();
-	if (lot != null) {
-	    for (GnucashGenerInvoice invc : getTransaction().getGnucashFile().getGenerInvoices()) {
-		GCshID lotID = invc.getLotID();
-		if (lotID != null && lotID.equals(lot)) {
-		    // Check if it's a payment transaction.
-		    // If so, add it to the invoice's list of payment transactions.
-		    if (getAction().equals(Action.PAYMENT.getLocaleString())) {
-			invc.addPayingTransaction(this);
+	if ( addSpltToInvc ) {
+	    GCshID lot = getLotID();
+	    if (lot != null) {
+		for (GnucashGenerInvoice invc : getTransaction().getGnucashFile().getGenerInvoices()) {
+		    GCshID lotID = invc.getLotID();
+		    if (lotID != null && lotID.equals(lot)) {
+			// Check if it's a payment transaction.
+			// If so, add it to the invoice's list of payment transactions.
+			if (getAction().equals(Action.PAYMENT.getLocaleString())) {
+			    invc.addPayingTransaction(this);
+			}
 		    }
 		}
-	    }
-	}
-
+	    } // lot
+	} // addSpltToInvc
     }
 
     // ---------------------------------------------------------------
@@ -404,12 +406,13 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    }
 
 	    if (otherSplt != this) {
-		LOGGER.error("Duplicate transaction-split-id!! " + otherSplt.getId() + "["
-			+ otherSplt.getClass().getName() + "] and " + getId() + "[" + getClass().getName() + "]\n"
-			+ "split0=" + otherSplt.toString() + "\n" + "split1=" + toString() + "\n");
-		IllegalStateException x = new IllegalStateException("DEBUG");
-		x.printStackTrace();
-
+		LOGGER.error("compareTo: Duplicate transaction-split-id!! " + 
+			otherSplt.getId() + "[" + otherSplt.getClass().getName() + "] and " + 
+			getId() + "[" + getClass().getName() + "]\n" + 
+			"split0=" + otherSplt.toString() + "\n" + 
+			"split1=" + toString());
+		IllegalStateException exc = new IllegalStateException("DEBUG");
+		exc.printStackTrace();
 	    }
 
 	    return 0;

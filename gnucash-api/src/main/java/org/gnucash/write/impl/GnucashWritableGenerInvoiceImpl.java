@@ -2551,9 +2551,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     // ---------------------------------------------------------------
 
     /**
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      * @see GnucashGenerInvoice#getPayingTransactions()
      */
-    public Collection<GnucashWritableTransaction> getWritingPayingTransactions() {
+    public Collection<GnucashWritableTransaction> getWritingPayingTransactions() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashWritableTransaction> trxList = new LinkedList<GnucashWritableTransaction>();
 
 	for (GnucashTransaction trx : getPayingTransactions()) {

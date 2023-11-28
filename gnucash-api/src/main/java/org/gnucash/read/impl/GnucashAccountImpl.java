@@ -200,17 +200,29 @@ public class GnucashAccountImpl extends SimpleAccount
     /**
      * @see GnucashAccount#addTransactionSplit(GnucashTransactionSplit)
      */
-    public void addTransactionSplit(final GnucashTransactionSplit split) {
+    public void addTransactionSplit(final GnucashTransactionSplit splt) {
 
-	GnucashTransactionSplit old = getTransactionSplitByID(split.getId());
+	GnucashTransactionSplit old = getTransactionSplitByID(splt.getId());
 	if (old != null) {
-	    if (old != split) {
-		IllegalStateException ex = new IllegalStateException("DEBUG");
-		ex.printStackTrace();
-		replaceTransactionSplit(old, split);
+	    // There already is a split with that ID
+	    if ( ! old.equals(splt) ) {
+		System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+			splt.getId() + "[" + splt.getClass().getName() + "] and " + 
+			old.getId() + "[" + old.getClass().getName() + "]\n" + 
+			"new=" + splt.toString() + "\n" + 
+			"old=" + old.toString());
+		LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+			splt.getId() + "[" + splt.getClass().getName() + "] and " + 
+			old.getId() + "[" + old.getClass().getName() + "]\n" + 
+			"new=" + splt.toString() + "\n" + 
+			"old=" + old.toString());
+		IllegalStateException exc = new IllegalStateException("DEBUG");
+		exc.printStackTrace();
+		replaceTransactionSplit(old, splt);
 	    }
 	} else {
-	    mySplits.add(split);
+	    // There is a no split with that ID yet
+	    mySplits.add(splt);
 	    mySplitsNeedSorting = true;
 	}
     }

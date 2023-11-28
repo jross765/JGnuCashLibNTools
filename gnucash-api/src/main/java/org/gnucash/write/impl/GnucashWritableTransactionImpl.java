@@ -53,11 +53,11 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      */
     @SuppressWarnings("exports")
     public GnucashWritableTransactionImpl(final GncTransaction jwsdpPeer, final GnucashFileImpl file) {
-	super(jwsdpPeer, file);
+	super(jwsdpPeer, file, true);
 
 	// repair a broken file
 	if (jwsdpPeer.getTrnDatePosted() == null) {
-	    LOGGER.warn("repairing broken transaction " + jwsdpPeer.getTrnId() + " with no date-posted!");
+	    LOGGER.warn("Repairing broken transaction " + jwsdpPeer.getTrnId() + " with no date-posted!");
 	    // we use our own ObjectFactory because: Exception in thread "AWT-EventQueue-0"
 	    // java.lang.IllegalAccessError: tried to access
 	    // method org.gnucash.write.jwsdpimpl.GnucashFileImpl.getObjectFactory()
@@ -79,19 +79,19 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @param file the file we belong to
      */
     public GnucashWritableTransactionImpl(final GnucashWritableFileImpl file) {
-	super(createTransaction(file, file.createGUID()), file);
+	super(createTransaction(file, file.createGUID()), file, true);
 	file.addTransaction(this);
     }
 
-    public GnucashWritableTransactionImpl(final GnucashTransaction trx) {
-	super(trx.getJwsdpPeer(), trx.getGnucashFile());
+    public GnucashWritableTransactionImpl(final GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	super(trx.getJwsdpPeer(), trx.getGnucashFile(), false);
 
 	// ::TODO
-	System.err.println("NOT IMPLEMENTED YET");
-//	    for ( GnucashTransactionSplit splt : trx.getSplits() ) 
-//	    {
-//		addSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), trx));
-//	    }
+//	System.err.println("NOT IMPLEMENTED YET");
+//	for ( GnucashTransactionSplit splt : trx.getSplits() )  {
+//	    addSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), trx,
+//		                                     false, false));
+//	}
     }
 
     // -----------------------------------------------------------
@@ -125,9 +125,13 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws NoSuchFieldException 
      */
     @Override
-    protected GnucashTransactionSplitImpl createSplit(final GncTransaction.TrnSplits.TrnSplit element) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	GnucashWritableTransactionSplitImpl gnucashTransactionSplitWritingImpl = new GnucashWritableTransactionSplitImpl(
-		element, this);
+    protected GnucashTransactionSplitImpl createSplit(
+	    final GncTransaction.TrnSplits.TrnSplit element,
+	    final boolean addToAcct,
+	    final boolean addToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	GnucashWritableTransactionSplitImpl gnucashTransactionSplitWritingImpl = 
+		new GnucashWritableTransactionSplitImpl(element, this,
+			                                addToAcct, addToInvc);
 	if (getPropertyChangeSupport() != null) {
 	    getPropertyChangeSupport().firePropertyChange("splits", null, getWritingSplits());
 	}

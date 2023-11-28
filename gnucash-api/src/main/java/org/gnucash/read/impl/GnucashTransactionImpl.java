@@ -26,7 +26,6 @@ import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashFile;
 import org.gnucash.read.GnucashGenerInvoice;
-import org.gnucash.read.GnucashObject;
 import org.gnucash.read.GnucashTransaction;
 import org.gnucash.read.GnucashTransactionSplit;
 import org.gnucash.read.SplitNotFoundException;
@@ -83,7 +82,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @see #jwsdpPeer
      */
     @SuppressWarnings("exports")
-    public GnucashTransactionImpl(final GncTransaction peer, final GnucashFile gncFile) {
+    public GnucashTransactionImpl(
+	    final GncTransaction peer, 
+	    final GnucashFile gncFile,
+	    final boolean addTrxToInvc) {
 	super((peer.getTrnSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getTrnSlots(), gncFile);
 
 	if (peer.getTrnSlots() == null) {
@@ -101,10 +103,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	jwsdpPeer = peer;
 	file = gncFile;
 
-	for (GnucashGenerInvoice invc : getInvoices()) {
-	    invc.addTransaction(this);
+	if ( addTrxToInvc ) {
+	    for (GnucashGenerInvoice invc : getInvoices()) {
+		invc.addTransaction(this);
+	    }
 	}
-
     }
 
     // Copy-constructor
@@ -473,16 +476,24 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @see GnucashTransaction#getSplits()
      */
     public List<GnucashTransactionSplit> getSplits() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return getSplits(false, false);
+    }
+
+    public List<GnucashTransactionSplit> getSplits(final boolean addToAcct, final boolean addToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	if (mySplits == null) {
-	    List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
-
-	    mySplits = new ArrayList<GnucashTransactionSplit>(jwsdpSplits.size());
-	    for (GncTransaction.TrnSplits.TrnSplit element : jwsdpSplits) {
-
-		mySplits.add(createSplit(element));
-	    }
+	    initSplits(addToAcct, addToInvc);
 	}
 	return mySplits;
+    }
+
+    private void initSplits(final boolean addToAcct, final boolean addToInvc) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+	List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
+
+	mySplits = new ArrayList<GnucashTransactionSplit>(jwsdpSplits.size());
+	for (GncTransaction.TrnSplits.TrnSplit element : jwsdpSplits) {
+	    mySplits.add(createSplit(element, 
+		                     addToAcct, addToInvc));
+	}
     }
 
     /**
@@ -496,8 +507,12 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    protected GnucashTransactionSplitImpl createSplit(final GncTransaction.TrnSplits.TrnSplit element) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return new GnucashTransactionSplitImpl(element, this, true);
+    protected GnucashTransactionSplitImpl createSplit(
+	    final GncTransaction.TrnSplits.TrnSplit element,
+	    final boolean addToAcct, 
+	    final boolean addToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return new GnucashTransactionSplitImpl(element, this, 
+		                               addToAcct, addToInvc);
     }
 
     /**

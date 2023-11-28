@@ -83,6 +83,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	/**
 	 * @see GnucashAccountImpl#GnucashAccountImpl(GncAccount, GnucashFile)
 	 */
+	@SuppressWarnings("exports")
 	public GnucashWritableAccountImpl(final GncAccount jwsdpPeer, final GnucashFileImpl file) {
 		super(jwsdpPeer, file);
 	}
@@ -94,14 +95,26 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		super(createAccount(file, file.createGUID()), file);
 	}
 
-	public GnucashWritableAccountImpl(final GnucashAccount acct) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, UnknownAccountTypeException {
+	public GnucashWritableAccountImpl(
+		final GnucashAccount acct,
+		final boolean addSplits) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, UnknownAccountTypeException {
 	    super(acct.getJwsdpPeer(), acct.getGnucashFile());
 
-	    for ( GnucashTransactionSplit splt : acct.getGnucashFile().getTransactionSplits() ) {
-		if ( acct.getType() != Type.ROOT && 
-		     splt.getAccountID().equals(acct.getId()) ) {
-		    addTransactionSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), splt.getTransaction(), false));
-		}
+	    if ( addSplits ) {
+		    // System.err.println("xx00: " + ((GnucashFileImpl) acct.getGnucashFile()).getTransactionSplitsRaw().size());
+		    // for ( GnucashTransactionSplit splt : acct.getGnucashFile().getTransactionSplits() ) {
+		    for ( GnucashTransactionSplit splt : ((GnucashFileImpl) acct.getGnucashFile()).getTransactionSplits_readAfresh() ) {
+//			    System.err.println("xx02: " + splt.getAccountID());
+			if ( acct.getType() != Type.ROOT && 
+			     splt.getAccountID().equals(acct.getId()) ) {
+//			    System.err.println("NOET!");
+			    // NO:
+			     super.addTransactionSplit(splt);
+			    // NO:
+//			    addTransactionSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), splt.getTransaction(), 
+//	                            false, false));
+			}
+		    }
 	    }
 	}
 	
@@ -266,11 +279,6 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		}
 	}
 	
-	public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException {
-	    setCmdtyCurrNameSpace(cmdtyCurrID.getNameSpace());
-	    setCmdtyCurrCode(cmdtyCurrID.getCode());
-	}	
-
 	/**
 	 * @param currNameSpace the new namespace
 	 * @throws InvalidCmdtyCurrTypeException 
@@ -280,7 +288,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		if (currNameSpace == null) {
 			throw new IllegalArgumentException("null or empty currencyNameSpace given!");
 		}
-
+	
 		String oldCurrNameSpace = getCmdtyCurrID().getNameSpace();
 		if (oldCurrNameSpace == currNameSpace) {
 			return; // nothing has changed
@@ -293,6 +301,11 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			propertyChangeFirer.firePropertyChange("currencyNameSpace", oldCurrNameSpace, currNameSpace);
 		}
 	}
+
+	public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException {
+	    setCmdtyCurrNameSpace(cmdtyCurrID.getNameSpace());
+	    setCmdtyCurrCode(cmdtyCurrID.getCode());
+	}	
 
 	/**
 	 * @param currencyID the new currency
