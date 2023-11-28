@@ -24,5 +24,6 @@ module gnucash.api {
 	exports org.gnucash.write.spec;
 	exports org.gnucash.write.impl;
 	exports org.gnucash.write.impl.aux;
+	exports org.gnucash.write.impl.hlp;
 	exports org.gnucash.write.impl.spec;
 }

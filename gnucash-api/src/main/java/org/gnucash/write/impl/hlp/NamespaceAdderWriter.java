@@ -1,4 +1,4 @@
-package org.gnucash.write.aux.hlp;
+package org.gnucash.write.impl.hlp;
 
 import java.io.IOException;
 import java.io.Writer;
