@@ -1,4 +1,4 @@
-package org.gnucash.write.impl;
+package org.gnucash.write.aux.hlp;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * replaces ':' in tag-names and attribute-names by '_'
  */
-class NamespaceAdderWriter extends Writer {
+public class NamespaceAdderWriter extends Writer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(NamespaceAdderWriter.class);
 

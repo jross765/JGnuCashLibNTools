@@ -1,4 +1,4 @@
-package org.gnucash.write.impl;
+package org.gnucash.write.aux.hlp;
 
 import java.util.Comparator;
 

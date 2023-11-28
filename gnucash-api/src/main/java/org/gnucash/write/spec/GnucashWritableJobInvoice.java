@@ -9,13 +9,13 @@ import org.gnucash.read.GnucashAccount;
 import org.gnucash.read.GnucashGenerJob;
 import org.gnucash.read.IllegalTransactionSplitActionException;
 import org.gnucash.read.TaxTableNotFoundException;
+import org.gnucash.read.UnknownInvoiceTypeException;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.read.spec.GnucashCustomerJob;
 import org.gnucash.read.spec.GnucashVendorJob;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.GnucashWritableGenerInvoice;
-import org.gnucash.write.impl.UnknownInvoiceTypeException;
 
 /**
  * Job invoice that can be modified if isModifiable() returns true

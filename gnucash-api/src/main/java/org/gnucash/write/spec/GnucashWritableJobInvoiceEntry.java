@@ -4,11 +4,11 @@ import org.gnucash.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.numbers.FixedPointNumber;
 import org.gnucash.read.IllegalTransactionSplitActionException;
 import org.gnucash.read.TaxTableNotFoundException;
+import org.gnucash.read.UnknownInvoiceTypeException;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
 import org.gnucash.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.write.GnucashWritableObject;
-import org.gnucash.write.impl.UnknownInvoiceTypeException;
 
 /**
  * Invoice-Entry that can be modified.

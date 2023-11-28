@@ -1,4 +1,4 @@
-package org.gnucash.write.impl;
+package org.gnucash.read;
 
 public class UnknownInvoiceTypeException extends Exception {
 

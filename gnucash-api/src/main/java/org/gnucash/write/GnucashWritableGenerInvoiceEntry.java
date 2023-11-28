@@ -8,9 +8,9 @@ import org.gnucash.read.GnucashGenerInvoiceEntry;
 import org.gnucash.read.GnucashObject;
 import org.gnucash.read.IllegalTransactionSplitActionException;
 import org.gnucash.read.TaxTableNotFoundException;
+import org.gnucash.read.UnknownInvoiceTypeException;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.spec.WrongInvoiceTypeException;
-import org.gnucash.write.impl.UnknownInvoiceTypeException;
 
 /**
  * Invoice-Entry that can be modified.

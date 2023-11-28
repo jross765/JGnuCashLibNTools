@@ -1,4 +1,4 @@
-package org.gnucash.write.impl;
+package org.gnucash.write.aux.hlp;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -14,9 +14,9 @@ import org.xml.sax.SAXException;
 
 /**
  * Helper-Class needed for writing Gnucash-Files that are binary-identical to
- * what gnucash itself writes.
+ * what GnuCash itself writes.
  */
-class WritingContentHandler implements ContentHandler {
+public class WritingContentHandler implements ContentHandler {
 
     /**
      * Our logger for debug- and error-ourput.
