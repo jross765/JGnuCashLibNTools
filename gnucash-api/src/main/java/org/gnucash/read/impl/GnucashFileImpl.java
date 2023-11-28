@@ -58,9 +58,9 @@ import org.gnucash.read.UnknownAccountTypeException;
 import org.gnucash.read.aux.GCshBillTerms;
 import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
-import org.gnucash.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.read.impl.aux.GCshPriceImpl;
 import org.gnucash.read.impl.hlp.FileAccountManager;
+import org.gnucash.read.impl.hlp.FileBillTermsManager;
 import org.gnucash.read.impl.hlp.FileCommodityManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
@@ -116,11 +116,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ----------------------------
 
-    protected FileTaxTableManager taxTabMgr = null;
-    protected Map<GCshID, GCshBillTerms> billTermsByID = null;
-    
-    // ----------------------------
-
     protected Map<GCshID, GCshPrice>     priceById = null;
 
     // ----------------------------
@@ -137,6 +132,11 @@ public class GnucashFileImpl implements GnucashFile,
     // ----------------------------
 
     protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
+    
+    // ----------------------------
+
+    protected FileTaxTableManager  taxTabMgr = null;
+    protected FileBillTermsManager bllTrmMgr = null; 
     
     // ----------------------------
 
@@ -1110,11 +1110,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GCshBillTerms getBillTermsByID(final GCshID id) {
-        if (billTermsByID == null) {
-            getBillTerms();
-        }
-        
-        return billTermsByID.get(id);
+        return bllTrmMgr.getBillTermsByID(id);
     }
 
     /**
@@ -1123,17 +1119,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GCshBillTerms getBillTermsByName(final String name) {
-	if (billTermsByID == null) {
-	    getBillTerms();
-	}
-	
-	for (GCshBillTerms billTerms : billTermsByID.values()) {
-	    if (billTerms.getName().equals(name)) {
-		return billTerms;
-	    }
-	}
-
-	return null;
+	return bllTrmMgr.getBillTermsByName(name);
     }
 
     /**
@@ -1141,21 +1127,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @link GnucashTaxTable
      */
     public Collection<GCshBillTerms> getBillTerms() {
-        if (billTermsByID == null) {
-            billTermsByID = new HashMap<GCshID, GCshBillTerms>();
-
-            List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
-            for (Object bookElement : bookElements) {
-                if (!(bookElement instanceof GncV2.GncBook.GncGncBillTerm)) {
-                    continue;
-                }
-                GncV2.GncBook.GncGncBillTerm jwsdpPeer = (GncV2.GncBook.GncGncBillTerm) bookElement;
-                GCshBillTermsImpl billTerms = new GCshBillTermsImpl(jwsdpPeer);
-                billTermsByID.put(billTerms.getId(), billTerms);
-            }
-        }
-
-        return billTermsByID.values();
+        return bllTrmMgr.getBillTerms();
     }
 
     // ---------------------------------------------------------------
@@ -1293,6 +1265,8 @@ public class GnucashFileImpl implements GnucashFile,
 	// ---
 	
 	taxTabMgr = new FileTaxTableManager(this);
+
+	bllTrmMgr = new FileBillTermsManager(this);
 
 	// ---
 	
@@ -1756,6 +1730,11 @@ public class GnucashFileImpl implements GnucashFile,
 	return taxTabMgr.getNofEntriesTaxTableMap();
     }
     
+    @Override
+    public int getNofEntriesBillTermsMap() {
+	return bllTrmMgr.getNofEntriesBillTermsMap();
+    }
+    
     // ----------------------------
     // Statistics, var 2 (low-level)
     
@@ -1973,6 +1952,8 @@ public class GnucashFileImpl implements GnucashFile,
 	result += "  no. of employees:                 " + getNofEntriesVendorMap() + "\n"; 
 	result += "  no. of (generic) jobs:            " + getNofEntriesGenerJobMap() + "\n"; 
 	result += "  no. of commodities:               " + getNofEntriesCommodityMap() + "\n";
+	result += "  no. of tax tables:                " + getNofEntriesTaxTableMap() + "\n";
+	result += "  no. of bill terms:                " + getNofEntriesBillTermsMap() + "\n";
 	
 	result += "]";
 	

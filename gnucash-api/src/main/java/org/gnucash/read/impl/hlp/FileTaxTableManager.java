@@ -1,11 +1,9 @@
 package org.gnucash.read.impl.hlp;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 
 import org.gnucash.basetypes.simple.GCshID;
 import org.gnucash.generated.GncV2;
@@ -77,10 +75,10 @@ public class FileTaxTableManager {
      * @return the identified tax table or null
      */
     public GCshTaxTable getTaxTableByID(final GCshID id) {
-	if (taxTabMap == null) {
-	    getTaxTables();
-	}
-	
+        if (taxTabMap == null) {
+            throw new IllegalStateException("no root-element loaded");
+        }
+    
 	return taxTabMap.get(id);
     }
 
@@ -89,10 +87,10 @@ public class FileTaxTableManager {
      * @return the identified tax table or null
      */
     public GCshTaxTable getTaxTableByName(final String name) {
-	if (taxTabMap == null) {
-	    getTaxTables();
-	}
-	
+        if (taxTabMap == null) {
+            throw new IllegalStateException("no root-element loaded");
+        }
+    
 	for (GCshTaxTable taxTab : taxTabMap.values()) {
 	    if (taxTab.getName().equals(name)) {
 		return taxTab;
