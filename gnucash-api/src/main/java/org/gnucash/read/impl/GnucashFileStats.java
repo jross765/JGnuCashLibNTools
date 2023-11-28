@@ -3,24 +3,28 @@ package org.gnucash.read.impl;
 // Statistics methods (for test purposes)
 public interface GnucashFileStats {
 
-    public int getNofEntriesAccountMap();
+    int getNofEntriesAccountMap();
 
-    public int getNofEntriesTransactionMap();
+    int getNofEntriesTransactionMap();
 
-    public int getNofEntriesTransactionSplitMap();
+    int getNofEntriesTransactionSplitMap();
 
-    public int getNofEntriesGenerInvoiceMap();
+    int getNofEntriesGenerInvoiceMap();
 
-    public int getNofEntriesGenerInvoiceEntriesMap();
+    int getNofEntriesGenerInvoiceEntriesMap();
 
-    public int getNofEntriesCustomerMap();
+    int getNofEntriesCustomerMap();
 
-    public int getNofEntriesVendorMap();
+    int getNofEntriesVendorMap();
 
-    public int getNofEntriesEmployeeMap();
+    int getNofEntriesEmployeeMap();
 
-    public int getNofEntriesGenerJobMap();
+    int getNofEntriesGenerJobMap();
 
-    public int getNofEntriesCommodityMap();
+    int getNofEntriesCommodityMap();
+    
+    // ----------------------------
+    
+    int getNofEntriesTaxTableMap();
 
 }

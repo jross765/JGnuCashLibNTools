@@ -364,23 +364,24 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return all TaxTables defined in the book
      * @see {@link GCshTaxTable}
      */
-    @Override
-    public Collection<GCshTaxTable> getTaxTables() {
-	if (taxTablesById == null) {
-
-	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
-	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
-	    for (Object bookElement : bookElements) {
-		if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
-		    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
-		    GCshTaxTableImpl gnucashTaxTable = new GCshTaxTableImpl(jwsdpPeer, this);
-		    taxTablesById.put(gnucashTaxTable.getId(), gnucashTaxTable);
-		}
-	    }
-	}
-
-	return taxTablesById.values();
-    }
+    // ::TODO
+//    @Override
+//    public Collection<GCshTaxTable> getTaxTables() {
+//	if (taxTablesById == null) {
+//
+//	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
+//	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
+//	    for (Object bookElement : bookElements) {
+//		if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
+//		    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
+//		    GCshTaxTableImpl gnucashTaxTable = new GCshTaxTableImpl(jwsdpPeer, this);
+//		    taxTablesById.put(gnucashTaxTable.getId(), gnucashTaxTable);
+//		}
+//	    }
+//	}
+//
+//	return taxTablesById.values();
+//    }
 
     /**
      * @throws InvalidCmdtyCurrIDException 

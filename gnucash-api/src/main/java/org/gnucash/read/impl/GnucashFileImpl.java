@@ -60,13 +60,13 @@ import org.gnucash.read.aux.GCshPrice;
 import org.gnucash.read.aux.GCshTaxTable;
 import org.gnucash.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.read.impl.aux.GCshPriceImpl;
-import org.gnucash.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.read.impl.hlp.FileAccountManager;
 import org.gnucash.read.impl.hlp.FileCommodityManager;
 import org.gnucash.read.impl.hlp.FileCustomerManager;
 import org.gnucash.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.read.impl.hlp.FileGenerInvoiceManager;
 import org.gnucash.read.impl.hlp.FileJobManager;
+import org.gnucash.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.read.impl.hlp.FileTransactionManager;
 import org.gnucash.read.impl.hlp.FileVendorManager;
 import org.gnucash.read.impl.hlp.NamespaceRemoverReader;
@@ -116,7 +116,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ----------------------------
 
-    protected Map<GCshID, GCshTaxTable>  taxTablesById = null;
+    protected FileTaxTableManager taxTabMgr = null;
     protected Map<GCshID, GCshBillTerms> billTermsByID = null;
     
     // ----------------------------
@@ -1081,11 +1081,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GCshTaxTable getTaxTableByID(final GCshID id) {
-	if (taxTablesById == null) {
-	    getTaxTables();
-	}
-	
-	return taxTablesById.get(id);
+	return taxTabMgr.getTaxTableByID(id);
     }
 
     /**
@@ -1094,17 +1090,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GCshTaxTable getTaxTableByName(final String name) {
-	if (taxTablesById == null) {
-	    getTaxTables();
-	}
-	
-	for (GCshTaxTable taxTab : taxTablesById.values()) {
-	    if (taxTab.getName().equals(name)) {
-		return taxTab;
-	    }
-	}
-
-	return null;
+	return taxTabMgr.getTaxTableByName(name);
     }
 
     /**
@@ -1113,21 +1099,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public Collection<GCshTaxTable> getTaxTables() {
-	if (taxTablesById == null) {
-	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
-
-	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
-	    for (Object bookElement : bookElements) {
-		if (!(bookElement instanceof GncV2.GncBook.GncGncTaxTable)) {
-		    continue;
-		}
-		GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
-		GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpPeer, this);
-		taxTablesById.put(taxTab.getId(), taxTab);
-	    }
-	}
-
-	return taxTablesById.values();
+	return taxTabMgr.getTaxTables();
     }
 
     // ---------------------------------------------------------------
@@ -1293,6 +1265,8 @@ public class GnucashFileImpl implements GnucashFile,
 	}
 	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
 
+	// ---
+	
 	// Init helper entity managers / fill maps
 	acctMgr  = new FileAccountManager(this);
 
@@ -1315,7 +1289,13 @@ public class GnucashFileImpl implements GnucashFile,
 	jobMgr   = new FileJobManager(this);
 
 	cmdtyMgr = new FileCommodityManager(this);
+	
+	// ---
+	
+	taxTabMgr = new FileTaxTableManager(this);
 
+	// ---
+	
 	// check for unknown book-elements
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
@@ -1630,7 +1610,7 @@ public class GnucashFileImpl implements GnucashFile,
 	return entr;
     }
 
-    // ----------------------------
+    // ---------------------------------------------------------------
 
     /**
      * @return the jaxb object-factory used to create new peer-objects to extend
@@ -1767,6 +1747,13 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public int getNofEntriesCommodityMap() {
 	return cmdtyMgr.getNofEntriesCommodityMap();
+    }
+    
+    // ----------------------------
+    
+    @Override
+    public int getNofEntriesTaxTableMap() {
+	return taxTabMgr.getNofEntriesTaxTableMap();
     }
     
     // ----------------------------
