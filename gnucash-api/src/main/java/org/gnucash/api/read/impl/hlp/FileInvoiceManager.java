@@ -240,490 +240,100 @@ public class FileInvoiceManager {
 
     // ----------------------------
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getInvoicesForCustomer_direct(this, cust);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getInvoicesForCustomer_viaAllJobs(cust);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getPaidInvoicesForCustomer_direct(this, cust);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getPaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
-		try {
-		    retval.add(new GnucashCustomerInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidInvoicesForCustomer_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getUnpaidInvoicesForCustomer_direct(this, cust);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashCustomerJob job : cust.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Customer.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
     // ----------------------------
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getBillsForVendor_direct(this, vend);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getBillsForVendor_viaAllJobs(vend);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getPaidBillsForVendor_direct(this, vend);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getPaidBillsForVendor_viaAllJobs(vend);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getId())) {
-		try {
-		    retval.add(new GnucashVendorBillImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getUnpaidBillsForVendor_direct(this, vend);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashVendorJob job : vend.getJobs() ) {
-	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
-		retval.add(jobInvc);
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Vendor.getUnpaidBillsForVendor_viaAllJobs(vend);
     }
     
     // ----------------------------
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Employee.getVouchersForEmployee_direct(this, empl);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Employee.getPaidVouchersForEmployee_direct(this, empl);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getId())) {
-		try {
-		    retval.add(new GnucashEmployeeVoucherImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Employee.getUnpaidVouchersForEmployee_direct(this, empl);
     }
 
     // ----------------------------
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Job.getInvoicesForJob(this, job);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Job.getPaidInvoicesForJob(this, job);
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
-
-	for ( GnucashGenerInvoice invc : getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
-		try {
-		    retval.add(new GnucashJobInvoiceImpl(invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidInvoicesForJob: Cannot instantiate GnucashJobInvoiceImpl");
-		}
-	    }
-	}
-
-	return retval;
+	return FileInvoiceManager_Job.getUnpaidInvoicesForJob(this, job);
     }
 
     // ---------------------------------------------------------------
