@@ -56,7 +56,8 @@ import org.gnucash.api.read.impl.hlp.FileBillTermsManager;
 import org.gnucash.api.read.impl.hlp.FileCommodityManager;
 import org.gnucash.api.read.impl.hlp.FileCustomerManager;
 import org.gnucash.api.read.impl.hlp.FileEmployeeManager;
-import org.gnucash.api.read.impl.hlp.FileGenerInvoiceManager;
+import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
+import org.gnucash.api.read.impl.hlp.FileInvoiceEntryManager;
 import org.gnucash.api.read.impl.hlp.FileJobManager;
 import org.gnucash.api.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.api.read.impl.hlp.FileTransactionManager;
@@ -122,17 +123,14 @@ public class GnucashFileImpl implements GnucashFile,
     
     protected FileAccountManager      acctMgr  = null;
     protected FileTransactionManager  trxMgr   = null;
-    protected FileGenerInvoiceManager invcMgr  = null;
+    protected FileInvoiceManager invcMgr  = null;
+    protected FileInvoiceEntryManager invcEntrMgr  = null;
     protected FileCustomerManager     custMgr  = null;
     protected FileVendorManager       vendMgr  = null;
     protected FileEmployeeManager     emplMgr  = null;
     protected FileJobManager          jobMgr   = null;
     protected FileCommodityManager    cmdtyMgr = null;
 
-    // ----------------------------
-
-    protected Map<GCshID, GnucashGenerInvoiceEntry> invoiceEntryID2invoiceEntry;
-    
     // ----------------------------
 
     protected FileTaxTableManager  taxTabMgr = null;
@@ -828,30 +826,14 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID id) {
-	if (invoiceEntryID2invoiceEntry == null) {
-	    throw new IllegalStateException("no root-element loaded");
-	}
-
-	GnucashGenerInvoiceEntry retval = invoiceEntryID2invoiceEntry.get(id);
-	if (retval == null) {
-	    LOGGER.error("No (generic) Invoice-Entry with id '" + id + "'. " + 
-	                 "We know " + invoiceEntryID2invoiceEntry.size() + " accounts.");
-	}
-
-	return retval;
+	return invcEntrMgr.getGenerInvoiceEntryByID(id);
     }
 
     /**
      * @see GnucashFile#getGenerInvoices()
      */
     public Collection<GnucashGenerInvoiceEntry> getGenerInvoiceEntries() {
-
-	Collection<GnucashGenerInvoiceEntry> c = invoiceEntryID2invoiceEntry.values();
-
-	ArrayList<GnucashGenerInvoiceEntry> retval = new ArrayList<GnucashGenerInvoiceEntry>(c);
-	Collections.sort(retval);
-
-	return retval;
+	return invcEntrMgr.getGenerInvoiceEntries();
     }
 
     // ---------------------------------------------------------------
@@ -1238,15 +1220,15 @@ public class GnucashFileImpl implements GnucashFile,
 	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
 
 	// ---
-	
 	// Init helper entity managers / fill maps
+	
 	acctMgr  = new FileAccountManager(this);
 
-	invcMgr  = new FileGenerInvoiceManager(this);
+	invcMgr  = new FileInvoiceManager(this);
 
 	// Caution: invoice entries refer to invoices, therefore they must be loaded after
 	// them
-	initGenerInvoiceEntryMap(pRootElement);
+	invcEntrMgr = new FileInvoiceEntryManager(this);
 
 	// Caution: transactions refer to invoices, therefore they must be 
 	// loaded after them
@@ -1313,29 +1295,6 @@ public class GnucashFileImpl implements GnucashFile,
 	    throw new IllegalArgumentException(
 		    "<gnc:book> contains unknown element [" + bookElement.getClass().getName() + "]");
 	}
-    }
-
-    private void initGenerInvoiceEntryMap(final GncV2 pRootElement) {
-	invoiceEntryID2invoiceEntry = new HashMap<GCshID, GnucashGenerInvoiceEntry>();
-
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncEntry)) {
-		continue;
-	    }
-	    GncV2.GncBook.GncGncEntry jwsdpInvcEntr = (GncV2.GncBook.GncGncEntry) bookElement;
-
-	    try {
-		GnucashGenerInvoiceEntry invcEntr = createGenerInvoiceEntry(jwsdpInvcEntr);
-		invoiceEntryID2invoiceEntry.put(invcEntr.getId(), invcEntr);
-	    } catch (RuntimeException e) {
-		LOGGER.error("initGenerInvoiceEntryMap: [RuntimeException] Problem in " + getClass().getName() + ".initInvoiceEntryMap: "
-			+ "ignoring illegal (generic) Invoice-Entry-Entry with id="
-			+ jwsdpInvcEntr.getEntryGuid().getValue(), e);
-	    }
-	} // for
-
-	LOGGER.debug("initGenerInvoiceEntryMap: No. of entries in (generic) invoice-entry map: " + invoiceEntryID2invoiceEntry.size());
     }
 
     /**
@@ -1575,18 +1534,6 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param jwsdpInvcEntr the JWSDP-peer (parsed xml-element) to fill our object
-     *                      with
-     * @return the new GnucashInvoiceEntry to wrap the given jaxb-object.
-     */
-    protected GnucashGenerInvoiceEntry createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
-	GnucashGenerInvoiceEntry entr = new GnucashGenerInvoiceEntryImpl(jwsdpInvcEntr, this);
-	return entr;
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
      * @return the jaxb object-factory used to create new peer-objects to extend
      *         this
      */
@@ -1695,7 +1642,7 @@ public class GnucashFileImpl implements GnucashFile,
 
     @Override
     public int getNofEntriesGenerInvoiceEntriesMap() {
-	return invoiceEntryID2invoiceEntry.size();
+	return invcEntrMgr.getNofEntriesGenerInvoiceEntriesMap();
     }
 
     @Override

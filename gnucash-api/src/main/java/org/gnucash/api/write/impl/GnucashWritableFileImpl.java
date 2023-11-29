@@ -631,7 +631,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @return a new invoice-entry, already registred with this file.
      * @see GnucashFileImpl#createGenerInvoiceEntry(GncV2.GncBook.GncGncEntry)
      */
-    @Override
     protected GnucashGenerInvoiceEntry createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
 	GnucashGenerInvoiceEntry entry = new GnucashWritableGenerInvoiceEntryImpl(jwsdpInvcEntr, this);
 	return entry;

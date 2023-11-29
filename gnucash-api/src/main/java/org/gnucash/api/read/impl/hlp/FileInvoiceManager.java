@@ -34,9 +34,9 @@ import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileGenerInvoiceManager {
+public class FileInvoiceManager {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(FileGenerInvoiceManager.class);
+    protected static final Logger LOGGER = LoggerFactory.getLogger(FileInvoiceManager.class);
     
     // ---------------------------------------------------------------
     
@@ -46,7 +46,7 @@ public class FileGenerInvoiceManager {
 
     // ---------------------------------------------------------------
     
-    public FileGenerInvoiceManager(GnucashFileImpl gcshFile) {
+    public FileInvoiceManager(GnucashFileImpl gcshFile) {
 	this.gcshFile = gcshFile;
 	init(gcshFile.getRootElement());
     }
