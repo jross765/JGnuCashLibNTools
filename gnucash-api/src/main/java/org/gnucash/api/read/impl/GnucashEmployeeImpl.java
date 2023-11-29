@@ -167,7 +167,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      */
     @Override
     public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getGnucashFile().getUnpaidVouchersForEmployee_direct(this).size();
+	return getGnucashFile().getUnpaidVouchersForEmployee(this).size();
     }
 
     // -------------------------------------
@@ -325,7 +325,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     public Collection<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
 
-	for ( GnucashEmployeeVoucher invc : getGnucashFile().getVouchersForEmployee_direct(this) ) {
+	for ( GnucashEmployeeVoucher invc : getGnucashFile().getVouchersForEmployee(this) ) {
 	    retval.add(invc);
 	}
 	
@@ -334,12 +334,12 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getGnucashFile().getPaidVouchersForEmployee_direct(this);
+	return getGnucashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return getGnucashFile().getUnpaidVouchersForEmployee_direct(this);
+	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
 
     // -----------------------------------------------------------------

@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnucashFileImpl;

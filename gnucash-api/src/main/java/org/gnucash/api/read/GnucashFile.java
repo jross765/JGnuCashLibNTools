@@ -468,7 +468,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
-    Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashEmployeeVoucher> getVouchersForEmployee(GnucashEmployee empl) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * @param employee the employee to look for (not null)
@@ -487,7 +487,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
-    Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * @param employee the employee to look for (not null)
@@ -506,7 +506,7 @@ public interface GnucashFile extends GnucashObject {
      * @see #getGenerInvoiceByID(GCshID)
      * @see #getUnpaidVouchersForEmployee_viaJob(GnucashVendor)
      */
-    Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     // ----------------------------
 
