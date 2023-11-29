@@ -31,7 +31,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashVendorBill> getBillsForVendor_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
+    public static Collection<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
@@ -42,7 +42,7 @@ public class FileInvoiceManager_Vendor {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getBills_direct: Cannot instantiate GnucashVendorBillImpl");
 		}
 	    }
 	}
@@ -59,7 +59,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
-    public static Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public static Collection<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
@@ -82,7 +82,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
+    public static Collection<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
@@ -93,7 +93,7 @@ public class FileInvoiceManager_Vendor {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getPaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getPaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
 		}
 	    }
 	}
@@ -111,7 +111,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
-    public static Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public static Collection<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
@@ -134,7 +134,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
+    public static Collection<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashVendorBill> retval = new LinkedList<GnucashVendorBill>();
 
@@ -145,7 +145,7 @@ public class FileInvoiceManager_Vendor {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidBillsForVendor_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getUnpaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
 		}
 	    }
 	}
@@ -163,7 +163,7 @@ public class FileInvoiceManager_Vendor {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
-    public static Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public static Collection<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 

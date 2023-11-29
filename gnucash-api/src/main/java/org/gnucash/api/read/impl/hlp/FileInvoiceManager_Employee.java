@@ -29,7 +29,7 @@ public class FileInvoiceManager_Employee {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
+    public static Collection<GnucashEmployeeVoucher> getVouchers_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
@@ -40,7 +40,7 @@ public class FileInvoiceManager_Employee {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		    LOGGER.error("getVouchers_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }
 	}
@@ -58,7 +58,7 @@ public class FileInvoiceManager_Employee {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
+    public static Collection<GnucashEmployeeVoucher> getPaidVouchers_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
@@ -69,7 +69,7 @@ public class FileInvoiceManager_Employee {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getPaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		    LOGGER.error("getPaidVouchers_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }
 	}
@@ -87,7 +87,7 @@ public class FileInvoiceManager_Employee {
      * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
-    public static Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
+    public static Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
 
@@ -98,7 +98,7 @@ public class FileInvoiceManager_Employee {
 		} catch (WrongInvoiceTypeException e) {
 		    // This really should not happen, one can almost
 		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidVouchersForEmployee_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
+		    LOGGER.error("getUnpaidVouchers_direct: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }
 	}

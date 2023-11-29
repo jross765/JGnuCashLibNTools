@@ -242,98 +242,98 @@ public class FileInvoiceManager {
 
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getInvoicesForCustomer_direct(this, cust);
+	return FileInvoiceManager_Customer.getInvoices_direct(this, cust);
     }
 
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getInvoicesForCustomer_viaAllJobs(cust);
+	return FileInvoiceManager_Customer.getInvoices_viaAllJobs(cust);
     }
 
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getPaidInvoicesForCustomer_direct(this, cust);
+	return FileInvoiceManager_Customer.getPaidInvoices_direct(this, cust);
     }
 
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getPaidInvoicesForCustomer_viaAllJobs(cust);
+	return FileInvoiceManager_Customer.getPaidInvoices_viaAllJobs(cust);
     }
 
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getUnpaidInvoicesForCustomer_direct(this, cust);
+	return FileInvoiceManager_Customer.getUnpaidInvoices_direct(this, cust);
     }
 
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Customer.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
+	return FileInvoiceManager_Customer.getUnpaidInvoices_viaAllJobs(cust);
     }
 
     // ----------------------------
 
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getBillsForVendor_direct(this, vend);
+	return FileInvoiceManager_Vendor.getBills_direct(this, vend);
     }
 
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getBillsForVendor_viaAllJobs(vend);
+	return FileInvoiceManager_Vendor.getBills_viaAllJobs(vend);
     }
 
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getPaidBillsForVendor_direct(this, vend);
+	return FileInvoiceManager_Vendor.getPaidBills_direct(this, vend);
     }
 
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getPaidBillsForVendor_viaAllJobs(vend);
+	return FileInvoiceManager_Vendor.getPaidBills_viaAllJobs(vend);
     }
 
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getUnpaidBillsForVendor_direct(this, vend);
+	return FileInvoiceManager_Vendor.getUnpaidBills_direct(this, vend);
     }
 
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Vendor.getUnpaidBillsForVendor_viaAllJobs(vend);
+	return FileInvoiceManager_Vendor.getUnpaidBills_viaAllJobs(vend);
     }
     
     // ----------------------------
 
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getVouchersForEmployee_direct(this, empl);
+	return FileInvoiceManager_Employee.getVouchers_direct(this, empl);
     }
 
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getPaidVouchersForEmployee_direct(this, empl);
+	return FileInvoiceManager_Employee.getPaidVouchers_direct(this, empl);
     }
 
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getUnpaidVouchersForEmployee_direct(this, empl);
+	return FileInvoiceManager_Employee.getUnpaidVouchers_direct(this, empl);
     }
 
     // ----------------------------
 
     public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Job.getInvoicesForJob(this, job);
+	return FileInvoiceManager_Job.getInvoices(this, job);
     }
 
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Job.getPaidInvoicesForJob(this, job);
+	return FileInvoiceManager_Job.getPaidInvoices(this, job);
     }
 
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Job.getUnpaidInvoicesForJob(this, job);
+	return FileInvoiceManager_Job.getUnpaidInvoices(this, job);
     }
 
     // ---------------------------------------------------------------
