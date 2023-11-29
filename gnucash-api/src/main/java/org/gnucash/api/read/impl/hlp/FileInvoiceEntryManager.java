@@ -8,15 +8,11 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
-import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

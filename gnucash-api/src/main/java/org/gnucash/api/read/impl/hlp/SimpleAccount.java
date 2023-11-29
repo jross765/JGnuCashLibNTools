@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl;
+package org.gnucash.api.read.impl.hlp;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

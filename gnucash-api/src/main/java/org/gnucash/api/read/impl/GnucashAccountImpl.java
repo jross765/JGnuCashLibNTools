@@ -14,6 +14,7 @@ import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.impl.hlp.SimpleAccount;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
