@@ -8,7 +8,6 @@ import java.net.URL;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -14,7 +14,6 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashTransactionImpl;
 import org.gnucash.api.write.GnucashWritableTransaction;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -184,7 +183,7 @@ public class TestGnucashWritableTransactionImpl
       // ::TODO
   }
 
-  private void test02_1_check_memory(GnucashWritableTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException 
+  private void test02_1_check_memory(GnucashWritableTransaction trx) throws Exception 
   {
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
     assertEquals("Super dividend", trx.getDescription()); // changed
@@ -197,11 +196,11 @@ public class TestGnucashWritableTransactionImpl
     assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString()); // unchanged
   }
 
-  public void test02_1_check_persisted(File outFile) throws Exception
+  private void test02_1_check_persisted(File outFile) throws Exception
   {
      gcshOutFile = new GnucashFileImpl(outFile);
       
-     GnucashTransaction trx = gcshInFile.getTransactionByID(TRX_1_ID);
+     GnucashTransaction trx = gcshOutFile.getTransactionByID(TRX_1_ID);
      assertNotEquals(null, trx);
      
      assertEquals(TRX_1_ID, trx.getId());

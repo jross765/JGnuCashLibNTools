@@ -14,7 +14,6 @@ import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.write.GnucashWritableCustomer;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

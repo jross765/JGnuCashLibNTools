@@ -17,7 +17,6 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.api.write.GnucashWritableCommodity;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
