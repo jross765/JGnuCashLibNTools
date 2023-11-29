@@ -77,7 +77,7 @@ public class FileInvoiceManager {
 
     /**
      * @param jwsdpInvc the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GnucashInvoice to wrap the given jaxb-object.
+     * @return the new GnucashGenerInvoice to wrap the given jaxb-object.
      */
     protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
 	GnucashGenerInvoice invc = new GnucashGenerInvoiceImpl(jwsdpInvc, gcshFile);

@@ -32,7 +32,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * 
      * @return the file we are associated with
      */
-    GnucashWritableFile getWritingFile();
+    GnucashWritableFile getWritableFile();
 
     /**
      * @param dateEntered the day (time is ignored) that this transaction has been
@@ -59,7 +59,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getFirstSplit()
      */
-    GnucashWritableTransactionSplit getWritingFirstSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * @throws IllegalAccessException 
@@ -69,7 +69,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSecondSplit()
      */
-    GnucashWritableTransactionSplit getWritingSecondSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransactionSplit getWritableSecondSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * @throws IllegalAccessException 
@@ -79,7 +79,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSplitByID(GCshID)
      */
-    GnucashWritableTransactionSplit getWritingSplitByID(GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransactionSplit getWritableSplitByID(GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      *
@@ -100,7 +100,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getSplits()
      */
-    List<GnucashWritableTransactionSplit> getWritingSplits() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    List<GnucashWritableTransactionSplit> getWritableSplits() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * Create a new split, already atached to this transaction.
@@ -113,7 +113,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashWritableTransactionSplit createWritingSplit(GnucashAccount account) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransactionSplit createWritableSplit(GnucashAccount account) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      * Also removes the split from it's account.

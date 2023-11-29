@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
@@ -14,6 +15,7 @@ import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
+import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
@@ -59,7 +61,13 @@ public class FileTransactionManager {
 
 	for ( GnucashTransaction trx : trxMap.values() ) {
 	    try {
-		for ( GnucashTransactionSplit splt : ((GnucashTransactionImpl) trx).getSplits(true, true) ) {
+		List<GnucashTransactionSplit> spltList = null;
+		if ( gcshFile instanceof GnucashWritableFileImpl ) {
+		    spltList = ((GnucashTransactionImpl) trx).getSplits(false, true);
+		} else {
+		    spltList = ((GnucashTransactionImpl) trx).getSplits(true, true);
+		}
+		for ( GnucashTransactionSplit splt : spltList ) {
 		    trxSpltMap.put(splt.getId(), splt);
 		}
 	    } catch (RuntimeException e) {
@@ -263,21 +271,57 @@ public class FileTransactionManager {
 
     // ---------------------------------------------------------------
 
-    public void addTransaction(GnucashTransaction trx) {
-	trxMap.put(trx.getId(), trx);
+    public void addTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	addTransaction(trx, true);
     }
 
-    public void removeTransaction(GnucashTransaction trx) {
+    public void addTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	trxMap.put(trx.getId(), trx);
+	
+	if ( withSplt ) {
+	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		addTransactionSplit(splt, false);
+	    }
+	}
+    }
+
+    public void removeTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	removeTransaction(trx, true);
+    }
+
+    public void removeTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( withSplt ) {
+	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		removeTransactionSplit(splt, false);
+	    }
+	}
+
 	trxMap.remove(trx.getId());
     }
 
     // ---------------------------------------------------------------
 
-    public void addTransactionSplit(GnucashTransactionSplit splt) {
-	trxSpltMap.put(splt.getId(), splt);
+    public void addTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	addTransactionSplit(splt, true);
     }
 
-    public void removeTransactionSplit(GnucashTransactionSplit splt) {
+    public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	trxSpltMap.put(splt.getId(), splt);
+
+	if ( withInvc ) {
+	    addTransaction(splt.getTransaction(), false);
+	}
+    }
+
+    public void removeTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	removeTransactionSplit(splt, true);
+    }
+
+    public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( withInvc ) {
+	    removeTransaction(splt.getTransaction(), false);
+	}
+	
 	trxSpltMap.remove(splt.getId());
     }
 

@@ -58,8 +58,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	/**
 	 * create a new split and and add it to the given transaction.
 	 *
-	 * @param transaction transaction the transaction we will belong to
-	 * @param account     the account we take money (or other things) from or give it to
+	 * @param trx transaction the transaction we will belong to
+	 * @param acct     the account we take money (or other things) from or give it to
 	 * @throws IllegalAccessException 
 	 * @throws IllegalArgumentException 
 	 * @throws ClassNotFoundException 
@@ -67,22 +67,22 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	 * @throws NoSuchFieldException 
 	 */
 	public GnucashWritableTransactionSplitImpl(
-		final GnucashWritableTransactionImpl transaction, 
-		final GnucashAccount account) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		super(createTransactionSplit(transaction, account, 
-				(transaction.getWritingFile()).createGUID()), 
-		      transaction, 
+		final GnucashWritableTransactionImpl trx, 
+		final GnucashAccount acct) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		super(createTransactionSplit(trx, acct, 
+				             trx.getWritableFile().createGUID()), 
+		      trx, 
 		      true, true);
 
-		// this is a workaound.
+		// this is a workaround.
 		// if super does account.addSplit(this) it adds an instance on GnucashTransactionSplitImpl that is "!=
-		// (GnucashTransactionSplitWritingImpl)this";
-		// thus we would get warnings about dublicate split-ids and can no longer compare splits by instance.
+		// (GnucashWritableTransactionSplitImpl)this";
+		// thus we would get warnings about duplicate split-ids and can no longer compare splits by instance.
 		//        if(account!=null)
 		//            ((GnucashAccountImpl)account).replaceTransactionSplit(account.getTransactionSplitByID(getId()),
-		// GnucashTransactionSplitWritingImpl.this);
+		// GnucashWritableTransactionSplitImpl.this);
 
-		transaction.addSplit(this);
+		trx.addSplit(this);
 	}
 
 	public GnucashWritableTransactionSplitImpl(GnucashTransactionSplit split) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -136,12 +136,12 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		// this is needed because transaction.addSplit() later
 		// must have an already build List of splits.
 		// if not it will create the list from the JAXB-Data
-		// thus 2 instances of this GnucashTransactionSplitWritingImpl
+		// thus 2 instances of this GnucashWritableTransactionSplitImpl
 		// will exist. One created in getSplits() from this JAXB-Data
 		// the other is this object.
 		transaction.getSplits();
 
-		GnucashWritableFileImpl gnucashFileImpl = transaction.getWritingFile();
+		GnucashWritableFileImpl gnucashFileImpl = transaction.getWritableFile();
 		ObjectFactory factory = gnucashFileImpl.getObjectFactory();
 
 		GncTransaction.TrnSplits.TrnSplit split = gnucashFileImpl.createGncTransactionTypeTrnSplitsTypeTrnSplitType();
@@ -383,7 +383,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	public void setLotID(final String lotID) {
 
 		GnucashWritableTransactionImpl trx = (GnucashWritableTransactionImpl) getTransaction();
-		GnucashWritableFileImpl writingFile = trx.getWritingFile();
+		GnucashWritableFileImpl writingFile = trx.getWritableFile();
 		ObjectFactory factory = writingFile.getObjectFactory();
 
 		if (getJwsdpPeer().getSplitLot() == null) {

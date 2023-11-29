@@ -72,7 +72,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		if (helper == null) {
 			helper = new GnucashWritableObjectImpl(super.helper);
 		}
-		LOGGER.debug("GnucashAccountWritingImpl[account-id="
+		LOGGER.debug("GnucashWritableAccountImpl[account-id="
 				+ getId() + " name="
 				+ getName() + "].setUserDefinedAttribute(name="
 				+ name + ", value="

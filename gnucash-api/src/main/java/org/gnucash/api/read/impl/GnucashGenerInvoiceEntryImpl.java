@@ -133,7 +133,8 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     @SuppressWarnings("exports")
     public GnucashGenerInvoiceEntryImpl(
 	    final GncV2.GncBook.GncGncEntry peer, 
-	    final GnucashFileImpl gncFile) {
+	    final GnucashFileImpl gncFile,
+	    final boolean addEntrToInvc) {
 	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(), gncFile);
 
 	if (peer.getEntrySlots() == null) {
@@ -142,12 +143,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	this.jwsdpPeer = peer;
 
-	// an exception is thrown here if we have an invoice-ID but the invoice does not
-	// exist
-	GnucashGenerInvoice invc = getGenerInvoice();
-	if (invc != null) {
-	    // ...so we only need to handle the case of having no invoice-id at all
-	    invc.addGenerEntry(this);
+	if ( addEntrToInvc ) {
+	    // an exception is thrown here if we have an invoice-ID but the invoice does not
+	    // exist
+	    GnucashGenerInvoice invc = getGenerInvoice();
+	    if (invc != null) {
+		// ...so we only need to handle the case of having no invoice-id at all
+		invc.addGenerEntry(this);
+	    }
 	}
     }
 

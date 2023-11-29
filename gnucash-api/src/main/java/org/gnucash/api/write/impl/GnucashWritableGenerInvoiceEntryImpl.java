@@ -66,7 +66,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
+     * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createCustInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableCustomerInvoiceImpl
@@ -156,7 +156,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
+     * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createVendBillEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableVendorBillImpl
@@ -243,7 +243,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
+     * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createEmplVchEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableEmployeeVoucherImpl
@@ -330,7 +330,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
-     * @see {@link #GnucashInvoiceEntryWritingImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
+     * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
     protected static GncV2.GncBook.GncGncEntry createJobInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableJobInvoiceImpl
@@ -358,7 +358,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     private static GncV2.GncBook.GncGncEntry createGenerInvoiceEntryCommon(
 	    final GnucashWritableGenerInvoiceImpl invoice,
-	    final GnucashWritableFileImpl gnucashFileWritingImpl,
+	    final GnucashWritableFileImpl gcshWrtblFile,
 	    final ObjectFactory factory) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	// TODO: keep count-data in file intact <gnc:count-data
@@ -368,12 +368,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    throw new IllegalArgumentException("The given invoice has payments and is" + " thus not modifiable");
 	}
 
-	GncV2.GncBook.GncGncEntry entry = gnucashFileWritingImpl.createGncGncEntryType();
+	GncV2.GncBook.GncGncEntry entry = gcshWrtblFile.createGncGncEntryType();
 
 	{
 	    GncV2.GncBook.GncGncEntry.EntryGuid guid = factory.createGncV2GncBookGncGncEntryEntryGuid();
 	    guid.setType(Const.XML_DATA_TYPE_GUID);
-	    guid.setValue((gnucashFileWritingImpl).createGUID());
+	    guid.setValue((gcshWrtblFile).createGUID());
 	    entry.setEntryGuid(guid);
 	}
 
@@ -412,11 +412,11 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     public GnucashWritableGenerInvoiceEntryImpl(
 	    final GncV2.GncBook.GncGncEntry jwsdpPeer,
 	    final GnucashWritableFileImpl gnucashFile) {
-	super(jwsdpPeer, gnucashFile);
+	super(jwsdpPeer, gnucashFile, true);
     }
 
     /**
-     * @param invc   tne invoice this entry shall belong to
+     * @param invc   the invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
      *      GncV2.GncBook.GncGncEntry)
@@ -426,6 +426,22 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    final GnucashWritableGenerInvoiceImpl invc,
 	    final GncV2.GncBook.GncGncEntry jwsdpPeer) {
 	super(invc, jwsdpPeer, true);
+
+	this.invoice = invc;
+    }
+
+    /**
+     * @param invc   the invoice this entry shall belong to
+     * @param jwsdpPeer the JWSDP-object we are facading.
+     * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
+     *      GncV2.GncBook.GncGncEntry)
+     */
+    @SuppressWarnings("exports")
+    public GnucashWritableGenerInvoiceEntryImpl(
+	    final GnucashWritableGenerInvoiceImpl invc,
+	    final GncV2.GncBook.GncGncEntry jwsdpPeer,
+	    final boolean addEntrToInvc) {
+	super(invc, jwsdpPeer, addEntrToInvc);
 
 	this.invoice = invc;
     }
@@ -1208,10 +1224,10 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
-	GnucashWritableGenerInvoiceImpl gnucashInvoiceWritingImpl = ((GnucashWritableGenerInvoiceImpl) getGenerInvoice());
-	gnucashInvoiceWritingImpl.removeInvcEntry(this);
-	gnucashInvoiceWritingImpl.getFile().getRootElement().getGncBook().getBookElements().remove(this.getJwsdpPeer());
-	((GnucashWritableFileImpl) gnucashInvoiceWritingImpl.getFile()).decrementCountDataFor("gnc:GncEntry");
+	GnucashWritableGenerInvoiceImpl gcshWrtblInvcImpl = ((GnucashWritableGenerInvoiceImpl) getGenerInvoice());
+	gcshWrtblInvcImpl.removeInvcEntry(this);
+	gcshWrtblInvcImpl.getFile().getRootElement().getGncBook().getBookElements().remove(this.getJwsdpPeer());
+	((GnucashWritableFileImpl) gcshWrtblInvcImpl.getFile()).decrementCountDataFor("gnc:GncEntry");
     }
 
     /**

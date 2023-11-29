@@ -190,8 +190,13 @@ public interface GnucashWritableFile extends GnucashFile,
     
     /**
      * @return a new transaction with no splits that is already added to this file
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    GnucashWritableTransaction createWritableTransaction();
+    GnucashWritableTransaction createWritableTransaction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     /**
      *

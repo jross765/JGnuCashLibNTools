@@ -142,7 +142,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
      *
      * @return the file we are associated with
      */
-    protected GnucashWritableFileImpl getWritingFile() {
+    protected GnucashWritableFileImpl getWritableFile() {
 	return (GnucashWritableFileImpl) getFile();
     }
 
@@ -159,7 +159,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 //	    return; // nothing has changed
 //	}
 //	getJwsdpPeer().getJobOwner().setOwnerType(customerType);
-//	getWritingFile().setModified(true);
+//	getWritableFile().setModified(true);
 //	// <<insert code to react further to this change here
 //	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 //	if (propertyChangeFirer != null) {
@@ -190,7 +190,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	    return; // nothing has changed
 	}
 	getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getId().toString());
-	getWritingFile().setModified(true);
+	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
@@ -205,7 +205,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	if (jobId == null || jobId.trim().length() == 0) {
 	    throw new IllegalArgumentException("null or empty job-number given!");
 	}
-	GnucashGenerJob otherJob = getWritingFile().getGenerJobByNumber(jobId);
+	GnucashGenerJob otherJob = getWritableFile().getGenerJobByNumber(jobId);
 	if (otherJob != null && !otherJob.getId().equals(getId())) {
 	    throw new IllegalArgumentException(
 		    "another job (id='" + otherJob.getId() + "' already exists with given jobNumber '" + jobId + "')");
@@ -216,7 +216,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	    return; // nothing has changed
 	}
 	getJwsdpPeer().setJobId(jobId);
-	getWritingFile().setModified(true);
+	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
@@ -238,7 +238,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	    return; // nothing has changed
 	}
 	getJwsdpPeer().setJobName(jobName);
-	getWritingFile().setModified(true);
+	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
@@ -260,7 +260,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	} else {
 	    getJwsdpPeer().setJobActive(0);
 	}
-	getWritingFile().setModified(true);
+	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {

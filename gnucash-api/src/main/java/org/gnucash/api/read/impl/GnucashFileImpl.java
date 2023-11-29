@@ -11,9 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -32,6 +30,14 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.currency.ComplexPriceTable;
+import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.GncBudget;
+import org.gnucash.api.generated.GncCountData;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCommodity;
@@ -56,8 +62,8 @@ import org.gnucash.api.read.impl.hlp.FileBillTermsManager;
 import org.gnucash.api.read.impl.hlp.FileCommodityManager;
 import org.gnucash.api.read.impl.hlp.FileCustomerManager;
 import org.gnucash.api.read.impl.hlp.FileEmployeeManager;
-import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
 import org.gnucash.api.read.impl.hlp.FileInvoiceEntryManager;
+import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
 import org.gnucash.api.read.impl.hlp.FileJobManager;
 import org.gnucash.api.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.api.read.impl.hlp.FileTransactionManager;
@@ -70,14 +76,6 @@ import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncBudget;
-import org.gnucash.api.generated.GncCountData;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -260,12 +258,14 @@ public class GnucashFileImpl implements GnucashFile,
 	    JAXBContext myContext = getJAXBContext();
 	    Unmarshaller unmarshaller = myContext.createUnmarshaller();
 
-	    GncV2 o = (GncV2) unmarshaller.unmarshal(new InputSource(new BufferedReader(reader)));
+	    GncV2 obj = (GncV2) unmarshaller.unmarshal(new InputSource(new BufferedReader(reader)));
 	    long start2 = System.currentTimeMillis();
-	    setRootElement(o);
+	    setRootElement(obj);
 	    long end = System.currentTimeMillis();
-	    LOGGER.info("loadInputStream: GnucashFileImpl.loadFileInputStream took " + (end - start) + " ms (total) " + (start2 - start)
-		    + " ms (jaxb-loading)" + (end - start2) + " ms (building facades)");
+	    LOGGER.info("loadInputStream: Took " + 
+	                (end - start) + " ms (total), " + 
+		        (start2 - start) + " ms (jaxb-loading), " + 
+	                (end - start2) + " ms (building facades)");
 
 	} catch (JAXBException e) {
 	    LOGGER.error("loadInputStream: " + e.getMessage(), e);
@@ -274,6 +274,13 @@ public class GnucashFileImpl implements GnucashFile,
 	    reader.close();
 	}
     }
+
+    // ---------------------------------------------------------------
+    
+//    @SuppressWarnings("exports")
+//    public FileTransactionManager getTransactionManager() {
+//	return trxMgr;
+//    }
 
     // ---------------------------------------------------------------
 
@@ -1226,12 +1233,12 @@ public class GnucashFileImpl implements GnucashFile,
 
 	invcMgr  = new FileInvoiceManager(this);
 
-	// Caution: invoice entries refer to invoices, therefore they must be loaded after
-	// them
+	// Caution: invoice entries refer to invoices, 
+	// therefore they have to be loaded after them
 	invcEntrMgr = new FileInvoiceEntryManager(this);
 
-	// Caution: transactions refer to invoices, therefore they must be 
-	// loaded after them
+	// Caution: transactions refer to invoices, 
+	// therefore they have to be loaded after them
 	trxMgr   = new FileTransactionManager(this);
 
 	custMgr  = new FileCustomerManager(this);

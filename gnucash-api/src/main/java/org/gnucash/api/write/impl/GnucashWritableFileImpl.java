@@ -50,6 +50,7 @@ import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
+import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
@@ -463,9 +464,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws NoSuchFieldException 
      * @see GnucashFileImpl#setRootElement(GncV2)
      */
-    @SuppressWarnings("exports")
     @Override
-    public void setRootElement(final GncV2 rootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    protected void setRootElement(final GncV2 rootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	super.setRootElement(rootElement);
     }
 
@@ -504,6 +504,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     protected GncTransaction.TrnSplits.TrnSplit createGncTransactionTypeTrnSplitsTypeTrnSplitType() {
 	GncTransaction.TrnSplits.TrnSplit retval = getObjectFactory().createGncTransactionTrnSplitsTrnSplit();
+	// Does not apply:
 	// incrementCountDataFor();
 	return retval;
     }
@@ -613,7 +614,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see GnucashFileImpl#createGenerInvoice(GncV2.GncBook.GncGncInvoice)
+     * @see FileInvoiceManager#createGenerInvoice(GncV2.GncBook.GncGncInvoice)
      */
     protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvoice) {
 	GnucashGenerInvoice invoice = new GnucashWritableGenerInvoiceImpl(jwsdpInvoice, this);
@@ -624,8 +625,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * This overridden method creates the writable version of the returned object.
      *
      * @param jwsdpInvcEntr the xml-object to represent in the entry.
-     * @return a new invoice-entry, already registred with this file.
-     * @see GnucashFileImpl#createGenerInvoiceEntry(GncV2.GncBook.GncGncEntry)
+     * @return a new invoice-entry, already registered with this file.
+     * @see FileInvoiceEntryManager#createGenerInvoiceEntry(GncV2.GncBook.GncGncEntry)
      */
     protected GnucashGenerInvoiceEntry createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
 	GnucashGenerInvoiceEntry entry = new GnucashWritableGenerInvoiceEntryImpl(jwsdpInvcEntr, this);
@@ -635,7 +636,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see GnucashFileImpl#createGenerJob(GncV2.GncBook.GncGncJob)
+     * @see FileJobManager#createGenerJob(GncV2.GncBook.GncGncJob)
      */
     protected GnucashCustomerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
 	GnucashCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, this);
@@ -649,7 +650,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new customer
-     * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
+     * @see FileCustomerManager#createCustomer(GncV2.GncBook.GncGncCustomer)
      */
     protected GnucashCustomerImpl createCustomer(final GncV2.GncBook.GncGncCustomer jwsdpCust) {
 	GnucashCustomerImpl cust = new GnucashWritableCustomerImpl(jwsdpCust, this);
@@ -661,7 +662,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new customer
-     * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
+     * @see FileVendorManager#createVendor(GncV2.GncBook.GncGncCustomer)
      */
     protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
 	GnucashVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, this);
@@ -673,7 +674,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new customer
-     * @see GnucashFileImpl#createCustomer(GncV2.GncBook.GncGncCustomer)
+     * @see FileEmployeeManager#createEmployee(GncV2.GncBook.GncGncCustomer)
      */
     protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
 	GnucashEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl, this);
@@ -685,7 +686,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see GnucashFileImpl#createTransaction(GncTransaction)
+     * @see FileTransactionManager#createTransaction(GncTransaction)
      */
     protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
 	GnucashTransactionImpl account = new GnucashWritableTransactionImpl(jwsdpTrx, this);
@@ -720,10 +721,15 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * Used by GnucashTransactionImpl.createTransaction to add a new Transaction to
      * this file.
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      *
      * @see GnucashTransactionImpl#createSplit(GncTransaction.TrnSplits.TrnSplit)
      */
-    protected void addTransaction(final GnucashTransactionImpl trx) {
+    protected void addTransaction(final GnucashTransactionImpl trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	incrementCountDataFor("transaction");
 
 	getRootElement().getGncBook().getBookElements().add(trx.getJwsdpPeer());
@@ -742,7 +748,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public void removeTransaction(final GnucashWritableTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	Collection<GnucashWritableTransactionSplit> c = new LinkedList<GnucashWritableTransactionSplit>();
-	c.addAll(trx.getWritingSplits());
+	c.addAll(trx.getWritableSplits());
 	for (GnucashWritableTransactionSplit element : c) {
 	    element.remove();
 	}
@@ -942,15 +948,25 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * {@inheritDoc}
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public GnucashWritableTransaction createWritableTransaction() {
+    public GnucashWritableTransaction createWritableTransaction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return new GnucashWritableTransactionImpl(this);
     }
 
     /**
      * {@inheritDoc}
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    public GnucashWritableTransaction createWritableTransaction(final String id) {
+    public GnucashWritableTransaction createWritableTransaction(final String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	return new GnucashWritableTransactionImpl(this);
     }
 

@@ -150,7 +150,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      *
      * @return the file we are associated with
      */
-    protected GnucashWritableFileImpl getWritingFile() {
+    protected GnucashWritableFileImpl getWritableFile() {
 	return (GnucashWritableFileImpl) getFile();
     }
 
@@ -233,7 +233,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	}
 
 	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(empl.getId().toString());
-	getWritingFile().setModified(true);
+	getWritableFile().setModified(true);
 
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();

@@ -43,7 +43,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
   @SuppressWarnings("exports")
   public GnucashVendorBillEntryImpl(final GncV2.GncBook.GncGncEntry peer, final GnucashFileImpl gncFile) 
   {
-    super(peer, gncFile);
+    super(peer, gncFile, true);
   }
 
   public GnucashVendorBillEntryImpl(final GnucashGenerInvoiceEntry entry) throws WrongInvoiceTypeException

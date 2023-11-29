@@ -103,11 +103,11 @@ public class TestGnucashWritableFileImpl
   }
 
   // ::TODO
-//  @Test
-//  public void test03() throws Exception
-//  {    
-//    assertEquals(31, gcshInFile.getNofEntriesTransactionSplitMap());
-//  }
+  @Test
+  public void test03() throws Exception
+  {    
+    assertEquals(31, gcshInFile.getNofEntriesTransactionSplitMap());
+  }
 
   @Test
   public void test04() throws Exception
@@ -115,7 +115,6 @@ public class TestGnucashWritableFileImpl
     assertEquals(7, gcshInFile.getNofEntriesGenerInvoiceMap());
   }
 
-  // ::TODO
 //  @Test
 //  public void test05() throws Exception
 //  {    
