@@ -9,15 +9,16 @@ import java.time.ZonedDateTime;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoice;
+import org.gnucash.api.read.GnucashGenerInvoice.ReadVariant;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
-import org.gnucash.api.read.IllegalGenerInvoiceEntryActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
-import org.gnucash.api.read.GnucashGenerInvoice.ReadVariant;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
@@ -28,8 +29,6 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.spec.GnucashWritableJobInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

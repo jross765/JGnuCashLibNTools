@@ -123,6 +123,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
 	    trxs.add(trx);
 	}
+	
 	for ( GnucashTransaction trx : trxs ) {
 	    for (GnucashTransactionSplit splt : trx.getSplits()) {
 		GCshID lot = splt.getLotID();
@@ -132,7 +133,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 			if (lotID != null && lotID.equals(lot)) {
 			    // Check if it's a payment transaction.
 			    // If so, add it to the invoice's list of payment transactions.
-			    if (splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString())) {
+			    if ( splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString()) ) {
 				addPayingTransaction(splt);
 			    }
 			} // if lotID
@@ -367,6 +368,12 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 
     @Override
     protected GCshID getBillPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+	    throws WrongInvoiceTypeException {
+	throw new WrongInvoiceTypeException();
+    }
+
+    @Override
+    protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
 	throw new WrongInvoiceTypeException();
     }

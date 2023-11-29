@@ -8,14 +8,15 @@ import java.util.HashSet;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
+import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -30,7 +31,6 @@ import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,6 +123,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
 	    trxs.add(trx);
 	}
+	
 	for ( GnucashTransaction trx : trxs ) {
 	    for (GnucashTransactionSplit splt : trx.getSplits()) {
 		GCshID lot = splt.getLotID();
@@ -132,7 +133,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 			if (lotID != null && lotID.equals(lot)) {
 			    // Check if it's a payment transaction.
 			    // If so, add it to the invoice's list of payment transactions.
-			    if (splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString())) {
+			    if ( splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString()) ) {
 				addPayingTransaction(splt);
 			    }
 			} // if lotID
@@ -335,7 +336,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      * Called by
      * ${@link GnucashWritableEmployeeVoucherEntryImpl#createEmplVoucherEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
-     * @param entry the entry to add to our internal list of employee-bill-entries
+     * @param entry the entry to add to our internal list of employee-voucher-entries
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
@@ -372,6 +373,18 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
     }
 
     @Override
+    protected GCshID getBillPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+	    throws WrongInvoiceTypeException {
+	throw new WrongInvoiceTypeException();
+    }
+
+    @Override
+    protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+	    throws WrongInvoiceTypeException {
+	throw new WrongInvoiceTypeException();
+    }
+
+    @Override
     protected GCshID getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
 	throw new WrongInvoiceTypeException();
@@ -385,13 +398,14 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this employee bill is NOT changeable because there are already payment for it made!");
+		    "this employee voucher is NOT changable because there are already payment for it made!");
 	}
     }
 
     /**
      * @see GnucashWritableGenerInvoice#getWritableGenerEntryById(java.lang.String)
      */
+    @Override
     public GnucashWritableEmployeeVoucherEntry getWritableEntryById(final GCshID id) {
 	return new GnucashWritableEmployeeVoucherEntryImpl(getGenerEntryById(id));
     }

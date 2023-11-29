@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.spec;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -15,7 +16,6 @@ import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,17 +47,17 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	}
 
 	/**
-	 * @param bll   tne employee bill this entry shall belong to
+	 * @param vch   tne employee voucher this entry shall belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncV2.GncBook.GncGncEntry)
 	 */
 	@SuppressWarnings("exports")
 	public GnucashWritableEmployeeVoucherEntryImpl(
-		final GnucashWritableEmployeeVoucherImpl bll,
+		final GnucashWritableEmployeeVoucherImpl vch,
 		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
-		super(bll, jwsdpPeer);
+		super(vch, jwsdpPeer);
 		
-		this.myInvoice = bll;
+		this.myInvoice = vch;
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	 * (It has the tax table of the employee with a fallback
 	 * to the first tax table found assigned)
 	 *
-	 * @param bll  the employee bill to add this split to
+	 * @param vch  the employee voucher to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
@@ -78,17 +78,17 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	 * @throws NoSuchFieldException 
 	 */
 	public GnucashWritableEmployeeVoucherEntryImpl(
-		final GnucashWritableEmployeeVoucherImpl bll,
+		final GnucashWritableEmployeeVoucherImpl vch,
 		final GnucashAccount account,
 		final FixedPointNumber quantity,
 		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		super(bll, 
-		      createEmplVchEntry_int(bll, account, quantity, price));
+		super(vch, 
+		      createEmplVchEntry_int(vch, account, quantity, price));
 		
 		// Caution: Call addVoucherEntry one level above now
 		// (GnucashWritableEmployeeVoucherImpl.createEmplVoucherEntry)
-		// bll.addVoucherEntry(this);
-		this.myInvoice = bll;
+		// vch.addVoucherEntry(this);
+		this.myInvoice = vch;
 	}
 
 	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashGenerInvoiceEntry entry) {

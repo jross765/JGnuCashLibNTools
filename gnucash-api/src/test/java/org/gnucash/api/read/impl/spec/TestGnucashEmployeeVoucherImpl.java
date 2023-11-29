@@ -15,7 +15,6 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashGenerInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;

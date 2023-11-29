@@ -118,7 +118,7 @@ public class TestGnucashWritableEmployeeVoucherImpl
       LocalDate postDate = LocalDate.of(2023, 8, 1);
       LocalDate openedDate = LocalDate.of(2023, 8, 3);
       LocalDate dueDate = LocalDate.of(2023, 8, 10);
-      GnucashWritableEmployeeVoucher bll = gcshInFile.createWritableEmployeeVoucher("19431", 
+      GnucashWritableEmployeeVoucher vch = gcshInFile.createWritableEmployeeVoucher("19431", 
 	      							empl1, 
 	      							expensesAcct, payableAcct, 
 	      							openedDate, postDate, dueDate);
@@ -127,11 +127,11 @@ public class TestGnucashWritableEmployeeVoucherImpl
 //                                                                  new FixedPointNumber(12), 
 //                                                                  new FixedPointNumber(13));
 
-      assertNotEquals(null, bll);
-      GCshID newInvcID = bll.getId();
+      assertNotEquals(null, vch);
+      GCshID newInvcID = vch.getId();
 //      System.out.println("New Invoice ID (1): " + newInvcID);
       
-      assertEquals("19431", bll.getNumber());
+      assertEquals("19431", vch.getNumber());
 
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnucashWritableEmployeeImpl.test01_1: '" + outFile.getPath() + "'");
@@ -144,7 +144,7 @@ public class TestGnucashWritableEmployeeVoucherImpl
       test01_4(outFile, newInvcID);
       
       // post invoice
-      bll.post(expensesAcct, payableAcct, postDate, dueDate);
+      vch.post(expensesAcct, payableAcct, postDate, dueDate);
       
       // write to file
       outFile.delete();
@@ -199,12 +199,12 @@ public class TestGnucashWritableEmployeeVoucherImpl
 //      System.out.println("New Invoice ID (3): " + newInvcID);
       GnucashGenerInvoice invcGener = gcshOutFile.getGenerInvoiceByID(newInvcID);
       assertNotEquals(null, invcGener);
-      GnucashEmployeeVoucher bllSpec = new GnucashEmployeeVoucherImpl(invcGener);
-      assertNotEquals(null, bllSpec);
+      GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGener);
+      assertNotEquals(null, vchSpec);
       
-      assertEquals("19431", bllSpec.getNumber());
-      assertEquals(null, bllSpec.getPostAccountId());      
-      assertEquals(null, bllSpec.getPostTransactionId());
+      assertEquals("19431", vchSpec.getNumber());
+      assertEquals(null, vchSpec.getPostAccountId());      
+      assertEquals(null, vchSpec.getPostTransactionId());
   }
 
   // After post
@@ -218,14 +218,14 @@ public class TestGnucashWritableEmployeeVoucherImpl
 //      System.out.println("New Invoice ID (3): " + newInvcID);
       GnucashGenerInvoice invcGener = gcshOutFile.getGenerInvoiceByID(newInvcID);
       assertNotEquals(null, invcGener);
-      GnucashEmployeeVoucher bllSpec = new GnucashEmployeeVoucherImpl(invcGener);
-      assertNotEquals(null, bllSpec);
+      GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGener);
+      assertNotEquals(null, vchSpec);
       
-      assertEquals("19431", bllSpec.getNumber());
-      assertEquals(PAYABLE_ACCT_ID, bllSpec.getPostAccountId());
+      assertEquals("19431", vchSpec.getNumber());
+      assertEquals(PAYABLE_ACCT_ID, vchSpec.getPostAccountId());
       
-      assertNotEquals(null, bllSpec.getPostTransactionId());
-      GnucashTransaction postTrx = gcshOutFile.getTransactionByID(bllSpec.getPostTransactionId());
+      assertNotEquals(null, vchSpec.getPostTransactionId());
+      GnucashTransaction postTrx = gcshOutFile.getTransactionByID(vchSpec.getPostTransactionId());
       assertNotEquals(null, postTrx);
       assertEquals(2, postTrx.getSplits().size());
       GCshID postTrxFirstSpltId = postTrx.getFirstSplit().getId();

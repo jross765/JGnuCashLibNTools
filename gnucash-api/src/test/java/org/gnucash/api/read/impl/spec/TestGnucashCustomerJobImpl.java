@@ -12,7 +12,6 @@ import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashGenerJobImpl;
-import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,5 @@
 package org.gnucash.api.write;
 
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashObject;
