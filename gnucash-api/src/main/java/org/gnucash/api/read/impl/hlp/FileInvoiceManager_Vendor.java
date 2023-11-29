@@ -16,7 +16,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileInvoiceManager_Vendor {
+public abstract class FileInvoiceManager_Vendor {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(FileInvoiceManager_Vendor.class);
     

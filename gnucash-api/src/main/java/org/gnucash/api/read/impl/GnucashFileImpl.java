@@ -729,7 +729,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return invcMgr.getVouchersForEmployee_direct(empl);
+	return invcMgr.getVouchersForEmployee(empl);
     }
 
     /**
@@ -745,7 +745,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return invcMgr.getPaidVouchersForEmployee_direct(empl);
+	return invcMgr.getPaidVouchersForEmployee(empl);
     }
 
     /**
@@ -761,7 +761,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return invcMgr.getUnpaidVouchersForEmployee_direct(empl);
+	return invcMgr.getUnpaidVouchersForEmployee(empl);
     }
 
     // ----------------------------

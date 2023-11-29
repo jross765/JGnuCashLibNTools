@@ -304,19 +304,19 @@ public class FileInvoiceManager {
     
     // ----------------------------
 
-    public Collection<GnucashEmployeeVoucher> getVouchersForEmployee_direct(final GnucashEmployee empl)
+    public Collection<GnucashEmployeeVoucher> getVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getVouchers_direct(this, empl);
+	return FileInvoiceManager_Employee.getVouchers(this, empl);
     }
 
-    public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee_direct(final GnucashEmployee empl)
+    public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getPaidVouchers_direct(this, empl);
+	return FileInvoiceManager_Employee.getPaidVouchers(this, empl);
     }
 
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee_direct(final GnucashEmployee empl)
+    public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return FileInvoiceManager_Employee.getUnpaidVouchers_direct(this, empl);
+	return FileInvoiceManager_Employee.getUnpaidVouchers(this, empl);
     }
 
     // ----------------------------
