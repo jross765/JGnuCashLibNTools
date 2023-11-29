@@ -54,6 +54,7 @@ import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
+import org.gnucash.api.read.impl.hlp.FilePriceManager;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -928,7 +929,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	newQuote.setPriceCommodity(currency);
 	newQuote.setPriceCurrency(baseCurrency);
 	newQuote.setPriceTime(getObjectFactory().createGncV2GncBookGncPricedbPricePriceTime());
-	newQuote.getPriceTime().setTsDate(PRICE_QUOTE_DATE_FORMAT.format(new Date()));
+	newQuote.getPriceTime().setTsDate(FilePriceManager.PRICE_QUOTE_DATE_FORMAT.format(new Date()));
 	newQuote.setPriceType("last");
 	newQuote.setPriceValue(conversionFactor.toGnucashString());
 

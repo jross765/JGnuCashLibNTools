@@ -29,4 +29,8 @@ public interface GnucashFileStats {
 
     int getNofEntriesBillTermsMap();
 
+    // ----------------------------
+    
+    int getNofEntriesPriceMap();
+
 }

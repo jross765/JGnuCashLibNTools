@@ -8,24 +8,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
@@ -35,8 +26,6 @@ import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -56,7 +45,6 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.aux.GCshPriceImpl;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
 import org.gnucash.api.read.impl.hlp.FileBillTermsManager;
 import org.gnucash.api.read.impl.hlp.FileCommodityManager;
@@ -65,6 +53,7 @@ import org.gnucash.api.read.impl.hlp.FileEmployeeManager;
 import org.gnucash.api.read.impl.hlp.FileInvoiceEntryManager;
 import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
 import org.gnucash.api.read.impl.hlp.FileJobManager;
+import org.gnucash.api.read.impl.hlp.FilePriceManager;
 import org.gnucash.api.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.api.read.impl.hlp.FileTransactionManager;
 import org.gnucash.api.read.impl.hlp.FileVendorManager;
@@ -95,8 +84,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashFileImpl.class);
 
-    protected static final DateFormat PRICE_QUOTE_DATE_FORMAT = new SimpleDateFormat(Const.STANDARD_DATE_FORMAT);
-
     private static final String PADDING_TEMPLATE = "000000";
 
     // ---------------------------------------------------------------
@@ -114,26 +101,26 @@ public class GnucashFileImpl implements GnucashFile,
     private volatile JAXBContext myJAXBContext;
 
     // ----------------------------
-
-    protected Map<GCshID, GCshPrice>     priceById = null;
-
-    // ----------------------------
     
-    protected FileAccountManager      acctMgr  = null;
-    protected FileTransactionManager  trxMgr   = null;
-    protected FileInvoiceManager invcMgr  = null;
-    protected FileInvoiceEntryManager invcEntrMgr  = null;
-    protected FileCustomerManager     custMgr  = null;
-    protected FileVendorManager       vendMgr  = null;
-    protected FileEmployeeManager     emplMgr  = null;
-    protected FileJobManager          jobMgr   = null;
-    protected FileCommodityManager    cmdtyMgr = null;
-
+    protected FileAccountManager      acctMgr     = null;
+    protected FileTransactionManager  trxMgr      = null;
+    protected FileInvoiceManager      invcMgr     = null;
+    protected FileInvoiceEntryManager invcEntrMgr = null;
+    protected FileCustomerManager     custMgr     = null;
+    protected FileVendorManager       vendMgr     = null;
+    protected FileEmployeeManager     emplMgr     = null;
+    protected FileJobManager          jobMgr      = null;
+    protected FileCommodityManager    cmdtyMgr    = null;
+    
     // ----------------------------
 
-    protected FileTaxTableManager  taxTabMgr = null;
-    protected FileBillTermsManager bllTrmMgr = null; 
+    protected FileTaxTableManager     taxTabMgr   = null;
+    protected FileBillTermsManager    bllTrmMgr   = null; 
     
+    // ----------------------------
+
+    protected FilePriceManager        prcMgr      = null;
+
     // ----------------------------
 
     /**
@@ -1124,53 +1111,19 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * {@inheritDoc}
      */
-    public GCshPrice getPriceByID(GCshID id) {
-        if (priceById == null) {
-            getPrices();
-        }
-        
-        return priceById.get(id);
-    }
-
-    protected GncV2.GncBook.GncPricedb getPriceDB() {
-	List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
-	for ( Object bookElement : bookElements ) {
-	    if ( bookElement instanceof GncV2.GncBook.GncPricedb ) {
-		return (GncV2.GncBook.GncPricedb) bookElement;
-	    } 
-	}
-	
-	return null; // Compiler happy
+    public GCshPrice getPriceByID(GCshID prcID) {
+        return prcMgr.getPriceByID(prcID);
     }
 
     /**
      * {@inheritDoc}
      */
     public Collection<GCshPrice> getPrices() {
-        if (priceById == null) {
-            priceById = new HashMap<GCshID, GCshPrice>();
-
-            GncV2.GncBook.GncPricedb priceDB = getPriceDB();
-            List<GncV2.GncBook.GncPricedb.Price> prices = priceDB.getPrice();
-            for ( GncV2.GncBook.GncPricedb.Price jwsdpPeer : prices ) {
-        	GCshPriceImpl price = new GCshPriceImpl(jwsdpPeer, this);
-        	priceById.put(price.getId(), price);
-            }
-        } 
-
-        return priceById.values();
+        return prcMgr.getPrices();
     }
 
 //    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
-//      try {
-//        // See if it's a currency
-//        GCshCurrID currID = new GCshCurrID(cmdtyCurrIDStr);
-//	    return getLatestPrice(currID);
-//      } catch ( Exception exc ) {
-//        // It's a security
-//	    GCshCmdtyID cmdtyID = new GCshCmdtyID(GCshCmdtyCurrID.Type.SECURITY_GENERAL, cmdtyCurrIDStr);
-//	    return getLatestPrice(cmdtyID);
-//      }
+//      return prcMgr.getLatestPrice(cmdtyCurrIDStr);
 //    }
     
     /**
@@ -1179,7 +1132,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws InvalidCmdtyCurrTypeException 
      */
     public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getLatestPrice(cmdtyCurrID, 0);
+	return prcMgr.getLatestPrice(cmdtyCurrID);
     }
 
     /**
@@ -1189,7 +1142,7 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Deprecated
     public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
+	return prcMgr.getLatestPrice(pCmdtySpace, pCmdtyId);
     }
 
     // ---------------------------------------------------------------
@@ -1218,12 +1171,20 @@ public class GnucashFileImpl implements GnucashFile,
 	}
 	rootElement = pRootElement;
 
-	// fill prices
+	// ---
+	// Prices
+	// Caution: the price manager has to be instantiated 
+	// *before* loading the price database
+	
+        prcMgr    = new FilePriceManager(this);
 
 	loadPriceDatabase(pRootElement);
 	if (pRootElement.getGncBook().getBookSlots() == null) {
 	    pRootElement.getGncBook().setBookSlots((new ObjectFactory()).createSlotsType());
 	}
+	
+	// ---
+
 	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
 
 	// ---
@@ -1257,7 +1218,7 @@ public class GnucashFileImpl implements GnucashFile,
 
 	bllTrmMgr = new FileBillTermsManager(this);
 
-	// ---
+        // ---
 	
 	// check for unknown book-elements
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
@@ -1287,13 +1248,13 @@ public class GnucashFileImpl implements GnucashFile,
 		continue;
 	    } else if (bookElement instanceof GncV2.GncBook.GncCommodity) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncPricedb) {
-		continue;
 	    } else if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
 		continue;
 	    } else if (bookElement instanceof GncV2.GncBook.GncGncBillTerm) {
 		continue;
 	    } else if (bookElement instanceof GncV2.GncBook.GncGncVendor.VendorTerms) {
+		continue;
+	    } else if (bookElement instanceof GncV2.GncBook.GncPricedb) {
 		continue;
 	    } else if (bookElement instanceof GncBudget) {
 		continue;
@@ -1312,7 +1273,7 @@ public class GnucashFileImpl implements GnucashFile,
     private void loadPriceDatabase(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	boolean noPriceDB = true;
 
-	GncV2.GncBook.GncPricedb priceDB = getPriceDB();
+	GncV2.GncBook.GncPricedb priceDB = prcMgr.getPriceDB();
 	if ( priceDB.getPrice().size() > 0 )
 	    noPriceDB = false;
 	    
@@ -1370,172 +1331,6 @@ public class GnucashFileImpl implements GnucashFile,
 	    + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyId() + "' but has no commodity for it");
 	    }
 	} // for price
-    }
-
-    /**
-     * @param pCmdtySpace the namespace for pCmdtyId
-     * @param pCmdtyId    the currency-name
-     * @param depth       used for recursion. Allways call with '0' for aborting
-     *                    recursive quotes (quotes to other then the base- currency)
-     *                    we abort if the depth reached 6.
-     * @return the latest price-quote in the gnucash-file in the default-currency
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @see {@link GnucashFile#getLatestPrice(String, String)}
-     * @see #getDefaultCurrencyID()
-     */
-    private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	if (cmdtyCurrID == null) {
-	    throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
-	}
-	// System.err.println("depth: " + depth);
-
-	Date latestDate = null;
-	FixedPointNumber latestQuote = null;
-	FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
-	final int maxRecursionDepth = 5; // ::MAGIC
-
-	GncV2.GncBook.GncPricedb priceDB = getPriceDB();
-	for ( GncV2.GncBook.GncPricedb.Price priceQuote : priceDB.getPrice() ) {
-	    if (priceQuote == null) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains null price-quotes - there may be a problem with JWSDP");
-		continue;
-	    }
-		    
-	    PriceCommodity fromCmdtyCurr = priceQuote.getPriceCommodity();
-	    PriceCurrency  toCurr        = priceQuote.getPriceCurrency();
-
-	    if ( fromCmdtyCurr == null ) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without from-commodity/currency: '"
-			+ priceQuote.toString() + "'");
-		continue;
-	    }
-				
-	    if ( toCurr == null ) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without to-currency: '"
-			+ priceQuote.toString() + "'");
-		continue;
-	    }
-
-	    try {
-		if (fromCmdtyCurr.getCmdtySpace() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without namespace: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-			    
-		if (fromCmdtyCurr.getCmdtyId() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without code: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-				    
-		if (toCurr.getCmdtySpace() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with to-currency without namespace: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-					    
-		if (toCurr.getCmdtyId() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with to-currency without code: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		if (priceQuote.getPriceTime() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without timestamp id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		if (priceQuote.getPriceValue() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without value id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		/*
-		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		 * priceQuote.getPriceType() == null) {
-		 * LOGGER.warn("getLatestPrice: GnuCash file contains FUND-price-quotes" + " with no type id='"
-		 * + priceQuote.getPriceId().getValue() + "'"); continue; }
-		 */
-		    
-		if ( ! ( fromCmdtyCurr.getCmdtySpace().equals(cmdtyCurrID.getNameSpace()) && 
-		         fromCmdtyCurr.getCmdtyId().equals(cmdtyCurrID.getCode()) ) ) {
-		    continue;
-		}
-		    
-		/*
-		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		 * (priceQuote.getPriceType() == null ||
-		 * !priceQuote.getPriceType().equals("last") )) {
-		 * LOGGER.warn("getLatestPrice: ignoring FUND-price-quote of unknown type '" +
-		 * priceQuote.getPriceType() + "' expecting 'last' "); continue; }
-		 */
-
-		// BEGIN core
-		if ( ! toCurr.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
-		    // is commodity
-		    if ( depth > maxRecursionDepth ) {
-			LOGGER.warn("getLatestPrice: Ignoring price-quote that is not in an ISO4217-currency" 
-				+ " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
-			continue;
-		    }
-		    factor = getLatestPrice(new GCshCmdtyID(toCurr.getCmdtySpace(), toCurr.getCmdtyId()), depth + 1);
-		} else {
-		    // is currency
-		    if ( ! toCurr.getCmdtyId().equals(getDefaultCurrencyID()) ) {
-			if ( depth > maxRecursionDepth ) {
-			    LOGGER.warn("Ignoring price-quote that is not in " + getDefaultCurrencyID()
-			    + " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
-			    continue;
-			}
-			factor = getLatestPrice(new GCshCurrID(toCurr.getCmdtyId()), depth + 1);
-		    }
-		}
-		// END core
-
-		Date date = PRICE_QUOTE_DATE_FORMAT.parse(priceQuote.getPriceTime().getTsDate());
-
-		if (latestDate == null || latestDate.before(date)) {
-		    latestDate = date;
-		    latestQuote = new FixedPointNumber(priceQuote.getPriceValue());
-		    LOGGER.debug("getLatestPrice: getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-		    	+ "') converted " + latestQuote + " <= " + priceQuote.getPriceValue());
-		}
-
-	    } catch (NumberFormatException e) {
-		LOGGER.error("getLatestPrice: [NumberFormatException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    } catch (ParseException e) {
-		LOGGER.error("getLatestPrice: [ParseException] Problem in " + getClass().getName() + " "
-			+ cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
-			+ priceQuote + "'", e);
-	    } catch (NullPointerException e) {
-		LOGGER.error("getLatestPrice: [NullPointerException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    } catch (ArithmeticException e) {
-		LOGGER.error("getLatestPrice: [ArithmeticException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    }
-	} // for priceQuote
-
-	LOGGER.debug("getLatestPrice: " + getClass().getName() + ".getLatestPrice(pCmdtyCurrID='"
-		+ cmdtyCurrID.toString() + "')= " + latestQuote + " from " + latestDate);
-
-	if (latestQuote == null) {
-	    return null;
-	}
-
-	if (factor == null) {
-	    factor = new FixedPointNumber(1);
-	}
-
-	return factor.multiply(latestQuote);
     }
 
     // ---------------------------------------------------------------
@@ -1690,8 +1485,12 @@ public class GnucashFileImpl implements GnucashFile,
     }
     
     // ----------------------------
-    // Statistics, var 2 (low-level)
-    
+
+    @Override
+    public int getNofEntriesPriceMap() {
+	return prcMgr.getNofEntriesPriceMap();
+    }
+
     // ---------------------------------------------------------------
     // In this section, we assume that all customer, vendor and job numbers
     // (internally, the IDs, not the GUIDs) are purely numeric, resp. (as
@@ -1896,18 +1695,19 @@ public class GnucashFileImpl implements GnucashFile,
     public String toString() {
 	String result = "GnucashFileImpl: [\n";
 	
-	result += "  no. of accounts:                  " + getNofEntriesAccountMap() + "\n"; 
-	result += "  no. of transactions:              " + getNofEntriesTransactionMap() + "\n"; 
-	result += "  no. of transaction splits:        " + getNofEntriesTransactionSplitMap() + "\n"; 
-	result += "  no. of (generic) invoices:        " + getNofEntriesGenerInvoiceMap() + "\n"; 
-	result += "  no. of (generic) invoice entries: " + getNofEntriesGenerInvoiceEntriesMap() + "\n"; 
-	result += "  no. of customers:                 " + getNofEntriesCustomerMap() + "\n"; 
-	result += "  no. of vendors:                   " + getNofEntriesVendorMap() + "\n"; 
-	result += "  no. of employees:                 " + getNofEntriesVendorMap() + "\n"; 
-	result += "  no. of (generic) jobs:            " + getNofEntriesGenerJobMap() + "\n"; 
-	result += "  no. of commodities:               " + getNofEntriesCommodityMap() + "\n";
-	result += "  no. of tax tables:                " + getNofEntriesTaxTableMap() + "\n";
-	result += "  no. of bill terms:                " + getNofEntriesBillTermsMap() + "\n";
+	result += "  No. of accounts:                  " + getNofEntriesAccountMap() + "\n"; 
+	result += "  No. of transactions:              " + getNofEntriesTransactionMap() + "\n"; 
+	result += "  No. of transaction splits:        " + getNofEntriesTransactionSplitMap() + "\n"; 
+	result += "  No. of (generic) invoices:        " + getNofEntriesGenerInvoiceMap() + "\n"; 
+	result += "  No. of (generic) invoice entries: " + getNofEntriesGenerInvoiceEntriesMap() + "\n"; 
+	result += "  No. of customers:                 " + getNofEntriesCustomerMap() + "\n"; 
+	result += "  No. of vendors:                   " + getNofEntriesVendorMap() + "\n"; 
+	result += "  No. of employees:                 " + getNofEntriesEmployeeMap() + "\n"; 
+	result += "  No. of (generic) jobs:            " + getNofEntriesGenerJobMap() + "\n"; 
+	result += "  No. of commodities:               " + getNofEntriesCommodityMap() + "\n";
+	result += "  No. of tax tables:                " + getNofEntriesTaxTableMap() + "\n";
+	result += "  No. of bill terms:                " + getNofEntriesBillTermsMap() + "\n";
+	result += "  No. of prices:                    " + getNofEntriesPriceMap() + "\n";
 	
 	result += "]";
 	
