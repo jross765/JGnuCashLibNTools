@@ -214,7 +214,7 @@ public class GnucashFileImpl implements GnucashFile,
 	setFile(pFile);
 
 	InputStream in = new FileInputStream(pFile);
-	if (pFile.getName().endsWith(".gz")) {
+	if ( pFile.getName().endsWith(".gz") ) {
 	    in = new BufferedInputStream(in);
 	    in = new GZIPInputStream(in);
 	} else {
@@ -306,6 +306,7 @@ public class GnucashFileImpl implements GnucashFile,
 	    }
 	}
 	
+	// not found
 	return Const.DEFAULT_CURRENCY;
     }
 
@@ -314,6 +315,7 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @see GnucashFile#getAccountByID(java.lang.String)
      */
+    @Override
     public GnucashAccount getAccountByID(final GCshID id) {
 	return acctMgr.getAccountByID(id);
     }
@@ -400,36 +402,18 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @return a read-only collection of all accounts
      */
+    @Override
     public Collection<GnucashAccount> getAccounts() {
         return acctMgr.getAccounts();
     }
 
-    // ---------------------------------------------------------------
-    
     /**
      * @return a read-only collection of all accounts that have no parent (the
      *         result is sorted)
      * @throws UnknownAccountTypeException 
      */
     public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
-        try {
-            Collection<GnucashAccount> retval = new TreeSet<GnucashAccount>();
-    
-            for (GnucashAccount account : getAccounts()) {
-        	if (account.getParentAccountId() == null) {
-        	    retval.add(account);
-        	}
-    
-            }
-    
-            return retval;
-        } catch (RuntimeException e) {
-            LOGGER.error("getRootAccounts: Problem getting all root-account", e);
-            throw e;
-        } catch (Throwable e) {
-            LOGGER.error("getRootAccounts: SERIOUS Problem getting all root-account", e);
-            return new LinkedList<GnucashAccount>();
-        }
+	return acctMgr.getRootAccounts();
     }
 
     // ---------------------------------------------------------------
