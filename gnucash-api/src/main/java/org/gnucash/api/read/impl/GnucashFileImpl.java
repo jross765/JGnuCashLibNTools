@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.TreeSet;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.api.Const;

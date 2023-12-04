@@ -39,7 +39,7 @@ public class FilePriceManager {
     private GnucashFileImpl gcshFile;
 
     private GncV2.GncBook.GncPricedb priceDB = null;
-    private Map<GCshID, GCshPrice> prcMap    = null;
+    private Map<GCshID, GCshPrice>   prcMap  = null;
 
     // ---------------------------------------------------------------
     
@@ -84,11 +84,11 @@ public class FilePriceManager {
 
     // ---------------------------------------------------------------
 
-    public void addGenerInvoice(GCshPrice prc) {
+    public void addPrice(GCshPrice prc) {
 	prcMap.put(prc.getId(), prc);
     }
 
-    public void removeGenerInvoice(GCshPrice prc) {
+    public void removePrice(GCshPrice prc) {
 	prcMap.remove(prc.getId());
     }
 

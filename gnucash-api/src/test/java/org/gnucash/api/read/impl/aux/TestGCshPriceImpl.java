@@ -117,13 +117,14 @@ public class TestGCshPriceImpl
   public void test02_1() throws Exception
   {
       prc = gcshFile.getPriceByID(PRICE_1_ID);
+      assertNotEquals(null, prc);
       
       assertEquals(PRICE_1_ID, prc.getId());
       assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifId().toString());
       assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifId().toString());
       assertEquals(cmdtyID12.toString(), prc.getFromCommodityQualifId().toString());
       assertEquals(cmdtyID11, prc.getFromCommodityQualifId());
-      assertNotEquals(cmdtyID22, prc.getFromCommodityQualifId()); // sic
+      assertNotEquals(cmdtyID12, prc.getFromCommodityQualifId()); // sic
       assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName());
       assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifId().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
@@ -163,6 +164,7 @@ public class TestGCshPriceImpl
   public void test02_2() throws Exception
   {
       prc = gcshFile.getPriceByID(PRICE_2_ID);
+      assertNotEquals(null, prc);
       
       assertEquals(PRICE_2_ID, prc.getId());
       assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifId().toString());
@@ -209,6 +211,7 @@ public class TestGCshPriceImpl
   public void test02_3() throws Exception
   {
       prc = gcshFile.getPriceByID(PRICE_3_ID);
+      assertNotEquals(null, prc);
       
       assertEquals(PRICE_3_ID, prc.getId());
       assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifId().toString());
@@ -255,6 +258,7 @@ public class TestGCshPriceImpl
   public void test02_4() throws Exception
   {
       prc = gcshFile.getPriceByID(PRICE_4_ID);
+      assertNotEquals(null, prc);
       
       assertEquals(PRICE_4_ID, prc.getId());
       assertEquals(currID1.toString(), prc.getFromCmdtyCurrQualifId().toString());
