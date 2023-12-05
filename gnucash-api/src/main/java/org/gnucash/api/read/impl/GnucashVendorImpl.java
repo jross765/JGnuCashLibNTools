@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -15,7 +17,6 @@ import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
@@ -24,8 +25,6 @@ import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -472,10 +471,14 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 	return getGnucashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
 
-    // -----------------------------------------------------------------
+    // ------------------------------------------------------------
 
     public static int getHighestNumber(GnucashVendor vend) {
-	return vend.getGnucashFile().getHighestVendorNumber();
+	return ((GnucashFileImpl) vend.getGnucashFile()).getHighestVendorNumber();
+    }
+
+    public static String getNewNumber(GnucashVendor vend) {
+	return ((GnucashFileImpl) vend.getGnucashFile()).getNewVendorNumber();
     }
 
     // -----------------------------------------------------------------

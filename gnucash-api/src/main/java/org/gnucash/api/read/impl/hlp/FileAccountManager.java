@@ -77,6 +77,16 @@ public class FileAccountManager {
 
     // ---------------------------------------------------------------
 
+    public void addAccount(GnucashAccount acct) {
+	acctMap.put(acct.getId(), acct);
+    }
+
+    public void removeAccount(GnucashAccount acct) {
+	acctMap.remove(acct.getId());
+    }
+
+    // ---------------------------------------------------------------
+
     /**
      * @see GnucashFile#getAccountByID(java.lang.String)
      */
@@ -124,18 +134,6 @@ public class FileAccountManager {
         return retval;
     }
     
-    // ---------------------------------------------------------------
-
-    public void addAccount(GnucashAccount acct) {
-	acctMap.put(acct.getId(), acct);
-    }
-
-    public void removeAccount(GnucashAccount acct) {
-	acctMap.remove(acct.getId());
-    }
-
-    // ---------------------------------------------------------------
-
     public Collection<GnucashAccount> getAccountsByName(final String name) {
 	return getAccountsByName(name, true, true);
     }
@@ -154,12 +152,12 @@ public class FileAccountManager {
 	for ( GnucashAccount acct : acctMap.values() ) {
 	    if ( relaxed ) {
 		if ( qualif ) {
-		    if ( acct.getQualifiedName().trim().toLowerCase().
+		    if ( acct.getQualifiedName().toLowerCase().
 			    contains(expr.trim().toLowerCase()) ) {
 			result.add(acct);
 		    }
 		} else {
-		    if ( acct.getName().trim().toLowerCase().
+		    if ( acct.getName().toLowerCase().
 			    contains(expr.trim().toLowerCase()) ) {
 			result.add(acct);
 		    }
@@ -278,8 +276,6 @@ public class FileAccountManager {
         return Collections.unmodifiableCollection(new TreeSet<>(acctMap.values()));
     }
 
-    // ---------------------------------------------------------------
-    
     /**
      * @return a read-only collection of all accounts that have no parent (the
      *         result is sorted)

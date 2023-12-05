@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.junit.Before;
 import org.junit.Rule;
@@ -90,7 +90,7 @@ public class TestGnucashWritableEmployeeImpl
   public void test01_1() throws Exception
   {
       GnucashWritableEmployee empl = gcshInFile.createWritableEmployee();
-      empl.setNumber(GnucashEmployee.getNewNumber(empl));
+      empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
       empl.setUserName("Norma Jean Baker");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
@@ -167,15 +167,15 @@ public class TestGnucashWritableEmployeeImpl
   public void test02_1() throws Exception
   {
       GnucashWritableEmployee empl1 = gcshInFile.createWritableEmployee();
-      empl1.setNumber(GnucashEmployee.getNewNumber(empl1));
+      empl1.setNumber(GnucashEmployeeImpl.getNewNumber(empl1));
       empl1.setUserName("Norma Jean Baker");
       
       GnucashWritableEmployee empl2 = gcshInFile.createWritableEmployee();
-      empl2.setNumber(GnucashEmployee.getNewNumber(empl2));
+      empl2.setNumber(GnucashEmployeeImpl.getNewNumber(empl2));
       empl2.setUserName("Madonna Louise Ciccone");
       
       GnucashWritableEmployee empl3 = gcshInFile.createWritableEmployee();
-      empl3.setNumber(GnucashEmployee.getNewNumber(empl3));
+      empl3.setNumber(GnucashEmployeeImpl.getNewNumber(empl3));
       empl3.setUserName("Rowan Atkinson");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);

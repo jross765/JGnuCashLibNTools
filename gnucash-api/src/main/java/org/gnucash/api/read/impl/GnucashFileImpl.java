@@ -77,12 +77,11 @@ import jakarta.xml.bind.Unmarshaller;
  * @see GnucashFile
  */
 public class GnucashFileImpl implements GnucashFile,
-                                        GnucashFileStats 
+                                        GnucashFileStats,
+                                        GnucashPubIDManager
 {
 
     protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashFileImpl.class);
-
-    private static final String PADDING_TEMPLATE = "000000";
 
     // ---------------------------------------------------------------
 
@@ -117,14 +116,8 @@ public class GnucashFileImpl implements GnucashFile,
     
     // ----------------------------
 
-    protected FilePriceManager        prcMgr      = null;
-
-    // ----------------------------
-
-    /**
-     * my CurrencyTable.
-     */
-    private final ComplexPriceTable currencyTable = new ComplexPriceTable();
+    private final ComplexPriceTable   currencyTable = new ComplexPriceTable();
+    protected FilePriceManager        prcMgr        = null;
 
     // ---------------------------------------------------------------
 
@@ -947,6 +940,14 @@ public class GnucashFileImpl implements GnucashFile,
 	return jobMgr.getCustomerJobs();
     }
 
+    /**
+     * @param cust the customer to look for.
+     * @return all jobs that have this customer, never null
+     */
+    public Collection<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
+	return jobMgr.getJobsByCustomer(cust);
+    }
+
     // ----------------------------
 
     @Override
@@ -972,6 +973,14 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<GnucashVendorJob> getVendorJobs() {
 	return jobMgr.getVendorJobs();
+    }
+
+    /**
+     * @param vend the customer to look for.
+     * @return all jobs that have this customer, never null
+     */
+    public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
+	return jobMgr.getJobsByVendor(vend);
     }
 
     // ---------------------------------------------------------------
@@ -1246,6 +1255,8 @@ public class GnucashFileImpl implements GnucashFile,
 		    "<gnc:book> contains unknown element [" + bookElement.getClass().getName() + "]");
 	}
     }
+    
+    // ---------------------------------------------------------------
 
     /**
      * @param pRootElement the root-element of the Gnucash-file
@@ -1360,24 +1371,6 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param cust the customer to look for.
-     * @return all jobs that have this customer, never null
-     */
-    public Collection<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
-	return jobMgr.getJobsByCustomer(cust);
-    }
-
-    /**
-     * @param vend the customer to look for.
-     * @return all jobs that have this customer, never null
-     */
-    public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
-	return jobMgr.getJobsByVendor(vend);
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -1467,7 +1460,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
     
     // ----------------------------
-
+    
     @Override
     public int getNofEntriesPriceMap() {
 	return prcMgr.getNofEntriesPriceMap();
@@ -1608,7 +1601,7 @@ public class GnucashFileImpl implements GnucashFile,
     public String getNewCustomerNumber() {
 	int newNo = getHighestCustomerNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
-	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
+	String newNoStrPadded = GnucashPubIDManager.PADDING_TEMPLATE + newNoStr;
 	// 10 zeroes if you need a string of length 10 in the end
 	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
 
@@ -1626,7 +1619,7 @@ public class GnucashFileImpl implements GnucashFile,
     public String getNewVendorNumber() {
 	int newNo = getHighestVendorNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
-	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
+	String newNoStrPadded = GnucashPubIDManager.PADDING_TEMPLATE + newNoStr;
 	// 10 zeroes if you need a string of length 10 in the end
 	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
 
@@ -1644,7 +1637,7 @@ public class GnucashFileImpl implements GnucashFile,
     public String getNewEmployeeNumber() {
 	int newNo = getHighestEmployeeNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
-	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
+	String newNoStrPadded = GnucashPubIDManager.PADDING_TEMPLATE + newNoStr;
 	// 10 zeroes if you need a string of length 10 in the end
 	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
 
@@ -1665,7 +1658,7 @@ public class GnucashFileImpl implements GnucashFile,
     public String getNewJobNumber() {
 	int newNo = getHighestJobNumber() + 1;
 	String newNoStr = Integer.toString(newNo);
-	String newNoStrPadded = PADDING_TEMPLATE + newNoStr;
+	String newNoStrPadded = GnucashPubIDManager.PADDING_TEMPLATE + newNoStr;
 	// 10 zeroes if you need a string of length 10 in the end
 	newNoStrPadded = newNoStrPadded.substring(newNoStr.length());
 

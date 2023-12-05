@@ -289,10 +289,14 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	return file.getUnpaidInvoicesForJob(this);
     }
 
-    // -----------------------------------------------------------------
+    // ---------------------------------------------------------------
 
-    public static int getHighestNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getHighestJobNumber();
+    public static int getHighestNumber(GnucashGenerJob job) {
+	return ((GnucashFileImpl) job.getFile()).getHighestJobNumber();
+    }
+
+    public static String getNewNumber(GnucashGenerJob job) {
+	return ((GnucashFileImpl) job.getFile()).getNewJobNumber();
     }
 
     // -----------------------------------------------------------------

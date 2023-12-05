@@ -90,7 +90,7 @@ public class FileInvoiceEntryManager {
 
 	GnucashGenerInvoiceEntry retval = invcEntrMap.get(id);
 	if (retval == null) {
-	    LOGGER.error("No (generic) Invoice-Entry with id '" + id + "'. " + 
+	    LOGGER.error("getGenerInvoiceEntryByID: No (generic) Invoice-Entry with id '" + id + "'. " + 
 	                 "We know " + invcEntrMap.size() + " accounts.");
 	}
 

@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
@@ -19,18 +20,11 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
-import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashVendorBillImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
-import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
-import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

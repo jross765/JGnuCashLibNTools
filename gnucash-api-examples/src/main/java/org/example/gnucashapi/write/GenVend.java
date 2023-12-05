@@ -2,7 +2,7 @@ package org.example.gnucashapi.write;
 
 import java.io.File;
 
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 
@@ -30,7 +30,7 @@ public class GenVend {
 	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
 
 	GnucashWritableVendor vend = gcshFile.createWritableVendor();
-	vend.setNumber(GnucashVendor.getNewNumber(vend));
+	vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
 	vend.setName(name);
 
 	System.out.println("Vendor to write: " + vend.toString());

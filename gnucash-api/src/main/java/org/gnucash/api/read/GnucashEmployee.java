@@ -221,14 +221,4 @@ public interface GnucashEmployee extends GnucashObject {
 
     Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
-    // ------------------------------------------------------------
-
-    public static int getHighestNumber(GnucashEmployee empl) {
-	return empl.getGnucashFile().getHighestEmployeeNumber();
-    }
-
-    public static String getNewNumber(GnucashEmployee cust) {
-	return cust.getGnucashFile().getNewEmployeeNumber();
-    }
-
 }

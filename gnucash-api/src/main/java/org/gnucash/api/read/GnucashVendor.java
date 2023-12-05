@@ -258,14 +258,4 @@ public interface GnucashVendor extends GnucashObject {
 
     Collection<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
-    // ------------------------------------------------------------
-
-    public static int getHighestNumber(GnucashVendor vend) {
-	return vend.getGnucashFile().getHighestVendorNumber();
-    }
-
-    public static String getNewNumber(GnucashVendor vend) {
-	return vend.getGnucashFile().getNewVendorNumber();
-    }
-
 }

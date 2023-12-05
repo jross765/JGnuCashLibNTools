@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
 
 
 /**
@@ -178,16 +178,6 @@ public interface GnucashGenerJob {
     Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
     Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
-
-    // ---------------------------------------------------------------
-
-    public static int getHighestNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getHighestJobNumber();
-    }
-
-    public static String getNewNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getNewJobNumber();
-    }
 
     // ---------------------------------------------------------------
 

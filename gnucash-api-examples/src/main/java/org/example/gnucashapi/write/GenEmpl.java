@@ -2,7 +2,7 @@ package org.example.gnucashapi.write;
 
 import java.io.File;
 
-import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 
@@ -31,7 +31,7 @@ public class GenEmpl {
 	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
 
 	GnucashWritableEmployee empl = gcshFile.createWritableEmployee();
-	empl.setNumber(GnucashEmployee.getNewNumber(empl));
+	empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
 	empl.setUserName(userName);
 	empl.getAddress().setAddressName(name);
 

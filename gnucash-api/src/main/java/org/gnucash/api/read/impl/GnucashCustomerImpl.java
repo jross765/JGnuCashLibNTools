@@ -499,10 +499,14 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	return getGnucashFile().getUnpaidInvoicesForCustomer_viaAllJobs(this);
     }
 
-    // -----------------------------------------------------------------
+    // ------------------------------------------------------------
 
     public static int getHighestNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getHighestCustomerNumber();
+	return ((GnucashFileImpl) cust.getGnucashFile()).getHighestCustomerNumber();
+    }
+
+    public static String getNewNumber(GnucashCustomer cust) {
+	return ((GnucashFileImpl) cust.getGnucashFile()).getNewCustomerNumber();
     }
 
     // -----------------------------------------------------------------

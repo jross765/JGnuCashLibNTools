@@ -342,10 +342,14 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
 
-    // -----------------------------------------------------------------
+    // ------------------------------------------------------------
 
     public static int getHighestNumber(GnucashEmployee empl) {
-	return empl.getGnucashFile().getHighestEmployeeNumber();
+	return ((GnucashFileImpl) empl.getGnucashFile()).getHighestEmployeeNumber();
+    }
+
+    public static String getNewNumber(GnucashEmployee empl) {
+	return ((GnucashFileImpl) empl.getGnucashFile()).getNewEmployeeNumber();
     }
 
     // -----------------------------------------------------------------

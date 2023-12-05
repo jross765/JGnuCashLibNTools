@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.write.GnucashWritableVendor;
 import org.junit.Before;
 import org.junit.Rule;
@@ -90,7 +90,7 @@ public class TestGnucashWritableVendorImpl
   public void test01_1() throws Exception
   {
       GnucashWritableVendor vend = gcshInFile.createWritableVendor();
-      vend.setNumber(GnucashVendor.getNewNumber(vend));
+      vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
       vend.setName("Norma Jean Baker");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
@@ -167,15 +167,15 @@ public class TestGnucashWritableVendorImpl
   public void test02_1() throws Exception
   {
       GnucashWritableVendor vend1 = gcshInFile.createWritableVendor();
-      vend1.setNumber(GnucashVendor.getNewNumber(vend1));
+      vend1.setNumber(GnucashVendorImpl.getNewNumber(vend1));
       vend1.setName("Norma Jean Baker");
       
       GnucashWritableVendor vend2 = gcshInFile.createWritableVendor();
-      vend2.setNumber(GnucashVendor.getNewNumber(vend2));
+      vend2.setNumber(GnucashVendorImpl.getNewNumber(vend2));
       vend2.setName("Madonna Louise Ciccone");
       
       GnucashWritableVendor vend3 = gcshInFile.createWritableVendor();
-      vend3.setNumber(GnucashVendor.getNewNumber(vend3));
+      vend3.setNumber(GnucashVendorImpl.getNewNumber(vend3));
       vend3.setName("Rowan Atkinson");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);

@@ -34,6 +34,8 @@ public class FilePriceManager {
     
     public static final DateFormat PRICE_QUOTE_DATE_FORMAT = new SimpleDateFormat(Const.STANDARD_DATE_FORMAT);
 
+    private static final int RECURS_DEPTH_MAX = 5; // ::MAGIC
+
     // ---------------------------------------------------------------
     
     private GnucashFileImpl gcshFile;
@@ -171,7 +173,7 @@ public class FilePriceManager {
 	Date latestDate = null;
 	FixedPointNumber latestQuote = null;
 	FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
-	final int maxRecursionDepth = 5; // ::MAGIC
+	final int maxRecursionDepth = RECURS_DEPTH_MAX;
 
 	for ( GncV2.GncBook.GncPricedb.Price priceQuote : priceDB.getPrice() ) {
 	    if (priceQuote == null) {

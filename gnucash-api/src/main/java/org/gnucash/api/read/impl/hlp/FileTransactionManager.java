@@ -113,6 +113,62 @@ public class FileTransactionManager {
 
     // ---------------------------------------------------------------
 
+    public void addTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	addTransaction(trx, true);
+    }
+
+    public void addTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	trxMap.put(trx.getId(), trx);
+	
+	if ( withSplt ) {
+	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		addTransactionSplit(splt, false);
+	    }
+	}
+    }
+
+    public void removeTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	removeTransaction(trx, true);
+    }
+
+    public void removeTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( withSplt ) {
+	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		removeTransactionSplit(splt, false);
+	    }
+	}
+
+	trxMap.remove(trx.getId());
+    }
+
+    // ---------------------------------------------------------------
+
+    public void addTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	addTransactionSplit(splt, true);
+    }
+
+    public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	trxSpltMap.put(splt.getId(), splt);
+
+	if ( withInvc ) {
+	    addTransaction(splt.getTransaction(), false);
+	}
+    }
+
+    public void removeTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	removeTransactionSplit(splt, true);
+    }
+
+    public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	if ( withInvc ) {
+	    removeTransaction(splt.getTransaction(), false);
+	}
+	
+	trxSpltMap.remove(splt.getId());
+    }
+
+    // ---------------------------------------------------------------
+
     /**
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
@@ -267,62 +323,6 @@ public class FileTransactionManager {
 	}
 	
 	return result;
-    }
-
-    // ---------------------------------------------------------------
-
-    public void addTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	addTransaction(trx, true);
-    }
-
-    public void addTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	trxMap.put(trx.getId(), trx);
-	
-	if ( withSplt ) {
-	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
-		addTransactionSplit(splt, false);
-	    }
-	}
-    }
-
-    public void removeTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	removeTransaction(trx, true);
-    }
-
-    public void removeTransaction(GnucashTransaction trx, boolean withSplt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	if ( withSplt ) {
-	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
-		removeTransactionSplit(splt, false);
-	    }
-	}
-
-	trxMap.remove(trx.getId());
-    }
-
-    // ---------------------------------------------------------------
-
-    public void addTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	addTransactionSplit(splt, true);
-    }
-
-    public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	trxSpltMap.put(splt.getId(), splt);
-
-	if ( withInvc ) {
-	    addTransaction(splt.getTransaction(), false);
-	}
-    }
-
-    public void removeTransactionSplit(GnucashTransactionSplit splt) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	removeTransactionSplit(splt, true);
-    }
-
-    public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	if ( withInvc ) {
-	    removeTransaction(splt.getTransaction(), false);
-	}
-	
-	trxSpltMap.remove(splt.getId());
     }
 
     // ---------------------------------------------------------------

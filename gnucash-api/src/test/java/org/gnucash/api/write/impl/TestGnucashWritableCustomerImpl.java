@@ -12,7 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.write.GnucashWritableCustomer;
 import org.junit.Before;
 import org.junit.Rule;
@@ -90,7 +90,7 @@ public class TestGnucashWritableCustomerImpl
   public void test01_1() throws Exception
   {
       GnucashWritableCustomer cust = gcshInFile.createWritableCustomer();
-      cust.setNumber(GnucashCustomer.getNewNumber(cust));
+      cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
       cust.setName("Frederic Austerlitz");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
@@ -167,15 +167,15 @@ public class TestGnucashWritableCustomerImpl
   public void test02_1() throws Exception
   {
       GnucashWritableCustomer cust1 = gcshInFile.createWritableCustomer();
-      cust1.setNumber(GnucashCustomer.getNewNumber(cust1));
+      cust1.setNumber(GnucashCustomerImpl.getNewNumber(cust1));
       cust1.setName("Frederic Austerlitz");
       
       GnucashWritableCustomer cust2 = gcshInFile.createWritableCustomer();
-      cust2.setNumber(GnucashCustomer.getNewNumber(cust2));
+      cust2.setNumber(GnucashCustomerImpl.getNewNumber(cust2));
       cust2.setName("Doris Kappelhoff");
       
       GnucashWritableCustomer cust3 = gcshInFile.createWritableCustomer();
-      cust3.setNumber(GnucashCustomer.getNewNumber(cust3));
+      cust3.setNumber(GnucashCustomerImpl.getNewNumber(cust3));
       cust3.setName("Georgios Panayiotou");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);

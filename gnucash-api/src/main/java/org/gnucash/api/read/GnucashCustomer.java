@@ -275,14 +275,4 @@ public interface GnucashCustomer extends GnucashObject {
 
     Collection<GnucashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
-    // ------------------------------------------------------------
-
-    public static int getHighestNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getHighestCustomerNumber();
-    }
-
-    public static String getNewNumber(GnucashCustomer cust) {
-	return cust.getGnucashFile().getNewCustomerNumber();
-    }
-
 }
