@@ -140,6 +140,13 @@ public class TestGnucashGenerInvoiceEntryImpl
     assertEquals("Hours",   GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.ENGLISH));
     assertEquals("Stunden", GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.GERMAN));
     assertEquals("Heures",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.FRENCH));
+    // Locale.SPANISH does not exist (funny...)
+    // assertEquals("Horas",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.SPANISH));
+
+    assertEquals("Hours",   GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("EN")));
+    assertEquals("Stunden", GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("DE")));
+    assertEquals("Heures",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("FR")));
+    assertEquals("Horas" ,  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("ES")));
   }
 
 }

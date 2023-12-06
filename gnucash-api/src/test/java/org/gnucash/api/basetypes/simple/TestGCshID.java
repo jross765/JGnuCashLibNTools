@@ -55,20 +55,21 @@ public class TestGCshID {
     public void test03() throws Exception {
 	try {
 	    gcshID.set("2b5f38b679e848ee8e397a3a43ed0eb"); // invalid string (too short)
+	    assertEquals(1, 0);
 	} catch ( Exception exc ) {
 	    assertEquals(0, 0);
 	}
 
 	try {
 	    gcshID.set("2b5f38b679e848ee8e397a3a43ed0eb2a"); // invalid string (too long)
-	    assertEquals("E000123", gcshID.get());
+	    assertEquals(1, 0);
 	} catch ( Exception exc ) {
 	    assertEquals(0, 0);
 	}
 
 	try {
 	    gcshID.set("2z5f38b679e848ee8e397a3a43ed0eb"); // invalid string (illegal char, 2nd pos)
-	    assertEquals("E000123", gcshID.get());
+	    assertEquals(1, 0);
 	} catch ( Exception exc ) {
 	    assertEquals(0, 0);
 	}

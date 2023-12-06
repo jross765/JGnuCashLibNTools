@@ -35,8 +35,8 @@ public class Const_ES {
 
     // ---
 
-    public static final String INVC_ENTR_ACTION_JOB      = "Projet";
-    public static final String INVC_ENTR_ACTION_MATERIAL = "Matières premières";
-    public static final String INVC_ENTR_ACTION_HOURS    = "Heures";
+    public static final String INVC_ENTR_ACTION_JOB      = "Ejercicio";
+    public static final String INVC_ENTR_ACTION_MATERIAL = "Material";
+    public static final String INVC_ENTR_ACTION_HOURS    = "Horas";
 
 }

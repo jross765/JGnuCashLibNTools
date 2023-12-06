@@ -49,6 +49,7 @@ public class TestGCshCurrID
     try 
     {
 	commCurr = new GCshCurrID(Currency.getInstance("XYZ")); // invalid code
+	assertEquals(1, 0);
     }
     catch (Exception exc)
     {
