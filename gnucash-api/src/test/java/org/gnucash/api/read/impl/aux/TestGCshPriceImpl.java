@@ -135,6 +135,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -144,6 +145,7 @@ public class TestGCshPriceImpl
       try
       {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -153,6 +155,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -182,6 +185,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -191,6 +195,7 @@ public class TestGCshPriceImpl
       try
       {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -200,6 +205,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -229,6 +235,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -238,6 +245,7 @@ public class TestGCshPriceImpl
       try
       {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -247,6 +255,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -274,6 +283,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GCshCmdtyID dummy = prc.getFromCommodityQualifID(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
@@ -283,6 +293,7 @@ public class TestGCshPriceImpl
       try
       {
 	  GnucashCommodity dummy = prc.getFromCommodity(); // illegal call in this context
+	  assertEquals(1, 0);
       }
       catch ( Exception exc )
       {
