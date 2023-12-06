@@ -18,7 +18,8 @@ import org.gnucash.api.generated.GncTransaction;
 public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSplit> {
 
   // For the following enumerations cf.:
-  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Split.h
+  //  - https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Split.h
+  //  - https://github.com/Gnucash/gnucash/blob/stable/gnucash/register/ledger-core/split-register.c
 
   public enum ReconStatus {
       
@@ -63,12 +64,35 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
   public enum Action {
       
       // ::MAGIC (actually kind of "half-magic")
-      INVOICE ("TRX_SPLT_ACTION_INVOICE"),
-      BILL    ("TRX_SPLT_ACTION_BILL"),
-      VOUCHER ("TRX_SPLT_ACTION_VOUCHER"),
-      PAYMENT ("TRX_SPLT_ACTION_PAYMENT"),
-      BUY     ("TRX_SPLT_ACTION_BUY"),
-      SELL    ("TRX_SPLT_ACTION_SELL");
+      INCREASE    ("TRX_SPLT_ACTION_INCREASE"),
+      DECREASE    ("TRX_SPLT_ACTION_DECREASE"),
+      
+      INTEREST    ("TRX_SPLT_ACTION_INTEREST"),
+      PAYMENT     ("TRX_SPLT_ACTION_PAYMENT"),
+      REBATE      ("TRX_SPLT_ACTION_REBATE"),
+      PAYCHECK    ("TRX_SPLT_ACTION_PAYCHECK"),
+      CREDIT      ("TRX_SPLT_ACTION_CREDIT"),
+      
+      ATM_DEPOSIT ("TRX_SPLT_ACTION_ATM_DEPOSIT"),
+      ATM_DRAW    ("TRX_SPLT_ACTION_ATM_DRAW"),
+      ONLINE      ("TRX_SPLT_ACTION_ONLINE"),
+      
+      INVOICE     ("TRX_SPLT_ACTION_INVOICE"),
+      BILL        ("TRX_SPLT_ACTION_BILL"),
+      VOUCHER     ("TRX_SPLT_ACTION_VOUCHER"),
+      
+      BUY         ("TRX_SPLT_ACTION_BUY"),
+      SELL        ("TRX_SPLT_ACTION_SELL"),
+      EQUITY      ("TRX_SPLT_ACTION_EQUITY"),
+      
+      PRICE       ("TRX_SPLT_ACTION_PRICE"),
+      FEE         ("TRX_SPLT_ACTION_FEE"),
+      DIVIDEND    ("TRX_SPLT_ACTION_DIVIDEND"),
+      LTCG        ("TRX_SPLT_ACTION_LTCG"),
+      STCG        ("TRX_SPLT_ACTION_STCG"),
+      INCOME      ("TRX_SPLT_ACTION_INCOME"),
+      DIST        ("TRX_SPLT_ACTION_DIST"),
+      SPLIT       ("TRX_SPLT_ACTION_SPLIT");
       
       // ---
 

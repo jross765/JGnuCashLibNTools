@@ -3,8 +3,7 @@ package org.gnucash.api;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-public class Const
-{
+public class Const {
   
   public static final String XML_FORMAT_VERSION = "2.0.0";
   
