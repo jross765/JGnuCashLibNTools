@@ -40,7 +40,7 @@ public class GetInvcEntryInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:                " + entr.getId());
+	    System.out.println("ID:                " + entr.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:                " + "ERROR");
 	}

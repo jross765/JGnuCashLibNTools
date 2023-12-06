@@ -47,7 +47,7 @@ public class FileInvoiceEntryManager {
 
 	    try {
 		GnucashGenerInvoiceEntry invcEntr = createGenerInvoiceEntry(jwsdpInvcEntr);
-		invcEntrMap.put(invcEntr.getId(), invcEntr);
+		invcEntrMap.put(invcEntr.getID(), invcEntr);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal (generic) Invoice-Entry-Entry with id="
@@ -71,11 +71,11 @@ public class FileInvoiceEntryManager {
     // ---------------------------------------------------------------
 
     public void addInvcEntry(GnucashGenerInvoiceEntry entr) {
-	invcEntrMap.put(entr.getId(), entr);
+	invcEntrMap.put(entr.getID(), entr);
     }
 
     public void removeInvcEntry(GnucashGenerInvoiceEntry entr) {
-	invcEntrMap.remove(entr.getId());
+	invcEntrMap.remove(entr.getID());
     }
 
     // ---------------------------------------------------------------

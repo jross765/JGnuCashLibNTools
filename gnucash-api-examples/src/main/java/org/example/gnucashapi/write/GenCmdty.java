@@ -40,13 +40,13 @@ public class GenCmdty {
 	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
 
 	GnucashWritableCommodity cmdty1 = gcshFile.createWritableCommodity();
-	cmdty1.setQualifId(new GCshCmdtyID_Exchange(cmdty1_exchange, cmdty1_ticker));
+	cmdty1.setQualifID(new GCshCmdtyID_Exchange(cmdty1_exchange, cmdty1_ticker));
 	cmdty1.setXCode(cmdty1_isin);
 	cmdty1.setName(cmdty1_name);
 	System.out.println("Commodity no. 1 to write: " + cmdty1.toString());
 
 	GnucashWritableCommodity cmdty2 = gcshFile.createWritableCommodity();
-	cmdty2.setQualifId(new GCshCmdtyID_SecIdType(cmdty2_secIdType, cmdty2_isin));
+	cmdty2.setQualifID(new GCshCmdtyID_SecIdType(cmdty2_secIdType, cmdty2_isin));
 	cmdty2.setXCode(cmdty2_isin);
 	cmdty2.setName(cmdty2_name);
 	System.out.println("Commodity no. 2 to write: " + cmdty2.toString());

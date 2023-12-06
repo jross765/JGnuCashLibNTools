@@ -79,7 +79,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		// (GnucashWritableTransactionSplitImpl)this";
 		// thus we would get warnings about duplicate split-ids and can no longer compare splits by instance.
 		//        if(account!=null)
-		//            ((GnucashAccountImpl)account).replaceTransactionSplit(account.getTransactionSplitByID(getId()),
+		//            ((GnucashAccountImpl)account).replaceTransactionSplit(account.getTransactionSplitByID(getID()),
 		// GnucashWritableTransactionSplitImpl.this);
 
 		trx.addSplit(this);
@@ -159,7 +159,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		{
 			GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory.createGncTransactionTrnSplitsTrnSplitSplitAccount();
 			splitaccount.setType(Const.XML_DATA_TYPE_GUID);
-			splitaccount.setValue(account.getId().toString());
+			splitaccount.setValue(account.getID().toString());
 			split.setSplitAccount(splitaccount);
 		}
 		return split;
@@ -195,12 +195,12 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 				:
 						getJwsdpPeer().getSplitAccount().getValue());
 		getJwsdpPeer().getSplitAccount().setType(Const.XML_DATA_TYPE_GUID);
-		getJwsdpPeer().getSplitAccount().setValue(account.getId().toString());
+		getJwsdpPeer().getSplitAccount().setValue(account.getID().toString());
 		((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		if (old == null || !old.equals(account.getId())) {
+		if (old == null || !old.equals(account.getID())) {
 			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("accountID", old, account.getId());
+				getPropertyChangeSupport().firePropertyChange("accountID", old, account.getID());
 			}
 		}
 

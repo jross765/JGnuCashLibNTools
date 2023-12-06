@@ -80,7 +80,7 @@ public interface GCshOwner {
 
     public Type getInvcType() throws WrongOwnerJITypeException;
     
-    public String getId() throws OwnerJITypeUnsetException;
+    public String getID() throws OwnerJITypeUnsetException;
     
     // -----------------------------------------------------------------
     

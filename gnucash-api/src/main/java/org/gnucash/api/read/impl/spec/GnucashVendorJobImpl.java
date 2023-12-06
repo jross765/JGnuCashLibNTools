@@ -48,15 +48,15 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getVendorId() {
-        return getOwnerId();
+    public GCshID getVendorID() {
+        return getOwnerID();
     }
 
     /**
      * {@inheritDoc}
      */
     public GnucashVendor getVendor() {
-        return file.getVendorByID(getVendorId());
+        return file.getVendorByID(getVendorID());
     }
 
     // -----------------------------------------------------------------
@@ -69,7 +69,7 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
 	StringBuffer buffer = new StringBuffer();
 	buffer.append("[GnucashVendorJobImpl:");
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	
 	buffer.append(" number: ");
 	buffer.append(getNumber());
@@ -78,7 +78,7 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
 	buffer.append(getName() + "'");
 	
 	buffer.append(" vendor-id: ");
-	buffer.append(getVendorId());
+	buffer.append(getVendorID());
 	
 	buffer.append(" is-active: ");
 	buffer.append(isActive());

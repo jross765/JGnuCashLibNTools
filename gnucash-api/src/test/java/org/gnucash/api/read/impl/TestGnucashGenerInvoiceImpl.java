@@ -90,7 +90,7 @@ public class TestGnucashGenerInvoiceImpl
     invc = gcshFile.getGenerInvoiceByID(INVC_1_ID);
     assertNotEquals(null, invc);
     
-    assertEquals(INVC_1_ID, invc.getId());
+    assertEquals(INVC_1_ID, invc.getID());
     assertEquals(GCshOwner.Type.CUSTOMER, invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("R1730", invc.getNumber());
     assertEquals("Alles ohne Steuern / voll bezahlt", invc.getDescription());
@@ -110,9 +110,9 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("92e54c04b66f4682a9afb48e27dfe397", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getID().toString());
     assertEquals("3c67a99b5fe34387b596bb1fbab21a74", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getID().toString());
   }
 
   @Test
@@ -132,13 +132,13 @@ public class TestGnucashGenerInvoiceImpl
       invc = gcshFile.getGenerInvoiceByID(INVC_1_ID);
       assertNotEquals(null, invc);
 
-    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invc.getPostTransaction().getId().toString());
+    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invc.getPostTransaction().getID().toString());
     assertEquals(1, invc.getPayingTransactions().size());
 
     LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invc.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("29557cfdf4594eb68b1a1b710722f991", 
-                 ((GnucashTransaction) trxList.toArray()[0]).getId().toString());
+                 ((GnucashTransaction) trxList.toArray()[0]).getID().toString());
 
     assertEquals(true, invc.isInvcFullyPaid());
   }
@@ -151,7 +151,7 @@ public class TestGnucashGenerInvoiceImpl
     invc = gcshFile.getGenerInvoiceByID(INVC_4_ID);
     assertNotEquals(null, invc);
     
-    assertEquals(INVC_4_ID, invc.getId());
+    assertEquals(INVC_4_ID, invc.getID());
     assertEquals(GCshOwner.Type.VENDOR, invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("1730-383/2", invc.getNumber());
     assertEquals("Sie wissen schon: Gefälligkeiten, ne?", invc.getDescription());
@@ -167,7 +167,7 @@ public class TestGnucashGenerInvoiceImpl
     invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
     
-    assertEquals(INVC_2_ID, invc.getId());
+    assertEquals(INVC_2_ID, invc.getID());
     assertEquals(GCshOwner.Type.VENDOR, invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("2740921", invc.getNumber());
     assertEquals("Dat isjamaol eine schöne jepflejgte Reschnung!", invc.getDescription());
@@ -188,7 +188,7 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("0041b8d397f04ae4a2e9e3c7f991c4ec", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getID().toString());
   }
 
   @Test
@@ -202,9 +202,9 @@ public class TestGnucashGenerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invc.getGenerEntries());
     assertEquals("513589a11391496cbb8d025fc1e87eaa", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[1]).getID().toString());
     assertEquals("dc3c53f07ff64199ad4ea38988b3f40a", 
-                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashGenerInvoiceEntry) entrList.toArray()[0]).getID().toString());
   }
 
   @Test
@@ -243,7 +243,7 @@ public class TestGnucashGenerInvoiceImpl
 //    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) bllSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("xxx", 
-//                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getId());
+//                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getID());
 
     assertEquals(false, invc.isBillFullyPaid());
   }
@@ -254,13 +254,13 @@ public class TestGnucashGenerInvoiceImpl
     invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
 
-    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invc.getPostTransaction().getId().toString());   
+    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invc.getPostTransaction().getID().toString());   
     assertEquals(1, invc.getPayingTransactions().size());
     
     LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invc.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("ccff780b18294435bf03c6cb1ac325c1", 
-                 ((GnucashTransaction) trxList.toArray()[0]).getId().toString());
+                 ((GnucashTransaction) trxList.toArray()[0]).getID().toString());
     
     assertEquals(true, invc.isBillFullyPaid());
   }

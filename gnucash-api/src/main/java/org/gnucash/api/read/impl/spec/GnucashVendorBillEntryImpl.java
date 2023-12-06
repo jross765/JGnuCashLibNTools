@@ -81,7 +81,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
       {
         throw new IllegalStateException(
             "No vendor bill with id '" + getBillID()
-            + "' for bill entry with id '" + getId() + "'");
+            + "' for bill entry with id '" + getID() + "'");
       }
     }
     
@@ -142,7 +142,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
     StringBuffer buffer = new StringBuffer();
     buffer.append("[GnucashVendorBillEntryImpl:");
     buffer.append(" id: ");
-    buffer.append(getId());
+    buffer.append(getID());
     buffer.append(" bill-id: ");
     buffer.append(getBillID());
     //      buffer.append(" bill: ");

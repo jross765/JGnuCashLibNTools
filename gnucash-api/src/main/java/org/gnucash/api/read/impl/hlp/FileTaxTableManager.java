@@ -43,7 +43,7 @@ public class FileTaxTableManager {
 		
 	    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
 	    GCshTaxTableImpl taxTab = createTaxTable(jwsdpPeer);
-	    taxTabMap.put(taxTab.getId(), taxTab);
+	    taxTabMap.put(taxTab.getID(), taxTab);
 	}
 
 	LOGGER.debug("init: No. of entries in tax table map: " + taxTabMap.size());
@@ -61,11 +61,11 @@ public class FileTaxTableManager {
     // ---------------------------------------------------------------
 
     public void addTaxTable(GCshTaxTable taxTab) {
-	taxTabMap.put(taxTab.getId(), taxTab);
+	taxTabMap.put(taxTab.getID(), taxTab);
     }
 
     public void removeTaxTable(GCshTaxTable taxTab) {
-	taxTabMap.remove(taxTab.getId());
+	taxTabMap.remove(taxTab.getID());
     }
 
     // ---------------------------------------------------------------

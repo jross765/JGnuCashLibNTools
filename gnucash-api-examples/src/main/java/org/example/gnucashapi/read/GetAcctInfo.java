@@ -63,7 +63,7 @@ public class GetAcctInfo {
 	System.out.println("Depth:           " + depth);
 
 	try {
-	    System.out.println("ID:              " + acct.getId());
+	    System.out.println("ID:              " + acct.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:              " + "ERROR");
 	}

@@ -96,7 +96,7 @@ public class TestGnucashWritableTransactionImpl
   // 
   // Check whether the GnucashWritableTransaction objects returned by 
   // GnucashWritableFileImpl.getWritableTransactionByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getTransactionById().
+  // complete (as complete as returned be GnucashFileImpl.getTransactionByID().
 
   @Test
   public void test01_1() throws Exception
@@ -104,16 +104,16 @@ public class TestGnucashWritableTransactionImpl
     GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_1_ID);
     assertNotEquals(null, trx);
     
-    assertEquals(TRX_1_ID, trx.getId());
+    assertEquals(TRX_1_ID, trx.getID());
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals("Dividenderl", trx.getDescription());
     assertEquals("2023-08-06T10:59Z", trx.getDatePosted().toString());
     assertEquals("2023-08-06T08:21:44Z", trx.getDateEntered().toString());
         
     assertEquals(3, trx.getSplitsCount());
-    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId().toString());
-    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId().toString());
-    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString());
+    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getID().toString());
+    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getID().toString());
+    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getID().toString());
   }
   
   @Test
@@ -122,15 +122,15 @@ public class TestGnucashWritableTransactionImpl
     GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_2_ID);
     assertNotEquals(null, trx);
     
-    assertEquals(TRX_2_ID, trx.getId());
+    assertEquals(TRX_2_ID, trx.getID());
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals("Unfug und Quatsch GmbH", trx.getDescription());
     assertEquals("2023-07-29T10:59Z", trx.getDatePosted().toString());
     assertEquals("2023-09-13T08:36:54Z", trx.getDateEntered().toString());
         
     assertEquals(2, trx.getSplitsCount());
-    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getId().toString());
-    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getId().toString());
+    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getID().toString());
+    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getID().toString());
   }
 
   // -----------------------------------------------------------------
@@ -145,7 +145,7 @@ public class TestGnucashWritableTransactionImpl
     GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_1_ID);
     assertNotEquals(null, trx);
     
-    assertEquals(TRX_1_ID, trx.getId());
+    assertEquals(TRX_1_ID, trx.getID());
     
     // ----------------------------
     // Modify the object
@@ -191,9 +191,9 @@ public class TestGnucashWritableTransactionImpl
     assertEquals("2023-08-06T08:21:44Z", trx.getDateEntered().toString()); // unchanged
         
     assertEquals(3, trx.getSplitsCount()); // unchanged
-    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId().toString()); // unchanged
-    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId().toString()); // unchanged
-    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString()); // unchanged
+    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getID().toString()); // unchanged
+    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getID().toString()); // unchanged
+    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getID().toString()); // unchanged
   }
 
   private void test02_1_check_persisted(File outFile) throws Exception
@@ -203,16 +203,16 @@ public class TestGnucashWritableTransactionImpl
      GnucashTransaction trx = gcshOutFile.getTransactionByID(TRX_1_ID);
      assertNotEquals(null, trx);
      
-     assertEquals(TRX_1_ID, trx.getId());
+     assertEquals(TRX_1_ID, trx.getID());
      assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
      assertEquals("Super dividend", trx.getDescription()); // changed
      assertEquals("1970-01-01T00:00+01:00", trx.getDatePosted().toString()); // changed
      assertEquals("2023-08-06T08:21:44Z", trx.getDateEntered().toString()); // unchanged
          
      assertEquals(3, trx.getSplitsCount()); // unchanged
-     assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId().toString()); // unchanged
-     assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId().toString()); // unchanged
-     assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString()); // unchanged
+     assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getID().toString()); // unchanged
+     assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getID().toString()); // unchanged
+     assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getID().toString()); // unchanged
   }
   
   // -----------------------------------------------------------------

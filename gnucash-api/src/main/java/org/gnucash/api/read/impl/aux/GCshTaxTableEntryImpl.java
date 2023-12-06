@@ -129,7 +129,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
 	myAccount = acct;
 
-	setAccountID(acct.getId());
+	setAccountID(acct.getID());
     }
 
     // ---------------------------------------------------------------

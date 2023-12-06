@@ -56,7 +56,7 @@ public class FileAccountManager {
 
 	    try {
 		GnucashAccount acct = createAccount(jwsdpAcct);
-		acctMap.put(acct.getId(), acct);
+		acctMap.put(acct.getID(), acct);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Account-Entry with id=" + jwsdpAcct.getActId().getValue(), e);
@@ -78,11 +78,11 @@ public class FileAccountManager {
     // ---------------------------------------------------------------
 
     public void addAccount(GnucashAccount acct) {
-	acctMap.put(acct.getId(), acct);
+	acctMap.put(acct.getID(), acct);
     }
 
     public void removeAccount(GnucashAccount acct) {
-	acctMap.remove(acct.getId());
+	acctMap.remove(acct.getID());
     }
 
     // ---------------------------------------------------------------
@@ -117,7 +117,7 @@ public class FileAccountManager {
         for (Object element : acctMap.values()) {
             GnucashAccount account = (GnucashAccount) element;
     
-            GCshID parentID = account.getParentAccountId();
+            GCshID parentID = account.getParentAccountID();
             if (parentID == null) {
         	if (id == null) {
         	    retval.add((GnucashAccount) account);
@@ -286,7 +286,7 @@ public class FileAccountManager {
             Collection<GnucashAccount> retval = new TreeSet<GnucashAccount>();
     
             for (GnucashAccount account : getAccounts()) {
-        	if (account.getParentAccountId() == null) {
+        	if (account.getParentAccountID() == null) {
         	    retval.add(account);
         	}
     

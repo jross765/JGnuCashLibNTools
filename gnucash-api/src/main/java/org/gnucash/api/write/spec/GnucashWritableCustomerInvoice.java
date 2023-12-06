@@ -19,7 +19,7 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
  */
 public interface GnucashWritableCustomerInvoice extends GnucashWritableGenerInvoice {
 
-    GnucashWritableCustomerInvoiceEntry getWritableEntryById(GCshID id);
+    GnucashWritableCustomerInvoiceEntry getWritableEntryByID(GCshID id);
     
     // ---------------------------------------------------------------
 

@@ -27,7 +27,7 @@ public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
     /**
      * @return ID of employee this invoice has been sent from 
      */
-    GCshID getEmployeeId();
+    GCshID getEmployeeID();
 
     /**
      * @return Customer this invoice has been sent to.
@@ -37,7 +37,7 @@ public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashEmployeeVoucherEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
+    GnucashEmployeeVoucherEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashEmployeeVoucherEntry> getEntries() throws WrongInvoiceTypeException;
 

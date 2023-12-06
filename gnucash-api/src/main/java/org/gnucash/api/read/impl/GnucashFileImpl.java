@@ -1296,8 +1296,8 @@ public class GnucashFileImpl implements GnucashFile,
 	for ( GncV2.GncBook.GncPricedb.Price price : priceDB.getPrice() ) {
 	    GncV2.GncBook.GncPricedb.Price.PriceCommodity fromCmdtyCurr = price.getPriceCommodity();
 //	    GncV2.GncBook.GncPricedb.Price.PriceCurrency  toCurr = price.getPriceCurrency();
-//	    System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyId() + 
-//	                       " --> " + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId());
+//	    System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyID() + 
+//	                       " --> " + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyID());
 
 	    // Check if we already have a latest price for this commodity
 	    // (= currency, fund, ...)

@@ -101,7 +101,7 @@ public class TestGnucashWritableAccountImpl
   // 
   // Check whether the GnucashWritableAccount objects returned by 
   // GnucashWritableFileImpl.getWritableAccountByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getAccountById().
+  // complete (as complete as returned be GnucashFileImpl.getAccountByID().
 
   @Test
   public void test01_1() throws Exception
@@ -109,26 +109,26 @@ public class TestGnucashWritableAccountImpl
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
     
-    assertEquals(ACCT_1_ID, acct.getId());
+    assertEquals(ACCT_1_ID, acct.getID());
     assertEquals(GnucashAccount.Type.BANK, acct.getType());
     assertEquals("Giro RaiBa", acct.getName());
     assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa", acct.getQualifiedName());
     assertEquals("Girokonto 1", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
          
-    assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountId().toString());
+    assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
 
     // ::TODO (throws exception when you try to call that)
 //    assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //    assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
     
     assertEquals(6, acct.getTransactions().size());
-    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getId().toString());
-    assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getId().toString());
-    assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getId().toString());
-    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getId().toString());
-    assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getId().toString());
-    assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getId().toString());
+    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
+    assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getID().toString());
+    assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getID().toString());
+    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getID().toString());
+    assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getID().toString());
+    assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getID().toString());
   }
   
   @Test
@@ -137,14 +137,14 @@ public class TestGnucashWritableAccountImpl
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_2_ID);
     assertNotEquals(null, acct);
     
-    assertEquals(ACCT_2_ID, acct.getId());
+    assertEquals(ACCT_2_ID, acct.getID());
     assertEquals(GnucashAccount.Type.ASSET, acct.getType());
     assertEquals("Depot RaiBa", acct.getName());
     assertEquals("Root Account::Aktiva::Depots::Depot RaiBa", acct.getQualifiedName());
     assertEquals("Aktiendepot 1", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("7ee6fe4de6db46fd957f3513c9c6f983", acct.getParentAccountId().toString());
+    assertEquals("7ee6fe4de6db46fd957f3513c9c6f983", acct.getParentAccountID().toString());
 
     // ::TODO
     // ::TODO (throws exception when you try to call that)
@@ -153,8 +153,8 @@ public class TestGnucashWritableAccountImpl
 
     // ::TODO
     assertEquals(0, acct.getTransactions().size());
-//    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getId());
-//    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(1).getId());
+//    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID());
+//    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(1).getID());
   }
 
   // -----------------------------------------------------------------
@@ -169,7 +169,7 @@ public class TestGnucashWritableAccountImpl
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
     
-    assertEquals(ACCT_1_ID, acct.getId());
+    assertEquals(ACCT_1_ID, acct.getID());
     
     // ----------------------------
     // Modify the object
@@ -210,26 +210,26 @@ public class TestGnucashWritableAccountImpl
 
   private void test02_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
-      assertEquals(ACCT_1_ID, acct.getId());
+      assertEquals(ACCT_1_ID, acct.getID());
       assertEquals(GnucashAccount.Type.BANK, acct.getType());
       assertEquals("Giro Bossa Nova", acct.getName());
       assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Bossa Nova", acct.getQualifiedName());
       assertEquals("Buffda Duffda Deuf", acct.getDescription());
       assertEquals("CURRENCY:CAD", acct.getCmdtyCurrID().toString());
 
-      assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountId().toString());
+      assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
 
       // ::TODO (throws exception when you try to call that)
 //      assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //      assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
       
       assertEquals(6, acct.getTransactions().size());
-      assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getId().toString());
-      assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getId().toString());
-      assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getId().toString());
-      assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getId().toString());
-      assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getId().toString());
-      assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getId().toString());
+      assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
+      assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getID().toString());
+      assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getID().toString());
+      assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getID().toString());
+      assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getID().toString());
+      assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getID().toString());
   }
 
   private void test02_1_check_persisted(File outFile) throws Exception
@@ -239,26 +239,26 @@ public class TestGnucashWritableAccountImpl
      GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
      assertNotEquals(null, acct);
      
-     assertEquals(ACCT_1_ID, acct.getId());
+     assertEquals(ACCT_1_ID, acct.getID());
      assertEquals(GnucashAccount.Type.BANK, acct.getType());
      assertEquals("Giro Bossa Nova", acct.getName());
      assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Bossa Nova", acct.getQualifiedName());
      assertEquals("Buffda Duffda Deuf", acct.getDescription());
      assertEquals("CURRENCY:CAD", acct.getCmdtyCurrID().toString());
 
-     assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountId().toString());
+     assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
 
      // ::TODO (throws exception when you try to call that)
 //     assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //     assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
      
      assertEquals(6, acct.getTransactions().size());
-     assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getId().toString());
-     assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getId().toString());
-     assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getId().toString());
-     assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getId().toString());
-     assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getId().toString());
-     assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getId().toString());
+     assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
+     assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getID().toString());
+     assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(2).getID().toString());
+     assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(3).getID().toString());
+     assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(4).getID().toString());
+     assertEquals("d465b802d5c940c9bba04b87b63ba23f", acct.getTransactions().get(5).getID().toString());
   }
   
   // -----------------------------------------------------------------

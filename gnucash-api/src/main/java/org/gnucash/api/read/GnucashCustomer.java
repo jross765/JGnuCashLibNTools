@@ -35,7 +35,7 @@ public interface GnucashCustomer extends GnucashObject {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getId();
+    GCshID getID();
 
     /**
      *

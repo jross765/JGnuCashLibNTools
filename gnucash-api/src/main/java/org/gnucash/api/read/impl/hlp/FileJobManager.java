@@ -59,7 +59,7 @@ public class FileJobManager {
     
             try {
         	GnucashGenerJobImpl generJob = createGenerJob(jwsdpJob);
-        	GCshID jobID = generJob.getId();
+        	GCshID jobID = generJob.getID();
         	if (jobID == null) {
         	    LOGGER.error("init: File contains a (generic) Job w/o an ID. indexing it with the Null-ID '" + GCshID.NULL_ID + "'");
         	    jobID = new GCshID(GCshID.NULL_ID);
@@ -68,7 +68,7 @@ public class FileJobManager {
         	
         	if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
         	    GnucashCustomerJobImpl custJob = createCustomerJob(jwsdpJob);
-        	    GCshID custJobID = custJob.getId();
+        	    GCshID custJobID = custJob.getID();
         	    if (custJobID == null) {
         		LOGGER.error("init: File contains a customer Job w/o an ID. indexing it with the Null-ID '" + GCshID.NULL_ID + "'");
         		custJobID = new GCshID(GCshID.NULL_ID);
@@ -76,7 +76,7 @@ public class FileJobManager {
         	    custJobMap.put(custJobID, custJob);
         	} else if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
         	    GnucashVendorJobImpl vendJob = createVendorJob(jwsdpJob);
-        	    GCshID vendJobID = vendJob.getId();
+        	    GCshID vendJobID = vendJob.getID();
         	    if (vendJobID == null) {
         		LOGGER.error("init: File contains a vendor Job w/o an ID. indexing it with the Null-ID '" + GCshID.NULL_ID + "'");
         		vendJobID = new GCshID(GCshID.NULL_ID);
@@ -125,7 +125,7 @@ public class FileJobManager {
     }
 
     private void addGenerJob(GnucashGenerJob job, boolean withSpec) {
-	jobMap.put(job.getId(), job);
+	jobMap.put(job.getID(), job);
 	
 	if ( withSpec ) {
 	    if ( job.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
@@ -149,7 +149,7 @@ public class FileJobManager {
     }
 
     private void removeGenerJob(GnucashGenerJob job, boolean withSpec) {
-	jobMap.remove(job.getId());
+	jobMap.remove(job.getID());
 	
 	if ( withSpec ) {
 	    if ( job.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
@@ -175,7 +175,7 @@ public class FileJobManager {
     }
 
     private void addCustomerJob(GnucashCustomerJob job, boolean withGener) {
-	custJobMap.put(job.getId(), job);
+	custJobMap.put(job.getID(), job);
 	
 	if ( withGener ) {
 	    addGenerJob(job, false);
@@ -195,7 +195,7 @@ public class FileJobManager {
     }
 
     private void removeCustomerJob(GnucashCustomerJob job, boolean withGener) {
-	custJobMap.remove(job.getId());
+	custJobMap.remove(job.getID());
 	
 	if ( withGener ) {
 	    removeGenerJob(job, false);
@@ -217,7 +217,7 @@ public class FileJobManager {
     }
 
     public void addVendorJob(GnucashVendorJob job, boolean withGener) {
-	vendJobMap.put(job.getId(), job);
+	vendJobMap.put(job.getID(), job);
 	
 	if ( withGener ) {
 	    addGenerJob(job, false);
@@ -237,7 +237,7 @@ public class FileJobManager {
     }
 
     public void removeVendorJob(GnucashVendorJob job, boolean withGener) {
-	vendJobMap.remove(job.getId());
+	vendJobMap.remove(job.getID());
 	
 	if ( withGener ) {
 	    removeGenerJob(job, false);
@@ -461,7 +461,7 @@ public class FileJobManager {
 	Collection<GnucashCustomerJob> retval = new LinkedList<GnucashCustomerJob>();
 
 	for (GnucashCustomerJob custJob : custJobMap.values()) {
-	    if (custJob.getOwnerId().equals(cust.getId())) {
+	    if (custJob.getOwnerID().equals(cust.getID())) {
 		retval.add(custJob);
 	    }
 	}
@@ -481,7 +481,7 @@ public class FileJobManager {
 	Collection<GnucashVendorJob> retval = new LinkedList<GnucashVendorJob>();
 
 	for (GnucashVendorJob vendJob : vendJobMap.values()) {
-	    if (vendJob.getOwnerId().equals(vend.getId())) {
+	    if (vendJob.getOwnerID().equals(vend.getID())) {
 		retval.add(vendJob);
 	    }
 	}

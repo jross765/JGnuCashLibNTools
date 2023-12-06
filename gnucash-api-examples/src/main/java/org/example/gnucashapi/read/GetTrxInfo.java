@@ -37,7 +37,7 @@ public class GetTrxInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:              " + trx.getId());
+	    System.out.println("ID:              " + trx.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:              " + "ERROR");
 	}

@@ -73,7 +73,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			helper = new GnucashWritableObjectImpl(super.helper);
 		}
 		LOGGER.debug("GnucashWritableAccountImpl[account-id="
-				+ getId() + " name="
+				+ getID() + " name="
 				+ getName() + "].setUserDefinedAttribute(name="
 				+ name + ", value="
 				+ value + ")");
@@ -106,7 +106,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		    for ( GnucashTransactionSplit splt : ((GnucashFileImpl) acct.getGnucashFile()).getTransactionSplits_readAfresh() ) {
 //			    System.err.println("xx02: " + splt.getAccountID());
 			if ( acct.getType() != Type.ROOT && 
-			     splt.getAccountID().equals(acct.getId()) ) {
+			     splt.getAccountID().equals(acct.getID()) ) {
 //			    System.err.println("NOET!");
 			    // NO:
 			     super.addTransactionSplit(splt);
@@ -463,7 +463,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	/**
 	 * @see GnucashWritableAccount#setParentAccount(GnucashAccount)
 	 */
-	public void setParentAccountId(final GCshID newParentID) {
+	public void setParentAccountID(final GCshID newParentID) {
 		if ( newParentID == null ) {
 		    setParentAccount(null);
 		} else if ( ! newParentID.isSet() ) {
@@ -498,12 +498,12 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			parent = ((GnucashWritableFileImpl) getWritableGnucashFile())
 					.getObjectFactory().createGncAccountActParent();
 			parent.setType(Const.XML_DATA_TYPE_GUID);
-			parent.setValue(prntAcct.getId().toString());
+			parent.setValue(prntAcct.getID().toString());
 			getJwsdpPeer().setActParent(parent);
 
 		} else {
 			oldPrntAcct = getParentAccount();
-			parent.setValue(prntAcct.getId().toString());
+			parent.setValue(prntAcct.getID().toString());
 		}
 		setIsModified();
 

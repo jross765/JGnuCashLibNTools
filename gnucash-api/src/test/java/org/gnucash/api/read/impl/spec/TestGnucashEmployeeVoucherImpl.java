@@ -83,7 +83,7 @@ public class TestGnucashEmployeeVoucherImpl
     assertNotEquals(null, vchSpec);
     
     assertEquals(true, vchSpec instanceof GnucashEmployeeVoucherImpl);
-    assertEquals(INVC_7_ID, vchSpec.getId());
+    assertEquals(INVC_7_ID, vchSpec.getID());
     assertEquals(GCshOwner.Type.EMPLOYEE, vchSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("000001", vchSpec.getNumber());
     assertEquals("Spesen Geschäftsreise", vchSpec.getDescription());
@@ -110,9 +110,9 @@ public class TestGnucashEmployeeVoucherImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(vchSpec.getEntries());
     assertEquals("b6e2313e32d44bb4a8a701c1063e03a7", 
-                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[0]).getID().toString());
     assertEquals("9218e269422d4c08b3b9a8c27fbd051a", 
-                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashEmployeeVoucherEntry) entrList.toArray()[1]).getID().toString());
   }
 
   @Test
@@ -164,7 +164,7 @@ public class TestGnucashEmployeeVoucherImpl
     assertEquals(0, trxList.size());
 //    Collections.sort(trxList);
 //    assertEquals("29557cfdf4594eb68b1a1b710722f991", 
-//                 ((GnucashTransaction) trxList.toArray()[0]).getId());
+//                 ((GnucashTransaction) trxList.toArray()[0]).getID());
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implementation error was

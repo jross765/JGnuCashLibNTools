@@ -235,7 +235,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	    return; // nothing has changed
 	}
 
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getId().toString());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
 	getWritableFile().setModified(true);
 
 	// <<insert code to react further to this change here
@@ -415,10 +415,10 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
     }
 
     /**
-     * @see GnucashWritableGenerInvoice#getWritableGenerEntryById(java.lang.String)
+     * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
      */
-    public GnucashWritableJobInvoiceEntry getWritableEntryById(final GCshID id) {
-	return new GnucashWritableJobInvoiceEntryImpl(getGenerEntryById(id));
+    public GnucashWritableJobInvoiceEntry getWritableEntryByID(final GCshID id) {
+	return new GnucashWritableJobInvoiceEntryImpl(getGenerEntryByID(id));
     }
 
     // ---------------------------------------------------------------
@@ -426,15 +426,15 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
     /**
      * {@inheritDoc}
      */
-    public GCshID getJobId() {
-	return getOwnerId();
+    public GCshID getJobID() {
+	return getOwnerID();
     }
 
     /**
      * {@inheritDoc}
      */
     public GnucashGenerJob getJob() {
-	return getFile().getGenerJobByID(getJobId());
+	return getFile().getGenerJobByID(getJobID());
     }
 
     // ---------------------------------------------------------------

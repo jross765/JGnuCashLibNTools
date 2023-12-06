@@ -297,9 +297,9 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     }
 
     /**
-     * @see GnucashTransaction#getId()
+     * @see GnucashTransaction#getID()
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID( jwsdpPeer.getTrnId().getValue() );
     }
 
@@ -315,7 +315,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
 	    GnucashGenerInvoice invoice = file.getGenerInvoiceByID(invoiceID);
 	    if (invoice == null) {
-		LOGGER.error("No invoice with id='" + invoiceID + "' for transaction '" + getId() + 
+		LOGGER.error("No invoice with id='" + invoiceID + "' for transaction '" + getID() + 
 			     "' description '" + getDescription() + "'");
 	    } else {
 		retval.add(invoice);
@@ -424,7 +424,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      */
     public GnucashTransactionSplit getSplitByID(final GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	for (GnucashTransactionSplit split : getSplits()) {
-	    if (split.getId().equals(id)) {
+	    if (split.getID().equals(id)) {
 		return split;
 	    }
 
@@ -572,7 +572,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 		datePosted = ZonedDateTime.parse(s, DATE_POSTED_FORMAT);
 	    } catch (Exception e) {
 		IllegalStateException ex = new IllegalStateException(
-			"unparsable date '" + s + "' in transaction with id='" + getId() + "'!");
+			"unparsable date '" + s + "' in transaction with id='" + getID() + "'!");
 		ex.initCause(e);
 		throw ex;
 	    }
@@ -599,7 +599,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	buffer.append("[GnucashTransactionImpl:");
 
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 
 	// ::TODO: That only works in simple cases --
 	// need a more generic approach

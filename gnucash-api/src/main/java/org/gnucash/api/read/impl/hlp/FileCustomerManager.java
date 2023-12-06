@@ -48,7 +48,7 @@ public class FileCustomerManager {
 
 	    try {
 		GnucashCustomerImpl cust = createCustomer(jwsdpCust);
-		custMap.put(cust.getId(), cust);
+		custMap.put(cust.getID(), cust);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Customer-Entry with id=" + jwsdpCust.getCustId(), e);
@@ -70,11 +70,11 @@ public class FileCustomerManager {
     // ---------------------------------------------------------------
 
     public void addCustomer(GnucashCustomer cust) {
-	custMap.put(cust.getId(), cust);
+	custMap.put(cust.getID(), cust);
     }
 
     public void removeCustomer(GnucashCustomer cust) {
-	custMap.remove(cust.getId());
+	custMap.remove(cust.getID());
     }
 
     // ---------------------------------------------------------------

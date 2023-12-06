@@ -26,7 +26,7 @@ public interface GnucashVendorBill extends GnucashGenerInvoice {
     /**
      * @return ID of vendor this invoice has been sent from 
      */
-    GCshID getVendorId();
+    GCshID getVendorID();
 
     /**
      * @return Customer this invoice has been sent to.
@@ -36,7 +36,7 @@ public interface GnucashVendorBill extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashVendorBillEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
+    GnucashVendorBillEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashVendorBillEntry> getEntries() throws WrongInvoiceTypeException;
 

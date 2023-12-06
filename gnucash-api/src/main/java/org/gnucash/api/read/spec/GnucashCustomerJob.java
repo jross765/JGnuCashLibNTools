@@ -17,6 +17,6 @@ public interface GnucashCustomerJob extends GnucashGenerJob {
 	 * @return the id of the customer this job is from.
 	 * @see #getCustomer()
 	 */
-	GCshID getCustomerId();
+	GCshID getCustomerID();
 	
 }

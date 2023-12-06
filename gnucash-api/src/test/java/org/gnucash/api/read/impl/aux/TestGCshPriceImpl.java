@@ -108,9 +108,9 @@ public class TestGCshPriceImpl
       // ::TODO: Sort array for predictability
 //      Object[] priceArr = priceList.toArray();
 //      
-//      assertEquals(PRICE_1_ID, ((GCshPrice) priceArr[0]).getId());
-//      assertEquals(PRICE_2_ID, ((GCshPrice) priceArr[1]).getId());
-//      assertEquals(PRICE_3_ID, ((GCshPrice) priceArr[2]).getId());
+//      assertEquals(PRICE_1_ID, ((GCshPrice) priceArr[0]).getID());
+//      assertEquals(PRICE_2_ID, ((GCshPrice) priceArr[1]).getID());
+//      assertEquals(PRICE_3_ID, ((GCshPrice) priceArr[2]).getID());
   }
 
   @Test
@@ -119,14 +119,14 @@ public class TestGCshPriceImpl
       prc = gcshFile.getPriceByID(PRICE_1_ID);
       assertNotEquals(null, prc);
       
-      assertEquals(PRICE_1_ID, prc.getId());
-      assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifId().toString());
-      assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID12.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID11, prc.getFromCommodityQualifId());
-      assertNotEquals(cmdtyID12, prc.getFromCommodityQualifId()); // sic
+      assertEquals(PRICE_1_ID, prc.getID());
+      assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID12.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID11, prc.getFromCommodityQualifID());
+      assertNotEquals(cmdtyID12, prc.getFromCommodityQualifID()); // sic
       assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName());
-      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifId().toString());
+      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
       assertEquals("transaction", prc.getType());
       assertEquals(LocalDate.of(2023, 7, 1), prc.getDate());
@@ -134,7 +134,7 @@ public class TestGCshPriceImpl
       
       try
       {
-	  GCshCurrID dummy = prc.getFromCurrencyQualifId(); // illegal call in this context
+	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
       }
       catch ( Exception exc )
       {
@@ -166,14 +166,14 @@ public class TestGCshPriceImpl
       prc = gcshFile.getPriceByID(PRICE_2_ID);
       assertNotEquals(null, prc);
       
-      assertEquals(PRICE_2_ID, prc.getId());
-      assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifId().toString());
-      assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID22.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID21, prc.getFromCommodityQualifId());
-      assertNotEquals(cmdtyID22, prc.getFromCommodityQualifId()); // sic
+      assertEquals(PRICE_2_ID, prc.getID());
+      assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID22.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID21, prc.getFromCommodityQualifID());
+      assertNotEquals(cmdtyID22, prc.getFromCommodityQualifID()); // sic
       assertEquals("SAP SE", prc.getFromCommodity().getName());
-      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifId().toString());
+      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
       assertEquals("unknown", prc.getType());
       assertEquals(LocalDate.of(2023, 7, 20), prc.getDate());
@@ -181,7 +181,7 @@ public class TestGCshPriceImpl
     
       try
       {
-	  GCshCurrID dummy = prc.getFromCurrencyQualifId(); // illegal call in this context
+	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
       }
       catch ( Exception exc )
       {
@@ -213,14 +213,14 @@ public class TestGCshPriceImpl
       prc = gcshFile.getPriceByID(PRICE_3_ID);
       assertNotEquals(null, prc);
       
-      assertEquals(PRICE_3_ID, prc.getId());
-      assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifId().toString());
-      assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID22.toString(), prc.getFromCommodityQualifId().toString());
-      assertEquals(cmdtyID21, prc.getFromCommodityQualifId());
-      assertNotEquals(cmdtyID22, prc.getFromCommodityQualifId()); // sic
+      assertEquals(PRICE_3_ID, prc.getID());
+      assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID22.toString(), prc.getFromCommodityQualifID().toString());
+      assertEquals(cmdtyID21, prc.getFromCommodityQualifID());
+      assertNotEquals(cmdtyID22, prc.getFromCommodityQualifID()); // sic
       assertEquals("SAP SE", prc.getFromCommodity().getName());
-      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifId().toString());
+      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
       assertEquals("transaction", prc.getType());
       assertEquals(LocalDate.of(2023, 7, 18), prc.getDate());
@@ -228,7 +228,7 @@ public class TestGCshPriceImpl
       
       try
       {
-	  GCshCurrID dummy = prc.getFromCurrencyQualifId(); // illegal call in this context
+	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
       }
       catch ( Exception exc )
       {
@@ -260,11 +260,11 @@ public class TestGCshPriceImpl
       prc = gcshFile.getPriceByID(PRICE_4_ID);
       assertNotEquals(null, prc);
       
-      assertEquals(PRICE_4_ID, prc.getId());
-      assertEquals(currID1.toString(), prc.getFromCmdtyCurrQualifId().toString());
-      assertEquals(currID1.toString(), prc.getFromCurrencyQualifId().toString());
+      assertEquals(PRICE_4_ID, prc.getID());
+      assertEquals(currID1.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(currID1.toString(), prc.getFromCurrencyQualifID().toString());
       assertEquals("USD", prc.getFromCurrencyCode());
-      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifId().toString());
+      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
       assertEquals(null, prc.getType());
       assertEquals(LocalDate.of(2023, 10, 1), prc.getDate());
@@ -273,7 +273,7 @@ public class TestGCshPriceImpl
       
       try
       {
-	  GCshCmdtyID dummy = prc.getFromCommodityQualifId(); // illegal call in this context
+	  GCshCmdtyID dummy = prc.getFromCommodityQualifID(); // illegal call in this context
       }
       catch ( Exception exc )
       {
@@ -297,7 +297,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByName("USt_Std");
       
-      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
       assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
       assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
@@ -312,7 +312,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByID(TAXTABLE_DE_2_ID);
       
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
       assertEquals("DE_USt_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -327,7 +327,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByName("DE_USt_red");
       
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
       assertEquals("DE_USt_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -342,7 +342,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByID(TAXTABLE_FR_1_ID);
       
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
       assertEquals("FR_TVA_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -357,7 +357,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByName("FR_TVA_Std");
       
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
       assertEquals("FR_TVA_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -372,7 +372,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByID(TAXTABLE_FR_2_ID);
       
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
       assertEquals("FR_TVA_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -387,7 +387,7 @@ public class TestGCshPriceImpl
   {
       taxTab = gcshFile.getPriceByName("FR_TVA_red");
       
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
       assertEquals("FR_TVA_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 

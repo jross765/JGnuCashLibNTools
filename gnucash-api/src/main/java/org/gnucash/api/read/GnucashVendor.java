@@ -35,7 +35,7 @@ public interface GnucashVendor extends GnucashObject {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getId();
+    GCshID getID();
 
     /**
      *

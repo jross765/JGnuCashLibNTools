@@ -108,7 +108,7 @@ public class TestGnucashWritableVendorJobImpl
 	      						"New job for vendor 1");
       
       assertNotEquals(null, job);
-      GCshID newJobID = job.getId();
+      GCshID newJobID = job.getID();
 //      System.out.println("New Job ID (1): " + newJobID);
       
       assertEquals("J456", job.getNumber());
@@ -172,12 +172,12 @@ public class TestGnucashWritableVendorJobImpl
       GnucashVendorJob jobSpec = new GnucashVendorJobImpl(jobGener);
       assertNotEquals(null, jobSpec);
       
-      assertEquals(newInvcID, jobGener.getId());
-      assertEquals(newInvcID, jobSpec.getId());
+      assertEquals(newInvcID, jobGener.getID());
+      assertEquals(newInvcID, jobSpec.getID());
       
-      assertEquals(VEND_1_ID, jobGener.getOwnerId());
-      assertEquals(VEND_1_ID, jobSpec.getOwnerId());
-      assertEquals(VEND_1_ID, jobSpec.getVendorId());
+      assertEquals(VEND_1_ID, jobGener.getOwnerID());
+      assertEquals(VEND_1_ID, jobSpec.getOwnerID());
+      assertEquals(VEND_1_ID, jobSpec.getVendorID());
       
       assertEquals("J456", jobGener.getNumber());
       assertEquals("J456", jobSpec.getNumber());

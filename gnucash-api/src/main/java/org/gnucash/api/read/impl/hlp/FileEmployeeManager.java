@@ -47,7 +47,7 @@ public class FileEmployeeManager {
 
 	    try {
 		GnucashEmployeeImpl empl = createEmployee(jwsdpEmpl);
-		emplMap.put(empl.getId(), empl);
+		emplMap.put(empl.getID(), empl);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Employee-Entry with id=" + jwsdpEmpl.getEmployeeId(), e);
@@ -69,11 +69,11 @@ public class FileEmployeeManager {
     // ---------------------------------------------------------------
 
     public void addEmployee(GnucashEmployee empl) {
-	emplMap.put(empl.getId(), empl);
+	emplMap.put(empl.getID(), empl);
     }
 
     public void removeEmployee(GnucashEmployee empl) {
-	emplMap.remove(empl.getId());
+	emplMap.remove(empl.getID());
     }
 
     // ---------------------------------------------------------------

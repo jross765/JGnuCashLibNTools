@@ -58,7 +58,7 @@ public class GetEmplInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:                " + empl.getId());
+	    System.out.println("ID:                " + empl.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:                " + "ERROR");
 	}

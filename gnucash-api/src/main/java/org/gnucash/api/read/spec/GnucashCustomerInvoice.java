@@ -26,7 +26,7 @@ public interface GnucashCustomerInvoice extends GnucashGenerInvoice {
     /**
      * @return ID of customer this invoice has been sent to.
      */
-    GCshID getCustomerId();
+    GCshID getCustomerID();
 
     /**
      * @return Customer this invoice has been sent to.
@@ -36,7 +36,7 @@ public interface GnucashCustomerInvoice extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashCustomerInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
+    GnucashCustomerInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashCustomerInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
 

@@ -65,8 +65,8 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	if ( addSpltToAcct ) {
 	    GnucashAccount acct = getAccount();
 	    if (acct == null) {
-		LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getId()
-			+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getId()
+		LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getID()
+			+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getID()
 			+ "' description '" + getTransaction().getDescription() + "'");
 	    } else {
 		acct.addTransactionSplit(this);
@@ -138,9 +138,9 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     }
 
     /**
-     * @see GnucashTransactionSplit#getId()
+     * @see GnucashTransactionSplit#getID()
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID( jwsdpPeer.getSplitId().getValue() );
     }
 
@@ -165,7 +165,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @see GnucashTransactionSplit#getAccountID()
      */
     public GCshID getTransactionID() {
-	return myTransaction.getId();
+	return myTransaction.getID();
     }
 
     /**
@@ -358,13 +358,13 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	buffer.append("[GnucashTransactionSplitImpl:");
 
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 
 	buffer.append(" Action: '");
 	buffer.append(getAction() + "'");
 
 	buffer.append(" transaction-id: ");
-	buffer.append(getTransaction().getId());
+	buffer.append(getTransaction().getID());
 
 	buffer.append(" accountID: ");
 	buffer.append(getAccountID());
@@ -400,15 +400,15 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 		return c;
 	    }
 
-	    c = otherSplt.getId().toString().compareTo(getId().toString());
+	    c = otherSplt.getID().toString().compareTo(getID().toString());
 	    if (c != 0) {
 		return c;
 	    }
 
 	    if (otherSplt != this) {
 		LOGGER.error("compareTo: Duplicate transaction-split-id!! " + 
-			otherSplt.getId() + "[" + otherSplt.getClass().getName() + "] and " + 
-			getId() + "[" + getClass().getName() + "]\n" + 
+			otherSplt.getID() + "[" + otherSplt.getClass().getName() + "] and " + 
+			getID() + "[" + getClass().getName() + "]\n" + 
 			"split0=" + otherSplt.toString() + "\n" + 
 			"split1=" + toString());
 		IllegalStateException exc = new IllegalStateException("DEBUG");

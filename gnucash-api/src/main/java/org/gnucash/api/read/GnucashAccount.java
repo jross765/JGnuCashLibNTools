@@ -1,15 +1,18 @@
 package org.gnucash.api.read;
 
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
-
-import java.time.LocalDate;
-import java.util.*;
+import org.gnucash.api.numbers.FixedPointNumber;
 
 /**
  * An account is a collection of transactions that start or end there. <br>
@@ -82,7 +85,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     /**
      * @return the unique id for that account (not meaningfull to human users)
      */
-    GCshID getId();
+    GCshID getID();
 
     /**
      * @return a user-defined description to acompany the name of the account. Can
@@ -111,7 +114,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     /**
      * @return null if the account is below the root
      */
-    GCshID getParentAccountId();
+    GCshID getParentAccountID();
 
     /**
      * @return the parent-account we are a child of or null if we are a top-level

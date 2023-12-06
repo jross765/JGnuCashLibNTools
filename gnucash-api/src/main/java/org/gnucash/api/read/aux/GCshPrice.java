@@ -30,15 +30,15 @@ public interface GCshPrice {
 	
     // ---------------------------------------------------------------
 	
-    GCshID getId();
+    GCshID getID();
 
     // ----------------------------
 
-    GCshCmdtyCurrID getFromCmdtyCurrQualifId() throws InvalidCmdtyCurrTypeException;
+    GCshCmdtyCurrID getFromCmdtyCurrQualifID() throws InvalidCmdtyCurrTypeException;
 
-    GCshCmdtyID getFromCommodityQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
-    GCshCurrID getFromCurrencyQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     GnucashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException;
 
@@ -48,7 +48,7 @@ public interface GCshPrice {
     
     // ----------------------------
 
-    GCshCurrID getToCurrencyQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
     String getToCurrencyCode() throws InvalidCmdtyCurrTypeException;
 

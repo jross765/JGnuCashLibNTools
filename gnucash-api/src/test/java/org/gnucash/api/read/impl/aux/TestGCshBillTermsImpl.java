@@ -81,9 +81,9 @@ public class TestGCshBillTermsImpl
       Object[] bllTrmArr = bllTrmList.toArray();
       
       // funny, this parent/child relationship full of redundancies...
-      assertEquals(BLLTRM_1_ID, ((GCshBillTerms) bllTrmArr[2]).getId());
-      assertEquals(BLLTRM_2_ID, ((GCshBillTerms) bllTrmArr[0]).getId());
-      assertEquals(BLLTRM_3_ID, ((GCshBillTerms) bllTrmArr[1]).getId());
+      assertEquals(BLLTRM_1_ID, ((GCshBillTerms) bllTrmArr[2]).getID());
+      assertEquals(BLLTRM_2_ID, ((GCshBillTerms) bllTrmArr[0]).getID());
+      assertEquals(BLLTRM_3_ID, ((GCshBillTerms) bllTrmArr[1]).getID());
   }
 
   @Test
@@ -93,11 +93,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_1_ID, bllTrm.getId());
+      assertEquals(BLLTRM_1_ID, bllTrm.getID());
       assertEquals("sofort", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType());
 
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsDays btDays = bllTrm.getDays();
@@ -115,11 +115,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_1_ID, bllTrm.getId());
+      assertEquals(BLLTRM_1_ID, bllTrm.getID());
       assertEquals("sofort", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType());
       
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsDays btDays = bllTrm.getDays();
@@ -137,11 +137,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_2_ID, bllTrm.getId());
+      assertEquals(BLLTRM_2_ID, bllTrm.getID());
       assertEquals("30-10-3", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType());
 
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsDays btDays = bllTrm.getDays();
@@ -159,11 +159,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_2_ID, bllTrm.getId());
+      assertEquals(BLLTRM_2_ID, bllTrm.getID());
       assertEquals("30-10-3", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType());
 
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsDays btDays = bllTrm.getDays();
@@ -181,11 +181,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_3_ID, bllTrm.getId());
+      assertEquals(BLLTRM_3_ID, bllTrm.getID());
       assertEquals("nächster-monat-mitte", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.PROXIMO, bllTrm.getType());
 
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsProximo btProx = bllTrm.getProximo();
@@ -203,11 +203,11 @@ public class TestGCshBillTermsImpl
       assertNotEquals(null, bllTrm);
       // System.err.println(bllTrm);
       
-      assertEquals(BLLTRM_3_ID, bllTrm.getId());
+      assertEquals(BLLTRM_3_ID, bllTrm.getID());
       assertEquals("nächster-monat-mitte", bllTrm.getName());
       assertEquals(GCshBillTerms.Type.PROXIMO, bllTrm.getType());
 
-      assertEquals(null, bllTrm.getParentId());
+      assertEquals(null, bllTrm.getParentID());
       assertEquals(0, bllTrm.getChildren().size());
 
       GCshBillTermsProximo btProx = bllTrm.getProximo();

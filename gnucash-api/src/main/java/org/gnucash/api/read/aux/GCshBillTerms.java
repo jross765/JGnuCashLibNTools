@@ -13,7 +13,7 @@ public interface GCshBillTerms {
 
     // -----------------------------------------------------------
 
-    public GCshID getId();
+    public GCshID getID();
 
     public int getRefcount();
 
@@ -33,7 +33,7 @@ public interface GCshBillTerms {
 
     // ----------------------------
     
-    public String getParentId();
+    public String getParentID();
 
     public List<String> getChildren();
 

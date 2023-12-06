@@ -94,7 +94,7 @@ public interface GnucashWritableAccount extends GnucashAccount,
      *
      * @see {@link #setParentAccount(GnucashAccount)}
      */
-    void setParentAccountId(GCshID newParentID);
+    void setParentAccountID(GCshID newParentID);
 
     /**
      * Remove this account from the sytem.<br/>

@@ -73,8 +73,8 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public GCshID getVendorId() {
-      return getOwnerId();
+  public GCshID getVendorID() {
+      return getOwnerID();
   }
 
   @Override
@@ -93,9 +93,9 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashVendorBillEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
+  public GnucashVendorBillEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException
   {
-    return new GnucashVendorBillEntryImpl(getGenerEntryById(id));
+    return new GnucashVendorBillEntryImpl(getGenerEntryByID(id));
   }
 
   @Override
@@ -431,9 +431,9 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
       StringBuffer buffer = new StringBuffer();
       buffer.append("[GnucashVendorBillImpl:");
       buffer.append(" id: ");
-      buffer.append(getId());
+      buffer.append(getID());
       buffer.append(" vendor-id: ");
-      buffer.append(getVendorId());
+      buffer.append(getVendorID());
       buffer.append(" bill-number: '");
       buffer.append(getNumber() + "'");
       buffer.append(" description: '");

@@ -92,16 +92,16 @@ public class GnucashAccountImpl extends SimpleAccount
     // ---------------------------------------------------------------
 
     /**
-     * @see GnucashAccount#getId()
+     * @see GnucashAccount#getID()
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID(jwsdpPeer.getActId().getValue());
     }
 
     /**
-     * @see GnucashAccount#getParentAccountId()
+     * @see GnucashAccount#getParentAccountID()
      */
-    public GCshID getParentAccountId() {
+    public GCshID getParentAccountID() {
 	GncAccount.ActParent parent = jwsdpPeer.getActParent();
 	if (parent == null) {
 	    return null;
@@ -114,7 +114,7 @@ public class GnucashAccountImpl extends SimpleAccount
      * @see GnucashAccount#getChildren()
      */
     public Collection<GnucashAccount> getChildren() {
-	return getGnucashFile().getAccountsByParentID(getId());
+	return getGnucashFile().getAccountsByParentID(getID());
     }
 
     /**
@@ -203,18 +203,18 @@ public class GnucashAccountImpl extends SimpleAccount
      */
     public void addTransactionSplit(final GnucashTransactionSplit splt) {
 
-	GnucashTransactionSplit old = getTransactionSplitByID(splt.getId());
+	GnucashTransactionSplit old = getTransactionSplitByID(splt.getID());
 	if (old != null) {
 	    // There already is a split with that ID
 	    if ( ! old.equals(splt) ) {
 		System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-			splt.getId() + "[" + splt.getClass().getName() + "] and " + 
-			old.getId() + "[" + old.getClass().getName() + "]\n" + 
+			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
+			old.getID() + "[" + old.getClass().getName() + "]\n" + 
 			"new=" + splt.toString() + "\n" + 
 			"old=" + old.toString());
 		LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-			splt.getId() + "[" + splt.getClass().getName() + "] and " + 
-			old.getId() + "[" + old.getClass().getName() + "]\n" + 
+			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
+			old.getID() + "[" + old.getClass().getName() + "]\n" + 
 			"new=" + splt.toString() + "\n" + 
 			"old=" + old.toString());
 		IllegalStateException exc = new IllegalStateException("DEBUG");
@@ -250,7 +250,7 @@ public class GnucashAccountImpl extends SimpleAccount
 	buffer.append("[GnucashAccountImpl:");
 	
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	
 	buffer.append(" code: '");
 	buffer.append(getCode() + "'");

@@ -64,7 +64,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
 	return jwsdpPeer.getCmdtySpace();
     }
 
-    private String getId() {
+    private String getID() {
 	if ( jwsdpPeer.getCmdtyId() == null )
 	    return null;
 	
@@ -76,12 +76,12 @@ public class GnucashCommodityImpl implements GnucashCommodity
      * @throws InvalidCmdtyCurrTypeException 
      */
     @Override
-    public GCshCmdtyCurrID getQualifId() throws InvalidCmdtyCurrTypeException {
+    public GCshCmdtyCurrID getQualifID() throws InvalidCmdtyCurrTypeException {
 	if ( getNameSpace() == null ||
-	     getId() == null )
+	     getID() == null )
 	    return null;
 	
-	GCshCmdtyCurrID result = new GCshCmdtyCurrID(getNameSpace(), getId());
+	GCshCmdtyCurrID result = new GCshCmdtyCurrID(getNameSpace(), getID());
 	
 	return result;
     }
@@ -128,7 +128,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
 	
 	Collection<GCshPrice> prices = getGnucashFile().getPrices();
 	for ( GCshPrice price : prices ) {
-	    if ( price.getFromCmdtyCurrQualifId().toString().equals(getQualifId().toString()) ) {
+	    if ( price.getFromCmdtyCurrQualifID().toString().equals(getQualifID().toString()) ) {
 		result.add(price);
 	    }
 	}
@@ -160,7 +160,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
 	String result = "[GnucashCommodityImpl:";
 
 	try {
-	    result += " qualif-id='" + getQualifId().toString() + "'";
+	    result += " qualif-id='" + getQualifID().toString() + "'";
 	} catch (InvalidCmdtyCurrTypeException e) {
 	    result += " qualif-id=" + "ERROR";
 	}

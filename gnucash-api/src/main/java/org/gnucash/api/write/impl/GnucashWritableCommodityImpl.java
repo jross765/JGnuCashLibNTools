@@ -96,7 +96,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
     // ---------------------------------------------------------------
 
     @Override
-    public void setQualifId(GCshCmdtyCurrID qualifId) throws InvalidCmdtyCurrTypeException {
+    public void setQualifID(GCshCmdtyCurrID qualifId) throws InvalidCmdtyCurrTypeException {
 	getJwsdpPeer().setCmdtySpace(qualifId.getNameSpace());
 	getJwsdpPeer().setCmdtyId(qualifId.getCode());
 

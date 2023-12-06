@@ -71,7 +71,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID(jwsdpPeer.getEmployeeGuid().getValue());
     }
 
@@ -202,7 +202,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 //		    if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_EMPLOYEE) ) {
 //		      GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
 		GnucashEmployee empl = vchSpec.getEmployee();
-		if (empl.getId().equals(this.getId())) {
+		if (empl.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountWithoutTaxes());
 		}
 //            } // if vch type
@@ -278,7 +278,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) ) {
 //              GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
 		GnucashEmployee empl = vchSpec.getEmployee();
-		if (empl.getId().equals(this.getId())) {
+		if (empl.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
@@ -358,7 +358,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	StringBuffer buffer = new StringBuffer();
 	buffer.append("[GnucashEmployeeImpl:");
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	buffer.append(" number: '");
 	buffer.append(getNumber() + "'");
 	buffer.append(" name: '");

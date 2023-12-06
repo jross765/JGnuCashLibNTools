@@ -124,9 +124,9 @@ public abstract class SimpleAccount implements GnucashAccount {
 		GnucashAccount acc = getParentAccount();
 		
 		if ( acc == null || 
-		     acc.getId() == getId() ) {
-			if ( getParentAccountId() == null ||
-			     getParentAccountId().equals("") ) {
+		     acc.getID() == getID() ) {
+			if ( getParentAccountID() == null ||
+			     getParentAccountID().equals("") ) {
 				return getName();
 			}
 
@@ -140,7 +140,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 	 * @see GnucashAccount#getParentAccount()
 	 */
 	public GnucashAccount getParentAccount() {
-		GCshID id = getParentAccountId();
+		GCshID id = getParentAccountID();
 		if (id == null) {
 			return null;
 		}
@@ -550,7 +550,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 		}
 
 		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
-			if (id.equals(split.getId())) {
+			if (id.equals(split.getID())) {
 				return split;
 			}
 
@@ -586,7 +586,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 		}
 
 		GnucashAccount other = otherAcc;
-		i = other.getId().toString().compareTo(getId().toString());
+		i = other.getID().toString().compareTo(getID().toString());
 		if (i != 0) {
 		  return i;
 		}
@@ -624,12 +624,12 @@ public abstract class SimpleAccount implements GnucashAccount {
 		// level accounts
 		if (o instanceof GnucashAccount
 				&&
-				((GnucashAccount) o).getParentAccountId() != null
+				((GnucashAccount) o).getParentAccountID() != null
 				&&
-				getParentAccountId() != null
+				getParentAccountID() != null
 				&&
-				((GnucashAccount) o).getParentAccountId().toString().
-					equalsIgnoreCase(getParentAccountId().toString())) {
+				((GnucashAccount) o).getParentAccountID().toString().
+					equalsIgnoreCase(getParentAccountID().toString())) {
 			other = ((GnucashAccount) o).getName();
 			me = getName();
 		}

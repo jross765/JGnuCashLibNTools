@@ -42,7 +42,7 @@ public interface GnucashGenerJob {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getId();
+    GCshID getID();
 
     /**
      * @return true if the job is still active
@@ -75,7 +75,7 @@ public interface GnucashGenerJob {
      * @return the id of the customer this job is from.
      * @see #getCustomer()
      */
-    GCshID getOwnerId();
+    GCshID getOwnerID();
     
     // ---------------------------------------------------------------
 

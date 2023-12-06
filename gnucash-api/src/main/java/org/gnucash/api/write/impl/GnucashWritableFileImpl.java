@@ -376,7 +376,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 //		if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
 //		    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
 //		    GCshTaxTableImpl gnucashTaxTable = new GCshTaxTableImpl(jwsdpPeer, this);
-//		    taxTablesById.put(gnucashTaxTable.getId(), gnucashTaxTable);
+//		    taxTablesById.put(gnucashTaxTable.getID(), gnucashTaxTable);
 //		}
 //	    }
 //	}
@@ -1233,7 +1233,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 //	}
 //
 //	GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(this, vend, number, name);
-//	super.jobID2job.put(job.getId(), job);
+//	super.jobID2job.put(job.getID(), job);
 //	return job;
 //    }
 
@@ -1387,7 +1387,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		    root = gnucashAccount;
 		    continue;
 		}
-		roots.append(gnucashAccount.getId()).append("=\"").append(gnucashAccount.getName()).append("\" ");
+		roots.append(gnucashAccount.getID()).append("=\"").append(gnucashAccount.getName()).append("\" ");
 	    }
 	    LOGGER.warn("File has more then one root-account! Attaching excess accounts to root-account: "
 		    + roots.toString());
@@ -1414,8 +1414,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public GnucashWritableCommodity createWritableCommodity() {
 	GnucashWritableCommodityImpl cmdty = new GnucashWritableCommodityImpl(this);
 //	try {
-//	    super.cmdtyQualifID2Cmdty.put(cmdty.getQualifId().toString(), cmdty);
-//	    super.cmdtyXCode2QualifID.put(cmdty.getXCode(), cmdty.getQualifId().toString());
+//	    super.cmdtyQualifID2Cmdty.put(cmdty.getQualifID().toString(), cmdty);
+//	    super.cmdtyXCode2QualifID.put(cmdty.getXCode(), cmdty.getQualifID().toString());
 //	} catch ( Exception exc ) {
 //	    LOGGER.error("createWritableCommodity: Could not add new commodity to cache");
 //	}
@@ -1424,13 +1424,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     @Override
     public void removeCommodity(final GnucashWritableCommodity cmdty) throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException {
-	if ( cmdty.getQualifId().toString().
+	if ( cmdty.getQualifID().toString().
 		startsWith(GCshCmdtyCurrNameSpace.CURRENCY + GCshCmdtyCurrID.SEPARATOR) )
 	    throw new IllegalArgumentException("Currency commodities may not be removed");
 	
 	if ( existPriceObjects(cmdty) )
 	{
-	    LOGGER.error("Commodity with ID '" + cmdty.getQualifId() + "' cannot be removed because " + 
+	    LOGGER.error("Commodity with ID '" + cmdty.getQualifID() + "' cannot be removed because " + 
 	                 "there are price objects in the Price DB that depend on it");
 	    throw new ObjectCascadeException();
 	}
@@ -1444,8 +1444,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     private boolean existPriceObjects(GnucashWritableCommodity cmdty) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	int counter = 0;
 	for ( GCshPrice price : getPrices() ) {
-	    if ( price.getFromCommodity().getQualifId().
-		    equals(cmdty.getQualifId()) ) {
+	    if ( price.getFromCommodity().getQualifID().
+		    equals(cmdty.getQualifID()) ) {
 		counter++;
 	    }
 	}

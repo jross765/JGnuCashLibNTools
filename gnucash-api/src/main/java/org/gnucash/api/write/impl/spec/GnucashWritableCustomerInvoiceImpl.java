@@ -232,7 +232,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	    return; // nothing has changed
 	}
 
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getId().toString());
+	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
 	getWritableFile().setModified(true);
 
 	// <<insert code to react further to this change here
@@ -397,10 +397,10 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
     }
 
     /**
-     * @see GnucashWritableGenerInvoice#getWritableGenerEntryById(java.lang.String)
+     * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
      */
-    public GnucashWritableCustomerInvoiceEntry getWritableEntryById(final GCshID id) {
-	return new GnucashWritableCustomerInvoiceEntryImpl(getGenerEntryById(id));
+    public GnucashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID id) {
+	return new GnucashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(id));
     }
 
     // ---------------------------------------------------------------
@@ -408,15 +408,15 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
     /**
      * {@inheritDoc}
      */
-    public GCshID getCustomerId() {
-	return getOwnerId();
+    public GCshID getCustomerID() {
+	return getOwnerID();
     }
 
     /**
      * {@inheritDoc}
      */
     public GnucashCustomer getCustomer() {
-	return getFile().getCustomerByID(getCustomerId());
+	return getFile().getCustomerByID(getCustomerID());
     }
 
     // ---------------------------------------------------------------

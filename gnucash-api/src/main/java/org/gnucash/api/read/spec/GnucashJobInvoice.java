@@ -32,7 +32,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      * (e.g. a monthly payment for a long lasting contract.)
      * @return the ID of the job this invoice is for.
      */
-    GCshID getJobId();
+    GCshID getJobID();
 
     GCshOwner.Type getJobType();
 
@@ -41,12 +41,12 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
     /**
      * @return ID of customer this invoice has been sent to.
      */
-    GCshID getCustomerId() throws WrongInvoiceTypeException;
+    GCshID getCustomerID() throws WrongInvoiceTypeException;
 
     /**
      * @return ID of vendor this bill has been sent from.
      */
-    GCshID getVendorId() throws WrongInvoiceTypeException;
+    GCshID getVendorID() throws WrongInvoiceTypeException;
     
     // ----------------------------
 
@@ -83,7 +83,7 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
 	
     // ---------------------------------------------------------------
 
-    GnucashJobInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException;
+    GnucashJobInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
 
     Collection<GnucashJobInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
 

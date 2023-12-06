@@ -85,7 +85,7 @@ public class TestGnucashCustomerInvoiceImpl
     assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashCustomerInvoiceImpl);
-    assertEquals(INVC_1_ID, invcSpec.getId());
+    assertEquals(INVC_1_ID, invcSpec.getID());
     assertEquals(GCshOwner.Type.CUSTOMER, invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("R1730", invcSpec.getNumber());
     assertEquals("Alles ohne Steuern / voll bezahlt", invcSpec.getDescription());
@@ -112,9 +112,9 @@ public class TestGnucashCustomerInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invcSpec.getEntries());
     assertEquals("92e54c04b66f4682a9afb48e27dfe397", 
-                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[0]).getID().toString());
     assertEquals("3c67a99b5fe34387b596bb1fbab21a74", 
-                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashCustomerInvoiceEntry) entrList.toArray()[1]).getID().toString());
   }
 
   @Test
@@ -151,8 +151,8 @@ public class TestGnucashCustomerInvoiceImpl
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
-    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getId().toString());
-    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getId().toString());
+    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getID().toString());
+    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getID().toString());
     
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
@@ -163,7 +163,7 @@ public class TestGnucashCustomerInvoiceImpl
     LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invcSpec.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("29557cfdf4594eb68b1a1b710722f991", 
-                 ((GnucashTransaction) trxList.toArray()[0]).getId().toString());
+                 ((GnucashTransaction) trxList.toArray()[0]).getID().toString());
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implementation error was

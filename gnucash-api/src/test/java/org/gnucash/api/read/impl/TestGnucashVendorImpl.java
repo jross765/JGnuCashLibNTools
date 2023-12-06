@@ -84,7 +84,7 @@ public class TestGnucashVendorImpl
     vend = gcshFile.getVendorByID(VEND_1_ID);
     assertNotEquals(null, vend);
     
-    assertEquals(VEND_1_ID, vend.getId());
+    assertEquals(VEND_1_ID, vend.getID());
     assertEquals("000001", vend.getNumber());
     assertEquals("Lieferfanto AG", vend.getName());
 
@@ -103,7 +103,7 @@ public class TestGnucashVendorImpl
     vend = gcshFile.getVendorByID(VEND_2_ID);
     assertNotEquals(null, vend);
     
-    assertEquals(VEND_2_ID, vend.getId());
+    assertEquals(VEND_2_ID, vend.getID());
     assertEquals("000002", vend.getNumber());
     assertEquals("Super Suppliers Corp.", vend.getName());
     assertEquals("We are so super, man!", vend.getNotes());
@@ -119,7 +119,7 @@ public class TestGnucashVendorImpl
     vend = gcshFile.getVendorByID(VEND_3_ID);
     assertNotEquals(null, vend);
     
-    assertEquals(VEND_3_ID, vend.getId());
+    assertEquals(VEND_3_ID, vend.getID());
     assertEquals("000003", vend.getNumber());
     assertEquals("Achetez Chez Nous S.A.", vend.getName());
     assertEquals("Nous sommes vraiment les meilleurs! Venez chez nous!", vend.getNotes());
@@ -145,12 +145,12 @@ public class TestGnucashVendorImpl
     LinkedList<GnucashVendorBill> bllList = (LinkedList<GnucashVendorBill>) vend.getUnpaidBills_direct();
     Collections.sort(bllList);
     assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
-                 ((GnucashVendorBill) bllList.toArray()[0]).getId().toString() );
+                 ((GnucashVendorBill) bllList.toArray()[0]).getID().toString() );
 
     bllList = (LinkedList<GnucashVendorBill>) vend.getPaidBills_direct();
     Collections.sort(bllList);
     assertEquals("286fc2651a7848038a23bb7d065c8b67", 
-                 ((GnucashVendorBill) bllList.toArray()[0]).getId().toString() );
+                 ((GnucashVendorBill) bllList.toArray()[0]).getID().toString() );
   }
 
   @Test

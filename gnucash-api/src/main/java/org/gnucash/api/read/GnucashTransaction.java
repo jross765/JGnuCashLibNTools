@@ -68,7 +68,7 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
      *
      * @return the unique-id to identify this object with across name- and hirarchy-changes
      */
-    GCshID getId();
+    GCshID getID();
 
     /**
      * @return the user-defined description for this object (may contain multiple lines and non-ascii-characters)

@@ -81,7 +81,7 @@ public class GnucashEmployeeVoucherEntryImpl extends GnucashGenerInvoiceEntryImp
       {
         throw new IllegalStateException(
             "No employee voucher with id '" + getVoucherID()
-            + "' for voucher entry with id '" + getId() + "'");
+            + "' for voucher entry with id '" + getID() + "'");
       }
     }
     
@@ -142,7 +142,7 @@ public class GnucashEmployeeVoucherEntryImpl extends GnucashGenerInvoiceEntryImp
     StringBuffer buffer = new StringBuffer();
     buffer.append("[GnucashEmployeeVoucherEntryImpl:");
     buffer.append(" id: ");
-    buffer.append(getId());
+    buffer.append(getID());
     buffer.append(" voucher-id: ");
     buffer.append(getVoucherID());
     //      buffer.append(" voucher: ");

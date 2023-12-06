@@ -49,7 +49,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 
     // -----------------------------------------------------------
 
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID( jwsdpPeer.getBilltermGuid().getValue() );
     }
 
@@ -101,7 +101,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 
     // ------------------------
 
-    public String getParentId() {
+    public String getParentID() {
 	if ( jwsdpPeer.getBilltermParent() == null )
 	    return null;
 
@@ -130,7 +130,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 	buffer.append("[GCshBillTermsImpl:");
 
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 
 	buffer.append(" type: ");
 	try {

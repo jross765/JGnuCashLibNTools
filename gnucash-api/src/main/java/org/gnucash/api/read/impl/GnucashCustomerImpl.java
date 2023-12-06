@@ -78,7 +78,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID(jwsdpPeer.getCustGuid().getValue());
     }
 
@@ -257,7 +257,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 //		    if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) ) {
 //		      GnucashCustomerInvoice invcSpec = new GnucashCustomerInvoiceImpl(invcGen); 
 		GnucashCustomer cust = invcSpec.getCustomer();
-		if (cust.getId().equals(this.getId())) {
+		if (cust.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
 		}
 //            } // if invc type
@@ -286,7 +286,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 //		    if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) ) {
 //		      GnucashCustomerInvoice invcSpec = new GnucashCustomerInvoiceImpl(invcGen); 
 		GnucashCustomer cust = invcSpec.getCustomer();
-		if (cust.getId().equals(this.getId())) {
+		if (cust.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
 		}
 //            } // if invc type
@@ -368,7 +368,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) ) {
 //              GnucashCustomerInvoice invcSpec = new GnucashCustomerInvoiceImpl(invcGen); 
 		GnucashCustomer cust = invcSpec.getCustomer();
-		if (cust.getId().equals(this.getId())) {
+		if (cust.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
@@ -398,7 +398,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_CUSTOMER) ) {
 //              GnucashCustomerInvoice invcSpec = new GnucashCustomerInvoiceImpl(invcGen); 
 		GnucashCustomer cust = invcSpec.getCustomer();
-		if (cust.getId().equals(this.getId())) {
+		if (cust.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
@@ -453,7 +453,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
 	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
 		GnucashCustomerJob jobSpec = new GnucashCustomerJobImpl(jobGener);
-		if ( jobSpec.getCustomerId().equals(getId()) ) {
+		if ( jobSpec.getCustomerID().equals(getID()) ) {
 		    retval.add(jobSpec);
 		}
 	    }
@@ -515,7 +515,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	StringBuffer buffer = new StringBuffer();
 	buffer.append("[GnucashCustomerImpl:");
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	buffer.append(" number: '");
 	buffer.append(getNumber() + "'");
 	buffer.append(" name: '");

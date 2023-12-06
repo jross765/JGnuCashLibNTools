@@ -78,7 +78,7 @@ public class TestGnucashCustomerJobImpl
     assertNotEquals(null, jobSpec);
 
     assertTrue(jobSpec instanceof GnucashCustomerJob);
-    assertEquals(JOB_1_ID, jobSpec.getId());
+    assertEquals(JOB_1_ID, jobSpec.getID());
     assertEquals("000001", jobSpec.getNumber());
     assertEquals("Do more for others", jobSpec.getName());
   }
@@ -116,8 +116,8 @@ public class TestGnucashCustomerJobImpl
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
     GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-    assertEquals(custID, jobGener.getOwnerId());
-    assertEquals(custID, jobSpec.getOwnerId());
-    assertEquals(custID, jobSpec.getCustomerId());
+    assertEquals(custID, jobGener.getOwnerID());
+    assertEquals(custID, jobSpec.getOwnerID());
+    assertEquals(custID, jobSpec.getCustomerID());
   }
 }

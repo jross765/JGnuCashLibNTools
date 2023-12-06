@@ -82,7 +82,7 @@ public class TestGnucashCustomerImpl
     cust = gcshFile.getCustomerByID(CUST_1_ID);
     assertNotEquals(null, cust);
     
-    assertEquals(CUST_1_ID, cust.getId());
+    assertEquals(CUST_1_ID, cust.getID());
     assertEquals("000001", cust.getNumber());
     assertEquals("Unfug und Quatsch GmbH", cust.getName());
 
@@ -105,7 +105,7 @@ public class TestGnucashCustomerImpl
     cust = gcshFile.getCustomerByID(CUST_2_ID);
     assertNotEquals(null, cust);
     
-    assertEquals(CUST_2_ID, cust.getId());
+    assertEquals(CUST_2_ID, cust.getID());
     assertEquals("000002", cust.getNumber());
     assertEquals("Is That So Ltd.", cust.getName());
 
@@ -124,7 +124,7 @@ public class TestGnucashCustomerImpl
     cust = gcshFile.getCustomerByID(CUST_3_ID);
     assertNotEquals(null, cust);
     
-    assertEquals(CUST_3_ID, cust.getId());
+    assertEquals(CUST_3_ID, cust.getID());
     assertEquals("000003", cust.getNumber());
     assertEquals("N'importe Quoi S.A.", cust.getName());
 
@@ -149,11 +149,11 @@ public class TestGnucashCustomerImpl
     
     assertEquals(1, cust.getPaidInvoices_direct().size());
     assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
-                 ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getId().toString());
+                 ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getID().toString());
     assertEquals(1, cust.getNofOpenInvoices());
     assertEquals(1, cust.getUnpaidInvoices_direct().size());
     assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 
-                 ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getId().toString());
+                 ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getID().toString());
   }
 
   @Test

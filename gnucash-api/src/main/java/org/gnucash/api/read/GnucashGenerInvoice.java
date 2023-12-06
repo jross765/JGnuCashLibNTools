@@ -53,7 +53,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return the unique-id to identify this object with across name- and
    *         hirarchy-changes
    */
-  GCshID getId();
+  GCshID getID();
 
   GCshOwner.Type getType();
 
@@ -114,7 +114,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return Invoice' owner ID
    * @throws WrongInvoiceTypeException
    */
-  GCshID getOwnerId(ReadVariant readvar) throws WrongInvoiceTypeException;
+  GCshID getOwnerID(ReadVariant readvar) throws WrongInvoiceTypeException;
 
 //    /**
 //    *
@@ -553,9 +553,9 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
   /**
    * @return the id of the {@link GnucashAccount} the payment is made to.
    */
-  GCshID getPostAccountId();
+  GCshID getPostAccountID();
   
-  GCshID getPostTransactionId();
+  GCshID getPostTransactionID();
 
   // ---------------------------------------------------------------
 
@@ -594,7 +594,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @param id the id to look for
    * @return the Entry found or null
    */
-  GnucashGenerInvoiceEntry getGenerEntryById(GCshID id);
+  GnucashGenerInvoiceEntry getGenerEntryByID(GCshID id);
 
   /**
    *

@@ -71,7 +71,7 @@ public class TestGnucashGenerJobImpl
     job = gcshFile.getGenerJobByID(JOB_1_ID);
     assertNotEquals(null, job);
     
-    assertEquals(JOB_1_ID, job.getId());
+    assertEquals(JOB_1_ID, job.getID());
     assertEquals("000001", job.getNumber());
     assertEquals(GnucashGenerJob.TYPE_CUSTOMER, job.getOwnerType());
     assertEquals("Do more for others", job.getName());
@@ -94,7 +94,7 @@ public class TestGnucashGenerJobImpl
     assertNotEquals(null, job);
       
     GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-    assertEquals(custID, job.getOwnerId());
+    assertEquals(custID, job.getOwnerID());
   }
 
   // -----------------------------------------------------------------
@@ -105,7 +105,7 @@ public class TestGnucashGenerJobImpl
     job = gcshFile.getGenerJobByID(JOB_2_ID);
     assertNotEquals(null, job);
     
-    assertEquals(JOB_2_ID, job.getId());
+    assertEquals(JOB_2_ID, job.getID());
     assertEquals("000002", job.getNumber());
     assertEquals(GnucashGenerJob.TYPE_VENDOR, job.getOwnerType());
     assertEquals("Let's buy help", job.getName());
@@ -128,6 +128,6 @@ public class TestGnucashGenerJobImpl
     assertNotEquals(null, job);
       
     GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-    assertEquals(vendID, job.getOwnerId());
+    assertEquals(vendID, job.getOwnerID());
   }
 }

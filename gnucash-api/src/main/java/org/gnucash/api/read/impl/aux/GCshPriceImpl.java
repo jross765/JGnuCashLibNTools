@@ -62,7 +62,7 @@ public class GCshPriceImpl implements GCshPrice {
     // -----------------------------------------------------------
 
     @Override
-    public GCshID getId() {
+    public GCshID getID() {
 	if ( jwsdpPeer.getPriceId() == null )
 	    return null;
 		    
@@ -72,7 +72,7 @@ public class GCshPriceImpl implements GCshPrice {
     // ----------------------------
     
     @Override
-    public GCshCmdtyCurrID getFromCmdtyCurrQualifId() throws InvalidCmdtyCurrTypeException {
+    public GCshCmdtyCurrID getFromCmdtyCurrQualifID() throws InvalidCmdtyCurrTypeException {
 	if ( jwsdpPeer.getPriceCommodity() == null )
 	    return null;
 		
@@ -87,32 +87,32 @@ public class GCshPriceImpl implements GCshPrice {
     }
 
     @Override
-    public GCshCmdtyID getFromCommodityQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifId();
+    public GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifID();
 	return new GCshCmdtyID(cmdtyCurrID);
     }
 
     @Override
-    public GCshCurrID getFromCurrencyQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifId();
+    public GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifID();
 	return new GCshCurrID(cmdtyCurrID);
     }
 
     @Override
     public GnucashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
-	GCshCmdtyID cmdtyID = getFromCommodityQualifId();
+	GCshCmdtyID cmdtyID = getFromCommodityQualifID();
 	GnucashCommodity cmdty = file.getCommodityByQualifID(cmdtyID);
 	return cmdty;
     }
     
     @Override
     public String getFromCurrencyCode() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getFromCurrencyQualifId().getCurrency().getCurrencyCode();
+	return getFromCurrencyQualifID().getCurrency().getCurrencyCode();
     }
 
     @Override
     public GnucashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
-	GCshCurrID currID = getFromCurrencyQualifId(); 
+	GCshCurrID currID = getFromCurrencyQualifID(); 
 	GnucashCommodity cmdty = file.getCommodityByQualifID(currID);
 	return cmdty;
     }
@@ -120,7 +120,7 @@ public class GCshPriceImpl implements GCshPrice {
     // ----------------------------
     
     @Override
-    public GCshCurrID getToCurrencyQualifId() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+    public GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	if ( jwsdpPeer.getPriceCurrency() == null )
 	    return null;
 		
@@ -152,10 +152,10 @@ public class GCshPriceImpl implements GCshPrice {
 
     @Override
     public GnucashCommodity getToCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
-	if ( getToCurrencyQualifId() == null )
+	if ( getToCurrencyQualifID() == null )
 	    return null;
 	
-	GnucashCommodity cmdty = file.getCommodityByQualifID(getToCurrencyQualifId());
+	GnucashCommodity cmdty = file.getCommodityByQualifID(getToCurrencyQualifID());
 	
 	return cmdty;
     }
@@ -173,7 +173,7 @@ public class GCshPriceImpl implements GCshPrice {
 	}
 
 //	// the currency may have changed
-//	if ( ! getCurrencyQualifId().getType().equals(CmdtyCurrID.Type.CURRENCY) )
+//	if ( ! getCurrencyQualifID().getType().equals(CmdtyCurrID.Type.CURRENCY) )
 //	    throw new InvalidCmdtyCurrTypeException();
 	    
 	Currency currency = Currency.getInstance(getToCurrencyCode());
@@ -230,16 +230,16 @@ public class GCshPriceImpl implements GCshPrice {
     
     @Override
     public String toString() {
-	String result = "GCshPriceImpl [id=" + getId();
+	String result = "GCshPriceImpl [id=" + getID();
 	
 	try {
-	    result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifId() + "'";
+	    result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifID() + "'";
 	} catch (InvalidCmdtyCurrTypeException e) {
 	    result += ", cmdty-qualif-id=" + "ERROR";
 	}
 	
 	try {
-	    result += ", curr-qualif-id='" + getToCurrencyQualifId() + "'";
+	    result += ", curr-qualif-id='" + getToCurrencyQualifID() + "'";
 	} catch (Exception e) {
 	    result += ", curr-qualif-id=" + "ERROR";
 	}

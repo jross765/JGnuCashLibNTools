@@ -59,7 +59,7 @@ public class FilePriceManager {
         List<GncV2.GncBook.GncPricedb.Price> prices = priceDB.getPrice();
         for ( GncV2.GncBook.GncPricedb.Price jwsdpPrc : prices ) {
             GCshPriceImpl price = createPrice(jwsdpPrc);
-            prcMap.put(price.getId(), price);
+            prcMap.put(price.getID(), price);
         }
 
 	LOGGER.debug("init: No. of entries in Price map: " + prcMap.size());
@@ -87,11 +87,11 @@ public class FilePriceManager {
     // ---------------------------------------------------------------
 
     public void addPrice(GCshPrice prc) {
-	prcMap.put(prc.getId(), prc);
+	prcMap.put(prc.getID(), prc);
     }
 
     public void removePrice(GCshPrice prc) {
-	prcMap.remove(prc.getId());
+	prcMap.remove(prc.getID());
     }
 
     // ---------------------------------------------------------------
@@ -237,7 +237,7 @@ public class FilePriceManager {
 		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
 		 * priceQuote.getPriceType() == null) {
 		 * LOGGER.warn("getLatestPrice: GnuCash file contains FUND-price-quotes" + " with no type id='"
-		 * + priceQuote.getPriceId().getValue() + "'"); continue; }
+		 * + priceQuote.getPriceID().getValue() + "'"); continue; }
 		 */
 		    
 		if ( ! ( fromCmdtyCurr.getCmdtySpace().equals(cmdtyCurrID.getNameSpace()) && 

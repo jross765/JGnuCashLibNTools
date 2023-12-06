@@ -73,8 +73,8 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public GCshID getEmployeeId() {
-      return getOwnerId();
+  public GCshID getEmployeeID() {
+      return getOwnerID();
   }
 
   @Override
@@ -93,9 +93,9 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashEmployeeVoucherEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
+  public GnucashEmployeeVoucherEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException
   {
-    return new GnucashEmployeeVoucherEntryImpl(getGenerEntryById(id));
+    return new GnucashEmployeeVoucherEntryImpl(getGenerEntryByID(id));
   }
 
   @Override
@@ -431,9 +431,9 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
       StringBuffer buffer = new StringBuffer();
       buffer.append("[GnucashEmployeeVoucherImpl:");
       buffer.append(" id: ");
-      buffer.append(getId());
+      buffer.append(getID());
       buffer.append(" employee-id: ");
-      buffer.append(getEmployeeId());
+      buffer.append(getEmployeeID());
       buffer.append(" voucher-number: '");
       buffer.append(getNumber() + "'");
       buffer.append(" description: '");

@@ -17,6 +17,6 @@ public interface GnucashVendorJob extends GnucashGenerJob {
 	 * @return the id of the vendor this job is from.
 	 * @see #getVendor()
 	 */
-	GCshID getVendorId();
+	GCshID getVendorID();
 	
 }

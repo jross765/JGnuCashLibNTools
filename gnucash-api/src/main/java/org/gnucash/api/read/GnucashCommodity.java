@@ -9,12 +9,12 @@ import org.gnucash.api.read.aux.GCshPrice;
 public interface GnucashCommodity {
 
     /**
-     * @return the combination of getNameSpace() and getId(), 
+     * @return the combination of getNameSpace() and getID(), 
      *         separated by a colon. This is used to make the so-called ID
      *         a real ID (i.e., unique).
      * @throws InvalidCmdtyCurrTypeException 
      */
-    GCshCmdtyCurrID getQualifId() throws InvalidCmdtyCurrTypeException;
+    GCshCmdtyCurrID getQualifID() throws InvalidCmdtyCurrTypeException;
 
     /**
      * @return the "extended" code of a commodity

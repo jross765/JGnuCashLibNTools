@@ -93,7 +93,7 @@ public class TestGnucashWritableCommodityImpl
   public void test01_1() throws Exception
   {
       GnucashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
-      cmdty.setQualifId(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
+      cmdty.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
       cmdty.setName("Scam and Screw Corp.");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
@@ -171,22 +171,22 @@ public class TestGnucashWritableCommodityImpl
   public void test02_1() throws Exception
   {
       GnucashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity();
-      cmdty1.setQualifId(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
+      cmdty1.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
       cmdty1.setName("Scam and Screw Corp.");
       cmdty1.setXCode("US0123456789");
       
       GnucashWritableCommodity cmdty2 = gcshInFile.createWritableCommodity();
-      cmdty2.setQualifId(new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"));
+      cmdty2.setQualifID(new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"));
       cmdty2.setName("Chocolaterie de la Grande Place");
       cmdty2.setXCode("BE0123456789");
       
       GnucashWritableCommodity cmdty3 = gcshInFile.createWritableCommodity();
-      cmdty3.setQualifId(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"));
+      cmdty3.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"));
       cmdty3.setName("Ils sont fous ces dingos!");
       cmdty3.setXCode("FR0123456789");
       
       GnucashWritableCommodity cmdty4 = gcshInFile.createWritableCommodity();
-      cmdty4.setQualifId(new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"));
+      cmdty4.setQualifID(new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"));
       cmdty4.setName("Ye Ole National British Trade Company Ltd.");
       cmdty4.setXCode("GB10000A2222"); // sic, has to be set redundantly
       

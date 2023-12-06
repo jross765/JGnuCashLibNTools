@@ -72,16 +72,16 @@ public class TestGnucashTransactionImpl
     trx = gcshFile.getTransactionByID(TRX_1_ID);
     assertNotEquals(null, trx);
     
-    assertEquals(TRX_1_ID, trx.getId());
+    assertEquals(TRX_1_ID, trx.getID());
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals("Dividenderl", trx.getDescription());
     assertEquals("2023-08-06T10:59Z", trx.getDatePosted().toString());
     assertEquals("2023-08-06T08:21:44Z", trx.getDateEntered().toString());
         
     assertEquals(3, trx.getSplitsCount());
-    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getId().toString());
-    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getId().toString());
-    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getId().toString());
+    assertEquals("7abf90fe15124254ac3eb7ec33f798e7", trx.getSplits().get(0).getID().toString());
+    assertEquals("ea08a144322146cea38b39d134ca6fc1", trx.getSplits().get(1).getID().toString());
+    assertEquals("5c5fa881869843d090a932f8e6b15af2", trx.getSplits().get(2).getID().toString());
   }
   
   @Test
@@ -90,15 +90,15 @@ public class TestGnucashTransactionImpl
     trx = gcshFile.getTransactionByID(TRX_2_ID);
     assertNotEquals(null, trx);
     
-    assertEquals(TRX_2_ID, trx.getId());
+    assertEquals(TRX_2_ID, trx.getID());
     assertEquals(0.0, trx.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals("Unfug und Quatsch GmbH", trx.getDescription());
     assertEquals("2023-07-29T10:59Z", trx.getDatePosted().toString());
     assertEquals("2023-09-13T08:36:54Z", trx.getDateEntered().toString());
         
     assertEquals(2, trx.getSplitsCount());
-    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getId().toString());
-    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getId().toString());
+    assertEquals("f2a67737458d4af4ade616a23db32c2e", trx.getSplits().get(0).getID().toString());
+    assertEquals("d17361e4c5a14e84be4553b262839a7b", trx.getSplits().get(1).getID().toString());
   }
 
   @Test

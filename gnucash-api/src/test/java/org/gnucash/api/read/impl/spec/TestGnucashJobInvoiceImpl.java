@@ -82,7 +82,7 @@ public class TestGnucashJobInvoiceImpl
     assertNotEquals(null, invcSpec);
     
     assertEquals(true, invcSpec instanceof GnucashJobInvoiceImpl);
-    assertEquals(INVC_3_ID, invcSpec.getId());
+    assertEquals(INVC_3_ID, invcSpec.getID());
     assertEquals(GCshOwner.Type.JOB, invcSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("R94871", invcSpec.getNumber());
     assertEquals("With customer job / with taxes", invcSpec.getDescription());
@@ -109,11 +109,11 @@ public class TestGnucashJobInvoiceImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(invcSpec.getEntries());
     assertEquals("fa483972d10a4ce0abf2a7e1319706e7", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[0]).getID().toString());
     assertEquals("eb5eb3b7c1e34965b36fb6d5af183e82", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[1]).getID().toString());
     assertEquals("993eae09ce664094adf63b85509de2bc", 
-                 ((GnucashJobInvoiceEntry) entrList.toArray()[2]).getId().toString());
+                 ((GnucashJobInvoiceEntry) entrList.toArray()[2]).getID().toString());
   }
 
   @Test
@@ -154,8 +154,8 @@ public class TestGnucashJobInvoiceImpl
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
-//    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getId());
-//    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getId());
+//    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcGen.getPostTransaction().getID());
+//    assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invcSpec.getPostTransaction().getID());
     
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
@@ -166,7 +166,7 @@ public class TestGnucashJobInvoiceImpl
 //    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invcSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("29557cfdf4594eb68b1a1b710722f991", 
-//                 ((GnucashTransaction) trxList.toArray()[0]).getId());
+//                 ((GnucashTransaction) trxList.toArray()[0]).getID());
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implementation error was

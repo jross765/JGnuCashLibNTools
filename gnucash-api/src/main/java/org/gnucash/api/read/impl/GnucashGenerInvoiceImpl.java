@@ -329,7 +329,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getPostAccountId() {
+	public GCshID getPostAccountID() {
 	    try {
 		return new GCshID( jwsdpPeer.getInvoicePostacc().getValue() );
 	    } catch ( NullPointerException exc ) {
@@ -340,7 +340,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getPostTransactionId() {
+	public GCshID getPostTransactionID() {
 	    try {
 		return new GCshID( jwsdpPeer.getInvoicePosttxn().getValue() );
 	    } catch ( NullPointerException exc ) {
@@ -352,10 +352,10 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	 * {@inheritDoc}
 	 */
 	public GnucashAccount getPostAccount() {
-		if (getPostAccountId() == null) {
+		if (getPostAccountID() == null) {
 			return null;
 		}
-		return file.getAccountByID(getPostAccountId());
+		return file.getAccountByID(getPostAccountID());
 	}
 	
 	/**
@@ -364,10 +364,10 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	 *         taxes.
 	 */
 	public GnucashTransaction getPostTransaction() {
-		if (getPostTransactionId() == null) {
+		if (getPostTransactionID() == null) {
 			return null;
 		}
-		return file.getTransactionByID(getPostTransactionId());
+		return file.getTransactionByID(getPostTransactionID());
 	}
 	
   // -----------------------------------------------------------------
@@ -1217,7 +1217,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getId() {
+	public GCshID getID() {
 		return new GCshID(getJwsdpPeer().getInvoiceGuid().getValue());
 	}
 
@@ -1272,9 +1272,9 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
     /**
      * {@inheritDoc}
      */
-    public GnucashGenerInvoiceEntry getGenerEntryById(final GCshID id) {
+    public GnucashGenerInvoiceEntry getGenerEntryByID(final GCshID id) {
         for (GnucashGenerInvoiceEntry element : getGenerEntries()) {
-            if (element.getId().equals(id)) {
+            if (element.getID().equals(id)) {
                 return element;
             }
 
@@ -1377,11 +1377,11 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	
 	// -----------------------------------------------------------
 
-	public GCshID getOwnerId() {
+	public GCshID getOwnerID() {
 	    return getOwnerId_direct();
 	}
 
-    public GCshID getOwnerId(ReadVariant readVar) throws WrongInvoiceTypeException {
+    public GCshID getOwnerID(ReadVariant readVar) throws WrongInvoiceTypeException {
       if ( readVar == ReadVariant.DIRECT )
         return getOwnerId_direct();
       else if ( readVar == ReadVariant.VIA_JOB )
@@ -1399,8 +1399,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
-	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
-	return job.getOwnerId();
+	GnucashGenerJob job = file.getGenerJobByID(getOwnerID());
+	return job.getOwnerID();
     }
     
     // ----------------------------
@@ -1428,7 +1428,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	GnucashGenerJob job = file.getGenerJobByID(getOwnerId());
+	GnucashGenerJob job = file.getGenerJobByID(getOwnerID());
 	return job.getOwnerType();
     }
     
@@ -1472,9 +1472,9 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("[GnucashGenerInvoiceImpl:");
         buffer.append(" id: ");
-        buffer.append(getId());
+        buffer.append(getID());
         buffer.append(" owner-id: ");
-        buffer.append(getOwnerId());
+        buffer.append(getOwnerID());
         buffer.append(" owner-type (dir.): ");
         try {
 	    buffer.append(getOwnerType(ReadVariant.DIRECT));

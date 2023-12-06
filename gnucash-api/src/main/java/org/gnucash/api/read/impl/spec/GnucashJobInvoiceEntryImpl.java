@@ -81,7 +81,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
       {
         throw new IllegalStateException(
             "No job invoice with id '" + getInvoiceID()
-            + "' for invoice entry with id '" + getId() + "'");
+            + "' for invoice entry with id '" + getID() + "'");
       }
     }
     
@@ -130,7 +130,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
     StringBuffer buffer = new StringBuffer();
     buffer.append("[GnucashJobInvoiceEntryImpl:");
     buffer.append(" id: ");
-    buffer.append(getId());
+    buffer.append(getID());
     buffer.append(" invoice-id: ");
     buffer.append(getInvoiceID());
     //      buffer.append(" invoice: ");

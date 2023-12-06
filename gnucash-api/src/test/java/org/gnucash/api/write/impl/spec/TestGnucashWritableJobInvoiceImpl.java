@@ -135,7 +135,7 @@ public class TestGnucashWritableJobInvoiceImpl
 //                                                                  new FixedPointNumber(13));
 
       assertNotEquals(null, invc);
-      GCshID newInvcID = invc.getId();
+      GCshID newInvcID = invc.getID();
 //      System.out.println("New Invoice ID (1): " + newInvcID);
       
       assertEquals("19327", invc.getNumber());
@@ -210,8 +210,8 @@ public class TestGnucashWritableJobInvoiceImpl
       assertNotEquals(null, invcSpec);
       
       assertEquals("19327", invcSpec.getNumber());
-      assertEquals(null, invcSpec.getPostAccountId());      
-      assertEquals(null, invcSpec.getPostTransactionId());
+      assertEquals(null, invcSpec.getPostAccountID());      
+      assertEquals(null, invcSpec.getPostTransactionID());
   }
 
   // After post
@@ -229,17 +229,17 @@ public class TestGnucashWritableJobInvoiceImpl
       assertNotEquals(null, invcSpec);
       
       assertEquals("19327", invcSpec.getNumber());
-      assertEquals(RECEIVABLE_ACCT_ID, invcSpec.getPostAccountId());
+      assertEquals(RECEIVABLE_ACCT_ID, invcSpec.getPostAccountID());
       
-      assertNotEquals(null, invcSpec.getPostTransactionId());
-      GnucashTransaction postTrx = gcshOutFile.getTransactionByID(invcSpec.getPostTransactionId());
+      assertNotEquals(null, invcSpec.getPostTransactionID());
+      GnucashTransaction postTrx = gcshOutFile.getTransactionByID(invcSpec.getPostTransactionID());
       assertNotEquals(null, postTrx);
       assertEquals(2, postTrx.getSplits().size());
-      GCshID postTrxFirstSpltId = postTrx.getFirstSplit().getId();
+      GCshID postTrxFirstSpltId = postTrx.getFirstSplit().getID();
       assertNotEquals(postTrxFirstSpltId, postTrx);
-      GCshID postTrxFirstSpltAcctId = postTrx.getFirstSplit().getAccount().getId();
+      GCshID postTrxFirstSpltAcctId = postTrx.getFirstSplit().getAccount().getID();
       assertNotEquals(postTrxFirstSpltAcctId, postTrx);
-      GCshID postTrxSecondSpltAcctId = postTrx.getSecondSplit().getAccount().getId();
+      GCshID postTrxSecondSpltAcctId = postTrx.getSecondSplit().getAccount().getID();
       assertNotEquals(postTrxSecondSpltAcctId, postTrx);
 //      System.out.println("ptrx1 " + postTrxFirstSpltAcctId);
 //      System.out.println("ptrx2 " + postTrxSecondSpltAcctId);

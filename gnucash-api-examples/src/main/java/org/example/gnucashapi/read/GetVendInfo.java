@@ -63,7 +63,7 @@ public class GetVendInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:                " + vend.getId());
+	    System.out.println("ID:                " + vend.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:                " + "ERROR");
 	}

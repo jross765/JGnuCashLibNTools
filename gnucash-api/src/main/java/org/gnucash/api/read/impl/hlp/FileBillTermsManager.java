@@ -43,7 +43,7 @@ public class FileBillTermsManager {
             }
             GncV2.GncBook.GncGncBillTerm jwsdpPeer = (GncV2.GncBook.GncGncBillTerm) bookElement;
             GCshBillTermsImpl billTerms = new GCshBillTermsImpl(jwsdpPeer);
-            bllTrmMap.put(billTerms.getId(), billTerms);
+            bllTrmMap.put(billTerms.getID(), billTerms);
         }
 
 	LOGGER.debug("init: No. of entries in bill terms map: " + bllTrmMap.size());
@@ -61,11 +61,11 @@ public class FileBillTermsManager {
     // ---------------------------------------------------------------
 
     public void addBillTerms(GCshBillTerms bllTrm) {
-	bllTrmMap.put(bllTrm.getId(), bllTrm);
+	bllTrmMap.put(bllTrm.getID(), bllTrm);
     }
 
     public void removeBillTerms(GCshBillTerms bllTrm) {
-	bllTrmMap.remove(bllTrm.getId());
+	bllTrmMap.remove(bllTrm.getID());
     }
 
     // ---------------------------------------------------------------

@@ -79,7 +79,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	assert jwsdpPeer.getJobGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 	String guid = jwsdpPeer.getJobGuid().getValue();
@@ -139,7 +139,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * {@inheritDoc}
      */
-    public GCshID getOwnerId() {
+    public GCshID getOwnerID() {
 	assert jwsdpPeer.getJobOwner().getOwnerId().getType().equals(Const.XML_DATA_TYPE_GUID);
 	return new GCshID( jwsdpPeer.getJobOwner().getOwnerId().getValue() );
     }
@@ -179,7 +179,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 //		if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_JOB) ) {
 //		    GnucashJobInvoice invcSpec = new GnucashJobInvoiceImpl(invcGen);
 		GnucashGenerJob job = invcSpec.getGenerJob();
-		if (job.getId().equals(this.getId())) {
+		if (job.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
 		}
 //		} // if invc type
@@ -234,7 +234,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_JOB) ) {
 //              GnucashJobInvoice invcSpec = new GnucashJobInvoiceImpl(invcGen); 
 		GnucashGenerJob job = invcSpec.getGenerJob();
-		if (job.getId().equals(this.getId())) {
+		if (job.getID().equals(this.getID())) {
 		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
@@ -317,7 +317,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	StringBuffer buffer = new StringBuffer();
 	buffer.append("[GnucashGenerJobImpl:");
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	
 	buffer.append(" number: ");
 	buffer.append(getNumber());
@@ -329,7 +329,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	buffer.append(getOwnerType());
 	
 	buffer.append(" cust/vend-id: ");
-	buffer.append(getOwnerId());
+	buffer.append(getOwnerID());
 	
 	buffer.append(" is-active: ");
 	buffer.append(isActive());

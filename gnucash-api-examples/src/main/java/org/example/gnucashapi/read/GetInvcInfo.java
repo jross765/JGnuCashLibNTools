@@ -52,7 +52,7 @@ public class GetInvcInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:                " + invc.getId());
+	    System.out.println("ID:                " + invc.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:                " + "ERROR");
 	}
@@ -83,7 +83,7 @@ public class GetInvcInfo {
 
 	System.out.println("");
 	try {
-	    System.out.println("Owner (dir.):      " + invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT));
+	    System.out.println("Owner (dir.):      " + invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT));
 	} catch (Exception exc) {
 	    System.out.println("Owner (dir.):      " + "ERROR");
 	}
@@ -96,7 +96,7 @@ public class GetInvcInfo {
 
 	try {
 	    if (invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_JOB))
-		System.out.println("Owner (via job):   " + invc.getOwnerId(GnucashGenerInvoice.ReadVariant.VIA_JOB));
+		System.out.println("Owner (via job):   " + invc.getOwnerID(GnucashGenerInvoice.ReadVariant.VIA_JOB));
 	    else
 		System.out.println("Owner (via job):   " + "n/a");
 	} catch (Exception exc) {

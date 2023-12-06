@@ -73,7 +73,7 @@ public class TestGnucashEmployeeImpl
     empl = gcshFile.getEmployeeByID(EMPL_1_ID);
     assertNotEquals(null, empl);
     
-    assertEquals(EMPL_1_ID, empl.getId());
+    assertEquals(EMPL_1_ID, empl.getID());
     assertEquals("000001", empl.getNumber());
     assertEquals("otwist", empl.getUserName());
     assertEquals("Oliver Twist", empl.getAddress().getAddressName());
@@ -92,11 +92,11 @@ public class TestGnucashEmployeeImpl
     LinkedList<GnucashEmployeeVoucher> vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers_direct();
     Collections.sort(vchList);
     assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
-                 ((GnucashEmployeeVoucher) vchList.toArray()[0]).getId().toString() );
+                 ((GnucashEmployeeVoucher) vchList.toArray()[0]).getID().toString() );
 
 //    vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
 //    Collections.sort(vchList);
 //    assertEquals("xxx", 
-//                 ((GnucashVendorBill) vchList.toArray()[0]).getId() );
+//                 ((GnucashVendorBill) vchList.toArray()[0]).getID() );
   }
 }

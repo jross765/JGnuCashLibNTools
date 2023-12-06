@@ -34,7 +34,7 @@ public abstract class FileInvoiceManager_Job {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -63,7 +63,7 @@ public abstract class FileInvoiceManager_Job {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -92,7 +92,7 @@ public abstract class FileInvoiceManager_Job {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {

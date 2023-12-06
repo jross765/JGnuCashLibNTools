@@ -36,7 +36,7 @@ public class GetTrxSpltInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:          " + splt.getId());
+	    System.out.println("ID:          " + splt.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:          " + "ERROR");
 	}

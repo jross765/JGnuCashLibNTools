@@ -47,7 +47,7 @@ public class FileVendorManager {
 
 	    try {
 		GnucashVendorImpl vend = createVendor(jwsdpVend);
-		vendMap.put(vend.getId(), vend);
+		vendMap.put(vend.getID(), vend);
 	    } catch (RuntimeException e) {
 		LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 			+ "ignoring illegal Vendor-Entry with id=" + jwsdpVend.getVendorId(), e);
@@ -69,11 +69,11 @@ public class FileVendorManager {
     // ---------------------------------------------------------------
 
     public void addVendor(GnucashVendor vend) {
-	vendMap.put(vend.getId(), vend);
+	vendMap.put(vend.getID(), vend);
     }
 
     public void removeVendor(GnucashVendor vend) {
-	vendMap.remove(vend.getId());
+	vendMap.remove(vend.getID());
     }
 
     // ---------------------------------------------------------------

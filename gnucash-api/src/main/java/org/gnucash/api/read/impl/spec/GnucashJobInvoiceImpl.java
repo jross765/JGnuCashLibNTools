@@ -81,7 +81,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public GCshID getJobId() {
+  public GCshID getJobID() {
     return getOwnerId_direct();
   }
 
@@ -96,7 +96,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public GCshID getOwnerId(ReadVariant readVar) {
+  public GCshID getOwnerID(ReadVariant readVar) {
       if (readVar == ReadVariant.DIRECT)
 	  return getOwnerId_direct();
       else if (readVar == ReadVariant.VIA_JOB)
@@ -107,7 +107,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
   @Override
   protected GCshID getOwnerId_viaJob() {
-      return getGenerJob().getOwnerId();
+      return getGenerJob().getOwnerID();
   }
 
   // -----------------------------------------------------------------
@@ -116,7 +116,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public GCshID getCustomerId() throws WrongInvoiceTypeException {
+  public GCshID getCustomerID() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 	throw new WrongInvoiceTypeException();
     
@@ -127,7 +127,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
    * {@inheritDoc}
    */
   @Override
-  public GCshID getVendorId() throws WrongInvoiceTypeException {
+  public GCshID getVendorID() throws WrongInvoiceTypeException {
     if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 	throw new WrongInvoiceTypeException();
     
@@ -142,7 +142,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public GnucashGenerJob getGenerJob() 
   {
-      return file.getGenerJobByID(getJobId());
+      return file.getGenerJobByID(getJobID());
   }
 
   /**
@@ -179,7 +179,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 		throw new WrongInvoiceTypeException();
       
-      return getFile().getCustomerByID(getCustomerId());
+      return getFile().getCustomerByID(getCustomerID());
   }
 
   /**
@@ -190,15 +190,15 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 		throw new WrongInvoiceTypeException();
 
-      return getFile().getVendorByID(getVendorId());
+      return getFile().getVendorByID(getVendorID());
   }
 
   // ---------------------------------------------------------------
 
   @Override
-  public GnucashJobInvoiceEntry getEntryById(GCshID id) throws WrongInvoiceTypeException
+  public GnucashJobInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException
   {
-    return new GnucashJobInvoiceEntryImpl(getGenerEntryById(id));
+    return new GnucashJobInvoiceEntryImpl(getGenerEntryByID(id));
   }
 
   @Override
@@ -459,9 +459,9 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
       StringBuffer buffer = new StringBuffer();
       buffer.append("[GnucashJobInvoiceImpl:");
       buffer.append(" id: ");
-      buffer.append(getId());
+      buffer.append(getID());
       buffer.append(" job-id: ");
-      buffer.append(getJobId());
+      buffer.append(getJobID());
       buffer.append(" invoice-number: '");
       buffer.append(getNumber() + "'");
       buffer.append(" description: '");

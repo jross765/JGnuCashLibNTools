@@ -57,7 +57,7 @@ public class FileCommodityManager {
 	    try {
 		GnucashCommodityImpl cmdty = createCommodity(jwsdpCmdty);
 		try {
-		    cmdtyMap.put(cmdty.getQualifId().toString(), cmdty);
+		    cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
 		} catch (InvalidCmdtyCurrTypeException e) {
 		    LOGGER.error("initMap1: Could not add Commodity to map: " + cmdty.toString());
 		}
@@ -76,7 +76,7 @@ public class FileCommodityManager {
 	for ( String qualifID : cmdtyMap.keySet() ) {
 	    GnucashCommodity cmdty = cmdtyMap.get(qualifID);
 	    try {
-		xCodeMap.put(cmdty.getXCode(), cmdty.getQualifId().toString());
+		xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
 	    } catch (InvalidCmdtyCurrTypeException e) {
 		LOGGER.error("initMap2: Could not add element to map: " + cmdty.getXCode());
 	    }
@@ -97,17 +97,17 @@ public class FileCommodityManager {
     // ---------------------------------------------------------------
 
     public void addCommodity(GnucashCommodity cmdty) {
-	cmdtyMap.put(cmdty.getQualifId().toString(), cmdty);
+	cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
 	
 	if ( cmdty.getXCode() != null )
-	    xCodeMap.put(cmdty.getXCode(), cmdty.getQualifId().toString());
+	    xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
     }
 
     public void removeCommodity(GnucashCommodity cmdty) {
-	cmdtyMap.remove(cmdty.getQualifId().toString());
+	cmdtyMap.remove(cmdty.getQualifID().toString());
 	
 	for ( String xCode : xCodeMap.keySet() ) {
-	    if ( xCodeMap.get(xCode).equals(cmdty.getQualifId().toString()) )
+	    if ( xCodeMap.get(xCode).equals(cmdty.getQualifID().toString()) )
 		xCodeMap.remove(xCode);
 	}
     }

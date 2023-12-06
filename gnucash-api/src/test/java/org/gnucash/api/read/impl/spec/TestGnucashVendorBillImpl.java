@@ -85,7 +85,7 @@ public class TestGnucashVendorBillImpl
     assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
-    assertEquals(BLL_1_ID, bllSpec.getId());
+    assertEquals(BLL_1_ID, bllSpec.getID());
     assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("1730-383/2", bllSpec.getNumber());
     assertEquals("Sie wissen schon: Gefälligkeiten, ne?", bllSpec.getDescription());
@@ -104,7 +104,7 @@ public class TestGnucashVendorBillImpl
     assertNotEquals(null, bllSpec);
     
     assertEquals(true, bllSpec instanceof GnucashVendorBillImpl);
-    assertEquals(BLL_2_ID, bllSpec.getId());
+    assertEquals(BLL_2_ID, bllSpec.getID());
     assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
     assertEquals("2740921", bllSpec.getNumber());
     assertEquals("Dat isjamaol eine schöne jepflejgte Reschnung!", bllSpec.getDescription());
@@ -132,7 +132,7 @@ public class TestGnucashVendorBillImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(bllSpec.getEntries());
     assertEquals("0041b8d397f04ae4a2e9e3c7f991c4ec", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getID().toString());
   }
 
   @Test
@@ -153,9 +153,9 @@ public class TestGnucashVendorBillImpl
     TreeSet entrList = new TreeSet(); // sort elements of HashSet
     entrList.addAll(bllSpec.getEntries());
     assertEquals("513589a11391496cbb8d025fc1e87eaa", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[1]).getId().toString());
+                 ((GnucashVendorBillEntry) entrList.toArray()[1]).getID().toString());
     assertEquals("dc3c53f07ff64199ad4ea38988b3f40a", 
-                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getId().toString());
+                 ((GnucashVendorBillEntry) entrList.toArray()[0]).getID().toString());
   }
 
   @Test
@@ -230,7 +230,7 @@ public class TestGnucashVendorBillImpl
 //    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) bllSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("xxx", 
-//                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getId());
+//                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getID());
 
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implementation error was
@@ -251,8 +251,8 @@ public class TestGnucashVendorBillImpl
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)
-    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invcGen.getPostTransaction().getId().toString());
-    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", bllSpec.getPostTransaction().getId().toString());
+    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invcGen.getPostTransaction().getID().toString());
+    assertEquals("aa64d862bb5e4d749eb41f198b28d73d", bllSpec.getPostTransaction().getID().toString());
     
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
@@ -263,7 +263,7 @@ public class TestGnucashVendorBillImpl
     LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) bllSpec.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("ccff780b18294435bf03c6cb1ac325c1", 
-                 ((GnucashTransaction) trxList.toArray()[0]).getId().toString());
+                 ((GnucashTransaction) trxList.toArray()[0]).getID().toString());
     
     // Note: That the following three return the same result
     // is *not* trivial (in fact, a serious implementation error was

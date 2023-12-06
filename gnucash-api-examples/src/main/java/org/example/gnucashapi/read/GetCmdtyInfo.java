@@ -74,7 +74,7 @@ public class GetCmdtyInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("Qualified ID:      '" + cmdty.getQualifId() + "'");
+	    System.out.println("Qualified ID:      '" + cmdty.getQualifID() + "'");
 	} catch (Exception exc) {
 	    System.out.println("Qualified ID:      " + "ERROR");
 	}

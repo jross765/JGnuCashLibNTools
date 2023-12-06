@@ -22,7 +22,7 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
  */
 public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
 
-    GnucashWritableJobInvoiceEntry getWritableEntryById(GCshID id);
+    GnucashWritableJobInvoiceEntry getWritableEntryByID(GCshID id);
     
     // ---------------------------------------------------------------
 

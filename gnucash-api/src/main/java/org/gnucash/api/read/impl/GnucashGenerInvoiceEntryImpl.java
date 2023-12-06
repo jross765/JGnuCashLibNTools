@@ -173,7 +173,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	return new GCshID( jwsdpPeer.getEntryGuid().getValue() );
     }
 
@@ -206,7 +206,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	}
 
 	if (entrInvc == null && entrBill == null) {
-	    LOGGER.error("file contains an invoice-entry with GUID=" + getId()
+	    LOGGER.error("file contains an invoice-entry with GUID=" + getID()
 		    + " without an invoice-element (customer) AND " + "without a bill-element (vendor)");
 	    return null;
 	} else if (entrInvc != null && entrBill == null) {
@@ -214,7 +214,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	} else if (entrInvc == null && entrBill != null) {
 	    return new GCshID(entrBill.getValue());
 	} else if (entrInvc != null && entrBill != null) {
-	    LOGGER.error("file contains an invoice-entry with GUID=" + getId()
+	    LOGGER.error("file contains an invoice-entry with GUID=" + getID()
 		    + " with BOTH an invoice-element (customer) and " + "a bill-element (vendor)");
 	    return null;
 	}
@@ -237,7 +237,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		myInvoice = getGnucashFile().getGenerInvoiceByID(invcId);
 		if (myInvoice == null) {
 		    throw new IllegalStateException("No generic invoice with ID '" + getGenerInvoiceID()
-			    + "' for invoice entry with ID '" + getId() + "'");
+			    + "' for invoice entry with ID '" + getID() + "'");
 		}
 	    }
 	}
@@ -334,7 +334,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    String taxTableIdStr = taxTableEntry.getValue();
 	    if (taxTableIdStr == null) {
 		LOGGER.error(
-			"getInvcTaxTable: Customer invoice with id '" + getId() + 
+			"getInvcTaxTable: Customer invoice with id '" + getID() + 
 			"' is i-taxable but has empty id for the i-taxtable");
 		return null;
 	    }
@@ -342,7 +342,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    myInvcTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myInvcTaxtable == null) {
-		LOGGER.error("getInvcTaxTable: Customer invoice with id '" + getId() + 
+		LOGGER.error("getInvcTaxTable: Customer invoice with id '" + getID() + 
 			"' is i-taxable but has an unknown "
 			+ "i-taxtable-id '" + taxTableId + "'!");
 	    }
@@ -371,7 +371,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	    String taxTableIdStr = taxTableEntry.getValue();
 	    if (taxTableIdStr == null) {
-		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getId() + 
+		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getID() + 
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
@@ -379,7 +379,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    myBillTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxtable == null) {
-		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getId() + 
+		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getID() + 
 			"' is b-taxable but has an unknown "
 			+ "b-taxtable-id '" + taxTableId + "'!");
 	    }
@@ -408,7 +408,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	    String taxTableIdStr = taxTableEntry.getValue();
 	    if (taxTableIdStr == null) {
-		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getId() + 
+		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getID() + 
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
@@ -416,7 +416,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    myBillTaxtable = getGnucashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxtable == null) {
-		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getId() + 
+		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getID() + 
 			"' is b-taxable but has an unknown "
 			+ "b-taxtable-id '" + taxTableId + "'!");
 	    }
@@ -457,7 +457,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	if (jwsdpPeer.getEntryITaxtable() != null) {
 	    if (!jwsdpPeer.getEntryITaxtable().getType().equals(Const.XML_DATA_TYPE_GUID)) {
-		LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+		LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 			"' has i-taxtable with type='"
 			+ jwsdpPeer.getEntryITaxtable().getType() + "' != 'guid'");
 	    }
@@ -467,7 +467,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	try {
 	    taxTab = getInvcTaxTable();
 	} catch (TaxTableNotFoundException exc) {
-	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 		    "' is taxable but JWSDP peer has no i-taxtable-entry! " + 
 		    "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -484,14 +484,14 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	//   tax rate directly, but rather goes via a tax table (entry).
 	// - Assuming standard German VAT is overly specific.
 //	if (taxTab == null) {
-//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 //		    "' is taxable but has an unknown i-taxtable! "
 //		    + "Assuming 19%");
 //	    return new FixedPointNumber("1900000/10000000");
 //	}
 	// Instead:
 	if (taxTab == null) {
-	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 		    "' is taxable but has an unknown i-taxtable! "
 		    + "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -505,7 +505,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	//   There are hundreds of instances where we could check...
 	// - Assuming standard German VAT is overly specific.
 //	if ( ! taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_PERCENT) ) {
-//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 //		    "' is taxable but has a i-taxtable "
 //		    + "that is not in percent but in '" + taxTabEntr.getType() + "'! Assuming 19%");
 //	    return new FixedPointNumber("1900000/10000000");
@@ -513,7 +513,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	// Instead:
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
-	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getId() + 
+	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 		    "' is taxable but has a i-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
@@ -543,7 +543,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	if (jwsdpPeer.getEntryBTaxtable() != null) {
 	    if (!jwsdpPeer.getEntryBTaxtable().getType().equals(Const.XML_DATA_TYPE_GUID)) {
-		LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getId() + "' has b-taxtable with type='"
+		LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getID() + "' has b-taxtable with type='"
 			+ jwsdpPeer.getEntryBTaxtable().getType() + "' != 'guid'");
 	    }
 	}
@@ -552,7 +552,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	try {
 	    taxTab = getBillTaxTable();
 	} catch (TaxTableNotFoundException exc) {
-	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getId() +
+	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getID() +
 		    "' is taxable but JWSDP peer has no b-taxtable-entry! " + 
 		    "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -560,7 +560,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	// Cf. getInvcApplicableTaxPercent()
 	if (taxTab == null) {
-	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getId() + 
+	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getID() + 
 		    "' is taxable but has an unknown b-taxtable! "
 		    + "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -571,7 +571,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
-	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getId() + 
+	    LOGGER.error("getBillApplicableTaxPercent: Vendor bill entry with id '" + getID() + 
 		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
@@ -601,7 +601,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	if (jwsdpPeer.getEntryBTaxtable() != null) {
 	    if (!jwsdpPeer.getEntryBTaxtable().getType().equals(Const.XML_DATA_TYPE_GUID)) {
-		LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + "' has b-taxtable with type='"
+		LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getID() + "' has b-taxtable with type='"
 			+ jwsdpPeer.getEntryBTaxtable().getType() + "' != 'guid'");
 	    }
 	}
@@ -610,7 +610,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	try {
 	    taxTab = getVoucherTaxTable();
 	} catch (TaxTableNotFoundException exc) {
-	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() +
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getID() +
 		    "' is taxable but JWSDP peer has no b-taxtable-entry! " + 
 		    "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -618,7 +618,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
 	// Cf. getInvcApplicableTaxPercent()
 	if (taxTab == null) {
-	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + 
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getID() + 
 		    "' is taxable but has an unknown b-taxtable! "
 		    + "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -629,7 +629,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
-	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getId() + 
+	    LOGGER.error("getVoucherApplicableTaxPercent: Employee voucher entry with id '" + getID() + 
 		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
@@ -1349,13 +1349,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 		}
 	    }
 
-	    int c = otherEntr.getId().toString().compareTo(getId().toString());
+	    int c = otherEntr.getID().toString().compareTo(getID().toString());
 	    if (c != 0) {
 		return c;
 	    }
 
 	    if (otherEntr != this) {
-		LOGGER.error("Duplicate invoice-entry-id!! " + otherEntr.getId() + " and " + getId());
+		LOGGER.error("Duplicate invoice-entry-id!! " + otherEntr.getID() + " and " + getID());
 	    }
 
 	    return 0;
@@ -1374,7 +1374,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	StringBuffer buffer = new StringBuffer();
 	buffer.append("[GnucashGenerInvoiceEntryImpl:");
 	buffer.append(" id: ");
-	buffer.append(getId());
+	buffer.append(getID());
 	buffer.append(" type: ");
 	try {
 	    buffer.append(getType());

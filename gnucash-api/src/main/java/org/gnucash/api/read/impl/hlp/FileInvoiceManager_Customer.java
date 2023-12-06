@@ -35,7 +35,7 @@ public abstract class FileInvoiceManager_Customer {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -86,7 +86,7 @@ public abstract class FileInvoiceManager_Customer {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -138,7 +138,7 @@ public abstract class FileInvoiceManager_Customer {
 	Collection<GnucashCustomerInvoice> retval = new LinkedList<GnucashCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerId(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getId())) {
+	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID())) {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {

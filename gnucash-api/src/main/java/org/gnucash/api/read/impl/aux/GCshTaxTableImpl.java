@@ -62,7 +62,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    public GCshID getId() {
+    public GCshID getID() {
 	assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 	String guid = jwsdpPeer.getTaxtableGuid().getValue();
@@ -141,7 +141,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 	buffer.append("GCshTaxTableImpl: [\n");
 
 	buffer.append("  id:        ");
-	buffer.append(getId() + "\n");
+	buffer.append(getID() + "\n");
 
 	buffer.append("  name:      '");
 	buffer.append(getName() + "'\n");

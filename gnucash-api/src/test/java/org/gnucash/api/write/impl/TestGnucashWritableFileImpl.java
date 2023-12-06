@@ -85,7 +85,7 @@ public class TestGnucashWritableFileImpl
   // 
   // Check whether the GnucashWritableFile objects returned by 
   // GnucashWritableFileImpl.getWritableFileByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getFileById().
+  // complete (as complete as returned be GnucashFileImpl.getFileByID().
 
   // -----------------------------------------------------------------
 

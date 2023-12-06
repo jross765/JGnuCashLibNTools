@@ -90,13 +90,13 @@ public class TestGCshTaxTableImpl
       // ::TODO: Sort array for predictability
       Object[] taxTableArr = taxTableList.toArray();
       
-      assertEquals(TAXTABLE_UK_2_ID,   ((GCshTaxTable) taxTableArr[0]).getId());
-      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshTaxTable) taxTableArr[1]).getId());
-      assertEquals(TAXTABLE_UK_1_ID,   ((GCshTaxTable) taxTableArr[2]).getId());
-      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshTaxTable) taxTableArr[3]).getId());
-      assertEquals(TAXTABLE_DE_2_ID,   ((GCshTaxTable) taxTableArr[4]).getId());
-      assertEquals(TAXTABLE_FR_1_ID,   ((GCshTaxTable) taxTableArr[5]).getId());
-      assertEquals(TAXTABLE_FR_2_ID,   ((GCshTaxTable) taxTableArr[6]).getId());
+      assertEquals(TAXTABLE_UK_2_ID,   ((GCshTaxTable) taxTableArr[0]).getID());
+      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshTaxTable) taxTableArr[1]).getID());
+      assertEquals(TAXTABLE_UK_1_ID,   ((GCshTaxTable) taxTableArr[2]).getID());
+      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshTaxTable) taxTableArr[3]).getID());
+      assertEquals(TAXTABLE_DE_2_ID,   ((GCshTaxTable) taxTableArr[4]).getID());
+      assertEquals(TAXTABLE_FR_1_ID,   ((GCshTaxTable) taxTableArr[5]).getID());
+      assertEquals(TAXTABLE_FR_2_ID,   ((GCshTaxTable) taxTableArr[6]).getID());
   }
 
   @Test
@@ -104,7 +104,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByID(TAXTABLE_DE_1_1_ID);
       
-      assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
       assertEquals("DE_USt_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -119,7 +119,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByName("DE_USt_Std");
       
-      assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
       assertEquals("DE_USt_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -134,7 +134,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByID(TAXTABLE_DE_1_2_ID);
       
-      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
       assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
       assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
@@ -149,7 +149,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByName("USt_Std");
       
-      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
       assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
       assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
@@ -164,7 +164,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByID(TAXTABLE_DE_2_ID);
       
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
       assertEquals("DE_USt_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -179,7 +179,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByName("DE_USt_red");
       
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
       assertEquals("DE_USt_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -194,7 +194,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByID(TAXTABLE_FR_1_ID);
       
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
       assertEquals("FR_TVA_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -209,7 +209,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByName("FR_TVA_Std");
       
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
       assertEquals("FR_TVA_Std", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -224,7 +224,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByID(TAXTABLE_FR_2_ID);
       
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
       assertEquals("FR_TVA_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 
@@ -239,7 +239,7 @@ public class TestGCshTaxTableImpl
   {
       taxTab = gcshFile.getTaxTableByName("FR_TVA_red");
       
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getId());
+      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
       assertEquals("FR_TVA_red", taxTab.getName());
       assertEquals(null, taxTab.getParentID());
 

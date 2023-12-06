@@ -63,7 +63,7 @@ public class GetCustInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:                " + cust.getId());
+	    System.out.println("ID:                " + cust.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:                " + "ERROR");
 	}

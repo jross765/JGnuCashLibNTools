@@ -58,7 +58,7 @@ public class GetJobInfo {
 	// ------------------------
 
 	try {
-	    System.out.println("ID:              " + job.getId());
+	    System.out.println("ID:              " + job.getID());
 	} catch (Exception exc) {
 	    System.out.println("ID:              " + "ERROR");
 	}
@@ -82,7 +82,7 @@ public class GetJobInfo {
 	}
 
 	try {
-	    System.out.println("Owner ID:        " + job.getOwnerId());
+	    System.out.println("Owner ID:        " + job.getOwnerID());
 	} catch (Exception exc) {
 	    System.out.println("Owner ID:        " + "ERROR");
 	}

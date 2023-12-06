@@ -124,7 +124,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
 	    OwnerId ownerid = factory.createOwnerId();
 	    ownerid.setType(Const.XML_DATA_TYPE_GUID);
-	    ownerid.setValue(vend.getId().toString());
+	    ownerid.setValue(vend.getID().toString());
 
 	    owner.setOwnerId(ownerid);
 	    owner.setVersion(Const.XML_FORMAT_VERSION);
@@ -189,7 +189,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	if (oldVend == vend) {
 	    return; // nothing has changed
 	}
-	getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getId().toString());
+	getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getID().toString());
 	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
@@ -206,9 +206,9 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	    throw new IllegalArgumentException("null or empty job-number given!");
 	}
 	GnucashGenerJob otherJob = getWritableFile().getGenerJobByNumber(jobId);
-	if (otherJob != null && !otherJob.getId().equals(getId())) {
+	if (otherJob != null && !otherJob.getID().equals(getID())) {
 	    throw new IllegalArgumentException(
-		    "another job (id='" + otherJob.getId() + "' already exists with given jobNumber '" + jobId + "')");
+		    "another job (id='" + otherJob.getID() + "' already exists with given jobNumber '" + jobId + "')");
 	}
 
 	String oldJobId = getJwsdpPeer().getJobId();
