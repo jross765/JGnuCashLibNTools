@@ -9,7 +9,7 @@ public class Const_FR {
     public static final String TRX_SPLT_ACTION_PAYMENT     = "Payer";
     public static final String TRX_SPLT_ACTION_REBATE      = "Remise";
     // Attention: Le prochain est mal traduit -- correctement: "Salaire".
-    // Pourtant, c'est le terme exacte dans le fichier PO, et c'est 
+    // Pourtant, c'est le terme exact dans le fichier PO, et c'est 
     // la raison pour laquelle nous le gardons.
     public static final String TRX_SPLT_ACTION_PAYCHECK    = "Chèque";
     public static final String TRX_SPLT_ACTION_CREDIT      = "Crédit";

@@ -25,7 +25,7 @@ public class Const_DE {
     // Achtung: Die beiden folgenden stehen genau so in der GnuCash-PO-Datei,
     // weshalb ich sie so uebernehme. Aus meiner Sicht aber eine Fehluebersetzung.
     // Sollte eigentlich heissen: "Buchgewinn" (allgemeiner) oder 
-    // "Kursgewinn" (speziell f. Wertpapiere).
+    // "Kursgewinn" (speziell f. Wertpapiere), aber nicht "Zinsen".
     public static final String TRX_SPLT_ACTION_LTCG        = "Zinsen aus langfristigen Kapitalanlagen";
     public static final String TRX_SPLT_ACTION_STCG        = "Zinsen aus kurzfristigen Anlagen";
     public static final String TRX_SPLT_ACTION_INCOME      = "Ertrag";

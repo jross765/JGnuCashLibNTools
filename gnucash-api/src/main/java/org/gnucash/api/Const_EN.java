@@ -1,5 +1,6 @@
 package org.gnucash.api;
 
+
 public class Const_EN {
 
     public static final String TRX_SPLT_ACTION_INCREASE    = "Increase";
@@ -29,8 +30,8 @@ public class Const_EN {
 
     // ---
 
-    public static final String INVC_READ_ONLY_SLOT_TEXT = "Generado desde una factura. " + 
-                                                          "Intente descontabilizando la factura.";
+    public static final String INVC_READ_ONLY_SLOT_TEXT = "Generated from an invoice. " + 
+                                                          "Try unposting the invoice.";
 
     // ---
 

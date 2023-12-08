@@ -30,8 +30,8 @@ public class Const_ES {
 
     // ---
 
-    public static final String INVC_READ_ONLY_SLOT_TEXT = "Généré depuis une facture. " + 
-                                                          "Essayez de suspendre la facture.";
+    public static final String INVC_READ_ONLY_SLOT_TEXT = "Generado desde una factura. " + 
+                                                          "Intente descontabilizando la factura.";
 
     // ---
 
