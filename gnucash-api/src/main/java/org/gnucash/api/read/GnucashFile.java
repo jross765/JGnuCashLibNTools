@@ -10,6 +10,7 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -127,6 +128,8 @@ public interface GnucashFile extends GnucashObject {
      */
     GnucashAccount getAccountByIDorNameEx(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
+    Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String acctName, 
+		                                        boolean qualif, boolean relaxed) throws UnknownAccountTypeException;
     /**
      * @return all accounts
      */

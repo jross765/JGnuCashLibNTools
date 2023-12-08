@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
@@ -79,10 +80,12 @@ public class FileAccountManager {
 
     public void addAccount(GnucashAccount acct) {
 	acctMap.put(acct.getID(), acct);
+	LOGGER.debug("Added account to cache: " + acct.getID());
     }
 
     public void removeAccount(GnucashAccount acct) {
 	acctMap.remove(acct.getID());
+	LOGGER.debug("Removed account from cache: " + acct.getID());
     }
 
     // ---------------------------------------------------------------
@@ -263,6 +266,19 @@ public class FileAccountManager {
 	}
 
 	return retval;
+    }
+
+    public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String expr, 
+	    						       boolean qualif, boolean relaxed) throws UnknownAccountTypeException {
+	Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+	
+	for ( GnucashAccount acct : getAccountsByName(expr, qualif, relaxed) ) {
+	    if ( acct.getType() == type ) {
+		result.add(acct);
+	    }
+	}
+	
+	return result;
     }
 
     /**

@@ -125,6 +125,8 @@ public class FileTransactionManager {
 		addTransactionSplit(splt, false);
 	    }
 	}
+
+	LOGGER.debug("Added transaction to cache: " + trx.getID());
     }
 
     public void removeTransaction(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -139,6 +141,8 @@ public class FileTransactionManager {
 	}
 
 	trxMap.remove(trx.getID());
+
+	LOGGER.debug("Removed transaction from cache: " + trx.getID());
     }
 
     // ---------------------------------------------------------------

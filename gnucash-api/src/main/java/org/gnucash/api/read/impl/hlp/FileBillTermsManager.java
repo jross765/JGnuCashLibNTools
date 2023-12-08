@@ -62,10 +62,12 @@ public class FileBillTermsManager {
 
     public void addBillTerms(GCshBillTerms bllTrm) {
 	bllTrmMap.put(bllTrm.getID(), bllTrm);
+	LOGGER.debug("Added bill terms to cache: " + bllTrm.getID());
     }
 
     public void removeBillTerms(GCshBillTerms bllTrm) {
 	bllTrmMap.remove(bllTrm.getID());
+	LOGGER.debug("Removed bill terms from cache: " + bllTrm.getID());
     }
 
     // ---------------------------------------------------------------

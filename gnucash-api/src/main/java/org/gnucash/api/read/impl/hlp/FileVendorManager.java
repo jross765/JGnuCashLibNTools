@@ -70,10 +70,12 @@ public class FileVendorManager {
 
     public void addVendor(GnucashVendor vend) {
 	vendMap.put(vend.getID(), vend);
+	LOGGER.debug("Added vendor to cache: " + vend.getID());
     }
 
     public void removeVendor(GnucashVendor vend) {
 	vendMap.remove(vend.getID());
+	LOGGER.debug("Removed vendor to cache: " + vend.getID());
     }
 
     // ---------------------------------------------------------------

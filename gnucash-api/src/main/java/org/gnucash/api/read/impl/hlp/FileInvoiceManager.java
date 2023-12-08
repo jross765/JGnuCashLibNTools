@@ -82,10 +82,12 @@ public class FileInvoiceManager {
 
     public void addGenerInvoice(GnucashGenerInvoice invc) {
 	invcMap.put(invc.getID(), invc);
+	LOGGER.debug("Added (generic) invoice to cache: " + invc.getID());
     }
 
     public void removeGenerInvoice(GnucashGenerInvoice invc) {
 	invcMap.remove(invc.getID());
+	LOGGER.debug("Removed (generic) invoice from cache: " + invc.getID());
     }
 
     // ---------------------------------------------------------------

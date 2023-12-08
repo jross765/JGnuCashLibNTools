@@ -27,6 +27,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
@@ -388,6 +389,12 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public GnucashAccount getAccountByIDorNameEx(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
 	return acctMgr.getAccountByIDorNameEx(id, name);
+    }
+
+    public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String acctName, 
+	    						       boolean qualif, boolean relaxed) throws UnknownAccountTypeException {
+	return acctMgr.getAccountsByTypeAndName(type, acctName,
+						qualif, relaxed);
     }
 
     /**

@@ -88,10 +88,12 @@ public class FilePriceManager {
 
     public void addPrice(GCshPrice prc) {
 	prcMap.put(prc.getID(), prc);
+	LOGGER.debug("Added price to cache: " + prc.getID());
     }
 
     public void removePrice(GCshPrice prc) {
 	prcMap.remove(prc.getID());
+	LOGGER.debug("Removed price from cache: " + prc.getID());
     }
 
     // ---------------------------------------------------------------

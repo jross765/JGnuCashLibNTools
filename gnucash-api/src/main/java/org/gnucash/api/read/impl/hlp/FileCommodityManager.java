@@ -98,9 +98,11 @@ public class FileCommodityManager {
 
     public void addCommodity(GnucashCommodity cmdty) {
 	cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
-	
+
 	if ( cmdty.getXCode() != null )
 	    xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
+	
+	LOGGER.debug("Added commodity to cache: " + cmdty.getQualifID());
     }
 
     public void removeCommodity(GnucashCommodity cmdty) {
@@ -110,6 +112,8 @@ public class FileCommodityManager {
 	    if ( xCodeMap.get(xCode).equals(cmdty.getQualifID().toString()) )
 		xCodeMap.remove(xCode);
 	}
+	
+	LOGGER.debug("Removed commodity from cache: " + cmdty.getQualifID());
     }
 
     // ---------------------------------------------------------------

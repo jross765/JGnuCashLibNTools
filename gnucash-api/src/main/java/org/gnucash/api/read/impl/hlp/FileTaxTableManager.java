@@ -62,10 +62,12 @@ public class FileTaxTableManager {
 
     public void addTaxTable(GCshTaxTable taxTab) {
 	taxTabMap.put(taxTab.getID(), taxTab);
+	LOGGER.debug("Added tax table to cache: " + taxTab.getID());
     }
 
     public void removeTaxTable(GCshTaxTable taxTab) {
 	taxTabMap.remove(taxTab.getID());
+	LOGGER.debug("Removed tax table from cache: " + taxTab.getID());
     }
 
     // ---------------------------------------------------------------

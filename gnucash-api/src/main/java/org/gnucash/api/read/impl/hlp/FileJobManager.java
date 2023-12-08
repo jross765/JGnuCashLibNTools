@@ -122,6 +122,7 @@ public class FileJobManager {
 
     public void addGenerJob(GnucashGenerJob job) {
 	addGenerJob(job, true);
+	LOGGER.debug("Added (generic) jop to cache: " + job.getID());
     }
 
     private void addGenerJob(GnucashGenerJob job, boolean withSpec) {
@@ -142,6 +143,8 @@ public class FileJobManager {
 	if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
 	    LOGGER.error("addGenerJob: Numbers of entries in three map objects are not consistent");
 	}
+	
+	LOGGER.debug("Removed (generic) jop from cache: " + job.getID());
     }
 
     public void removeGenerJob(GnucashGenerJob job) {

@@ -71,10 +71,12 @@ public class FileCustomerManager {
 
     public void addCustomer(GnucashCustomer cust) {
 	custMap.put(cust.getID(), cust);
+	LOGGER.debug("Added customer to cache: " + cust.getID());
     }
 
     public void removeCustomer(GnucashCustomer cust) {
 	custMap.remove(cust.getID());
+	LOGGER.debug("Removed customer from cache: " + cust.getID());
     }
 
     // ---------------------------------------------------------------

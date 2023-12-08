@@ -70,10 +70,12 @@ public class FileEmployeeManager {
 
     public void addEmployee(GnucashEmployee empl) {
 	emplMap.put(empl.getID(), empl);
+	LOGGER.debug("Added employee to cache: " + empl.getID());
     }
 
     public void removeEmployee(GnucashEmployee empl) {
 	emplMap.remove(empl.getID());
+	LOGGER.debug("Removed employee from cache: " + empl.getID());
     }
 
     // ---------------------------------------------------------------
