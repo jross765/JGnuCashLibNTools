@@ -429,29 +429,34 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
   @Override
   public String toString() {
       StringBuffer buffer = new StringBuffer();
-      buffer.append("[GnucashVendorBillImpl:");
-      buffer.append(" id: ");
+      buffer.append("GnucashVendorBillImpl [");
+      
+      buffer.append("id=");
       buffer.append(getID());
-      buffer.append(" vendor-id: ");
+      
+      buffer.append(", vendor-id=");
       buffer.append(getVendorID());
-      buffer.append(" bill-number: '");
+      
+      buffer.append(", bill-number='");
       buffer.append(getNumber() + "'");
-      buffer.append(" description: '");
+      
+      buffer.append(", description='");
       buffer.append(getDescription() + "'");
-      buffer.append(" #entries: ");
+      
+      buffer.append(", #entries=");
       try {
         buffer.append(getEntries().size());
-      }
-      catch (WrongInvoiceTypeException e) {
+      } catch (WrongInvoiceTypeException e) {
         buffer.append("ERROR");
       }
-      buffer.append(" date-opened: ");
+      
+      buffer.append(", date-opened=");
       try {
         buffer.append(getDateOpened().toLocalDate().format(DATE_OPENED_FORMAT_PRINT));
-      }
-      catch (Exception e) {
+      } catch (Exception e) {
         buffer.append(getDateOpened().toLocalDate().toString());
       }
+      
       buffer.append("]");
       return buffer.toString();
   }

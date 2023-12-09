@@ -355,34 +355,34 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashTransactionSplitImpl:");
+	buffer.append("GnucashTransactionSplitImpl [");
 
-	buffer.append(" id: ");
+	buffer.append("id=");
 	buffer.append(getID());
 
-	buffer.append(" Action: '");
+	buffer.append(", action='");
 	buffer.append(getAction() + "'");
 
-	buffer.append(" transaction-id: ");
+	buffer.append(", transaction-id=");
 	buffer.append(getTransaction().getID());
 
-	buffer.append(" accountID: ");
+	buffer.append(", accountID=");
 	buffer.append(getAccountID());
 
-	buffer.append(" account: ");
-	GnucashAccount account = getAccount();
-	buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
+//	buffer.append(", account=");
+//	GnucashAccount account = getAccount();
+//	buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
 
-	buffer.append(" description: '");
+	buffer.append(", description='");
 	buffer.append(getDescription() + "'");
 
-	buffer.append(" transaction-description: '");
+	buffer.append(", transaction-description='");
 	buffer.append(getTransaction().getDescription() + "'");
 
-	buffer.append(" value: ");
+	buffer.append(", value=");
 	buffer.append(getValue());
 
-	buffer.append(" quantity: ");
+	buffer.append(", quantity=");
 	buffer.append(getQuantity());
 
 	buffer.append("]");

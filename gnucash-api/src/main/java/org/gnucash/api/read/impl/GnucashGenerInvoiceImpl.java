@@ -1470,31 +1470,39 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("[GnucashGenerInvoiceImpl:");
-        buffer.append(" id: ");
+		buffer.append("GnucashGenerInvoiceImpl [");
+		
+        buffer.append("id=");
         buffer.append(getID());
-        buffer.append(" owner-id: ");
+        
+        buffer.append(", owner-id=");
         buffer.append(getOwnerID());
-        buffer.append(" owner-type (dir.): ");
+        
+        buffer.append(", owner-type (dir.)=");
         try {
 	    buffer.append(getOwnerType(ReadVariant.DIRECT));
 	} catch (WrongInvoiceTypeException e) {
 	    // TODO Auto-generated catch block
 	    buffer.append("ERROR");
 	}
-		buffer.append(" number: '");
+        
+		buffer.append(", number='");
 		buffer.append(getNumber() + "'");
-		buffer.append(" description: '");
+		
+		buffer.append(", description='");
 		buffer.append(getDescription() + "'");
-		buffer.append(" #entries: ");
+		
+		buffer.append(", #entries=");
 		buffer.append(entries.size());
-		buffer.append(" date-opened: ");
+		
+		buffer.append(", date-opened=");
 		try {
 		  buffer.append(getDateOpened().toLocalDate().format(DATE_OPENED_FORMAT_PRINT));
 		}
 		catch (Exception e) {
           buffer.append(getDateOpened().toLocalDate().toString());
 		}
+		
 		buffer.append("]");
 		return buffer.toString();
 	}

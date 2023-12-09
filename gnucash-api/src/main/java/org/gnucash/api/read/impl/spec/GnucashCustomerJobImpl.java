@@ -70,20 +70,21 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashCustomerJobImpl:");
-	buffer.append(" id: ");
+	buffer.append("GnucashCustomerJobImpl [");
+	
+	buffer.append("id=");
 	buffer.append(getID());
 	
-	buffer.append(" number: ");
+	buffer.append(", number=");
 	buffer.append(getNumber());
 	
-	buffer.append(" name: '");
+	buffer.append(", name='");
 	buffer.append(getName() + "'");
 	
-	buffer.append(" customer-id: ");
+	buffer.append(", customer-id=");
 	buffer.append(getCustomerID());
 	
-	buffer.append(" is-active: ");
+	buffer.append(", is-active=");
 	buffer.append(isActive());
 	
 	buffer.append("]");

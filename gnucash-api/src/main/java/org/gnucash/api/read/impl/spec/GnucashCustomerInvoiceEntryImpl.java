@@ -140,40 +140,42 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 
   public String toString() {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("[GnucashCustomerInvoiceEntryImpl:");
-    buffer.append(" id: ");
+    buffer.append("GnucashCustomerInvoiceEntryImpl [");
+    
+    buffer.append("id=");
     buffer.append(getID());
-    buffer.append(" invoice-id: ");
+    
+    buffer.append(", invoice-id=");
     buffer.append(getInvoiceID());
-    //      buffer.append(" invoice: ");
-    //      GnucashCustomerInvoice invc = getInvoice();
-    //      buffer.append(invoice==null?"null":invoice.getName());
-    buffer.append(" description: '");
+    
+    buffer.append(", description='");
     buffer.append(getDescription() + "'");
-    buffer.append(" date: ");
+    
+    buffer.append(", date=");
     try {
 	buffer.append(getDate().toLocalDate().format(DATE_FORMAT_PRINT));
     }
     catch (Exception e) {
 	buffer.append(getDate().toLocalDate().toString());
     }
-    buffer.append(" action: '");
+    
+    buffer.append(", action='");
     try {
 	buffer.append(getAction() + "'");
     } catch (Exception e) {
 	buffer.append("ERROR" + "'");
     }
-    buffer.append(" price: ");
-    try
-    {
+    
+    buffer.append(", price=");
+    try {
       buffer.append(getPrice());
-    }
-    catch (WrongInvoiceTypeException e)
-    {
+    } catch (WrongInvoiceTypeException e) {
       buffer.append("ERROR");
     }
-    buffer.append(" quantity: ");
+    
+    buffer.append(", quantity=");
     buffer.append(getQuantity());
+    
     buffer.append("]");
     return buffer.toString();
   }

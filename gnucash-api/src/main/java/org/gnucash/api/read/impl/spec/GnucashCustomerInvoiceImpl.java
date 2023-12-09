@@ -431,29 +431,36 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public String toString() {
       StringBuffer buffer = new StringBuffer();
-      buffer.append("[GnucashCustomerInvoiceImpl:");
-      buffer.append(" id: ");
+      buffer.append("GnucashCustomerInvoiceImpl [");
+      
+      buffer.append("id=");
       buffer.append(getID());
-      buffer.append(" customer-id: ");
+      
+      buffer.append(", customer-id=");
       buffer.append(getCustomerID());
-      buffer.append(" invoice-number: '");
+      
+      buffer.append(", invoice-number='");
       buffer.append(getNumber() + "'");
-      buffer.append(" description: '");
+      
+      buffer.append(", description='");
       buffer.append(getDescription() + "'");
-      buffer.append(" #entries: ");
+      
+      buffer.append(", #entries=");
       try {
         buffer.append(getEntries().size());
       }
       catch (WrongInvoiceTypeException e) {
         buffer.append("ERROR");
       }
-      buffer.append(" date-opened: ");
+      
+      buffer.append(", date-opened=");
       try {
         buffer.append(getDateOpened().toLocalDate().format(DATE_OPENED_FORMAT_PRINT));
       }
       catch (Exception e) {
         buffer.append(getDateOpened().toLocalDate().toString());
       }
+      
       buffer.append("]");
       return buffer.toString();
   }

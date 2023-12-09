@@ -485,13 +485,17 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashVendorImpl:");
-	buffer.append(" id: ");
+	buffer.append("GnucashVendorImpl [");
+	
+	buffer.append("id=");
 	buffer.append(getID());
-	buffer.append(" number: '");
+	
+	buffer.append(", number='");
 	buffer.append(getNumber() + "'");
-	buffer.append(" name: '");
+	
+	buffer.append(", name='");
 	buffer.append(getName() + "'");
+	
 	buffer.append("]");
 	return buffer.toString();
     }

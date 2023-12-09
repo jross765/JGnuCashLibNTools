@@ -6,8 +6,9 @@ import java.util.Locale;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.UnknownAccountTypeException;
@@ -15,8 +16,6 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -315,23 +314,23 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashGenerJobImpl:");
-	buffer.append(" id: ");
+	buffer.append("GnucashGenerJobImpl [");
+	buffer.append("id=");
 	buffer.append(getID());
 	
-	buffer.append(" number: ");
+	buffer.append(", number=");
 	buffer.append(getNumber());
 	
-	buffer.append(" name: '");
+	buffer.append(", name='");
 	buffer.append(getName() + "'");
 	
-	buffer.append(" owner-type: ");
+	buffer.append(", owner-type=");
 	buffer.append(getOwnerType());
 	
-	buffer.append(" cust/vend-id: ");
+	buffer.append(", cust/vend-id=");
 	buffer.append(getOwnerID());
 	
-	buffer.append(" is-active: ");
+	buffer.append(", is-active=");
 	buffer.append(isActive());
 	
 	buffer.append("]");

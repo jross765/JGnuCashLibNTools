@@ -128,40 +128,42 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
   public String toString() {
     StringBuffer buffer = new StringBuffer();
-    buffer.append("[GnucashJobInvoiceEntryImpl:");
-    buffer.append(" id: ");
+    buffer.append("GnucashJobInvoiceEntryImpl [");
+    
+    buffer.append("id=");
     buffer.append(getID());
-    buffer.append(" invoice-id: ");
+    
+    buffer.append(", invoice-id=");
     buffer.append(getInvoiceID());
-    //      buffer.append(" invoice: ");
-    //      GnucashJobInvoice invc = getInvoice();
-    //      buffer.append(invoice==null?"null":invoice.getName());
-    buffer.append(" description: '");
+
+    buffer.append(", description='");
     buffer.append(getDescription() + "'");
-    buffer.append(" date: ");
+    
+    buffer.append(", date=");
     try {
 	buffer.append(getDate().toLocalDate().format(DATE_FORMAT_PRINT));
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
 	buffer.append(getDate().toLocalDate().toString());
     }
-    buffer.append(" action: '");
+    
+    buffer.append(", action='");
     try {
 	buffer.append(getAction() + "'");
     } catch (Exception e) {
 	buffer.append("ERROR" + "'");
     }
-    buffer.append(" price: ");
+    
+    buffer.append(", price=");
     try
     {
       buffer.append(getPrice());
-    }
-    catch (Exception e)
-    {
+    } catch (Exception e) {
       buffer.append("ERROR");
     }
-    buffer.append(" quantity: ");
+    
+    buffer.append(", quantity=");
     buffer.append(getQuantity());
+    
     buffer.append("]");
     return buffer.toString();
   }

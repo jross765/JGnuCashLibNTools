@@ -157,12 +157,12 @@ public class GnucashCommodityImpl implements GnucashCommodity
     @Override
     public String toString() {
 	
-	String result = "[GnucashCommodityImpl:";
+	String result = "GnucashCommodityImpl [";
 
 	try {
-	    result += " qualif-id='" + getQualifID().toString() + "'";
+	    result += "qualif-id='" + getQualifID().toString() + "'";
 	} catch (InvalidCmdtyCurrTypeException e) {
-	    result += " qualif-id=" + "ERROR";
+	    result += "qualif-id=" + "ERROR";
 	}
 	
 	result += ", namespace='" + getNameSpace() + "'"; 

@@ -247,25 +247,25 @@ public class GnucashAccountImpl extends SimpleAccount
 
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashAccountImpl:");
+	buffer.append("GnucashAccountImpl [");
 	
-	buffer.append(" id: ");
+	buffer.append("id=");
 	buffer.append(getID());
 	
-	buffer.append(" code: '");
+	buffer.append(", code='");
 	buffer.append(getCode() + "'");
 	
-	buffer.append(" type: ");
+	buffer.append(", type=");
 	try {
 	    buffer.append(getType());
 	} catch (UnknownAccountTypeException e) {
 	    buffer.append("ERROR");
 	}
 	
-	buffer.append(" qualif-name: '");
+	buffer.append(", qualif-name='");
 	buffer.append(getQualifiedName() + "'");
 	
-	buffer.append(" commodity/currency: '");
+	buffer.append(", commodity/currency='");
 	try {
 	    buffer.append(getCmdtyCurrID() + "'");
 	} catch (InvalidCmdtyCurrTypeException e) {

@@ -596,38 +596,38 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashTransactionImpl:");
+	buffer.append("GnucashTransactionImpl [");
 
-	buffer.append(" id: ");
+	buffer.append("id=");
 	buffer.append(getID());
 
 	// ::TODO: That only works in simple cases --
 	// need a more generic approach
-	buffer.append(" amount: ");
+	buffer.append(", amount=");
 	try {
 	    buffer.append(getFirstSplit().getValueFormatted());
 	} catch (Exception e) {
 	    buffer.append("ERROR");
 	}
 
-	buffer.append(" description: '");
+	buffer.append(", description='");
 	buffer.append(getDescription() + "'");
 
-	buffer.append(" #splits: ");
+	buffer.append(", #splits=");
 	try {
 	    buffer.append(getSplitsCount());
 	} catch (Exception e) {
 	    buffer.append("ERROR");
 	}
 
-	buffer.append(" date-posted: ");
+	buffer.append(", date-posted=");
 	try {
 	    buffer.append(getDatePosted().format(DATE_POSTED_FORMAT));
 	} catch (Exception e) {
 	    buffer.append(getDatePosted().toString());
 	}
 
-	buffer.append(" date-entered: ");
+	buffer.append(", date-entered=");
 	try {
 	    buffer.append(getDateEntered().format(DATE_ENTERED_FORMAT));
 	} catch (Exception e) {

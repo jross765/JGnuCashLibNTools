@@ -513,13 +513,17 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GnucashCustomerImpl:");
-	buffer.append(" id: ");
+	buffer.append("GnucashCustomerImpl [");
+	
+	buffer.append("id=");
 	buffer.append(getID());
-	buffer.append(" number: '");
+	
+	buffer.append(", number='");
 	buffer.append(getNumber() + "'");
-	buffer.append(" name: '");
+	
+	buffer.append(", name='");
 	buffer.append(getName() + "'");
+	
 	buffer.append("]");
 	return buffer.toString();
     }
