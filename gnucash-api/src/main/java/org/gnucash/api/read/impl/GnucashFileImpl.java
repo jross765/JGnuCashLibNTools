@@ -21,7 +21,6 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
-import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
@@ -44,6 +43,7 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
 import org.gnucash.api.read.impl.hlp.FileBillTermsManager;
 import org.gnucash.api.read.impl.hlp.FileCommodityManager;
@@ -78,7 +78,6 @@ import jakarta.xml.bind.Unmarshaller;
  * @see GnucashFile
  */
 public class GnucashFileImpl implements GnucashFile,
-                                        GnucashFileStats,
                                         GnucashPubIDManager
 {
 
@@ -1361,20 +1360,6 @@ public class GnucashFileImpl implements GnucashFile,
 	return myJAXBContext;
     }
 
-    /**
-     * @param type the type-string to look for
-     * @return the count-data saved in the xml-file
-     */
-    protected GncCountData findCountDataByType(final String type) {
-	for (Iterator<GncCountData> iter = getRootElement().getGncBook().getGncCountData().iterator(); iter.hasNext();) {
-	    GncCountData count = (GncCountData) iter.next();
-	    if (count.getCdType().equals(type)) {
-		return count;
-	    }
-	}
-	return null;
-    }
-
     // ---------------------------------------------------------------
 
     /**
@@ -1399,78 +1384,6 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public Collection<String> getUserDefinedAttributeKeys() {
 	return myGnucashObject.getUserDefinedAttributeKeys();
-    }
-
-    // ---------------------------------------------------------------
-    // Statistics (for test purposes)
-
-    @Override
-    public int getNofEntriesAccountMap() {
-	return acctMgr.getNofEntriesAccountMap();
-    }
-
-    @Override
-    public int getNofEntriesTransactionMap() {
-	return trxMgr.getNofEntriesTransactionMap();
-    }
-
-    @Override
-    public int getNofEntriesTransactionSplitMap() {
-	return trxMgr.getNofEntriesTransactionSplitMap();
-    }
-
-    @Override
-    public int getNofEntriesGenerInvoiceMap() {
-	return invcMgr.getNofEntriesGenerInvoiceMap();
-    }
-
-    @Override
-    public int getNofEntriesGenerInvoiceEntriesMap() {
-	return invcEntrMgr.getNofEntriesGenerInvoiceEntriesMap();
-    }
-
-    @Override
-    public int getNofEntriesCustomerMap() {
-	return custMgr.getNofEntriesCustomerMap();
-    }
-
-    @Override
-    public int getNofEntriesVendorMap() {
-	return vendMgr.getNofEntriesVendorMap();
-    }
-
-    @Override
-    public int getNofEntriesEmployeeMap() {
-	return emplMgr.getNofEntriesCustomerMap();
-    }
-
-    @Override
-    public int getNofEntriesGenerJobMap() {
-	return jobMgr.getNofEntriesGenerJobMap();
-    }
-
-    @Override
-    public int getNofEntriesCommodityMap() {
-	return cmdtyMgr.getNofEntriesCommodityMap();
-    }
-    
-    // ----------------------------
-    
-    @Override
-    public int getNofEntriesTaxTableMap() {
-	return taxTabMgr.getNofEntriesTaxTableMap();
-    }
-    
-    @Override
-    public int getNofEntriesBillTermsMap() {
-	return bllTrmMgr.getNofEntriesBillTermsMap();
-    }
-    
-    // ----------------------------
-    
-    @Override
-    public int getNofEntriesPriceMap() {
-	return prcMgr.getNofEntriesPriceMap();
     }
 
     // ---------------------------------------------------------------
@@ -1673,23 +1586,94 @@ public class GnucashFileImpl implements GnucashFile,
     }
     
     // ---------------------------------------------------------------
+    // Helpers for class FileStats_Cache
+    
+    @SuppressWarnings("exports")
+    public FileAccountManager getAcctMgr() {
+	return acctMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileTransactionManager getTrxMgr() {
+	return trxMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileInvoiceManager getInvcMgr() {
+	return invcMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileInvoiceEntryManager getInvcEntrMgr() {
+	return invcEntrMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileCustomerManager getCustMgr() {
+	return custMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileVendorManager getVendMgr() {
+	return vendMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileEmployeeManager getEmplMgr() {
+	return emplMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileJobManager getJobMgr() {
+	return jobMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileCommodityManager getCmdtyMgr() {
+	return cmdtyMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FilePriceManager getPrcMgr() {
+	return prcMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileTaxTableManager getTaxTabMgr() {
+	return taxTabMgr;
+    }
+    
+    @SuppressWarnings("exports")
+    public FileBillTermsManager getBllTrmMgr() {
+	return bllTrmMgr;
+    }
+    
+    // ---------------------------------------------------------------
     
     public String toString() {
 	String result = "GnucashFileImpl: [\n";
 	
-	result += "  No. of accounts:                  " + getNofEntriesAccountMap() + "\n"; 
-	result += "  No. of transactions:              " + getNofEntriesTransactionMap() + "\n"; 
-	result += "  No. of transaction splits:        " + getNofEntriesTransactionSplitMap() + "\n"; 
-	result += "  No. of (generic) invoices:        " + getNofEntriesGenerInvoiceMap() + "\n"; 
-	result += "  No. of (generic) invoice entries: " + getNofEntriesGenerInvoiceEntriesMap() + "\n"; 
-	result += "  No. of customers:                 " + getNofEntriesCustomerMap() + "\n"; 
-	result += "  No. of vendors:                   " + getNofEntriesVendorMap() + "\n"; 
-	result += "  No. of employees:                 " + getNofEntriesEmployeeMap() + "\n"; 
-	result += "  No. of (generic) jobs:            " + getNofEntriesGenerJobMap() + "\n"; 
-	result += "  No. of commodities:               " + getNofEntriesCommodityMap() + "\n";
-	result += "  No. of tax tables:                " + getNofEntriesTaxTableMap() + "\n";
-	result += "  No. of bill terms:                " + getNofEntriesBillTermsMap() + "\n";
-	result += "  No. of prices:                    " + getNofEntriesPriceMap() + "\n";
+	result += "  Stats (raw):\n"; 
+	GCshFileStats stats;
+	try {
+	    stats = new GCshFileStats(this);
+
+	    result += "    No. of accounts:                  " + stats.getNofEntriesAccounts(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of transactions:              " + stats.getNofEntriesTransactions(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of transaction splits:        " + stats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) invoices:        " + stats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) invoice entries: " + stats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of customers:                 " + stats.getNofEntriesCustomers(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of vendors:                   " + stats.getNofEntriesVendors(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of employees:                 " + stats.getNofEntriesEmployees(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) jobs:            " + stats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of commodities:               " + stats.getNofEntriesCommodities(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of tax tables:                " + stats.getNofEntriesTaxTables(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of bill terms:                " + stats.getNofEntriesBillTerms(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of prices:                    " + stats.getNofEntriesPrices(GCshFileStats.Type.RAW) + "\n";
+	} catch (Exception e) {
+	    result += "ERROR\n"; 
+	}
 	
 	result += "]";
 	

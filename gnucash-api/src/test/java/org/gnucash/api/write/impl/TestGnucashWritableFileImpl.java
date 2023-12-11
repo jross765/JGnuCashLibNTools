@@ -8,6 +8,7 @@ import java.net.URL;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -20,6 +21,8 @@ public class TestGnucashWritableFileImpl
     private GnucashWritableFileImpl gcshInFile = null;
     private GnucashFileImpl         gcshOutFile = null;
     
+    private GCshFileStats gcshInFileStats = null;
+
     private String outFileGlobNameAbs = null;
     private File outFileGlob = null;
 
@@ -74,6 +77,8 @@ public class TestGnucashWritableFileImpl
     outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
 //    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
     outFileGlob = new File(outFileGlobNameAbs);
+
+    gcshInFileStats = new GCshFileStats(gcshInFile);
   }
 
   // -----------------------------------------------------------------
@@ -92,56 +97,77 @@ public class TestGnucashWritableFileImpl
   @Test
   public void test01() throws Exception
   {    
-    assertEquals(93, gcshInFile.getNofEntriesAccountMap());
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
   }
 
   @Test
   public void test02() throws Exception
   {    
-    assertEquals(12, gcshInFile.getNofEntriesTransactionMap());
+      assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
   }
 
   // ::TODO
   @Test
   public void test03() throws Exception
   {    
-    assertEquals(31, gcshInFile.getNofEntriesTransactionSplitMap());
+      assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+      // This one is an exception:
+      // assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
   }
 
   @Test
   public void test04() throws Exception
   {    
-    assertEquals(7, gcshInFile.getNofEntriesGenerInvoiceMap());
+      assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
   }
 
-//  @Test
-//  public void test05() throws Exception
-//  {    
-//    assertEquals(14, gcshInFile.getNofEntriesGenerInvoiceEntriesMap());
-//  }
+  @Test
+  public void test05() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+      // ::TODO
+      // The following does not work!
+      // assertEquals(ConstTest.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+  }
 
   @Test
   public void test06() throws Exception
   {    
-    assertEquals(2, gcshInFile.getNofEntriesGenerJobMap());
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
   }
 
   @Test
   public void test07() throws Exception
   {    
-    assertEquals(3, gcshInFile.getNofEntriesCustomerMap());
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
   }
 
   @Test
   public void test08() throws Exception
   {    
-    assertEquals(3, gcshInFile.getNofEntriesVendorMap());
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
   }
 
   @Test
   public void test09() throws Exception
   {    
-    assertEquals(1, gcshInFile.getNofEntriesEmployeeMap());
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
   }
 
   // -----------------------------------------------------------------

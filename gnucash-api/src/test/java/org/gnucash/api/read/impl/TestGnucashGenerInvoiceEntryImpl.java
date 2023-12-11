@@ -11,6 +11,8 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.read.impl.hlp.FileStats;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,8 +20,9 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashGenerInvoiceEntryImpl
 {
-  private GnucashFile              gcshFile = null;
-  private GnucashGenerInvoiceEntry invcEntr = null;
+  private GnucashFileImpl          gcshFile      = null;
+  private GCshFileStats            gcshFileStats = null;
+  private GnucashGenerInvoiceEntry invcEntr     = null;
   
   private static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa");
   private static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec");
@@ -64,15 +67,20 @@ public class TestGnucashGenerInvoiceEntryImpl
       System.err.println("Cannot parse GnuCash file");
       exc.printStackTrace();
     }
+    
+    gcshFileStats = new GCshFileStats(gcshFile);
   }
 
   // -----------------------------------------------------------------
 
-  @Test
-  public void test01() throws Exception
-  {
-    assertEquals(14, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceEntriesMap());
-  }
+  // redundant:
+//  @Test
+//  public void test01() throws Exception
+//  {
+//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+//  }
 
   @Test
   public void test02_1() throws Exception

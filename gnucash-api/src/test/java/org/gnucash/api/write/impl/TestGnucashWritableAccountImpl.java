@@ -13,6 +13,7 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashAccountImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnucashWritableAccount;
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,6 +36,10 @@ public class TestGnucashWritableAccountImpl
 
     private GnucashWritableFileImpl gcshInFile = null;
     private GnucashFileImpl         gcshOutFile = null;
+    
+    private GCshFileStats           gcshInFileStats = null;
+    private GCshFileStats           gcshOutFileStats = null;
+    
     private GCshID                  newAcctID = null;
     
     private String outFileGlobNameAbs = null;
@@ -167,7 +172,8 @@ public class TestGnucashWritableAccountImpl
   @Test
   public void test02_1() throws Exception
   {
-    assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+    gcshInFileStats = new GCshFileStats(gcshInFile);
+    assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
     
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
@@ -213,7 +219,7 @@ public class TestGnucashWritableAccountImpl
 
   private void test02_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
-      assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 
       assertEquals(ACCT_1_ID, acct.getID());
       assertEquals(GnucashAccount.Type.BANK, acct.getType());
@@ -240,7 +246,8 @@ public class TestGnucashWritableAccountImpl
   private void test02_1_check_persisted(File outFile) throws Exception
   {
      gcshOutFile = new GnucashFileImpl(outFile);
-     assertEquals(ConstTest.COUNT_ACCT, gcshOutFile.getNofEntriesAccountMap());
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     assertEquals(ConstTest.Stats.NOF_ACCT, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
      GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
      assertNotEquals(null, acct);
@@ -274,7 +281,8 @@ public class TestGnucashWritableAccountImpl
   @Test
   public void test03_1() throws Exception
   {
-      assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
       // ----------------------------
       // Bare naked object
@@ -315,7 +323,7 @@ public class TestGnucashWritableAccountImpl
   
   private void test03_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
-      assertEquals(ConstTest.COUNT_ACCT + 1, gcshInFile.getNofEntriesAccountMap());
+      assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 
       assertEquals(newAcctID, acct.getID());
       assertEquals(GnucashAccount.Type.BANK, acct.getType());
@@ -336,7 +344,8 @@ public class TestGnucashWritableAccountImpl
   private void test03_1_check_persisted(File outFile) throws Exception
   {
      gcshOutFile = new GnucashFileImpl(outFile);
-     assertEquals(ConstTest.COUNT_ACCT + 1, gcshOutFile.getNofEntriesAccountMap());
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
      GnucashAccount acct = gcshOutFile.getAccountByID(newAcctID);
      assertNotEquals(null, acct);
