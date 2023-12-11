@@ -54,9 +54,15 @@ public class GetTrxSpltInfo {
 	}
 
 	try {
-	    System.out.println("Action:      " + splt.getAction());
+	    System.out.println("Action (code): " + splt.getAction());
 	} catch (Exception exc) {
-	    System.out.println("Action:      " + "ERROR");
+	    System.out.println("Action (code): " + "ERROR");
+	}
+
+	try {
+	    System.out.println("Action (str): " + splt.getActionStr());
+	} catch (Exception exc) {
+	    System.out.println("Action (str): " + "ERROR");
 	}
 
 	try {

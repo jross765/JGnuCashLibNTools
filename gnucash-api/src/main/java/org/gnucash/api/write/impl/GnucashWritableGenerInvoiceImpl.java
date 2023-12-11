@@ -1462,21 +1462,21 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	split1.setValue(amount.negate());
 	split1.setQuantity(quantity.negate());
 	if ( invcOwnerType == GCshOwner.Type.CUSTOMER )
-	    split1.setAction(GnucashTransactionSplit.Action.INVOICE.getLocaleString());
+	    split1.setAction(GnucashTransactionSplit.Action.INVOICE);
 	else if ( invcOwnerType == GCshOwner.Type.VENDOR )
-	    split1.setAction(GnucashTransactionSplit.Action.BILL.getLocaleString());
+	    split1.setAction(GnucashTransactionSplit.Action.BILL);
 	else if ( invcOwnerType == GCshOwner.Type.EMPLOYEE )
-	    split1.setAction(GnucashTransactionSplit.Action.VOUCHER.getLocaleString());
+	    split1.setAction(GnucashTransactionSplit.Action.VOUCHER);
 	    
 	GnucashWritableTransactionSplit split2 = postTrx.createWritableSplit(toAcct);
 	split2.setValue(amount);
 	split2.setQuantity(quantity);
 	if ( invcOwnerType == GCshOwner.Type.CUSTOMER )
-	    split2.setAction(GnucashTransactionSplit.Action.INVOICE.getLocaleString());
+	    split2.setAction(GnucashTransactionSplit.Action.INVOICE);
 	else if ( invcOwnerType == GCshOwner.Type.VENDOR )
-	    split2.setAction(GnucashTransactionSplit.Action.BILL.getLocaleString());
+	    split2.setAction(GnucashTransactionSplit.Action.BILL);
 	else if ( invcOwnerType == GCshOwner.Type.EMPLOYEE )
-	    split2.setAction(GnucashTransactionSplit.Action.VOUCHER.getLocaleString());
+	    split2.setAction(GnucashTransactionSplit.Action.VOUCHER);
 	split2.setLotID(acctLotID); // set reference to account lot, which in turn
 	                            // references the invoice
 	
@@ -2308,7 +2308,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	// assert !split.getValue().isPositive();
 	// assert !split.getQuantity().isPositive();
 
-	split.setAction(GnucashTransactionSplit.Action.INVOICE.getLocaleString());
+	split.setAction(GnucashTransactionSplit.Action.INVOICE);
 
 	LOGGER.info("GnucashWritableGenerInvoiceImpl.updateEntry_taxStuff " 
 		+ "created new tax-split=" + split.getID() + " " 
@@ -2370,7 +2370,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		    	.createWritableSplit(getFile().getAccountByID(accountToTransferMoneyTo));
 	    split.setQuantity(sumInclTaxes);
 	    split.setValue(sumInclTaxes);
-	    split.setAction(GnucashTransactionSplit.Action.INVOICE.getLocaleString());
+	    split.setAction(GnucashTransactionSplit.Action.INVOICE);
 
 	    // this split must have a reference to the lot
 	    // as has the transaction-split of the whole sum in the

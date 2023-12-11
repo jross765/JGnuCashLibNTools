@@ -19,6 +19,8 @@ public class TestGnucashAccountImpl
   private GnucashFile    gcshFile = null;
   private GnucashAccount acct = null;
   
+  public static final GCshID ROOT_ACCT_ID = new GCshID("14305dc80e034834b3f531696d81b493"); // Root Account
+
   public static final GCshID ACCT_1_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
   public static final GCshID ACCT_2_ID = new GCshID("cc2c4709633943c39293bfd73de88c9b"); // Root Account::Aktiva::Depots::Depot RaiBa
   public static final GCshID ACCT_3_ID = new GCshID("5008258df86243ee86d37dee64327c27"); // Root Account::Fremdkapital
@@ -135,7 +137,7 @@ public class TestGnucashAccountImpl
     assertEquals("alle Verbindlichkeiten", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountID().toString());
+    assertEquals(ROOT_ACCT_ID, acct.getParentAccountID());
 
     assertEquals(0.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     // ::CHECK: Should'nt the value in the following assert be positive
@@ -209,7 +211,7 @@ public class TestGnucashAccountImpl
     assertEquals("Anfangsbestand", acct.getDescription());
     assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
     
-    assertEquals("14305dc80e034834b3f531696d81b493", acct.getParentAccountID().toString());
+    assertEquals(ROOT_ACCT_ID, acct.getParentAccountID());
 
     assertEquals(-4128.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
     assertEquals(-4128.00, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);

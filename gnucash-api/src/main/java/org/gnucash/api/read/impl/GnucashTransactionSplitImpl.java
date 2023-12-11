@@ -81,7 +81,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 		    if (lotID != null && lotID.equals(lot)) {
 			// Check if it's a payment transaction.
 			// If so, add it to the invoice's list of payment transactions.
-			if (getAction().equals(Action.PAYMENT.getLocaleString())) {
+			if (getActionStr().equals(Action.PAYMENT.getLocaleString())) {
 			    invc.addPayingTransaction(this);
 			}
 		    }
@@ -127,9 +127,22 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     }
 
     /**
-     * @see GnucashTransactionSplit#getAction()
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
+     * @see GnucashTransactionSplit#getActionStr()
      */
-    public String getAction() {
+    @Override
+    public Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	return Action.valueOff( getActionStr() );
+    }
+
+    /**
+     * @see GnucashTransactionSplit#getActionStr()
+     */
+    public String getActionStr() {
 	if (getJwsdpPeer().getSplitAction() == null) {
 	    return "";
 	}
@@ -361,7 +374,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	buffer.append(getID());
 
 	buffer.append(", action='");
-	buffer.append(getAction() + "'");
+	buffer.append(getActionStr() + "'");
 
 	buffer.append(", transaction-id=");
 	buffer.append(getTransaction().getID());

@@ -61,7 +61,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
                      lotID.equals(lot) ) {
                     // Check if it's a payment transaction. 
                     // If so, add it to the invoice's list of payment transactions.
-                    if ( splt.getAction().equals(GnucashTransactionSplit.Action.PAYMENT.getLocaleString()) ) {
+                    if ( splt.getAction() == GnucashTransactionSplit.Action.PAYMENT ) {
                         addPayingTransaction(splt);
                     }
                 } // if lotID

@@ -354,26 +354,21 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	 * Set the type of association this split has with
 	 * an invoice's lot.
 	 *
-	 * @param action null, or one of the defined ACTION_xyz values
+	 * @param act null, or one of the defined ACTION_xyz values
 	 * @throws IllegalTransactionSplitActionException 
 	 */
-	public void setAction(final String action) throws IllegalTransactionSplitActionException {
-//		if ( action != null &&
-//             ! action.equals(ACTION_PAYMENT) &&
-//             ! action.equals(ACTION_INVOICE) &&
-//             ! action.equals(ACTION_BILL) && 
-//             ! action.equals(ACTION_BUY) && 
-//             ! action.equals(ACTION_SELL) ) {
-//                throw new IllegalSplitActionException();
-//		}
+	public void setAction(final Action act) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		setActionStr(act.getLocaleString());
+	}
 
+	public void setActionStr(final String act) throws IllegalTransactionSplitActionException {
 		String old = getJwsdpPeer().getSplitAction();
-		getJwsdpPeer().setSplitAction(action);
+		getJwsdpPeer().setSplitAction(act);
 		((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		if (old == null || !old.equals(action)) {
+		if (old == null || !old.equals(act)) {
 			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("splitAction", old, action);
+				getPropertyChangeSupport().firePropertyChange("splitAction", old, act);
 			}
 		}
 	}

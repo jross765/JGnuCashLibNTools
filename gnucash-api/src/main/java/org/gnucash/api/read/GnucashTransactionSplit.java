@@ -305,8 +305,15 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      * Get the type of association this split has with
      * an invoice's lot.
      * @return null, or one of the ACTION_xyz values defined
+     * @throws IllegalAccessException 
+     * @throws IllegalArgumentException 
+     * @throws ClassNotFoundException 
+     * @throws SecurityException 
+     * @throws NoSuchFieldException 
      */
-    String getAction();
+    Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+
+    String getActionStr();
 
     /**
      * @return all keys that can be used with ${@link #getUserDefinedAttribute(String)}}.

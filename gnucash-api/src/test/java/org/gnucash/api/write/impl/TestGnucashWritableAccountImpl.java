@@ -26,11 +26,11 @@ public class TestGnucashWritableAccountImpl
 {
     private static final GCshID ACCT_1_ID = TestGnucashAccountImpl.ACCT_1_ID;
     private static final GCshID ACCT_2_ID = TestGnucashAccountImpl.ACCT_2_ID;
-    private static final GCshID ACCT_3_ID = TestGnucashAccountImpl.ACCT_3_ID;
-    private static final GCshID ACCT_4_ID = TestGnucashAccountImpl.ACCT_4_ID;
-    private static final GCshID ACCT_5_ID = TestGnucashAccountImpl.ACCT_5_ID;
-    private static final GCshID ACCT_6_ID = TestGnucashAccountImpl.ACCT_6_ID;
-    private static final GCshID ACCT_7_ID = TestGnucashAccountImpl.ACCT_7_ID;
+//    private static final GCshID ACCT_3_ID = TestGnucashAccountImpl.ACCT_3_ID;
+//    private static final GCshID ACCT_4_ID = TestGnucashAccountImpl.ACCT_4_ID;
+//    private static final GCshID ACCT_5_ID = TestGnucashAccountImpl.ACCT_5_ID;
+//    private static final GCshID ACCT_6_ID = TestGnucashAccountImpl.ACCT_6_ID;
+//    private static final GCshID ACCT_7_ID = TestGnucashAccountImpl.ACCT_7_ID;
 
     // -----------------------------------------------------------------
 
@@ -173,6 +173,9 @@ public class TestGnucashWritableAccountImpl
   public void test02_1() throws Exception
   {
     gcshInFileStats = new GCshFileStats(gcshInFile);
+
+    assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+    assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
     assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
     
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
@@ -219,6 +222,8 @@ public class TestGnucashWritableAccountImpl
 
   private void test02_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 
       assertEquals(ACCT_1_ID, acct.getID());
@@ -247,6 +252,9 @@ public class TestGnucashWritableAccountImpl
   {
      gcshOutFile = new GnucashFileImpl(outFile);
      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     assertEquals(ConstTest.Stats.NOF_ACCT, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+     assertEquals(ConstTest.Stats.NOF_ACCT, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
      assertEquals(ConstTest.Stats.NOF_ACCT, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
      GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
@@ -282,6 +290,9 @@ public class TestGnucashWritableAccountImpl
   public void test03_1() throws Exception
   {
       gcshInFileStats = new GCshFileStats(gcshInFile);
+      
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
       // ----------------------------
@@ -323,6 +334,10 @@ public class TestGnucashWritableAccountImpl
   
   private void test03_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
+      assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+      // CAUTION: The counter has not been updated yet.
+      // This is on purpose
+      assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 
       assertEquals(newAcctID, acct.getID());
@@ -345,6 +360,10 @@ public class TestGnucashWritableAccountImpl
   {
      gcshOutFile = new GnucashFileImpl(outFile);
      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     // Here, all 3 stats variants must have been updated
+     assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+     assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
      assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshOutFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
       
      GnucashAccount acct = gcshOutFile.getAccountByID(newAcctID);

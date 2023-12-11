@@ -122,8 +122,9 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 	 * @param action null, or one of the ACTION_xyz values defined
 	 * @throws IllegalTransactionSplitActionException 
 	 */
-	void setAction(String action) throws IllegalTransactionSplitActionException;
+	void setAction(Action action) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
 
+	void setActionStr(String action) throws IllegalTransactionSplitActionException;
 
 	/**
 	 * Add a PropertyChangeListener to the listener list.
