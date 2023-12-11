@@ -409,8 +409,28 @@ public class GnucashFileImpl implements GnucashFile,
      *         result is sorted)
      * @throws UnknownAccountTypeException 
      */
-    public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
-	return acctMgr.getRootAccounts();
+    @Override
+    public GnucashAccount getRootAccount() throws UnknownAccountTypeException {
+	return acctMgr.getRootAccount();
+    }
+
+    /**
+     * @return a read-only collection of all accounts that have no parent (the
+     *         result is sorted)
+     */
+    @Override
+    public Collection<? extends GnucashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
+	return acctMgr.getParentlessAccounts();
+    }
+
+    @Override
+    public Collection<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
+	return acctMgr.getTopAccountIDs();
+    }
+
+    @Override
+    public Collection<GnucashAccount> getTopAccounts() throws UnknownAccountTypeException {
+	return acctMgr.getTopAccounts();
     }
 
     // ---------------------------------------------------------------

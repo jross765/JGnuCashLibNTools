@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.GnucashFile;
@@ -21,8 +23,6 @@ import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -292,18 +292,29 @@ public class FileAccountManager {
         return Collections.unmodifiableCollection(new TreeSet<>(acctMap.values()));
     }
 
+    public GnucashAccount getRootAccount() throws UnknownAccountTypeException {
+	for ( GnucashAccount acct : getAccounts() ) {
+	    if ( acct.getParentAccountID() == null &&
+		 acct.getType() == GnucashAccount.Type.ROOT ) {
+		return acct;
+	    }
+	}
+    
+	return null; // Compiler happy
+    }
+    
     /**
      * @return a read-only collection of all accounts that have no parent (the
      *         result is sorted)
      * @throws UnknownAccountTypeException 
      */
-    public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
+    public Collection<? extends GnucashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
         try {
             Collection<GnucashAccount> retval = new TreeSet<GnucashAccount>();
     
-            for (GnucashAccount account : getAccounts()) {
-        	if (account.getParentAccountID() == null) {
-        	    retval.add(account);
+            for ( GnucashAccount acct : getAccounts() ) {
+        	if ( acct.getParentAccountID() == null ) {
+        	    retval.add(acct);
         	}
     
             }
@@ -316,6 +327,37 @@ public class FileAccountManager {
             LOGGER.error("getRootAccounts: SERIOUS Problem getting all root-account", e);
             return new LinkedList<GnucashAccount>();
         }
+    }
+    
+    public Collection<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
+	Collection<GCshID> result = new ArrayList<GCshID>();
+
+	GCshID rootAcctID = getRootAccount().getID();
+	for ( GnucashAccount acct : getAccounts() ) {
+	    if ( acct.getParentAccountID() != null ) {
+		if ( acct.getParentAccountID().equals(rootAcctID) &&
+		     ( acct.getType() == GnucashAccount.Type.ASSET ||
+		       acct.getType() == GnucashAccount.Type.LIABILITY||
+		       acct.getType() == GnucashAccount.Type.INCOME ||
+		       acct.getType() == GnucashAccount.Type.EXPENSE ||
+		       acct.getType() == GnucashAccount.Type.EQUITY ) ) {
+		    result.add(acct.getID());
+		}
+	    }
+	}
+    
+	return result;
+    }
+    
+    public Collection<GnucashAccount> getTopAccounts() throws UnknownAccountTypeException {
+	Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+
+	for ( GCshID acctID : getTopAccountIDs() ) {
+	    GnucashAccount acct = getAccountByID(acctID);
+	    result.add(acct);
+	}
+    
+	return result;
     }
     
     // ---------------------------------------------------------------

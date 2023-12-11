@@ -135,11 +135,17 @@ public interface GnucashFile extends GnucashObject {
      */
     Collection<GnucashAccount> getAccounts();
 
+    GnucashAccount getRootAccount() throws UnknownAccountTypeException;
+
     /**
-     * @return a read-only collection of all accounts that have no parent
-     * @throws UnknownAccountTypeException 
+     * @return a read-only collection of all accounts that have no parent (the
+     *         result is sorted)
      */
-    Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException;
+    Collection<? extends GnucashAccount> getParentlessAccounts() throws UnknownAccountTypeException;
+
+    Collection<GCshID> getTopAccountIDs() throws UnknownAccountTypeException;
+
+    Collection<GnucashAccount> getTopAccounts() throws UnknownAccountTypeException;
 
     // ---------------------------------------------------------------
 

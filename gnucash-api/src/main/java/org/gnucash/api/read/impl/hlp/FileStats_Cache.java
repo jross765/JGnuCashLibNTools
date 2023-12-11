@@ -59,19 +59,19 @@ public class FileStats_Cache implements FileStats
 	this.bllTrmMgr   = bllTrmMgr;
     }
 
-    public FileStats_Cache(final GnucashFileImpl gcshfile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException, IOException {
-	this.acctMgr     = gcshfile.getAcctMgr();
-	this.trxMgr      = gcshfile.getTrxMgr();
-	this.invcMgr     = gcshfile.getInvcMgr();
-	this.invcEntrMgr = gcshfile.getInvcEntrMgr();
-	this.custMgr     = gcshfile.getCustMgr();
-	this.vendMgr     = gcshfile.getVendMgr();
-	this.emplMgr     = gcshfile.getEmplMgr();
-	this.jobMgr      = gcshfile.getJobMgr();
-	this.cmdtyMgr    = gcshfile.getCmdtyMgr();
-	this.prcMgr      = gcshfile.getPrcMgr();
-	this.taxTabMgr   = gcshfile.getTaxTabMgr();
-	this.bllTrmMgr   = gcshfile.getBllTrmMgr();
+    public FileStats_Cache(final GnucashFileImpl gcshFile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException, IOException {
+	this.acctMgr     = gcshFile.getAcctMgr();
+	this.trxMgr      = gcshFile.getTrxMgr();
+	this.invcMgr     = gcshFile.getInvcMgr();
+	this.invcEntrMgr = gcshFile.getInvcEntrMgr();
+	this.custMgr     = gcshFile.getCustMgr();
+	this.vendMgr     = gcshFile.getVendMgr();
+	this.emplMgr     = gcshFile.getEmplMgr();
+	this.jobMgr      = gcshFile.getJobMgr();
+	this.cmdtyMgr    = gcshFile.getCmdtyMgr();
+	this.prcMgr      = gcshFile.getPrcMgr();
+	this.taxTabMgr   = gcshFile.getTaxTabMgr();
+	this.bllTrmMgr   = gcshFile.getBllTrmMgr();
     }
 
     // ---------------------------------------------------------------

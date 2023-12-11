@@ -76,6 +76,8 @@ public class GCshFileStats {
 	return FileStats.ERROR; // Compiler happy
     }
 
+    // ----------------------------
+    
     public int getNofEntriesGenerInvoices(Type type) {
 	if ( type == Type.RAW ) {
 	    return raw.getNofEntriesGenerInvoices();
@@ -100,6 +102,8 @@ public class GCshFileStats {
 	return FileStats.ERROR; // Compiler happy
     }
 
+    // ----------------------------
+    
     public int getNofEntriesCustomers(Type type) {
 	if ( type == Type.RAW ) {
 	    return raw.getNofEntriesCustomers();
@@ -148,6 +152,8 @@ public class GCshFileStats {
 	return FileStats.ERROR; // Compiler happy
     }
 
+    // ----------------------------
+    
     public int getNofEntriesCommodities(Type type) {
 	if ( type == Type.RAW ) {
 	    return raw.getNofEntriesCommodities();
@@ -160,6 +166,18 @@ public class GCshFileStats {
 	return FileStats.ERROR; // Compiler happy
     }
     
+    public int getNofEntriesPrices(Type type) {
+	if ( type == Type.RAW ) {
+	    return raw.getNofEntriesPrices();
+	} else if ( type == Type.COUNTER ) {
+	    return cnt.getNofEntriesPrices();
+	} else if ( type == Type.CACHE ) {
+	    return che.getNofEntriesPrices();
+	}
+	
+	return FileStats.ERROR; // Compiler happy
+    }
+
     // ----------------------------
     
     public int getNofEntriesTaxTables(Type type) {
@@ -181,20 +199,6 @@ public class GCshFileStats {
 	    return cnt.getNofEntriesBillTerms();
 	} else if ( type == Type.CACHE ) {
 	    return che.getNofEntriesBillTerms();
-	}
-	
-	return FileStats.ERROR; // Compiler happy
-    }
-
-    // ----------------------------
-    
-    public int getNofEntriesPrices(Type type) {
-	if ( type == Type.RAW ) {
-	    return raw.getNofEntriesPrices();
-	} else if ( type == Type.COUNTER ) {
-	    return cnt.getNofEntriesPrices();
-	} else if ( type == Type.CACHE ) {
-	    return che.getNofEntriesPrices();
 	}
 	
 	return FileStats.ERROR; // Compiler happy

@@ -1279,7 +1279,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @SuppressWarnings("unchecked")
     public Collection<? extends GnucashWritableAccount> getWritableRootAccounts() throws UnknownAccountTypeException {
-	return (Collection<? extends GnucashWritableAccount>) getRootAccounts();
+	return (Collection<? extends GnucashWritableAccount>) getParentlessAccounts();
     }
 
     // ----------------------------
@@ -1352,9 +1352,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see org.gnucash.write.jwsdpimpl.GnucashFileImpl#getRootAccounts()
      */
     @Override
-    public Collection<? extends GnucashAccount> getRootAccounts() throws UnknownAccountTypeException {
+    public Collection<? extends GnucashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
 	// TODO Auto-generated method stub
-	Collection<? extends GnucashAccount> rootAccounts = super.getRootAccounts();
+	Collection<? extends GnucashAccount> rootAccounts = super.getParentlessAccounts();
 	if (rootAccounts.size() > 1) {
 	    GnucashAccount root = null;
 	    StringBuilder roots = new StringBuilder();
@@ -1369,7 +1369,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		}
 		roots.append(gnucashAccount.getID()).append("=\"").append(gnucashAccount.getName()).append("\" ");
 	    }
-	    LOGGER.warn("File has more then one root-account! Attaching excess accounts to root-account: "
+	    LOGGER.warn("File has more than one root-account! Attaching excess accounts to root-account: "
 		    + roots.toString());
 	    LinkedList<GnucashAccount> rootAccounts2 = new LinkedList<GnucashAccount>();
 	    rootAccounts2.add(root);
