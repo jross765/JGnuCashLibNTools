@@ -154,7 +154,7 @@ public class TestGnucashWritableCommodityImpl
 //      System.err.println("xxxx XML normalized");
       
       NodeList nList = document.getElementsByTagName("gnc:commodity");
-      assertEquals(10, nList.getLength()); // <-- CAUTION: includes "CURRENCY:EUR" and "template:template"
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, nList.getLength()); // <-- CAUTION: includes "CURRENCY:EUR" and "template:template"
 
       // Last (new) node
       Node lastNode = nList.item(nList.getLength() - 1);
@@ -219,7 +219,7 @@ public class TestGnucashWritableCommodityImpl
 //      System.err.println("xxxx XML normalized");
       
       NodeList nList = document.getElementsByTagName("gnc:commodity");
-      assertEquals(13, nList.getLength()); // <-- CAUTION: includes "CURRENCY:EUR" and "template:template"
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 4, nList.getLength()); // <-- CAUTION: includes "CURRENCY:EUR" and "template:template"
 
       // Last three nodes (the new ones)
       Node node = nList.item(nList.getLength() - 4);

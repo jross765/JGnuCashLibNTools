@@ -81,7 +81,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 		    if (lotID != null && lotID.equals(lot)) {
 			// Check if it's a payment transaction.
 			// If so, add it to the invoice's list of payment transactions.
-			if (getActionStr().equals(Action.PAYMENT.getLocaleString())) {
+			if ( getAction() == Action.PAYMENT ) {
 			    invc.addPayingTransaction(this);
 			}
 		    }
@@ -373,8 +373,12 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	buffer.append("id=");
 	buffer.append(getID());
 
-	buffer.append(", action='");
-	buffer.append(getActionStr() + "'");
+	buffer.append(", action=");
+	try {
+	    buffer.append(getAction());
+	} catch (Exception e) {
+	    buffer.append("ERROR");
+	}
 
 	buffer.append(", transaction-id=");
 	buffer.append(getTransaction().getID());

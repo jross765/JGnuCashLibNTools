@@ -151,7 +151,7 @@ public class TestGnucashWritableEmployeeImpl
 //      System.err.println("xxxx XML normalized");
       
       NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
-      assertEquals(2, nList.getLength());
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, nList.getLength());
 
       // Last (new) node
       Node lastNode = nList.item(nList.getLength() - 1);
@@ -207,7 +207,7 @@ public class TestGnucashWritableEmployeeImpl
 //      System.err.println("xxxx XML normalized");
       
       NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
-      assertEquals(4, nList.getLength());
+      assertEquals(ConstTest.Stats.NOF_EMPL + 3, nList.getLength());
 
       // Last three nodes (the new ones)
       Node node = nList.item(nList.getLength() - 3);
