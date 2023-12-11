@@ -177,6 +177,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      *
      * @param listener The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -191,6 +192,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -204,6 +206,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
@@ -216,6 +219,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      *
      * @param listener The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(listener);

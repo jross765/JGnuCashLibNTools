@@ -92,7 +92,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	 * @see GnucashAccountImpl#GnucashAccountImpl(GncAccount, GnucashFile) )
 	 */
 	public GnucashWritableAccountImpl(final GnucashWritableFileImpl file) {
-		super(createAccount(file, file.createGUID()), file);
+		super(createAccount(file, GCshID.getNew()), file);
 	}
 
 	public GnucashWritableAccountImpl(
@@ -123,7 +123,13 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	 * @param file
 	 * @return
 	 */
-	private static GncAccount createAccount(final GnucashWritableFileImpl file, final String accountguid) {
+	private static GncAccount createAccount(
+		final GnucashWritableFileImpl file, 
+		final GCshID acctID) {
+		if ( ! acctID.isSet() ) {
+		    throw new IllegalArgumentException("GUID not set!");
+		}
+
 		ObjectFactory factory = file.getObjectFactory();
 
 		GncAccount account = factory.createGncAccount();
@@ -148,7 +154,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		{
 			GncAccount.ActId guid = factory.createGncAccountActId();
 			guid.setType(Const.XML_DATA_TYPE_GUID);
-			guid.setValue(accountguid);
+			guid.setValue(acctID.toString());
 			account.setActId(guid);
 		}
 
@@ -161,7 +167,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			Slot slot = factory.createSlot();
 			slot.setSlotKey("placeholder");
 			SlotValue slottype = factory.createSlotValue();
-			slottype.setType("string");
+			slottype.setType(Const.XML_DATA_TYPE_STRING);
 			slottype.getContent().add("false");
 			slot.setSlotValue(slottype);
 			account.getActSlots().getSlot().add(slot);
@@ -171,7 +177,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			Slot slot = factory.createSlot();
 			slot.setSlotKey("notes");
 			SlotValue slottype = factory.createSlotValue();
-			slottype.setType("string");
+			slottype.setType(Const.XML_DATA_TYPE_STRING);
 			slottype.getContent().add("");
 			slot.setSlotValue(slottype);
 			account.getActSlots().getSlot().add(slot);

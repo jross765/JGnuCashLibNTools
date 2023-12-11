@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.aux.GCshAddress;
@@ -33,14 +34,14 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * the ID of the new transaction!
      *
      * @param file the file we will belong to
-     * @param guid the ID we shall have
+     * @param custID the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncCustomer createCustomer(final GnucashWritableFileImpl file,
-            final String guid) {
-    
-        if (guid == null) {
-            throw new IllegalArgumentException("null guid given!");
+    protected static GncV2.GncBook.GncGncCustomer createCustomer(
+	    final GnucashWritableFileImpl file,
+            final GCshID custID) {
+        if ( ! custID.isSet() ) {
+            throw new IllegalArgumentException("GUID not set!");
         }
     
         ObjectFactory factory = file.getObjectFactory();
@@ -57,7 +58,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         {
             GncV2.GncBook.GncGncCustomer.CustGuid id = factory.createGncV2GncBookGncGncCustomerCustGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(guid);
+            id.setValue(custID.toString());
             cust.setCustGuid(id);
             cust.setCustId(id.getValue());
         }
@@ -133,7 +134,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableCustomerImpl(final GnucashWritableFileImpl file) {
-	super(createCustomer(file, file.createGUID()), file);
+	super(createCustomer(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableCustomerImpl(GnucashCustomerImpl cust) {

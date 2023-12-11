@@ -673,7 +673,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	GCshID invcGUID = new GCshID(file.createGUID());
+	GCshID invcGUID = GCshID.getNew();
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -773,7 +773,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	GCshID invcGUID = new GCshID(file.createGUID());
+	GCshID invcGUID = GCshID.getNew();
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -871,7 +871,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	GCshID invcGUID = new GCshID(file.createGUID());
+	GCshID invcGUID = GCshID.getNew();
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -969,7 +969,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	ObjectFactory fact = file.getObjectFactory();
-	GCshID invcGUID = new GCshID(file.createGUID());
+	GCshID invcGUID = GCshID.getNew();
 
 	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
 
@@ -1492,7 +1492,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
 	    slot.setSlotKey("trans-txn-type");
-	    value.setType("string");
+	    value.setType(Const.XML_DATA_TYPE_STRING);
 	    value.getContent().add(GnucashTransaction.Type.INVOICE.getCode());
 
 	    slot.setSlotValue(value);
@@ -1521,7 +1521,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
 	    slot.setSlotKey("trans-read-only");
-	    value.setType("string");
+	    value.setType(Const.XML_DATA_TYPE_STRING);
 	    value.getContent().add(Const.getLocaleString("INVC_READ_ONLY_SLOT_TEXT"));
 	    
 	    slot.setSlotValue(value);
@@ -1633,7 +1633,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    GncAccount.ActLots.GncLot.LotId id = factory.createGncAccountActLotsGncLotLotId();
 	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue(file.createGUID());
+	    id.setValue(GCshID.getNew().toString());
 	    newLot.setLotId(id);
 	}
 	newLot.setVersion(Const.XML_FORMAT_VERSION);

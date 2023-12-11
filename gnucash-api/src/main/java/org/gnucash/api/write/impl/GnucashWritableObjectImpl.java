@@ -10,6 +10,7 @@ import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.impl.GnucashObjectImpl;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.Const;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
@@ -92,7 +93,7 @@ public class GnucashWritableObjectImpl implements GnucashWritableObject {
 	Slot newSlot = objectFactory.createSlot();
 	newSlot.setSlotKey(name);
 	SlotValue newValue = objectFactory.createSlotValue();
-	newValue.setType("string");
+	newValue.setType(Const.XML_DATA_TYPE_STRING);
 	newValue.getContent().add(value);
 	newSlot.setSlotValue(newValue);
 	LOGGER.debug("GnucashWritableObjectHelper.setUserDefinedAttribute(name=" + name + ", value=" + value

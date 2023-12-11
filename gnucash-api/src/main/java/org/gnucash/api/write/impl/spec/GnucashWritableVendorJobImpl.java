@@ -4,6 +4,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import org.gnucash.api.Const;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
@@ -47,14 +48,14 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
     /**
      * @param owner the vendor the job is from
-     * @param file  the file to add the jhe to
+     * @param file  the file to add the vendor job to
      */
     public GnucashWritableVendorJobImpl(
 	    final GnucashWritableFileImpl file, 
 	    final GnucashVendor owner,
 	    final String number, 
 	    final String name) {
-	super(createJob(file, file.createGUID(), owner, number, name), file);
+	super(createJob(file, GCshID.getNew(), owner, number, name), file);
     }
 
     public GnucashWritableVendorJobImpl(GnucashVendorJobImpl job) {
@@ -83,13 +84,13 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
     /**
      * @param vend the vendor the job is from
-     * @param file   the file to add the jhe to
-     * @param guid   the internal id to use. May be null to generate an ID.
+     * @param file   the file to add the vendor job to
+     * @param jobID   the internal id to use. May be null to generate an ID.
      * @return the jaxb-job
      */
     private static GncV2.GncBook.GncGncJob createJob(
 	    final GnucashWritableFileImpl file, 
-	    final String guid,
+	    final GCshID jobID,
 	    final GnucashVendor vend,
 	    final String number,
 	    final String name) {
@@ -98,6 +99,10 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	    throw new IllegalArgumentException("null file given");
 	}
 
+	if ( ! jobID.isSet() ) {
+	    throw new IllegalArgumentException("GUID not set!");
+	}
+	
 	if (vend == null) {
 	    throw new IllegalArgumentException("null vendor given");
 	}
@@ -114,7 +119,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	{
 	    GncV2.GncBook.GncGncJob.JobGuid id = factory.createGncV2GncBookGncGncJobJobGuid();
 	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue((guid == null ? file.createGUID() : guid));
+	    id.setValue(jobID.toString());
 	    job.setJobGuid(id);
 	}
 

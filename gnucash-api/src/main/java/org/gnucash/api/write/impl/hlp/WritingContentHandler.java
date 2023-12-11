@@ -245,7 +245,7 @@ public class WritingContentHandler implements ContentHandler {
     	    }
 
     	    if (qName.equals("slot_value") && atts.getQName(i).equals("type") && 
-    		atts.getValue(i).equals("string")) {
+    		atts.getValue(i).equals(Const.XML_DATA_TYPE_STRING)) {
     		isSlotvalueTypeString = true;
     	    }
 

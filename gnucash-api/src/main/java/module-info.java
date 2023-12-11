@@ -2,6 +2,7 @@ module gnucash.api {
 	requires static org.slf4j;
 	requires java.desktop;
 	requires jakarta.xml.bind;
+	requires java.xml;
 	
 	exports org.gnucash.api.basetypes.simple;
 	exports org.gnucash.api.basetypes.complex;

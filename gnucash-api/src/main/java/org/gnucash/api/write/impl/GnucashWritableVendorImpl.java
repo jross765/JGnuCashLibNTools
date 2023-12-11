@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
@@ -35,11 +36,12 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncVendor createVendor(final GnucashWritableFileImpl file, final String guid) {
-    
-        if (guid == null) {
-            throw new IllegalArgumentException("null guid given!");
-        }
+    protected static GncV2.GncBook.GncGncVendor createVendor(
+	    final GnucashWritableFileImpl file, 
+	    final GCshID vendID) {
+	if ( ! vendID.isSet() ) {
+	    throw new IllegalArgumentException("GUID not set!");
+	}
     
         ObjectFactory factory = file.getObjectFactory();
     
@@ -53,7 +55,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
         {
             GncV2.GncBook.GncGncVendor.VendorGuid id = factory.createGncV2GncBookGncGncVendorVendorGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(guid);
+            id.setValue(vendID.toString());
             vend.setVendorGuid(id);
             vend.setVendorId(id.getValue());
         }
@@ -115,7 +117,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableVendorImpl(final GnucashWritableFileImpl file) {
-	super(createVendor(file, file.createGUID()), file);
+	super(createVendor(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableVendorImpl(GnucashVendorImpl vend) {

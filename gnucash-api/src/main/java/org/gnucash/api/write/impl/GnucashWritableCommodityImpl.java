@@ -5,6 +5,7 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.GnucashWritableCommodity;
@@ -42,7 +43,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableCommodityImpl(final GnucashWritableFileImpl file) {
-	super(createCommodity(file, file.createGUID()), file);
+	super(createCommodity(file, GCshID.getNew()), file);
     }
 
     // ---------------------------------------------------------------
@@ -71,11 +72,11 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncCommodity createCommodity(final GnucashWritableFileImpl file,
-	    final String guid) {
-
-	if (guid == null) {
-	    throw new IllegalArgumentException("null guid given!");
+    protected static GncV2.GncBook.GncCommodity createCommodity(
+	    final GnucashWritableFileImpl file,
+	    final GCshID cmdtID) {
+	if ( ! cmdtID.isSet() ) {
+	    throw new IllegalArgumentException("GUID not set!");
 	}
 
 	GncV2.GncBook.GncCommodity cmdty = file.createGncGncCommodityType();

@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashObject;
+import org.gnucash.api.Const;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
@@ -92,11 +93,11 @@ public class GnucashObjectImpl implements GnucashObject {
 	    ObjectFactory objectFactory = new ObjectFactory();
 
 	    SlotValue value = objectFactory.createSlotValue();
-	    value.setType("string");
-	    value.getContent().add("dummy");
+	    value.setType(Const.XML_DATA_TYPE_STRING);
+	    value.getContent().add(Const.DUMMY_FILL);
 
 	    Slot slot = objectFactory.createSlot();
-	    slot.setSlotKey("dummy");
+	    slot.setSlotKey(Const.DUMMY_FILL);
 	    slot.setSlotValue(value);
 
 	    slots.getSlot().add(slot);

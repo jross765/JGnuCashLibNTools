@@ -61,54 +61,54 @@ public class TestGnucashFileImpl
   @Test
   public void test01() throws Exception
   {    
-    assertEquals(93, ((GnucashFileStats) gcshFile).getNofEntriesAccountMap());
+    assertEquals(ConstTest.COUNT_ACCT, ((GnucashFileStats) gcshFile).getNofEntriesAccountMap());
   }
 
   @Test
   public void test02() throws Exception
   {    
-    assertEquals(12, ((GnucashFileStats) gcshFile).getNofEntriesTransactionMap());
+    assertEquals(ConstTest.COUNT_TRX, ((GnucashFileStats) gcshFile).getNofEntriesTransactionMap());
   }
 
   @Test
   public void test03() throws Exception
   {    
-    assertEquals(31, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitMap());
+    assertEquals(ConstTest.COUNT_TRX_SPLT, ((GnucashFileStats) gcshFile).getNofEntriesTransactionSplitMap());
   }
 
   @Test
   public void test04() throws Exception
   {    
-    assertEquals(7, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceMap());
+    assertEquals(ConstTest.COUNT_INVC, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceMap());
   }
 
   @Test
   public void test05() throws Exception
   {    
-    assertEquals(14, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceEntriesMap());
+    assertEquals(ConstTest.COUNT_INVC_ENTR, ((GnucashFileStats) gcshFile).getNofEntriesGenerInvoiceEntriesMap());
   }
 
   @Test
   public void test06() throws Exception
   {    
-    assertEquals(2, ((GnucashFileStats) gcshFile).getNofEntriesGenerJobMap());
+    assertEquals(ConstTest.COUNT_JOB, ((GnucashFileStats) gcshFile).getNofEntriesGenerJobMap());
   }
 
   @Test
   public void test07() throws Exception
   {    
-    assertEquals(3, ((GnucashFileStats) gcshFile).getNofEntriesCustomerMap());
+    assertEquals(ConstTest.COUNT_CUST, ((GnucashFileStats) gcshFile).getNofEntriesCustomerMap());
   }
 
   @Test
   public void test08() throws Exception
   {    
-    assertEquals(3, ((GnucashFileStats) gcshFile).getNofEntriesVendorMap());
+    assertEquals(ConstTest.COUNT_VEND, ((GnucashFileStats) gcshFile).getNofEntriesVendorMap());
   }
 
   @Test
   public void test09() throws Exception
   {    
-    assertEquals(1, ((GnucashFileStats) gcshFile).getNofEntriesEmployeeMap());
+    assertEquals(ConstTest.COUNT_EMPL, ((GnucashFileStats) gcshFile).getNofEntriesEmployeeMap());
   }
 }

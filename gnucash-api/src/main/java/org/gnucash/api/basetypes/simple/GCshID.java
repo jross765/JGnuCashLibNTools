@@ -9,7 +9,9 @@ public class GCshID {
 
     public final static String NULL_ID = "00000000000000000000000000000000";
 
-    private final static int STANDARD_LENGTH = 32;
+    // ::MAGIC
+    private static final int STANDARD_LENGTH = 32;
+    private static final int HEX             = 16;
     
     // -----------------------------------------------------------------
 
@@ -112,6 +114,29 @@ public class GCshID {
 	} else if (!gcshID.equals(other.gcshID))
 	    return false;
 	return true;
+    }
+
+    // -----------------------------------------------------------------
+
+    /**
+     * create a GUID for a new element. (GUIDs are globally unique and not tied to a
+     * specific kind of entity)
+     * 
+     * ::TODO: Change implementation: use Apache commons UUID class.
+     *
+     * @return the new GnuCash GUID
+     */
+    public static GCshID getNew() {
+
+	int len = "74e492edf60d6a28b6c1d01cc410c058".length();
+
+	StringBuffer buf = new StringBuffer(Long.toHexString(System.currentTimeMillis()));
+
+	while (buf.length() < len) {
+	    buf.append(Integer.toHexString((int) (Math.random() * HEX)).charAt(0));
+	}
+
+	return new GCshID(buf.toString());
     }
 
     // -----------------------------------------------------------------

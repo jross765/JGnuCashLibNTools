@@ -69,8 +69,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	public GnucashWritableTransactionSplitImpl(
 		final GnucashWritableTransactionImpl trx, 
 		final GnucashAccount acct) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		super(createTransactionSplit(trx, acct, 
-				             trx.getWritableFile().createGUID()), 
+		super(createTransactionSplit(trx, acct, GCshID.getNew()), 
 		      trx, 
 		      true, true);
 
@@ -119,8 +118,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit(
 		final GnucashWritableTransactionImpl transaction,
 		final GnucashAccount account,
-		final String pSplitID) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-
+		final GCshID spltID) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 		if (transaction == null) {
 			throw new IllegalArgumentException("null transaction given");
 		}
@@ -129,8 +127,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 			throw new IllegalArgumentException("null account given");
 		}
 
-		if (pSplitID == null || pSplitID.trim().length() == 0) {
-			throw new IllegalArgumentException("null or empty pSplitID given");
+		if ( ! spltID.isSet() ) {
+		    throw new IllegalArgumentException("GUID not set!");
 		}
 
 		// this is needed because transaction.addSplit() later
@@ -148,7 +146,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		{
 			GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
 			id.setType(Const.XML_DATA_TYPE_GUID);
-			id.setValue(pSplitID);
+			id.setValue(spltID.toString());
 			split.setSplitId(id);
 		}
 
@@ -407,7 +405,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 //			Slot slot = factory.createSlot();
 //			slot.setSlotKey("trans-txn-type");
 //			SlotValue value = factory.createSlotValue();
-//			value.setType("string");
+//			value.setType(Const.XML_DATA_TYPE_STRING);
 //			value.getContent().add(GnucashTransaction.TYPE_PAYMENT);
 //			slot.setSlotValue(value);
 //			slots.getSlot().add(slot);

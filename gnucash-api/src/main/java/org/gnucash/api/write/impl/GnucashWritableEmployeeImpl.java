@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
@@ -35,11 +36,11 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncEmployee createEmployee(final GnucashWritableFileImpl file,
-            final String guid) {
-    
-        if (guid == null) {
-            throw new IllegalArgumentException("null guid given!");
+    protected static GncV2.GncBook.GncGncEmployee createEmployee(
+	    final GnucashWritableFileImpl file,
+            final GCshID emplID) {
+        if ( ! emplID.isSet() ) {
+            throw new IllegalArgumentException("GUID not set!");
         }
     
         ObjectFactory factory = file.getObjectFactory();
@@ -52,7 +53,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
         {
             GncV2.GncBook.GncGncEmployee.EmployeeGuid id = factory.createGncV2GncBookGncGncEmployeeEmployeeGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(guid);
+            id.setValue(emplID.toString());
             empl.setEmployeeGuid(id);
             empl.setEmployeeId(id.getValue());
         }
@@ -134,7 +135,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableEmployeeImpl(final GnucashWritableFileImpl file) {
-	super(createEmployee(file, file.createGUID()), file);
+	super(createEmployee(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableEmployeeImpl(GnucashEmployeeImpl empl) {

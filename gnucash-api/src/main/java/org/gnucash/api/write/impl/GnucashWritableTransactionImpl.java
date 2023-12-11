@@ -84,7 +84,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws NoSuchFieldException 
      */
     public GnucashWritableTransactionImpl(final GnucashWritableFileImpl file) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	super(createTransaction(file, file.createGUID()), file, true);
+	super(createTransaction(file, GCshID.getNew()), file, true);
 	file.addTransaction(this);
     }
 
@@ -164,7 +164,12 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * Creates a new Transaction and add's it to the given gnucash-file Don't modify
      * the ID of the new transaction!
      */
-    protected static GncTransaction createTransaction(final GnucashWritableFileImpl file, final String newId) {
+    protected static GncTransaction createTransaction(
+	    final GnucashWritableFileImpl file, 
+	    final GCshID trxID) {
+	if ( ! trxID.isSet() ) {
+	    throw new IllegalArgumentException("GUID not set!");
+	}
 
 	ObjectFactory factory = file.getObjectFactory();
 	GncTransaction transaction = file.createGncTransaction();
@@ -172,7 +177,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 	{
 	    GncTransaction.TrnId id = factory.createGncTransactionTrnId();
 	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue(newId);
+	    id.setValue(trxID.toString());
 	    transaction.setTrnId(id);
 	}
 

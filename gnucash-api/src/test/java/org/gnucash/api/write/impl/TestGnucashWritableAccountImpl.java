@@ -35,6 +35,7 @@ public class TestGnucashWritableAccountImpl
 
     private GnucashWritableFileImpl gcshInFile = null;
     private GnucashFileImpl         gcshOutFile = null;
+    private GCshID                  newAcctID = null;
     
     private String outFileGlobNameAbs = null;
     private File outFileGlob = null;
@@ -166,6 +167,8 @@ public class TestGnucashWritableAccountImpl
   @Test
   public void test02_1() throws Exception
   {
+    assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+    
     GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
     
@@ -183,7 +186,7 @@ public class TestGnucashWritableAccountImpl
     // trx.getSplitByID("7abf90fe15124254ac3eb7ec33f798e7").setXYZ()
 
     // ----------------------------
-    // Check whether the object can has actually be modified 
+    // Check whether the object has actually been modified 
     // (in memory, not in the file yet).
     
     test02_1_check_memory(acct);
@@ -202,7 +205,7 @@ public class TestGnucashWritableAccountImpl
     test02_1_check_persisted(outFile);
   }
 
-@Test
+  @Test
   public void test02_2() throws Exception
   {
       // ::TODO
@@ -210,6 +213,8 @@ public class TestGnucashWritableAccountImpl
 
   private void test02_1_check_memory(GnucashWritableAccount acct) throws Exception 
   {
+      assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+
       assertEquals(ACCT_1_ID, acct.getID());
       assertEquals(GnucashAccount.Type.BANK, acct.getType());
       assertEquals("Giro Bossa Nova", acct.getName());
@@ -235,6 +240,7 @@ public class TestGnucashWritableAccountImpl
   private void test02_1_check_persisted(File outFile) throws Exception
   {
      gcshOutFile = new GnucashFileImpl(outFile);
+     assertEquals(ConstTest.COUNT_ACCT, gcshOutFile.getNofEntriesAccountMap());
       
      GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
      assertNotEquals(null, acct);
@@ -265,7 +271,91 @@ public class TestGnucashWritableAccountImpl
   // PART 3: Create new objects
   // -----------------------------------------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1() throws Exception
+  {
+      assertEquals(ConstTest.COUNT_ACCT, gcshInFile.getNofEntriesAccountMap());
+      
+      // ----------------------------
+      // Bare naked object
+      
+      GnucashWritableAccount acct = gcshInFile.createWritableAccount();
+      assertNotEquals(null, acct);
+      newAcctID = acct.getID();
+      assertEquals(true, newAcctID.isSet());
+      
+      // ----------------------------
+      // Modify the object
+      
+      acct.setType(GnucashAccount.Type.BANK);
+      acct.setParentAccountID(new GCshID("fdffaa52f5b04754901dfb1cf9221494")); // Root Account::Aktiva::Sichteinlagen::KK
+      acct.setName("Giro Rhumba");
+      acct.setDescription("Cha-cha-cha");
+      acct.setCmdtyCurrID(new GCshCurrID("JPY"));
+      
+      // ----------------------------
+      // Check whether the object has actually been modified 
+      // (in memory, not in the file yet).
+      
+      test03_1_check_memory(acct);
+      
+      // ----------------------------
+      // Now, check whether the modified object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_check_persisted(outFile);
+  }
+  
+  private void test03_1_check_memory(GnucashWritableAccount acct) throws Exception 
+  {
+      assertEquals(ConstTest.COUNT_ACCT + 1, gcshInFile.getNofEntriesAccountMap());
+
+      assertEquals(newAcctID, acct.getID());
+      assertEquals(GnucashAccount.Type.BANK, acct.getType());
+      assertEquals("Giro Rhumba", acct.getName());
+      assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Rhumba", acct.getQualifiedName());
+      assertEquals("Cha-cha-cha", acct.getDescription());
+      assertEquals("CURRENCY:JPY", acct.getCmdtyCurrID().toString());
+
+      assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
+
+      // ::TODO (throws exception when you try to call that)
+//      assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
+//      assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
+      
+      assertEquals(0, acct.getTransactions().size());
+  }
+
+  private void test03_1_check_persisted(File outFile) throws Exception
+  {
+     gcshOutFile = new GnucashFileImpl(outFile);
+     assertEquals(ConstTest.COUNT_ACCT + 1, gcshOutFile.getNofEntriesAccountMap());
+      
+     GnucashAccount acct = gcshOutFile.getAccountByID(newAcctID);
+     assertNotEquals(null, acct);
+     
+     assertEquals(newAcctID, acct.getID());
+     assertEquals(GnucashAccount.Type.BANK, acct.getType());
+     assertEquals("Giro Rhumba", acct.getName());
+     assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Rhumba", acct.getQualifiedName());
+     assertEquals("Cha-cha-cha", acct.getDescription());
+     assertEquals("CURRENCY:JPY", acct.getCmdtyCurrID().toString());
+
+     assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
+
+     // ::TODO (throws exception when you try to call that)
+//     assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
+//     assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
+     
+     assertEquals(0, acct.getTransactions().size());
+  }
 
 //  @AfterClass
 //  public void after() throws Exception

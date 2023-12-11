@@ -350,7 +350,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	    Slot subSlot = objectFactory.createSlot();
 	    subSlot.setSlotKey(slot.getSlotKey());
 	    SlotValue subSlotVal = objectFactory.createSlotValue();
-	    subSlotVal.setType("string");
+	    subSlotVal.setType(Const.XML_DATA_TYPE_STRING);
 	    subSlotVal.getContent().add(slotVal.getContent().get(0));
 	    subSlot.setSlotValue(subSlotVal);
 	    if (!subSlot.getSlotKey().equals("invoice-guid")) {

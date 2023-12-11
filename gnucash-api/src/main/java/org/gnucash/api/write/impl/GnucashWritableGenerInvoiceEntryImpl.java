@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
@@ -373,7 +374,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	{
 	    GncV2.GncBook.GncGncEntry.EntryGuid guid = factory.createGncV2GncBookGncGncEntryEntryGuid();
 	    guid.setType(Const.XML_DATA_TYPE_GUID);
-	    guid.setValue((gcshWrtblFile).createGUID());
+	    guid.setValue(GCshID.getNew().toString());
 	    entry.setEntryGuid(guid);
 	}
 

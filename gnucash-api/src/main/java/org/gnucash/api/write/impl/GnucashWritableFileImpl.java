@@ -50,11 +50,17 @@ import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
-import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
+import org.gnucash.api.read.impl.hlp.FileCustomerManager;
+import org.gnucash.api.read.impl.hlp.FileEmployeeManager;
+import org.gnucash.api.read.impl.hlp.FileInvoiceEntryManager;
+import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
+import org.gnucash.api.read.impl.hlp.FileJobManager;
 import org.gnucash.api.read.impl.hlp.FilePriceManager;
+import org.gnucash.api.read.impl.hlp.FileTransactionManager;
+import org.gnucash.api.read.impl.hlp.FileVendorManager;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -102,7 +108,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableFileImpl.class);
 
     // ::MAGIC
-    private static final int    HEX      = 16;
     private static final String CODEPAGE = "UTF-8";
 
     // ---------------------------------------------------------------
@@ -273,29 +278,21 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * Calculate and set the correct valued for all the following count-data.<br/>
      * Also check the that only valid elements are in the book-element and that they
      * have the correct order.
-     * <p>
-     * <gnc:count-data cd:type="commodity">2</gnc:count-data>
-     * <gnc:count-data cd:type="account">394</gnc:count-data>
-     * <gnc:count-data cd:type="transaction">1576</gnc:count-data>
-     * <gnc:count-data cd:type="schedxaction">4</gnc:count-data>
-     * <gnc:count-data cd:type="gnc:GncCustomer">2</gnc:count-data>
-     * <gnc:count-data cd:type="gnc:GncJob">2</gnc:count-data>
-     * <gnc:count-data cd:type="gnc:GncTaxTable">2</gnc:count-data>
-     * <gnc:count-data cd:type="gnc:GncInvoice">5</gnc:count-data>
-     * <gnc:count-data cd:type="gnc:GncEntry">18</gnc:count-data>
      */
     private void checkAllCountData() {
     
-        int cntCommodity = 0;
         int cntAccount = 0;
         int cntTransaction = 0;
-        int cntCustomer = 0;
-        int cntVendor = 0;
-        int cntJob = 0;
-        int cntTaxTable = 0;
         int cntInvoice = 0;
         int cntIncEntry = 0;
+        int cntCustomer = 0;
+        int cntVendor = 0;
+        int cntEmployee = 0;
+        int cntJob = 0;
+        int cntTaxTable = 0;
         int cntBillTerm = 0;
+        int cntCommodity = 0;
+        int cntPrice = 0;
         
         /**
          * <p>
@@ -307,24 +304,30 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
          */
         List<Object> bookElements = getRootElement().getGncBook().getBookElements();
         for (Object element : bookElements) {
-            if (element instanceof GncV2.GncBook.GncCommodity) {
-        	cntCommodity++;
-            } else if (element instanceof GncAccount) {
+            if (element instanceof GncAccount) {
         	cntAccount++;
             } else if (element instanceof GncTransaction) {
         	cntTransaction++;
-            } else if (element instanceof GncV2.GncBook.GncGncCustomer) {
-        	cntCustomer++;
-            } else if (element instanceof GncV2.GncBook.GncGncVendor) {
-        	cntVendor++;
-            } else if (element instanceof GncV2.GncBook.GncGncJob) {
-        	cntJob++;
-            } else if (element instanceof GncV2.GncBook.GncGncTaxTable) {
-        	cntTaxTable++;
             } else if (element instanceof GncV2.GncBook.GncGncInvoice) {
         	cntInvoice++;
             } else if (element instanceof GncV2.GncBook.GncGncEntry) {
         	cntIncEntry++;
+            } else if (element instanceof GncV2.GncBook.GncGncCustomer) {
+        	cntCustomer++;
+            } else if (element instanceof GncV2.GncBook.GncGncVendor) {
+        	cntVendor++;
+            } else if (element instanceof GncV2.GncBook.GncGncEmployee) {
+        	cntEmployee++;
+            } else if (element instanceof GncV2.GncBook.GncGncJob) {
+        	cntJob++;
+            } else if (element instanceof GncV2.GncBook.GncGncTaxTable) {
+        	cntTaxTable++;
+            } else if (element instanceof GncV2.GncBook.GncGncBillTerm) {
+        	cntBillTerm++;
+            } else if (element instanceof GncV2.GncBook.GncCommodity) {
+            	cntCommodity++;
+            } else if (element instanceof GncV2.GncBook.GncPricedb.Price) {
+        	cntPrice++;
             } else if (element instanceof GncV2.GncBook.GncTemplateTransactions) {
         	// ::TODO
             } else if (element instanceof GncV2.GncBook.GncSchedxaction) {
@@ -335,23 +338,23 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
         	// ::TODO
             } else if (element instanceof GncV2.GncBook.GncGncEmployee) {
         	// ::TODO
-            } else if (element instanceof GncV2.GncBook.GncGncBillTerm) {
-        	cntBillTerm++;
             } else {
         	throw new IllegalStateException("Unecpected element in GNC:Book found! <" + element.toString() + ">");
             }
         }
     
-        setCountDataFor("commodity", cntCommodity);
         setCountDataFor("account", cntAccount);
         setCountDataFor("transaction", cntTransaction);
-        setCountDataFor("gnc:GncCustomer", cntCustomer);
-        setCountDataFor("gnc:GncVendor", cntVendor);
-        setCountDataFor("gnc:GncJob", cntJob);
-        setCountDataFor("gnc:GncTaxTable", cntTaxTable);
         setCountDataFor("gnc:GncInvoice", cntInvoice);
         setCountDataFor("gnc:GncEntry", cntIncEntry);
+        setCountDataFor("gnc:GncCustomer", cntCustomer);
+        setCountDataFor("gnc:GncVendor", cntVendor);
+        setCountDataFor("gnc:GncEmployee", cntEmployee);
+        setCountDataFor("gnc:GncJob", cntJob);
+        setCountDataFor("gnc:GncTaxTable", cntTaxTable);
         setCountDataFor("gnc:GncBillTerm", cntBillTerm);
+        setCountDataFor("commodity", cntCommodity);
+        setCountDataFor("price", cntPrice);
         
         // make sure the correct sort-order of the entity-types is obeyed in writing.
         // (we do not enforce this in the xml-schema to allow for reading out of order
@@ -433,8 +436,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    setModified(false);
 	} catch (JAXBException e) {
 	    LOGGER.error(e.getMessage(), e);
-	}
-	finally {
+	} finally {
 	    writer.close();
 	}
 	
@@ -471,27 +473,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
 
     // ---------------------------------------------------------------
-
-    /**
-     * create a GUID for a new element. (guids are globally unique and not tied to a
-     * specific kind of entity)
-     * 
-     * ::TODO: Change implementation: use Apache commons UUID class.
-     *
-     * @return the new gnucash-guid
-     */
-    public String createGUID() {
-
-	int len = "74e492edf60d6a28b6c1d01cc410c058".length();
-
-	StringBuffer sb = new StringBuffer(Long.toHexString(System.currentTimeMillis()));
-
-	while (sb.length() < len) {
-	    sb.append(Integer.toHexString((int) (Math.random() * HEX)).charAt(0));
-	}
-
-	return sb.toString();
-    }
 
     /**
      */
@@ -790,8 +771,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
 	    GnucashCustomerJob custJob = super.getCustomerJobByID(jobID);
 	    return new GnucashWritableCustomerJobImpl((GnucashCustomerJobImpl) custJob);
-	}
-	else if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
+	} else if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
 	    GnucashVendorJob vendJob = super.getVendorJobByID(jobID);
 	    return new GnucashWritableVendorJobImpl((GnucashVendorJobImpl) vendJob);
 	}
@@ -925,7 +905,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	newQuote.setPriceSource("JGnucashLib");
 	newQuote.setPriceId(getObjectFactory().createGncV2GncBookGncPricedbPricePriceId());
 	newQuote.getPriceId().setType(Const.XML_DATA_TYPE_GUID);
-	newQuote.getPriceId().setValue(createGUID());
+	newQuote.getPriceId().setValue(GCshID.getNew().toString());
 	newQuote.setPriceCommodity(currency);
 	newQuote.setPriceCurrency(baseCurrency);
 	newQuote.setPriceTime(getObjectFactory().createGncV2GncBookGncPricedbPricePriceTime());
@@ -1362,7 +1342,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	newSlot.setSlotKey(aName);
 	newSlot.setSlotValue(getObjectFactory().createSlotValue());
 	newSlot.getSlotValue().getContent().add(aValue);
-	newSlot.getSlotValue().setType("string");
+	newSlot.getSlotValue().setType(Const.XML_DATA_TYPE_STRING);
 	getRootElement().getGncBook().getBookSlots().getSlot().add(newSlot);
     }
 
