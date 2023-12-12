@@ -110,7 +110,6 @@ public class TestGnucashWritableFileImpl
       assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
   }
 
-  // ::TODO
   @Test
   public void test03() throws Exception
   {    
@@ -177,10 +176,11 @@ public class TestGnucashWritableFileImpl
   @Test
   public void test10() throws Exception
   {    
-      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
-      // ::TODO
-      // Probably an error in test file
-      // assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));
+      // CAUTION: This one is an exception: 
+      // There is one additional commoditiy object on the "raw" level: 
+      // the "template".
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
   }
 

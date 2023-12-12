@@ -213,7 +213,7 @@
     <slot:value type="string">true</slot:value>
   </slot>
 </book:slots>
-<gnc:count-data cd:type="commodity">7</gnc:count-data>
+<gnc:count-data cd:type="commodity">8</gnc:count-data>
 <gnc:count-data cd:type="account">93</gnc:count-data>
 <gnc:count-data cd:type="transaction">12</gnc:count-data>
 <gnc:count-data cd:type="price">9</gnc:count-data>

@@ -28,7 +28,7 @@ public class ConstTest extends Const
 	
 	public static final int NOF_CMDTY_SEC  = 6;
 	public static final int NOF_CMDTY_CURR = 2;
-	public static final int NOF_CMDTY_ALL  = NOF_CMDTY_SEC + NOF_CMDTY_CURR + 1; // <-- plus 1 for the template
+	public static final int NOF_CMDTY_ALL  = NOF_CMDTY_SEC + NOF_CMDTY_CURR;
 	public static final int NOF_PRC        = 9;
 
 	public static final int NOF_TAXTAB     = 7;

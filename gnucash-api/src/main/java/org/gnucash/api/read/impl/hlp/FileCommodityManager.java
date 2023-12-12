@@ -54,6 +54,15 @@ public class FileCommodityManager {
 	    }
 	    GncV2.GncBook.GncCommodity jwsdpCmdty = (GncV2.GncBook.GncCommodity) bookElement;
 
+	    // CAUTION: As opposed to the other entities, there is always 
+	    // one additional object in the GnuCash file for commodities, 
+	    // the "template" object. We will ignore it.
+	    if ( jwsdpCmdty.getCmdtyName() != null ) {
+		if ( jwsdpCmdty.getCmdtyName().equals("template") ) {
+		    continue;
+		}
+	    }
+	    
 	    try {
 		GnucashCommodityImpl cmdty = createCommodity(jwsdpCmdty);
 		try {

@@ -339,7 +339,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
             } else if (element instanceof GncV2.GncBook.GncGncEmployee) {
         	// ::TODO
             } else {
-        	throw new IllegalStateException("Unecpected element in GNC:Book found! <" + element.toString() + ">");
+        	throw new IllegalStateException("Found unexpected element in GNC:Book: '" + element.toString() + "'");
             }
         }
     
@@ -356,9 +356,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
         setCountDataFor("commodity", cntCommodity);
         setCountDataFor("price", cntPrice);
         
-        // make sure the correct sort-order of the entity-types is obeyed in writing.
-        // (we do not enforce this in the xml-schema to allow for reading out of order
-        // files)
+        // Make sure the correct sort-order of the entity-types is honored
+        // (we do not enforce this in the XML schema to allow for reading files
+        // that do not honor that order).
         java.util.Collections.sort(bookElements, new BookElementsSorter());
     }
 
@@ -548,7 +548,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     protected GncV2.GncBook.GncCommodity createGncGncCommodityType() {
 	GncV2.GncBook.GncCommodity retval = getObjectFactory().createGncV2GncBookGncCommodity();
-	incrementCountDataFor("gnc:GncCommodity");
+	incrementCountDataFor("commodity");
 	return retval;
     }
     
@@ -712,8 +712,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashTransactionImpl#createSplit(GncTransaction.TrnSplits.TrnSplit)
      */
     protected void addTransaction(final GnucashTransactionImpl trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	incrementCountDataFor("transaction");
-
 	getRootElement().getGncBook().getBookElements().add(trx.getJwsdpPeer());
 	setModified(true);
 	super.trxMgr.addTransaction(trx);
@@ -882,14 +880,15 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	}
 	if (getCurrencyTable().getConversionFactor(pCmdtySpace, pCmdtyId) == null) {
 
-	    GncV2.GncBook.GncCommodity newCurrency = getObjectFactory().createGncV2GncBookGncCommodity();
+	    // GncV2.GncBook.GncCommodity newCurrency = getObjectFactory().createGncV2GncBookGncCommodity();
+	    GncV2.GncBook.GncCommodity newCurrency = createGncGncCommodityType();
 	    newCurrency.setCmdtyFraction(pCmdtyNameFraction);
 	    newCurrency.setCmdtySpace(pCmdtySpace);
 	    newCurrency.setCmdtyId(pCmdtyId);
 	    newCurrency.setCmdtyName(pCmdtyName);
 	    newCurrency.setVersion(Const.XML_FORMAT_VERSION);
 	    getRootElement().getGncBook().getBookElements().add(newCurrency);
-	    incrementCountDataFor("commodity");
+	    // incrementCountDataFor("commodity");
 	}
 	// add price-quote
 	GncV2.GncBook.GncPricedb.Price.PriceCommodity currency = new GncV2.GncBook.GncPricedb.Price.PriceCommodity();
