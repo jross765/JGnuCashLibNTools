@@ -51,14 +51,14 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncV2.GncBook.GncGncEntry)
 	 */
-	@SuppressWarnings("exports")
-	public GnucashWritableEmployeeVoucherEntryImpl(
-		final GnucashWritableEmployeeVoucherImpl vch,
-		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
-		super(vch, jwsdpPeer);
-		
-		this.myInvoice = vch;
-	}
+//	@SuppressWarnings("exports")
+//	public GnucashWritableEmployeeVoucherEntryImpl(
+//		final GnucashWritableEmployeeVoucherImpl vch,
+//		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
+//		super(vch, jwsdpPeer);
+//		
+//		this.myInvoice = vch;
+//	}
 
 	/**
 	 * Create a taxable invoiceEntry.

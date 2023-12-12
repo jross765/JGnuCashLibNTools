@@ -51,14 +51,14 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncV2.GncBook.GncGncEntry)
 	 */
-	@SuppressWarnings("exports")
-	public GnucashWritableVendorBillEntryImpl(
-		final GnucashWritableVendorBillImpl bll,
-		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
-		super(bll, jwsdpPeer);
-		
-		this.myInvoice = bll;
-	}
+//	@SuppressWarnings("exports")
+//	public GnucashWritableVendorBillEntryImpl(
+//		final GnucashWritableVendorBillImpl bll,
+//		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
+//		super(bll, jwsdpPeer);
+//		
+//		this.myInvoice = bll;
+//	}
 
 	/**
 	 * Create a taxable invoiceEntry.

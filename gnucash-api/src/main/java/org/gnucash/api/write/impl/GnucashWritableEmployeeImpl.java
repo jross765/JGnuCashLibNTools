@@ -123,7 +123,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
-    protected GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
+    public GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }

@@ -31,7 +31,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
-    protected GnucashWritableCommodityImpl(final GncV2.GncBook.GncCommodity jwsdpPeer,
+    public GnucashWritableCommodityImpl(final GncV2.GncBook.GncCommodity jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }

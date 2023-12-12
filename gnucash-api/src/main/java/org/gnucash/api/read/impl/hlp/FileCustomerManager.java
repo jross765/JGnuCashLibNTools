@@ -23,7 +23,7 @@ public class FileCustomerManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashCustomer> custMap;
 

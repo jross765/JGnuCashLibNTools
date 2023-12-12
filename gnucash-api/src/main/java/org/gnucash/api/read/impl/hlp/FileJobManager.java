@@ -30,7 +30,7 @@ public class FileJobManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashGenerJob>    jobMap;
     private Map<GCshID, GnucashCustomerJob> custJobMap;

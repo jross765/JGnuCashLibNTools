@@ -22,7 +22,7 @@ public class FileVendorManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashVendor> vendMap;
 

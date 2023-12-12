@@ -108,89 +108,117 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	super(jwsdpPeer, file);
     }
 
-    /**
-     * @param file the file we are associated with.
-     * @throws WrongOwnerTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalTransactionSplitActionException 
-     */
-    protected GnucashWritableGenerInvoiceImpl(
-	    final GnucashWritableFileImpl file, 
-	    final String number,
-	    final GnucashCustomer cust, 
-	    final GnucashAccountImpl incomeAcct,
-	    final GnucashAccountImpl receivableAcct,
-	    final LocalDate openedDate,
-	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	super(createCustomerInvoice_int(file, 
-		                    number, cust,
-		                    false,
-		                    incomeAcct, receivableAcct, 
-		                    openedDate, postDate, dueDate),
-	      file);
-    }
-
-    /**
-     * @param file the file we are associated with.
-     * @throws WrongOwnerTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalTransactionSplitActionException 
-     */
-    protected GnucashWritableGenerInvoiceImpl(
-	    final GnucashWritableFileImpl file, 
-	    final String number,
-	    final GnucashVendor vend, 
-	    final GnucashAccountImpl expensesAcct,
-	    final GnucashAccountImpl payableAcct,
-	    final LocalDate openedDate,
-	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	super(createVendorBill_int(file, 
-		               number, vend,
-		               false,
-		               expensesAcct, payableAcct, 
-		               openedDate, postDate, dueDate),
-	      file);
-    }
-
-    /**
-     * @param file the file we are associated with.
-     * @throws WrongOwnerTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws IllegalTransactionSplitActionException 
-     */
-    protected GnucashWritableGenerInvoiceImpl(
-	    final GnucashWritableFileImpl file, 
-	    final String number,
-	    final GnucashGenerJob job, 
-	    final GnucashAccountImpl incExpAcct,
-	    final GnucashAccountImpl payblRecvblAcct,
-	    final LocalDate openedDate,
-	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	super(createJobInvoice_int(file, 
-		               number, job,
-		               false,
-			       incExpAcct, payblRecvblAcct,
-			       openedDate, postDate, dueDate),
-	      file);
-    }
+//    /**
+//     * @param file the file we are associated with.
+//     * @throws WrongOwnerTypeException 
+//     * @throws InvalidCmdtyCurrTypeException 
+//     * @throws IllegalAccessException 
+//     * @throws IllegalArgumentException 
+//     * @throws ClassNotFoundException 
+//     * @throws SecurityException 
+//     * @throws NoSuchFieldException 
+//     * @throws IllegalTransactionSplitActionException 
+//     */
+//    protected GnucashWritableGenerInvoiceImpl(
+//	    final GnucashWritableFileImpl file, 
+//	    final String number,
+//	    final GnucashCustomer cust, 
+//	    final GnucashAccountImpl incomeAcct,
+//	    final GnucashAccountImpl receivableAcct,
+//	    final LocalDate openedDate,
+//	    final LocalDate postDate,
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+//	super(createCustomerInvoice_int(file, 
+//		                    number, cust,
+//		                    false,
+//		                    incomeAcct, receivableAcct, 
+//		                    openedDate, postDate, dueDate),
+//	      file);
+//    }
+//
+//    /**
+//     * @param file the file we are associated with.
+//     * @throws WrongOwnerTypeException 
+//     * @throws InvalidCmdtyCurrTypeException 
+//     * @throws IllegalAccessException 
+//     * @throws IllegalArgumentException 
+//     * @throws ClassNotFoundException 
+//     * @throws SecurityException 
+//     * @throws NoSuchFieldException 
+//     * @throws IllegalTransactionSplitActionException 
+//     */
+//    protected GnucashWritableGenerInvoiceImpl(
+//	    final GnucashWritableFileImpl file, 
+//	    final String number,
+//	    final GnucashVendor vend, 
+//	    final GnucashAccountImpl expensesAcct,
+//	    final GnucashAccountImpl payableAcct,
+//	    final LocalDate openedDate,
+//	    final LocalDate postDate,
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+//	super(createVendorBill_int(file, 
+//		               number, vend,
+//		               false,
+//		               expensesAcct, payableAcct, 
+//		               openedDate, postDate, dueDate),
+//	      file);
+//    }
+//
+//    /**
+//     * @param file the file we are associated with.
+//     * @throws WrongOwnerTypeException 
+//     * @throws InvalidCmdtyCurrTypeException 
+//     * @throws IllegalAccessException 
+//     * @throws IllegalArgumentException 
+//     * @throws ClassNotFoundException 
+//     * @throws SecurityException 
+//     * @throws NoSuchFieldException 
+//     * @throws IllegalTransactionSplitActionException 
+//     */
+//    protected GnucashWritableGenerInvoiceImpl(
+//	    final GnucashWritableFileImpl file, 
+//	    final String number,
+//	    final GnucashEmployee empl, 
+//	    final GnucashAccountImpl expensesAcct,
+//	    final GnucashAccountImpl payableAcct,
+//	    final LocalDate openedDate,
+//	    final LocalDate postDate,
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+//	super(createEmployeeVoucher_int(file, 
+//		               number, empl,
+//		               false,
+//		               expensesAcct, payableAcct, 
+//		               openedDate, postDate, dueDate),
+//	      file);
+//    }
+//
+//    /**
+//     * @param file the file we are associated with.
+//     * @throws WrongOwnerTypeException 
+//     * @throws InvalidCmdtyCurrTypeException 
+//     * @throws IllegalAccessException 
+//     * @throws IllegalArgumentException 
+//     * @throws ClassNotFoundException 
+//     * @throws SecurityException 
+//     * @throws NoSuchFieldException 
+//     * @throws IllegalTransactionSplitActionException 
+//     */
+//    protected GnucashWritableGenerInvoiceImpl(
+//	    final GnucashWritableFileImpl file, 
+//	    final String number,
+//	    final GnucashGenerJob job, 
+//	    final GnucashAccountImpl incExpAcct,
+//	    final GnucashAccountImpl payblRecvblAcct,
+//	    final LocalDate openedDate,
+//	    final LocalDate postDate,
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+//	super(createJobInvoice_int(file, 
+//		               number, job,
+//		               false,
+//			       incExpAcct, payblRecvblAcct,
+//			       openedDate, postDate, dueDate),
+//	      file);
+//    }
 
     // ---------------------------------------------------------------
 

@@ -14,6 +14,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
@@ -52,14 +53,14 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncV2.GncBook.GncGncEntry)
 	 */
-	@SuppressWarnings("exports")
-	public GnucashWritableJobInvoiceEntryImpl(
-		final GnucashWritableJobInvoiceImpl invc,
-		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
-		super(invc, jwsdpPeer);
-		
-		this.myInvoice = invc;
-	}
+//	@SuppressWarnings("exports")
+//	public GnucashWritableJobInvoiceEntryImpl(
+//		final GnucashWritableJobInvoiceImpl invc,
+//		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
+//		super(invc, jwsdpPeer);
+//		
+//		this.myInvoice = invc;
+//	}
 
 	/**
 	 * Create a taxable invoiceEntry.

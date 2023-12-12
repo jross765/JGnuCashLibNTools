@@ -105,7 +105,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
-    protected GnucashWritableVendorImpl(final GncV2.GncBook.GncGncVendor jwsdpPeer,
+    public GnucashWritableVendorImpl(final GncV2.GncBook.GncGncVendor jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }

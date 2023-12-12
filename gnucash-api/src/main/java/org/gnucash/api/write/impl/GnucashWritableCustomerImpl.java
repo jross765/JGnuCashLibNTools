@@ -122,7 +122,8 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
-    protected GnucashWritableCustomerImpl(final GncV2.GncBook.GncGncCustomer jwsdpPeer,
+    @SuppressWarnings("exports")
+    public GnucashWritableCustomerImpl(final GncV2.GncBook.GncGncCustomer jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }

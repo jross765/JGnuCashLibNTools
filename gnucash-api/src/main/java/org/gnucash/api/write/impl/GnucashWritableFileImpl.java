@@ -36,7 +36,6 @@ import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashVendor;
@@ -52,15 +51,7 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
-import org.gnucash.api.read.impl.hlp.FileAccountManager;
-import org.gnucash.api.read.impl.hlp.FileCustomerManager;
-import org.gnucash.api.read.impl.hlp.FileEmployeeManager;
-import org.gnucash.api.read.impl.hlp.FileInvoiceEntryManager;
-import org.gnucash.api.read.impl.hlp.FileInvoiceManager;
-import org.gnucash.api.read.impl.hlp.FileJobManager;
 import org.gnucash.api.read.impl.hlp.FilePriceManager;
-import org.gnucash.api.read.impl.hlp.FileTransactionManager;
-import org.gnucash.api.read.impl.hlp.FileVendorManager;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -136,10 +127,38 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public GnucashWritableFileImpl(final File file) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	super(file);
 	setModified(false);
+	
+	acctMgr     = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
+	trxMgr      = new org.gnucash.api.write.impl.hlp.FileTransactionManager(this);
+	
+	invcMgr     = new org.gnucash.api.write.impl.hlp.FileInvoiceManager(this);
+	invcEntrMgr = new org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager(this);
+
+	custMgr     = new org.gnucash.api.write.impl.hlp.FileCustomerManager(this);
+	vendMgr     = new org.gnucash.api.write.impl.hlp.FileVendorManager(this);
+	emplMgr     = new org.gnucash.api.write.impl.hlp.FileEmployeeManager(this);
+	jobMgr      = new org.gnucash.api.write.impl.hlp.FileJobManager(this);
+
+	cmdtyMgr    = new org.gnucash.api.write.impl.hlp.FileCommodityManager(this);
+	prcMgr      = new org.gnucash.api.write.impl.hlp.FilePriceManager(this);
     }
 
     public GnucashWritableFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
 	super(is);
+	
+	acctMgr     = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
+	trxMgr      = new org.gnucash.api.write.impl.hlp.FileTransactionManager(this);
+	
+	invcMgr     = new org.gnucash.api.write.impl.hlp.FileInvoiceManager(this);
+	invcEntrMgr = new org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager(this);
+	
+	custMgr     = new org.gnucash.api.write.impl.hlp.FileCustomerManager(this);
+	vendMgr     = new org.gnucash.api.write.impl.hlp.FileVendorManager(this);
+	emplMgr     = new org.gnucash.api.write.impl.hlp.FileEmployeeManager(this);
+	jobMgr      = new org.gnucash.api.write.impl.hlp.FileJobManager(this);
+
+	cmdtyMgr    = new org.gnucash.api.write.impl.hlp.FileCommodityManager(this);
+	prcMgr      = new org.gnucash.api.write.impl.hlp.FilePriceManager(this);
     }
 
     // ---------------------------------------------------------------
@@ -510,41 +529,32 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ----------------------------
 
-    /**
-     */
     protected GncV2.GncBook.GncGncCustomer createGncGncCustomerType() {
 	GncV2.GncBook.GncGncCustomer retval = getObjectFactory().createGncV2GncBookGncGncCustomer();
 	incrementCountDataFor("gnc:GncCustomer");
 	return retval;
     }
 
-    /**
-     */
     protected GncV2.GncBook.GncGncVendor createGncGncVendorType() {
 	GncV2.GncBook.GncGncVendor retval = getObjectFactory().createGncV2GncBookGncGncVendor();
 	incrementCountDataFor("gnc:GncVendor");
 	return retval;
     }
 
-    /**
-     */
     protected GncV2.GncBook.GncGncEmployee createGncGncEmployeeType() {
 	GncV2.GncBook.GncGncEmployee retval = getObjectFactory().createGncV2GncBookGncGncEmployee();
 	incrementCountDataFor("gnc:GncEmployee");
 	return retval;
     }
-    
-    // ----------------------------
 
-    /**
-     * @return the jaxb-job
-     */
     @SuppressWarnings("exports")
     public GncV2.GncBook.GncGncJob createGncGncJobType() {
 	GncV2.GncBook.GncGncJob retval = getObjectFactory().createGncV2GncBookGncGncJob();
 	incrementCountDataFor("gnc:GncJob");
 	return retval;
     }
+
+    // ----------------------------
 
     protected GncV2.GncBook.GncCommodity createGncGncCommodityType() {
 	GncV2.GncBook.GncCommodity retval = getObjectFactory().createGncV2GncBookGncCommodity();
@@ -579,100 +589,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     public GnucashWritableEmployee getEmployeeByID(final GCshID emplID) {
 	GnucashEmployee empl = super.getEmployeeByID(emplID);
 	return new GnucashWritableEmployeeImpl((GnucashEmployeeImpl) empl);
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @see FileAccountManager#createAccount(GncAccount)
-     */
-    protected GnucashAccount createAccount(final GncAccount jwsdpAccount) {
-	GnucashAccount account = new GnucashWritableAccountImpl(jwsdpAccount, this);
-	return account;
-    }
-
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @see FileInvoiceManager#createGenerInvoice(GncV2.GncBook.GncGncInvoice)
-     */
-    protected GnucashGenerInvoice createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvoice) {
-	GnucashGenerInvoice invoice = new GnucashWritableGenerInvoiceImpl(jwsdpInvoice, this);
-	return invoice;
-    }
-
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @param jwsdpInvcEntr the xml-object to represent in the entry.
-     * @return a new invoice-entry, already registered with this file.
-     * @see FileInvoiceEntryManager#createGenerInvoiceEntry(GncV2.GncBook.GncGncEntry)
-     */
-    protected GnucashGenerInvoiceEntry createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
-	GnucashGenerInvoiceEntry entry = new GnucashWritableGenerInvoiceEntryImpl(jwsdpInvcEntr, this);
-	return entry;
-    }
-
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @see FileJobManager#createGenerJob(GncV2.GncBook.GncGncJob)
-     */
-    protected GnucashCustomerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
-	GnucashCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, this);
-	return job;
-    }
-    
-    // ----------------------------
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param jwsdpCust the jwsdp-object the customer shall wrap
-     * @return the new customer
-     * @see FileCustomerManager#createCustomer(GncV2.GncBook.GncGncCustomer)
-     */
-    protected GnucashCustomerImpl createCustomer(final GncV2.GncBook.GncGncCustomer jwsdpCust) {
-	GnucashCustomerImpl cust = new GnucashWritableCustomerImpl(jwsdpCust, this);
-	return cust;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param jwsdpCust the jwsdp-object the customer shall wrap
-     * @return the new customer
-     * @see FileVendorManager#createVendor(GncV2.GncBook.GncGncCustomer)
-     */
-    protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
-	GnucashVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, this);
-	return vend;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param jwsdpCust the jwsdp-object the customer shall wrap
-     * @return the new customer
-     * @see FileEmployeeManager#createEmployee(GncV2.GncBook.GncGncCustomer)
-     */
-    protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
-	GnucashEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl, this);
-	return empl;
-    }
-
-    // ----------------------------
-
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @see FileTransactionManager#createTransaction(GncTransaction)
-     */
-    protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
-	GnucashTransactionImpl account = new GnucashWritableTransactionImpl(jwsdpTrx, this);
-	return account;
     }
 
     // ---------------------------------------------------------------

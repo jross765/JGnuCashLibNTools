@@ -38,7 +38,7 @@ public class FilePriceManager {
 
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private GncV2.GncBook.GncPricedb priceDB = null;
     private Map<GCshID, GCshPrice>   prcMap  = null;

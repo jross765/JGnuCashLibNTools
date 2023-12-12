@@ -102,7 +102,6 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	entry.setEntryIDiscType("PERCENT");
 	
 	{
-
 	    GncV2.GncBook.GncGncEntry.EntryInvoice inv = factory.createGncV2GncBookGncGncEntryEntryInvoice();
 	    inv.setType(Const.XML_DATA_TYPE_GUID);
 	    inv.setValue(invc.getID().toString());
@@ -189,7 +188,6 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	}
 
 	{
-
 	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
 	    bll.setType(Const.XML_DATA_TYPE_GUID);
 	    bll.setValue(invc.getID().toString());
@@ -276,7 +274,6 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	}
 
 	{
-
 	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
 	    bll.setType(Const.XML_DATA_TYPE_GUID);
 	    bll.setValue(invc.getID().toString());
@@ -358,26 +355,26 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     private static GncV2.GncBook.GncGncEntry createGenerInvoiceEntryCommon(
-	    final GnucashWritableGenerInvoiceImpl invoice,
+	    final GnucashWritableGenerInvoiceImpl invc,
 	    final GnucashWritableFileImpl gcshWrtblFile,
 	    final ObjectFactory factory) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
 
-	if (!invoice.isModifiable()) {
+	if (!invc.isModifiable()) {
 	    throw new IllegalArgumentException("The given invoice has payments and is" + " thus not modifiable");
 	}
 
 	GncV2.GncBook.GncGncEntry entry = gcshWrtblFile.createGncGncEntryType();
-
+	
 	{
 	    GncV2.GncBook.GncGncEntry.EntryGuid guid = factory.createGncV2GncBookGncGncEntryEntryGuid();
 	    guid.setType(Const.XML_DATA_TYPE_GUID);
 	    guid.setValue(GCshID.getNew().toString());
 	    entry.setEntryGuid(guid);
 	}
-
+	
 	entry.setEntryAction(Action.HOURS.getLocaleString());
 	
 	{

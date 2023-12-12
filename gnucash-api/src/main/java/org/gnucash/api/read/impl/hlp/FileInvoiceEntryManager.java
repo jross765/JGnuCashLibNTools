@@ -22,7 +22,7 @@ public class FileInvoiceEntryManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashGenerInvoiceEntry> invcEntrMap;
     
@@ -63,8 +63,8 @@ public class FileInvoiceEntryManager {
      *                      with
      * @return the new GnucashInvoiceEntry to wrap the given jaxb-object.
      */
-    protected GnucashGenerInvoiceEntry createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
-	GnucashGenerInvoiceEntry entr = new GnucashGenerInvoiceEntryImpl(jwsdpInvcEntr, gcshFile, true);
+    protected GnucashGenerInvoiceEntryImpl createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
+	GnucashGenerInvoiceEntryImpl entr = new GnucashGenerInvoiceEntryImpl(jwsdpInvcEntr, gcshFile, true);
 	return entr;
     }
 

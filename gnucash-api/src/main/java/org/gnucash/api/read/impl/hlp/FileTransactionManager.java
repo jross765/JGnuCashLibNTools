@@ -27,7 +27,7 @@ public class FileTransactionManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashTransaction>      trxMap;
     private Map<GCshID, GnucashTransactionSplit> trxSpltMap;

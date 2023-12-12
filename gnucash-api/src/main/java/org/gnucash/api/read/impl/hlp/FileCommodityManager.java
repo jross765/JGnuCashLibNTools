@@ -24,7 +24,7 @@ public class FileCommodityManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<String, GnucashCommodity>  cmdtyMap; // Keys: Sic, String not CmdtyCurrID
     private Map<String, String>            xCodeMap; // X-Code -> Qualif. ID

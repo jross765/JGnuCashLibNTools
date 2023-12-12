@@ -32,7 +32,7 @@ public class FileAccountManager {
     
     // ---------------------------------------------------------------
     
-    private GnucashFileImpl gcshFile;
+    protected GnucashFileImpl gcshFile;
 
     private Map<GCshID, GnucashAccount> acctMap;
 
@@ -71,8 +71,8 @@ public class FileAccountManager {
      * @param jwsdpAcct the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashAccount to wrap the given jaxb-object.
      */
-    private GnucashAccount createAccount(final GncAccount jwsdpAcct) {
-	GnucashAccount acct = new GnucashAccountImpl(jwsdpAcct, gcshFile);
+    protected GnucashAccountImpl createAccount(final GncAccount jwsdpAcct) {
+	GnucashAccountImpl acct = new GnucashAccountImpl(jwsdpAcct, gcshFile);
 	return acct;
     }
 

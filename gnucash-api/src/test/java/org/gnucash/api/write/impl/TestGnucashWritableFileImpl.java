@@ -132,9 +132,7 @@ public class TestGnucashWritableFileImpl
   {    
       assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
-      // ::TODO
-      // The following does not work!
-      // assertEquals(ConstTest.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+      assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
   }
 
   // ------------------------------
