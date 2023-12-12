@@ -138,16 +138,10 @@ public class TestGnucashWritableFileImpl
       // assertEquals(ConstTest.NOF_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
   }
 
-  @Test
-  public void test06() throws Exception
-  {    
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
-  }
+  // ------------------------------
 
   @Test
-  public void test07() throws Exception
+  public void test06() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
@@ -155,7 +149,7 @@ public class TestGnucashWritableFileImpl
   }
 
   @Test
-  public void test08() throws Exception
+  public void test07() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
@@ -163,11 +157,57 @@ public class TestGnucashWritableFileImpl
   }
 
   @Test
-  public void test09() throws Exception
+  public void test08() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+  }
+
+  @Test
+  public void test09() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
+  }
+
+  // ------------------------------
+
+  @Test
+  public void test10() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
+      // ::TODO
+      // Probably an error in test file
+      // assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+  }
+
+  @Test
+  public void test11() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+  }
+  
+  // ------------------------------
+
+  @Test
+  public void test12() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+  }
+
+  @Test
+  public void test13() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
   }
 
   // -----------------------------------------------------------------

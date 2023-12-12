@@ -203,7 +203,7 @@ public class FileCommodityManager {
 	    if ( cmdty.getName() != null ) // yes, that can actually happen! 
 	    {
 		if ( relaxed ) {
-		    if ( cmdty.getName().trim().toLowerCase().
+		    if ( cmdty.getName().toLowerCase().
 			    contains(expr.trim().toLowerCase()) ) {
 			result.add(cmdty);
 		    }

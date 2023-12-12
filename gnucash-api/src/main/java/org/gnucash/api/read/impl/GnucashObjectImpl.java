@@ -144,27 +144,75 @@ public class GnucashObjectImpl implements GnucashObject {
      * @return the value or null if not set
      */
     public String getUserDefinedAttribute(final String name) {
+	return getUserDefinedAttributeCore(getSlots().getSlot(), name);
+    }
 
-	List<Slot> slots = getSlots().getSlot();
-	for (Slot slot : slots) {
-	    if (slot.getSlotKey().equals(name)) {
-		Object value = slot.getSlotValue().getContent().get(0);
-		if (value == null) {
-		    return null;
+    private String getUserDefinedAttributeCore(final List<Slot> slots, final String name) {
+	if ( slots == null )
+	    return null;
+	
+	if ( name.equals("") )
+	    return null;
+	
+	// ---
+	
+	String nameFirst = "";
+	String nameRest = "";
+	if ( name.contains(".") ) {
+	    String[] nameParts = name.split("\\.");
+	    nameFirst = nameParts[0];
+	    if ( nameParts.length > 1 ) {
+		for ( int i = 1; i < nameParts.length; i++ ) {
+		    nameRest += nameParts[i];
+		    if ( i < nameParts.length - 1 )
+			nameRest += ".";
 		}
-		if (!(value instanceof String)) {
-		    LOGGER.error("User-defined attribute for key '" + name + "' may not be a String."
-			    + " It is of type [" + value.getClass().getName() + "]");
-		}
-		return value.toString();
 	    }
+	} else {
+	    nameFirst = name;
 	}
+//	System.err.println("np1: '" + nameFirst + "'");
+//	System.err.println("np2: '" + nameRest + "'");
+	
+	// ---
+	
+	for ( Slot slot : slots ) {
+	    if ( slot.getSlotKey().equals(nameFirst) ) {
+		if ( slot.getSlotValue().getType().equals("string") || 
+		     slot.getSlotValue().getType().equals("integer") || 
+		     slot.getSlotValue().getType().equals("guid") ) {
+		    List<Object> objList = slot.getSlotValue().getContent();
+		    if ( objList == null ||
+			 objList.size() == 0 )
+			return null;
+		    Object value = objList.get(0);
+		    if ( value == null )
+			return null;
+		    if ( ! ( value instanceof String ) ) {
+			LOGGER.error("User-defined attribute for key '" + nameFirst + "' may not be a String."
+				+ " It is of type [" + value.getClass().getName() + "]");
+		    }
+		    return value.toString();
+		} else if ( slot.getSlotValue().getType().equals("frame") ) {
+		    List<Slot> subSlots = new ArrayList<Slot>();
+		    for ( Object obj : slot.getSlotValue().getContent() ) {
+			if ( obj instanceof Slot ) {
+			    Slot subSlot = (Slot) obj;
+			    subSlots.add(subSlot);
+			}
+		    }
+		    return getUserDefinedAttributeCore(subSlots, nameRest);
+		} else {
+		    LOGGER.error("getUserDefinedAttributeCore: Unknown slot type");
+		    return "NOT IMPLEMENTED YET";
+		}
+	    } // if slot-key
+	} // for slot
 
 	return null;
     }
 
     // ------------------------ support for propertyChangeListeners
-    // ------------------
 
     /**
      * support for firing PropertyChangeEvents. (gets initialized only if we really

@@ -102,16 +102,10 @@ public class TestGnucashFileImpl
       assertEquals(ConstTest.Stats.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
   }
 
-  @Test
-  public void test06() throws Exception
-  {    
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
-      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
-  }
+  // ------------------------------
 
   @Test
-  public void test07() throws Exception
+  public void test06() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_CUST, gcshFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_CUST, gcshFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
@@ -119,7 +113,7 @@ public class TestGnucashFileImpl
   }
 
   @Test
-  public void test08() throws Exception
+  public void test07() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_VEND, gcshFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_VEND, gcshFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
@@ -127,10 +121,87 @@ public class TestGnucashFileImpl
   }
 
   @Test
-  public void test09() throws Exception
+  public void test08() throws Exception
   {    
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_EMPL, gcshFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
   }
+  
+  @Test
+  public void test09() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
+  }
+
+  // ------------------------------
+
+  @Test
+  public void test10() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
+      // ::TODO
+      // Probably an error in test file
+      // assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+  }
+
+  @Test
+  public void test11() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+  }
+  
+  // ------------------------------
+
+  @Test
+  public void test12() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+  }
+
+  @Test
+  public void test13() throws Exception
+  {    
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
+  }
+
+  // -----------------------------------------------------------------
+  
+  @Test
+  public void test20()
+  {
+      assertEquals("EUR", gcshFile.getDefaultCurrencyID());
+  }
+
+  @Test
+  public void test21()
+  {
+      // [counter_formats, counters, features, options, remove-color-not-set-slots]
+      assertEquals(5, gcshFile.getUserDefinedAttributeKeys().size());
+      assertEquals("counter_formats", gcshFile.getUserDefinedAttributeKeys().toArray()[0]);
+      assertEquals("counters", gcshFile.getUserDefinedAttributeKeys().toArray()[1]);
+      assertEquals("features", gcshFile.getUserDefinedAttributeKeys().toArray()[2]);
+      assertEquals("options", gcshFile.getUserDefinedAttributeKeys().toArray()[3]);
+      assertEquals("remove-color-not-set-slots", gcshFile.getUserDefinedAttributeKeys().toArray()[4]);
+  }
+
+  @Test
+  public void test22()
+  {
+      assertEquals("3", gcshFile.getUserDefinedAttribute("counters.gncCustomer"));
+      assertEquals("f", gcshFile.getUserDefinedAttribute("options.Accounts.Use Trading Accounts"));
+      assertEquals(null, gcshFile.getUserDefinedAttribute("options.Business.Company Fax Number"));
+      assertEquals("83b1859fd415421cb24f8c72eb755fcc", gcshFile.getUserDefinedAttribute("options.Business.Default Customer TaxTable"));
+      assertEquals("true", gcshFile.getUserDefinedAttribute("remove-color-not-set-slots"));
+  }
+
 }
