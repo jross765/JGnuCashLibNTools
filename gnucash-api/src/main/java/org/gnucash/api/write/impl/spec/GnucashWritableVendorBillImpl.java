@@ -189,6 +189,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -202,6 +203,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
@@ -214,6 +216,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
      *
      * @param listener The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(listener);
@@ -310,6 +313,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	GnucashWritableVendorBillEntry entry = createVendBillEntry(acct, 
 		                                                   singleUnitPrice, quantity, 
 		                                                   taxTab);
+	LOGGER.info("createEntry: Created vendor bill entry: " + entry.getID());
 	return entry;
     }
 
@@ -326,10 +330,11 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
-    protected void removeEntry(final GnucashWritableVendorBillEntryImpl impl)
+    protected void removeEntry(final GnucashWritableVendorBillEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
-	removeBillEntry(impl);
+	removeBillEntry(entry);
+	LOGGER.info("removeEntry: Removed vendor bill entry: " + entry.getID());
     }
 
     /**
@@ -350,11 +355,13 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	addBillEntry(entry);
+	LOGGER.info("addEntry: Added vendor bill entry: " + entry.getID());
     }
 
     protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	subtractBillEntry(entry);
+	LOGGER.info("subtractEntry: Subtracted vendor bill entry: " + entry.getID());
     }
 
     /**

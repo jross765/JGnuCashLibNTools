@@ -189,6 +189,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -202,6 +203,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
@@ -214,6 +216,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      *
      * @param listener The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(listener);
@@ -310,6 +313,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, 
 		                                                        singleUnitPrice, quantity, 
 		                                                        taxTab);
+	LOGGER.info("createEntry: Created customer invoice entry: " + entry.getID());
 	return entry;
     }
 
@@ -326,17 +330,17 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
-    protected void removeEntry(final GnucashWritableCustomerInvoiceEntryImpl impl)
+    protected void removeEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-
-	removeInvcEntry(impl);
+	removeInvcEntry(entry);
+	LOGGER.info("removeEntry: Removed customer invoice entry: " + entry.getID());
     }
 
     /**
      * Called by
      * ${@link GnucashWritableCustomerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
-     * @param entry the entry to add to our internal list of customer-invoice-entries
+     * @param entr the entry to add to our internal list of customer-invoice-entries
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
@@ -348,13 +352,14 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
      */
     protected void addEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-
 	addInvcEntry(entry);
+	LOGGER.info("addEntry: Added customer invoice entry: " + entry.getID());
     }
 
     protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	subtractInvcEntry(entry);
+	LOGGER.info("subtractEntry: Subtracted customer invoice entry: " + entry.getID());
     }
 
     /**

@@ -145,6 +145,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
 	invc.getFile().getRootElement().getGncBook().getBookElements().add(entry);
 	invc.getFile().setModified(true);
+	
+	LOGGER.debug("createCustInvoiceEntry_int: Created new customer invoice entry (core): " + entry.getEntryGuid().getValue());
 
 	return entry;
     }
@@ -232,6 +234,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	invc.getFile().getRootElement().getGncBook().getBookElements().add(entry);
 	invc.getFile().setModified(true);
 
+	LOGGER.debug("createVendBillEntry_int: Created new customer bill entry (core): " + entry.getEntryGuid().getValue());
+
 	return entry;
     }
 
@@ -317,6 +321,8 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
 	invc.getFile().getRootElement().getGncBook().getBookElements().add(entry);
 	invc.getFile().setModified(true);
+
+	LOGGER.debug("createEmplVchEntry_int: Created new employee voucher entry (core): " + entry.getEntryGuid().getValue());
 
 	return entry;
     }

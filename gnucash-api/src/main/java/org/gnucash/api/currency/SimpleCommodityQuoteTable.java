@@ -122,7 +122,7 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
 
     @Override
     public String toString() {
-	String result = "[SimpleCommodityQuoteTable:\n";
+	String result = "SimpleCommodityQuoteTable [\n";
 	
 	result += "No. of entries: " + mCmdtyID2Factor.size() + "\n";
 	

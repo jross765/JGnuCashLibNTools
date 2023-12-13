@@ -37,7 +37,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param custID the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncCustomer createCustomer(
+    protected static GncV2.GncBook.GncGncCustomer createCustomer_int(
 	    final GnucashWritableFileImpl file,
             final GCshID custID) {
         if ( ! custID.isSet() ) {
@@ -46,21 +46,21 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     
         ObjectFactory factory = file.getObjectFactory();
     
-        GncV2.GncBook.GncGncCustomer cust = file.createGncGncCustomerType();
+        GncV2.GncBook.GncGncCustomer jwsdpCust = file.createGncGncCustomerType();
     
-        cust.setCustTaxincluded("USEGLOBAL");
-        cust.setVersion(Const.XML_FORMAT_VERSION);
-        cust.setCustDiscount("0/1");
-        cust.setCustCredit("0/1");
-        cust.setCustUseTt(0);
-        cust.setCustName("no name given");
+        jwsdpCust.setCustTaxincluded("USEGLOBAL");
+        jwsdpCust.setVersion(Const.XML_FORMAT_VERSION);
+        jwsdpCust.setCustDiscount("0/1");
+        jwsdpCust.setCustCredit("0/1");
+        jwsdpCust.setCustUseTt(0);
+        jwsdpCust.setCustName("no name given");
     
         {
             GncV2.GncBook.GncGncCustomer.CustGuid id = factory.createGncV2GncBookGncGncCustomerCustGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
             id.setValue(custID.toString());
-            cust.setCustGuid(id);
-            cust.setCustId(id.getValue());
+            jwsdpCust.setCustGuid(id);
+            jwsdpCust.setCustId(id.getValue());
         }
     
         {
@@ -75,7 +75,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
             addr.setAddrFax("");
             addr.setAddrPhone("");
             addr.setVersion(Const.XML_FORMAT_VERSION);
-            cust.setCustAddr(addr);
+            jwsdpCust.setCustAddr(addr);
         }
     
         {
@@ -89,22 +89,24 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
             saddr.setAddrFax("");
             saddr.setAddrPhone("");
             saddr.setVersion(Const.XML_FORMAT_VERSION);
-            cust.setCustShipaddr(saddr);
+            jwsdpCust.setCustShipaddr(saddr);
         }
     
         {
             GncV2.GncBook.GncGncCustomer.CustCurrency currency = factory.createGncV2GncBookGncGncCustomerCustCurrency();
             currency.setCmdtyId(file.getDefaultCurrencyID());
             currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            cust.setCustCurrency(currency);
+            jwsdpCust.setCustCurrency(currency);
         }
     
-        cust.setCustActive(1);
+        jwsdpCust.setCustActive(1);
     
-        file.getRootElement().getGncBook().getBookElements().add(cust);
+        file.getRootElement().getGncBook().getBookElements().add(jwsdpCust);
         file.setModified(true);
     
-        return cust;
+        LOGGER.debug("createCustomer_int: Created new customer (core): " + jwsdpCust.getCustGuid().getValue());
+        
+        return jwsdpCust;
     }
 
     // ---------------------------------------------------------------
@@ -135,7 +137,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableCustomerImpl(final GnucashWritableFileImpl file) {
-	super(createCustomer(file, GCshID.getNew()), file);
+	super(createCustomer_int(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableCustomerImpl(GnucashCustomerImpl cust) {

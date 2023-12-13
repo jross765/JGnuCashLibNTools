@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GCshID {
-    // Logger
-    private static final Logger logger = LoggerFactory.getLogger(GCshID.class);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GCshID.class);
 
     public final static String NULL_ID = "00000000000000000000000000000000";
 
@@ -74,7 +74,7 @@ public class GCshID {
 		 gcshID.charAt(i) != 'e' &&
 		 gcshID.charAt(i) != 'f' ) 
 	    {
-		logger.error("Char '" + gcshID.charAt(i) + "' is invalid in GCshID '" + gcshID + "'");
+		LOGGER.error("Char '" + gcshID.charAt(i) + "' is invalid in GCshID '" + gcshID + "'");
 		throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong character at pos " + i);
 	    }
 	}
@@ -128,7 +128,7 @@ public class GCshID {
      */
     public static GCshID getNew() {
 
-	int len = "74e492edf60d6a28b6c1d01cc410c058".length();
+	int len = NULL_ID.length();
 
 	StringBuffer buf = new StringBuffer(Long.toHexString(System.currentTimeMillis()));
 

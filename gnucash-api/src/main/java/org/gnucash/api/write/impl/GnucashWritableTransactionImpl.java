@@ -84,7 +84,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws NoSuchFieldException 
      */
     public GnucashWritableTransactionImpl(final GnucashWritableFileImpl file) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	super(createTransaction(file, GCshID.getNew()), file, true);
+	super(createTransaction_int(file, GCshID.getNew()), file, true);
 	file.addTransaction(this);
     }
 
@@ -119,6 +119,59 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     }
 
     /**
+     * Creates a new Transaction and add's it to the given gnucash-file Don't modify
+     * the ID of the new transaction!
+     */
+    protected static GncTransaction createTransaction_int(
+            final GnucashWritableFileImpl file, 
+            final GCshID trxID) {
+        if ( ! trxID.isSet() ) {
+            throw new IllegalArgumentException("GUID not set!");
+        }
+    
+        ObjectFactory factory = file.getObjectFactory();
+        GncTransaction jwsdpTrx = file.createGncTransaction();
+    
+        {
+            GncTransaction.TrnId id = factory.createGncTransactionTrnId();
+            id.setType(Const.XML_DATA_TYPE_GUID);
+            id.setValue(trxID.toString());
+            jwsdpTrx.setTrnId(id);
+        }
+    
+        {
+            GncTransaction.TrnDateEntered dateEntered = factory.createGncTransactionTrnDateEntered();
+            dateEntered.setTsDate(DATE_ENTERED_FORMAT.format(ZonedDateTime.now()));
+            jwsdpTrx.setTrnDateEntered(dateEntered);
+        }
+    
+        {
+            GncTransaction.TrnDatePosted datePosted = factory.createGncTransactionTrnDatePosted();
+            datePosted.setTsDate(DATE_ENTERED_FORMAT.format(ZonedDateTime.now()));
+            jwsdpTrx.setTrnDatePosted(datePosted);
+        }
+    
+        {
+            GncTransaction.TrnCurrency currency = factory.createGncTransactionTrnCurrency();
+            currency.setCmdtyId(file.getDefaultCurrencyID());
+            currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
+            jwsdpTrx.setTrnCurrency(currency);
+        }
+    
+        {
+            GncTransaction.TrnSplits splits = factory.createGncTransactionTrnSplits();
+            jwsdpTrx.setTrnSplits(splits);
+        }
+    
+        jwsdpTrx.setVersion(Const.XML_FORMAT_VERSION);
+        jwsdpTrx.setTrnDescription("-");
+    
+        LOGGER.debug("createTransaction_int: Created new transaction (core): " + jwsdpTrx.getTrnId().getValue());
+    
+        return jwsdpTrx;
+    }
+
+    /**
      * Create a new split for a split found in the jaxb-data.
      *
      * @param element the jaxb-data
@@ -134,13 +187,14 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 	    final GncTransaction.TrnSplits.TrnSplit element,
 	    final boolean addToAcct,
 	    final boolean addToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	GnucashWritableTransactionSplitImpl gcshWrtblTrxSpltImpl = 
+	GnucashWritableTransactionSplitImpl splt = 
 		new GnucashWritableTransactionSplitImpl(element, this,
 			                                addToAcct, addToInvc);
 	if (getPropertyChangeSupport() != null) {
 	    getPropertyChangeSupport().firePropertyChange("splits", null, getWritableSplits());
 	}
-	return gcshWrtblTrxSpltImpl;
+
+	return splt;
     }
 
     /**
@@ -158,57 +212,6 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 	    getPropertyChangeSupport().firePropertyChange("splits", null, getWritableSplits());
 	}
 	return splt;
-    }
-
-    /**
-     * Creates a new Transaction and add's it to the given gnucash-file Don't modify
-     * the ID of the new transaction!
-     */
-    protected static GncTransaction createTransaction(
-	    final GnucashWritableFileImpl file, 
-	    final GCshID trxID) {
-	if ( ! trxID.isSet() ) {
-	    throw new IllegalArgumentException("GUID not set!");
-	}
-
-	ObjectFactory factory = file.getObjectFactory();
-	GncTransaction transaction = file.createGncTransaction();
-
-	{
-	    GncTransaction.TrnId id = factory.createGncTransactionTrnId();
-	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue(trxID.toString());
-	    transaction.setTrnId(id);
-	}
-
-	{
-	    GncTransaction.TrnDateEntered dateEntered = factory.createGncTransactionTrnDateEntered();
-	    dateEntered.setTsDate(DATE_ENTERED_FORMAT.format(ZonedDateTime.now()));
-	    transaction.setTrnDateEntered(dateEntered);
-	}
-
-	{
-	    GncTransaction.TrnDatePosted datePosted = factory.createGncTransactionTrnDatePosted();
-	    datePosted.setTsDate(DATE_ENTERED_FORMAT.format(ZonedDateTime.now()));
-	    transaction.setTrnDatePosted(datePosted);
-	}
-
-	{
-	    GncTransaction.TrnCurrency currency = factory.createGncTransactionTrnCurrency();
-	    currency.setCmdtyId(file.getDefaultCurrencyID());
-	    currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-	    transaction.setTrnCurrency(currency);
-	}
-
-	{
-	    GncTransaction.TrnSplits splits = factory.createGncTransactionTrnSplits();
-	    transaction.setTrnSplits(splits);
-	}
-
-	transaction.setVersion(Const.XML_FORMAT_VERSION);
-	transaction.setTrnDescription("-");
-
-	return transaction;
     }
 
     /**

@@ -92,7 +92,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	 * @see GnucashAccountImpl#GnucashAccountImpl(GncAccount, GnucashFile) )
 	 */
 	public GnucashWritableAccountImpl(final GnucashWritableFileImpl file) {
-		super(createAccount(file, GCshID.getNew()), file);
+		super(createAccount_int(file, GCshID.getNew()), file);
 	}
 
 	public GnucashWritableAccountImpl(
@@ -123,7 +123,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	 * @param file
 	 * @return
 	 */
-	private static GncAccount createAccount(
+	private static GncAccount createAccount_int(
 		final GnucashWritableFileImpl file, 
 		final GCshID acctID) {
 		if ( ! acctID.isSet() ) {
@@ -132,35 +132,35 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 		ObjectFactory factory = file.getObjectFactory();
 
-		GncAccount account = factory.createGncAccount();
+		GncAccount jwsdpAcct = factory.createGncAccount();
 		//left unset account.setActCode();
-		account.setActCommodityScu(100); // x,yz
-		account.setActDescription("no description yet");
+		jwsdpAcct.setActCommodityScu(100); // x,yz
+		jwsdpAcct.setActDescription("no description yet");
 		//      left unset account.setActLots();
-		account.setActName("UNNAMED");
+		jwsdpAcct.setActName("UNNAMED");
 		//      left unset account.setActNonStandardScu();
 		//left unset account.setActParent())
-		account.setActType(GnucashAccount.Type.BANK.toString());
+		jwsdpAcct.setActType(GnucashAccount.Type.BANK.toString());
 
-		account.setVersion(Const.XML_FORMAT_VERSION);
+		jwsdpAcct.setVersion(Const.XML_FORMAT_VERSION);
 
 		{
 			GncAccount.ActCommodity currency = factory.createGncAccountActCommodity();
 			currency.setCmdtyId(file.getDefaultCurrencyID());
 			currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-			account.setActCommodity(currency);
+			jwsdpAcct.setActCommodity(currency);
 		}
 
 		{
 			GncAccount.ActId guid = factory.createGncAccountActId();
 			guid.setType(Const.XML_DATA_TYPE_GUID);
 			guid.setValue(acctID.toString());
-			account.setActId(guid);
+			jwsdpAcct.setActId(guid);
 		}
 
 		{
 			SlotsType slots = factory.createSlotsType();
-			account.setActSlots(slots);
+			jwsdpAcct.setActSlots(slots);
 		}
 
 		{
@@ -170,7 +170,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			slottype.setType(Const.XML_DATA_TYPE_STRING);
 			slottype.getContent().add("false");
 			slot.setSlotValue(slottype);
-			account.getActSlots().getSlot().add(slot);
+			jwsdpAcct.getActSlots().getSlot().add(slot);
 		}
 
 		{
@@ -180,12 +180,15 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			slottype.setType(Const.XML_DATA_TYPE_STRING);
 			slottype.getContent().add("");
 			slot.setSlotValue(slottype);
-			account.getActSlots().getSlot().add(slot);
+			jwsdpAcct.getActSlots().getSlot().add(slot);
 		}
 
-		file.getRootElement().getGncBook().getBookElements().add(account);
+		file.getRootElement().getGncBook().getBookElements().add(jwsdpAcct);
 		file.setModified(true);
-		return account;
+
+		LOGGER.debug("createAccount_int: Created new account (core): " + jwsdpAcct.getActId().getValue());
+	        
+		return jwsdpAcct;
 	}
 
 	/**

@@ -81,6 +81,7 @@ public class FilePriceManager {
      */
     protected GCshPriceImpl createPrice(final GncV2.GncBook.GncPricedb.Price jwsdpPrc) {
 	GCshPriceImpl prc = new GCshPriceImpl(jwsdpPrc, gcshFile);
+	LOGGER.info("Generated new price: " + prc.getID());
 	return prc;
     }
 

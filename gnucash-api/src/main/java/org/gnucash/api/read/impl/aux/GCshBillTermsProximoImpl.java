@@ -54,15 +54,15 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GCshBillTermsProximoImpl:");
+	buffer.append("GCshBillTermsProximoImpl [");
 
-	buffer.append(" due-day: ");
+	buffer.append("due-day=");
 	buffer.append(getDueDay());
 
-	buffer.append(" discount-day: ");
+	buffer.append(", discount-day=");
 	buffer.append(getDiscountDay());
 
-	buffer.append(" discount: ");
+	buffer.append(", discount=");
 	buffer.append(getDiscount());
 
 	buffer.append("]");

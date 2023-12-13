@@ -136,10 +136,15 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     @Override
     public String toString() {
-	return "GCshTaxTableEntryImpl [myAccountID=" + getAccountID() + 
-		                      ", myAccount=" + getAccount() + 
-		                         ", amount=" + getAmount() + 
-		                           ", type=" + getType() + "]";
+	String result = "GCshTaxTableEntryImpl [";
+	
+	result += "type=" + getType(); 
+	result += ", account-id=" + getAccountID(); 
+	result += ", amount=" + getAmount(); 
+		                          
+	result += "]";
+	
+	return result;
     }
 
 }

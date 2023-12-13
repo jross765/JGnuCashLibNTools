@@ -138,20 +138,20 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
 
-	buffer.append("GCshTaxTableImpl: [\n");
+	buffer.append("GCshTaxTableImpl [\n");
 
-	buffer.append("  id:        ");
-	buffer.append(getID() + "\n");
+	buffer.append("id=");
+	buffer.append(getID());
 
-	buffer.append("  name:      '");
-	buffer.append(getName() + "'\n");
+	buffer.append(", name='");
+	buffer.append(getName() + "'");
 
-	buffer.append("  parent-id: ");
+	buffer.append(", parent-id=");
 	buffer.append(getParentID() + "\n");
 
 	buffer.append("  Entries:\n");
 	for (GCshTaxTableEntry entry : getEntries()) {
-	    buffer.append("  - " + entry + "\n");
+	    buffer.append("   - " + entry + "\n");
 	}
 
 	buffer.append("]\n");

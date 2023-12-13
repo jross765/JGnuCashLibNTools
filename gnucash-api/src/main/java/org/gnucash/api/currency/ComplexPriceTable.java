@@ -11,9 +11,12 @@ import java.util.Map;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ComplexPriceTable implements Serializable {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComplexPriceTable.class);
+    
     private static final long serialVersionUID = -3303232787168479120L;
 
     // ---------------------------------------------------------------
@@ -36,7 +39,7 @@ public class ComplexPriceTable implements Serializable {
 	namespace2CurrTab = new HashMap<String, SimplePriceTable>();
 	
 	addForNameSpace(GCshCmdtyCurrNameSpace.CURRENCY, new SimpleCurrencyExchRateTable());
-	// CAUTION: We do not / cannot add a default commodity nam space as
+	// CAUTION: We do not / cannot add a default commodity name space as
 	// in sister project JKMyMoneyLib, because we do not know in advance which
 	// name spaces are going to be used.
     }
@@ -144,7 +147,7 @@ public class ComplexPriceTable implements Serializable {
 	    return;
 	}
 
-	if ( nameSpace == GCshCmdtyCurrNameSpace.CURRENCY ) {
+	if ( nameSpace.equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
 	    SimpleCurrencyExchRateTable table = new SimpleCurrencyExchRateTable();
 	    table.clear();
 	    addForNameSpace(nameSpace, table);
@@ -163,6 +166,7 @@ public class ComplexPriceTable implements Serializable {
      */
     public void addForNameSpace(final String nameSpace, final SimplePriceTable table) {
 	namespace2CurrTab.put(nameSpace, table);
+	LOGGER.debug("addForNameSpace: Added new table for name space '" + nameSpace + "'");
     }
 
     // ---------------------------------------------------------------
@@ -290,13 +294,13 @@ public class ComplexPriceTable implements Serializable {
     
     @Override
     public String toString() {
-	String result = "[ComplexPriceTable: \n";
+	String result = "ComplexPriceTable [\n";
 	
 	for ( String nameSpace : getNameSpaces() ) {
-		result += "=======================================\n";
-		result += "Name space: " + nameSpace + "\n";
-		result += "=======================================\n";
-		result += getByNamespace(nameSpace).toString() + "\n";
+	    result += "=======================================\n";
+	    result += "Name space: " + nameSpace + "\n";
+	    result += "=======================================\n";
+	    result += getByNamespace(nameSpace).toString() + "\n";
 	}
 
 	result += "]";

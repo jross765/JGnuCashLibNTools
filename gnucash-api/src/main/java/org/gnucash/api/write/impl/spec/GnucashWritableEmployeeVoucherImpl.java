@@ -189,6 +189,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -202,6 +203,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
@@ -214,6 +216,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      *
      * @param listener The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(listener);
@@ -310,6 +313,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	GnucashWritableEmployeeVoucherEntry entry = createEmplVchEntry(acct, 
 		                                                       singleUnitPrice, quantity, 
 		                                                       taxTab);
+	LOGGER.info("createEntry: Created employee voucher entry: " + entry.getID());
 	return entry;
     }
 
@@ -326,10 +330,11 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
-    protected void removeEntry(final GnucashWritableEmployeeVoucherEntryImpl impl)
+    protected void removeEntry(final GnucashWritableEmployeeVoucherEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
-	removeVoucherEntry(impl);
+	removeVoucherEntry(entry);
+	LOGGER.info("removeEntry: Removed employee voucher entry: " + entry.getID());
     }
 
     /**
@@ -350,11 +355,13 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	addVoucherEntry(entry);
+	LOGGER.info("addEntry: Added employee voucher entry: " + entry.getID());
     }
 
     protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	subtractVoucherEntry(entry);
+	LOGGER.info("addEntry: Subtracted employee voucher entry: " + entry.getID());
     }
 
     /**
@@ -398,7 +405,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this employee voucher is NOT changable because there are already payment for it made!");
+		    "this employee voucher is NOT changeable because there are already payment for it made!");
 	}
     }
 

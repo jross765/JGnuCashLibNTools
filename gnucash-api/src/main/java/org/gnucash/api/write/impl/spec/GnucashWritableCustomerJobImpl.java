@@ -55,7 +55,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	    final GnucashCustomer owner,
 	    final String number, 
 	    final String name) {
-	super(createJob(file, GCshID.getNew(), owner, number, name), file);
+	super(createCustomerJob_int(file, GCshID.getNew(), owner, number, name), file);
     }
 
     public GnucashWritableCustomerJobImpl(GnucashCustomerJobImpl job) {
@@ -88,7 +88,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
      * @param jobID     the internal id to use. May be null to generate an ID.
      * @return the jaxb-job
      */
-    private static GncV2.GncBook.GncGncJob createJob(
+    private static GncV2.GncBook.GncGncJob createCustomerJob_int(
 	    final GnucashWritableFileImpl file, 
 	    final GCshID jobID,
 	    final GnucashCustomer cust,
@@ -109,18 +109,18 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	ObjectFactory factory = file.getObjectFactory();
 
-	GncV2.GncBook.GncGncJob job = file.createGncGncJobType();
+	GncV2.GncBook.GncGncJob jwsdpJob = file.createGncGncJobType();
 
-	job.setJobActive(1);
-	job.setJobId(number);
-	job.setJobName(name);
-	job.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpJob.setJobActive(1);
+	jwsdpJob.setJobId(number);
+	jwsdpJob.setJobName(name);
+	jwsdpJob.setVersion(Const.XML_FORMAT_VERSION);
 
 	{
 	    GncV2.GncBook.GncGncJob.JobGuid id = factory.createGncV2GncBookGncGncJobJobGuid();
 	    id.setType(Const.XML_DATA_TYPE_GUID);
 	    id.setValue(jobID.toString());
-	    job.setJobGuid(id);
+	    jwsdpJob.setJobGuid(id);
 	}
 
 	{
@@ -133,13 +133,15 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	    owner.setOwnerId(ownerid);
 	    owner.setVersion(Const.XML_FORMAT_VERSION);
-	    job.setJobOwner(owner);
+	    jwsdpJob.setJobOwner(owner);
 	}
 
-	file.getRootElement().getGncBook().getBookElements().add(job);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpJob);
 	file.setModified(true);
-	return job;
 
+        LOGGER.debug("createCustomerJob_int: Created new customer job (core): " + jwsdpJob.getJobGuid().getValue());
+        
+        return jwsdpJob;
     }
 
     /**

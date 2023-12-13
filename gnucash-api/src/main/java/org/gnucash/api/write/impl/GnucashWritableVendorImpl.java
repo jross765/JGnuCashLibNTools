@@ -36,7 +36,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncVendor createVendor(
+    protected static GncV2.GncBook.GncGncVendor createVendor_int(
 	    final GnucashWritableFileImpl file, 
 	    final GCshID vendID) {
 	if ( ! vendID.isSet() ) {
@@ -45,19 +45,19 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     
         ObjectFactory factory = file.getObjectFactory();
     
-        GncV2.GncBook.GncGncVendor vend = file.createGncGncVendorType();
+        GncV2.GncBook.GncGncVendor jwsdpVend = file.createGncGncVendorType();
     
-        vend.setVendorTaxincluded("USEGLOBAL");
-        vend.setVersion(Const.XML_FORMAT_VERSION);
-        vend.setVendorUseTt(0);
-        vend.setVendorName("no name given");
+        jwsdpVend.setVendorTaxincluded("USEGLOBAL");
+        jwsdpVend.setVersion(Const.XML_FORMAT_VERSION);
+        jwsdpVend.setVendorUseTt(0);
+        jwsdpVend.setVendorName("no name given");
     
         {
             GncV2.GncBook.GncGncVendor.VendorGuid id = factory.createGncV2GncBookGncGncVendorVendorGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
             id.setValue(vendID.toString());
-            vend.setVendorGuid(id);
-            vend.setVendorId(id.getValue());
+            jwsdpVend.setVendorGuid(id);
+            jwsdpVend.setVendorId(id.getValue());
         }
     
         {
@@ -72,22 +72,24 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
             addr.setAddrFax("");
             addr.setAddrPhone("");
             addr.setVersion(Const.XML_FORMAT_VERSION);
-            vend.setVendorAddr(addr);
+            jwsdpVend.setVendorAddr(addr);
         }
     
         {
             GncV2.GncBook.GncGncVendor.VendorCurrency currency = factory.createGncV2GncBookGncGncVendorVendorCurrency();
             currency.setCmdtyId(file.getDefaultCurrencyID());
             currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            vend.setVendorCurrency(currency);
+            jwsdpVend.setVendorCurrency(currency);
         }
     
-        vend.setVendorActive(1);
+        jwsdpVend.setVendorActive(1);
     
-        file.getRootElement().getGncBook().getBookElements().add(vend);
+        file.getRootElement().getGncBook().getBookElements().add(jwsdpVend);
         file.setModified(true);
     
-        return vend;
+        LOGGER.debug("createVendor_int: Created new vendor (core): " + jwsdpVend.getVendorGuid().getValue());
+        
+        return jwsdpVend;
     }
 
     // ---------------------------------------------------------------
@@ -117,7 +119,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableVendorImpl(final GnucashWritableFileImpl file) {
-	super(createVendor(file, GCshID.getNew()), file);
+	super(createVendor_int(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableVendorImpl(GnucashVendorImpl vend) {

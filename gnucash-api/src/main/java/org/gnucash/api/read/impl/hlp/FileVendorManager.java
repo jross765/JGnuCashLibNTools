@@ -63,6 +63,7 @@ public class FileVendorManager {
      */
     protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
 	GnucashVendorImpl vend = new GnucashVendorImpl(jwsdpVend, gcshFile);
+	LOGGER.info("Generated new vendor: " + vend.getID());
 	return vend;
     }
 

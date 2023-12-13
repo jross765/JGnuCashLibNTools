@@ -126,6 +126,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
 	    trxs.add(trx);
 	}
+	
 	for ( GnucashTransaction trx : trxs ) {
 	    for (GnucashTransactionSplit splt : trx.getSplits()) {
 		GCshID lot = splt.getLotID();
@@ -135,7 +136,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 			if (lotID != null && lotID.equals(lot)) {
 			    // Check if it's a payment transaction.
 			    // If so, add it to the invoice's list of payment transactions.
-			    if (splt.getAction() == GnucashTransactionSplit.Action.PAYMENT ) {
+			    if ( splt.getAction() == GnucashTransactionSplit.Action.PAYMENT ) {
 				addPayingTransaction(splt);
 			    }
 			} // if lotID
@@ -330,6 +331,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, 
 		                                                  singleUnitPrice, quantity, 
 		                                                  taxTab);
+	LOGGER.info("createEntry: Created job invoice entry: " + entry.getID());
 	return entry;
     }
 
@@ -346,10 +348,11 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
-    protected void removeEntry(final GnucashWritableJobInvoiceEntryImpl impl)
+    protected void removeEntry(final GnucashWritableJobInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
-	removeInvcEntry(impl);
+	removeInvcEntry(entry);
+	LOGGER.info("removeEntry: Removed job invoice entry: " + entry.getID());
     }
 
     /**
@@ -370,11 +373,13 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
 	addJobEntry(entry);
+	LOGGER.info("addEntry: Added job invoice entry: " + entry.getID());
     }
 
     protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	subtractInvcEntry(entry);
+	LOGGER.info("subtractEntry: Subtracted job invoice entry: " + entry.getID());
     }
 
     /**

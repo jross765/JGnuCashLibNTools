@@ -703,27 +703,27 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
 
-	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
+	GncV2.GncBook.GncGncInvoice jwsdpInvc = file.createGncGncInvoiceType();
 
 	// GUID
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
 	    invcRef.setValue(invcGUID.toString());
-	    invc.setInvoiceGuid(invcRef);
+	    jwsdpInvc.setInvoiceGuid(invcRef);
 	}
 	
-	invc.setInvoiceId(number);
+	jwsdpInvc.setInvoiceId(number);
 	// invc.setInvoiceBillingID(number); // ::TODO Do *not* fill with invoice number,
 	                                     // but instead with customer's reference number
-	invc.setInvoiceActive(1);
+	jwsdpInvc.setInvoiceActive(1);
 	
 	// currency
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceCurrency currency = fact.createGncV2GncBookGncGncInvoiceInvoiceCurrency();
 	    currency.setCmdtyId(file.getDefaultCurrencyID());
 	    currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-	    invc.setInvoiceCurrency(currency);
+	    jwsdpInvc.setInvoiceCurrency(currency);
 	}
 	
 	// date opened
@@ -734,7 +734,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		    ZoneId.systemDefault());
 	    String openedDateTimeStr = openedDateTime.format(DATE_OPENED_FORMAT_BOOK);
 	    opened.setTsDate(openedDateTimeStr);
-	    invc.setInvoiceOpened(opened);
+	    jwsdpInvc.setInvoiceOpened(opened);
 	}
 	
 	// owner (customer)
@@ -748,13 +748,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		ownerIdRef.setValue(cust.getID().toString());
 		custRef.setOwnerId(ownerIdRef);
 	    }
-	    invc.setInvoiceOwner(custRef);
+	    jwsdpInvc.setInvoiceOwner(custRef);
 	}
 	
 	if ( postInvoice ) {
 	    LOGGER.debug("createCustomerInvoice_int: Posting customer invoice " + invcGUID + "...");
 	    postCustomerInvoice_int(file, fact,
-	                            invc, invcGUID, number, 
+	                            jwsdpInvc, invcGUID, number, 
 	                            cust, 
                                     incomeAcct, receivableAcct,
                                     new FixedPointNumber(0), 
@@ -763,12 +763,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    LOGGER.debug("createCustomerInvoice_int: NOT posting customer invoice " + invcGUID);
 	}
 	
-	invc.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpInvc.setVersion(Const.XML_FORMAT_VERSION);
 
-	file.getRootElement().getGncBook().getBookElements().add(invc);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpInvc);
 	file.setModified(true);
 	
-	return invc;
+	LOGGER.debug("createCustomerInvoice_int: Created new customer invoice (core): " + jwsdpInvc.getInvoiceGuid().getValue());
+	
+	return jwsdpInvc;
     }
 
     // ---------------------------------------------------------------
@@ -803,27 +805,27 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
 
-	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
+	GncV2.GncBook.GncGncInvoice jwsdpInvc = file.createGncGncInvoiceType();
 
 	// GUID
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
 	    invcRef.setValue(invcGUID.toString());
-	    invc.setInvoiceGuid(invcRef);
+	    jwsdpInvc.setInvoiceGuid(invcRef);
 	}
 	
-	invc.setInvoiceId(number);
+	jwsdpInvc.setInvoiceId(number);
 	// invc.setInvoiceBillingID(number); // ::CHECK Doesn't really make sense in a vendor bill
 	                                     // And even if: would have to be separate number
-	invc.setInvoiceActive(1);
+	jwsdpInvc.setInvoiceActive(1);
 	
 	// currency
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceCurrency currency = fact.createGncV2GncBookGncGncInvoiceInvoiceCurrency();
 	    currency.setCmdtyId(file.getDefaultCurrencyID());
 	    currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-	    invc.setInvoiceCurrency(currency);
+	    jwsdpInvc.setInvoiceCurrency(currency);
 	}
 	
 	// date opened
@@ -834,7 +836,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		    ZoneId.systemDefault());
 	    String openedDateTimeStr = openedDateTime.format(DATE_OPENED_FORMAT_BOOK);
 	    opened.setTsDate(openedDateTimeStr);
-	    invc.setInvoiceOpened(opened);
+	    jwsdpInvc.setInvoiceOpened(opened);
 	}
 	
 	// owner (vendor)
@@ -848,13 +850,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		ownerIdRef.setValue(vend.getID().toString());
 		vendRef.setOwnerId(ownerIdRef);
 	    }
-	    invc.setInvoiceOwner(vendRef);
+	    jwsdpInvc.setInvoiceOwner(vendRef);
 	}
 	
 	if ( postInvoice ) {
 	    LOGGER.debug("createVendorBill_int: Posting vendor bill " + invcGUID + "...");
 	    postVendorBill_int(file, fact,
-		               invc, invcGUID, number, 
+		               jwsdpInvc, invcGUID, number, 
 		               vend, 
 		               expensesAcct, payableAcct, 
 		               new FixedPointNumber(0),
@@ -863,12 +865,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    LOGGER.debug("createVendorBill_int: NOT posting vendor bill " + invcGUID);
 	}
 	
-	invc.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpInvc.setVersion(Const.XML_FORMAT_VERSION);
 
-	file.getRootElement().getGncBook().getBookElements().add(invc);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpInvc);
 	file.setModified(true);
 	
-	return invc;
+	LOGGER.debug("createVendorBill_int: Created new vendor bill (core): " + jwsdpInvc.getInvoiceGuid().getValue());
+	
+	return jwsdpInvc;
     }
 
     /**
@@ -901,27 +905,27 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
 
-	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
+	GncV2.GncBook.GncGncInvoice jwsdpInvc = file.createGncGncInvoiceType();
 
 	// GUID
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
 	    invcRef.setValue(invcGUID.toString());
-	    invc.setInvoiceGuid(invcRef);
+	    jwsdpInvc.setInvoiceGuid(invcRef);
 	}
 	
-	invc.setInvoiceId(number);
+	jwsdpInvc.setInvoiceId(number);
 	// invc.setInvoiceBillingID(number); // ::CHECK Does taht make sense in an employee voucher?
 	                                     // And if: wouldn't it have to be a separate number?
-	invc.setInvoiceActive(1);
+	jwsdpInvc.setInvoiceActive(1);
 	
 	// currency
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceCurrency currency = fact.createGncV2GncBookGncGncInvoiceInvoiceCurrency();
 	    currency.setCmdtyId(file.getDefaultCurrencyID());
 	    currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-	    invc.setInvoiceCurrency(currency);
+	    jwsdpInvc.setInvoiceCurrency(currency);
 	}
 	
 	// date opened
@@ -932,7 +936,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		    ZoneId.systemDefault());
 	    String openedDateTimeStr = openedDateTime.format(DATE_OPENED_FORMAT_BOOK);
 	    opened.setTsDate(openedDateTimeStr);
-	    invc.setInvoiceOpened(opened);
+	    jwsdpInvc.setInvoiceOpened(opened);
 	}
 	
 	// owner (vendor)
@@ -946,13 +950,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		ownerIdRef.setValue(empl.getID().toString());
 		vendRef.setOwnerId(ownerIdRef);
 	    }
-	    invc.setInvoiceOwner(vendRef);
+	    jwsdpInvc.setInvoiceOwner(vendRef);
 	}
 	
 	if ( postInvoice ) {
 	    LOGGER.debug("createEmployeeVoucher_int: Posting employee voucher " + invcGUID + "...");
 	    postEmployeeVoucher_int(file, fact,
-		                    invc, invcGUID, number, 
+		                    jwsdpInvc, invcGUID, number, 
 		                    empl, 
 		                    expensesAcct, payableAcct, 
 		                    new FixedPointNumber(0),
@@ -961,12 +965,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    LOGGER.debug("createEmployeeVoucher_int: NOT posting employee voucher " + invcGUID);
 	}
 	
-	invc.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpInvc.setVersion(Const.XML_FORMAT_VERSION);
 
-	file.getRootElement().getGncBook().getBookElements().add(invc);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpInvc);
 	file.setModified(true);
 	
-	return invc;
+	LOGGER.debug("createEmployeeVoucher_int: Created new employee voucher (core): " + jwsdpInvc.getInvoiceGuid().getValue());
+	
+	return jwsdpInvc;
     }
 
     /**
@@ -974,8 +980,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * ${@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
      * instead of calling this method!
      *
-     * @param accountToTransferMoneyTo e.g. "Forderungen aus Lieferungen und
-     *                                 Leistungen "
+     * @param accountToTransferMoneyTo e.g. "Forderungen aus Lieferungen und Leistungen"
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalAccessException 
@@ -999,30 +1004,30 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
 
-	GncV2.GncBook.GncGncInvoice invc = file.createGncGncInvoiceType();
+	GncV2.GncBook.GncGncInvoice jwsdpInvc = file.createGncGncInvoiceType();
 
 	// GUID
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceGuid invcRef = fact.createGncV2GncBookGncGncInvoiceInvoiceGuid();
 	    invcRef.setType(Const.XML_DATA_TYPE_GUID);
 	    invcRef.setValue(invcGUID.toString());
-	    invc.setInvoiceGuid(invcRef);
+	    jwsdpInvc.setInvoiceGuid(invcRef);
 	}
 	
-	invc.setInvoiceId(number);
+	jwsdpInvc.setInvoiceId(number);
 	// invc.setInvoiceBillingID(number); // ::TODO ::CHECK Do *not* fill with invoice number,
                                              // but instead with customer's reference number,
 	                                     // if it's a customer job (and even then -- the job 
 	                                     // itself should contain this number). If it's a 
 	                                     // vendor bill, then this does not make sense anyway.
-	invc.setInvoiceActive(1);
+	jwsdpInvc.setInvoiceActive(1);
 	
 	// currency
 	{
 	    GncV2.GncBook.GncGncInvoice.InvoiceCurrency currency = fact.createGncV2GncBookGncGncInvoiceInvoiceCurrency();
 	    currency.setCmdtyId(file.getDefaultCurrencyID());
 	    currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-	    invc.setInvoiceCurrency(currency);
+	    jwsdpInvc.setInvoiceCurrency(currency);
 	}
 
 	// date opened
@@ -1033,7 +1038,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		    ZoneId.systemDefault());
 	    String openedDateTimeStr = openedDateTime.format(DATE_OPENED_FORMAT_BOOK);
 	    opened.setTsDate(openedDateTimeStr);
-	    invc.setInvoiceOpened(opened);
+	    jwsdpInvc.setInvoiceOpened(opened);
 	}
 	
 	// owner (job)
@@ -1047,13 +1052,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		ownerIdRef.setValue(job.getID().toString());
 		jobRef.setOwnerId(ownerIdRef);
 	    }
-	    invc.setInvoiceOwner(jobRef);
+	    jwsdpInvc.setInvoiceOwner(jobRef);
 	}
 	
 	if ( postInvoice ) {
 	    LOGGER.debug("createJobInvoice_int: Posting job invoice " + invcGUID + "...");
 	    postJobInvoice_int(file, fact,
-	                       invc, invcGUID, number, 
+	                       jwsdpInvc, invcGUID, number, 
 	                       job, 
                                incExpAcct, recvblPayblAcct, 
 		               new FixedPointNumber(0),
@@ -1062,12 +1067,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    LOGGER.debug("createJobInvoice_int: NOT posting job invoice " + invcGUID);
 	}
 	
-	invc.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpInvc.setVersion(Const.XML_FORMAT_VERSION);
 
-	file.getRootElement().getGncBook().getBookElements().add(invc);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpInvc);
 	file.setModified(true);
 	
-	return invc;
+	LOGGER.debug("createJobInvoice_int: Created new job invoice (core): " + jwsdpInvc.getInvoiceGuid().getValue());
+	
+	return jwsdpInvc;
     }
 
     

@@ -6,11 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
-import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,9 +52,10 @@ public class FileBillTermsManager {
      * @param jwsdpCust the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GCshTaxTable to wrap the given JAXB object.
      */
-    protected GCshTaxTableImpl createTaxTable(final GncV2.GncBook.GncGncTaxTable jwsdpTaxTab) {
-	GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpTaxTab, gcshFile);
-	return taxTab;
+    protected GCshBillTermsImpl createBillTerms(final GncV2.GncBook.GncGncBillTerm jwsdpBllTrm) {
+	GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm);
+	LOGGER.info("Generated new bill terms: " + bllTrm.getID());
+	return bllTrm;
     }
 
     // ---------------------------------------------------------------

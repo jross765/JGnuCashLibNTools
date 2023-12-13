@@ -256,7 +256,9 @@ public class GCshPriceImpl implements GCshPrice {
     
     @Override
     public String toString() {
-	String result = "GCshPriceImpl [id=" + getID();
+	String result = "GCshPriceImpl [id";
+	
+	result += "id=" + getID();
 	
 	try {
 	    result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifID() + "'";
@@ -271,18 +273,20 @@ public class GCshPriceImpl implements GCshPrice {
 	}
 	
 	result += ", date=" + getDate(); 
-	result += ", source='" + getSource() + "'"; 
-	result += ", type=" + getType();
 	
 	try {
-	    result += ", value=" + getValueFormatted() + "]";
+	    result += ", value=" + getValueFormatted();
 	} catch (Exception e) {
 	    // TODO Auto-generated catch block
-	    result += ", value=" + "ERROR" + "]";
+	    result += ", value=" + "ERROR";
 	}
 	
+	result += ", type=" + getType();
+	result += ", source=" + getSource(); 
+
+	result += "]"; 
+
 	return result;
     }
-    
     
 }

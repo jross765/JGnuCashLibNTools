@@ -118,7 +118,7 @@ public class SimpleCurrencyExchRateTable implements SimplePriceTable,
 
     @Override
     public String toString() {
-	String result = "[SimpleCurrencyExchRateTable:\n";
+	String result = "SimpleCurrencyExchRateTable [\n";
 	
 	result += "No. of entries: " + mIso4217CurrCodes2Factor.size() + "\n";
 	

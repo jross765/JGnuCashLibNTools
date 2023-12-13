@@ -43,7 +43,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableCommodityImpl(final GnucashWritableFileImpl file) {
-	super(createCommodity(file, GCshID.getNew()), file);
+	super(createCommodity_int(file, GCshID.getNew()), file);
     }
 
     // ---------------------------------------------------------------
@@ -72,26 +72,28 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncCommodity createCommodity(
+    protected static GncV2.GncBook.GncCommodity createCommodity_int(
 	    final GnucashWritableFileImpl file,
 	    final GCshID cmdtID) {
 	if ( ! cmdtID.isSet() ) {
 	    throw new IllegalArgumentException("GUID not set!");
 	}
 
-	GncV2.GncBook.GncCommodity cmdty = file.createGncGncCommodityType();
+	GncV2.GncBook.GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
 
-	cmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
-	cmdty.setVersion(Const.XML_FORMAT_VERSION);
-	cmdty.setCmdtyName("no name given");
-	cmdty.setCmdtySpace(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString()); // ::TODO : soft
-	cmdty.setCmdtyId("XYZ"); // ::TODO
-	cmdty.setCmdtyXcode(Const.CMDTY_XCODE_DEFAULT);
+	jwsdpCmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
+	jwsdpCmdty.setVersion(Const.XML_FORMAT_VERSION);
+	jwsdpCmdty.setCmdtyName("no name given");
+	jwsdpCmdty.setCmdtySpace(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString()); // ::TODO : soft
+	jwsdpCmdty.setCmdtyId("XYZ"); // ::TODO
+	jwsdpCmdty.setCmdtyXcode(Const.CMDTY_XCODE_DEFAULT);
 
-	file.getRootElement().getGncBook().getBookElements().add(cmdty);
+	file.getRootElement().getGncBook().getBookElements().add(jwsdpCmdty);
 	file.setModified(true);
 	
-	return cmdty;
+        LOGGER.debug("createCommodity_int: Created new commodity (core): " + jwsdpCmdty.getCmdtySpace() + ":" + jwsdpCmdty.getCmdtyId());
+        
+	return jwsdpCmdty;
     }
 
     // ---------------------------------------------------------------

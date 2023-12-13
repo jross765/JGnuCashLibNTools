@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermChild;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermChild;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -127,24 +127,25 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GCshBillTermsImpl:");
+	buffer.append("GCshBillTermsImpl [");
 
-	buffer.append(" id: ");
+	buffer.append("id=");
 	buffer.append(getID());
 
-	buffer.append(" type: ");
+	buffer.append(", type=");
 	try {
 	    buffer.append(getType());
 	} catch (BillTermsTypeException e) {
 	    buffer.append("ERROR");
 	}
 
-	buffer.append(" name: '");
+	buffer.append(", name='");
 	buffer.append(getName() + "'");
 
-	buffer.append(" description: '");
+	buffer.append(", description='");
 	buffer.append(getDescription() + "'");
 
+	buffer.append(", type=");
 	try {
 	    if ( getType() == Type.DAYS ) {
 		buffer.append(" " + getDays());

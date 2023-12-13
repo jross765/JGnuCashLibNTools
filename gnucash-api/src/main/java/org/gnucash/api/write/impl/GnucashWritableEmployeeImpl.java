@@ -36,7 +36,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncEmployee createEmployee(
+    protected static GncV2.GncBook.GncGncEmployee createEmployee_int(
 	    final GnucashWritableFileImpl file,
             final GCshID emplID) {
         if ( ! emplID.isSet() ) {
@@ -45,17 +45,17 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     
         ObjectFactory factory = file.getObjectFactory();
     
-        GncV2.GncBook.GncGncEmployee empl = file.createGncGncEmployeeType();
+        GncV2.GncBook.GncGncEmployee jwsdpEmpl = file.createGncGncEmployeeType();
     
-        empl.setVersion(Const.XML_FORMAT_VERSION);
-        empl.setEmployeeUsername("no user name given");
+        jwsdpEmpl.setVersion(Const.XML_FORMAT_VERSION);
+        jwsdpEmpl.setEmployeeUsername("no user name given");
     
         {
             GncV2.GncBook.GncGncEmployee.EmployeeGuid id = factory.createGncV2GncBookGncGncEmployeeEmployeeGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
             id.setValue(emplID.toString());
-            empl.setEmployeeGuid(id);
-            empl.setEmployeeId(id.getValue());
+            jwsdpEmpl.setEmployeeGuid(id);
+            jwsdpEmpl.setEmployeeId(id.getValue());
         }
     
         {
@@ -71,7 +71,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
             addr.setAddrFax("");
             addr.setAddrPhone("");
             addr.setVersion(Const.XML_FORMAT_VERSION);
-            empl.setEmployeeAddr(addr);
+            jwsdpEmpl.setEmployeeAddr(addr);
         }
     
         {
@@ -89,23 +89,25 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     
         // These two have to be set, else GnuCash runs into a parse error
         {
-            empl.setEmployeeWorkday("8"); // ::MAGIC
-            empl.setEmployeeRate("1");    // ::MAGIC
+            jwsdpEmpl.setEmployeeWorkday("8"); // ::MAGIC
+            jwsdpEmpl.setEmployeeRate("1");    // ::MAGIC
         }
     
         {
             GncV2.GncBook.GncGncEmployee.EmployeeCurrency currency = factory.createGncV2GncBookGncGncEmployeeEmployeeCurrency();
             currency.setCmdtyId(file.getDefaultCurrencyID());
             currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            empl.setEmployeeCurrency(currency);
+            jwsdpEmpl.setEmployeeCurrency(currency);
         }
     
-        empl.setEmployeeActive(1);
+        jwsdpEmpl.setEmployeeActive(1);
     
-        file.getRootElement().getGncBook().getBookElements().add(empl);
+        file.getRootElement().getGncBook().getBookElements().add(jwsdpEmpl);
         file.setModified(true);
     
-        return empl;
+        LOGGER.debug("createEmployee_int: Created new employee (core): " + jwsdpEmpl.getEmployeeGuid().getValue());
+        
+        return jwsdpEmpl;
     }
 
     // ---------------------------------------------------------------
@@ -135,7 +137,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param id   the ID we shall have
      */
     protected GnucashWritableEmployeeImpl(final GnucashWritableFileImpl file) {
-	super(createEmployee(file, GCshID.getNew()), file);
+	super(createEmployee_int(file, GCshID.getNew()), file);
     }
 
     public GnucashWritableEmployeeImpl(GnucashEmployeeImpl empl) {

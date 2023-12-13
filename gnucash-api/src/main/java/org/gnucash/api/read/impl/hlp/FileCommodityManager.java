@@ -100,6 +100,7 @@ public class FileCommodityManager {
      */
     protected GnucashCommodityImpl createCommodity(final GncV2.GncBook.GncCommodity jwsdpCmdty) {
 	GnucashCommodityImpl cmdty = new GnucashCommodityImpl(jwsdpCmdty, gcshFile);
+	LOGGER.info("Generated new commodity: " + cmdty.getQualifID());
 	return cmdty;
     }
 

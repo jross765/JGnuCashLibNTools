@@ -30,6 +30,7 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
     @Override
     protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
 	GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, (GnucashWritableFileImpl) gcshFile);
+	LOGGER.info("Generated new writable vendor: " + vend.getID());
 	return vend;
     }
 

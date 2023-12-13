@@ -69,7 +69,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	public GnucashWritableTransactionSplitImpl(
 		final GnucashWritableTransactionImpl trx, 
 		final GnucashAccount acct) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-		super(createTransactionSplit(trx, acct, GCshID.getNew()), 
+		super(createTransactionSplit_int(trx, acct, GCshID.getNew()), 
 		      trx, 
 		      true, true);
 
@@ -115,7 +115,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	 * @throws SecurityException 
 	 * @throws NoSuchFieldException 
 	 */
-	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit(
+	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
 		final GnucashWritableTransactionImpl transaction,
 		final GnucashAccount account,
 		final GCshID spltID) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
@@ -142,25 +142,28 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 		GnucashWritableFileImpl gnucashFileImpl = transaction.getWritableFile();
 		ObjectFactory factory = gnucashFileImpl.getObjectFactory();
 
-		GncTransaction.TrnSplits.TrnSplit split = gnucashFileImpl.createGncTransactionTypeTrnSplitsTypeTrnSplitType();
+		GncTransaction.TrnSplits.TrnSplit jwsdpSplt = gnucashFileImpl.createGncTransactionTypeTrnSplitsTypeTrnSplitType();
 		{
 			GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
 			id.setType(Const.XML_DATA_TYPE_GUID);
 			id.setValue(spltID.toString());
-			split.setSplitId(id);
+			jwsdpSplt.setSplitId(id);
 		}
 
-		split.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
+		jwsdpSplt.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
 
-		split.setSplitQuantity("0/100");
-		split.setSplitValue("0/100");
+		jwsdpSplt.setSplitQuantity("0/100");
+		jwsdpSplt.setSplitValue("0/100");
 		{
 			GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory.createGncTransactionTrnSplitsTrnSplitSplitAccount();
 			splitaccount.setType(Const.XML_DATA_TYPE_GUID);
 			splitaccount.setValue(account.getID().toString());
-			split.setSplitAccount(splitaccount);
+			jwsdpSplt.setSplitAccount(splitaccount);
 		}
-		return split;
+
+	        LOGGER.debug("createTransactionSplit_int: Created new transaction split (core): " + jwsdpSplt.getSplitId().getValue());
+	        
+	        return jwsdpSplt;
 	}
 
 	/**

@@ -105,16 +105,19 @@ public class FileJobManager {
      */
     protected GnucashGenerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
 	GnucashGenerJobImpl job = new GnucashGenerJobImpl(jwsdpJob, gcshFile);
+	LOGGER.info("Generated new generic job: " + job.getID());
 	return job;
     }
 
     protected GnucashCustomerJobImpl createCustomerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
 	GnucashCustomerJobImpl job = new GnucashCustomerJobImpl(jwsdpJob, gcshFile);
+	LOGGER.info("Generated new customer job: " + job.getID());
 	return job;
     }
 
     protected GnucashVendorJobImpl createVendorJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
 	GnucashVendorJobImpl job = new GnucashVendorJobImpl(jwsdpJob, gcshFile);
+	LOGGER.info("Generated new vendor job: " + job.getID());
 	return job;
     }
 
