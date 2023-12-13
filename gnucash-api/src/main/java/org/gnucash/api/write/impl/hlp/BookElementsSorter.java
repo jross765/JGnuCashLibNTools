@@ -23,7 +23,7 @@ public class BookElementsSorter implements Comparator<Object> {
 	@Override
 	public int compare(final Object aO1, final Object aO2) {
 		// no secondary sorting
-		return (new Integer(getType(aO1)).compareTo(new Integer(getType(aO2))));
+		return (Integer.valueOf(getType(aO1)).compareTo(Integer.valueOf(getType(aO2))));
 	}
 
 	/**
@@ -63,6 +63,8 @@ public class BookElementsSorter implements Comparator<Object> {
 			return 14;
 		} else if (element instanceof GncV2.GncBook.GncGncVendor) {
 			return 15;
+		} else if (element instanceof GncV2.GncBook.GncPricedb.Price) {
+			return 16;
 		} else {
 			throw new IllegalStateException("Unexpected element in GNC:Book found! <" + element.toString() + ">");
 		}

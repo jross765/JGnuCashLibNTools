@@ -17,6 +17,7 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshPrice;
+import org.gnucash.api.read.aux.GCshPrice.Type;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -128,7 +129,7 @@ public class TestGCshPriceImpl
       assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName());
       assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
-      assertEquals("transaction", prc.getType());
+      assertEquals(Type.TRANSACTION, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 1), prc.getDate());
       assertEquals(22.53, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
       
@@ -178,7 +179,7 @@ public class TestGCshPriceImpl
       assertEquals("SAP SE", prc.getFromCommodity().getName());
       assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
-      assertEquals("unknown", prc.getType());
+      assertEquals(Type.UNKNOWN, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 20), prc.getDate());
       assertEquals(145.0, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
     
@@ -228,7 +229,7 @@ public class TestGCshPriceImpl
       assertEquals("SAP SE", prc.getFromCommodity().getName());
       assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
-      assertEquals("transaction", prc.getType());
+      assertEquals(Type.TRANSACTION, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 18), prc.getDate());
       assertEquals(125.0, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
       

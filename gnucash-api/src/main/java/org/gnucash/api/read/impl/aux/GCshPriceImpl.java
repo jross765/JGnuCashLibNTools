@@ -14,13 +14,13 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshPrice;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,16 +28,20 @@ public class GCshPriceImpl implements GCshPrice {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshPriceImpl.class);
 
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
+    protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
     
     // -----------------------------------------------------------
 
     /**
      * The JWSDP-object we are wrapping.
      */
-    private final GncV2.GncBook.GncPricedb.Price jwsdpPeer;
+    protected final GncV2.GncBook.GncPricedb.Price jwsdpPeer;
 
-    private final GnucashFile file;
+    protected final GnucashFile file;
+
+    // ---------------------------------------------------------------
+
+    protected ZonedDateTime dateTime;
 
     // -----------------------------------------------------------
 
@@ -57,6 +61,20 @@ public class GCshPriceImpl implements GCshPrice {
 		
 	this.jwsdpPeer = newPeer;
 	this.file      = file;
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @return the JWSDP-object we are wrapping.
+     */
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncPricedb.Price getJwsdpPeer() {
+	return jwsdpPeer;
+    }
+
+    public GnucashFile getGnucashFile() {
+	return file;
     }
 
     // -----------------------------------------------------------
@@ -198,7 +216,11 @@ public class GCshPriceImpl implements GCshPrice {
     }
 
     @Override
-    public String getSource() {
+    public Source getSource() {
+	return Source.valueOff(getSourceStr());
+    }
+
+    public String getSourceStr() {
 	if ( jwsdpPeer.getPriceSource() == null )
 	    return null;
 	
@@ -206,7 +228,11 @@ public class GCshPriceImpl implements GCshPrice {
     }
 
     @Override
-    public String getType() {
+    public Type getType() {
+	return Type.valueOff(getTypeStr());
+    }
+
+    public String getTypeStr() {
 	if ( jwsdpPeer.getPriceType() == null )
 	    return null;
 	

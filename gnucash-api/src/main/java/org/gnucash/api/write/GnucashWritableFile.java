@@ -21,6 +21,7 @@ import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.aux.GCshWritablePrice;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
@@ -372,5 +373,17 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws InvalidCmdtyCurrIDException 
      */
     void removeCommodity(GnucashWritableCommodity cmdty) throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException;
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @return a new price object with no values that is already added to this file
+     */
+    GCshWritablePrice createWritablePrice();
+
+    /**
+     * @param prc the price to remove
+     */
+    void removePrice(GCshWritablePrice prc);
 
 }

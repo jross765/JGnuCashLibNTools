@@ -67,6 +67,8 @@ import org.gnucash.api.write.GnucashWritableGenerJob;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.GnucashWritableVendor;
+import org.gnucash.api.write.aux.GCshWritablePrice;
+import org.gnucash.api.write.impl.aux.GCshWritablePriceImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
 import org.gnucash.api.write.impl.hlp.WritingContentHandler;
@@ -556,9 +558,18 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ----------------------------
 
-    protected GncV2.GncBook.GncCommodity createGncGncCommodityType() {
+    
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncCommodity createGncGncCommodityType() {
 	GncV2.GncBook.GncCommodity retval = getObjectFactory().createGncV2GncBookGncCommodity();
 	incrementCountDataFor("commodity");
+	return retval;
+    }
+    
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncPricedb.Price createGncGncPricedbPriceType() {
+	GncV2.GncBook.GncPricedb.Price retval = getObjectFactory().createGncV2GncBookGncPricedbPrice();
+	incrementCountDataFor("price");
 	return retval;
     }
     
@@ -1308,12 +1319,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     @Override
     public GnucashWritableCommodity createWritableCommodity() {
 	GnucashWritableCommodityImpl cmdty = new GnucashWritableCommodityImpl(this);
-//	try {
-//	    super.cmdtyQualifID2Cmdty.put(cmdty.getQualifID().toString(), cmdty);
-//	    super.cmdtyXCode2QualifID.put(cmdty.getXCode(), cmdty.getQualifID().toString());
-//	} catch ( Exception exc ) {
-//	    LOGGER.error("createWritableCommodity: Could not add new commodity to cache");
-//	}
+	super.cmdtyMgr.addCommodity(cmdty);
 	return cmdty;	
     }
 
@@ -1349,6 +1355,23 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    return true;
 	else
 	    return false;
+    }
+
+    // ---------------------------------------------------------------
+
+    @Override
+    public GCshWritablePrice createWritablePrice() {
+	GCshWritablePrice prc = new GCshWritablePriceImpl(this);
+	super.prcMgr.addPrice(prc);
+	return prc;	
+    }
+
+    @Override
+    public void removePrice(final GCshWritablePrice prc) {
+	super.prcMgr.removePrice(prc);
+
+	getRootElement().getGncBook().getBookElements().remove(((GCshWritablePriceImpl) prc).getJwsdpPeer());
+	setModified(true);
     }
 
 }

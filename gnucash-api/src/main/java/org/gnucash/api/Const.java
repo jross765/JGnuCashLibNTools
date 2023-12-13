@@ -6,6 +6,7 @@ import java.util.Locale;
 public class Const {
   
   public static final String XML_FORMAT_VERSION = "2.0.0";
+  public static final String XML_FORMAT_VERSION_PRICEDB = "1";
   
   public static final String XML_DATA_TYPE_GUID   = "guid";
   public static final String XML_DATA_TYPE_STRING = "string";

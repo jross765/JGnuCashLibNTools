@@ -674,7 +674,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 		if (digitCount == 0) {
 			return null;
 		}
-		return new Long(s.substring(0, digitCount));
+		return Long.valueOf(s.substring(0, digitCount));
 	}
 
 	//  ------------------------ support for propertyChangeListeners ------------------
