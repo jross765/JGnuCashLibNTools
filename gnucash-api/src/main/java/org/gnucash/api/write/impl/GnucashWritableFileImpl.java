@@ -48,6 +48,7 @@ import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
@@ -730,7 +731,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     @Override
     public GnucashWritableGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
-	return (GnucashWritableGenerInvoice) super.getGenerInvoiceByID(invcID);
+	GnucashGenerInvoice invc = super.getGenerInvoiceByID(invcID);
+	return new GnucashWritableGenerInvoiceImpl((GnucashGenerInvoiceImpl) invc);
     }
 
     /**

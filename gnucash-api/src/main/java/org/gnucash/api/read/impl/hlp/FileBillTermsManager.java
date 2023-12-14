@@ -54,7 +54,7 @@ public class FileBillTermsManager {
      */
     protected GCshBillTermsImpl createBillTerms(final GncV2.GncBook.GncGncBillTerm jwsdpBllTrm) {
 	GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm);
-	LOGGER.info("Generated new bill terms: " + bllTrm.getID());
+	LOGGER.debug("Generated new bill terms: " + bllTrm.getID());
 	return bllTrm;
     }
 

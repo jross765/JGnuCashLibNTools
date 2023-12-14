@@ -64,7 +64,7 @@ public class FileCustomerManager {
      */
     protected GnucashCustomerImpl createCustomer(final GncV2.GncBook.GncGncCustomer jwsdpCust) {
 	GnucashCustomerImpl cust = new GnucashCustomerImpl(jwsdpCust, gcshFile);
-	LOGGER.info("Generated new customer: " + cust.getID());
+	LOGGER.debug("Generated new customer: " + cust.getID());
 	return cust;
     }
 

@@ -29,7 +29,7 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
     @Override
     protected GnucashCommodityImpl createCommodity(final GncV2.GncBook.GncCommodity jwsdpCmdty) {
 	GnucashWritableCommodityImpl cmdty = new GnucashWritableCommodityImpl(jwsdpCmdty, (GnucashWritableFileImpl) gcshFile);
-	LOGGER.info("Generated new writable commodity: " + cmdty.getQualifID());
+	LOGGER.debug("Generated new writable commodity: " + cmdty.getQualifID());
 	return cmdty;
     }
 

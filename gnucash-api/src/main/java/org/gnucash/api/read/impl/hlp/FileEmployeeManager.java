@@ -63,7 +63,7 @@ public class FileEmployeeManager {
      */
     protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
 	GnucashEmployeeImpl empl = new GnucashEmployeeImpl(jwsdpEmpl, gcshFile);
-	LOGGER.info("Generated new employee: " + empl.getID());
+	LOGGER.debug("Generated new employee: " + empl.getID());
 	return empl;
     }
 

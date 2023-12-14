@@ -55,7 +55,7 @@ public class FileTaxTableManager {
      */
     protected GCshTaxTableImpl createTaxTable(final GncV2.GncBook.GncGncTaxTable jwsdpTaxTab) {
 	GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpTaxTab, gcshFile);
-	LOGGER.info("Generated new tax table: " + taxTab.getID());
+	LOGGER.debug("Generated new tax table: " + taxTab.getID());
 	return taxTab;
     }
 

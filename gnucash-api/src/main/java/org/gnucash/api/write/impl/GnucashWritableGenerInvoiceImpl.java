@@ -220,6 +220,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //	      file);
 //    }
 
+    public GnucashWritableGenerInvoiceImpl(final GnucashGenerInvoiceImpl invc) {
+	super(invc.getJwsdpPeer(), invc.getFile());
+    }
+
     // ---------------------------------------------------------------
 
     /**

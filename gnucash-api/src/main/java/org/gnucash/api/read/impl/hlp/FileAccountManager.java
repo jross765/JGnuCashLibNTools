@@ -73,7 +73,7 @@ public class FileAccountManager {
      */
     protected GnucashAccountImpl createAccount(final GncAccount jwsdpAcct) {
 	GnucashAccountImpl acct = new GnucashAccountImpl(jwsdpAcct, gcshFile);
-	LOGGER.info("Generated new account: " + acct.getID());
+	LOGGER.debug("Generated new account: " + acct.getID());
 	return acct;
     }
 

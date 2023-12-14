@@ -75,7 +75,7 @@ public class FileInvoiceManager {
      */
     protected GnucashGenerInvoiceImpl createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
 	GnucashGenerInvoiceImpl invc = new GnucashGenerInvoiceImpl(jwsdpInvc, gcshFile);
-	LOGGER.info("Generated new generic invoice: " + invc.getID());
+	LOGGER.debug("Generated new generic invoice: " + invc.getID());
 	return invc;
     }
 

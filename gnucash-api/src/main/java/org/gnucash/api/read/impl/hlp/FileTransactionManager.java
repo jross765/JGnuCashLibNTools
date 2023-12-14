@@ -89,7 +89,7 @@ public class FileTransactionManager {
      */
     protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
 	GnucashTransactionImpl trx = new GnucashTransactionImpl(jwsdpTrx, gcshFile.getGnucashFile(), true);
-	LOGGER.info("Generated new transaction: " + trx.getID());
+	LOGGER.debug("Generated new transaction: " + trx.getID());
 	return trx;
     }
 
@@ -109,7 +109,7 @@ public class FileTransactionManager {
 	    final boolean addSpltToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 	GnucashTransactionSplitImpl splt = new GnucashTransactionSplitImpl(jwsdpTrxSplt, trx, 
 		                                                           addSpltToAcct, addSpltToInvc);
-	LOGGER.info("Generated new transaction split: " + splt.getID());
+	LOGGER.debug("Generated new transaction split: " + splt.getID());
 	return splt;
     }
 
