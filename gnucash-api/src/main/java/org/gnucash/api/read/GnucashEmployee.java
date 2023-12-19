@@ -217,8 +217,8 @@ public interface GnucashEmployee extends GnucashObject {
 
     Collection<GnucashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException, IllegalArgumentException;
 
-    Collection<GnucashEmployeeVoucher> getPaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
 }

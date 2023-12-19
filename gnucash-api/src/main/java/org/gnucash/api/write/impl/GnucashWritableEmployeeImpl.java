@@ -1,20 +1,30 @@
 package org.gnucash.api.write.impl;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
+import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
+import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
+import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,6 +135,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
+    @SuppressWarnings("exports")
     public GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
@@ -270,6 +281,74 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	helper.setUserDefinedAttribute(name, value);
     }
 
+    // -----------------------------------------------------------------
+    // The methods in this part are overridden methods from
+    // GnucashEmployeeImpl.
+    // They are actually necessary -- if we used the according methods 
+    // in the super class, the results would be incorrect.
+    // Admittedly, this is probably the most elegant solution, but it works.
+    // (In fact, I have been bug-hunting long hours before fixing it
+    // by these overrides, and to this day, I have not fully understood
+    // all the intricacies involved, to be honest. Moving on to other
+    // to-dos...).
+    // Cf. comments in FileInvoiceManager (write-version).
+
+    @Override
+    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	try {
+	    return getWritableGnucashFile().getUnpaidWritableVouchersForEmployee(this).size();
+	} catch (TaxTableNotFoundException e) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+    }
+
+    // ----------------------------
+
+    @Override
+    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+	Collection<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
+	
+	try {
+	    for ( GnucashWritableEmployeeVoucher wrtblVch : getPaidWritableVouchers() ) {
+		GnucashEmployeeVoucherImpl rdblVch = GnucashWritableEmployeeVoucherImpl.toReadable((GnucashWritableEmployeeVoucherImpl) wrtblVch);
+		result.add(rdblVch);
+	    }
+	} catch ( TaxTableNotFoundException exc ) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+	
+	return result;
+    }
+
+    @Override
+    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+	Collection<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
+	
+	try {
+	    for ( GnucashWritableEmployeeVoucher wrtblVch : getUnpaidWritableVouchers() ) {
+		GnucashEmployeeVoucherImpl rdblVch = GnucashWritableEmployeeVoucherImpl.toReadable((GnucashWritableEmployeeVoucherImpl) wrtblVch);
+		result.add(rdblVch);
+	    }
+	} catch ( TaxTableNotFoundException exc ) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+	
+	return result;
+    }
+
+    
+    // -----------------------------------------------------------------
+    // The methods in this part are the "writable"-variants of 
+    // the according ones in the super class GnucashEmployeeImpl.
+
+    public Collection<GnucashWritableEmployeeVoucher> getPaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+	return getWritableGnucashFile().getPaidWritableVouchersForEmployee(this);
+    }
+
+    public Collection<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+	return getWritableGnucashFile().getUnpaidWritableVouchersForEmployee(this);
+    }
+    
     // -----------------------------------------------------------------
 
     @Override

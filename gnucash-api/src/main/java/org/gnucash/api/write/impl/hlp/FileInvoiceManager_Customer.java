@@ -43,11 +43,10 @@ public abstract class FileInvoiceManager_Customer {
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
 		try {
-		    retval.add(new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc));
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
+		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
+		    retval.add(wrtblInvc);
+		} catch (Exception e) {
+		    LOGGER.error("getInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
 	}
@@ -97,10 +96,8 @@ public abstract class FileInvoiceManager_Customer {
 		try {
 		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getPaidInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
+		} catch (Exception e) {
+		    LOGGER.error("getPaidInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
 	}
@@ -145,15 +142,13 @@ public abstract class FileInvoiceManager_Customer {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableCustomerInvoice> retval = new LinkedList<GnucashWritableCustomerInvoice>();
 
-	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
+	for ( GnucashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
 		try {
 		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
-		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
-		    LOGGER.error("getUnpaidInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
+		} catch (Exception e) {
+		    LOGGER.error("getUnpaidInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
 	}

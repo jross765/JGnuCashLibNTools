@@ -19,6 +19,7 @@ import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
@@ -37,9 +38,6 @@ import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * TODO write a comment what this type does here
- */
 public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceImpl 
                                            implements GnucashWritableJobInvoice 
 {
@@ -105,7 +103,7 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_JOB )
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	// Caution: In the following two loops, we may *not* iterate directly over
@@ -412,6 +410,12 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	throw new WrongInvoiceTypeException();
     }
     */
+
+    @Override
+    protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+	    throws WrongInvoiceTypeException {
+	throw new WrongInvoiceTypeException();
+    }
 
     /**
      * Throw an IllegalStateException if we are not modifiable.

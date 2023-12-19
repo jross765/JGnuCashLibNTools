@@ -11,20 +11,22 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherEntryImpl;
+import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -34,9 +36,6 @@ import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * TODO write a comment what this type does here
- */
 public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvoiceImpl 
                                                 implements GnucashWritableEmployeeVoucher
 {
@@ -102,9 +101,9 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_EMPLOYEE )
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
-
+	
 	// Caution: In the following two loops, we may *not* iterate directly over
 	// invc.getGenerEntries(), because else, we will produce a ConcurrentModificationException.
 	// (It only works if the invoice has one single entry.)
@@ -389,12 +388,6 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
     }
 
     @Override
-    protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException {
-	throw new WrongInvoiceTypeException();
-    }
-
-    @Override
     protected GCshID getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 	    throws WrongInvoiceTypeException {
 	throw new WrongInvoiceTypeException();
@@ -448,6 +441,13 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 		this, getEmployee(), 
 		expensesAcct, payablAcct, 
 		postDate, dueDate);
+    }
+
+    // ---------------------------------------------------------------
+	
+    public static GnucashEmployeeVoucherImpl toReadable(GnucashWritableEmployeeVoucherImpl invc) {
+	GnucashEmployeeVoucherImpl result = new GnucashEmployeeVoucherImpl(invc.getJwsdpPeer(), invc.getFile());
+	return result;
     }
 
 }

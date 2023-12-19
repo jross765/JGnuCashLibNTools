@@ -6,13 +6,19 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
+import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,6 +33,10 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableEmployeeImpl
 {
+    private static final GCshID EMPL_1_ID = TestGnucashEmployeeImpl.EMPL_1_ID;
+  
+    // -----------------------------------------------------------------
+
     private GnucashWritableFileImpl gcshInFile = null;
     private String outFileGlobNameAbs = null;
     private File outFileGlob = null;
@@ -85,9 +95,78 @@ public class TestGnucashWritableEmployeeImpl
   }
 
   // -----------------------------------------------------------------
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashEmployeeImpl.test01_1/02_2
+  // 
+  // Check whether the GnucashWritableEmployee objects returned by 
+  // GnucashWritableFileImpl.getWritableEmployeeByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getEmployeeByID().
+  
+  @Test
+  public void test01_1_1() throws Exception
+  {
+    GnucashWritableEmployee empl = gcshInFile.getEmployeeByID(EMPL_1_ID);
+    assertNotEquals(null, empl);
+    
+    assertEquals(EMPL_1_ID, empl.getID());
+    assertEquals("000001", empl.getNumber());
+    assertEquals("otwist", empl.getUserName());
+    assertEquals("Oliver Twist", empl.getAddress().getAddressName());
+  }
 
   @Test
-  public void test01_1() throws Exception
+  public void test01_1_2() throws Exception
+  {
+      GnucashWritableEmployee empl = gcshInFile.getEmployeeByID(EMPL_1_ID);
+      assertNotEquals(null, empl);
+      
+      assertEquals(1, ((GnucashWritableEmployeeImpl) empl).getNofOpenVouchers());
+      assertEquals(empl.getNofOpenVouchers(), ((GnucashWritableEmployeeImpl) empl).getNofOpenVouchers()); // not trivial
+
+      assertEquals(0, ((GnucashWritableEmployeeImpl) empl).getPaidVouchers().size());
+      assertEquals(empl.getPaidVouchers().size(), ((GnucashWritableEmployeeImpl) empl).getPaidVouchers().size()); // not trivial
+      
+//    vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
+//    Collections.sort(vchList);
+//    assertEquals("xxx", 
+//                 ((GnucashVendorBill) vchList.toArray()[0]).getID() );
+
+      assertEquals(1, ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
+      assertEquals(empl.getUnpaidVouchers().size(), ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
+      
+      ArrayList<GnucashEmployeeVoucher> vchList = (ArrayList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers();
+      Collections.sort(vchList);
+      assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
+                   ((GnucashEmployeeVoucher) vchList.toArray()[0]).getID().toString() );
+  }
+
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableEmployee objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  @Test
+  public void test03_1() throws Exception
   {
       GnucashWritableEmployee empl = gcshInFile.createWritableEmployee();
       empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
@@ -135,7 +214,7 @@ public class TestGnucashWritableEmployeeImpl
 //  }
 
   @Test
-  public void test01_3() throws Exception
+  public void test03_3() throws Exception
   {
       assertNotEquals(null, outFileGlob);
       assertEquals(true, outFileGlob.exists());
@@ -164,7 +243,7 @@ public class TestGnucashWritableEmployeeImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test02_1() throws Exception
+  public void test03_4() throws Exception
   {
       GnucashWritableEmployee empl1 = gcshInFile.createWritableEmployee();
       empl1.setNumber(GnucashEmployeeImpl.getNewNumber(empl1));
@@ -191,7 +270,7 @@ public class TestGnucashWritableEmployeeImpl
   }
   
   @Test
-  public void test02_3() throws Exception
+  public void test03_5() throws Exception
   {
       assertNotEquals(null, outFileGlob);
       assertEquals(true, outFileGlob.exists());

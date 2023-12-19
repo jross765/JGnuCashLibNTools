@@ -198,7 +198,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
-	    for (GnucashEmployeeVoucher vchSpec : getPaidVouchers_direct()) {
+	    for (GnucashEmployeeVoucher vchSpec : getPaidVouchers()) {
 //		    if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_EMPLOYEE) ) {
 //		      GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
 		GnucashEmployee empl = vchSpec.getEmployee();
@@ -274,7 +274,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
-	    for (GnucashEmployeeVoucher vchSpec : getUnpaidVouchers_direct()) {
+	    for (GnucashEmployeeVoucher vchSpec : getUnpaidVouchers()) {
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_VENDOR) ) {
 //              GnucashEmployeeVoucher vchSpec = new GnucashEmployeeVoucherImpl(invcGen); 
 		GnucashEmployee empl = vchSpec.getEmployee();
@@ -333,12 +333,12 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getPaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	return getGnucashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
 

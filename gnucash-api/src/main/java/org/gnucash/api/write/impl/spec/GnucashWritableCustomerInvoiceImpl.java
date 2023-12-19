@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCustomer;
@@ -18,6 +19,7 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
@@ -31,13 +33,9 @@ import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * TODO write a comment what this type does here
- */
 public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvoiceImpl 
                                                 implements GnucashWritableCustomerInvoice 
 {
@@ -103,7 +101,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 
 	// No, we cannot check that first, because the super() method
 	// always has to be called first.
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GnucashGenerInvoice.TYPE_CUSTOMER )
+	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.CUSTOMER )
 	    throw new WrongInvoiceTypeException();
 
 	// Caution: In the following two loops, we may *not* iterate directly over
@@ -444,9 +442,9 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 
     // ---------------------------------------------------------------
 	
-	public static GnucashCustomerInvoiceImpl toReadable(GnucashWritableCustomerInvoiceImpl invc) {
-	    GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
-	    return result;
-	}
+    public static GnucashCustomerInvoiceImpl toReadable(GnucashWritableCustomerInvoiceImpl invc) {
+	GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
+	return result;
+    }
 
 }

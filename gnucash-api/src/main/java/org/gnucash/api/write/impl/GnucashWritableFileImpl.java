@@ -1388,6 +1388,24 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForCustomer_direct(cust);
     }
 
+    // ----------------------------
+    
+    // ::TODO: For vendor bills
+    
+    // ----------------------------
+    
+    public Collection<GnucashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnucashEmployee empl) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableVouchersForEmployee(empl);
+    }
+
+    public Collection<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnucashEmployee empl) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableVouchersForEmployee(empl);
+    }
+
+    // ----------------------------
+    
+    // ::TODO: For job invoices
+    
     // ---------------------------------------------------------------
     
     @Override

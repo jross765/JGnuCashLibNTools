@@ -396,8 +396,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     @Override
     public GCshTaxTable getVoucherTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException {
-	if ( getType() != GCshOwner.Type.EMPLOYEE && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	if (myBillTaxtable == null) {
@@ -756,8 +755,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     @Override
     public FixedPointNumber getVoucherPrice() throws WrongInvoiceTypeException {
-	if ( getType() != GCshOwner.Type.EMPLOYEE && 
-	     getType() != GCshOwner.Type.JOB )
+	if ( getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
@@ -1187,8 +1185,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     @Override
     public boolean isVoucherTaxable() throws WrongInvoiceTypeException {
-	if ( getType() != GnucashGenerInvoice.TYPE_EMPLOYEE && 
-	     getType() != GnucashGenerInvoice.TYPE_JOB )
+	if ( getType() != GnucashGenerInvoice.TYPE_EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	return (jwsdpPeer.getEntryBTaxable() == 1);

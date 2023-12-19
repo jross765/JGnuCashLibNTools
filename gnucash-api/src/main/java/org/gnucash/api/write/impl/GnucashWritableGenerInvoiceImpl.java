@@ -1934,16 +1934,20 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	GCshTaxTable taxTab = null;
 
-	if (generInvcEntr.isInvcTaxable()) {
-	    taxTab = generInvcEntr.getInvcTaxTable();
-	    if (taxTab == null) {
-		throw new IllegalArgumentException("The given customer invoice entry has no i-tax-table (its i-taxtable-id is '"
-			+ generInvcEntr.getJwsdpPeer().getEntryITaxtable().getValue() + "')");
+	if ( generInvcEntr.isInvcTaxable() ) {
+	    try {
+		taxTab = generInvcEntr.getInvcTaxTable();
+		if (taxTab == null) {
+		    throw new IllegalArgumentException("The given customer invoice entry has no i-tax-table (entry ID: " + generInvcEntr.getID() + "')");
+		}
+
+		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
+		getFile().setModified(true);
+	    } catch ( TaxTableNotFoundException exc ) {
+		// throw new IllegalArgumentException("The given customer invoice entry has no i-tax-table (entry ID: " + generInvcEntr.getID() + "')");
+		LOGGER.error("addInvcEntry: The given customer invoice entry has no i-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
 	    }
 	}
-
-	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
     }
 
     /**
@@ -1982,16 +1986,20 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	GCshTaxTable taxTab = null;
 
-	if (generInvcEntr.isBillTaxable()) {
-	    taxTab = generInvcEntr.getBillTaxTable();
-	    if (taxTab == null) {
-		throw new IllegalArgumentException("The given vendor bill entry has no b-tax-table (its b-taxtable-id is '"
-			+ generInvcEntr.getJwsdpPeer().getEntryBTaxtable().getValue() + "')");
+	if ( generInvcEntr.isBillTaxable() ) {
+	    try {
+		taxTab = generInvcEntr.getBillTaxTable();
+		if (taxTab == null) {
+		    throw new IllegalArgumentException("The given vendor bill entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + "')");
+		}
+
+		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
+		getFile().setModified(true);
+	    } catch ( TaxTableNotFoundException exc ) {
+		// throw new IllegalArgumentException("The given vendor bill entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + "')");
+		LOGGER.error("addBillEntry: The given vendor bill entry has no b-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
 	    }
 	}
-
-	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
     }
 
     /**
@@ -2010,8 +2018,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     public void addVoucherEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	if ( getType() != GCshOwner.Type.EMPLOYEE &&
-	     getType() != GCshOwner.Type.JOB ) // ::CHECK
+	if ( getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 	
 //	System.err.println("GnucashWritableGenerInvoiceImpl.addVoucherEntry " + generInvcEntr.toString());
@@ -2030,16 +2037,20 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	GCshTaxTable taxTab = null;
 
-	if (generInvcEntr.isVoucherTaxable()) {
-	    taxTab = generInvcEntr.getVoucherTaxTable();
-	    if (taxTab == null) {
-		throw new IllegalArgumentException("The given employee voucher entry has no b-tax-table (its b-taxtable-id is '"
-			+ generInvcEntr.getJwsdpPeer().getEntryBTaxtable().getValue() + "')");
+	if ( generInvcEntr.isVoucherTaxable() ) {
+	    try {
+		taxTab = generInvcEntr.getVoucherTaxTable();
+		if (taxTab == null) {
+		    throw new IllegalArgumentException("The given employee voucher entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + ")");
+		}
+
+		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
+		getFile().setModified(true);
+	    } catch ( TaxTableNotFoundException exc ) {
+		// throw new IllegalArgumentException("The given employee voucher entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + ")";
+		LOGGER.error("addVoucherEntry: The given employee voucher entry has no b-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
 	    }
 	}
-
-	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
     }
 
     /**
@@ -2077,17 +2088,20 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	GCshTaxTable taxTab = null;
 
-	if (generInvcEntr.isJobTaxable()) {
-	    taxTab = generInvcEntr.getJobTaxTable();
-	    if (taxTab == null) {
-		throw new IllegalArgumentException("The given job invoice entry has no b/i-tax-table (its b/i-taxtable-id is '"
-			+ generInvcEntr.getJwsdpPeer().getEntryBTaxtable().getValue() + "' and " 
-			+ generInvcEntr.getJwsdpPeer().getEntryITaxtable().getValue() + "' resp.)");
+	if ( generInvcEntr.isJobTaxable() ) {
+	    try {
+		taxTab = generInvcEntr.getJobTaxTable();
+		if (taxTab == null) {
+		    throw new IllegalArgumentException("The given job invoice entry has no b/i-tax-table (entry ID: " + generInvcEntr.getID() + ")");
+		}
+		
+		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
+		getFile().setModified(true);
+	    } catch ( TaxTableNotFoundException exc ) {
+		// throw new IllegalArgumentException("The given job invoice entry has no b/i-tax-table (entry ID: " + generInvcEntr.getID() + ")");
+		LOGGER.error("addJobEntry: The given job invoice entry has no b/i-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
 	    }
 	}
-
-	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
     }
 
     // ---------------------------------------------------------------

@@ -508,4 +508,5 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	buffer.append("]");
 	return buffer.toString();
     }
+    
 }

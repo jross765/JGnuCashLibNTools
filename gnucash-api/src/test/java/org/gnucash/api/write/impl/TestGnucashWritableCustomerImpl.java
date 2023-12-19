@@ -105,8 +105,8 @@ public class TestGnucashWritableCustomerImpl
   // Cf. TestGnucashCustomerImpl.test01_1/02_2
   // 
   // Check whether the GnucashWritableCustomer objects returned by 
-  // GnucashWritableFileImpl.getWritableTransactionByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getTransactionByID().
+  // GnucashWritableFileImpl.getWritableCustomerByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getCustomerByID().
   
   @Test
   public void test01_1_1() throws Exception
@@ -137,11 +137,14 @@ public class TestGnucashWritableCustomerImpl
       GnucashWritableCustomer cust = gcshInFile.getCustomerByID(CUST_1_ID);
       assertNotEquals(null, cust);
 
+      assertEquals(1, ((GnucashWritableCustomerImpl) cust).getNofOpenInvoices());
+      assertEquals(cust.getNofOpenInvoices(), ((GnucashWritableCustomerImpl) cust).getNofOpenInvoices()); // not trivial
+
       assertEquals(1, ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size());
       assertEquals(cust.getPaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
       assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
                    ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getID().toString());
-      assertEquals(1, cust.getNofOpenInvoices());
+      
       assertEquals(1, ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
       assertEquals(cust.getUnpaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial!
       assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 

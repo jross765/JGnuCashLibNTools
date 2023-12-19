@@ -254,13 +254,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    final FixedPointNumber quantity, 
 	    final FixedPointNumber price) throws WrongInvoiceTypeException, IllegalArgumentException {
 
-	if ( invc.getType() != GCshOwner.Type.EMPLOYEE &&
-	     invc.getType() != GCshOwner.Type.JOB )
+	if ( invc.getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
-
+	
 	if (!invc.isModifiable()) {
 	    throw new IllegalArgumentException("The given employee voucher has payments and is thus not modifiable");
 	}

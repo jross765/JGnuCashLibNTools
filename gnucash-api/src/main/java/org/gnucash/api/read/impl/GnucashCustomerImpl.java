@@ -527,4 +527,5 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	buffer.append("]");
 	return buffer.toString();
     }
+    
 }

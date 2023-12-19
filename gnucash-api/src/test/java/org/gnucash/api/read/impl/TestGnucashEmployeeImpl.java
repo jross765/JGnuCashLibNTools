@@ -86,10 +86,11 @@ public class TestGnucashEmployeeImpl
     assertNotEquals(null, empl);
     
     assertEquals(1, empl.getNofOpenVouchers());
-    assertEquals(1, empl.getUnpaidVouchers_direct().size());
-    assertEquals(0, empl.getPaidVouchers_direct().size());
     
-    LinkedList<GnucashEmployeeVoucher> vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers_direct();
+    assertEquals(0, empl.getPaidVouchers().size());
+    
+    assertEquals(1, empl.getUnpaidVouchers().size());
+    LinkedList<GnucashEmployeeVoucher> vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers();
     Collections.sort(vchList);
     assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
                  ((GnucashEmployeeVoucher) vchList.toArray()[0]).getID().toString() );

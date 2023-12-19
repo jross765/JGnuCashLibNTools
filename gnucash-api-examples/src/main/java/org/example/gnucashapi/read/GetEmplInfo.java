@@ -113,13 +113,13 @@ public class GetEmplInfo {
 
 	System.out.println("");
 	System.out.println("Paid vouchers (direct):");
-	for (GnucashEmployeeVoucher vch : empl.getPaidVouchers_direct()) {
+	for (GnucashEmployeeVoucher vch : empl.getPaidVouchers()) {
 	    System.out.println(" - " + vch.toString());
 	}
 	
 	System.out.println("");
 	System.out.println("Unpaid vouchers (direct):");
-	for (GnucashEmployeeVoucher vch : empl.getUnpaidVouchers_direct()) {
+	for (GnucashEmployeeVoucher vch : empl.getUnpaidVouchers()) {
 	    System.out.println(" - " + vch.toString());
 	}
 	
