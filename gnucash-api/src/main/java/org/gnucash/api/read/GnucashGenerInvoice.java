@@ -130,25 +130,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -176,25 +176,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
@@ -222,25 +222,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the vendor is yet to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the vendor has already received (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the vendor has already received (incl. taxes)
@@ -266,25 +266,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the employee is yet to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
    * @throws UnknownAccountTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getVoucherAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getVoucherAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the employee has already received (incl. taxes)
    * @throws WrongInvoiceTypeException
    * @throws UnknownAccountTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getVoucherAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getVoucherAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the employee has already received (incl. taxes)
@@ -312,25 +312,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the vendor is still to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the vendor already has received (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the vendor already has received (incl. taxes)
@@ -360,25 +360,25 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the employee is still to receive (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getVoucherAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getVoucherAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the employee already has received (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getVoucherAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getVoucherAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the employee already has received (incl. taxes)
@@ -406,58 +406,58 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer needs to pay in total (incl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobAmountWithTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobAmountWithTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer needs to pay in total (excl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobAmountWithoutTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobAmountWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
 // ----------------------------
 
@@ -467,60 +467,60 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
    * @return what the customer must still pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
  * @throws UnknownAccountTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer has already pay (incl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * Formating uses the default-locale's currency-format.
    * 
    * @return what the customer needs to pay in total (incl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobAmountWithTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobAmountWithTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * @return what the customer needs to pay in total (excl. taxes)
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 
@@ -612,27 +612,27 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
 
   // ---------------------------------------------------------------
 
-  boolean isInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-  boolean isNotInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
-
-  // ----------------------------
-
-  boolean isBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
-
-  boolean isNotBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isNotInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   // ----------------------------
 
-  boolean isVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-  boolean isNotVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isNotBillFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   // ----------------------------
 
-  boolean isJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-  boolean isNotJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isNotVoucherFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+
+  // ----------------------------
+
+  boolean isJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+
+  boolean isNotJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 

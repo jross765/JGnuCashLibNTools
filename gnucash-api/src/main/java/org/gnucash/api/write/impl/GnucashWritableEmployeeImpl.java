@@ -140,7 +140,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	super(createEmployee_int(file, GCshID.getNew()), file);
     }
 
-    public GnucashWritableEmployeeImpl(GnucashEmployeeImpl empl) {
+    public GnucashWritableEmployeeImpl(final GnucashEmployeeImpl empl) {
 	super(empl.getJwsdpPeer(), empl.getGnucashFile());
     }
 
@@ -268,6 +268,26 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     @Override
     public void setUserDefinedAttribute(final String name, final String value) {
 	helper.setUserDefinedAttribute(name, value);
+    }
+
+    // -----------------------------------------------------------------
+
+    @Override
+    public String toString() {
+	StringBuffer buffer = new StringBuffer();
+	buffer.append("GnucashWritableEmployeeImpl [");
+	
+	buffer.append("id=");
+	buffer.append(getID());
+	
+	buffer.append(", number='");
+	buffer.append(getNumber() + "'");
+	
+	buffer.append(", name='");
+	buffer.append(getUserName() + "'");
+	
+	buffer.append("]");
+	return buffer.toString();
     }
 
 }

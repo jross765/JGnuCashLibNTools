@@ -21,32 +21,32 @@ import org.gnucash.api.read.UnknownAccountTypeException;
  */
 public interface SpecInvoiceCommon {
 
-    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
-    public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
     
-    public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
     // ----------------------------
 
-    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
-    public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
-    public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
     // ---------------------------------------------------------------
 
-    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
 }

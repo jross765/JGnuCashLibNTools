@@ -191,24 +191,24 @@ public interface GnucashWritableFile extends GnucashFile,
     
     /**
      * @return a new transaction with no splits that is already added to this file
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashWritableTransaction createWritableTransaction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashWritableTransaction createWritableTransaction() throws IllegalArgumentException;
 
     /**
      *
      * @param impl the transaction to remove.
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    void removeTransaction(GnucashWritableTransaction impl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    void removeTransaction(GnucashWritableTransaction impl) throws IllegalArgumentException;
 
     // ---------------------------------------------------------------
 
@@ -270,7 +270,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -284,7 +284,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount receivableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -292,7 +292,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a new invoice with no entries that is already added to this file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -306,7 +306,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -314,7 +314,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a new invoice with no entries that is already added to this file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -328,7 +328,7 @@ public interface GnucashWritableFile extends GnucashFile,
 //	    final GnucashAccount payableAcct,
 //	    final LocalDate openedDate,
 //	    final LocalDate postDate,
-//	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+//	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -336,7 +336,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a new invoice with no entries that is already added to this file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -350,7 +350,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final GnucashAccount recvblPayblAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
 
     // -----------------------------------------------------------
 

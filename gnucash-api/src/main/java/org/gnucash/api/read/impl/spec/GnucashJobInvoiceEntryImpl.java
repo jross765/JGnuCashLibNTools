@@ -69,7 +69,7 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
   }
   
   @Override
-  public GnucashJobInvoice getInvoice() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public GnucashJobInvoice getInvoice() throws WrongInvoiceTypeException, IllegalArgumentException
   {
     if ( myInvoice == null )
     {
@@ -91,12 +91,12 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
   // ---------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getPrice() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+  public FixedPointNumber getPrice() throws WrongInvoiceTypeException, IllegalArgumentException {
     return getJobPrice();
   }
 
   @Override
-  public String getPriceFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+  public String getPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException {
       return getJobPriceFormatted();
   }
   

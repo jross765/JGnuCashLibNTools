@@ -41,6 +41,7 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.NoEntryFoundException;
+import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshPrice;
@@ -51,8 +52,8 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
-import org.gnucash.api.read.impl.hlp.FilePriceManager;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -71,6 +72,7 @@ import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.aux.GCshWritablePrice;
 import org.gnucash.api.write.impl.aux.GCshWritablePriceImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
+import org.gnucash.api.write.impl.hlp.FilePriceManager;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
 import org.gnucash.api.write.impl.hlp.WritingContentHandler;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
@@ -123,11 +125,11 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws IOException on bsic io-problems such as a FileNotFoundException
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws ClassNotFoundException 
      * @throws NoSuchFieldException 
      */
-    public GnucashWritableFileImpl(final File file) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    public GnucashWritableFileImpl(final File file) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super(file);
 	setModified(false);
 	
@@ -146,7 +148,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	prcMgr      = new org.gnucash.api.write.impl.hlp.FilePriceManager(this);
     }
 
-    public GnucashWritableFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    public GnucashWritableFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super(is);
 	
 	acctMgr     = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
@@ -418,7 +420,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see {@link GnucashFileImpl#loadFile(java.io.File)}
      */
     @Override
-    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    protected void loadFile(final File pFile) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super.loadFile(pFile);
 	lastWriteTime = Math.max(pFile.lastModified(), System.currentTimeMillis());
     }
@@ -490,7 +492,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashFileImpl#setRootElement(GncV2)
      */
     @Override
-    protected void setRootElement(final GncV2 rootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    protected void setRootElement(final GncV2 rootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	super.setRootElement(rootElement);
     }
 
@@ -631,7 +633,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     /**
      * Used by GnucashTransactionImpl.createTransaction to add a new Transaction to
      * this file.
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -639,7 +641,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      *
      * @see GnucashTransactionImpl#createSplit(GncTransaction.TrnSplits.TrnSplit)
      */
-    protected void addTransaction(final GnucashTransactionImpl trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    protected void addTransaction(final GnucashTransactionImpl trx) throws IllegalArgumentException {
 	getRootElement().getGncBook().getBookElements().add(trx.getJwsdpPeer());
 	setModified(true);
 	super.trxMgr.addTransaction(trx);
@@ -647,13 +649,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param trx what to remove
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public void removeTransaction(final GnucashWritableTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void removeTransaction(final GnucashWritableTransaction trx) throws IllegalArgumentException {
 
 	Collection<GnucashWritableTransactionSplit> c = new LinkedList<GnucashWritableTransactionSplit>();
 	c.addAll(trx.getWritableSplits());
@@ -857,25 +859,25 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * {@inheritDoc}
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public GnucashWritableTransaction createWritableTransaction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public GnucashWritableTransaction createWritableTransaction() throws IllegalArgumentException {
 	return new GnucashWritableTransactionImpl(this);
     }
 
     /**
      * {@inheritDoc}
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public GnucashWritableTransaction createWritableTransaction(final String id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public GnucashWritableTransaction createWritableTransaction(final String id) throws IllegalArgumentException {
 	return new GnucashWritableTransactionImpl(this);
     }
 
@@ -887,7 +889,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws WrongInvoiceTypeException
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -903,7 +905,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    final GnucashAccount receivableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
 	if (cust == null) {
 	    throw new IllegalArgumentException("null customer given");
 	}
@@ -926,7 +928,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws WrongInvoiceTypeException
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -941,7 +943,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    final GnucashAccount payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
 	if (vend == null) {
 	    throw new IllegalArgumentException("null vendor given");
 	}
@@ -964,7 +966,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws WrongInvoiceTypeException
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -979,7 +981,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    final GnucashAccount payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
 	if (empl == null) {
 	    throw new IllegalArgumentException("null empl given");
 	}
@@ -1002,7 +1004,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @throws WrongInvoiceTypeException
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -1018,7 +1020,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
 	    final LocalDate dueDate)
-	    throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
 	if (job == null) {
 	    throw new IllegalArgumentException("null job given");
 	}
@@ -1229,13 +1231,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     /**
      * @param impl an invoice to remove
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    public void removeInvoice(final GnucashWritableGenerInvoice impl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void removeInvoice(final GnucashWritableGenerInvoice impl) throws IllegalArgumentException {
 
 	if (impl.getPayingTransactions().size() > 0) {
 	    throw new IllegalArgumentException("cannot remove this invoice! It has payments!");
@@ -1374,6 +1376,49 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	getRootElement().getGncBook().getBookElements().remove(((GCshWritablePriceImpl) prc).getJwsdpPeer());
 	setModified(true);
+    }
+
+    // ---------------------------------------------------------------
+    
+    public Collection<GnucashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(final GnucashCustomer cust) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableInvoicesForCustomer_direct(cust);
+    }
+
+    public Collection<GnucashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(final GnucashCustomer cust) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForCustomer_direct(cust);
+    }
+
+    // ---------------------------------------------------------------
+    
+    @Override
+    public String toString() {
+	String result = "GnucashWritableFileImpl: [\n";
+	
+	result += "  Stats (raw):\n"; 
+	GCshFileStats stats;
+	try {
+	    stats = new GCshFileStats(this);
+
+	    result += "    No. of accounts:                  " + stats.getNofEntriesAccounts(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of transactions:              " + stats.getNofEntriesTransactions(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of transaction splits:        " + stats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) invoices:        " + stats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) invoice entries: " + stats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of customers:                 " + stats.getNofEntriesCustomers(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of vendors:                   " + stats.getNofEntriesVendors(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of employees:                 " + stats.getNofEntriesEmployees(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of (generic) jobs:            " + stats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW) + "\n"; 
+	    result += "    No. of commodities:               " + stats.getNofEntriesCommodities(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of tax tables:                " + stats.getNofEntriesTaxTables(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of bill terms:                " + stats.getNofEntriesBillTerms(GCshFileStats.Type.RAW) + "\n";
+	    result += "    No. of prices:                    " + stats.getNofEntriesPrices(GCshFileStats.Type.RAW) + "\n";
+	} catch (Exception e) {
+	    result += "ERROR\n"; 
+	}
+	
+	result += "]";
+	
+	return result;
     }
 
 }

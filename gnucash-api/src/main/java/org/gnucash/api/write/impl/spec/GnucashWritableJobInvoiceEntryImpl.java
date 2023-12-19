@@ -71,7 +71,7 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
-	 * @throws IllegalAccessException 
+	 * @throws 
 	 * @throws IllegalArgumentException 
 	 * @throws ClassNotFoundException 
 	 * @throws SecurityException 
@@ -81,7 +81,7 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		final GnucashWritableJobInvoiceImpl invc,
 		final GnucashAccount account,
 		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException {
 		super(invc, 
 		      createJobInvoiceEntry_int(invc, account, quantity, price));
 		
@@ -117,24 +117,24 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 
 	@Override
 	public void setTaxable(boolean val)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setJobTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setJobTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setJobPrice(price);
 	}
 
 	@Override
-	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setJobPrice(price);
 	}
 

@@ -67,7 +67,7 @@ public class GetTrxInfo {
 
     // -----------------------------------------------------------------
 
-    private void showSplits(GnucashTransaction trx) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    private void showSplits(GnucashTransaction trx) throws IllegalArgumentException {
 	System.out.println("");
 	System.out.println("Splits:");
 

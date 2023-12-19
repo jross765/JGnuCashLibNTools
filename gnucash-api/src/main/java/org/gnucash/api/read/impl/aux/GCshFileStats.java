@@ -32,7 +32,7 @@ public class GCshFileStats {
 
     // ---------------------------------------------------------------
     
-    public GCshFileStats(GnucashFileImpl gcshFile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, ClassNotFoundException, IllegalAccessException, IOException {
+    public GCshFileStats(GnucashFileImpl gcshFile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IOException {
 	raw = new FileStats_Raw(gcshFile);
 	cnt = new FileStats_Counters(gcshFile);
 	che = new FileStats_Cache(gcshFile);

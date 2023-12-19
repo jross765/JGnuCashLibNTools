@@ -42,18 +42,22 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 	  return code;
       }
 	
-      public String getLocaleString() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+      public String getLocaleString() throws IllegalArgumentException {
 	  return getLocaleString(Locale.getDefault());
       }
 
-      public String getLocaleString(Locale lcl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	  Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-	  Field fld = cls.getDeclaredField(code);
-	  return (String) fld.get(null);
+      public String getLocaleString(Locale lcl) throws IllegalArgumentException {
+	  try {
+	      Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
+	      Field fld = cls.getDeclaredField(code);
+	      return (String) fld.get(null);
+	  } catch ( Exception exc ) {
+	      throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+	  }
       }
 		
       // no typo!
-      public static Action valueOff(String code) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+      public static Action valueOff(String code) throws IllegalArgumentException {
 	  for ( Action val : values() ) {
 	      if ( val.getLocaleString().equals(code) ) {
 		  return val;
@@ -143,13 +147,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    * @return For a job invoice, return the price of one single of the
    *         ${@link #getQuantity()} items of type ${@link #getAction()}.
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobPrice() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobPrice() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ----------------------------
 
@@ -170,13 +174,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 
   /**
    * @return As ${@link #getJobPrice()}, but formatted.
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobPriceFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 
@@ -185,13 +189,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * for Germany.
    * 
    * @return HOURS or ITEMS, ....
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  Action getAction() throws IllegalArgumentException;
 
   /**
    * @return the number of items of price ${@link #getInvcPrice()} and type
@@ -244,7 +248,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    */
   boolean isVoucherTaxable() throws WrongInvoiceTypeException;
 
-  boolean isJobTaxable() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  boolean isJobTaxable() throws WrongInvoiceTypeException, IllegalArgumentException;
   
   // ------------------------------
 
@@ -254,7 +258,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 
   public GCshTaxTable getVoucherTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
 
-  public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException, IllegalArgumentException;
 
   // ------------------------------
 
@@ -283,13 +287,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    *
    * @return e.g. "0.16" for "16%"
    * @throws WrongInvoiceTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ------------------------------
 
@@ -314,13 +318,13 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    * @return never null, "0%" if no taxtable is there
  * @throws WrongInvoiceTypeException 
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 
@@ -489,7 +493,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * 
    * @return count*single-unit-price excluding or including taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
@@ -497,29 +501,29 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @see #getInvcSumExclTaxes()
    * @see #getInvcSumInclTaxes()
    */
-  FixedPointNumber getJobSum() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobSum() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * @return count*single-unit-price including taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * @return count*single-unit-price excluding taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ----------------------------
 
@@ -528,7 +532,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * 
    * @return count*single-unit-price excluding or including taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
@@ -536,33 +540,33 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * @see #getInvcSumExclTaxes()
    * @see #getInvcSumInclTaxes()
    */
-  String getJobSumFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobSumFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * As ${@link #getInvcSumInclTaxes()}. but formatted.
    * 
    * @return count*single-unit-price including taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   /**
    * As ${@link #getInvcSumExclTaxes()}. but formatted.
    * 
    * @return count*single-unit-price excluding taxes.
    * @throws WrongInvoiceTypeException
- * @throws IllegalAccessException 
+ * @throws 
  * @throws IllegalArgumentException 
  * @throws ClassNotFoundException 
  * @throws SecurityException 
  * @throws NoSuchFieldException 
    */
-  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 

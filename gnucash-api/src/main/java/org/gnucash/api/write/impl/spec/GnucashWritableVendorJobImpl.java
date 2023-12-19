@@ -66,14 +66,14 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
     /**
      * @throws WrongInvoiceTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashWritableVendorJob#remove()
      */
-    public void remove() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void remove() throws WrongInvoiceTypeException, IllegalArgumentException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot remove a job that has invoices!");
 	}
@@ -176,14 +176,14 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
     /**
      * @throws WrongInvoiceTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashWritableVendorJob#setVendor(GnucashVendor)
      */
-    public void setVendor(final GnucashVendor vend) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void setVendor(final GnucashVendor vend) throws WrongInvoiceTypeException, IllegalArgumentException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot change vendor of a job that has invoices!");
 	}

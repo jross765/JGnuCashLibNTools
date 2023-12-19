@@ -96,7 +96,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	public GnucashWritableAccountImpl(
 		final GnucashAccount acct,
-		final boolean addSplits) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException, UnknownAccountTypeException {
+		final boolean addSplits) throws IllegalArgumentException, UnknownAccountTypeException {
 	    super(acct.getJwsdpPeer(), acct.getGnucashFile());
 
 	    if ( addSplits ) {
@@ -548,6 +548,39 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		return retval;
 	}
 
-	//  -------------------------------------------------------
+	    // -----------------------------------------------------------------
 
+	@Override
+	    public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnucashWritableAccountImpl [");
+		
+		buffer.append("id=");
+		buffer.append(getID());
+		
+		buffer.append(", code='");
+		buffer.append(getCode() + "'");
+		
+		buffer.append(", type=");
+		try {
+		    buffer.append(getType());
+		} catch (UnknownAccountTypeException e) {
+		    buffer.append("ERROR");
+		}
+		
+		buffer.append(", qualif-name='");
+		buffer.append(getQualifiedName() + "'");
+		
+		buffer.append(", commodity/currency='");
+		try {
+		    buffer.append(getCmdtyCurrID() + "'");
+		} catch (InvalidCmdtyCurrTypeException e) {
+		    buffer.append("ERROR");
+		}
+		
+		buffer.append("]");
+		
+		return buffer.toString();
+	    }
+	    
 }

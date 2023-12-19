@@ -8,7 +8,7 @@ public interface GnucashVendorBillEntry extends GnucashGenerInvoiceEntry
 {
   GCshID getBillID();
 
-  GnucashVendorBill getBill() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+  GnucashVendorBill getBill() throws WrongInvoiceTypeException, IllegalArgumentException;
   
   // -----------------------------------------------------------------
 

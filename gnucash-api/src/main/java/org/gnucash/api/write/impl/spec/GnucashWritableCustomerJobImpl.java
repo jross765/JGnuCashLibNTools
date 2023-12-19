@@ -66,14 +66,14 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
     /**
      * @throws WrongInvoiceTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashWritableCustomerJob#remove()
      */
-    public void remove() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void remove() throws WrongInvoiceTypeException, IllegalArgumentException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot remove a job that has invoices!");
 	}
@@ -176,14 +176,14 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashWritableCustomerJob#setCustomer(GnucashCustomer)
      */
-    public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException, IllegalArgumentException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot change customer of a job that has invoices!");
 	}

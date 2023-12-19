@@ -105,7 +105,7 @@ public class GetEmplInfo {
 
     // -----------------------------------------------------------------
 
-    private void showVouchers(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    private void showVouchers(GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	System.out.println("");
 	System.out.println("Vouchers:");
 

@@ -17,7 +17,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
     
     // ---------------------------------------------------------------
     
-    public FileTransactionManager(GnucashWritableFileImpl gcshFile) throws NoSuchFieldException, ClassNotFoundException, IllegalAccessException {
+    public FileTransactionManager(GnucashWritableFileImpl gcshFile) {
 	super(gcshFile);
     }
 
@@ -41,7 +41,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 //	    final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
 //	    final GnucashTransaction trx,
 //	    final boolean addSpltToAcct,
-//	    final boolean addSpltToInvc)  throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+//	    final boolean addSpltToInvc)  throws IllegalArgumentException {
 //	GnucashWritableTransactionSplitImpl splt = new GnucashWritableTransactionSplitImpl(jwsdpTrxSplt, trx, 
 //                								           addSpltToAcct, addSpltToInvc);
 //	LOGGER.debug("Generated new writable transaction split: " + splt.getID());

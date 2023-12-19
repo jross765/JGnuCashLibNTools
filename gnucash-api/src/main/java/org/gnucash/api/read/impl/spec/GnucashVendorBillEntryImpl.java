@@ -69,7 +69,7 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
   }
   
   @Override
-  public GnucashVendorBill getBill() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public GnucashVendorBill getBill() throws WrongInvoiceTypeException, IllegalArgumentException
   {
     if ( myInvoice == null )
     {

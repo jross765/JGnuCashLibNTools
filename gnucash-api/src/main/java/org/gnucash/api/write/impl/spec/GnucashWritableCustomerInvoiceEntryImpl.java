@@ -9,6 +9,7 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
@@ -70,7 +71,7 @@ public class GnucashWritableCustomerInvoiceEntryImpl extends GnucashWritableGene
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
-	 * @throws IllegalAccessException 
+	 * @throws 
 	 * @throws IllegalArgumentException 
 	 * @throws ClassNotFoundException 
 	 * @throws SecurityException 
@@ -80,7 +81,7 @@ public class GnucashWritableCustomerInvoiceEntryImpl extends GnucashWritableGene
 		final GnucashWritableCustomerInvoiceImpl invc,
 		final GnucashAccount account,
 		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException {
 		super(invc, 
 		      createCustInvoiceEntry_int(invc, account, quantity, price));
 		
@@ -116,24 +117,24 @@ public class GnucashWritableCustomerInvoiceEntryImpl extends GnucashWritableGene
 
 	@Override
 	public void setTaxable(boolean val)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setInvcTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setInvcTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setInvcPrice(price);
 	}
 
 	@Override
-	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
 	    setInvcPrice(price);
 	}
 

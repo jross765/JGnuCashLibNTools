@@ -86,29 +86,29 @@ public interface GnucashGenerJob {
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -117,11 +117,11 @@ public interface GnucashGenerJob {
      * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getIncomeGeneratedFormatted() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -130,23 +130,23 @@ public interface GnucashGenerJob {
      * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -155,12 +155,12 @@ public interface GnucashGenerJob {
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted() throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getOutstandingValueFormatted() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      *
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -169,15 +169,15 @@ public interface GnucashGenerJob {
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException;
 
     // ---------------------------------------------------------------
 
-    Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException;
 
-    Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
-    Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     // ---------------------------------------------------------------
 

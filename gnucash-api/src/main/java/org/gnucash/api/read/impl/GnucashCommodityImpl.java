@@ -57,7 +57,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
 
     // ---------------------------------------------------------------
 
-    private String getNameSpace() {
+    protected String getNameSpace() {
 	if ( jwsdpPeer.getCmdtySpace() == null )
 	    return null;
 	

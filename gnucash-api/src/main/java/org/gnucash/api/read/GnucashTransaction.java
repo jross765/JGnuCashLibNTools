@@ -97,59 +97,59 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
     /**
      * Do not modify the returned collection!
      * @return all splits of this transaction.
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    List<GnucashTransactionSplit> getSplits() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    List<GnucashTransactionSplit> getSplits();
 
     /**
      * Get a split of this transaction it's id.
      * @param id the id to look for
      * @return null if not found
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashTransactionSplit getSplitByID(GCshID id) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashTransactionSplit getSplitByID(GCshID id) throws IllegalArgumentException;
 
     /**
      *
      * @return the first split of this transaction or null.
      * @throws SplitNotFoundException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashTransactionSplit getFirstSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashTransactionSplit getFirstSplit() throws SplitNotFoundException, IllegalArgumentException;
 
     /**
      * @return the second split of this transaction or null.
      * @throws SplitNotFoundException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    GnucashTransactionSplit getSecondSplit() throws SplitNotFoundException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    GnucashTransactionSplit getSecondSplit() throws SplitNotFoundException, IllegalArgumentException;
 
     /**
      *
      * @return the number of splits in this transaction.
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    int getSplitsCount() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    int getSplitsCount() throws IllegalArgumentException;
 
     /**
      *
@@ -172,13 +172,13 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
     /**
      *
      * @return true if the sum of all splits adds up to zero.
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    boolean isBalanced() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    boolean isBalanced() throws IllegalArgumentException;
 
     GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
 
@@ -186,77 +186,77 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
      * The result is in the currency of the transaction.<br/>
      * if the transaction is unbalanced, get sum of all split-values.
      * @return the sum of all splits
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see #isBalanced()
      */
-    FixedPointNumber getBalance() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    FixedPointNumber getBalance() throws IllegalArgumentException;
     /**
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getBalance()
      */
-    String getBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException;
     /**
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getBalance()
      */
-    String getBalanceFormatted(Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getBalanceFormatted(Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException;
 
     /**
      * The result is in the currency of the transaction.<br/>
      * if the transaction is unbalanced, get the missing split-value to balance it.
      * @return the sum of all splits
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see #isBalanced()
      */
-    FixedPointNumber getNegatedBalance() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    FixedPointNumber getNegatedBalance() throws IllegalArgumentException;
     /**
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted() throws NumberFormatException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getNegatedBalanceFormatted() throws NumberFormatException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException;
     /**
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws NumberFormatException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      * @see GnucashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException;
 
     /**
      * @return all keys that can be used with ${@link #getUserDefinedAttribute(String)}}.

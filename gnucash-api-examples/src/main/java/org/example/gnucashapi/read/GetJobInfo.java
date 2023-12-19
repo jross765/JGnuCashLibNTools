@@ -107,7 +107,7 @@ public class GetJobInfo {
 
     // -----------------------------------------------------------------
 
-    private void showInvoices(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+    private void showInvoices(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	System.out.println("");
 	System.out.println("Invoices:");
 

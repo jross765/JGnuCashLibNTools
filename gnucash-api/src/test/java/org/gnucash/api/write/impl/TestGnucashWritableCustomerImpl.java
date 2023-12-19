@@ -12,7 +12,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
+import org.gnucash.api.read.impl.TestGnucashCustomerImpl;
+import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
+import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.write.GnucashWritableCustomer;
 import org.junit.Before;
 import org.junit.Rule;
@@ -27,6 +32,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableCustomerImpl
 {
+    private static final GCshID CUST_1_ID = TestGnucashCustomerImpl.CUST_1_ID;
+//    private static final GCshID CUST_2_ID = TestGnucashCustomerImpl.CUST_2_ID;
+    
+//    private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+    private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+    
+    // -----------------------------------------------------------------
+
     private GnucashWritableFileImpl gcshInFile = null;
     private String outFileGlobNameAbs = null;
     private File outFileGlob = null;
@@ -85,9 +98,80 @@ public class TestGnucashWritableCustomerImpl
   }
 
   // -----------------------------------------------------------------
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashCustomerImpl.test01_1/02_2
+  // 
+  // Check whether the GnucashWritableCustomer objects returned by 
+  // GnucashWritableFileImpl.getWritableTransactionByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getTransactionByID().
+  
+  @Test
+  public void test01_1_1() throws Exception
+  {
+    GnucashWritableCustomer cust = gcshInFile.getCustomerByID(CUST_1_ID);
+    assertNotEquals(null, cust);
+    
+    assertEquals(CUST_1_ID, cust.getID());
+    assertEquals("000001", cust.getNumber());
+    assertEquals("Unfug und Quatsch GmbH", cust.getName());
+
+    assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    assertEquals(null, cust.getNotes());
+
+    assertEquals(null, cust.getTaxTableID());
+    
+    assertEquals(BLLTRM_2_ID, cust.getTermsID());
+    assertEquals("30-10-3", cust.getTerms().getName());
+    assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType());
+    // etc., cf. class TestGCshBillTermsImpl
+  }
 
   @Test
-  public void test01_1() throws Exception
+  public void test01_1_2() throws Exception
+  {
+      GnucashWritableCustomer cust = gcshInFile.getCustomerByID(CUST_1_ID);
+      assertNotEquals(null, cust);
+
+      assertEquals(1, ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size());
+      assertEquals(cust.getPaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
+      assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
+                   ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getID().toString());
+      assertEquals(1, cust.getNofOpenInvoices());
+      assertEquals(1, ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
+      assertEquals(cust.getUnpaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial!
+      assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 
+                   ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getID().toString());
+  }
+
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableCustomer objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  @Test
+  public void test03_1() throws Exception
   {
       GnucashWritableCustomer cust = gcshInFile.createWritableCustomer();
       cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
@@ -108,7 +192,7 @@ public class TestGnucashWritableCustomerImpl
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test01_2() throws Exception
+//  public void test03_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -135,7 +219,7 @@ public class TestGnucashWritableCustomerImpl
 //  }
 
   @Test
-  public void test01_3() throws Exception
+  public void test03_3() throws Exception
   {
       assertNotEquals(null, outFileGlob);
       assertEquals(true, outFileGlob.exists());
@@ -164,7 +248,7 @@ public class TestGnucashWritableCustomerImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test02_1() throws Exception
+  public void test03_4() throws Exception
   {
       GnucashWritableCustomer cust1 = gcshInFile.createWritableCustomer();
       cust1.setNumber(GnucashCustomerImpl.getNewNumber(cust1));
@@ -191,7 +275,7 @@ public class TestGnucashWritableCustomerImpl
   }
   
   @Test
-  public void test02_3() throws Exception
+  public void test03_5() throws Exception
   {
       assertNotEquals(null, outFileGlob);
       assertEquals(true, outFileGlob.exists());

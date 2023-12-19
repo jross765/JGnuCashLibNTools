@@ -33,7 +33,7 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
     super(peer, gncFile);
   }
 
-  public GnucashEmployeeVoucherImpl(final GnucashGenerInvoice invc) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public GnucashEmployeeVoucherImpl(final GnucashGenerInvoice invc) throws WrongInvoiceTypeException, IllegalArgumentException
   {
     super(invc.getJwsdpPeer(), invc.getFile());
 
@@ -123,13 +123,13 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getVoucherAmountUnpaidWithTaxes();
   }
 
   @Override
-  public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getVoucherAmountPaidWithTaxes();
   }
@@ -153,13 +153,13 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   }
 
   @Override
-  public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getVoucherAmountUnpaidWithTaxesFormatted();
   }
 
   @Override
-  public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getVoucherAmountPaidWithTaxesFormatted();
   }
@@ -185,13 +185,13 @@ public class GnucashEmployeeVoucherImpl extends GnucashGenerInvoiceImpl
   // ------------------------------
   
   @Override
-  public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return isVoucherFullyPaid();
   }
   
   @Override
-  public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return isNotVoucherFullyPaid();
   }

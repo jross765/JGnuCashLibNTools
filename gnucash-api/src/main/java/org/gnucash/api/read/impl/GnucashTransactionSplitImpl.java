@@ -14,6 +14,7 @@ import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
+import org.gnucash.api.read.MappingException;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @param peer the JWSDP-object we are facading.
      * @param trx  the transaction this split belongs to
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -55,7 +56,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    final GncTransaction.TrnSplits.TrnSplit peer, 
 	    final GnucashTransaction trx,
 	    final boolean addSpltToAcct,
-	    final boolean addSpltToInvc) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    final boolean addSpltToInvc) throws IllegalArgumentException {
 	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
 		trx.getGnucashFile());
 
@@ -75,17 +76,18 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 
 	if ( addSpltToInvc ) {
 	    GCshID lot = getLotID();
-	    if (lot != null) {
-		for (GnucashGenerInvoice invc : getTransaction().getGnucashFile().getGenerInvoices()) {
+	    if ( lot != null ) {
+		for ( GnucashGenerInvoice invc : getTransaction().getGnucashFile().getGenerInvoices() ) {
 		    GCshID lotID = invc.getLotID();
-		    if (lotID != null && lotID.equals(lot)) {
+		    if ( lotID != null && 
+			 lotID.equals(lot) ) {
 			// Check if it's a payment transaction.
 			// If so, add it to the invoice's list of payment transactions.
 			if ( getAction() == Action.PAYMENT ) {
 			    invc.addPayingTransaction(this);
 			}
 		    }
-		}
+		} // for invc
 	    } // lot
 	} // addSpltToInvc
     }
@@ -127,7 +129,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     }
 
     /**
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -135,8 +137,12 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @see GnucashTransactionSplit#getActionStr()
      */
     @Override
-    public Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	return Action.valueOff( getActionStr() );
+    public Action getAction() {
+	try {
+	    return Action.valueOff( getActionStr() );
+	} catch (Exception e) {
+	    throw new MappingException("Could not map string '" + getActionStr() + "' to Action enum");
+	}
     }
 
     /**
@@ -362,9 +368,8 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	return jwsdpPeer.getSplitMemo();
     }
 
-    /**
-     * @see java.lang.Object#toString()
-     */
+    // ---------------------------------------------------------------
+    
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();

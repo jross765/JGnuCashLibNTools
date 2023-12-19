@@ -110,18 +110,22 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
 	  return code;
       }
 	
-      public String getLocaleString() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+      public String getLocaleString() throws IllegalArgumentException {
 	  return getLocaleString(Locale.getDefault());
       }
 
-      public String getLocaleString(Locale lcl) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-	  Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-	  Field fld = cls.getDeclaredField(code);
-	  return (String) fld.get(null);
+      public String getLocaleString(Locale lcl) throws IllegalArgumentException {
+	  try {
+	      Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
+	      Field fld = cls.getDeclaredField(code);
+	      return (String) fld.get(null);
+	  } catch ( Exception exc ) {
+	      throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+	  }
       }
 		
       // no typo!
-      public static Action valueOff(String code) throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+      public static Action valueOff(String code) throws IllegalArgumentException {
 	  for ( Action val : values() ) {
 	      if ( val.getLocaleString().equals(code) ) {
 		  return val;
@@ -305,13 +309,13 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      * Get the type of association this split has with
      * an invoice's lot.
      * @return null, or one of the ACTION_xyz values defined
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
      * @throws NoSuchFieldException 
      */
-    Action getAction() throws NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException;
+    Action getAction();
 
     String getActionStr();
 

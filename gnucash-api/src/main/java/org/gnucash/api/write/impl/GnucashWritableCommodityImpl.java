@@ -31,6 +31,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
+    @SuppressWarnings("exports")
     public GnucashWritableCommodityImpl(final GncV2.GncBook.GncCommodity jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
@@ -156,6 +157,27 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      */
     public void setUserDefinedAttribute(final String name, final String value) {
 	// ::EMPTY
+    }
+
+    // -----------------------------------------------------------------
+
+    @Override
+    public String toString() {
+	
+	String result = "GnucashWritableCommodityImpl [";
+
+	try {
+	    result += "qualif-id='" + getQualifID().toString() + "'";
+	} catch (InvalidCmdtyCurrTypeException e) {
+	    result += "qualif-id=" + "ERROR";
+	}
+	
+	result += ", namespace='" + getNameSpace() + "'"; 
+	result += ", name='" + getName() + "'"; 
+	result += ", x-code='" + getXCode() + "'"; 
+	result += ", fraction=" + getFraction() + "]";
+	
+	return result;
     }
 
 }

@@ -22,7 +22,7 @@ public abstract class FileInvoiceManager_Job {
     
     /**
      * @throws WrongInvoiceTypeException
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -30,11 +30,11 @@ public abstract class FileInvoiceManager_Job {
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    throws WrongInvoiceTypeException, IllegalArgumentException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
+	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -51,7 +51,7 @@ public abstract class FileInvoiceManager_Job {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -59,11 +59,11 @@ public abstract class FileInvoiceManager_Job {
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getPaidInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
-	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
+	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
@@ -80,7 +80,7 @@ public abstract class FileInvoiceManager_Job {
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
+     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
@@ -88,11 +88,11 @@ public abstract class FileInvoiceManager_Job {
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getUnpaidInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
-	    if (invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID())) {
+	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {

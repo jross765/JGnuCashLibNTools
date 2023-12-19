@@ -122,7 +122,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	super(createVendor_int(file, GCshID.getNew()), file);
     }
 
-    public GnucashWritableVendorImpl(GnucashVendorImpl vend) {
+    public GnucashWritableVendorImpl(final GnucashVendorImpl vend) {
 	super(vend.getJwsdpPeer(), vend.getGnucashFile());
     }
 
@@ -266,6 +266,26 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     @Override
     public void setUserDefinedAttribute(final String name, final String value) {
 	helper.setUserDefinedAttribute(name, value);
+    }
+
+    // -----------------------------------------------------------------
+
+    @Override
+    public String toString() {
+	StringBuffer buffer = new StringBuffer();
+	buffer.append("GnucashWritableVendorImpl [");
+	
+	buffer.append("id=");
+	buffer.append(getID());
+	
+	buffer.append(", number='");
+	buffer.append(getNumber() + "'");
+	
+	buffer.append(", name='");
+	buffer.append(getName() + "'");
+	
+	buffer.append("]");
+	return buffer.toString();
     }
 
 }

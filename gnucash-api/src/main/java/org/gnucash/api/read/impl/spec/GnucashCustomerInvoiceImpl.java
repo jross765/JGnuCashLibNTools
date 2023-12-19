@@ -34,7 +34,7 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
     super(peer, gncFile);
   }
 
-  public GnucashCustomerInvoiceImpl(final GnucashGenerInvoice invc) throws WrongInvoiceTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public GnucashCustomerInvoiceImpl(final GnucashGenerInvoice invc) throws WrongInvoiceTypeException, IllegalArgumentException
   {
     super(invc.getJwsdpPeer(), invc.getFile());
 
@@ -44,15 +44,12 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
 	 invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.JOB )
       throw new WrongInvoiceTypeException();
     
-    for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() )
-    {
+    for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() ) {
       addEntry(new GnucashCustomerInvoiceEntryImpl(entry));
     }
 
-    for ( GnucashTransaction trx : invc.getPayingTransactions() )
-    {
-      for ( GnucashTransactionSplit splt : trx.getSplits() ) 
-      {
+    for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
+      for ( GnucashTransactionSplit splt : trx.getSplits() ) {
         GCshID lot = splt.getLotID();
         if ( lot != null ) {
             for ( GnucashGenerInvoice invc1 : splt.getTransaction().getGnucashFile().getGenerInvoices() ) {
@@ -125,13 +122,13 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // -----------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getInvcAmountUnpaidWithTaxes();
   }
 
   @Override
-  public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getInvcAmountPaidWithTaxes();
   }
@@ -155,13 +152,13 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   }
 
   @Override
-  public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getInvcAmountUnpaidWithTaxesFormatted();
   }
 
   @Override
-  public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return getInvcAmountPaidWithTaxesFormatted();
   }
@@ -187,13 +184,13 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // ------------------------------
   
   @Override
-  public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return isInvcFullyPaid();
   }
   
   @Override
-  public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, NoSuchFieldException, SecurityException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
+  public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
     return isNotInvcFullyPaid();
   }
