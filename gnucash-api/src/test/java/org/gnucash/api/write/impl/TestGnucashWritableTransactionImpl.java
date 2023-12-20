@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -16,14 +15,11 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashAccountImpl;
 import org.gnucash.api.read.impl.TestGnucashTransactionImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
-import org.gnucash.api.write.GnucashWritableAccount;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.junit.Before;
@@ -51,9 +47,6 @@ public class TestGnucashWritableTransactionImpl
     
     private GCshID                  newTrxID = null;
     
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
-
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
     @Rule
@@ -98,13 +91,6 @@ public class TestGnucashWritableTransactionImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
   }
 
   // -----------------------------------------------------------------

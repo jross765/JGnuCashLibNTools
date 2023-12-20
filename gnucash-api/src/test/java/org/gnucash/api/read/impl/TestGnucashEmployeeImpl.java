@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
@@ -90,12 +90,12 @@ public class TestGnucashEmployeeImpl
     assertEquals(0, empl.getPaidVouchers().size());
     
     assertEquals(1, empl.getUnpaidVouchers().size());
-    LinkedList<GnucashEmployeeVoucher> vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers();
+    ArrayList<GnucashEmployeeVoucher> vchList = (ArrayList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers();
     Collections.sort(vchList);
     assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
                  ((GnucashEmployeeVoucher) vchList.toArray()[0]).getID().toString() );
 
-//    vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
+//    vchList = (ArrayList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
 //    Collections.sort(vchList);
 //    assertEquals("xxx", 
 //                 ((GnucashVendorBill) vchList.toArray()[0]).getID() );

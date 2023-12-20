@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.Const;
@@ -313,7 +313,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @see GnucashWritableTransaction#getWritableSplits()
      */
     public List<GnucashWritableTransactionSplit> getWritableSplits() throws IllegalArgumentException {
-	List<GnucashWritableTransactionSplit> result = new LinkedList<GnucashWritableTransactionSplit>();
+	List<GnucashWritableTransactionSplit> result = new ArrayList<GnucashWritableTransactionSplit>();
 	
 	for ( GnucashTransactionSplit split : super.getSplits() ) {
 	    GnucashWritableTransactionSplit newSplit = new GnucashWritableTransactionSplitImpl(split);
@@ -346,7 +346,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      */
     public void remove() throws IllegalArgumentException {
 	getWritableFile().removeTransaction(this);
-	Collection<GnucashWritableTransactionSplit> c = new LinkedList<GnucashWritableTransactionSplit>();
+	Collection<GnucashWritableTransactionSplit> c = new ArrayList<GnucashWritableTransactionSplit>();
 	c.addAll(getWritableSplits());
 	for (GnucashWritableTransactionSplit element : c) {
 	    element.remove();

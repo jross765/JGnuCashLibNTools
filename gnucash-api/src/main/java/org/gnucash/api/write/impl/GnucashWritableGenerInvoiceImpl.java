@@ -7,7 +7,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.Date;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -2645,7 +2645,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashGenerInvoice#getPayingTransactions()
      */
     public Collection<GnucashWritableTransaction> getWritablePayingTransactions() throws IllegalArgumentException {
-	Collection<GnucashWritableTransaction> trxList = new LinkedList<GnucashWritableTransaction>();
+	Collection<GnucashWritableTransaction> trxList = new ArrayList<GnucashWritableTransaction>();
 
 	for (GnucashTransaction trx : getPayingTransactions()) {
 	    GnucashWritableTransaction newTrx = new GnucashWritableTransactionImpl(trx);
@@ -2694,7 +2694,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	// we copy the list because element.remove() modifies it
-	Collection<GnucashGenerInvoiceEntry> entries2 = new LinkedList<GnucashGenerInvoiceEntry>();
+	Collection<GnucashGenerInvoiceEntry> entries2 = new ArrayList<GnucashGenerInvoiceEntry>();
 	entries2.addAll(this.getGenerEntries());
 	for (GnucashGenerInvoiceEntry element : entries2) {
 	    ((GnucashWritableGenerInvoiceEntry) element).remove();

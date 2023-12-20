@@ -1,8 +1,8 @@
 package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -420,7 +420,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      */
     public java.util.Collection<GnucashVendorJob> getJobs() throws WrongInvoiceTypeException {
 
-	List<GnucashVendorJob> retval = new LinkedList<GnucashVendorJob>();
+	List<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
 
 	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
 	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
@@ -438,7 +438,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 
     @Override
     public Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashVendorBill invc : getGnucashFile().getBillsForVendor_direct(this) ) {
 	    retval.add(invc);

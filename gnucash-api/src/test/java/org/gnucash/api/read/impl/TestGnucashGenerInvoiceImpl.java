@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;
@@ -141,7 +141,7 @@ public class TestGnucashGenerInvoiceImpl
     assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invc.getPostTransaction().getID().toString());
     assertEquals(1, invc.getPayingTransactions().size());
 
-    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invc.getPayingTransactions();
+    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) invc.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("29557cfdf4594eb68b1a1b710722f991", 
                  ((GnucashTransaction) trxList.toArray()[0]).getID().toString());
@@ -246,7 +246,7 @@ public class TestGnucashGenerInvoiceImpl
     // ::TODO
     assertEquals(0, invc.getPayingTransactions().size());
     
-//    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) bllSpec.getPayingTransactions();
+//    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) bllSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("xxx", 
 //                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getID());
@@ -263,7 +263,7 @@ public class TestGnucashGenerInvoiceImpl
     assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invc.getPostTransaction().getID().toString());   
     assertEquals(1, invc.getPayingTransactions().size());
     
-    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) invc.getPayingTransactions();
+    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) invc.getPayingTransactions();
     Collections.sort(trxList);
     assertEquals("ccff780b18294435bf03c6cb1ac325c1", 
                  ((GnucashTransaction) trxList.toArray()[0]).getID().toString());

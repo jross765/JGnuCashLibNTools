@@ -5,13 +5,17 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
@@ -27,10 +31,6 @@ import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +87,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   /**
    * The transactions that are paying for this invoice.
    */
-  private final Collection<GnucashTransaction> payingTransactions = new LinkedList<GnucashTransaction>();
+  private final Collection<GnucashTransaction> payingTransactions = new ArrayList<GnucashTransaction>();
 
   // ------------------------------
 
@@ -1086,7 +1086,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 		     getType() != TYPE_JOB )
 		    throw new WrongInvoiceTypeException();
 
-		List<GCshTaxedSumImpl> taxedSums = new LinkedList<GCshTaxedSumImpl>();
+		List<GCshTaxedSumImpl> taxedSums = new ArrayList<GCshTaxedSumImpl>();
 
 		invoiceentries:
 		for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
@@ -1125,7 +1125,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	     getType() != TYPE_JOB )
 		    throw new WrongInvoiceTypeException();
 
-        List<GCshTaxedSumImpl> taxedSums = new LinkedList<GCshTaxedSumImpl>();
+        List<GCshTaxedSumImpl> taxedSums = new ArrayList<GCshTaxedSumImpl>();
 
         invoiceentries:
         for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {
@@ -1163,7 +1163,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
 	     getType() != TYPE_JOB )
 		    throw new WrongInvoiceTypeException();
 
-        List<GCshTaxedSumImpl> taxedSums = new LinkedList<GCshTaxedSumImpl>();
+        List<GCshTaxedSumImpl> taxedSums = new ArrayList<GCshTaxedSumImpl>();
 
         invoiceentries:
         for (GnucashGenerInvoiceEntry entry : getGenerEntries()) {

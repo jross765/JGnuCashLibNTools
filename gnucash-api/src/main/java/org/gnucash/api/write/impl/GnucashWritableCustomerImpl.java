@@ -45,7 +45,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      *
      * @param file the file we will belong to
      * @param custID the ID we shall have
-     * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
+     * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
     protected static GncV2.GncBook.GncGncCustomer createCustomer_int(
 	    final GnucashWritableFileImpl file,
@@ -396,7 +396,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     // ::TODO
 //    @Override
 //    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
-//	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForCustomer_direct(this) ) {
 //	    retval.add(invc);
@@ -458,7 +458,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     // ::TODO
 //    @Override
 //    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
-//	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForCustomer_direct(this) ) {
 //	    retval.add(invc);

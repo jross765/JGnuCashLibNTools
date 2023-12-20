@@ -1,7 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnucashCustomer;
@@ -38,14 +38,14 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableCustomerInvoice> retval = new LinkedList<GnucashWritableCustomerInvoice>();
+	Collection<GnucashWritableCustomerInvoice> retval = new ArrayList<GnucashWritableCustomerInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
 		try {
 		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
@@ -64,7 +64,7 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableJobInvoice> getInvoices_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashWritableJobInvoice> retval = new LinkedList<GnucashWritableJobInvoice>();
+	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
 	    for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
@@ -89,14 +89,14 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableCustomerInvoice> retval = new LinkedList<GnucashWritableCustomerInvoice>();
+	Collection<GnucashWritableCustomerInvoice> retval = new ArrayList<GnucashWritableCustomerInvoice>();
 
 	for ( GnucashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
 		try {
 		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getPaidInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
@@ -116,7 +116,7 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableJobInvoice> getPaidInvoices_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashWritableJobInvoice> retval = new LinkedList<GnucashWritableJobInvoice>();
+	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
 	    for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
@@ -140,14 +140,14 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableCustomerInvoice> retval = new LinkedList<GnucashWritableCustomerInvoice>();
+	Collection<GnucashWritableCustomerInvoice> retval = new ArrayList<GnucashWritableCustomerInvoice>();
 
 	for ( GnucashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
 		try {
 		    GnucashWritableCustomerInvoiceImpl wrtblInvc = new GnucashWritableCustomerInvoiceImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getUnpaidInvoices_direct: Cannot instantiate GnucashWritableCustomerInvoiceImpl");
 		}
 	    }
@@ -167,7 +167,7 @@ public abstract class FileInvoiceManager_Customer {
      */
     public static Collection<GnucashWritableJobInvoice> getUnpaidInvoices_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashWritableJobInvoice> retval = new LinkedList<GnucashWritableJobInvoice>();
+	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 	for ( GnucashCustomerJob job : cust.getJobs() ) {
 	    for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {

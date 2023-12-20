@@ -5,12 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
@@ -31,8 +29,6 @@ import junit.framework.JUnit4TestAdapter;
 public class TestGnucashWritableCommodityImpl
 {
     private GnucashWritableFileImpl gcshInFile = null;
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
 
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -78,13 +74,6 @@ public class TestGnucashWritableCommodityImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
   }
 
   // -----------------------------------------------------------------
@@ -102,10 +91,7 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test01_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
@@ -137,16 +123,15 @@ public class TestGnucashWritableCommodityImpl
 //      // assertEquals(validResult);
 //  }
 
-  @Test
-  public void test01_3() throws Exception
+  private void test01_1_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure
@@ -196,22 +181,18 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test02_1_check(outFile);
   }
   
-  @Test
-  public void test02_3() throws Exception
+  private void test02_1_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure

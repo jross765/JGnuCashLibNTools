@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
@@ -135,7 +134,7 @@ public class FileInvoiceManager {
      * @see GnucashFile#getPaidGenerInvoices()
      */
     public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
@@ -190,7 +189,7 @@ public class FileInvoiceManager {
      * @see GnucashFile#getUnpaidGenerInvoices()
      */
     public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {

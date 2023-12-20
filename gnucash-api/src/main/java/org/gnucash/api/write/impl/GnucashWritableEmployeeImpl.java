@@ -44,7 +44,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      *
      * @param file the file we will belong to
      * @param guid the ID we shall have
-     * @return a new jwsdp-peer alredy entered into th jwsdp-peer of the file
+     * @return a new jwsdp-peer already entered into the jwsdp-peer of the file
      */
     protected static GncV2.GncBook.GncGncEmployee createEmployee_int(
 	    final GnucashWritableFileImpl file,

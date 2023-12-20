@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;
@@ -159,7 +159,7 @@ public class TestGnucashEmployeeVoucherImpl
     assertEquals(0, invcGen.getPayingTransactions().size());
     assertEquals(0, vchSpec.getPayingTransactions().size());
 
-    LinkedList<GnucashTransaction> trxList = (LinkedList<GnucashTransaction>) vchSpec.getPayingTransactions();
+    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) vchSpec.getPayingTransactions();
     // ::TODO
     assertEquals(0, trxList.size());
 //    Collections.sort(trxList);

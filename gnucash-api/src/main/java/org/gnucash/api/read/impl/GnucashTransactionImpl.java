@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,6 +16,11 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.Slot;
+import org.gnucash.api.generated.SlotValue;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
@@ -24,11 +28,6 @@ import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.SplitNotFoundException;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.generated.Slot;
-import org.gnucash.api.generated.SlotValue;
-import org.gnucash.api.generated.SlotsType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -332,7 +331,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      */
     public Collection<GCshID> getInvoiceIDs() {
 
-	List<GCshID> retval = new LinkedList<GCshID>();
+	List<GCshID> retval = new ArrayList<GCshID>();
 
 	SlotsType slots = jwsdpPeer.getTrnSlots();
 	if (slots == null) {

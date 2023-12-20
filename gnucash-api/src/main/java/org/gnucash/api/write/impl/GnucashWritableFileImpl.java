@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.zip.GZIPOutputStream;
@@ -657,7 +656,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      */
     public void removeTransaction(final GnucashWritableTransaction trx) throws IllegalArgumentException {
 
-	Collection<GnucashWritableTransactionSplit> c = new LinkedList<GnucashWritableTransactionSplit>();
+	Collection<GnucashWritableTransactionSplit> c = new ArrayList<GnucashWritableTransactionSplit>();
 	c.addAll(trx.getWritableSplits());
 	for (GnucashWritableTransactionSplit element : c) {
 	    element.remove();
@@ -680,7 +679,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    throw new IllegalStateException("getGenerJobs() returned null");
 	}
 	
-	Collection<GnucashWritableGenerJob> retval = new ArrayList<GnucashWritableGenerJob>(jobList.size());
+	Collection<GnucashWritableGenerJob> retval = new ArrayList<GnucashWritableGenerJob>();
 	for (GnucashGenerJob job : jobList) {
 	    retval.add((GnucashWritableGenerJob) job);
 	}
@@ -719,7 +718,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    throw new IllegalStateException("getWritableGenerInvoice() returned null");
 	}
 	
-	Collection<GnucashWritableGenerInvoice> retval = new ArrayList<GnucashWritableGenerInvoice>(invcList.size());
+	Collection<GnucashWritableGenerInvoice> retval = new ArrayList<GnucashWritableGenerInvoice>();
 	for (GnucashGenerInvoice invc : invcList) {
 	    retval.add((GnucashWritableGenerInvoice) invc);
 	}
@@ -744,7 +743,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see {@link GnucashWritableFile#getAccountsByType(String)}
      */
     public Collection<GnucashWritableAccount> getAccountsByType(final GnucashAccount.Type type) throws UnknownAccountTypeException {
-	Collection<GnucashWritableAccount> retval = new LinkedList<GnucashWritableAccount>();
+	Collection<GnucashWritableAccount> retval = new ArrayList<GnucashWritableAccount>();
 	for (GnucashWritableAccount acct : getWritableAccounts()) {
 
 	    if (acct.getType() == null) {
@@ -1301,7 +1300,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    }
 	    LOGGER.warn("File has more than one root-account! Attaching excess accounts to root-account: "
 		    + roots.toString());
-	    LinkedList<GnucashAccount> rootAccounts2 = new LinkedList<GnucashAccount>();
+	    ArrayList<GnucashAccount> rootAccounts2 = new ArrayList<GnucashAccount>();
 	    rootAccounts2.add(root);
 	    for (GnucashAccount gnucashAccount : rootAccounts) {
 		if (gnucashAccount == null) {
@@ -1390,7 +1389,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ----------------------------
     
-    // ::TODO: For vendor bills
+    public Collection<GnucashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnucashVendor vend) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableBillsForVendor_direct(vend);
+    }
+
+    public Collection<GnucashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnucashVendor vend) throws IllegalArgumentException, InvalidCmdtyCurrTypeException, WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+	return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableBillsForVendor_direct(vend);
+    }
     
     // ----------------------------
     

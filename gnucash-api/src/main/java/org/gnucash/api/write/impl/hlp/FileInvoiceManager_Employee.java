@@ -1,7 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnucashEmployee;
@@ -36,14 +36,14 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableEmployeeVoucher> retval = new LinkedList<GnucashWritableEmployeeVoucher>();
+	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 		try {
 		    GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblVch);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
 		}
 	    }
@@ -65,14 +65,14 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableEmployeeVoucher> retval = new LinkedList<GnucashWritableEmployeeVoucher>();
+	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 	for ( GnucashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 		try {
 		    GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblVch);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getPaidVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
 		}
 	    }
@@ -94,14 +94,14 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-	Collection<GnucashWritableEmployeeVoucher> retval = new LinkedList<GnucashWritableEmployeeVoucher>();
+	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 	for ( GnucashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 		try {
 		    GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblVch);
-		} catch (Exception e) {
+		} catch (WrongInvoiceTypeException e) {
 		    LOGGER.error("getUnpaidVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
 		}
 	    }

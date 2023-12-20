@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.Const;
@@ -372,7 +372,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			return myBalanceCached;
 		}
 
-		Collection<GnucashTransactionSplit> after = new LinkedList<GnucashTransactionSplit>();
+		Collection<GnucashTransactionSplit> after = new ArrayList<GnucashTransactionSplit>();
 		FixedPointNumber balance = getBalance(LocalDate.now(), after);
 
 		if (after.isEmpty()) {

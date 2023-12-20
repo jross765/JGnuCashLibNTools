@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
@@ -22,9 +22,6 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashVendorImpl
 {
-  private GnucashFile   gcshFile = null;
-  private GnucashVendor vend = null;
-  
   public static final GCshID VEND_1_ID = new GCshID("087e1a3d43fa4ef9a9bdd4b4797c4231");
   public static final GCshID VEND_2_ID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
   public static final GCshID VEND_3_ID = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
@@ -35,6 +32,11 @@ public class TestGnucashVendorImpl
   private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
   private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
+  // -----------------------------------------------------------------
+    
+  private GnucashFile   gcshFile = null;
+  private GnucashVendor vend = null;
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
@@ -139,17 +141,19 @@ public class TestGnucashVendorImpl
     assertNotEquals(null, vend);
     
     assertEquals(1, vend.getNofOpenBills());
-    assertEquals(1, vend.getUnpaidBills_direct().size());
+    
     assertEquals(1, vend.getPaidBills_direct().size());
     
-    LinkedList<GnucashVendorBill> bllList = (LinkedList<GnucashVendorBill>) vend.getUnpaidBills_direct();
-    Collections.sort(bllList);
-    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
-                 ((GnucashVendorBill) bllList.toArray()[0]).getID().toString() );
-
-    bllList = (LinkedList<GnucashVendorBill>) vend.getPaidBills_direct();
+    ArrayList<GnucashVendorBill> bllList = (ArrayList<GnucashVendorBill>) vend.getPaidBills_direct();
     Collections.sort(bllList);
     assertEquals("286fc2651a7848038a23bb7d065c8b67", 
+                 ((GnucashVendorBill) bllList.toArray()[0]).getID().toString() );
+    
+    assertEquals(1, vend.getUnpaidBills_direct().size());
+    
+    bllList = (ArrayList<GnucashVendorBill>) vend.getUnpaidBills_direct();
+    Collections.sort(bllList);
+    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
                  ((GnucashVendorBill) bllList.toArray()[0]).getID().toString() );
   }
 
@@ -159,6 +163,10 @@ public class TestGnucashVendorImpl
     vend = gcshFile.getVendorByID(VEND_2_ID);
     assertNotEquals(null, vend);
     
+    assertEquals(0, vend.getNofOpenBills());
+    
+    assertEquals(0, vend.getPaidBills_direct().size());
+
     assertEquals(0, vend.getUnpaidBills_direct().size());
 //    assertEquals("[GnucashVendorBillImpl: id: 4eb0dc387c3f4daba57b11b2a657d8a4 vendor-id (dir.): 087e1a3d43fa4ef9a9bdd4b4797c4231 bill-number: '1730-383/2' description: 'Sie wissen schon: Gefälligkeiten, ne?' #entries: 1 date-opened: 2023-08-31]", 
 //                 vend.getUnpaidInvoices().toArray()[0].toString());
@@ -172,6 +180,10 @@ public class TestGnucashVendorImpl
     vend = gcshFile.getVendorByID(VEND_3_ID);
     assertNotEquals(null, vend);
     
+    assertEquals(0, vend.getNofOpenBills());
+    
+    assertEquals(0, vend.getPaidBills_direct().size());
+
     assertEquals(0, vend.getUnpaidBills_direct().size());
 //    assertEquals("[GnucashVendorBillImpl: id: 4eb0dc387c3f4daba57b11b2a657d8a4 vendor-id (dir.): 087e1a3d43fa4ef9a9bdd4b4797c4231 bill-number: '1730-383/2' description: 'Sie wissen schon: Gefälligkeiten, ne?' #entries: 1 date-opened: 2023-08-31]", 
 //                 vend.getUnpaidInvoices().toArray()[0].toString());

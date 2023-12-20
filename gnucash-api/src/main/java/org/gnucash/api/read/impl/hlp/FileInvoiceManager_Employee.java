@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
@@ -31,7 +31,7 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+	Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -60,7 +60,7 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+	Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -89,7 +89,7 @@ public abstract class FileInvoiceManager_Employee {
      */
     public static Collection<GnucashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashEmployeeVoucher> retval = new LinkedList<GnucashEmployeeVoucher>();
+	Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {

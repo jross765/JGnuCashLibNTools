@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
@@ -20,7 +20,6 @@ import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashVendorJob;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -464,7 +463,7 @@ public class FileJobManager {
 	    throw new IllegalStateException("no root-element loaded");
 	}
 
-	Collection<GnucashCustomerJob> retval = new LinkedList<GnucashCustomerJob>();
+	Collection<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
 
 	for (GnucashCustomerJob custJob : custJobMap.values()) {
 	    if (custJob.getOwnerID().equals(cust.getID())) {
@@ -484,7 +483,7 @@ public class FileJobManager {
 	    throw new IllegalStateException("no root-element loaded");
 	}
 
-	Collection<GnucashVendorJob> retval = new LinkedList<GnucashVendorJob>();
+	Collection<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
 
 	for (GnucashVendorJob vendJob : vendJobMap.values()) {
 	    if (vendJob.getOwnerID().equals(vend.getID())) {

@@ -1,11 +1,13 @@
 package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
@@ -16,8 +18,6 @@ import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -323,7 +323,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 
     @Override
     public Collection<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashEmployeeVoucher invc : getGnucashFile().getVouchersForEmployee(this) ) {
 	    retval.add(invc);

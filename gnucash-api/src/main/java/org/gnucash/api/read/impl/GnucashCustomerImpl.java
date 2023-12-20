@@ -1,12 +1,14 @@
 package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
@@ -23,8 +25,6 @@ import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -448,7 +448,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      */
     public java.util.Collection<GnucashCustomerJob> getJobs() throws WrongInvoiceTypeException {
 
-	List<GnucashCustomerJob> retval = new LinkedList<GnucashCustomerJob>();
+	List<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
 
 	for ( GnucashGenerJob jobGener : getGnucashFile().getGenerJobs() ) {
 	    if ( jobGener.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
@@ -466,7 +466,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 
     @Override
     public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashGenerInvoice> retval = new LinkedList<GnucashGenerInvoice>();
+	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashCustomerInvoice invc : getGnucashFile().getInvoicesForCustomer_direct(this) ) {
 	    retval.add(invc);

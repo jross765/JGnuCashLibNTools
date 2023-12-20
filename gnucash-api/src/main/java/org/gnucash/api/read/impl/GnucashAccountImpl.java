@@ -1,22 +1,22 @@
 package org.gnucash.api.read.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.hlp.SimpleAccount;
-import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.ObjectFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -177,7 +177,7 @@ public class GnucashAccountImpl extends SimpleAccount
      *
      * @see #mySplitsNeedSorting
      */
-    private final List<GnucashTransactionSplit> mySplits = new LinkedList<GnucashTransactionSplit>();
+    private final List<GnucashTransactionSplit> mySplits = new ArrayList<GnucashTransactionSplit>();
 
     /**
      * If {@link #mySplits} needs to be sorted because it was modified. Sorting is

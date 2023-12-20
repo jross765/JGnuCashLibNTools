@@ -2,9 +2,7 @@ package org.gnucash.api.write.impl;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.impl.GnucashFileImpl;
@@ -22,9 +20,6 @@ public class TestGnucashWritableFileImpl
     private GnucashFileImpl         gcshOutFile = null;
     
     private GCshFileStats gcshInFileStats = null;
-
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
 
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -70,13 +65,6 @@ public class TestGnucashWritableFileImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
 
     gcshInFileStats = new GCshFileStats(gcshInFile);
   }

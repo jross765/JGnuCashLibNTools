@@ -26,6 +26,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashVendorBillEntryImpl;
+import org.gnucash.api.read.impl.spec.GnucashVendorBillImpl;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -439,6 +440,13 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 		this, getVendor(), 
 		expensesAcct, payablAcct, 
 		postDate, dueDate);
+    }
+
+    // ---------------------------------------------------------------
+	
+    public static GnucashVendorBillImpl toReadable(GnucashWritableVendorBillImpl invc) {
+	GnucashVendorBillImpl result = new GnucashVendorBillImpl(invc.getJwsdpPeer(), invc.getFile());
+	return result;
     }
 
 }

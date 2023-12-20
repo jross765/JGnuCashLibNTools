@@ -5,21 +5,20 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.write.GnucashWritableEmployee;
+import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,8 +37,6 @@ public class TestGnucashWritableEmployeeImpl
     // -----------------------------------------------------------------
 
     private GnucashWritableFileImpl gcshInFile = null;
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
 
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -85,13 +82,6 @@ public class TestGnucashWritableEmployeeImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
   }
 
   // -----------------------------------------------------------------
@@ -129,7 +119,7 @@ public class TestGnucashWritableEmployeeImpl
       assertEquals(0, ((GnucashWritableEmployeeImpl) empl).getPaidVouchers().size());
       assertEquals(empl.getPaidVouchers().size(), ((GnucashWritableEmployeeImpl) empl).getPaidVouchers().size()); // not trivial
       
-//    vchList = (LinkedList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
+//    vchList = (ArrayList<GnucashEmployeeVoucher>) empl.getPaidVouchers_direct();
 //    Collections.sort(vchList);
 //    assertEquals("xxx", 
 //                 ((GnucashVendorBill) vchList.toArray()[0]).getID() );
@@ -137,10 +127,14 @@ public class TestGnucashWritableEmployeeImpl
       assertEquals(1, ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
       assertEquals(empl.getUnpaidVouchers().size(), ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
       
-      ArrayList<GnucashEmployeeVoucher> vchList = (ArrayList<GnucashEmployeeVoucher>) empl.getUnpaidVouchers();
-      Collections.sort(vchList);
+      Collection<GnucashEmployeeVoucher> vchList1 = empl.getUnpaidVouchers();
+      Collections.sort((ArrayList<GnucashEmployeeVoucher>) vchList1);
       assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
-                   ((GnucashEmployeeVoucher) vchList.toArray()[0]).getID().toString() );
+                   ((GnucashEmployeeVoucher) vchList1.toArray()[0]).getID().toString() );
+      Collection<GnucashWritableEmployeeVoucher> vchList2 = ((GnucashWritableEmployeeImpl) empl).getUnpaidWritableVouchers();
+      Collections.sort((ArrayList<GnucashWritableEmployeeVoucher>) vchList2);
+      assertEquals("8de4467c17e04bb2895fb68cc07fc4df", 
+                   ((GnucashWritableEmployeeVoucher) vchList2.toArray()[0]).getID().toString() );
   }
 
   // -----------------------------------------------------------------
@@ -177,11 +171,6 @@ public class TestGnucashWritableEmployeeImpl
       outFile.delete(); // sic, the temp. file is already generated (empty), 
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
-      
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
   }
 
   // -----------------------------------------------------------------
@@ -213,16 +202,15 @@ public class TestGnucashWritableEmployeeImpl
 //      // assertEquals(validResult);
 //  }
 
-  @Test
-  public void test03_3() throws Exception
+  private void test03_1_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure
@@ -262,23 +250,17 @@ public class TestGnucashWritableEmployeeImpl
       outFile.delete(); // sic, the temp. file is already generated (empty), 
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
-      
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
   }
   
-  @Test
-  public void test03_5() throws Exception
+  private void test03_4_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure

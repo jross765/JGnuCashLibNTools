@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
 
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
@@ -31,7 +31,7 @@ public abstract class FileInvoiceManager_Job {
      */
     public static Collection<GnucashJobInvoice> getInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, IllegalArgumentException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+	Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
@@ -60,7 +60,7 @@ public abstract class FileInvoiceManager_Job {
      */
     public static Collection<GnucashJobInvoice> getPaidInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+	Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
@@ -89,7 +89,7 @@ public abstract class FileInvoiceManager_Job {
      */
     public static Collection<GnucashJobInvoice> getUnpaidInvoices(final FileInvoiceManager invcMgr, final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
-	Collection<GnucashJobInvoice> retval = new LinkedList<GnucashJobInvoice>();
+	Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 	for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {

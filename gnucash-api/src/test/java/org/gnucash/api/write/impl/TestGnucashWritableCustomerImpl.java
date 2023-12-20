@@ -5,12 +5,13 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.aux.GCshBillTerms;
@@ -19,6 +20,7 @@ import org.gnucash.api.read.impl.TestGnucashCustomerImpl;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.write.GnucashWritableCustomer;
+import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,8 +43,6 @@ public class TestGnucashWritableCustomerImpl
     // -----------------------------------------------------------------
 
     private GnucashWritableFileImpl gcshInFile = null;
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
 
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -88,13 +88,6 @@ public class TestGnucashWritableCustomerImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
   }
 
   // -----------------------------------------------------------------
@@ -102,7 +95,7 @@ public class TestGnucashWritableCustomerImpl
   //         (and see whether they are fully symmetrical to their read-only
   //         counterparts)
   // -----------------------------------------------------------------
-  // Cf. TestGnucashCustomerImpl.test01_1/02_2
+  // Cf. TestGnucashCustomerImpl.test01_1/02_1
   // 
   // Check whether the GnucashWritableCustomer objects returned by 
   // GnucashWritableFileImpl.getWritableCustomerByID() are actually 
@@ -142,13 +135,26 @@ public class TestGnucashWritableCustomerImpl
 
       assertEquals(1, ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size());
       assertEquals(cust.getPaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
-      assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
-                   ((GnucashCustomerInvoice) cust.getPaidInvoices_direct().toArray()[0]).getID().toString());
       
+      Collection<GnucashCustomerInvoice> invcList1 = cust.getPaidInvoices_direct();
+      Collections.sort((ArrayList<GnucashCustomerInvoice>) invcList1);
+      assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
+                   ((GnucashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
+      Collection<GnucashWritableCustomerInvoice> invcList2 = ((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct();
+      Collections.sort((ArrayList<GnucashWritableCustomerInvoice>) invcList2);
+      assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79", 
+                   ((GnucashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
+      
+      invcList1 = cust.getUnpaidInvoices_direct();
+      Collections.sort((ArrayList<GnucashCustomerInvoice>) invcList1);
       assertEquals(1, ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
-      assertEquals(cust.getUnpaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial!
+      assertEquals(cust.getUnpaidInvoices_direct().size(), ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial
       assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 
-                   ((GnucashCustomerInvoice) cust.getUnpaidInvoices_direct().toArray()[0]).getID().toString());
+                   ((GnucashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
+      invcList2 = ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct();
+      Collections.sort((ArrayList<GnucashWritableCustomerInvoice>) invcList2);
+      assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", 
+                   ((GnucashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
   }
 
   // -----------------------------------------------------------------
@@ -186,10 +192,7 @@ public class TestGnucashWritableCustomerImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test03_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
@@ -221,16 +224,15 @@ public class TestGnucashWritableCustomerImpl
 //      // assertEquals(validResult);
 //  }
 
-  @Test
-  public void test03_3() throws Exception
+  private void test03_1_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure
@@ -271,22 +273,18 @@ public class TestGnucashWritableCustomerImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test03_4_check(outFile);
   }
   
-  @Test
-  public void test03_5() throws Exception
+  private void test03_4_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure

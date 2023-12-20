@@ -5,15 +5,22 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.read.impl.TestGnucashVendorImpl;
+import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
+import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.write.GnucashWritableVendor;
+import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,16 +34,26 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableVendorImpl
 {
-    private GnucashWritableFileImpl gcshInFile = null;
-    private String outFileGlobNameAbs = null;
-    private File outFileGlob = null;
+  public static final GCshID VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
+//  public static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
+//  public static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+//  private static final GCshID TAXTABLE_UK_1_ID   = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+//
+  private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+//  private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+//  private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+
+  // -----------------------------------------------------------------
+  
+  private GnucashWritableFileImpl gcshInFile = null;
+
+  // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+  @SuppressWarnings("exports")
+  @Rule
+  public TemporaryFolder folder = new TemporaryFolder();
     
-    // -----------------------------------------------------------------
+  // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
   {
@@ -75,19 +92,96 @@ public class TestGnucashWritableVendorImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    URL outFileNameAbsURL = classLoader.getResource(ConstTest.GCSH_FILENAME_IN); // sic
-//    System.err.println("Out file name (glob, URL): '" + outFileNameAbsURL + "'");
-    outFileGlobNameAbs = outFileNameAbsURL.getPath();
-    outFileGlobNameAbs = outFileGlobNameAbs.replace(ConstTest.GCSH_FILENAME_IN, ConstTest.GCSH_FILENAME_OUT);
-//    System.err.println("Out file name (glob): '" + outFileGlobNameAbs + "'");
-    outFileGlob = new File(outFileGlobNameAbs);
   }
 
   // -----------------------------------------------------------------
-
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashVendorImpl.test01_1/02_1
+  // 
+  // Check whether the GnucashWritableVendor objects returned by 
+  // GnucashWritableFileImpl.getWritableVendorByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getVendorByID().
+  
   @Test
   public void test01_1() throws Exception
+  {
+    GnucashWritableVendor vend = gcshInFile.getVendorByID(VEND_1_ID);
+    assertNotEquals(null, vend);
+    
+    assertEquals(VEND_1_ID, vend.getID());
+    assertEquals("000001", vend.getNumber());
+    assertEquals("Lieferfanto AG", vend.getName());
+
+    assertEquals(null, vend.getTaxTableID());
+
+    assertEquals(BLLTRM_1_ID, vend.getTermsID());
+    assertEquals("sofort", vend.getTerms().getName());
+    assertEquals(GCshBillTerms.Type.DAYS, vend.getTerms().getType());
+    assertEquals(null, vend.getNotes());
+    // etc., cf. class TestGCshBillTermsImpl
+  }
+
+  @Test
+  public void test02_1() throws Exception
+  {
+    GnucashWritableVendor vend = gcshInFile.getVendorByID(VEND_1_ID);
+    assertNotEquals(null, vend);
+    
+    assertEquals(1, ((GnucashWritableVendorImpl) vend).getNofOpenBills());
+    assertEquals(vend.getNofOpenBills(), ((GnucashWritableVendorImpl) vend).getNofOpenBills()); // not trivial
+    
+    assertEquals(1, ((GnucashWritableVendorImpl) vend).getPaidWritableBills_direct().size());
+    assertEquals(vend.getPaidBills_direct().size(), ((GnucashWritableVendorImpl) vend).getPaidWritableBills_direct().size()); // not trivial
+    
+    Collection<GnucashVendorBill> bllList1 = vend.getPaidBills_direct();
+    Collections.sort((ArrayList<GnucashVendorBill>) bllList1);
+    assertEquals("286fc2651a7848038a23bb7d065c8b67", 
+                 ((GnucashVendorBill) bllList1.toArray()[0]).getID().toString() );
+    Collection<GnucashWritableVendorBill> bllList2 = ((GnucashWritableVendorImpl) vend).getPaidWritableBills_direct();
+    Collections.sort((ArrayList<GnucashWritableVendorBill>) bllList2);
+    assertEquals("286fc2651a7848038a23bb7d065c8b67", 
+                 ((GnucashWritableVendorBill) bllList2.toArray()[0]).getID().toString() );
+    
+    assertEquals(1, ((GnucashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size());
+    assertEquals(vend.getUnpaidBills_direct().size(), ((GnucashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size()); // not trivial
+    
+    bllList1 = vend.getUnpaidBills_direct();
+    Collections.sort((ArrayList<GnucashVendorBill>) bllList1);
+    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
+                 ((GnucashVendorBill) bllList1.toArray()[0]).getID().toString() );
+    bllList2 = ((GnucashWritableVendorImpl) vend).getUnpaidWritableBills_direct();
+    Collections.sort((ArrayList<GnucashWritableVendorBill>) bllList2);
+    assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", 
+                 ((GnucashWritableVendorBill) bllList2.toArray()[0]).getID().toString() );
+  }
+  
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableVendor objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  @Test
+  public void test03_1() throws Exception
   {
       GnucashWritableVendor vend = gcshInFile.createWritableVendor();
       vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
@@ -99,16 +193,13 @@ public class TestGnucashWritableVendorImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test03_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test01_2() throws Exception
+//  public void test03_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -134,16 +225,15 @@ public class TestGnucashWritableVendorImpl
 //      // assertEquals(validResult);
 //  }
 
-  @Test
-  public void test01_3() throws Exception
+  private void test03_1_check(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure
@@ -164,7 +254,7 @@ public class TestGnucashWritableVendorImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test02_1() throws Exception
+  public void test03_4() throws Exception
   {
       GnucashWritableVendor vend1 = gcshInFile.createWritableVendor();
       vend1.setNumber(GnucashVendorImpl.getNewNumber(vend1));
@@ -184,22 +274,18 @@ public class TestGnucashWritableVendorImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      // copy file
-      if ( outFileGlob.exists() )
-	  FileUtils.delete(outFileGlob);
-      FileUtils.copyFile(outFile, outFileGlob);
+      test03_4(outFile);
   }
   
-  @Test
-  public void test02_3() throws Exception
+  private void test03_4(File outFile) throws Exception
   {
-      assertNotEquals(null, outFileGlob);
-      assertEquals(true, outFileGlob.exists());
+      assertNotEquals(null, outFile);
+      assertEquals(true, outFile.exists());
 
       // Build document
       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
       DocumentBuilder builder = factory.newDocumentBuilder();
-      Document document = builder.parse(outFileGlob);
+      Document document = builder.parse(outFile);
 //      System.err.println("xxxx XML parsed");
 
       // Normalize the XML structure
