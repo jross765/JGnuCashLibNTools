@@ -26,13 +26,15 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashVendorBillImpl
 {
+  private static final GCshID BLL_1_ID = TestGnucashGenerInvoiceImpl.INVC_4_ID;
+  private static final GCshID BLL_2_ID = TestGnucashGenerInvoiceImpl.INVC_2_ID;
+
+  // -----------------------------------------------------------------
+    
   private GnucashFile            gcshFile = null;
   private GnucashGenerInvoice invcGen = null;
   private GnucashVendorBill      bllSpec = null;
   
-  private static final GCshID BLL_1_ID = TestGnucashGenerInvoiceImpl.INVC_4_ID;
-  private static final GCshID BLL_2_ID = TestGnucashGenerInvoiceImpl.INVC_2_ID;
-
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

@@ -16,9 +16,6 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashAccountImpl
 {
-  private GnucashFile    gcshFile = null;
-  private GnucashAccount acct = null;
-  
   public static final GCshID ROOT_ACCT_ID = new GCshID("14305dc80e034834b3f531696d81b493"); // Root Account
 
   public static final GCshID ACCT_1_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
@@ -29,6 +26,11 @@ public class TestGnucashAccountImpl
   public static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account::Anfangsbestand
   public static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account::Aktiva::Depots::Depot RaiBa::DE0007100000 Mercedes-Benz
 
+  // -----------------------------------------------------------------
+  
+  private GnucashFile    gcshFile = null;
+  private GnucashAccount acct = null;
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

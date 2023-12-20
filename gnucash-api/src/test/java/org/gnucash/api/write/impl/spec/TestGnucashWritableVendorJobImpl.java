@@ -2,6 +2,7 @@ package org.gnucash.api.write.impl.spec;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.TestGnucashGenerJobImpl;
 import org.gnucash.api.read.impl.TestGnucashVendorImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashVendorJob;
@@ -35,9 +37,11 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableVendorJobImpl
 {
+    private static final GCshID JOB_2_ID = TestGnucashGenerJobImpl.JOB_2_ID;
+
     private static final GCshID VEND_1_ID = TestGnucashVendorImpl.VEND_1_ID;
-    private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
-    private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
+//    private static final GCshID VEND_2_ID = TestGnucashVendorImpl.VEND_2_ID;
+//    private static final GCshID VEND_3_ID = TestGnucashVendorImpl.VEND_3_ID;
 
     // ----------------------------
 
@@ -99,9 +103,85 @@ public class TestGnucashWritableVendorJobImpl
   }
 
   // -----------------------------------------------------------------
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashVendorJobImpl.test01/02
+  // 
+  // Check whether the GnucashWritableVendorJob objects returned by 
+  // GnucashWritableFileImpl.getWritableGenerJobByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getGenerJobByID().
+  
+  @Test
+  public void test01_1() throws Exception
+  {
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobSpec);
+
+    assertTrue(jobSpec instanceof GnucashVendorJob);
+    assertEquals(JOB_2_ID, jobSpec.getID());
+    assertEquals("000002", jobSpec.getNumber());
+    assertEquals("Let's buy help", jobSpec.getName());
+  }
 
   @Test
-  public void test01() throws Exception
+  public void test01_2() throws Exception
+  {
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobSpec);
+      
+    assertEquals(1, jobSpec.getNofOpenInvoices());
+    assertEquals(((GnucashVendorJob) jobSpec).getNofOpenInvoices(), jobSpec.getNofOpenInvoices());
+
+    assertEquals(0, jobSpec.getPaidInvoices().size());
+    assertEquals(jobSpec.getPaidInvoices().size(), ((GnucashVendorJob) jobSpec).getPaidInvoices().size());
+    assertEquals(jobSpec.getPaidInvoices().size(), ((GnucashWritableVendorJobImpl) jobSpec).getPaidWritableInvoices().size());
+
+    assertEquals(1, jobSpec.getUnpaidInvoices().size());
+    assertEquals(jobSpec.getUnpaidInvoices().size(), ((GnucashVendorJob) jobSpec).getUnpaidInvoices().size());
+    assertEquals(jobSpec.getUnpaidInvoices().size(), ((GnucashWritableVendorJobImpl) jobSpec).getUnpaidWritableInvoices().size());
+  }
+
+  @Test
+  public void test01_3() throws Exception
+  {
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    assertNotEquals(null, jobSpec);
+      
+    // Note: That the following three return the same result
+    // is *not* trivial (in fact, a serious implementation error was
+    // found with this test)
+    GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+    assertEquals(vendID, jobSpec.getOwnerID());
+    // ::TODO
+//    assertEquals(vendID, jobSpec.getVendorID());
+  }
+  
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableVendorJob objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+
+  @Test
+  public void test03_1() throws Exception
   {
       GnucashWritableVendorJob job = gcshInFile.createWritableVendorJob(
 	      						vend1, "J456", 
@@ -120,17 +200,17 @@ public class TestGnucashWritableVendorJobImpl
       gcshInFile.writeFile(outFile);
       
       // test01_2();
-      test01_3(outFile, newJobID);
-      test01_4(outFile, newJobID);
+      test03_3(outFile, newJobID);
+      test03_4(outFile, newJobID);
   }
 
-  private void test01_2(File outFile, String newJobID) throws ParserConfigurationException, SAXException, IOException 
+  private void test03_2(File outFile, String newJobID) throws ParserConfigurationException, SAXException, IOException 
   {
       // ::TODO
       // Check if generated XML file is valid
   }
   
-  private void test01_3(File outFile, GCshID newJobID) throws ParserConfigurationException, SAXException, IOException 
+  private void test03_3(File outFile, GCshID newJobID) throws ParserConfigurationException, SAXException, IOException 
   {
       //    assertNotEquals(null, outFileGlob);
       //    assertEquals(true, outFileGlob.exists());
@@ -159,7 +239,7 @@ public class TestGnucashWritableVendorJobImpl
       assertEquals(newJobID.toString(), locNewJobID);
   }
 
-  private void test01_4(File outFile, GCshID newInvcID) throws Exception
+  private void test03_4(File outFile, GCshID newInvcID) throws Exception
   {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());

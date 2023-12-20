@@ -16,12 +16,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashGenerJobImpl
 {
-  private GnucashFile     gcshFile = null;
-  private GnucashGenerJob job = null;
-  
   public static final GCshID JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
   public static final GCshID JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
 
+  // -----------------------------------------------------------------
+  
+  private GnucashFile     gcshFile = null;
+  private GnucashGenerJob job = null;
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

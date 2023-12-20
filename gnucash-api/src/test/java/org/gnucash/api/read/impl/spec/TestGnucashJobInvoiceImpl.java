@@ -23,12 +23,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashJobInvoiceImpl
 {
+  private static final GCshID INVC_3_ID = TestGnucashGenerInvoiceImpl.INVC_3_ID;
+  private static final GCshID INVC_5_ID = TestGnucashGenerInvoiceImpl.INVC_5_ID;
+    
+  // -----------------------------------------------------------------
+    
   private GnucashFile         gcshFile = null;
   private GnucashGenerInvoice invcGen = null;
   private GnucashJobInvoice   invcSpec = null;
-  
-  private static final GCshID INVC_3_ID = TestGnucashGenerInvoiceImpl.INVC_3_ID;
-  private static final GCshID INVC_5_ID = TestGnucashGenerInvoiceImpl.INVC_5_ID;
   
   // -----------------------------------------------------------------
   

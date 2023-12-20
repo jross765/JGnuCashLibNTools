@@ -20,9 +20,6 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashCustomerImpl
 {
-  private GnucashFile     gcshFile = null;
-  private GnucashCustomer cust = null;
-  
   public static final GCshID CUST_1_ID = new GCshID("5d1dd9afa7554553988669830cc1f696"); // Unfug und Quatsch GmbH
   public static final GCshID CUST_2_ID = new GCshID("f44645d2397946bcac90dff68cc03b76"); // Is That So Ltd.
   public static final GCshID CUST_3_ID = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d"); // N'importe Quoi S.A.
@@ -33,6 +30,11 @@ public class TestGnucashCustomerImpl
   private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
   private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
+  // -----------------------------------------------------------------
+  
+  private GnucashFile     gcshFile = null;
+  private GnucashCustomer cust = null;
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

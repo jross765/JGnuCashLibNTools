@@ -2,34 +2,34 @@ package org.gnucash.api.write.impl.spec;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.gnucash.api.Const;
+import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashGenerJob;
-import org.gnucash.api.read.GnucashVendor;
-import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.spec.GnucashWritableVendorJob;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.OwnerId;
+import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
+import org.gnucash.api.read.spec.GnucashJobInvoice;
+import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
+import org.gnucash.api.write.spec.GnucashWritableVendorJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Modifiable version of a Job implemented.<br/>
- * <p>
- * Additional supported properties for PropertyChangeListeners:
- * <ul>
- * <li>vendor</li>
- * <li>active</li>
- * <li>name</li>
- * </ul>
+ * Modifiable version of a Job implemented.
  */
-
 public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl 
                                           implements GnucashWritableVendorJob 
 {
@@ -139,7 +139,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	file.getRootElement().getGncBook().getBookElements().add(jwsdpJob);
 	file.setModified(true);
 
-	LOGGER.debug("createCustomerJob_int: Created new vendor job (core): " + jwsdpJob.getJobGuid().getValue());
+	LOGGER.debug("createVendorJob_int: Created new vendor job (core): " + jwsdpJob.getJobGuid().getValue());
 
         return jwsdpJob;
     }
@@ -206,28 +206,37 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
     }
 
     /**
-     * @see GnucashWritableVendorJob#setJobNumber(java.lang.String)
+     * @see GnucashWritableVendorJob#setNumber(java.lang.String)
      */
-    public void setJobNumber(final String jobId) {
-	if (jobId == null || jobId.trim().length() == 0) {
-	    throw new IllegalArgumentException("null or empty job-number given!");
+    @Override
+    public void setNumber(final String jobNumber) {
+	if (jobNumber == null) {
+	    throw new IllegalArgumentException("null job-number given!");
 	}
-	GnucashGenerJob otherJob = getWritableFile().getGenerJobByNumber(jobId);
-	if (otherJob != null && !otherJob.getID().equals(getID())) {
-	    throw new IllegalArgumentException(
-		    "another job (id='" + otherJob.getID() + "' already exists with given jobNumber '" + jobId + "')");
+	
+	if (jobNumber.trim().length() == 0) {
+	    throw new IllegalArgumentException("empty job-number given!");
 	}
 
-	String oldJobId = getJwsdpPeer().getJobId();
-	if (oldJobId == jobId) {
+	GnucashGenerJob otherJob = getWritableFile().getGenerJobByNumber(jobNumber);
+	if ( otherJob != null ) {
+	    if ( ! otherJob.getID().equals(getID()) ) {
+		throw new IllegalArgumentException(
+			"another job (id='" + otherJob.getID() + "' already exists with given job number '" + jobNumber + "')");
+	    }
+	}
+
+	String oldJobNumber = getJwsdpPeer().getJobId();
+	if (oldJobNumber.equals(jobNumber)) {
 	    return; // nothing has changed
 	}
-	getJwsdpPeer().setJobId(jobId);
+	
+	getJwsdpPeer().setJobId(jobNumber);
 	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("jobId", oldJobId, jobId);
+	    propertyChangeFirer.firePropertyChange("id", oldJobNumber, jobNumber);
 	}
 
     }
@@ -236,20 +245,25 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      * @see GnucashWritableVendorJob#setName(java.lang.String)
      */
     public void setName(final String jobName) {
-	if (jobName == null || jobName.trim().length() == 0) {
-	    throw new IllegalArgumentException("null or empty job-name given!");
+	if (jobName == null) {
+	    throw new IllegalArgumentException("null job-name given!");
+	}
+
+	if (jobName.trim().length() == 0) {
+	    throw new IllegalArgumentException("empty job-name given!");
 	}
 
 	String oldJobName = getJwsdpPeer().getJobName();
-	if (oldJobName == jobName) {
+	if (oldJobName.equals(jobName)) {
 	    return; // nothing has changed
 	}
+	
 	getJwsdpPeer().setJobName(jobName);
 	getWritableFile().setModified(true);
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("jobName", oldJobName, jobName);
+	    propertyChangeFirer.firePropertyChange("name", oldJobName, jobName);
 	}
     }
 
@@ -258,10 +272,11 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      */
     public void setActive(final boolean jobActive) {
 
-	boolean old = getJwsdpPeer().getJobActive() != 0;
-	if (old == jobActive) {
+	boolean oldJobActive = getJwsdpPeer().getJobActive() != 0;
+	if (oldJobActive == jobActive) {
 	    return; // nothing has changed
 	}
+	
 	if (jobActive) {
 	    getJwsdpPeer().setJobActive(1);
 	} else {
@@ -271,7 +286,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("jobActive", old, jobActive);
+	    propertyChangeFirer.firePropertyChange("active", oldJobActive, jobActive);
 	}
     }
 
@@ -298,6 +313,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      *
      * @param listener The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -312,6 +328,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
+    @SuppressWarnings("exports")
     public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
@@ -325,6 +342,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
@@ -337,10 +355,103 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      *
      * @param listener The PropertyChangeListener to be removed
      */
+    @SuppressWarnings("exports")
     public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
 	    myPropertyChange.removePropertyChangeListener(listener);
 	}
+    }
+
+    // ---------------------------------------------------------------
+    // The methods in this part are overridden methods from
+    // GnucashGenerJobImpl.
+    // They are actually necessary -- if we used the according methods 
+    // in the super class, the results would be incorrect.
+    // Admittedly, this is probably the most elegant solution, but it works.
+    // (In fact, I have been bug-hunting long hours before fixing it
+    // by these overrides, and to this day, I have not fully understood
+    // all the intricacies involved, to be honest. Moving on to other
+    // to-dos...).
+    // Cf. comments in FileInvoiceManager (write-version).
+
+    @Override
+    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	try {
+	    return getWritableFile().getUnpaidWritableInvoicesForJob(this).size();
+	} catch (TaxTableNotFoundException e) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+    }
+
+    // ----------------------------
+
+    // ::TODO
+//    @Override
+//    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
+//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+//
+//	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForJob(this) ) {
+//	    retval.add(invc);
+//	}
+//	
+//	return retval;
+//    }
+//
+
+    @Override
+    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
+	
+	try {
+	    for ( GnucashWritableJobInvoice wrtblInvc : getPaidWritableInvoices() ) {
+		GnucashJobInvoiceImpl rdblInvc = GnucashWritableJobInvoiceImpl.toReadable((GnucashWritableJobInvoiceImpl) wrtblInvc);
+		result.add(rdblInvc);
+	    }
+	} catch ( TaxTableNotFoundException exc ) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+	
+	return result;
+    }
+
+    @Override
+    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
+	
+	try {
+	    for ( GnucashWritableJobInvoice wrtblInvc : getUnpaidWritableInvoices() ) {
+		GnucashJobInvoiceImpl rdblInvc = GnucashWritableJobInvoiceImpl.toReadable((GnucashWritableJobInvoiceImpl) wrtblInvc);
+		result.add(rdblInvc);
+	    }
+	} catch ( TaxTableNotFoundException exc ) {
+	    throw new IllegalStateException("Encountered tax table exception");
+	}
+	
+	return result;
+    }
+
+    // -----------------------------------------------------------------
+    // The methods in this part are the "writable"-variants of 
+    // the according ones in the super class GnucashCustomerImpl.
+
+    // ::TODO
+//    @Override
+//    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
+//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+//
+//	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForJob(this) ) {
+//	    retval.add(invc);
+//	}
+//	
+//	return retval;
+//    }
+
+    public Collection<GnucashWritableJobInvoice> getPaidWritableInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+	return getWritableFile().getPaidWritableInvoicesForJob(this);
+    }
+
+    public Collection<GnucashWritableJobInvoice> getUnpaidWritableInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+	return getWritableFile().getUnpaidWritableInvoicesForJob(this);
     }
 
 }

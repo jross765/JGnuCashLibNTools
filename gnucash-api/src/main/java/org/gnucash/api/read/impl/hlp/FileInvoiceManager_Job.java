@@ -37,8 +37,6 @@ public abstract class FileInvoiceManager_Job {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getInvoices: Cannot instantiate GnucashJobInvoiceImpl");
 		}
 	    }
@@ -65,8 +63,6 @@ public abstract class FileInvoiceManager_Job {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getPaidInvoices: Cannot instantiate GnucashJobInvoiceImpl");
 		}
 	    }
@@ -93,8 +89,6 @@ public abstract class FileInvoiceManager_Job {
 		try {
 		    retval.add(new GnucashJobInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getUnpaidInvoices: Cannot instantiate GnucashJobInvoiceImpl");
 		}
 	    }

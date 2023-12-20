@@ -20,12 +20,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashCustomerJobImpl
 {
+  private static final GCshID JOB_1_ID = TestGnucashGenerJobImpl.JOB_1_ID;
+
+  // -----------------------------------------------------------------
+  
   private GnucashFile        gcshFile = null;
   private GnucashGenerJob    jobGener = null;
   private GnucashCustomerJob jobSpec = null;
   
-  private static final GCshID JOB_1_ID = TestGnucashGenerJobImpl.JOB_1_ID;
-
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
@@ -91,6 +93,12 @@ public class TestGnucashCustomerJobImpl
     jobSpec  = new GnucashCustomerJobImpl(jobGener);
     assertNotEquals(null, jobSpec);
       
+    // Note: That the following two return the same result
+    // is *not* trivial (in fact, a serious implementation error was
+    // found with this test)
+    assertEquals(1, jobGener.getNofOpenInvoices());
+    assertEquals(1, jobSpec.getNofOpenInvoices());
+
     // Note: That the following two return the same result
     // is *not* trivial (in fact, a serious implementation error was
     // found with this test)

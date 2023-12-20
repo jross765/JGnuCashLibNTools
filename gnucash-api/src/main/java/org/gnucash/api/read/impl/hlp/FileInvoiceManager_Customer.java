@@ -38,8 +38,6 @@ public abstract class FileInvoiceManager_Customer {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
 		}
 	    }
@@ -87,8 +85,6 @@ public abstract class FileInvoiceManager_Customer {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getPaidInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
 		}
 	    }
@@ -137,8 +133,6 @@ public abstract class FileInvoiceManager_Customer {
 		try {
 		    retval.add(new GnucashCustomerInvoiceImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getUnpaidInvoices_direct: Cannot instantiate GnucashCustomerInvoiceImpl");
 		}
 	    }

@@ -37,8 +37,6 @@ public abstract class FileInvoiceManager_Employee {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }
@@ -65,8 +63,6 @@ public abstract class FileInvoiceManager_Employee {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getPaidVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }
@@ -93,8 +89,6 @@ public abstract class FileInvoiceManager_Employee {
 		try {
 		    retval.add(new GnucashEmployeeVoucherImpl(invc));
 		} catch (WrongInvoiceTypeException e) {
-		    // This really should not happen, one can almost
-		    // throw a fatal log here.
 		    LOGGER.error("getUnpaidVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
 		}
 	    }

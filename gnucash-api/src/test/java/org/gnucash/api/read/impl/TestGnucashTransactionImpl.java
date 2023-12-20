@@ -16,12 +16,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashTransactionImpl
 {
-  private GnucashFile        gcshFile = null;
-  private GnucashTransaction trx = null;
-  
   public static final GCshID TRX_1_ID = new GCshID("32b216aa73a44137aa5b041ab8739058");
   public static final GCshID TRX_2_ID = new GCshID("c97032ba41684b2bb5d1391c9d7547e9");
   public static final GCshID TRX_3_ID = new GCshID("d465b802d5c940c9bba04b87b63ba23f");
+  
+  // -----------------------------------------------------------------
+  
+  private GnucashFile        gcshFile = null;
+  private GnucashTransaction trx = null;
   
   // -----------------------------------------------------------------
   

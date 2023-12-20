@@ -13,6 +13,7 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorBillImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
@@ -46,7 +47,7 @@ public abstract class FileInvoiceManager_Vendor {
 		    GnucashWritableVendorBillImpl wrtblInvc = new GnucashWritableVendorBillImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
 		} catch (WrongInvoiceTypeException e) {
-		    LOGGER.error("getBills_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getBills_direct: Cannot instantiate GnucashWritableVendorBillImpl");
 		}
 	    }
 	}
@@ -90,13 +91,13 @@ public abstract class FileInvoiceManager_Vendor {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableVendorBill> retval = new ArrayList<GnucashWritableVendorBill>();
 
-	for ( GnucashGenerInvoice invc : invMgr.getPaidWritableGenerInvoices() ) {
+	for ( GnucashWritableGenerInvoice invc : invMgr.getPaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
 		try {
 		    GnucashWritableVendorBillImpl wrtblInvc = new GnucashWritableVendorBillImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
 		} catch (WrongInvoiceTypeException e) {
-		    LOGGER.error("getPaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getPaidBills_direct: Cannot instantiate GnucashWritableVendorBillImpl");
 		}
 	    }
 	}
@@ -141,13 +142,13 @@ public abstract class FileInvoiceManager_Vendor {
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableVendorBill> retval = new ArrayList<GnucashWritableVendorBill>();
 
-	for ( GnucashGenerInvoice invc : invMgr.getUnpaidWritableGenerInvoices() ) {
+	for ( GnucashWritableGenerInvoice invc : invMgr.getUnpaidWritableGenerInvoices() ) {
 	    if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
 		try {
 		    GnucashWritableVendorBillImpl wrtblInvc = new GnucashWritableVendorBillImpl((GnucashWritableGenerInvoiceImpl) invc);
 		    retval.add(wrtblInvc);
 		} catch (WrongInvoiceTypeException e) {
-		    LOGGER.error("getUnpaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
+		    LOGGER.error("getUnpaidBills_direct: Cannot instantiate GnucashWritableVendorBillImpl");
 		}
 	    }
 	}

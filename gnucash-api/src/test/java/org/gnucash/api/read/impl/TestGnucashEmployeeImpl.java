@@ -19,11 +19,13 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashEmployeeImpl
 {
+  public static final GCshID EMPL_1_ID = new GCshID("7f70b352dcf44a5d8085767a53a9bc37");
+
+  // -----------------------------------------------------------------
+  
   private GnucashFile     gcshFile = null;
   private GnucashEmployee empl = null;
   
-  public static final GCshID EMPL_1_ID = new GCshID("7f70b352dcf44a5d8085767a53a9bc37");
-
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

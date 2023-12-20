@@ -25,7 +25,7 @@ import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGnucashWritableGenericInvoiceImpl
+public class TestGnucashWritableGenerInvoiceImpl
 {
     public static final GCshID INVC_1_ID = TestGnucashGenerInvoiceImpl.INVC_1_ID;
     public static final GCshID INVC_2_ID = TestGnucashGenerInvoiceImpl.INVC_2_ID;
@@ -56,7 +56,7 @@ public class TestGnucashWritableGenericInvoiceImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGnucashWritableGenericInvoiceImpl.class);  
+    return new JUnit4TestAdapter(TestGnucashWritableGenerInvoiceImpl.class);  
   }
   
   @Before

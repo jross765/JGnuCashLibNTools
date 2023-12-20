@@ -5,6 +5,8 @@ import org.gnucash.api.read.GnucashGenerJob;
 public interface GnucashWritableGenerJob extends GnucashGenerJob 
 {
     
+    void setNumber(String number);
+
     /**
      * Set the description-text.
      *

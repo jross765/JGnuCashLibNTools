@@ -8,6 +8,7 @@ import java.util.HashSet;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
@@ -26,6 +27,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -34,7 +36,6 @@ import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -464,6 +465,13 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 		this, getJob(), 
 		incExpAcct, recvblPayablAcct, 
 		postDate, dueDate);
+    }
+
+    // ---------------------------------------------------------------
+	
+    public static GnucashJobInvoiceImpl toReadable(GnucashWritableJobInvoiceImpl invc) {
+	GnucashJobInvoiceImpl result = new GnucashJobInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
+	return result;
     }
 
 }

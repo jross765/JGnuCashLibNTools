@@ -22,10 +22,6 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashGenerInvoiceImpl
 {
-  private GnucashFileImpl     gcshFile      = null;
-  private GCshFileStats       gcshFileStats = null;
-  private GnucashGenerInvoice invc          = null;
-  
   public static final GCshID INVC_1_ID = new GCshID("d9967c10fdf1465e9394a3e4b1e7bd79");
   public static final GCshID INVC_2_ID = new GCshID("286fc2651a7848038a23bb7d065c8b67");
   public static final GCshID INVC_3_ID = new GCshID("b1e981f796b94ca0b17a9dccb91fedc0");
@@ -34,6 +30,12 @@ public class TestGnucashGenerInvoiceImpl
   public static final GCshID INVC_6_ID = new GCshID("6588f1757b9e4e24b62ad5b37b8d8e07");
   public static final GCshID INVC_7_ID = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
 
+  // -----------------------------------------------------------------
+  
+  private GnucashFileImpl     gcshFile      = null;
+  private GCshFileStats       gcshFileStats = null;
+  private GnucashGenerInvoice invc          = null;
+  
   // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception

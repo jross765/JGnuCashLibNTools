@@ -308,9 +308,6 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 
     // -----------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
