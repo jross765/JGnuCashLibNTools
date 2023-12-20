@@ -100,7 +100,6 @@ public class FileTransactionManager {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     protected GnucashTransactionSplitImpl createTransactionSplit(
 	    final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,

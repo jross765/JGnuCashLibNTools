@@ -213,7 +213,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     @Override
     public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
@@ -229,7 +228,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getIncomeGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException {
 	if ( readVar == GnucashGenerInvoice.ReadVariant.DIRECT )
@@ -247,7 +245,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getIncomeGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -276,7 +273,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getIncomeGenerated_viaAllJobs() throws UnknownAccountTypeException, IllegalArgumentException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -305,7 +301,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated()
      */
@@ -322,7 +317,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getIncomeGenerated()
      */
     public String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException {
@@ -338,7 +332,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException {
@@ -357,7 +350,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException, IllegalArgumentException {
@@ -387,7 +379,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     public FixedPointNumber getOutstandingValue_viaAllJobs() throws UnknownAccountTypeException, IllegalArgumentException {
@@ -417,7 +408,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue()
      */
     public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException {
@@ -430,7 +420,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format

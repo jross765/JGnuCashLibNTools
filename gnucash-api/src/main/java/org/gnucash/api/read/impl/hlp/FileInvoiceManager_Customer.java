@@ -27,7 +27,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
@@ -55,7 +54,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getInvoices_viaAllJobs(final GnucashCustomer cust)
@@ -78,7 +76,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
@@ -107,7 +104,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getPaidInvoices_viaAllJobs(final GnucashCustomer cust)
@@ -130,7 +126,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr, final GnucashCustomer cust)
@@ -159,7 +154,6 @@ public abstract class FileInvoiceManager_Customer {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getUnpaidInvoices_viaAllJobs(final GnucashCustomer cust)

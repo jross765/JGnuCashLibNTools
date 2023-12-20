@@ -28,7 +28,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
@@ -56,7 +55,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
@@ -79,7 +77,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
@@ -108,7 +105,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
@@ -131,7 +127,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
@@ -160,7 +155,6 @@ public abstract class FileInvoiceManager_Vendor {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     public static Collection<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)

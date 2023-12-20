@@ -129,7 +129,6 @@ public class FileInvoiceManager {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getPaidGenerInvoices()
      */
@@ -184,7 +183,6 @@ public class FileInvoiceManager {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      * @see GnucashFile#getUnpaidGenerInvoices()
      */

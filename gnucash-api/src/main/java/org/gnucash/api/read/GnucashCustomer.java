@@ -121,7 +121,6 @@ public interface GnucashCustomer extends GnucashObject {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
@@ -134,7 +133,6 @@ public interface GnucashCustomer extends GnucashObject {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getIncomeGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException;
@@ -146,7 +144,6 @@ public interface GnucashCustomer extends GnucashObject {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getIncomeGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException;
@@ -158,7 +155,6 @@ public interface GnucashCustomer extends GnucashObject {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getIncomeGenerated_viaAllJobs() throws UnknownAccountTypeException, IllegalArgumentException;

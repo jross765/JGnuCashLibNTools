@@ -26,7 +26,6 @@ public abstract class FileInvoiceManager_Employee {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
@@ -55,7 +54,6 @@ public abstract class FileInvoiceManager_Employee {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
@@ -84,7 +82,6 @@ public abstract class FileInvoiceManager_Employee {
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     public static Collection<GnucashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)

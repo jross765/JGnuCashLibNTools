@@ -163,7 +163,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     @Override
     public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
@@ -179,7 +178,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException, IllegalArgumentException {
 	return getExpensesGenerated_direct();
@@ -192,7 +190,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -221,7 +218,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getExpensesGenerated()
      */
     public String getExpensesGeneratedFormatted() throws UnknownAccountTypeException, IllegalArgumentException {
@@ -237,7 +233,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getExpensesGenerated()
      */
     public String getExpensesGeneratedFormatted(final Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException {
@@ -254,7 +249,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	return getOutstandingValue_direct();
@@ -268,7 +262,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -297,7 +290,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue()
      */
     public String getOutstandingValueFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
@@ -311,7 +303,6 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
