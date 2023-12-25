@@ -3,6 +3,7 @@ package org.gnucash.api.write.impl.aux;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -15,9 +16,13 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshPrice.Type;
+import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshPriceImpl;
+import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.aux.GCshWritablePrice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
@@ -37,7 +42,11 @@ public class TestGCshWritablePriceImpl
     // -----------------------------------------------------------------
 
     private GnucashWritableFileImpl gcshInFile = null;
+    private GnucashFileImpl         gcshOutFile = null;
 
+    private GCshFileStats           gcshInFileStats = null;
+    private GCshFileStats           gcshOutFileStats = null;
+    
     GCshCmdtyID          cmdtyID11 = null;
     GCshCmdtyID_Exchange cmdtyID12 = null;
 
@@ -129,7 +138,7 @@ public class TestGCshWritablePriceImpl
   }
 
   @Test
-  public void test02_1() throws Exception {
+  public void test01_2_1() throws Exception {
       GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_1_ID);
       assertNotEquals(null, prc);
 
@@ -169,7 +178,7 @@ public class TestGCshWritablePriceImpl
   }
 
   @Test
-  public void test02_2() throws Exception {
+  public void test01_2_2() throws Exception {
       GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_2_ID);
       assertNotEquals(null, prc);
 
@@ -209,7 +218,7 @@ public class TestGCshWritablePriceImpl
   }
 
   @Test
-  public void test02_3() throws Exception {
+  public void test01_2_3() throws Exception {
       GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_3_ID);
       assertNotEquals(null, prc);
 
@@ -249,7 +258,7 @@ public class TestGCshWritablePriceImpl
   }
 
   @Test
-  public void test02_4() throws Exception {
+  public void test01_2_4() throws Exception {
       GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_4_ID);
       assertNotEquals(null, prc);
 
@@ -285,8 +294,103 @@ public class TestGCshWritablePriceImpl
   // Check whether the GCshWritablePrice objects returned by 
   // can actually be modified -- both in memory and persisted in file.
 
-  // ::TODO
+  @Test
+  public void test02_1() throws Exception
+  {
+    gcshInFileStats = new GCshFileStats(gcshInFile);
 
+    assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+    assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+    assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+    
+    GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_1_ID);
+    assertNotEquals(null, prc);
+    
+    assertEquals(PRC_1_ID, prc.getID());
+    
+    // ----------------------------
+    // Modify the object
+    
+    prc.setDate(LocalDate.of(2019, 1, 1));
+    prc.setValue(new FixedPointNumber(21.20));
+    
+    // ::TODO not possible yet
+    // trx.getSplitByID("7abf90fe15124254ac3eb7ec33f798e7").remove()
+    // trx.getSplitByID("7abf90fe15124254ac3eb7ec33f798e7").setXYZ()
+
+    // ----------------------------
+    // Check whether the object can has actually be modified 
+    // (in memory, not in the file yet).
+    
+    test02_1_check_memory(prc);
+    
+    // ----------------------------
+    // Now, check whether the modified object can be written to the 
+    // output file, then re-read from it, and whether is is what
+    // we expect it is.
+    
+    File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+    //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+    outFile.delete(); // sic, the temp. file is already generated (empty), 
+                      // and the GnuCash file writer does not like that.
+    gcshInFile.writeFile(outFile);
+  
+    test02_1_check_persisted(outFile);
+  }
+
+  @Test
+  public void test02_2() throws Exception
+  {
+      // ::TODO
+  }
+
+  private void test02_1_check_memory(GCshWritablePrice prc) throws Exception 
+  {
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+      assertEquals(PRC_1_ID, prc.getID()); // unchanged
+      assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString()); // unchanged
+      assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifID().toString()); // unchanged
+      assertEquals(cmdtyID12.toString(), prc.getFromCommodityQualifID().toString()); // unchanged
+      assertEquals(cmdtyID11, prc.getFromCommodityQualifID()); // unchanged
+      assertNotEquals(cmdtyID12, prc.getFromCommodityQualifID()); // unchanged, sic
+      assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName()); // unchanged
+      assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString()); // unchanged
+      assertEquals("EUR", prc.getToCurrencyCode()); // unchanged
+      assertEquals(Type.TRANSACTION, prc.getType()); // unchanged
+      assertEquals(LocalDate.of(2019, 1, 1), prc.getDate()); // changed
+      assertEquals(21.20, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+  }
+
+  private void test02_1_check_persisted(File outFile) throws Exception
+  {
+     gcshOutFile = new GnucashFileImpl(outFile);
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+     // ::TODO
+     // assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+     assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+      
+     GCshPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);
+     assertNotEquals(null, prc);
+     
+     assertEquals(PRC_1_ID, prc.getID()); // unchanged
+     assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString()); // unchanged
+     assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifID().toString()); // unchanged
+     assertEquals(cmdtyID12.toString(), prc.getFromCommodityQualifID().toString()); // unchanged
+     assertEquals(cmdtyID11, prc.getFromCommodityQualifID()); // unchanged
+     assertNotEquals(cmdtyID12, prc.getFromCommodityQualifID()); // unchanged, sic
+     assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName()); // unchanged
+     assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString()); // unchanged
+     assertEquals("EUR", prc.getToCurrencyCode()); // unchanged
+     assertEquals(Type.TRANSACTION, prc.getType()); // unchanged
+     assertEquals(LocalDate.of(2019, 1, 1), prc.getDate()); // changed
+     assertEquals(21.20, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+  }
+  
   // -----------------------------------------------------------------
   // PART 3: Create new objects
   // -----------------------------------------------------------------
