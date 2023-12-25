@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl.aux;
+package org.gnucash.api.write.impl.aux;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -15,38 +15,43 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshPrice.Type;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.aux.TestGCshPriceImpl;
+import org.gnucash.api.write.aux.GCshWritablePrice;
+import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGCshPriceImpl
+public class TestGCshWritablePriceImpl
 {
-  // DE
-  // Note the funny parent/child pair.
-  public static final GCshID PRC_1_ID = new GCshID("b7fe7eb916164f1d9d43f41262530381"); // MBG/EUR
-  public static final GCshID PRC_2_ID = new GCshID("8f2d1e3263aa4efba4a8e0e892c166b3"); // SAP/EUR
-  public static final GCshID PRC_3_ID = new GCshID("d2db5e4108b9413aa678045ca66b205f"); // SAP/EUR
-  public static final GCshID PRC_4_ID = new GCshID("037c268b47fb46d385360b1c9788a459"); // USD/EUR
+    private static final GCshID PRC_1_ID = TestGCshPriceImpl.PRC_1_ID;
+    private static final GCshID PRC_2_ID = TestGCshPriceImpl.PRC_2_ID;
+    private static final GCshID PRC_3_ID = TestGCshPriceImpl.PRC_3_ID;
+    private static final GCshID PRC_4_ID = TestGCshPriceImpl.PRC_4_ID;
+    
+    // -----------------------------------------------------------------
 
-  // -----------------------------------------------------------------
-  
-  private GnucashFile  gcshFile = null;
-  private GCshPrice    prc = null;
-  
-  GCshCmdtyID          cmdtyID11 = null;
-  GCshCmdtyID_Exchange cmdtyID12 = null;
+    private GnucashWritableFileImpl gcshInFile = null;
 
-  GCshCmdtyID          cmdtyID21 = null;
-  GCshCmdtyID_Exchange cmdtyID22 = null;
-  
-  GCshCurrID           currID1   = null;
-  
-  // -----------------------------------------------------------------
+    GCshCmdtyID          cmdtyID11 = null;
+    GCshCmdtyID_Exchange cmdtyID12 = null;
+
+    GCshCmdtyID          cmdtyID21 = null;
+    GCshCmdtyID_Exchange cmdtyID22 = null;
+    
+    GCshCurrID           currID1   = null;
+    
+    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+    @SuppressWarnings("exports")
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+    
+    // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
   {
@@ -56,7 +61,7 @@ public class TestGCshPriceImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGCshPriceImpl.class);  
+    return new JUnit4TestAdapter(TestGCshWritablePriceImpl.class);  
   }
   
   @Before
@@ -65,10 +70,10 @@ public class TestGCshPriceImpl
     ClassLoader classLoader = getClass().getClassLoader();
     // URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
     // System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-    InputStream gcshFileStream = null;
+    InputStream gcshInFileStream = null;
     try 
     {
-      gcshFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
+      gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
     } 
     catch ( Exception exc ) 
     {
@@ -78,11 +83,11 @@ public class TestGCshPriceImpl
     
     try
     {
-      gcshFile = new GnucashFileImpl(gcshFileStream);
+      gcshInFile = new GnucashWritableFileImpl(gcshInFileStream);
     }
     catch ( Exception exc )
     {
-      System.err.println("Cannot parse GnuCash file");
+      System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
     
@@ -98,11 +103,20 @@ public class TestGCshPriceImpl
   }
 
   // -----------------------------------------------------------------
-
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGCshPriceImpl.test01/02_x
+  // 
+  // Check whether the GnucashWritableCustomer objects returned by 
+  // GCshWritablePriceImpl.getWritableCustomerByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getPriceByID().
+  
   @Test
   public void test01() throws Exception
   {
-      Collection<GCshPrice> priceList = gcshFile.getPrices();
+      Collection<GCshPrice> priceList = gcshInFile.getPrices();
       
       assertEquals(9, priceList.size());
 
@@ -115,11 +129,10 @@ public class TestGCshPriceImpl
   }
 
   @Test
-  public void test02_1() throws Exception
-  {
-      prc = gcshFile.getPriceByID(PRC_1_ID);
+  public void test02_1() throws Exception {
+      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_1_ID);
       assertNotEquals(null, prc);
-      
+
       assertEquals(PRC_1_ID, prc.getID());
       assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
       assertEquals(cmdtyID11.toString(), prc.getFromCommodityQualifID().toString());
@@ -132,21 +145,21 @@ public class TestGCshPriceImpl
       assertEquals(Type.TRANSACTION, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 1), prc.getDate());
       assertEquals(22.53, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
-      
+
       try {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
 	  assertEquals(1, 0);
@@ -156,11 +169,10 @@ public class TestGCshPriceImpl
   }
 
   @Test
-  public void test02_2() throws Exception
-  {
-      prc = gcshFile.getPriceByID(PRC_2_ID);
+  public void test02_2() throws Exception {
+      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_2_ID);
       assertNotEquals(null, prc);
-      
+
       assertEquals(PRC_2_ID, prc.getID());
       assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifID().toString());
       assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifID().toString());
@@ -173,21 +185,21 @@ public class TestGCshPriceImpl
       assertEquals(Type.UNKNOWN, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 20), prc.getDate());
       assertEquals(145.0, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
-    
+
       try {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
 	  assertEquals(1, 0);
@@ -195,13 +207,12 @@ public class TestGCshPriceImpl
 	  assertEquals(0, 0);
       }
   }
-  
+
   @Test
-  public void test02_3() throws Exception
-  {
-      prc = gcshFile.getPriceByID(PRC_3_ID);
+  public void test02_3() throws Exception {
+      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_3_ID);
       assertNotEquals(null, prc);
-      
+
       assertEquals(PRC_3_ID, prc.getID());
       assertEquals(cmdtyID21.toString(), prc.getFromCmdtyCurrQualifID().toString());
       assertEquals(cmdtyID21.toString(), prc.getFromCommodityQualifID().toString());
@@ -214,21 +225,21 @@ public class TestGCshPriceImpl
       assertEquals(Type.TRANSACTION, prc.getType());
       assertEquals(LocalDate.of(2023, 7, 18), prc.getDate());
       assertEquals(125.0, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
-      
+
       try {
 	  GCshCurrID dummy = prc.getFromCurrencyQualifID(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  String dummy = prc.getFromCurrencyCode(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  GnucashCommodity dummy = prc.getFromCurrency(); // illegal call in this context
 	  assertEquals(1, 0);
@@ -238,11 +249,10 @@ public class TestGCshPriceImpl
   }
 
   @Test
-  public void test02_4() throws Exception
-  {
-      prc = gcshFile.getPriceByID(PRC_4_ID);
+  public void test02_4() throws Exception {
+      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_4_ID);
       assertNotEquals(null, prc);
-      
+
       assertEquals(PRC_4_ID, prc.getID());
       assertEquals(currID1.toString(), prc.getFromCmdtyCurrQualifID().toString());
       assertEquals(currID1.toString(), prc.getFromCurrencyQualifID().toString());
@@ -251,16 +261,16 @@ public class TestGCshPriceImpl
       assertEquals("EUR", prc.getToCurrencyCode());
       assertEquals(null, prc.getType());
       assertEquals(LocalDate.of(2023, 10, 1), prc.getDate());
-      assertEquals(new FixedPointNumber("100/93").doubleValue(), 
-	           prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
-      
+      assertEquals(new FixedPointNumber("100/93").doubleValue(), prc.getValue().doubleValue(),
+	           ConstTest.DIFF_TOLERANCE);
+
       try {
 	  GCshCmdtyID dummy = prc.getFromCommodityQualifID(); // illegal call in this context
 	  assertEquals(1, 0);
       } catch (Exception exc) {
 	  assertEquals(0, 0);
       }
-      
+
       try {
 	  GnucashCommodity dummy = prc.getFromCommodity(); // illegal call in this context
 	  assertEquals(1, 0);
@@ -269,111 +279,34 @@ public class TestGCshPriceImpl
       }
   }
 
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GCshWritablePrice objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
   // ::TODO
-  /*
-  @Test
-  public void test02_2_2() throws Exception
-  {
-      taxTab = gcshFile.getPriceByName("USt_Std");
-      
-      assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
-      assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
-      assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(19.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+//  @AfterClass
+//  public void after() throws Exception
+//  {
+//      FileUtils.delete(outFileGlob);
+//  }
 
-  @Test
-  public void test03_1() throws Exception
-  {
-      taxTab = gcshFile.getPriceByID(TAXTABLE_DE_2_ID);
-      
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
-      assertEquals("DE_USt_red", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(7.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-
-  @Test
-  public void test03_2() throws Exception
-  {
-      taxTab = gcshFile.getPriceByName("DE_USt_red");
-      
-      assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
-      assertEquals("DE_USt_red", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(7.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-
-  @Test
-  public void test04_1() throws Exception
-  {
-      taxTab = gcshFile.getPriceByID(TAXTABLE_FR_1_ID);
-      
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
-      assertEquals("FR_TVA_Std", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(20.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-
-  @Test
-  public void test04_2() throws Exception
-  {
-      taxTab = gcshFile.getPriceByName("FR_TVA_Std");
-      
-      assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
-      assertEquals("FR_TVA_Std", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(20.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-
-  @Test
-  public void test05_1() throws Exception
-  {
-      taxTab = gcshFile.getPriceByID(TAXTABLE_FR_2_ID);
-      
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
-      assertEquals("FR_TVA_red", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(10.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-
-  @Test
-  public void test05_2() throws Exception
-  {
-      taxTab = gcshFile.getPriceByName("FR_TVA_red");
-      
-      assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
-      assertEquals("FR_TVA_red", taxTab.getName());
-      assertEquals(null, taxTab.getParentID());
-
-      assertEquals(1, taxTab.getEntries().size());
-      assertEquals(10.0, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(), ConstTest.DIFF_TOLERANCE );
-      assertEquals(GCshPriceEntry.TYPE_PERCENT, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getType() );
-      assertEquals(TAX_ACCT_ID, ((GCshPriceEntry) taxTab.getEntries().toArray()[0]).getAccountID() );
-  }
-  */
 }

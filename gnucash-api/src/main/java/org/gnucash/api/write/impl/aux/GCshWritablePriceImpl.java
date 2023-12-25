@@ -42,6 +42,10 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
 	super(createPrice(file, GCshID.getNew()), file);
     }
 
+    public GCshWritablePriceImpl(GCshPriceImpl prc) {
+	super(prc.getJwsdpPeer(), prc.getGnucashFile());
+    }
+
     // ---------------------------------------------------------------
     
     /**

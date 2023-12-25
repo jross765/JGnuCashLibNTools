@@ -52,6 +52,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.read.impl.aux.GCshPriceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
@@ -625,6 +626,17 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    LOGGER.error("getTransactionByID: Could not instantiate writable transaction object from read-only transaction object (ID: " + trxID + ")");
 	    throw new RuntimeException("Could not instantiate writable transaction object from read-only transaction object (ID: " + trxID + ")");
 	}
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GCshPrice#getPriceByID(java.lang.String)
+     */
+    @Override
+    public GCshWritablePrice getPriceByID(final GCshID prcID) {
+	GCshPrice prc = super.getPriceByID(prcID);
+	return new GCshWritablePriceImpl((GCshPriceImpl) prc);
     }
 
     // ---------------------------------------------------------------
