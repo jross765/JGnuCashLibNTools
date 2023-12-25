@@ -370,8 +370,7 @@ public class TestGCshWritablePriceImpl
      gcshOutFileStats = new GCshFileStats(gcshOutFile);
      
      assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
-     // ::TODO
-     // assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+     assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
      assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
       
      GCshPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);

@@ -10,8 +10,11 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.aux.GCshPrice;
+import org.gnucash.api.write.GnucashWritableObject;
 
-public interface GCshWritablePrice extends GCshPrice {
+public interface GCshWritablePrice extends GCshPrice, 
+                                           GnucashWritableObject
+{
 
     void setFromCmdtyCurrQualifID(GCshCmdtyCurrID qualifID);
 

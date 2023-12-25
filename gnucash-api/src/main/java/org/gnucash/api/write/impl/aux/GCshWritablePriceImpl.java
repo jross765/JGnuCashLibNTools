@@ -1,5 +1,6 @@
 package org.gnucash.api.write.impl.aux;
 
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,8 +20,10 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.impl.aux.GCshPriceImpl;
 import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnucashWritableObject;
 import org.gnucash.api.write.aux.GCshWritablePrice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.impl.GnucashWritableObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +31,13 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
                                    implements GCshWritablePrice 
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritablePriceImpl.class);
+
+    // ---------------------------------------------------------------
+
+    /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
 
     // ---------------------------------------------------------------
 
@@ -47,14 +57,25 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
     }
 
     // ---------------------------------------------------------------
-    
+
     /**
      * The gnucash-file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
-    public GnucashWritableFileImpl getWritableFile() {
-	return (GnucashWritableFileImpl) file;
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
 
     // ---------------------------------------------------------------
@@ -120,21 +141,21 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
     public void setFromCmdtyCurrQualifID(GCshCmdtyCurrID qualifID) {
 	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
 	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
     public void setFromCommodityQualifID(GCshCmdtyID qualifID) {
 	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
 	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
     public void setFromCurrencyQualifID(GCshCurrID qualifID) {
 	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
 	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
@@ -161,14 +182,14 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
 	
 	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
 	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
     public void setToCurrencyQualifID(GCshCurrID qualifID) {
 	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
 	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
@@ -185,18 +206,30 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
 
     @Override
     public void setDate(LocalDate date) {
+	LocalDate oldDate = getDate();
 	this.dateTime = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault());
 	String datePostedStr = this.dateTime.format(DATE_FORMAT);
 	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
+
+	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	if (propertyChangeSupport != null) {
+	    propertyChangeSupport.firePropertyChange("price", oldDate, date);
+	}
     }
 
     @Override
     public void setDateTime(LocalDateTime dateTime) {
+	LocalDate oldDate = getDate();
 	this.dateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault());
 	String datePostedStr = this.dateTime.format(DATE_FORMAT);
 	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
+
+	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	if (propertyChangeSupport != null) {
+	    propertyChangeSupport.firePropertyChange("price", oldDate, dateTime);
+	}
     }
 
     @Override
@@ -206,7 +239,7 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
 
     public void setSourceStr(String str) {
 	jwsdpPeer.setPriceSource(str);
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
@@ -216,13 +249,61 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
 
     public void setTypeStr(String typeStr) {
 	jwsdpPeer.setPriceType(typeStr);
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
     @Override
     public void setValue(FixedPointNumber val) {
 	jwsdpPeer.setPriceValue(val.toGnucashString());
-	getWritableFile().setModified(true);
+	getWritableGnucashFile().setModified(true);
     }
 
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
+     *      java.lang.String)
+     */
+    @Override
+    public void setUserDefinedAttribute(final String name, final String value) {
+	helper.setUserDefinedAttribute(name, value);
+    }
+
+    // ---------------------------------------------------------------
+    
+    @Override
+    public String toString() {
+	String result = "GCshWritablePriceImpl [";
+	
+	result += "id=" + getID();
+	
+	try {
+	    result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifID() + "'";
+	} catch (InvalidCmdtyCurrTypeException e) {
+	    result += ", cmdty-qualif-id=" + "ERROR";
+	}
+	
+	try {
+	    result += ", curr-qualif-id='" + getToCurrencyQualifID() + "'";
+	} catch (Exception e) {
+	    result += ", curr-qualif-id=" + "ERROR";
+	}
+	
+	result += ", date=" + getDate(); 
+	
+	try {
+	    result += ", value=" + getValueFormatted();
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    result += ", value=" + "ERROR";
+	}
+	
+	result += ", type=" + getType();
+	result += ", source=" + getSource(); 
+
+	result += "]"; 
+
+	return result;
+    }
+    
 }

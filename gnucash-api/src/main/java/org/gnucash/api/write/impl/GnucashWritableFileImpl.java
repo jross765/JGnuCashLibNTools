@@ -28,6 +28,7 @@ import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -350,17 +351,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
         	cntBillTerm++;
             } else if (element instanceof GncV2.GncBook.GncCommodity) {
             	cntCommodity++;
-            } else if (element instanceof GncV2.GncBook.GncPricedb.Price) {
-        	cntPrice++;
+            } else if (element instanceof GncV2.GncBook.GncPricedb) {
+            	cntPrice += ((GncV2.GncBook.GncPricedb) element).getPrice().size();
             } else if (element instanceof GncV2.GncBook.GncTemplateTransactions) {
         	// ::TODO
             } else if (element instanceof GncV2.GncBook.GncSchedxaction) {
         	// ::TODO
             } else if (element instanceof GncBudget) {
-        	// ::TODO
-            } else if (element instanceof GncV2.GncBook.GncPricedb) {
-        	// ::TODO
-            } else if (element instanceof GncV2.GncBook.GncGncEmployee) {
         	// ::TODO
             } else {
         	throw new IllegalStateException("Found unexpected element in GNC:Book: '" + element.toString() + "'");

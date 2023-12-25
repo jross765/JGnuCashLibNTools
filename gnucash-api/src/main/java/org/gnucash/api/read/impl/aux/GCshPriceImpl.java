@@ -21,11 +21,13 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshPrice;
+import org.gnucash.api.read.impl.GnucashObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GCshPriceImpl implements GCshPrice {
-
+public class GCshPriceImpl extends GnucashObjectImpl
+                           implements GCshPrice
+{
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshPriceImpl.class);
 
     protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
@@ -37,18 +39,8 @@ public class GCshPriceImpl implements GCshPrice {
      */
     protected final GncV2.GncBook.GncPricedb.Price jwsdpPeer;
 
-    protected final GnucashFile file;
-
-    // ---------------------------------------------------------------
-
     protected ZonedDateTime dateTime;
-
-    // -----------------------------------------------------------
-
-    /**
-     * The currency-format to use for formatting.<br/>
-     */
-    private NumberFormat currencyFormat = null;
+    protected NumberFormat currencyFormat = null;
 
     // -----------------------------------------------------------
 
@@ -56,11 +48,10 @@ public class GCshPriceImpl implements GCshPrice {
      * @param newPeer the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GCshPriceImpl(final GncV2.GncBook.GncPricedb.Price newPeer, final GnucashFile file) {
-	super();
-		
+    public GCshPriceImpl(final GncV2.GncBook.GncPricedb.Price newPeer, final GnucashFile gncFile) {
+	super(gncFile);
+
 	this.jwsdpPeer = newPeer;
-	this.file      = file;
     }
 
     // ---------------------------------------------------------------
@@ -71,10 +62,6 @@ public class GCshPriceImpl implements GCshPrice {
     @SuppressWarnings("exports")
     public GncV2.GncBook.GncPricedb.Price getJwsdpPeer() {
 	return jwsdpPeer;
-    }
-
-    public GnucashFile getGnucashFile() {
-	return file;
     }
 
     // -----------------------------------------------------------
@@ -119,7 +106,7 @@ public class GCshPriceImpl implements GCshPrice {
     @Override
     public GnucashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
 	GCshCmdtyID cmdtyID = getFromCommodityQualifID();
-	GnucashCommodity cmdty = file.getCommodityByQualifID(cmdtyID);
+	GnucashCommodity cmdty = getGnucashFile().getCommodityByQualifID(cmdtyID);
 	return cmdty;
     }
     
@@ -131,7 +118,7 @@ public class GCshPriceImpl implements GCshPrice {
     @Override
     public GnucashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
 	GCshCurrID currID = getFromCurrencyQualifID(); 
-	GnucashCommodity cmdty = file.getCommodityByQualifID(currID);
+	GnucashCommodity cmdty = getGnucashFile().getCommodityByQualifID(currID);
 	return cmdty;
     }
     
@@ -173,7 +160,7 @@ public class GCshPriceImpl implements GCshPrice {
 	if ( getToCurrencyQualifID() == null )
 	    return null;
 	
-	GnucashCommodity cmdty = file.getCommodityByQualifID(getToCurrencyQualifID());
+	GnucashCommodity cmdty = getGnucashFile().getCommodityByQualifID(getToCurrencyQualifID());
 	
 	return cmdty;
     }
@@ -256,7 +243,7 @@ public class GCshPriceImpl implements GCshPrice {
     
     @Override
     public String toString() {
-	String result = "GCshPriceImpl [id";
+	String result = "GCshPriceImpl [";
 	
 	result += "id=" + getID();
 	

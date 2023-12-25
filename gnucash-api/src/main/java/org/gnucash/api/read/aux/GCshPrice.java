@@ -10,8 +10,9 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnucashObject;
 
-public interface GCshPrice {
+public interface GCshPrice extends GnucashObject {
 
     // For the following enums, cf.:
     // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gnc-pricedb.h
