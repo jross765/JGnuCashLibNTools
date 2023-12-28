@@ -27,6 +27,10 @@ import org.gnucash.api.write.impl.GnucashWritableObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Extension of GCshPriceImpl to allow read-write access instead of
+ * read-only access.
+ */
 public class GCshWritablePriceImpl extends GCshPriceImpl 
                                    implements GCshWritablePrice 
 {

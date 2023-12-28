@@ -5,14 +5,22 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.ArrayList;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.OwnerId;
+import org.gnucash.api.generated.Slot;
+import org.gnucash.api.generated.SlotValue;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCustomer;
@@ -26,9 +34,7 @@ import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
-import org.gnucash.api.read.GnucashGenerInvoice.ReadVariant;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
@@ -62,21 +68,14 @@ import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
-import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.generated.OwnerId;
-import org.gnucash.api.generated.Slot;
-import org.gnucash.api.generated.SlotValue;
-import org.gnucash.api.generated.SlotsType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.xml.bind.JAXBElement;
 
 /**
- * TODO write a comment what this type does here
+ * Extension of GnucashGenerInvoiceImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl 
                                              implements GnucashWritableGenerInvoice 
@@ -2666,7 +2665,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 	
 	GCshID invcPostTrxID = new GCshID( invoicePosttxn.getValue() );
-	return getFile().getTransactionByID(invcPostTrxID);
+	return getFile().getWritableTransactionByID(invcPostTrxID);
     }
 
     /**
@@ -2705,7 +2704,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    post.remove();
 	}
 
-	((GnucashWritableFileImpl) getFile()).removeInvoice(this);
+	((GnucashWritableFileImpl) getFile()).removeGenerInvoice(this);
 
     }
 

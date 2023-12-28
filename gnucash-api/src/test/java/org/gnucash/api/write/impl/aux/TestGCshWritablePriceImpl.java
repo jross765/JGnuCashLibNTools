@@ -139,7 +139,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_1() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_1_ID);
+      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_1_ID, prc.getID());
@@ -179,7 +179,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_2() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_2_ID);
+      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_2_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_2_ID, prc.getID());
@@ -219,7 +219,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_3() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_3_ID);
+      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_3_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_3_ID, prc.getID());
@@ -259,7 +259,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_4() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_4_ID);
+      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_4_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_4_ID, prc.getID());
@@ -303,7 +303,7 @@ public class TestGCshWritablePriceImpl
     assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
     assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
     
-    GCshWritablePrice prc = gcshInFile.getPriceByID(PRC_1_ID);
+    GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
     assertNotEquals(null, prc);
     
     assertEquals(PRC_1_ID, prc.getID());

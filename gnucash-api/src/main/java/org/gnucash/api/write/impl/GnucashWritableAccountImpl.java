@@ -35,19 +35,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of GnucashAccountImpl to allow writing instead of
- * read-only access.<br/>
- * Supported properties for the propertyChangeListeners:
- * <ul>
- * <li>name</li>
- * <li>code</li>
- * <li>currencyID</li>
- * <li>currencyNameSpace</li>
- * <li>description</li>
- * <li>type</li>
- * <li>parentAccount</li>
- * <li>transactionSplits (not giving the old value of the list)</li>
- * </ul>
+ * Extension of GnucashAccountImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableAccountImpl extends GnucashAccountImpl 
                                         implements GnucashWritableAccount 

@@ -10,7 +10,7 @@ import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 
 /**
- * Transaction-Split that can be modified<br/>
+ * Transaction-split that can be modified<br/>
  * For propertyChange we support the properties "value", "quantity"
  * "description",  "splitAction" and "accountID".
  */

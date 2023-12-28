@@ -98,7 +98,7 @@ public class TestGnucashWritableEmployeeImpl
   @Test
   public void test01_1_1() throws Exception
   {
-    GnucashWritableEmployee empl = gcshInFile.getEmployeeByID(EMPL_1_ID);
+    GnucashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
     assertNotEquals(null, empl);
     
     assertEquals(EMPL_1_ID, empl.getID());
@@ -110,7 +110,7 @@ public class TestGnucashWritableEmployeeImpl
   @Test
   public void test01_1_2() throws Exception
   {
-      GnucashWritableEmployee empl = gcshInFile.getEmployeeByID(EMPL_1_ID);
+      GnucashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
       assertNotEquals(null, empl);
       
       assertEquals(1, ((GnucashWritableEmployeeImpl) empl).getNofOpenVouchers());

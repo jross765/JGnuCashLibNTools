@@ -99,7 +99,7 @@ public class TestGnucashWritableCustomerJobImpl
     
     // ----------------------------
     
-    cust1 = gcshInFile.getCustomerByID(CUST_1_ID);
+    cust1 = gcshInFile.getWritableCustomerByID(CUST_1_ID);
   }
 
   // -----------------------------------------------------------------
@@ -116,7 +116,7 @@ public class TestGnucashWritableCustomerJobImpl
   @Test
   public void test01_1() throws Exception
   {
-    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getGenerJobByID(JOB_1_ID);
+    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
     assertNotEquals(null, jobSpec);
 
     assertTrue(jobSpec instanceof GnucashCustomerJob);
@@ -128,7 +128,7 @@ public class TestGnucashWritableCustomerJobImpl
   @Test
   public void test01_2() throws Exception
   {
-    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getGenerJobByID(JOB_1_ID);
+    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
     assertNotEquals(null, jobSpec);
       
     assertEquals(1, jobSpec.getNofOpenInvoices());
@@ -146,7 +146,7 @@ public class TestGnucashWritableCustomerJobImpl
   @Test
   public void test01_3() throws Exception
   {
-    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getGenerJobByID(JOB_1_ID);
+    GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
     assertNotEquals(null, jobSpec);
       
     GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");

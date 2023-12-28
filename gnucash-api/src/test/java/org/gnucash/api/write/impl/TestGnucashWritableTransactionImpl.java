@@ -107,7 +107,7 @@ public class TestGnucashWritableTransactionImpl
   @Test
   public void test01_1() throws Exception
   {
-    GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_1_ID);
+    GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
     assertNotEquals(null, trx);
     
     assertEquals(TRX_1_ID, trx.getID());
@@ -125,7 +125,7 @@ public class TestGnucashWritableTransactionImpl
   @Test
   public void test01_2() throws Exception
   {
-    GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_2_ID);
+    GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_2_ID);
     assertNotEquals(null, trx);
     
     assertEquals(TRX_2_ID, trx.getID());
@@ -154,7 +154,7 @@ public class TestGnucashWritableTransactionImpl
     assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
     assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
     
-    GnucashWritableTransaction trx = gcshInFile.getTransactionByID(TRX_1_ID);
+    GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
     assertNotEquals(null, trx);
     
     assertEquals(TRX_1_ID, trx.getID());

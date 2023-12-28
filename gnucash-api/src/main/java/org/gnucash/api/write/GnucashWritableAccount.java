@@ -13,17 +13,7 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 
 
 /**
- * Account that can be modified.<br/>
- * Supported properties for the propertyChangeListeners:
- * <ul>
- * <li>name</li>
- * <li>currencyID</li>
- * <li>currencyNameSpace</li>
- * <li>description</li>
- * <li>type</li>
- * <li>parentAccount</li>
- * <li>transactionSplits (not giving the old value of the list)</li>
- * </ul>
+ * Account that can be modified
  */
 public interface GnucashWritableAccount extends GnucashAccount, 
                                                 GnucashWritableObject 

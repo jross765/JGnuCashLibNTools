@@ -116,7 +116,7 @@ public class TestGnucashWritableVendorJobImpl
   @Test
   public void test01_1() throws Exception
   {
-    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
     assertNotEquals(null, jobSpec);
 
     assertTrue(jobSpec instanceof GnucashVendorJob);
@@ -128,7 +128,7 @@ public class TestGnucashWritableVendorJobImpl
   @Test
   public void test01_2() throws Exception
   {
-    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
     assertNotEquals(null, jobSpec);
       
     assertEquals(1, jobSpec.getNofOpenInvoices());
@@ -146,7 +146,7 @@ public class TestGnucashWritableVendorJobImpl
   @Test
   public void test01_3() throws Exception
   {
-    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getGenerJobByID(JOB_2_ID);
+    GnucashWritableVendorJob jobSpec = (GnucashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
     assertNotEquals(null, jobSpec);
       
     // Note: That the following three return the same result

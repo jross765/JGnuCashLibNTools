@@ -108,7 +108,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testCust01_1() throws Exception
   {
-    GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_1_ID);
+    GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_1_ID);
     assertNotEquals(null, invc);
     
     assertEquals(INVC_1_ID, invc.getID());
@@ -123,7 +123,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testCust02_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_1_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_1_ID);
       assertNotEquals(null, invc);
 
     assertEquals(2, invc.getGenerEntries().size());
@@ -139,7 +139,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testCust03_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_1_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_1_ID);
       assertNotEquals(null, invc);
 
     assertEquals(1327.60, invc.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -150,7 +150,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testCust04_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_1_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_1_ID);
       assertNotEquals(null, invc);
 
     assertEquals("c97032ba41684b2bb5d1391c9d7547e9", invc.getPostTransaction().getID().toString());
@@ -169,7 +169,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend01_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_4_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_4_ID);
     assertNotEquals(null, invc);
     
     assertEquals(INVC_4_ID, invc.getID());
@@ -185,7 +185,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend01_2() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_2_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
     
     assertEquals(INVC_2_ID, invc.getID());
@@ -201,7 +201,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend02_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_4_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_4_ID);
     assertNotEquals(null, invc);
 
     assertEquals(1, invc.getGenerEntries().size());
@@ -215,7 +215,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend02_2() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_2_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
 
     assertEquals(2, invc.getGenerEntries().size());
@@ -231,7 +231,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend03_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_4_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_4_ID);
     assertNotEquals(null, invc);
 
     assertEquals(41.40, invc.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -243,7 +243,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend03_2() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_2_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
 
     assertEquals(79.11, invc.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -253,7 +253,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend04_1() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_4_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_4_ID);
     assertNotEquals(null, invc);
 
 //    assertEquals("xxx", invc.getPostTransaction());
@@ -272,7 +272,7 @@ public class TestGnucashWritableGenerInvoiceImpl
   @Test
   public void testVend04_2() throws Exception
   {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_2_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     assertNotEquals(null, invc);
 
     assertEquals("aa64d862bb5e4d749eb41f198b28d73d", invc.getPostTransaction().getID().toString());   
@@ -288,21 +288,21 @@ public class TestGnucashWritableGenerInvoiceImpl
 
   @Test
   public void test06_1() throws Exception {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_4_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_4_ID);
       assertNotEquals(null, invc);
       assertEquals("https://my.vendor.bill.link.01", invc.getURL());
   }
 
   @Test
   public void test06_2() throws Exception {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_5_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_5_ID);
       assertNotEquals(null, invc);
       assertEquals("https://my.job.invoice.link.01", invc.getURL());
   }
   
   @Test
   public void test06_3() throws Exception {
-      GnucashWritableGenerInvoice invc = gcshInFile.getGenerInvoiceByID(INVC_6_ID);
+      GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_6_ID);
       assertNotEquals(null, invc);
       assertEquals("https://my.customer.invoice.link.01", invc.getURL());
   }

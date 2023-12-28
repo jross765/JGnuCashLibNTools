@@ -108,7 +108,7 @@ public class TestGnucashWritableVendorImpl
   @Test
   public void test01_1() throws Exception
   {
-    GnucashWritableVendor vend = gcshInFile.getVendorByID(VEND_1_ID);
+    GnucashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
     assertNotEquals(null, vend);
     
     assertEquals(VEND_1_ID, vend.getID());
@@ -127,7 +127,7 @@ public class TestGnucashWritableVendorImpl
   @Test
   public void test02_1() throws Exception
   {
-    GnucashWritableVendor vend = gcshInFile.getVendorByID(VEND_1_ID);
+    GnucashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
     assertNotEquals(null, vend);
     
     assertEquals(1, ((GnucashWritableVendorImpl) vend).getNofOpenBills());

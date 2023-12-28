@@ -1,7 +1,5 @@
 package org.gnucash.api.write.impl;
 
-//automatically created logger for debug and error -output
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
@@ -18,7 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Interface all writable gnucash-entities implement.
+ * Extension of GnucashObjectImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableObjectImpl implements GnucashWritableObject {
 

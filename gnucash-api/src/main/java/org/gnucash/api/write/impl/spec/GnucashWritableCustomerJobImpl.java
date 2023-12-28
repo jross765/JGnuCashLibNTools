@@ -28,7 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Modifiable version of a Job implemented.
+ * Extension of GnucashCustomerJobImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl 
                                             implements GnucashWritableCustomerJob 
@@ -218,7 +219,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	    throw new IllegalArgumentException("empty job-number given!");
 	}
 
-	GnucashGenerJob otherJob = getWritableFile().getGenerJobByNumber(jobNumber);
+	GnucashGenerJob otherJob = getWritableFile().getWritableGenerJobByNumber(jobNumber);
 	if ( otherJob != null ) { 
 	    if ( ! otherJob.getID().equals(getID()) ) {
 		throw new IllegalArgumentException(

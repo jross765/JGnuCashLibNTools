@@ -22,7 +22,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Transaction-Split that can be newly created or removed from it's transaction.
+ * Extension of GnucashTransactionSplitImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplitImpl 
                                                  implements GnucashWritableTransactionSplit 

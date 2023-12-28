@@ -32,19 +32,14 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableCommodityImpl
 {
-    // Mercedes-Benz Group AG
     public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_1_EXCH = TestGnucashCommodityImpl.CMDTY_1_EXCH;
     public static final String CMDTY_1_ID    = TestGnucashCommodityImpl.CMDTY_1_ID;
     public static final String CMDTY_1_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;
     
-    // SAP SE
     public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = TestGnucashCommodityImpl.CMDTY_2_EXCH;
     public static final String CMDTY_2_ID    = TestGnucashCommodityImpl.CMDTY_2_ID;
     public static final String CMDTY_2_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;
       
-    // AstraZeneca Plc
-    // Note that in the SecIDType variants, the ISIN/CUSIP/SEDOL/WKN/whatever
-    // is stored twice in the object, redundantly
     public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
     public static final String CMDTY_3_ID    = TestGnucashCommodityImpl.CMDTY_3_ID;
     public static final String CMDTY_3_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;

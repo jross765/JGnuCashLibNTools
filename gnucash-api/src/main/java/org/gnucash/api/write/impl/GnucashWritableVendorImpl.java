@@ -29,6 +29,10 @@ import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Extension of GnucashVendorImpl to allow read-write access instead of
+ * read-only access.
+ */
 public class GnucashWritableVendorImpl extends GnucashVendorImpl 
                                        implements GnucashWritableVendor 
 {

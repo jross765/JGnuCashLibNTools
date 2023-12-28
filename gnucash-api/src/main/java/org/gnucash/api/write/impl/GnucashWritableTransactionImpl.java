@@ -29,7 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * JWSDP-Implmentation of a Transaction that can be changed.
+ * Extension of GnucashTransactionImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableTransactionImpl extends GnucashTransactionImpl 
                                             implements GnucashWritableTransaction 
@@ -130,7 +131,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
         }
     
         ObjectFactory factory = file.getObjectFactory();
-        GncTransaction jwsdpTrx = file.createGncTransaction();
+        GncTransaction jwsdpTrx = file.createGncTransactionType();
     
         {
             GncTransaction.TrnId id = factory.createGncTransactionTrnId();

@@ -176,7 +176,7 @@ public class GenInvc {
 	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException, WrongAccountTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
 	GnucashCustomer cust = null;
 	try {
-	    cust = gcshFile.getCustomerByID(custID);
+	    cust = gcshFile.getWritableCustomerByID(custID);
 	    System.err.println("Customer: " + cust.getNumber() + " (" + cust.getName() + ")");
 	} catch (Exception exc) {
 	    System.err.println("Error: No customer with ID '" + custID + "' found");

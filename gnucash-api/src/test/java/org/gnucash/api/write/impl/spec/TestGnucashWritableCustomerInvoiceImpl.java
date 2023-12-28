@@ -113,7 +113,7 @@ public class TestGnucashWritableCustomerInvoiceImpl
     
     // ----------------------------
     
-    cust1 = gcshInFile.getCustomerByID(CUST_1_ID);
+    cust1 = gcshInFile.getWritableCustomerByID(CUST_1_ID);
     
     incomeAcct     = gcshInFile.getAccountByID(INCOME_ACCT_ID);
     receivableAcct = gcshInFile.getAccountByID(RECEIVABLE_ACCT_ID);

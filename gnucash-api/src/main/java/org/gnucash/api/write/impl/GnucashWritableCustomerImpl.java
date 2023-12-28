@@ -29,6 +29,10 @@ import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Extension of GnucashCustomerImpl to allow read-write access instead of
+ * read-only access.
+ */
 public class GnucashWritableCustomerImpl extends GnucashCustomerImpl 
                                          implements GnucashWritableCustomer 
 {

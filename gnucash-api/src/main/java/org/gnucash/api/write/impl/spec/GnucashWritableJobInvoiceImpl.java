@@ -39,6 +39,10 @@ import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Extension of GnucashJobInvoiceImpl to allow read-write access instead of
+ * read-only access.
+ */
 public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceImpl 
                                            implements GnucashWritableJobInvoice 
 {

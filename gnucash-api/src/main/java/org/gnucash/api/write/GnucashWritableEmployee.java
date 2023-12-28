@@ -7,7 +7,7 @@ import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 
 /**
- * Customer that can be modified
+ * Employee that can be modified
  */
 public interface GnucashWritableEmployee extends GnucashEmployee, 
                                                  GnucashWritableObject 

@@ -101,7 +101,7 @@ public class TestGnucashWritableAccountImpl
   @Test
   public void test01_1() throws Exception
   {
-    GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
+    GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
     
     assertEquals(ACCT_1_ID, acct.getID());
@@ -129,7 +129,7 @@ public class TestGnucashWritableAccountImpl
   @Test
   public void test01_2() throws Exception
   {
-    GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_2_ID);
+    GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_2_ID);
     assertNotEquals(null, acct);
     
     assertEquals(ACCT_2_ID, acct.getID());
@@ -167,7 +167,7 @@ public class TestGnucashWritableAccountImpl
     assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
     assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
     
-    GnucashWritableAccount acct = gcshInFile.getAccountByID(ACCT_1_ID);
+    GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
     assertNotEquals(null, acct);
     
     assertEquals(ACCT_1_ID, acct.getID());

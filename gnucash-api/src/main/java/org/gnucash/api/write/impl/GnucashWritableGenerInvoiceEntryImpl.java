@@ -34,14 +34,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Additional supported properties for PropertyChangeListeners:
- * <ul>
- * <li>description</li>
- * <li>price</li>
- * <li>quantity</li>
- * <li>action</li>
- * </ul>
- * Entry-Line in an invoice that can be created or removed.
+ * Extension of GnucashGenerInvoiceEntryImpl to allow read-write access instead of
+ * read-only access.
  */
 public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl 
                                                   implements GnucashWritableGenerInvoiceEntry 

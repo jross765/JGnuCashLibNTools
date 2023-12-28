@@ -36,6 +36,10 @@ import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Extension of GnucashEmployeeVoucherImpl to allow read-write access instead of
+ * read-only access.
+ */
 public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvoiceImpl 
                                                 implements GnucashWritableEmployeeVoucher
 {

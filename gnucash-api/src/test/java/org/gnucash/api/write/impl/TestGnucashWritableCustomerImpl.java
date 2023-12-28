@@ -104,7 +104,7 @@ public class TestGnucashWritableCustomerImpl
   @Test
   public void test01_1_1() throws Exception
   {
-    GnucashWritableCustomer cust = gcshInFile.getCustomerByID(CUST_1_ID);
+    GnucashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
     assertNotEquals(null, cust);
     
     assertEquals(CUST_1_ID, cust.getID());
@@ -127,7 +127,7 @@ public class TestGnucashWritableCustomerImpl
   @Test
   public void test01_1_2() throws Exception
   {
-      GnucashWritableCustomer cust = gcshInFile.getCustomerByID(CUST_1_ID);
+      GnucashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
       assertNotEquals(null, cust);
 
       assertEquals(1, ((GnucashWritableCustomerImpl) cust).getNofOpenInvoices());
