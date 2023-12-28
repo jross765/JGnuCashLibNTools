@@ -28,10 +28,10 @@ import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
@@ -46,6 +46,7 @@ import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
+import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
@@ -627,9 +628,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GCshPrice#getPriceByID(java.lang.String)
-     */
     @Override
     public GCshWritablePrice getPriceByID(final GCshID prcID) {
 	GCshPrice prc = super.getPriceByID(prcID);
@@ -1236,6 +1234,83 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	return null;
 
     }
+    
+    // ----------------------------
+
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final GCshCmdtyCurrID cmdtyID) {
+	GnucashCommodity cmdty = super.getCommodityByQualifID(cmdtyID);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+    
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final String nameSpace, final String id) {
+	GnucashCommodity cmdty = super.getCommodityByQualifID(nameSpace, id);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final GCshCmdtyCurrNameSpace.Exchange exchange, String id) {
+      GnucashCommodity cmdty = super.getCommodityByQualifID(exchange, id);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final GCshCmdtyCurrNameSpace.MIC mic, String id) {
+      GnucashCommodity cmdty = super.getCommodityByQualifID(mic, id);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final GCshCmdtyCurrNameSpace.SecIdType secIdType, String id) {
+      GnucashCommodity cmdty = super.getCommodityByQualifID(secIdType, id);
+      return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByQualifID(final String qualifID) {
+      GnucashCommodity cmdty = super.getCommodityByQualifID(qualifID);
+      return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByXCode(final String xCode) {
+      GnucashCommodity cmdty = super.getCommodityByXCode(xCode);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public Collection<GnucashWritableCommodity> getWritableCommoditiesByName(final String expr) {
+      Collection<GnucashWritableCommodity> result = new ArrayList<GnucashWritableCommodity>();
+      
+      for ( GnucashCommodity cmdty : super.getCommoditiesByName(expr) ) {
+      	GnucashWritableCommodity newCmdty = new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+      	result.add(newCmdty);
+      }
+      
+      return result;
+  }
+  
+  public Collection<GnucashWritableCommodity> getWritableCommoditiesByName(final String expr, final boolean relaxed) {
+      Collection<GnucashWritableCommodity> result = new ArrayList<GnucashWritableCommodity>();
+      
+      for ( GnucashCommodity cmdty : super.getCommoditiesByName(expr, relaxed) ) {
+      	GnucashWritableCommodity newCmdty = new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+      	result.add(newCmdty);
+      }
+      
+      return result;
+  }
+
+  public GnucashWritableCommodity getWritableCommodityByNameUniq(final String expr) throws NoEntryFoundException, TooManyEntriesFoundException {
+      GnucashCommodity cmdty = super.getCommodityByNameUniq(expr);
+	return new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+  }
+
+  public Collection<GnucashWritableCommodity> getWritableCommodities() {
+      Collection<GnucashWritableCommodity> result = new ArrayList<GnucashWritableCommodity>();
+      
+      for ( GnucashCommodity cmdty : super.getCommodities() ) {
+      	GnucashWritableCommodity newCmdty = new GnucashWritableCommodityImpl((GnucashCommodityImpl) cmdty);
+      	result.add(newCmdty);
+      }
+      
+      return result;
+  }
+
+    // ---------------------------------------------------------------
 
     /**
      * @param impl an invoice to remove

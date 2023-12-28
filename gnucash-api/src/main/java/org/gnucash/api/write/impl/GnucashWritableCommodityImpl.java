@@ -47,6 +47,10 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
 	super(createCommodity_int(file, GCshID.getNew()), file);
     }
 
+    public GnucashWritableCommodityImpl(GnucashCommodityImpl cmdty) {
+	super(cmdty.getJwsdpPeer(), cmdty.getGnucashFile());
+    }
+
     // ---------------------------------------------------------------
 
     /**

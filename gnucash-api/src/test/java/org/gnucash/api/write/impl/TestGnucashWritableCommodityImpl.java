@@ -5,15 +5,19 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Collection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.impl.TestGnucashCommodityImpl;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.junit.Before;
 import org.junit.Rule;
@@ -28,8 +32,31 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnucashWritableCommodityImpl
 {
+    // Mercedes-Benz Group AG
+    public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_1_EXCH = TestGnucashCommodityImpl.CMDTY_1_EXCH;
+    public static final String CMDTY_1_ID    = TestGnucashCommodityImpl.CMDTY_1_ID;
+    public static final String CMDTY_1_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;
+    
+    // SAP SE
+    public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = TestGnucashCommodityImpl.CMDTY_2_EXCH;
+    public static final String CMDTY_2_ID    = TestGnucashCommodityImpl.CMDTY_2_ID;
+    public static final String CMDTY_2_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;
+      
+    // AstraZeneca Plc
+    // Note that in the SecIDType variants, the ISIN/CUSIP/SEDOL/WKN/whatever
+    // is stored twice in the object, redundantly
+    public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
+    public static final String CMDTY_3_ID    = TestGnucashCommodityImpl.CMDTY_3_ID;
+    public static final String CMDTY_3_ISIN  = TestGnucashCommodityImpl.CMDTY_1_ISIN;
+    
+    // ---------------------------------------------------------------
+      
     private GnucashWritableFileImpl gcshInFile = null;
 
+    private GCshCmdtyCurrID cmdtyCurrID1 = null;
+//    private GCshCmdtyCurrID cmdtyCurrID2 = null;
+//    private GCshCmdtyCurrID cmdtyCurrID3 = null;
+    
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
     @Rule
@@ -74,12 +101,107 @@ public class TestGnucashWritableCommodityImpl
       System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
+    
+    // ---
+    
+    cmdtyCurrID1 = new GCshCmdtyID_Exchange(CMDTY_1_EXCH, CMDTY_1_ID);
+//    cmdtyCurrID2 = new GCshCmdtyID_Exchange(CMDTY_2_EXCH, CMDTY_2_ID);
+//    cmdtyCurrID3 = new GCshCmdtyID_SecIdType(CMDTY_3_SECIDTYPE, CMDTY_3_ID);
   }
 
   // -----------------------------------------------------------------
-
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashCommodityImpl.test01_1/01_4
+  // 
+  // Check whether the GnucashWritableCustomer objects returned by 
+  // GnucashWritableFileImpl.getWritableCommodityByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getCustomerByID().
+  
   @Test
   public void test01_1() throws Exception
+  {
+    GnucashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_EXCH, CMDTY_1_ID);
+    assertNotEquals(null, cmdty);
+    
+    assertEquals(cmdtyCurrID1.toString(), cmdty.getQualifID().toString());
+    // *Not* equal because of class
+    assertNotEquals(cmdtyCurrID1, cmdty.getQualifID());
+    // ::TODO: Convert to CommodityID_Exchange, then it should be equal
+//    assertEquals(cmdtyCurrID1, cmdty.getQualifID()); // not trivial!
+    assertEquals(CMDTY_1_ISIN, cmdty.getXCode());
+    assertEquals("Mercedes-Benz Group AG", cmdty.getName());
+  }
+
+  @Test
+  public void test01_2() throws Exception
+  {
+    Collection<GnucashWritableCommodity> cmdtyList = gcshInFile.getWritableCommoditiesByName("mercedes");
+    assertNotEquals(null, cmdtyList);
+    assertEquals(1, cmdtyList.size());
+    
+    assertEquals(cmdtyCurrID1.toString(), 
+	         ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+    // *Not* equal because of class
+    assertNotEquals(cmdtyCurrID1, 
+	            ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID());
+    // ::TODO: Convert to CommodityID_Exchange, then it should be equal
+//    assertEquals(cmdtyCurrID1, 
+//	        ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
+    assertEquals(CMDTY_1_ISIN, 
+	         ((GnucashCommodity) cmdtyList.toArray()[0]).getXCode());
+    assertEquals("Mercedes-Benz Group AG", 
+	         ((GnucashCommodity) cmdtyList.toArray()[0]).getName());
+
+    cmdtyList = gcshInFile.getWritableCommoditiesByName("BENZ");
+    assertNotEquals(null, cmdtyList);
+    assertEquals(1, cmdtyList.size());
+    // *Not* equal because of class
+    assertNotEquals(cmdtyCurrID1, 
+	            ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID());
+    // ::TODO: Convert to CommodityID_Exchange, then it should be equal
+//    assertEquals(cmdtyCurrID1, 
+//	         ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID());
+    
+    cmdtyList = gcshInFile.getWritableCommoditiesByName(" MeRceDeS-bEnZ  ");
+    assertNotEquals(null, cmdtyList);
+    assertEquals(1, cmdtyList.size());
+    assertEquals(cmdtyCurrID1.toString(), 
+	         ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+    // *Not* equal because of class
+    assertNotEquals(cmdtyCurrID1, 
+	            ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID());
+    // ::TODO: Convert to CommodityID_Exchange, then it should be equal
+//    assertEquals(cmdtyCurrID1, 
+//	         ((GnucashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
+  }
+
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableCommodity objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
+
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  @Test
+  public void test03_1() throws Exception
   {
       GnucashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
       cmdty.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
@@ -91,7 +213,7 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test01_1_check(outFile);
+      test03_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
@@ -123,7 +245,7 @@ public class TestGnucashWritableCommodityImpl
 //      // assertEquals(validResult);
 //  }
 
-  private void test01_1_check(File outFile) throws Exception
+  private void test03_1_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -153,7 +275,7 @@ public class TestGnucashWritableCommodityImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test02_1() throws Exception
+  public void test03_2() throws Exception
   {
       GnucashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity();
       cmdty1.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
@@ -181,10 +303,10 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test02_1_check(outFile);
+      test03_2_check(outFile);
   }
   
-  private void test02_1_check(File outFile) throws Exception
+  private void test03_2_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());

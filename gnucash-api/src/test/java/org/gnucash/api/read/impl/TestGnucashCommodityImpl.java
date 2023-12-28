@@ -22,19 +22,19 @@ public class TestGnucashCommodityImpl
 {
   // Mercedes-Benz Group AG
   public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_1_EXCH = GCshCmdtyCurrNameSpace.Exchange.EURONEXT;
-  public static final String CMDTY_1_ID    = "MBG";   
+  public static final String CMDTY_1_ID    = "MBG";
   public static final String CMDTY_1_ISIN  = "DE0007100000";
   
   // SAP SE
   public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = GCshCmdtyCurrNameSpace.Exchange.EURONEXT;
-  public static final String CMDTY_2_ID    = "SAP";   
+  public static final String CMDTY_2_ID    = "SAP";
   public static final String CMDTY_2_ISIN  = "DE0007164600";
     
   // AstraZeneca Plc
   // Note that in the SecIDType variants, the ISIN/CUSIP/SEDOL/WKN/whatever
   // is stored twice in the object, redundantly
   public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
-  public static final String CMDTY_3_ID    = "GB0009895292";   
+  public static final String CMDTY_3_ID    = "GB0009895292";
   public static final String CMDTY_3_ISIN  = CMDTY_3_ID;
     
   // -----------------------------------------------------------------
