@@ -29,10 +29,14 @@ import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
+import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
 import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
+import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
+import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
+import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
 import org.gnucash.api.write.spec.GnucashWritableVendorJob;
 
 /**
@@ -161,7 +165,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param id the id to look for
      * @return A changeable version of the invoice.
      */
-    GnucashWritableGenerInvoice getWritableGenerInvoiceByID(GCshID id);
+    GnucashWritableGenerInvoice getWritableGenerInvoiceByID(final GCshID invcID);
 
     Collection<GnucashWritableGenerInvoice> getWritableGenerInvoices();
 
@@ -262,6 +266,30 @@ public interface GnucashWritableFile extends GnucashFile,
 	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
 
     void removeGenerInvoice(final GnucashWritableGenerInvoice impl) throws IllegalArgumentException;
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GnucashFile#getGenerInvoiceEntryByID(GCshID)
+     * @param id the id to look for
+     * @return A changeable version of the invoice entry.
+     */
+    GnucashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(final GCshID invcEntrID);
+
+    Collection<GnucashWritableGenerInvoiceEntry> getWritableGenerInvoiceEntries();
+
+    // ----------------------------
+    // ::TODO
+
+//    GnucashWritableCustomerInvoiceEntry createWritableCustomerInvoiceEntry();
+//
+//    GnucashWritableVendorBillEntry createWritableVendorBillEntry();
+//
+//    GnucashWritableEmployeeVoucherEntry createWritableEmployeeVoucher();
+//
+//    GnucashWritableJobInvoiceEntry createWritableJobInvoice();
+//
+//    void removeGenerInvoiceEntry(final GnucashWritableGenerInvoiceEntry impl);
 
     // ---------------------------------------------------------------
 

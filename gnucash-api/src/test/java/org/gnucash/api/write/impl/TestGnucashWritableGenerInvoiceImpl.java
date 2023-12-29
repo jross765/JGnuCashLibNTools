@@ -102,8 +102,8 @@ public class TestGnucashWritableGenerInvoiceImpl
   // Cf. TestGnucashGenerInvoiceImpl.testXYZ (all)
   // 
   // Check whether the GnucashWritableGenerInvoice objects returned by 
-  // GnucashWritableFileImpl.getWritableTransactionByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getTransactionByID().
+  // GnucashWritableFileImpl.getWritableGenerInvoiceByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getGenerInvoiceByID().
   
   @Test
   public void testCust01_1() throws Exception

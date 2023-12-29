@@ -36,6 +36,7 @@ import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
+import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashVendor;
@@ -68,6 +69,7 @@ import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
+import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.GnucashWritableGenerJob;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
@@ -708,16 +710,17 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
      * @see GnucashWritableFile#getWritableGenerJobs()
      */
     public Collection<GnucashWritableGenerInvoice> getWritableGenerInvoices() {
-
 	Collection<GnucashGenerInvoice> invcList = getGenerInvoices();
+	
 	if (invcList == null) {
-	    throw new IllegalStateException("getWritableGenerInvoice() returned null");
+	    throw new IllegalStateException("getGenerInvoices() returned null");
 	}
 	
 	Collection<GnucashWritableGenerInvoice> retval = new ArrayList<GnucashWritableGenerInvoice>();
 	for (GnucashGenerInvoice invc : invcList) {
 	    retval.add((GnucashWritableGenerInvoice) invc);
 	}
+	
 	return retval;
     }
 
@@ -900,6 +903,30 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	getRootElement().getGncBook().getBookElements().remove(((GnucashWritableGenerInvoiceImpl) impl).getJwsdpPeer());
 	this.decrementCountDataFor("gnc:GncInvoice");
 	setModified(true);
+    }
+
+    // ---------------------------------------------------------------
+
+    @Override
+    public GnucashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(final GCshID invcEntrID) {
+	GnucashGenerInvoiceEntry invcEntr = super.getGenerInvoiceEntryByID(invcEntrID);
+	return new GnucashWritableGenerInvoiceEntryImpl(invcEntr);
+    }
+
+    @Override
+    public Collection<GnucashWritableGenerInvoiceEntry> getWritableGenerInvoiceEntries() {
+	Collection<GnucashGenerInvoiceEntry> invcEntrList = getGenerInvoiceEntries();
+	
+	if (invcEntrList == null) {
+	    throw new IllegalStateException("getGenerInvoiceEntries() returned null");
+	}
+	
+	Collection<GnucashWritableGenerInvoiceEntry> retval = new ArrayList<GnucashWritableGenerInvoiceEntry>();
+	for (GnucashGenerInvoiceEntry entry : invcEntrList) {
+	    retval.add((GnucashWritableGenerInvoiceEntry) entry);
+	}
+	
+	return retval;
     }
 
     // ---------------------------------------------------------------

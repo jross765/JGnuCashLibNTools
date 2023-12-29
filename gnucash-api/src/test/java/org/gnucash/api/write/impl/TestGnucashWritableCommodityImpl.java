@@ -113,7 +113,7 @@ public class TestGnucashWritableCommodityImpl
   // 
   // Check whether the GnucashWritableCustomer objects returned by 
   // GnucashWritableFileImpl.getWritableCommodityByID() are actually 
-  // complete (as complete as returned be GnucashFileImpl.getCustomerByID().
+  // complete (as complete as returned be GnucashFileImpl.getCommodityByID().
   
   @Test
   public void test01_1() throws Exception

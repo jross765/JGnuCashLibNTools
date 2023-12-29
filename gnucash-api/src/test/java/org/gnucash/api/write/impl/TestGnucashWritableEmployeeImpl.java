@@ -171,6 +171,8 @@ public class TestGnucashWritableEmployeeImpl
       outFile.delete(); // sic, the temp. file is already generated (empty), 
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
+      
+      test03_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
@@ -250,6 +252,8 @@ public class TestGnucashWritableEmployeeImpl
       outFile.delete(); // sic, the temp. file is already generated (empty), 
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
+      
+      test03_4_check(outFile);
   }
   
   private void test03_4_check(File outFile) throws Exception

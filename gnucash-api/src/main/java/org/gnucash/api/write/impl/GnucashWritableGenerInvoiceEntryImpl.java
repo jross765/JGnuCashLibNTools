@@ -465,7 +465,9 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    final FixedPointNumber quantity, 
 	    final FixedPointNumber price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException {
-	super(invoice, createCustInvoiceEntry_int(invoice, account, quantity, price), true);
+	super(invoice, 
+	      createCustInvoiceEntry_int(invoice, account, quantity, price), 
+	      true);
 
 	invoice.addRawGenerEntry(this);
 	this.invoice = invoice;

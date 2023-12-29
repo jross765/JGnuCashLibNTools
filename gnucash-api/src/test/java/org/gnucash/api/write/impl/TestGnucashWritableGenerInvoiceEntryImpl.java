@@ -1,34 +1,39 @@
-package org.gnucash.api.read.impl;
+package org.gnucash.api.write.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
-import java.util.Locale;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
-import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.read.impl.TestGnucashGenerInvoiceEntryImpl;
+import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGnucashGenerInvoiceEntryImpl
+public class TestGnucashWritableGenerInvoiceEntryImpl
 {
-    public static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa");
-    public static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec");
-    public static final GCshID INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6");
+    private static final GCshID INVCENTR_1_ID = TestGnucashGenerInvoiceEntryImpl.INVCENTR_1_ID;
+    private static final GCshID INVCENTR_2_ID = TestGnucashGenerInvoiceEntryImpl.INVCENTR_2_ID;
+    private static final GCshID INVCENTR_3_ID = TestGnucashGenerInvoiceEntryImpl.INVCENTR_3_ID;
 
     // -----------------------------------------------------------------
+
+    private GnucashWritableFileImpl gcshInFile = null;
+
+    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+    @SuppressWarnings("exports")
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
     
-  private GnucashFileImpl          gcshFile      = null;
-  private GCshFileStats            gcshFileStats = null;
-  private GnucashGenerInvoiceEntry invcEntr     = null;
-  
-  // -----------------------------------------------------------------
+    // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
   {
@@ -38,7 +43,7 @@ public class TestGnucashGenerInvoiceEntryImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGnucashGenerInvoiceEntryImpl.class);  
+    return new JUnit4TestAdapter(TestGnucashWritableGenerInvoiceEntryImpl.class);  
   }
   
   @Before
@@ -47,10 +52,10 @@ public class TestGnucashGenerInvoiceEntryImpl
     ClassLoader classLoader = getClass().getClassLoader();
     // URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
     // System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-    InputStream gcshFileStream = null;
+    InputStream gcshInFileStream = null;
     try 
     {
-      gcshFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
+      gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
     } 
     catch ( Exception exc ) 
     {
@@ -60,32 +65,30 @@ public class TestGnucashGenerInvoiceEntryImpl
     
     try
     {
-      gcshFile = new GnucashFileImpl(gcshFileStream);
+      gcshInFile = new GnucashWritableFileImpl(gcshInFileStream);
     }
     catch ( Exception exc )
     {
-      System.err.println("Cannot parse GnuCash file");
+      System.err.println("Cannot parse GnuCash in-file");
       exc.printStackTrace();
     }
-    
-    gcshFileStats = new GCshFileStats(gcshFile);
   }
 
   // -----------------------------------------------------------------
-
-  // redundant:
-//  @Test
-//  public void test01() throws Exception
-//  {
-//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
-//      assertEquals(ConstTest.NOF_INVC_ENTR, gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
-//  }
-
+  // PART 1: Read existing objects as modifiable ones
+  //         (and see whether they are fully symmetrical to their read-only
+  //         counterparts)
+  // -----------------------------------------------------------------
+  // Cf. TestGnucashGenerInvoiceEntryImpl.test02_x
+  // 
+  // Check whether the GnucashWritableGenerInvoiceEntry objects returned by 
+  // GnucashWritableFileImpl.getWritableGenerInvoiceEntryByID() are actually 
+  // complete (as complete as returned be GnucashFileImpl.getGenerInvoiceEntryByID().
+  
   @Test
-  public void test02_1() throws Exception
+  public void test01_2_1() throws Exception
   {
-    invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_1_ID);
+    GnucashWritableGenerInvoiceEntry invcEntr = gcshInFile.getWritableGenerInvoiceEntryByID(INVCENTR_1_ID);
     assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_1_ID, invcEntr.getID());
@@ -101,9 +104,9 @@ public class TestGnucashGenerInvoiceEntryImpl
   }
 
   @Test
-  public void test02_2() throws Exception
+  public void test01_2_2() throws Exception
   {
-    invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_2_ID);
+    GnucashWritableGenerInvoiceEntry invcEntr = gcshInFile.getWritableGenerInvoiceEntryByID(INVCENTR_2_ID);
     assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_2_ID, invcEntr.getID());
@@ -122,9 +125,9 @@ public class TestGnucashGenerInvoiceEntryImpl
   }
 
   @Test
-  public void test02_3() throws Exception
+  public void test01_2_3() throws Exception
   {
-    invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_3_ID);
+    GnucashWritableGenerInvoiceEntry invcEntr = gcshInFile.getWritableGenerInvoiceEntryByID(INVCENTR_3_ID);
     assertNotEquals(null, invcEntr);
 
     assertEquals(INVCENTR_3_ID, invcEntr.getID());
@@ -139,22 +142,34 @@ public class TestGnucashGenerInvoiceEntryImpl
     assertEquals(10, invcEntr.getQuantity().intValue());
   }
 
-  @Test
-  public void test03() throws Exception
-  {
-    // Works only in German locale:
-    // assertEquals("Material", GnucashGenerInvoiceEntry.Action.MATERIAL.getLocaleString());
-    
-    assertEquals("Hours",   GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.ENGLISH));
-    assertEquals("Stunden", GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.GERMAN));
-    assertEquals("Heures",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.FRENCH));
-    // Locale.SPANISH does not exist (funny...)
-    // assertEquals("Horas",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.SPANISH));
+  // -----------------------------------------------------------------
+  // PART 2: Modify existing objects
+  // -----------------------------------------------------------------
+  // Check whether the GnucashWritableEmployee objects returned by 
+  // can actually be modified -- both in memory and persisted in file.
 
-    assertEquals("Hours",   GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("EN")));
-    assertEquals("Stunden", GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("DE")));
-    assertEquals("Heures",  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("FR")));
-    assertEquals("Horas" ,  GnucashGenerInvoiceEntry.Action.HOURS.getLocaleString(Locale.forLanguageTag("ES")));
-  }
+  // ::TODO
+
+  // -----------------------------------------------------------------
+  // PART 3: Create new objects
+  // -----------------------------------------------------------------
+  
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  // ::TODO
+  
+//  @AfterClass
+//  public void after() throws Exception
+//  {
+//      FileUtils.delete(outFileGlob);
+//  }
 
 }
