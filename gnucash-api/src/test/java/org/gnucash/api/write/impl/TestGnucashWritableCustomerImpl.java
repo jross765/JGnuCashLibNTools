@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,12 +15,18 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
+import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashCustomerImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.write.GnucashWritableCustomer;
+import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.junit.Before;
 import org.junit.Rule;
@@ -43,7 +50,11 @@ public class TestGnucashWritableCustomerImpl
     // -----------------------------------------------------------------
 
     private GnucashWritableFileImpl gcshInFile = null;
+    private GnucashFileImpl         gcshOutFile = null;
 
+    private GCshFileStats           gcshInFileStats = null;
+    private GCshFileStats           gcshOutFileStats = null;
+    
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
     @Rule
@@ -163,8 +174,104 @@ public class TestGnucashWritableCustomerImpl
   // Check whether the GnucashWritableCustomer objects returned by 
   // can actually be modified -- both in memory and persisted in file.
 
-  // ::TODO
+  @Test
+  public void test02_1() throws Exception
+  {
+    gcshInFileStats = new GCshFileStats(gcshInFile);
 
+    assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+    assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+    assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+    
+    GnucashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+    assertNotEquals(null, cust);
+    
+    assertEquals(CUST_1_ID, cust.getID());
+    
+    // ----------------------------
+    // Modify the object
+    
+    cust.setNumber("LUCKLUK01");
+    cust.setName("Lucky Luke");
+    cust.setCredit(new FixedPointNumber(10600.55));
+    cust.setNotes("He draws quicker than his shadow does");
+    
+    // ----------------------------
+    // Check whether the object can has actually be modified 
+    // (in memory, not in the file yet).
+    
+    test02_1_check_memory(cust);
+    
+    // ----------------------------
+    // Now, check whether the modified object can be written to the 
+    // output file, then re-read from it, and whether is is what
+    // we expect it is.
+    
+    File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+    //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+    outFile.delete(); // sic, the temp. file is already generated (empty), 
+                      // and the GnuCash file writer does not like that.
+    gcshInFile.writeFile(outFile);
+  
+    test02_1_check_persisted(outFile);
+  }
+
+  @Test
+  public void test02_2() throws Exception
+  {
+      // ::TODO
+  }
+
+  private void test02_1_check_memory(GnucashWritableCustomer cust) throws Exception 
+  {
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+    assertEquals(CUST_1_ID, cust.getID()); // unchanged
+    assertEquals("LUCKLUK01", cust.getNumber()); // changed
+    assertEquals("Lucky Luke", cust.getName()); // changed
+
+    assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+    assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+
+    assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
+
+    assertEquals(null, cust.getTaxTableID()); // unchanged
+    
+    assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
+    assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
+    assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
+  }
+
+  private void test02_1_check_persisted(File outFile) throws Exception
+  {
+     gcshOutFile = new GnucashFileImpl(outFile);
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+     assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+     assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+      
+     GnucashCustomer cust = gcshOutFile.getCustomerByID(CUST_1_ID);
+     assertNotEquals(null, cust);
+     
+     assertEquals(CUST_1_ID, cust.getID()); // unchanged
+     assertEquals("LUCKLUK01", cust.getNumber()); // changed
+     assertEquals("Lucky Luke", cust.getName()); // changed
+
+     assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+     assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+
+     assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
+
+     assertEquals(null, cust.getTaxTableID()); // unchanged
+     
+     assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
+     assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
+     assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
+  }
+  
   // -----------------------------------------------------------------
   // PART 3: Create new objects
   // -----------------------------------------------------------------
