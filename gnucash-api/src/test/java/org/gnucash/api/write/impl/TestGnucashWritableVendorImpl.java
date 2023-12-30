@@ -14,9 +14,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
+import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.TestGnucashVendorImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.write.GnucashWritableVendor;
@@ -47,7 +50,11 @@ public class TestGnucashWritableVendorImpl
   // -----------------------------------------------------------------
   
   private GnucashWritableFileImpl gcshInFile = null;
+  private GnucashFileImpl         gcshOutFile = null;
 
+  private GCshFileStats           gcshInFileStats = null;
+  private GCshFileStats           gcshOutFileStats = null;
+  
   // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
   @SuppressWarnings("exports")
   @Rule
@@ -106,7 +113,7 @@ public class TestGnucashWritableVendorImpl
   // complete (as complete as returned be GnucashFileImpl.getVendorByID().
   
   @Test
-  public void test01_1() throws Exception
+  public void test01_1_1() throws Exception
   {
     GnucashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
     assertNotEquals(null, vend);
@@ -125,7 +132,7 @@ public class TestGnucashWritableVendorImpl
   }
 
   @Test
-  public void test02_1() throws Exception
+  public void test01_2_1() throws Exception
   {
     GnucashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
     assertNotEquals(null, vend);
@@ -164,8 +171,95 @@ public class TestGnucashWritableVendorImpl
   // Check whether the GnucashWritableVendor objects returned by 
   // can actually be modified -- both in memory and persisted in file.
 
-  // ::TODO
+  @Test
+  public void test02_1() throws Exception
+  {
+    gcshInFileStats = new GCshFileStats(gcshInFile);
 
+    assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+    assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+    assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+    
+    GnucashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
+    assertNotEquals(null, vend);
+    
+    assertEquals(VEND_1_ID, vend.getID());
+    
+    // ----------------------------
+    // Modify the object
+    
+    vend.setNumber("RTP01");
+    vend.setName("Rantanplan");
+    vend.setNotes("World's most intelligent canine being");
+    
+    // ----------------------------
+    // Check whether the object can has actually be modified 
+    // (in memory, not in the file yet).
+    
+    test02_1_check_memory(vend);
+    
+    // ----------------------------
+    // Now, check whether the modified object can be written to the 
+    // output file, then re-read from it, and whether is is what
+    // we expect it is.
+    
+    File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+    //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+    outFile.delete(); // sic, the temp. file is already generated (empty), 
+                      // and the GnuCash file writer does not like that.
+    gcshInFile.writeFile(outFile);
+  
+    test02_1_check_persisted(outFile);
+  }
+
+  @Test
+  public void test02_2() throws Exception
+  {
+      // ::TODO
+  }
+
+  private void test02_1_check_memory(GnucashWritableVendor vend) throws Exception 
+  {
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+      assertEquals(VEND_1_ID, vend.getID()); // unchanged
+      assertEquals("RTP01", vend.getNumber()); // changed
+      assertEquals("Rantanplan", vend.getName()); // changed
+
+      assertEquals(null, vend.getTaxTableID()); // unchanged
+
+      assertEquals(BLLTRM_1_ID, vend.getTermsID()); // unchanged
+      assertEquals("sofort", vend.getTerms().getName()); // unchanged
+      assertEquals(GCshBillTerms.Type.DAYS, vend.getTerms().getType()); // unchanged
+      assertEquals("World's most intelligent canine being", vend.getNotes()); // changed
+  }
+
+  private void test02_1_check_persisted(File outFile) throws Exception
+  {
+     gcshOutFile = new GnucashFileImpl(outFile);
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+     assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+     assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+      
+     GnucashVendor vend = gcshOutFile.getVendorByID(VEND_1_ID);
+     assertNotEquals(null, vend);
+     
+     assertEquals(VEND_1_ID, vend.getID()); // unchanged
+     assertEquals("RTP01", vend.getNumber()); // changed
+     assertEquals("Rantanplan", vend.getName()); // changed
+
+     assertEquals(null, vend.getTaxTableID()); // unchanged
+
+     assertEquals(BLLTRM_1_ID, vend.getTermsID()); // unchanged
+     assertEquals("sofort", vend.getTerms().getName()); // unchanged
+     assertEquals(GCshBillTerms.Type.DAYS, vend.getTerms().getType()); // unchanged
+     assertEquals("World's most intelligent canine being", vend.getNotes()); // changed
+  }
+  
   // -----------------------------------------------------------------
   // PART 3: Create new objects
   // -----------------------------------------------------------------
