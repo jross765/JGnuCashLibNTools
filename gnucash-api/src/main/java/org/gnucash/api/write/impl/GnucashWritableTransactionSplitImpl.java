@@ -336,20 +336,25 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	/**
 	 * Set the description-text.
 	 *
-	 * @param desc the new description
+	 * @param descr the new description
 	 */
-	public void setDescription(final String desc) {
-		if (desc == null) {
-			throw new IllegalArgumentException("null description given! Please use the empty string instead of null for an empty description");
+	public void setDescription(final String descr) {
+		if ( descr == null ) {
+			throw new IllegalArgumentException("null description given!");
 		}
 
+		// Caution: empty string allowed here
+//		if ( descr.trim().length() == 0 ) {
+//		    throw new IllegalArgumentException("empty description given!");
+//		}
+
 		String old = getJwsdpPeer().getSplitMemo();
-		getJwsdpPeer().setSplitMemo(desc);
+		getJwsdpPeer().setSplitMemo(descr);
 		((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		if (old == null || !old.equals(desc)) {
+		if (old == null || !old.equals(descr)) {
 			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("description", old, desc);
+				getPropertyChangeSupport().firePropertyChange("description", old, descr);
 			}
 		}
 	}
@@ -366,6 +371,14 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	}
 
 	public void setActionStr(final String act) throws IllegalTransactionSplitActionException {
+		if ( act == null ) {
+		    throw new IllegalArgumentException("null action given!");
+		}
+
+		if ( act.trim().length() == 0 ) {
+		    throw new IllegalArgumentException("empty action given!");
+		}
+
 		String old = getJwsdpPeer().getSplitAction();
 		getJwsdpPeer().setSplitAction(act);
 		((GnucashWritableFile) getGnucashFile()).setModified(true);
@@ -378,6 +391,13 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	}
 
 	public void setLotID(final String lotID) {
+		if ( lotID == null ) {
+		    throw new IllegalArgumentException("null lot ID given!");
+		}
+
+		if ( lotID.trim().length() == 0 ) {
+		    throw new IllegalArgumentException("empty lot ID given!");
+		}
 
 		GnucashWritableTransactionImpl trx = (GnucashWritableTransactionImpl) getTransaction();
 		GnucashWritableFileImpl writingFile = trx.getWritableFile();

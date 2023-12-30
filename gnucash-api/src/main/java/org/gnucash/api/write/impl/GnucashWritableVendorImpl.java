@@ -44,6 +44,40 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     // ---------------------------------------------------------------
 
     /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+
+    // ---------------------------------------------------------------
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableVendor()}.
+     *
+     * @param file      the file we belong to
+     * @param jwsdpPeer the JWSDP-object we are facading.
+     */
+    public GnucashWritableVendorImpl(final GncV2.GncBook.GncGncVendor jwsdpPeer,
+	    final GnucashWritableFileImpl file) {
+	super(jwsdpPeer, file);
+    }
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableVendor()}.
+     *
+     * @param file the file we belong to
+     * @param id   the ID we shall have
+     */
+    protected GnucashWritableVendorImpl(final GnucashWritableFileImpl file) {
+	super(createVendor_int(file, GCshID.getNew()), file);
+    }
+
+    public GnucashWritableVendorImpl(final GnucashVendorImpl vend) {
+	super(vend.getJwsdpPeer(), vend.getGnucashFile());
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
      * Creates a new Transaction and add's it to the given gnucash-file Don't modify
      * the ID of the new transaction!
      *
@@ -107,42 +141,6 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
         return jwsdpVend;
     }
 
-    // ---------------------------------------------------------------
-
-    /**
-     * Our helper to implement the GnucashWritableObject-interface.
-     */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
-
-    // ---------------------------------------------------------------
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableVendor()}.
-     *
-     * @param file      the file we belong to
-     * @param jwsdpPeer the JWSDP-object we are facading.
-     */
-    public GnucashWritableVendorImpl(final GncV2.GncBook.GncGncVendor jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
-	super(jwsdpPeer, file);
-    }
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableVendor()}.
-     *
-     * @param file the file we belong to
-     * @param id   the ID we shall have
-     */
-    protected GnucashWritableVendorImpl(final GnucashWritableFileImpl file) {
-	super(createVendor_int(file, GCshID.getNew()), file);
-    }
-
-    public GnucashWritableVendorImpl(final GnucashVendorImpl vend) {
-	super(vend.getJwsdpPeer(), vend.getGnucashFile());
-    }
-
-    // ---------------------------------------------------------------
-
     /**
      * Delete this Vendor and remove it from the file.
      *
@@ -184,6 +182,14 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
     public void setNumber(final String number) {
+	if ( number == null ) {
+	    throw new IllegalArgumentException("null number given!");
+	}
+
+	if ( number.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty number given!");
+	}
+
 	String oldNumber = getNumber();
 	getJwsdpPeer().setVendorId(number);
 	getGnucashFile().setModified(true);
@@ -199,6 +205,14 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
     public void setName(final String name) {
+	if ( name == null ) {
+	    throw new IllegalArgumentException("null name given!");
+	}
+
+	if ( name.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty name given!");
+	}
+
 	String oldName = getName();
 	getJwsdpPeer().setVendorName(name);
 	getGnucashFile().setModified(true);
@@ -214,6 +228,10 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
     public void setAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
 	/*
 	 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
 	 * getJwsdpPeer().setVendAddr(adrImpl.getJwsdpPeer()); } else
@@ -244,6 +262,15 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
     public void setNotes(final String notes) {
+	if ( notes == null ) {
+	    throw new IllegalArgumentException("null notesgiven!");
+	}
+
+	// Caution: empty string allowed here
+//	if ( notes.trim().length() == 0 ) {
+//	    throw new IllegalArgumentException("empty notesgiven!");
+//	}
+
 	String oldNotes = getNotes();
 	getJwsdpPeer().setVendorNotes(notes);
 	getGnucashFile().setModified(true);

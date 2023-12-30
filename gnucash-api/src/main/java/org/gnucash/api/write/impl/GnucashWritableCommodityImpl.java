@@ -109,6 +109,10 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
 
     @Override
     public void setQualifID(GCshCmdtyCurrID qualifId) throws InvalidCmdtyCurrTypeException {
+	if ( qualifId == null ) {
+	    throw new IllegalArgumentException("null qualif-ID given!");
+	}
+
 	getJwsdpPeer().setCmdtySpace(qualifId.getNameSpace());
 	getJwsdpPeer().setCmdtyId(qualifId.getCode());
 
@@ -117,20 +121,37 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
 
     @Override
     public void setXCode(String xCode) {
+	if ( xCode == null ) {
+	    throw new IllegalArgumentException("null x-code given!");
+	}
+
+	if ( xCode.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty x-code given!");
+	}
+
 	getJwsdpPeer().setCmdtyXcode(xCode);
 	getGnucashFile().setModified(true);
     }
 
     @Override
     public void setName(String name) {
+	if ( name == null ) {
+	    throw new IllegalArgumentException("null name given!");
+	}
+
+	if ( name.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty name given!");
+	}
+
 	getJwsdpPeer().setCmdtyName(name);
 	getGnucashFile().setModified(true);
     }
 
     @Override
     public void setFraction(Integer fract) {
-	if ( fract <= 0 )
+	if ( fract <= 0 ) {
 	    throw new IllegalArgumentException("Fraction is <= 0");
+	}
 	
 	getJwsdpPeer().setCmdtyFraction(fract);
 	getGnucashFile().setModified(true);

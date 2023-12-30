@@ -2580,6 +2580,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashWritableGenerInvoice#setDateOpened(LocalDateTime)
      */
     public void setDateOpened(final LocalDate d) {
+	if ( d == null ) {
+	    throw new IllegalArgumentException("null date given!");
+	}
+
 	attemptChange();
 	dateOpened = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
 	String dateOpenedStr = dateOpened.format(DATE_OPENED_FORMAT_BOOK);
@@ -2591,6 +2595,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashWritableGenerInvoice#setDateOpened(java.lang.String)
      */
     public void setDateOpened(final String d) throws java.text.ParseException {
+	if ( d == null ) {
+	    throw new IllegalArgumentException("null date string given!");
+	}
+
+	if ( d.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty date string given!");
+	}
+
 	attemptChange();
 	setDateOpened(LocalDate.parse(d, DATE_OPENED_FORMAT));
 	getFile().setModified(true);
@@ -2600,6 +2612,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashWritableGenerInvoice#setDatePosted(LocalDateTime)
      */
     public void setDatePosted(final LocalDate d) {
+	if ( d == null ) {
+	    throw new IllegalArgumentException("null date given!");
+	}
+
 	attemptChange();
 	datePosted = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
 	getJwsdpPeer().getInvoicePosted().setTsDate(DATE_OPENED_FORMAT.format(d));
@@ -2616,18 +2632,43 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @see GnucashWritableGenerInvoice#setDatePosted(java.lang.String)
      */
     public void setDatePosted(final String d) throws java.text.ParseException {
+	if ( d == null ) {
+	    throw new IllegalArgumentException("null date string given!");
+	}
+
+	if ( d.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty date string given!");
+	}
+
 	setDatePosted(LocalDate.parse(d, DATE_OPENED_FORMAT));
     }
     
     // ---------------------------------------------------------------
 
     public void setNumber(final String number) {
+	if ( number == null ) {
+	    throw new IllegalArgumentException("null number given!");
+	}
+
+	if ( number.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty number given!");
+	}
+
 	attemptChange();
 	getJwsdpPeer().setInvoiceId(number);
 	getFile().setModified(true);
     }
 
     public void setDescription(final String descr) {
+	if ( descr == null ) {
+	    throw new IllegalArgumentException("null description given!");
+	}
+
+	// Caution: empty string allowed here
+//	if ( descr.trim().length() == 0 ) {
+//	    throw new IllegalArgumentException("empty description given!");
+//	}
+
 	attemptChange();
 	getJwsdpPeer().setInvoiceNotes(descr);
 	getFile().setModified(true);

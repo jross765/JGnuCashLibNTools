@@ -1504,7 +1504,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     
     @Override
     public String toString() {
-	String result = "GnucashWritableFileImpl: [\n";
+	String result = "GnucashWritableFileImpl [\n";
 	
 	result += "  Stats (raw):\n"; 
 	GCshFileStats stats;

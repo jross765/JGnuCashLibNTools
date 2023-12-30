@@ -356,6 +356,29 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     }
 
     /**
+     * @see GnucashWritableTransaction#setNumber(java.lang.String)
+     */
+    public void setNumber(final String number) {
+        if ( number == null ) {
+            throw new IllegalArgumentException("null number given!");
+        }
+    
+        if ( number.trim().length() == 0 ) {
+            throw new IllegalArgumentException("empty number given!");
+        }
+    
+        String old = getJwsdpPeer().getTrnNum();
+        getJwsdpPeer().setTrnNum(number);
+        getWritableFile().setModified(true);
+    
+        if (old == null || !old.equals(number)) {
+            if (getPropertyChangeSupport() != null) {
+        	getPropertyChangeSupport().firePropertyChange("transactionNumber", old, number);
+            }
+        }
+    }
+
+    /**
      * @param id the new commodity/currency name-space/code
      * @see #setCurrencyNameSpace(String)
      * @see {@link GnucashTransaction#getCurrencyID()}
@@ -370,6 +393,10 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @see GnucashWritableTransaction#setDateEntered(LocalDateTime)
      */
     public void setDateEntered(final ZonedDateTime dateEntered) {
+	if ( dateEntered == null ) {
+	    throw new IllegalArgumentException("null date given!");
+	}
+
 	this.dateEntered = dateEntered;
 	String dateEnteredStr = this.dateEntered.format(DATE_ENTERED_FORMAT);
 	getJwsdpPeer().getTrnDateEntered().setTsDate(dateEnteredStr);
@@ -386,6 +413,10 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @see GnucashWritableTransaction#setDatePosted(LocalDateTime)
      */
     public void setDatePosted(final LocalDate datePosted) {
+	if ( datePosted == null ) {
+	    throw new IllegalArgumentException("null date given!");
+	}
+
 	this.datePosted = ZonedDateTime.of(datePosted, LocalTime.MIN, ZoneId.systemDefault());
 	String datePostedStr = this.datePosted.format(DATE_POSTED_FORMAT);
 	getJwsdpPeer().getTrnDatePosted().setTsDate(datePostedStr);
@@ -395,40 +426,23 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * @see GnucashWritableTransaction#setNotes(java.lang.String)
      */
-    public void setDescription(final String desc) {
-	if (desc == null) {
-	    throw new IllegalArgumentException(
-		    "null description given! Please use the empty string instead of null for an empty description");
+    public void setDescription(final String descr) {
+	if ( descr == null) {
+	    throw new IllegalArgumentException("null description given!");
 	}
+
+	// Caution: empty string allowed here
+//	if ( descr.trim().length() == 0 ) {
+//	    throw new IllegalArgumentException("empty description given!");
+//	}
 
 	String old = getJwsdpPeer().getTrnDescription();
-	getJwsdpPeer().setTrnDescription(desc);
+	getJwsdpPeer().setTrnDescription(descr);
 	getWritableFile().setModified(true);
 
-	if (old == null || !old.equals(desc)) {
+	if (old == null || !old.equals(descr)) {
 	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("description", old, desc);
-	    }
-	}
-    }
-
-    /**
-     * @see GnucashWritableTransaction#setNumber(java.lang.String)
-     */
-    public void setNumber(final String tnum) {
-	if (tnum == null) {
-	    throw new IllegalArgumentException(
-		    "null transaction-number given! Please use the empty string instead of null for an empty "
-			    + "description");
-	}
-
-	String old = getJwsdpPeer().getTrnNum();
-	getJwsdpPeer().setTrnNum(tnum);
-	getWritableFile().setModified(true);
-
-	if (old == null || !old.equals(tnum)) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("transactionNumber", old, tnum);
+		getPropertyChangeSupport().firePropertyChange("description", old, descr);
 	    }
 	}
     }

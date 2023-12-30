@@ -43,6 +43,41 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     // ---------------------------------------------------------------
 
     /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+
+    // ---------------------------------------------------------------
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableEmployee()}.
+     *
+     * @param file      the file we belong to
+     * @param jwsdpPeer the JWSDP-object we are facading.
+     */
+    @SuppressWarnings("exports")
+    public GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
+	    final GnucashWritableFileImpl file) {
+	super(jwsdpPeer, file);
+    }
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableEmployee()}.
+     *
+     * @param file the file we belong to
+     * @param id   the ID we shall have
+     */
+    protected GnucashWritableEmployeeImpl(final GnucashWritableFileImpl file) {
+	super(createEmployee_int(file, GCshID.getNew()), file);
+    }
+
+    public GnucashWritableEmployeeImpl(final GnucashEmployeeImpl empl) {
+	super(empl.getJwsdpPeer(), empl.getGnucashFile());
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
      * Creates a new Transaction and add's it to the given gnucash-file Don't modify
      * the ID of the new transaction!
      *
@@ -124,43 +159,6 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
         return jwsdpEmpl;
     }
 
-    // ---------------------------------------------------------------
-
-    /**
-     * Our helper to implement the GnucashWritableObject-interface.
-     */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
-
-    // ---------------------------------------------------------------
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableEmployee()}.
-     *
-     * @param file      the file we belong to
-     * @param jwsdpPeer the JWSDP-object we are facading.
-     */
-    @SuppressWarnings("exports")
-    public GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
-	super(jwsdpPeer, file);
-    }
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableEmployee()}.
-     *
-     * @param file the file we belong to
-     * @param id   the ID we shall have
-     */
-    protected GnucashWritableEmployeeImpl(final GnucashWritableFileImpl file) {
-	super(createEmployee_int(file, GCshID.getNew()), file);
-    }
-
-    public GnucashWritableEmployeeImpl(final GnucashEmployeeImpl empl) {
-	super(empl.getJwsdpPeer(), empl.getGnucashFile());
-    }
-
-    // ---------------------------------------------------------------
-
     /**
      * Delete this employee and remove it from the file.
      *
@@ -202,6 +200,14 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
     public void setNumber(final String number) {
+	if ( number == null ) {
+	    throw new IllegalArgumentException("null number given!");
+	}
+
+	if ( number.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty number given!");
+	}
+
 	String oldNumber = getNumber();
 	getJwsdpPeer().setEmployeeId(number);
 	getGnucashFile().setModified(true);
@@ -217,6 +223,14 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
     public void setUserName(final String userName) {
+	if ( userName == null ) {
+	    throw new IllegalArgumentException("null user name given!");
+	}
+
+	if ( userName.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty user name given!");
+	}
+
 	String oldUserName = getUserName();
 	getJwsdpPeer().setEmployeeUsername(userName);
 	getGnucashFile().setModified(true);
@@ -232,6 +246,10 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
     public void setAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
         /*
          * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
          * getJwsdpPeer().setEmplAddr(adrImpl.getJwsdpPeer()); } else
@@ -366,7 +384,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	buffer.append(", number='");
 	buffer.append(getNumber() + "'");
 	
-	buffer.append(", name='");
+	buffer.append(", username='");
 	buffer.append(getUserName() + "'");
 	
 	buffer.append("]");

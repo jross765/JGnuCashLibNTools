@@ -44,6 +44,41 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     // ---------------------------------------------------------------
 
     /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+
+    // ---------------------------------------------------------------
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableCustomer()}.
+     *
+     * @param file      the file we belong to
+     * @param jwsdpPeer the JWSDP-object we are facading.
+     */
+    @SuppressWarnings("exports")
+    public GnucashWritableCustomerImpl(final GncV2.GncBook.GncGncCustomer jwsdpPeer,
+	    final GnucashWritableFileImpl file) {
+	super(jwsdpPeer, file);
+    }
+
+    /**
+     * Please use ${@link GnucashWritableFile#createWritableCustomer()}.
+     *
+     * @param file the file we belong to
+     * @param id   the ID we shall have
+     */
+    protected GnucashWritableCustomerImpl(final GnucashWritableFileImpl file) {
+	super(createCustomer_int(file, GCshID.getNew()), file);
+    }
+
+    public GnucashWritableCustomerImpl(final GnucashCustomerImpl cust) {
+	super(cust.getJwsdpPeer(), cust.getGnucashFile());
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
      * Creates a new Transaction and add's it to the given gnucash-file Don't modify
      * the ID of the new transaction!
      *
@@ -123,43 +158,6 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         return jwsdpCust;
     }
 
-    // ---------------------------------------------------------------
-
-    /**
-     * Our helper to implement the GnucashWritableObject-interface.
-     */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
-
-    // ---------------------------------------------------------------
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableCustomer()}.
-     *
-     * @param file      the file we belong to
-     * @param jwsdpPeer the JWSDP-object we are facading.
-     */
-    @SuppressWarnings("exports")
-    public GnucashWritableCustomerImpl(final GncV2.GncBook.GncGncCustomer jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
-	super(jwsdpPeer, file);
-    }
-
-    /**
-     * Please use ${@link GnucashWritableFile#createWritableCustomer()}.
-     *
-     * @param file the file we belong to
-     * @param id   the ID we shall have
-     */
-    protected GnucashWritableCustomerImpl(final GnucashWritableFileImpl file) {
-	super(createCustomer_int(file, GCshID.getNew()), file);
-    }
-
-    public GnucashWritableCustomerImpl(final GnucashCustomerImpl cust) {
-	super(cust.getJwsdpPeer(), cust.getGnucashFile());
-    }
-
-    // ---------------------------------------------------------------
-
     /**
      * Delete this customer and remove it from the file.
      *
@@ -216,6 +214,14 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setName(final String name) {
+	if ( name == null ) {
+	    throw new IllegalArgumentException("null name given!");
+	}
+
+	if ( name.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty name given!");
+	}
+
 	String oldName = getName();
 	getJwsdpPeer().setCustName(name);
 	getGnucashFile().setModified(true);
@@ -231,6 +237,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setDiscount(final FixedPointNumber discount) {
+	if ( discount == null ) {
+	    throw new IllegalArgumentException("null discount given!");
+	}
+
 	FixedPointNumber oldDiscount = getDiscount();
 	getJwsdpPeer().setCustDiscount(discount.toGnucashString());
 	getGnucashFile().setModified(true);
@@ -246,6 +256,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setCredit(final FixedPointNumber credit) {
+	if ( credit == null ) {
+	    throw new IllegalArgumentException("null credit given!");
+	}
+
 	FixedPointNumber oldCredit = getDiscount();
 	getJwsdpPeer().setCustCredit(credit.toGnucashString());
 	getGnucashFile().setModified(true);
@@ -261,6 +275,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
         /*
          * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
          * getJwsdpPeer().setCustAddr(adrImpl.getJwsdpPeer()); } else
@@ -290,6 +308,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setShippingAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
         /*
          * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
          * getJwsdpPeer().setCustShipaddr(adrImpl.getJwsdpPeer()); } else
@@ -319,6 +341,15 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void setNotes(final String notes) {
+	if ( notes == null ) {
+	    throw new IllegalArgumentException("null notes given!");
+	}
+
+	// Caution: empty string are allowed here
+//	if ( notes.trim().length() == 0 ) {
+//	    throw new IllegalArgumentException("empty notes given!");
+//	}
+
         String oldNotes = getNotes();
         getJwsdpPeer().setCustNotes(notes);
         getGnucashFile().setModified(true);

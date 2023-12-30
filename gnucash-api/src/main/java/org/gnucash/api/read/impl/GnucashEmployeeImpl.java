@@ -355,7 +355,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 	buffer.append(", number='");
 	buffer.append(getNumber() + "'");
 	
-	buffer.append(", name='");
+	buffer.append(", username='");
 	buffer.append(getUserName() + "'");
 	
 	buffer.append("]");

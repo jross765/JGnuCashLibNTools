@@ -1646,7 +1646,7 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
     
     public String toString() {
-	String result = "GnucashFileImpl: [\n";
+	String result = "GnucashFileImpl [\n";
 	
 	result += "  Stats (raw):\n"; 
 	GCshFileStats stats;

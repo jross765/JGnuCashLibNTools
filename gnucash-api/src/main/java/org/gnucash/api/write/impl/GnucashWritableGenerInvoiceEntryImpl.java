@@ -502,10 +502,10 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * {@inheritDoc}
      */
     public void setDate(final LocalDate date) {
-	if (date == null) {
-	    throw new IllegalArgumentException(
-		    "null date given!");
+	if ( date == null ) {
+	    throw new IllegalArgumentException( "null date given!");
 	}
+	
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
@@ -525,10 +525,15 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * {@inheritDoc}
      */
     public void setDescription(final String descr) {
-	if (descr == null) {
-	    throw new IllegalArgumentException(
-		    "null description given! Please use the empty string instead of null for an empty description");
+	if ( descr == null ) {
+	    throw new IllegalArgumentException("null description given!");
 	}
+
+	
+//	if ( descr.trim().length() == 0 ) {
+//	    throw new IllegalArgumentException("empty description given!");
+//	}
+
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
