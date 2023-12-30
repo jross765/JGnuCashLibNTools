@@ -14,9 +14,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
+import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
+import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;
@@ -37,7 +44,11 @@ public class TestGnucashWritableEmployeeImpl
     // -----------------------------------------------------------------
 
     private GnucashWritableFileImpl gcshInFile = null;
+    private GnucashFileImpl         gcshOutFile = null;
 
+    private GCshFileStats           gcshInFileStats = null;
+    private GCshFileStats           gcshOutFileStats = null;
+    
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
     @Rule
@@ -143,8 +154,83 @@ public class TestGnucashWritableEmployeeImpl
   // Check whether the GnucashWritableEmployee objects returned by 
   // can actually be modified -- both in memory and persisted in file.
 
-  // ::TODO
+  @Test
+  public void test02_1() throws Exception
+  {
+    gcshInFileStats = new GCshFileStats(gcshInFile);
 
+    assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+    assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+    assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+    
+    GnucashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+    assertNotEquals(null, empl);
+    
+    assertEquals(EMPL_1_ID, empl.getID());
+    
+    // ----------------------------
+    // Modify the object
+    
+    empl.setNumber("JOEDALTON01");
+    empl.setUserName("jdalton");
+    empl.getWritableAddress().setAddressName("Joe Dalon Sr.");
+    
+    // ----------------------------
+    // Check whether the object can has actually be modified 
+    // (in memory, not in the file yet).
+    
+    test02_1_check_memory(empl);
+    
+    // ----------------------------
+    // Now, check whether the modified object can be written to the 
+    // output file, then re-read from it, and whether is is what
+    // we expect it is.
+    
+    File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+    //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+    outFile.delete(); // sic, the temp. file is already generated (empty), 
+                      // and the GnuCash file writer does not like that.
+    gcshInFile.writeFile(outFile);
+  
+    test02_1_check_persisted(outFile);
+  }
+
+  @Test
+  public void test02_2() throws Exception
+  {
+      // ::TODO
+  }
+
+  private void test02_1_check_memory(GnucashWritableEmployee empl) throws Exception 
+  {
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+
+      assertEquals(EMPL_1_ID, empl.getID()); // unchanged
+      assertEquals("JOEDALTON01", empl.getNumber()); // changed
+      assertEquals("jdalton", empl.getUserName()); // changed
+      assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+  }
+
+  private void test02_1_check_persisted(File outFile) throws Exception
+  {
+     gcshOutFile = new GnucashFileImpl(outFile);
+     gcshOutFileStats = new GCshFileStats(gcshOutFile);
+     
+     assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+     assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+     assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+      
+     GnucashEmployee empl = gcshOutFile.getEmployeeByID(EMPL_1_ID);
+     assertNotEquals(null, empl);
+     
+     assertEquals(EMPL_1_ID, empl.getID()); // unchanged
+     assertEquals("JOEDALTON01", empl.getNumber()); // changed
+     assertEquals("jdalton", empl.getUserName()); // changed
+     assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+  }
+  
   // -----------------------------------------------------------------
   // PART 3: Create new objects
   // -----------------------------------------------------------------
