@@ -12,7 +12,6 @@ import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -839,13 +838,13 @@ public interface GnucashFile extends GnucashObject {
      * @param id id of a price
      * @return the identified price or null
      */
-    GCshPrice getPriceByID(GCshID id);
+    GnucashPrice getPriceByID(GCshID id);
 
     /**
      * @return all prices defined in the book
      * @link GCshPrice
      */
-    Collection<GCshPrice> getPrices();
+    Collection<GnucashPrice> getPrices();
 
     /**
      * @param pCmdtySpace the namespace for pCmdtyId

@@ -1,4 +1,4 @@
-package org.gnucash.api.write.impl.aux;
+package org.gnucash.api.write.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -16,15 +16,12 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.aux.GCshPrice;
-import org.gnucash.api.read.aux.GCshPrice.Type;
+import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.api.read.GnucashPrice.Type;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.TestGnucashPriceImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
-import org.gnucash.api.read.impl.aux.TestGCshPriceImpl;
-import org.gnucash.api.write.GnucashWritableTransaction;
-import org.gnucash.api.write.aux.GCshWritablePrice;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.GnucashWritablePrice;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,12 +29,12 @@ import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGCshWritablePriceImpl
+public class TestGnucashWritablePriceImpl
 {
-    private static final GCshID PRC_1_ID = TestGCshPriceImpl.PRC_1_ID;
-    private static final GCshID PRC_2_ID = TestGCshPriceImpl.PRC_2_ID;
-    private static final GCshID PRC_3_ID = TestGCshPriceImpl.PRC_3_ID;
-    private static final GCshID PRC_4_ID = TestGCshPriceImpl.PRC_4_ID;
+    private static final GCshID PRC_1_ID = TestGnucashPriceImpl.PRC_1_ID;
+    private static final GCshID PRC_2_ID = TestGnucashPriceImpl.PRC_2_ID;
+    private static final GCshID PRC_3_ID = TestGnucashPriceImpl.PRC_3_ID;
+    private static final GCshID PRC_4_ID = TestGnucashPriceImpl.PRC_4_ID;
     
     // -----------------------------------------------------------------
 
@@ -70,7 +67,7 @@ public class TestGCshWritablePriceImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGCshWritablePriceImpl.class);  
+    return new JUnit4TestAdapter(TestGnucashWritablePriceImpl.class);  
   }
   
   @Before
@@ -125,7 +122,7 @@ public class TestGCshWritablePriceImpl
   @Test
   public void test01() throws Exception
   {
-      Collection<GCshPrice> priceList = gcshInFile.getPrices();
+      Collection<GnucashPrice> priceList = gcshInFile.getPrices();
       
       assertEquals(9, priceList.size());
 
@@ -139,7 +136,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_1() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
+      GnucashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_1_ID, prc.getID());
@@ -179,7 +176,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_2() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_2_ID);
+      GnucashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_2_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_2_ID, prc.getID());
@@ -219,7 +216,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_3() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_3_ID);
+      GnucashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_3_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_3_ID, prc.getID());
@@ -259,7 +256,7 @@ public class TestGCshWritablePriceImpl
 
   @Test
   public void test01_2_4() throws Exception {
-      GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_4_ID);
+      GnucashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_4_ID);
       assertNotEquals(null, prc);
 
       assertEquals(PRC_4_ID, prc.getID());
@@ -303,7 +300,7 @@ public class TestGCshWritablePriceImpl
     assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
     assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
     
-    GCshWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
+    GnucashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
     assertNotEquals(null, prc);
     
     assertEquals(PRC_1_ID, prc.getID());
@@ -344,7 +341,7 @@ public class TestGCshWritablePriceImpl
       // ::TODO
   }
 
-  private void test02_1_check_memory(GCshWritablePrice prc) throws Exception 
+  private void test02_1_check_memory(GnucashWritablePrice prc) throws Exception 
   {
       assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
@@ -373,7 +370,7 @@ public class TestGCshWritablePriceImpl
      assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
      assertEquals(ConstTest.Stats.NOF_PRC, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
       
-     GCshPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);
+     GnucashPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);
      assertNotEquals(null, prc);
      
      assertEquals(PRC_1_ID, prc.getID()); // unchanged

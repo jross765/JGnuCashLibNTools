@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.read.aux.GCshPrice;
 
 public interface GnucashCommodity {
 
@@ -35,8 +34,8 @@ public interface GnucashCommodity {
 
     // ------------------------------------------------------------
 
-    Collection<GCshPrice> getQuotes() throws InvalidCmdtyCurrTypeException;
+    Collection<GnucashPrice> getQuotes() throws InvalidCmdtyCurrTypeException;
     
-    GCshPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException;
+    GnucashPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException;
     
 }

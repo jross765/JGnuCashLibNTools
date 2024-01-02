@@ -1,4 +1,4 @@
-package org.gnucash.api.write.impl.aux;
+package org.gnucash.api.write.impl;
 
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
@@ -18,12 +18,10 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.impl.aux.GCshPriceImpl;
+import org.gnucash.api.read.impl.GnucashPriceImpl;
+import org.gnucash.api.write.GnucashWritablePrice;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableObject;
-import org.gnucash.api.write.aux.GCshWritablePrice;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.impl.GnucashWritableObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,10 +29,10 @@ import org.slf4j.LoggerFactory;
  * Extension of GCshPriceImpl to allow read-write access instead of
  * read-only access.
  */
-public class GCshWritablePriceImpl extends GCshPriceImpl 
-                                   implements GCshWritablePrice 
+public class GnucashWritablePriceImpl extends GnucashPriceImpl 
+                                      implements GnucashWritablePrice 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritablePriceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritablePriceImpl.class);
 
     // ---------------------------------------------------------------
 
@@ -46,17 +44,17 @@ public class GCshWritablePriceImpl extends GCshPriceImpl
     // ---------------------------------------------------------------
 
     @SuppressWarnings("exports")
-    public GCshWritablePriceImpl(
+    public GnucashWritablePriceImpl(
 	    final GncV2.GncBook.GncPricedb.Price jwsdpPeer,
 	    final GnucashWritableFile file) {
 	super(jwsdpPeer, file);
     }
 
-    public GCshWritablePriceImpl(final GnucashWritableFileImpl file) {
+    public GnucashWritablePriceImpl(final GnucashWritableFileImpl file) {
 	super(createPrice(file, GCshID.getNew()), file);
     }
 
-    public GCshWritablePriceImpl(GCshPriceImpl prc) {
+    public GnucashWritablePriceImpl(GnucashPriceImpl prc) {
 	super(prc.getJwsdpPeer(), prc.getGnucashFile());
     }
 

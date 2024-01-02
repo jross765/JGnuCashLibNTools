@@ -5,9 +5,9 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 
 public class GetCmdtyInfo {
@@ -112,7 +112,7 @@ public class GetCmdtyInfo {
 	System.out.println("Number of quotes: " + cmdty.getQuotes().size());
 
 	System.out.println("");
-	for (GCshPrice prc : cmdty.getQuotes()) {
+	for (GnucashPrice prc : cmdty.getQuotes()) {
 	    System.out.println(" - " + prc.toString());
 	}
 

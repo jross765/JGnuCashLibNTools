@@ -2,9 +2,9 @@ package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.impl.aux.GCshPriceImpl;
+import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.impl.aux.GCshWritablePriceImpl;
+import org.gnucash.api.write.impl.GnucashWritablePriceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +27,8 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
      * @see FilePriceManager#createAccount(GncAccount)
      */
     @Override
-    protected GCshPriceImpl createPrice(final GncV2.GncBook.GncPricedb.Price jwsdpPrc) {
-	GCshWritablePriceImpl prc = new GCshWritablePriceImpl(jwsdpPrc, (GnucashWritableFileImpl) gcshFile);
+    protected GnucashPriceImpl createPrice(final GncV2.GncBook.GncPricedb.Price jwsdpPrc) {
+	GnucashWritablePriceImpl prc = new GnucashWritablePriceImpl(jwsdpPrc, (GnucashWritableFileImpl) gcshFile);
 	LOGGER.debug("Generated new writable price: " + prc.getID());
 	return prc;
     }

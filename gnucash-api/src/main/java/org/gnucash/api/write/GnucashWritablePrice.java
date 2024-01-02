@@ -1,4 +1,4 @@
-package org.gnucash.api.write.aux;
+package org.gnucash.api.write;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,12 +8,11 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyID;
 import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.aux.GCshPrice;
-import org.gnucash.api.write.GnucashWritableObject;
 
-public interface GCshWritablePrice extends GCshPrice, 
-                                           GnucashWritableObject
+public interface GnucashWritablePrice extends GnucashPrice, 
+                                              GnucashWritableObject
 {
 
     void setFromCmdtyCurrQualifID(GCshCmdtyCurrID qualifID);

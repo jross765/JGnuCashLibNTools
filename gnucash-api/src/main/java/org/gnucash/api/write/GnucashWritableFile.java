@@ -24,19 +24,14 @@ import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.aux.GCshWritablePrice;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
-import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
 import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
-import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
-import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
-import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
 import org.gnucash.api.write.spec.GnucashWritableVendorJob;
 
 /**
@@ -413,18 +408,18 @@ public interface GnucashWritableFile extends GnucashFile,
 
     // ---------------------------------------------------------------
 
-    GCshWritablePrice getWritablePriceByID(final GCshID prcID);
+    GnucashWritablePrice getWritablePriceByID(final GCshID prcID);
 
     // ----------------------------
 
     /**
      * @return a new price object with no values that is already added to this file
      */
-    GCshWritablePrice createWritablePrice();
+    GnucashWritablePrice createWritablePrice();
 
     /**
      * @param prc the price to remove
      */
-    void removePrice(GCshWritablePrice prc);
+    void removePrice(GnucashWritablePrice prc);
 
 }

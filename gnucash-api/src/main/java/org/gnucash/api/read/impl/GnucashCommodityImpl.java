@@ -6,9 +6,9 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -123,11 +123,11 @@ public class GnucashCommodityImpl implements GnucashCommodity
 
     // ::TODO sort the entries by date
     @Override
-    public Collection<GCshPrice> getQuotes() throws InvalidCmdtyCurrTypeException {
-	Collection<GCshPrice> result = new ArrayList<GCshPrice>();
+    public Collection<GnucashPrice> getQuotes() throws InvalidCmdtyCurrTypeException {
+	Collection<GnucashPrice> result = new ArrayList<GnucashPrice>();
 	
-	Collection<GCshPrice> prices = getGnucashFile().getPrices();
-	for ( GCshPrice price : prices ) {
+	Collection<GnucashPrice> prices = getGnucashFile().getPrices();
+	for ( GnucashPrice price : prices ) {
 	    if ( price.getFromCmdtyCurrQualifID().toString().equals(getQualifID().toString()) ) {
 		result.add(price);
 	    }
@@ -137,12 +137,12 @@ public class GnucashCommodityImpl implements GnucashCommodity
     }
 
     @Override
-    public GCshPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException {
+    public GnucashPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException {
 	
-	GCshPrice result = null;
+	GnucashPrice result = null;
 
 	LocalDate youngestDate = LocalDate.of(1970, 1, 1); // ::MAGIC
-	for ( GCshPrice price : getQuotes() ) {
+	for ( GnucashPrice price : getQuotes() ) {
 	    if ( price.getDate().isAfter(youngestDate) ) {
 		result = price;
 		youngestDate = price.getDate();

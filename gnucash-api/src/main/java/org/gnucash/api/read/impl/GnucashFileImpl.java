@@ -25,6 +25,7 @@ import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.GnucashCommodity;
@@ -41,7 +42,6 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
@@ -1101,14 +1101,14 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * {@inheritDoc}
      */
-    public GCshPrice getPriceByID(GCshID prcID) {
+    public GnucashPrice getPriceByID(GCshID prcID) {
         return prcMgr.getPriceByID(prcID);
     }
 
     /**
      * {@inheritDoc}
      */
-    public Collection<GCshPrice> getPrices() {
+    public Collection<GnucashPrice> getPrices() {
         return prcMgr.getPrices();
     }
 

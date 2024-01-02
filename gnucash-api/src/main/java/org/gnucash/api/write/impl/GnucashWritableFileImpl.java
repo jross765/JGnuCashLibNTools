@@ -38,6 +38,7 @@ import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
@@ -45,8 +46,8 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.aux.GCshPrice;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
@@ -56,7 +57,6 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
-import org.gnucash.api.read.impl.aux.GCshPriceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
@@ -71,11 +71,10 @@ import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.GnucashWritableGenerJob;
+import org.gnucash.api.write.GnucashWritablePrice;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.GnucashWritableVendor;
-import org.gnucash.api.write.aux.GCshWritablePrice;
-import org.gnucash.api.write.impl.aux.GCshWritablePriceImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
 import org.gnucash.api.write.impl.hlp.FilePriceManager;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
@@ -1311,14 +1310,14 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     // ---------------------------------------------------------------
 
     @Override
-    public GCshWritablePrice getWritablePriceByID(final GCshID prcID) {
-	GCshPrice prc = super.getPriceByID(prcID);
-	return new GCshWritablePriceImpl((GCshPriceImpl) prc);
+    public GnucashWritablePrice getWritablePriceByID(final GCshID prcID) {
+	GnucashPrice prc = super.getPriceByID(prcID);
+	return new GnucashWritablePriceImpl((GnucashPriceImpl) prc);
     }
 
     private boolean existPriceObjects(GnucashWritableCommodity cmdty) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	int counter = 0;
-	for ( GCshPrice price : getPrices() ) {
+	for ( GnucashPrice price : getPrices() ) {
 	    if ( price.getFromCommodity().getQualifID().
 		    equals(cmdty.getQualifID()) ) {
 		counter++;
@@ -1334,17 +1333,17 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     // ----------------------------
 
     @Override
-    public GCshWritablePrice createWritablePrice() {
-	GCshWritablePrice prc = new GCshWritablePriceImpl(this);
+    public GnucashWritablePrice createWritablePrice() {
+	GnucashWritablePrice prc = new GnucashWritablePriceImpl(this);
 	super.prcMgr.addPrice(prc);
 	return prc;	
     }
 
     @Override
-    public void removePrice(final GCshWritablePrice prc) {
+    public void removePrice(final GnucashWritablePrice prc) {
 	super.prcMgr.removePrice(prc);
 
-	getRootElement().getGncBook().getBookElements().remove(((GCshWritablePriceImpl) prc).getJwsdpPeer());
+	getRootElement().getGncBook().getBookElements().remove(((GnucashWritablePriceImpl) prc).getJwsdpPeer());
 	setModified(true);
     }
 

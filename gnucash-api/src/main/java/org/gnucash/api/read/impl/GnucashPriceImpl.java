@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl.aux;
+package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -20,15 +20,14 @@ import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.aux.GCshPrice;
-import org.gnucash.api.read.impl.GnucashObjectImpl;
+import org.gnucash.api.read.GnucashPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GCshPriceImpl extends GnucashObjectImpl
-                           implements GCshPrice
+public class GnucashPriceImpl extends GnucashObjectImpl
+                              implements GnucashPrice
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshPriceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashPriceImpl.class);
 
     protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
     
@@ -48,7 +47,7 @@ public class GCshPriceImpl extends GnucashObjectImpl
      * @param newPeer the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GCshPriceImpl(final GncV2.GncBook.GncPricedb.Price newPeer, final GnucashFile gncFile) {
+    public GnucashPriceImpl(final GncV2.GncBook.GncPricedb.Price newPeer, final GnucashFile gncFile) {
 	super(gncFile);
 
 	this.jwsdpPeer = newPeer;

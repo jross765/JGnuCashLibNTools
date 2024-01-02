@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl.aux;
+package org.gnucash.api.read.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -16,15 +16,14 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.aux.GCshPrice;
-import org.gnucash.api.read.aux.GCshPrice.Type;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.api.read.GnucashPrice.Type;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGCshPriceImpl
+public class TestGnucashPriceImpl
 {
   // DE
   // Note the funny parent/child pair.
@@ -36,7 +35,7 @@ public class TestGCshPriceImpl
   // -----------------------------------------------------------------
   
   private GnucashFile  gcshFile = null;
-  private GCshPrice    prc = null;
+  private GnucashPrice    prc = null;
   
   GCshCmdtyID          cmdtyID11 = null;
   GCshCmdtyID_Exchange cmdtyID12 = null;
@@ -56,7 +55,7 @@ public class TestGCshPriceImpl
   @SuppressWarnings("exports")
   public static junit.framework.Test suite() 
   {
-    return new JUnit4TestAdapter(TestGCshPriceImpl.class);  
+    return new JUnit4TestAdapter(TestGnucashPriceImpl.class);  
   }
   
   @Before
@@ -102,7 +101,7 @@ public class TestGCshPriceImpl
   @Test
   public void test01() throws Exception
   {
-      Collection<GCshPrice> priceList = gcshFile.getPrices();
+      Collection<GnucashPrice> priceList = gcshFile.getPrices();
       
       assertEquals(9, priceList.size());
 
