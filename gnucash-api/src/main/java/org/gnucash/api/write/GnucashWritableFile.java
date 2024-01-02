@@ -22,8 +22,10 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorJobImpl;
@@ -421,5 +423,17 @@ public interface GnucashWritableFile extends GnucashFile,
      * @param prc the price to remove
      */
     void removePrice(GnucashWritablePrice prc);
+
+    // -----------------------------------------------------------
+
+    GCshWritableTaxTable getWritableTaxTableByID(final GCshID taxTabID);
+
+    GCshWritableTaxTable getWritableTaxTableByName(final String name);
+
+    /**
+     * @see GnucashFile#getTaxTables()
+     * @return writable versions of all tax tables in the book.
+     */
+    Collection<GCshWritableTaxTable> getWritableTaxTables();
 
 }

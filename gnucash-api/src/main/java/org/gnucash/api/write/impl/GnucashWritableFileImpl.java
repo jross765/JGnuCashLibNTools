@@ -57,6 +57,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
@@ -75,6 +76,8 @@ import org.gnucash.api.write.GnucashWritablePrice;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.GnucashWritableVendor;
+import org.gnucash.api.write.aux.GCshWritableTaxTable;
+import org.gnucash.api.write.impl.aux.GCshWritableTaxTableImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
 import org.gnucash.api.write.impl.hlp.FilePriceManager;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
@@ -1349,28 +1352,33 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ---------------------------------------------------------------
 
+    @Override
+    public GCshWritableTaxTable getWritableTaxTableByID(GCshID taxTabID) {
+	GCshTaxTable taxTab = super.getTaxTableByID(taxTabID);
+	return new GCshWritableTaxTableImpl((GCshTaxTableImpl) taxTab);
+    }
+
+    @Override
+    public GCshWritableTaxTable getWritableTaxTableByName(final String name) {
+	GCshTaxTable taxTab = super.getTaxTableByName(name);
+	return new GCshWritableTaxTableImpl((GCshTaxTableImpl) taxTab);
+    }
+
     /**
      * @return all TaxTables defined in the book
      * @see {@link GCshTaxTable}
      */
-    // ::TODO
-//    @Override
-//    public Collection<GCshWritableTaxTable> getWritableTaxTables() {
-//	if (taxTablesById == null) {
-//
-//	    taxTablesById = new HashMap<GCshID, GCshTaxTable>();
-//	    List<Object> bookElements = this.getRootElement().getGncBook().getBookElements();
-//	    for (Object bookElement : bookElements) {
-//		if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
-//		    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
-//		    GCshTaxTableImpl gnucashTaxTable = new GCshTaxTableImpl(jwsdpPeer, this);
-//		    taxTablesById.put(gnucashTaxTable.getID(), gnucashTaxTable);
-//		}
-//	    }
-//	}
-//
-//	return taxTablesById.values();
-//    }
+    @Override
+    public Collection<GCshWritableTaxTable> getWritableTaxTables() {
+	Collection<GCshWritableTaxTable> result = new ArrayList<GCshWritableTaxTable>();
+
+	for (GCshTaxTable taxTab : super.getTaxTables()) {
+	    GCshWritableTaxTable newTaxTab = new GCshWritableTaxTableImpl((GCshTaxTableImpl) taxTab);
+	    result.add(newTaxTab);
+	}
+
+	return result;
+    }
     
     // ---------------------------------------------------------------
     // ::TODO Description

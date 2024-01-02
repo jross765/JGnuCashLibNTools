@@ -1,12 +1,13 @@
 package org.gnucash.api.read.impl.aux;
 
-import org.gnucash.api.Const;
+import java.util.Objects;
+
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,8 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshTaxTableEntryImpl.class);
 
+    // ---------------------------------------------------------------
+    
     /**
      * the jwsdp-object we are wrapping.
      */
@@ -24,16 +27,10 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     private final GnucashFile myFile;
     
-    // ---------------------------------------------------------------
+    // ----------------------------
     
-    /**
-     * initialised lazy.
-     */
-    private GCshID myAccountID;
-    /**
-     * initialised lazy.
-     */
-    private GnucashAccount myAccount;
+    protected GCshID myAccountID;
+    protected GnucashAccount myAccount;
 
     // ---------------------------------------------------------------
 
@@ -67,22 +64,16 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * 
      * @link #getAmount()
      */
+    @Override
     public Type getType() {
 	return Type.valueOf( getJwsdpPeer().getTteType() );
-    }
-
-    /**
-     * @return the amount the tax is
-     * @link #getType()
-     */
-    public FixedPointNumber getAmount() {
-	return new FixedPointNumber(getJwsdpPeer().getTteAmount());
     }
 
     /**
      * @return Returns the accountID.
      * @link #myAccountID
      */
+    @Override
     public GCshID getAccountID() {
 	if (myAccountID == null) {
 	    myAccountID = new GCshID(getJwsdpPeer().getTteAcct().getValue());
@@ -95,6 +86,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @return Returns the account.
      * @link #myAccount
      */
+    @Override
     public GnucashAccount getAccount() {
 	if (myAccount == null) {
 	    myAccount = myFile.getAccountByID(getAccountID());
@@ -104,32 +96,31 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     }
 
     /**
-     * @param account The account to set.
-     * @link #myAccount
+     * @return the amount the tax is
+     * @link #getType()
      */
-    public void setAccountID(final GCshID acctId) {
-	if (acctId == null) {
-	    throw new IllegalArgumentException("null 'accountId' given!");
-	}
-
-	myAccountID = acctId;
-	
-	getJwsdpPeer().getTteAcct().setType(Const.XML_DATA_TYPE_GUID);
-	getJwsdpPeer().getTteAcct().setValue(acctId.toString());
+    @Override
+    public FixedPointNumber getAmount() {
+	return new FixedPointNumber(getJwsdpPeer().getTteAmount());
     }
 
-    /**
-     * @param acct The account to set.
-     * @link #myAccount
-     */
-    public void setAccount(final GnucashAccount acct) {
-	if (acct == null) {
-	    throw new IllegalArgumentException("null 'account' given!");
+    // ---------------------------------------------------------------
+    
+    @Override
+    public int hashCode() {
+	return Objects.hash(jwsdpPeer, myFile);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (this == obj) {
+	    return true;
 	}
-
-	myAccount = acct;
-
-	setAccountID(acct.getID());
+	if (!(obj instanceof GCshTaxTableEntryImpl)) {
+	    return false;
+	}
+	GCshTaxTableEntryImpl other = (GCshTaxTableEntryImpl) obj;
+	return Objects.equals(jwsdpPeer, other.jwsdpPeer) && Objects.equals(myFile, other.myFile);
     }
 
     // ---------------------------------------------------------------

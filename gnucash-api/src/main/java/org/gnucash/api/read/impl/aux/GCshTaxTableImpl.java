@@ -6,10 +6,10 @@ import java.util.Iterator;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +22,8 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshTaxTableImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * the JWSDP-object we are facading.
      */
@@ -32,6 +34,13 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     private final GnucashFile myFile;
     
+    // ----------------------------
+
+    /**
+     * @see #getEntries()
+     */
+    protected Collection<GCshTaxTableEntry> entries = null;
+
     // ---------------------------------------------------------------
 
     /**
@@ -58,10 +67,17 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 	return jwsdpPeer;
     }
 
+    public GnucashFile getGnucashFile() {
+	return myFile;
+    }
+
+    // ---------------------------------------------------------------
+
     /**
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
+    @Override
     public GCshID getID() {
 	assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
@@ -77,6 +93,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * @see GCshTaxTable#getName()
      */
+    @Override
     public String getName() {
 	return jwsdpPeer.getTaxtableName();
     }
@@ -84,6 +101,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * @see GCshTaxTable#isInvisible()
      */
+    @Override
     public boolean isInvisible() {
 	return jwsdpPeer.getTaxtableInvisible() != 0;
     }
@@ -91,6 +109,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * @see GCshTaxTable#getParentID()
      */
+    @Override
     public GCshID getParentID() {
 	GncV2.GncBook.GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
 	if (parent == null) {
@@ -103,19 +122,16 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @see GCshTaxTable#getParent()
      * @return the parent tax-table or null
      */
+    @Override
     public GCshTaxTable getParent() {
 	return myFile.getTaxTableByID(getParentID());
     }
 
     /**
-     * @see #getEntries()
-     */
-    private Collection<GCshTaxTableEntry> entries = null;
-
-    /**
      * @see GCshTaxTable#getEntries()
      * @return all entries to this tax-table
      */
+    @Override
     public Collection<GCshTaxTableEntry> getEntries() {
 	if (entries == null) {
 	    GncV2.GncBook.GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();

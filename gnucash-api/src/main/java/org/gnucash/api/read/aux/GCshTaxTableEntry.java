@@ -23,12 +23,6 @@ public interface GCshTaxTableEntry {
     Type getType();
 
     /**
-     * @return the amount the tax is ("16" for "16%")
-     * @see ${@link #getType()}
-     */
-    FixedPointNumber getAmount();
-
-    /**
      * @return Returns the accountID.
      * @see ${@link #myAccountID}
      */
@@ -40,17 +34,10 @@ public interface GCshTaxTableEntry {
      */
     GnucashAccount getAccount();
     
-    // ---------------------------------------------------------------
-
     /**
-     * @return Returns the accountID.
-     * @see ${@link #myAccountID}
+     * @return the amount the tax is ("16" for "16%")
+     * @see ${@link #getType()}
      */
-    void setAccountID(final GCshID acctID);
+    FixedPointNumber getAmount();
 
-    /**
-     * @return Returns the account.
-     * @see ${@link #myAccount}
-     */
-    void setAccount(final GnucashAccount acct);
 }

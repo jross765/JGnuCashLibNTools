@@ -6,16 +6,15 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashCustomer;
 
 
-
 /**
  * Contains Tax-Rates.
  * @see GnucashCustomer
  */
-
 public interface GCshTaxTable {
 
     /**
-     * @return the unique-id to identify this object with across name- and hirarchy-changes
+     * @return the unique-id to identify this object with across name- and
+     *         hirarchy-changes
      */
     GCshID getID();
 
