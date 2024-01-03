@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -286,8 +287,48 @@ public class TestGCshWritableBillTermsImpl {
 
     @Test
     public void test02_2() throws Exception {
-	// ::TODO
+	gcshInFileStats = new GCshFileStats(gcshInFile);
+
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
+
+	GCshWritableBillTerms bllTrm = gcshInFile.getWritableBillTermsByID(BLLTRM_2_ID);
+	assertNotEquals(null, bllTrm);
+
+	assertEquals(BLLTRM_2_ID, bllTrm.getID());
+
+	// ----------------------------
+	// Modify the object
+
+	bllTrm.setName("Senso Benso");
+	bllTrm.setDescription("Une souris verte");
+	bllTrm.getWritableDays().setDueDays(31);
+	bllTrm.getWritableDays().setDiscountDays(11);
+	bllTrm.getWritableDays().setDiscount(new FixedPointNumber(4.1));
+
+	// ----------------------------
+	// Check whether the object can has actually be modified
+	// (in memory, not in the file yet).
+
+	test02_2_check_memory(bllTrm);
+
+	// ----------------------------
+	// Now, check whether the modified object can be written to the
+	// output file, then re-read from it, and whether is is what
+	// we expect it is.
+
+	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+	// + outFile.getPath() + "'");
+	outFile.delete(); // sic, the temp. file is already generated (empty),
+			  // and the GnuCash file writer does not like that.
+	gcshInFile.writeFile(outFile);
+
+	test02_2_check_persisted(outFile);
     }
+    
+    // ---------------------------------------------------------------
 
     private void test02_1_check_memory(GCshWritableBillTerms bllTrm) throws Exception {
 	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
@@ -335,6 +376,56 @@ public class TestGCshWritableBillTermsImpl {
 	assertEquals(Integer.valueOf(5), btDays.getDueDays()); // unchanged
 	assertEquals(null, btDays.getDiscountDays()); // unchanged
 	assertEquals(null, btDays.getDiscount()); // unchanged
+    }
+
+    // ----------------------------
+
+    private void test02_2_check_memory(GCshWritableBillTerms bllTrm) throws Exception {
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
+
+	assertEquals(BLLTRM_2_ID, bllTrm.getID()); // unchanged
+	assertEquals("Senso Benso", bllTrm.getName()); // changed
+	assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType()); // unchanged
+	assertEquals("Une souris verte", bllTrm.getDescription()); // changed
+	
+	assertEquals(null, bllTrm.getParentID()); // unchanged
+	assertEquals(0, bllTrm.getChildren().size()); // unchanged
+
+	GCshBillTermsDays btDays = bllTrm.getDays(); // unchanged
+	assertNotEquals(null, btDays); // unchanged
+	      
+	assertEquals(Integer.valueOf(31), btDays.getDueDays()); // changed
+	assertEquals(Integer.valueOf(11), btDays.getDiscountDays()); // changed
+	assertEquals(4.1, btDays.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+    }
+
+    private void test02_2_check_persisted(File outFile) throws Exception {
+	gcshOutFile = new GnucashFileImpl(outFile);
+	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
+	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
+
+	GCshBillTerms bllTrm = gcshOutFile.getBillTermsByID(BLLTRM_2_ID);
+	assertNotEquals(null, bllTrm);
+
+	assertEquals(BLLTRM_2_ID, bllTrm.getID()); // unchanged
+	assertEquals("Senso Benso", bllTrm.getName()); // changed
+	assertEquals(GCshBillTerms.Type.DAYS, bllTrm.getType()); // unchanged
+	assertEquals("Une souris verte", bllTrm.getDescription()); // changed
+	
+	assertEquals(null, bllTrm.getParentID()); // unchanged
+	assertEquals(0, bllTrm.getChildren().size()); // unchanged
+
+	GCshBillTermsDays btDays = bllTrm.getDays(); // unchanged
+	assertNotEquals(null, btDays); // unchanged
+	      
+	assertEquals(Integer.valueOf(31), btDays.getDueDays()); // changed
+	assertEquals(Integer.valueOf(11), btDays.getDiscountDays()); // changed
+	assertEquals(4.1, btDays.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
     }
 
     // -----------------------------------------------------------------

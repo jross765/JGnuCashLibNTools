@@ -4,7 +4,11 @@ import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.BillTermsTypeException;
+import org.gnucash.api.read.aux.GCshBillTermsDays;
+import org.gnucash.api.read.aux.GCshBillTermsProximo;
+import org.gnucash.api.read.impl.aux.GCshBillTermsDaysImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
+import org.gnucash.api.read.impl.aux.GCshBillTermsProximoImpl;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableBillTermsDays;
@@ -58,6 +62,18 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 	return type;
     }
 
+    @Override
+    public GCshWritableBillTermsDays getWritableDays() {
+	GCshBillTermsDays bllTrmDays = getDays();
+	return new GCshWritableBillTermsDaysImpl((GCshBillTermsDaysImpl) bllTrmDays);
+    }
+
+    @Override
+    public GCshWritableBillTermsProximo getWritableProximo() {
+	GCshBillTermsProximo bllTrmProx = getProximo();
+	return new GCshWritableBillTermsProximoImpl((GCshBillTermsProximoImpl) bllTrmProx);
+    }
+    
     // ---------------------------------------------------------------
 
     @Override
@@ -204,5 +220,5 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 
 	return buffer.toString();
     }
-    
+
 }

@@ -16,6 +16,12 @@ public interface GCshWritableBillTerms extends GCshBillTerms {
     
     // ----------------------------
     
+    GCshWritableBillTermsDays getWritableDays();
+
+    GCshWritableBillTermsProximo getWritableProximo();
+
+    // ----------------------------
+    
     void setType(final Type type) throws BillTermsTypeException;
 
     void setDays(final GCshWritableBillTermsDays bllTrmsDays);
