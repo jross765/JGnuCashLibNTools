@@ -8,6 +8,7 @@
 * Generalized (technically) locale-specific code (e.g., GnuCash stores certain semi-internal XML-tags with locale-specific values for transaction splits' actions). Until V. 1.2, all this was tightly tied to the german locale with hard-coded valus (de_DE). Now, we have a generalized approach open for all locales (still hard-coded, though), and support for the following locales is actually implemented:
   * English
   * French
+  * Spanish
   * German
 
 * Enhanced type safety by: 
@@ -16,7 +17,13 @@
 
 * Partially re-wrote package `org.gnucash.currency`: Safer and clearer implementation, now leveraging newly introduced types from package `org.gnucash.basetypes`.
 
-* Improved test coverage.
+* Re-iterated and completed code in sub-package "`aux`" (both in read- and in write-branch): Now, classes and interfaces are cleanly separated for read- and write-operations *comme il faut*.
+
+* Renamed `GCsh(Writable)Price(Impl)` to `Gnucash(Writable)Price(Impl)` and moved it from the "`aux`" sub-package up one level, as, in fact, price is a main entity.
+
+* Significantly improved test coverage. In so doing, found and fixed a couple of bugs.
+
+* Lots of minor improvements. One of the major changes here: De-cluttered classes `Gnucash(Writable)FileImpl` by introducing helper classes in sub-package "`hlp`". All this greatly improved the readability and maintainability of the code.
 
 * Last not least: From this version on, the author tries to keep the project as symmetrical as possible with its sister project, `JKMyMoneyLib`.
 
