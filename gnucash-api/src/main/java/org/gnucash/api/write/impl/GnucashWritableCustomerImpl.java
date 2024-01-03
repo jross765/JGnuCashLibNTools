@@ -367,7 +367,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public GCshWritableAddress getWritableAddress() {
-        return new GCshWritableAddressImpl(getJwsdpPeer().getCustAddr());
+        return new GCshWritableAddressImpl(getJwsdpPeer().getCustAddr(), getGnucashFile());
     }
 
     /**
@@ -375,7 +375,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public GCshWritableAddress getWritableShippingAddress() {
-        return new GCshWritableAddressImpl(getJwsdpPeer().getCustShipaddr());
+        return new GCshWritableAddressImpl(getJwsdpPeer().getCustShipaddr(), getGnucashFile());
     }
 
     /**

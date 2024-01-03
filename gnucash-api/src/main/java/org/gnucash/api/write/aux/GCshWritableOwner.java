@@ -4,8 +4,8 @@ import org.gnucash.api.read.aux.GCshOwner;
 
 public interface GCshWritableOwner extends GCshOwner {
 
-	public void setJIType(JIType jiType);
+    public void setJIType(JIType jiType);
 
-	public void setInvcType(String invcType);
+    public void setInvcType(String invcType);
 
 }

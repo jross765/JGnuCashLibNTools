@@ -6,6 +6,7 @@ import java.util.List;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermChild;
+import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -20,8 +21,13 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncBillTerm jwsdpPeer;
+    protected final GncV2.GncBook.GncGncBillTerm jwsdpPeer;
 
+    /**
+     * the file we belong to.
+     */
+    protected final GnucashFile myFile;
+    
     // ---------------------------------------------------------------
 
     /**
@@ -30,10 +36,13 @@ public class GCshBillTermsImpl implements GCshBillTerms {
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GCshBillTermsImpl(final GncV2.GncBook.GncGncBillTerm peer) {
+    public GCshBillTermsImpl(
+	    final GncV2.GncBook.GncGncBillTerm peer, 
+	    final GnucashFile gcshFile) {
 	super();
 
-	jwsdpPeer = peer;
+	this.jwsdpPeer = peer;
+	this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -45,6 +54,10 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     @SuppressWarnings("exports")
     public GncV2.GncBook.GncGncBillTerm getJwsdpPeer() {
 	return jwsdpPeer;
+    }
+
+    public GnucashFile getGnucashFile() {
+	return myFile;
     }
 
     // -----------------------------------------------------------
@@ -80,14 +93,14 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 	else if ( getProximo() != null )
 	    return Type.PROXIMO;
 	else
-	    throw new BillTermsTypeException();
+	    throw new BillTermsTypeException("Cannot determine bill terms type");
     }
 
     public GCshBillTermsDays getDays() {
 	if ( jwsdpPeer.getBilltermDays() == null )
 	    return null;
 	
-	GCshBillTermsDays days = new GCshBillTermsDaysImpl(jwsdpPeer.getBilltermDays());
+	GCshBillTermsDays days = new GCshBillTermsDaysImpl(jwsdpPeer.getBilltermDays(), myFile);
 	return days;
     }
 
@@ -95,17 +108,17 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 	if ( jwsdpPeer.getBilltermProximo() == null )
 	    return null;
 	
-	GCshBillTermsProximo prox = new GCshBillTermsProximoImpl(jwsdpPeer.getBilltermProximo());
+	GCshBillTermsProximo prox = new GCshBillTermsProximoImpl(jwsdpPeer.getBilltermProximo(), myFile);
 	return prox;
     }
 
     // ------------------------
 
-    public String getParentID() {
+    public GCshID getParentID() {
 	if ( jwsdpPeer.getBilltermParent() == null )
 	    return null;
 
-	return jwsdpPeer.getBilltermParent().getValue();
+	return new GCshID( jwsdpPeer.getBilltermParent().getValue() );
     }
 
     public List<String> getChildren() {

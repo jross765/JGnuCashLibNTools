@@ -41,7 +41,7 @@ public class FileBillTermsManager {
                 continue;
             }
             GncV2.GncBook.GncGncBillTerm jwsdpPeer = (GncV2.GncBook.GncGncBillTerm) bookElement;
-            GCshBillTermsImpl billTerms = new GCshBillTermsImpl(jwsdpPeer);
+            GCshBillTermsImpl billTerms = new GCshBillTermsImpl(jwsdpPeer, gcshFile);
             bllTrmMap.put(billTerms.getID(), billTerms);
         }
 
@@ -53,7 +53,7 @@ public class FileBillTermsManager {
      * @return the new GCshTaxTable to wrap the given JAXB object.
      */
     protected GCshBillTermsImpl createBillTerms(final GncV2.GncBook.GncGncBillTerm jwsdpBllTrm) {
-	GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm);
+	GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm, gcshFile);
 	LOGGER.debug("Generated new bill terms: " + bllTrm.getID());
 	return bllTrm;
     }

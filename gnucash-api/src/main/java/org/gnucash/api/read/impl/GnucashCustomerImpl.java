@@ -100,14 +100,14 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshAddress getAddress() {
-	return new GCshAddressImpl(jwsdpPeer.getCustAddr());
+	return new GCshAddressImpl(jwsdpPeer.getCustAddr(), getGnucashFile());
     }
 
     /**
      * {@inheritDoc}
      */
     public GCshAddress getShippingAddress() {
-	return new GCshAddressImpl(jwsdpPeer.getCustShipaddr());
+	return new GCshAddressImpl(jwsdpPeer.getCustShipaddr(), getGnucashFile());
     }
 
     /**

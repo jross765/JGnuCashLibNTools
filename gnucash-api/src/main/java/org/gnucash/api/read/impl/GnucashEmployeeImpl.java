@@ -93,7 +93,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshAddress getAddress() {
-	return new GCshAddressImpl(jwsdpPeer.getEmployeeAddr());
+	return new GCshAddressImpl(jwsdpPeer.getEmployeeAddr(), getGnucashFile());
     }
 
     /**

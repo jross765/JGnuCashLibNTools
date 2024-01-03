@@ -281,7 +281,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
     public GCshWritableAddress getWritableAddress() {
-        return new GCshWritableAddressImpl(getJwsdpPeer().getEmployeeAddr());
+        return new GCshWritableAddressImpl(getJwsdpPeer().getEmployeeAddr(), getGnucashFile());
     }
 
     /**

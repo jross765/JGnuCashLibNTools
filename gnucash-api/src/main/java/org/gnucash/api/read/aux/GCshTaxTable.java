@@ -28,6 +28,8 @@ public interface GCshTaxTable {
      * @see GCshTaxTable#isInvisible()
      */
     boolean isInvisible();
+    
+    // ---------------------------------------------------------------
 
     /**
      * @return id of the parent-taxtable

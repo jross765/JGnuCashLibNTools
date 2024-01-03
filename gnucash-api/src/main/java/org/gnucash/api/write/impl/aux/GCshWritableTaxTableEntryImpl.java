@@ -5,8 +5,8 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
+import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,12 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @SuppressWarnings("exports")
     public GCshWritableTaxTableEntryImpl(
 	    final GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer,
-	    final GnucashFile gncFile) {
+	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
+    }
+
+    public GCshWritableTaxTableEntryImpl(final GCshTaxTableEntryImpl entr) {
+	super(entr.getJwsdpPeer(), entr.getGnucashFile());
     }
 
     // ---------------------------------------------------------------
@@ -87,6 +91,21 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @Override
     public void setAmount(final FixedPointNumber amt) {
 	getJwsdpPeer().setTteAmount(amt.toGnucashString());
+    }
+
+    // ---------------------------------------------------------------
+
+    @Override
+    public String toString() {
+	String result = "GCshWritableTaxTableEntryImpl [";
+	
+	result += "type=" + getType(); 
+	result += ", account-id=" + getAccountID(); 
+	result += ", amount=" + getAmount(); 
+		                          
+	result += "]";
+	
+	return result;
     }
 
 }

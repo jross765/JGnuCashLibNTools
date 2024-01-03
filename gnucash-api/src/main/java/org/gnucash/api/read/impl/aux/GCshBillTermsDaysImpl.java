@@ -1,6 +1,7 @@
 package org.gnucash.api.read.impl.aux;
 
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
@@ -13,8 +14,13 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncBillTerm.BilltermDays jwsdpPeer;
+    protected final GncV2.GncBook.GncGncBillTerm.BilltermDays jwsdpPeer;
 
+    /**
+     * the file we belong to.
+     */
+    protected final GnucashFile myFile;
+    
     // ---------------------------------------------------------------
 
     /**
@@ -23,10 +29,28 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GCshBillTermsDaysImpl(final GncV2.GncBook.GncGncBillTerm.BilltermDays peer) {
+    public GCshBillTermsDaysImpl(
+	    final GncV2.GncBook.GncGncBillTerm.BilltermDays peer, 
+	    final GnucashFile gcshFile) {
 	super();
 
-	jwsdpPeer = peer;
+	this.jwsdpPeer = peer;
+	this.myFile = gcshFile;
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     *
+     * @return The JWSDP-Object we are wrapping.
+     */
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncGncBillTerm.BilltermDays getJwsdpPeer() {
+	return jwsdpPeer;
+    }
+
+    public GnucashFile getGnucashFile() {
+	return myFile;
     }
 
     // ---------------------------------------------------------------
@@ -54,7 +78,7 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
     @Override
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
-	buffer.append("[GCshBillTermsDaysImpl:");
+	buffer.append("GCshBillTermsDaysImpl [");
 
 	buffer.append(" due-days: ");
 	buffer.append(getDueDays());

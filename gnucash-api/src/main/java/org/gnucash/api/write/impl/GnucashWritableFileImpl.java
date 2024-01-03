@@ -28,6 +28,7 @@ import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermParent;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -1504,6 +1505,26 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	incrementCountDataFor("price");
 	return retval;
     }
+    
+    // ----------------------------
+
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncGncBillTerm.BilltermParent createGncGncBillTermParentType() {
+	GncV2.GncBook.GncGncBillTerm.BilltermParent retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermParent();
+	return retval;
+    }
+    
+//    @SuppressWarnings("exports")
+//    public GncV2.GncBook.GncGncBillTerm.BilltermDays createGncGncBillTermDaysType() {
+//	GncV2.GncBook.GncGncBillTerm.BilltermDays retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermDays();
+//	return retval;
+//    }
+//    
+//    @SuppressWarnings("exports")
+//    public GncV2.GncBook.GncGncBillTerm.BilltermProximo createGncGncBillTermProximoType() {
+//	GncV2.GncBook.GncGncBillTerm.BilltermProximo retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermProximo();
+//	return retval;
+//    }
     
     // ---------------------------------------------------------------
     // ::TODO Description

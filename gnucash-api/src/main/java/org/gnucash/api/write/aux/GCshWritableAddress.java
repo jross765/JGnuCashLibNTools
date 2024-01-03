@@ -4,19 +4,19 @@ import org.gnucash.api.read.aux.GCshAddress;
 
 public interface GCshWritableAddress extends GCshAddress {
 
-	void setAddressName(String a);
+    void setAddressName(final String a);
 
-	void setAddressLine1(String a);
+    void setAddressLine1(final String a);
 
-	void setAddressLine2(String a);
+    void setAddressLine2(final String a);
 
-	void setAddressLine3(String a);
+    void setAddressLine3(final String a);
 
-	void setAddressLine4(String a);
+    void setAddressLine4(final String a);
 
-	void setTel(String a);
+    void setTel(final String a);
 
-	void setFax(String a);
+    void setFax(final String a);
 
-	void setEmail(String a);
+    void setEmail(final String a);
 }

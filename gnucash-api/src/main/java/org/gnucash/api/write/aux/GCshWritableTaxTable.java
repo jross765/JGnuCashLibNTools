@@ -14,8 +14,8 @@ public interface GCshWritableTaxTable extends GCshTaxTable {
     
     // ---------------------------------------------------------------
     
-//    void addEntry(final GCshTaxTableEntry entry);
-//    
-//    void removeEntry(GCshTaxTableEntry entry);
+    void addEntry(final GCshTaxTableEntry entry);
+    
+    void removeEntry(GCshTaxTableEntry entry);
 
 }

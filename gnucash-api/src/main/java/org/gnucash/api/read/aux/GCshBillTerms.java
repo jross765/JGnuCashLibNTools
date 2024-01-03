@@ -8,33 +8,35 @@ public interface GCshBillTerms {
 
     public enum Type {
 	DAYS,
-	PROXIMO
+	PROXIMO,
+	
+	UNSET
     }
 
     // -----------------------------------------------------------
 
-    public GCshID getID();
+    GCshID getID();
 
-    public int getRefcount();
+    int getRefcount();
 
-    public String getName();
+    String getName();
 
-    public String getDescription();
+    String getDescription();
 
-    public boolean isInvisible();
-    
-    // ----------------------------
-    
-    public Type getType() throws BillTermsTypeException;
-
-    public GCshBillTermsDays getDays();
-
-    public GCshBillTermsProximo getProximo();
+    boolean isInvisible();
 
     // ----------------------------
-    
-    public String getParentID();
 
-    public List<String> getChildren();
+    Type getType() throws BillTermsTypeException;
+
+    GCshBillTermsDays getDays();
+
+    GCshBillTermsProximo getProximo();
+
+    // ----------------------------
+
+    GCshID getParentID();
+
+    List<String> getChildren();
 
 }

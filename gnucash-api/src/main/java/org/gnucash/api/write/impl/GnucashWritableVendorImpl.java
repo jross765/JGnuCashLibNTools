@@ -288,7 +288,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
     public GCshWritableAddress getWritableAddress() {
-	return new GCshWritableAddressImpl(getJwsdpPeer().getVendorAddr());
+	return new GCshWritableAddressImpl(getJwsdpPeer().getVendorAddr(), getGnucashFile());
     }
 
     /**

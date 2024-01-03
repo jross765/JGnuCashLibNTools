@@ -27,12 +27,12 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncTaxTable jwsdpPeer;
+    protected final GncV2.GncBook.GncGncTaxTable jwsdpPeer;
 
     /**
      * the file we belong to.
      */
-    private final GnucashFile myFile;
+    protected final GnucashFile myFile;
     
     // ----------------------------
 
@@ -49,7 +49,9 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GCshTaxTableImpl(final GncV2.GncBook.GncGncTaxTable peer, final GnucashFile gncFile) {
+    public GCshTaxTableImpl(
+	    final GncV2.GncBook.GncGncTaxTable peer, 
+	    final GnucashFile gncFile) {
 	super();
 	
 	this.jwsdpPeer = peer;
@@ -149,7 +151,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 
     }
 
-    // -----------------------------------------------------------
+    // ---------------------------------------------------------------
 
     public String toString() {
 	StringBuffer buffer = new StringBuffer();
@@ -174,4 +176,5 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 
 	return buffer.toString();
     }
+
 }

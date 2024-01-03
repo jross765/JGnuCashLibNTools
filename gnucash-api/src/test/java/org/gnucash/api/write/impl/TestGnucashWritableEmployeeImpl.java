@@ -14,16 +14,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
-import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;

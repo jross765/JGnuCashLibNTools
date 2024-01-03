@@ -7,6 +7,7 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
+import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +24,13 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     // ---------------------------------------------------------------
 
     @SuppressWarnings("exports")
-    public GCshWritableTaxTableImpl(final GncV2.GncBook.GncGncTaxTable jwsdpPeer, final GnucashFile gncFile) {
+    public GCshWritableTaxTableImpl(
+	    final GncV2.GncBook.GncGncTaxTable jwsdpPeer, 
+	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
     }
 
-    public GCshWritableTaxTableImpl(GCshTaxTableImpl taxTab) {
+    public GCshWritableTaxTableImpl(final GCshTaxTableImpl taxTab) {
 	super(taxTab.getJwsdpPeer(), taxTab.getGnucashFile());
     }
 
@@ -70,9 +73,13 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     
     // ---------------------------------------------------------------
 
-    public void addEntry(final GCshTaxTableEntryImpl entr) {
+    public void addEntry(final GCshTaxTableEntry entr) {
 	if ( entr == null ) {
 	    throw new IllegalArgumentException("null entry given!");
+	}
+	
+	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
+	    throw new IllegalArgumentException("wrong implementation of tax table entry given!");
 	}
 	
 	if ( ! entries.contains(entr) ) {
@@ -80,11 +87,15 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
 	}
     }
 
-    public void removeEntry(GCshTaxTableEntryImpl entr) {
+    public void removeEntry(GCshTaxTableEntry entr) {
 	if ( entr == null ) {
 	    throw new IllegalArgumentException("null entry given!");
 	}
 
+	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
+	    throw new IllegalArgumentException("wrong implementation of tax table entry given!");
+	}
+	
 	for ( GCshTaxTableEntry elt : entries ) {
 	    if ( elt.equals(entr) ) {
 		entries.remove(elt);
@@ -93,4 +104,29 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
 	}
     }
 
+    // ---------------------------------------------------------------
+
+    public String toString() {
+	StringBuffer buffer = new StringBuffer();
+
+	buffer.append("GCshWritableTaxTableImpl [\n");
+
+	buffer.append("id=");
+	buffer.append(getID());
+
+	buffer.append(", name='");
+	buffer.append(getName() + "'");
+
+	buffer.append(", parent-id=");
+	buffer.append(getParentID() + "\n");
+
+	buffer.append("  Entries:\n");
+	for (GCshTaxTableEntry entry : getEntries()) {
+	    buffer.append("   - " + entry + "\n");
+	}
+
+	buffer.append("]\n");
+
+	return buffer.toString();
+    }
 }

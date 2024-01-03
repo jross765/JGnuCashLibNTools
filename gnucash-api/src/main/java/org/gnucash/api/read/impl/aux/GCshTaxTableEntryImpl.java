@@ -20,12 +20,12 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     /**
      * the jwsdp-object we are wrapping.
      */
-    private GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer;
+    protected GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer;
 
     /**
      * the file we belong to.
      */
-    private final GnucashFile myFile;
+    protected final GnucashFile myFile;
     
     // ----------------------------
     
@@ -53,8 +53,13 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     /**
      * @return the jwsdp-object we are wrapping
      */
-    protected GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry getJwsdpPeer() {
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry getJwsdpPeer() {
 	return jwsdpPeer;
+    }
+
+    public GnucashFile getGnucashFile() {
+	return myFile;
     }
 
     // ---------------------------------------------------------------
