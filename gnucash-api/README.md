@@ -1,9 +1,8 @@
 # Major Changes 
 ## V. 1.2 &rarr; 1.3
-* Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1: 
+* Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that are no "employee jobs" that one might expect):
   * `Gnucash(Writable)Employee(Impl)` 
   * `Gnucash(Writable)EmployeeVoucher(Impl)` 
-  * `Gnucash(Writable)EmployeeJob(Impl)` 
 
 * Generalized (technically) locale-specific code (e.g., GnuCash stores certain semi-internal XML-tags with locale-specific values for transaction splits' actions). Until V. 1.2, all this was tightly tied to the german locale with hard-coded valus (de_DE). Now, we have a generalized approach open for all locales (still hard-coded, though), and support for the following locales is actually implemented:
   * English
