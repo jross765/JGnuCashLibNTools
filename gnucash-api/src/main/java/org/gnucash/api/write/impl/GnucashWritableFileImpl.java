@@ -47,6 +47,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
@@ -57,6 +58,7 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
@@ -77,7 +79,9 @@ import org.gnucash.api.write.GnucashWritablePrice;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.GnucashWritableVendor;
+import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
+import org.gnucash.api.write.impl.aux.GCshWritableBillTermsImpl;
 import org.gnucash.api.write.impl.aux.GCshWritableTaxTableImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
 import org.gnucash.api.write.impl.hlp.FilePriceManager;
@@ -1375,6 +1379,36 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	for (GCshTaxTable taxTab : super.getTaxTables()) {
 	    GCshWritableTaxTable newTaxTab = new GCshWritableTaxTableImpl((GCshTaxTableImpl) taxTab);
+	    result.add(newTaxTab);
+	}
+
+	return result;
+    }
+    
+    // ---------------------------------------------------------------
+
+    @Override
+    public GCshWritableBillTerms getWritableBillTermsByID(GCshID bllTrmID) {
+	GCshBillTerms bllTrm = super.getBillTermsByID(bllTrmID);
+	return new GCshWritableBillTermsImpl((GCshBillTermsImpl) bllTrm);
+    }
+
+    @Override
+    public GCshWritableBillTerms getWritableBillTermsByName(final String name) {
+	GCshBillTerms bllTrm = super.getBillTermsByName(name);
+	return new GCshWritableBillTermsImpl((GCshBillTermsImpl) bllTrm);
+    }
+
+    /**
+     * @return all TaxTables defined in the book
+     * @see {@link GCshBillTerms}
+     */
+    @Override
+    public Collection<GCshWritableBillTerms> getWritableBillTerms() {
+	Collection<GCshWritableBillTerms> result = new ArrayList<GCshWritableBillTerms>();
+
+	for (GCshBillTerms taxTab : super.getBillTerms()) {
+	    GCshWritableBillTerms newTaxTab = new GCshWritableBillTermsImpl((GCshBillTermsImpl) taxTab);
 	    result.add(newTaxTab);
 	}
 

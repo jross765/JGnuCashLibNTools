@@ -25,6 +25,7 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
@@ -435,5 +436,17 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return writable versions of all tax tables in the book.
      */
     Collection<GCshWritableTaxTable> getWritableTaxTables();
+
+    // -----------------------------------------------------------
+
+    GCshWritableBillTerms getWritableBillTermsByID(final GCshID bllTrmID);
+
+    GCshWritableBillTerms getWritableBillTermsByName(final String name);
+
+    /**
+     * @see GnucashFile#getBillTerms()
+     * @return writable versions of all bill terms in the book.
+     */
+    Collection<GCshWritableBillTerms> getWritableBillTerms();
 
 }
