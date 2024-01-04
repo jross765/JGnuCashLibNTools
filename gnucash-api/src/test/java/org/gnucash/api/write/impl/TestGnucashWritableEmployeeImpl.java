@@ -15,7 +15,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
@@ -23,7 +22,6 @@ import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.write.GnucashWritableEmployee;
-import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;
 import org.junit.Rule;
@@ -245,19 +243,19 @@ public class TestGnucashWritableEmployeeImpl
   {
       gcshInFileStats = new GCshFileStats(gcshInFile);
 
-      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
-      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
-      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-      GnucashWritableVendor vend = gcshInFile.createWritableVendor();
-      vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
-      vend.setName("Émilie Chauchoin");
+      GnucashWritableEmployee empl = gcshInFile.createWritableEmployee();
+      empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
+      empl.setUserName("Émilie Chauchoin");
       
       // ----------------------------
       // Check whether the object can has actually be created
       // (in memory, not in the file yet).
       
-      test03_1_1_check_memory(vend);
+      test03_1_1_check_memory(empl);
       
       // ----------------------------
       // Now, check whether the created object can be written to the 
@@ -273,16 +271,16 @@ public class TestGnucashWritableEmployeeImpl
       test03_1_1_check_persisted(outFile);
   }
   
-  private void test03_1_1_check_memory(GnucashWritableVendor vend) throws Exception
+  private void test03_1_1_check_memory(GnucashWritableEmployee empl) throws Exception
   {
       gcshInFileStats = new GCshFileStats(gcshInFile);
 
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-      newID = vend.getID();
-      assertEquals("Émilie Chauchoin", vend.getName());
+      newID = empl.getID();
+      assertEquals("Émilie Chauchoin", empl.getUserName());
   }
   
   private void test03_1_1_check_persisted(File outFile) throws Exception
@@ -290,15 +288,15 @@ public class TestGnucashWritableEmployeeImpl
       gcshOutFile = new GnucashFileImpl(outFile);
       gcshOutFileStats = new GCshFileStats(gcshOutFile);
       
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
-      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
        
-      GnucashVendor vend = gcshOutFile.getVendorByID(newID);
-      assertNotEquals(null, vend);
+      GnucashEmployee empl = gcshOutFile.getEmployeeByID(newID);
+      assertNotEquals(null, empl);
       
-      assertEquals(newID, vend.getID());
-      assertEquals("Émilie Chauchoin", vend.getName());
+      assertEquals(newID, empl.getID());
+      assertEquals("Émilie Chauchoin", empl.getUserName());
   }
   
   // ------------------------------
