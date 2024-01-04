@@ -3,11 +3,9 @@ package org.gnucash.api.write.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.Collections;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;

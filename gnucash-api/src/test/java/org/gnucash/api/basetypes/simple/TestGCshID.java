@@ -2,7 +2,6 @@ package org.gnucash.api.basetypes.simple;
 
 import static org.junit.Assert.assertEquals;
 
-import org.gnucash.api.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 

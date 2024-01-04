@@ -8,7 +8,6 @@ import java.util.Locale;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.impl.hlp.FileStats;
 import org.junit.Before;
 import org.junit.Test;
 
