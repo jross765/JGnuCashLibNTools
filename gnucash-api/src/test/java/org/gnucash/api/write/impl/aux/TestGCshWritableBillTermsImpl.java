@@ -14,13 +14,10 @@ import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
-import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
@@ -441,6 +438,8 @@ public class TestGCshWritableBillTermsImpl {
     // ------------------------------
     // PART 3.2: Low-Level
     // ------------------------------
+
+    // ::TODO
 
 //  @AfterClass
 //  public void after() throws Exception

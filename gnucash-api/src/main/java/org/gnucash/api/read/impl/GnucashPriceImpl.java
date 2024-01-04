@@ -31,6 +31,8 @@ public class GnucashPriceImpl extends GnucashObjectImpl
 
     protected static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
     
+    protected static final DateTimeFormatter DATE_FORMAT_FALLBACK = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    
     // -----------------------------------------------------------
 
     /**
@@ -195,9 +197,19 @@ public class GnucashPriceImpl extends GnucashObjectImpl
 	try {
 	    return ZonedDateTime.parse(dateStr, DATE_FORMAT).toLocalDate();
 	} catch (Exception e) {
-	    IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' in invoice!");
-	    ex.initCause(e);
-	    throw ex;
+	    LOGGER.error("unparsable date '" + dateStr + "' (1st try)!");
+//	    IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' (1st try)!");
+//	    ex.initCause(e);
+//	    throw ex;
+	    try {
+		return LocalDate.parse(dateStr, DATE_FORMAT_FALLBACK);
+	    } catch (Exception e2) {
+		LOGGER.error("unparsable date '" + dateStr + "' (2nd try)!");
+		System.err.println("unparsable date '" + dateStr + "' (2nd try)!");
+		IllegalStateException ex2 = new IllegalStateException("unparsable date '" + dateStr + "' (2nd try)!");
+		ex2.initCause(e2);
+		throw ex2;
+	    }
 	}
     }
 

@@ -16,11 +16,14 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashPrice.Type;
+import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashPriceImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritablePrice;
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,6 +47,8 @@ public class TestGnucashWritablePriceImpl
     private GCshFileStats           gcshInFileStats = null;
     private GCshFileStats           gcshOutFileStats = null;
     
+    private GCshID newID;
+    
     GCshCmdtyID          cmdtyID11 = null;
     GCshCmdtyID_Exchange cmdtyID12 = null;
 
@@ -51,6 +56,7 @@ public class TestGnucashWritablePriceImpl
     GCshCmdtyID_Exchange cmdtyID22 = null;
     
     GCshCurrID           currID1   = null;
+    GCshCurrID           currID2   = null;
     
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -105,7 +111,8 @@ public class TestGnucashWritablePriceImpl
     cmdtyID21 = new GCshCmdtyID("EURONEXT", "SAP");
     cmdtyID22 = new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "SAP");
     
-    currID1   = new GCshCurrID("USD");
+    currID1   = new GCshCurrID("EUR");
+    currID2   = new GCshCurrID("USD");
   }
 
   // -----------------------------------------------------------------
@@ -260,8 +267,8 @@ public class TestGnucashWritablePriceImpl
       assertNotEquals(null, prc);
 
       assertEquals(PRC_4_ID, prc.getID());
-      assertEquals(currID1.toString(), prc.getFromCmdtyCurrQualifID().toString());
-      assertEquals(currID1.toString(), prc.getFromCurrencyQualifID().toString());
+      assertEquals(currID2.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(currID2.toString(), prc.getFromCurrencyQualifID().toString());
       assertEquals("USD", prc.getFromCurrencyCode());
       assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
       assertEquals("EUR", prc.getToCurrencyCode());
@@ -395,7 +402,69 @@ public class TestGnucashWritablePriceImpl
   // PART 3.1: High-Level
   // ------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1_1() throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+      GnucashWritablePrice prc = gcshInFile.createWritablePrice();
+      prc.setDate(LocalDate.of(1910, 5, 1));
+      prc.setFromCmdtyCurrQualifID(cmdtyID11);
+      prc.setToCurrencyQualifID(currID1);
+      
+      // ----------------------------
+      // Check whether the object can has actually be created
+      // (in memory, not in the file yet).
+      
+      test03_1_1_check_memory(prc);
+      
+      // ----------------------------
+      // Now, check whether the created object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_1_check_persisted(outFile);
+  }
+  
+  private void test03_1_1_check_memory(GnucashWritablePrice prc) throws Exception
+  {
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+      newID = prc.getID();
+      assertEquals(LocalDate.of(1910, 5, 1), prc.getDate());
+      assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(currID1, prc.getToCurrencyQualifID());
+  }
+  
+  private void test03_1_1_check_persisted(File outFile) throws Exception
+  {
+      gcshOutFile = new GnucashFileImpl(outFile);
+      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+      
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+       
+      GnucashPrice prc = gcshOutFile.getPriceByID(newID);
+      assertNotEquals(null, prc);
+      
+      assertEquals(newID, prc.getID());
+      assertEquals(LocalDate.of(1910, 5, 1), prc.getDate());
+      assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
+      assertEquals(currID1, prc.getToCurrencyQualifID());
+  }
   
   // ------------------------------
   // PART 3.2: Low-Level

@@ -275,6 +275,10 @@ public class TestGnucashWritableAccountImpl
   // PART 3: Create new objects
   // -----------------------------------------------------------------
   
+  // ------------------------------
+  // PART 3.1: High-Level
+  // ------------------------------
+  
   @Test
   public void test03_1() throws Exception
   {
@@ -302,13 +306,13 @@ public class TestGnucashWritableAccountImpl
       acct.setCmdtyCurrID(new GCshCurrID("JPY"));
       
       // ----------------------------
-      // Check whether the object has actually been modified 
+      // Check whether the object has actually been created 
       // (in memory, not in the file yet).
       
       test03_1_check_memory(acct);
       
       // ----------------------------
-      // Now, check whether the modified object can be written to the 
+      // Now, check whether the created object can be written to the 
       // output file, then re-read from it, and whether is is what
       // we expect it is.
       
@@ -374,6 +378,12 @@ public class TestGnucashWritableAccountImpl
      assertEquals(0, acct.getTransactions().size());
   }
 
+  // ------------------------------
+  // PART 3.2: Low-Level
+  // ------------------------------
+  
+  // ::TODO
+  
 //  @AfterClass
 //  public void after() throws Exception
 //  {

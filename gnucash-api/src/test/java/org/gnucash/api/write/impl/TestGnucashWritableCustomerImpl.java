@@ -314,8 +314,6 @@ public class TestGnucashWritableCustomerImpl
   
   private void test03_1_1_check_memory(GnucashWritableCustomer cust) throws Exception
   {
-      gcshInFileStats = new GCshFileStats(gcshInFile);
-
       assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));

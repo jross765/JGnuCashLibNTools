@@ -14,17 +14,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.TestGnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnucashVendorBill;
-import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.junit.Before;
@@ -308,8 +305,6 @@ public class TestGnucashWritableVendorImpl
   
   private void test03_1_1_check_memory(GnucashWritableVendor vend) throws Exception
   {
-      gcshInFileStats = new GCshFileStats(gcshInFile);
-
       assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));

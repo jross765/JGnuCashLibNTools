@@ -17,7 +17,9 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.api.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashCommodityImpl;
+import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.junit.Before;
 import org.junit.Rule;
@@ -47,7 +49,13 @@ public class TestGnucashWritableCommodityImpl
     // ---------------------------------------------------------------
       
     private GnucashWritableFileImpl gcshInFile = null;
+    private GnucashFileImpl         gcshOutFile = null;
 
+    private GCshFileStats           gcshInFileStats = null;
+    private GCshFileStats           gcshOutFileStats = null;
+    
+    private GCshCmdtyCurrID newID = new GCshCmdtyCurrID("POOPOO", "BEST");
+    
     private GCshCmdtyCurrID cmdtyCurrID1 = null;
 //    private GCshCmdtyCurrID cmdtyCurrID2 = null;
 //    private GCshCmdtyCurrID cmdtyCurrID3 = null;
@@ -189,14 +197,71 @@ public class TestGnucashWritableCommodityImpl
   // PART 3.1: High-Level
   // ------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1_1() throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+      GnucashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
+      cmdty.setQualifID(newID);
+      cmdty.setName("Best Corp Ever");
+      
+      // ----------------------------
+      // Check whether the object can has actually be created
+      // (in memory, not in the file yet).
+      
+      test03_1_1_check_memory(cmdty);
+      
+      // ----------------------------
+      // Now, check whether the created object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_1_check_persisted(outFile);
+  }
   
+  private void test03_1_1_check_memory(GnucashWritableCommodity cmdty) throws Exception
+  {
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+      assertEquals(newID.toString(), cmdty.getQualifID().toString());
+      assertEquals("Best Corp Ever", cmdty.getName());
+  }
+  
+  private void test03_1_1_check_persisted(File outFile) throws Exception
+  {
+      gcshOutFile = new GnucashFileImpl(outFile);
+      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+      
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
+      assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+       
+      GnucashCommodity cmdty = gcshOutFile.getCommodityByQualifID(newID);
+      assertNotEquals(null, cmdty);
+      
+      assertEquals(newID.toString(), cmdty.getQualifID().toString());
+      assertEquals("Best Corp Ever", cmdty.getName());
+  }
+
   // ------------------------------
   // PART 3.2: Low-Level
   // ------------------------------
   
   @Test
-  public void test03_1() throws Exception
+  public void test03_2_1() throws Exception
   {
       GnucashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
       cmdty.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
@@ -208,13 +273,13 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_1_check(outFile);
+      test03_2_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test01_2() throws Exception
+//  public void test03_2_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -240,7 +305,7 @@ public class TestGnucashWritableCommodityImpl
 //      // assertEquals(validResult);
 //  }
 
-  private void test03_1_check(File outFile) throws Exception
+  private void test03_2_1_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -270,7 +335,7 @@ public class TestGnucashWritableCommodityImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test03_2() throws Exception
+  public void test03_2_2() throws Exception
   {
       GnucashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity();
       cmdty1.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
@@ -298,10 +363,10 @@ public class TestGnucashWritableCommodityImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_2_check(outFile);
+      test03_2_2_check(outFile);
   }
   
-  private void test03_2_check(File outFile) throws Exception
+  private void test03_2_2_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());

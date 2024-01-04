@@ -17,7 +17,6 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
@@ -273,8 +272,6 @@ public class TestGnucashWritableEmployeeImpl
   
   private void test03_1_1_check_memory(GnucashWritableEmployee empl) throws Exception
   {
-      gcshInFileStats = new GCshFileStats(gcshInFile);
-
       assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
       assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
       assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));

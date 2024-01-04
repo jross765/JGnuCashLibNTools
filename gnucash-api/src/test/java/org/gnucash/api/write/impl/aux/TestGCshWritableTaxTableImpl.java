@@ -5,44 +5,21 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.TestGnucashCustomerImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
-import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
-import org.gnucash.api.read.spec.GnucashCustomerInvoice;
-import org.gnucash.api.write.GnucashWritableCustomer;
-import org.gnucash.api.write.GnucashWritableEmployee;
-import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import junit.framework.JUnit4TestAdapter;
 
@@ -384,6 +361,8 @@ public class TestGCshWritableTaxTableImpl {
     // ------------------------------
     // PART 3.2: Low-Level
     // ------------------------------
+
+    // ::TODO
 
 //  @AfterClass
 //  public void after() throws Exception
