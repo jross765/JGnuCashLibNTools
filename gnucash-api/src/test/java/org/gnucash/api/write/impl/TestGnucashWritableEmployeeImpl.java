@@ -15,12 +15,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.TestGnucashEmployeeImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.write.GnucashWritableEmployee;
+import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,6 +47,8 @@ public class TestGnucashWritableEmployeeImpl
 
     private GCshFileStats           gcshInFileStats = null;
     private GCshFileStats           gcshOutFileStats = null;
+    
+    private GCshID newID;
     
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -235,18 +240,77 @@ public class TestGnucashWritableEmployeeImpl
   // PART 3.1: High-Level
   // ------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1_1() throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+      GnucashWritableVendor vend = gcshInFile.createWritableVendor();
+      vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
+      vend.setName("Émilie Chauchoin");
+      
+      // ----------------------------
+      // Check whether the object can has actually be created
+      // (in memory, not in the file yet).
+      
+      test03_1_1_check_memory(vend);
+      
+      // ----------------------------
+      // Now, check whether the created object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_1_check_persisted(outFile);
+  }
+  
+  private void test03_1_1_check_memory(GnucashWritableVendor vend) throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+      newID = vend.getID();
+      assertEquals("Émilie Chauchoin", vend.getName());
+  }
+  
+  private void test03_1_1_check_persisted(File outFile) throws Exception
+  {
+      gcshOutFile = new GnucashFileImpl(outFile);
+      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+      
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+       
+      GnucashVendor vend = gcshOutFile.getVendorByID(newID);
+      assertNotEquals(null, vend);
+      
+      assertEquals(newID, vend.getID());
+      assertEquals("Émilie Chauchoin", vend.getName());
+  }
   
   // ------------------------------
   // PART 3.2: Low-Level
   // ------------------------------
   
   @Test
-  public void test03_1() throws Exception
+  public void test03_2_1() throws Exception
   {
       GnucashWritableEmployee empl = gcshInFile.createWritableEmployee();
       empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
-      empl.setUserName("Norma Jean Baker");
+      empl.setUserName("Émilie Chauchoin");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
       // System.err.println("Outfile for TestGnucashWritableEmployeeImpl.test01_1: '" + outFile.getPath() + "'");
@@ -254,13 +318,13 @@ public class TestGnucashWritableEmployeeImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_1_check(outFile);
+      test03_2_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test01_2() throws Exception
+//  public void test03_2_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -286,7 +350,7 @@ public class TestGnucashWritableEmployeeImpl
 //      // assertEquals(validResult);
 //  }
 
-  private void test03_1_check(File outFile) throws Exception
+  private void test03_2_1_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -308,26 +372,26 @@ public class TestGnucashWritableEmployeeImpl
       Node lastNode = nList.item(nList.getLength() - 1);
       assertEquals(lastNode.getNodeType(), Node.ELEMENT_NODE);
       Element elt = (Element) lastNode;
-      assertEquals("Norma Jean Baker", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+      assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
       assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
   }
 
   // -----------------------------------------------------------------
 
   @Test
-  public void test03_4() throws Exception
+  public void test03_2_4() throws Exception
   {
       GnucashWritableEmployee empl1 = gcshInFile.createWritableEmployee();
       empl1.setNumber(GnucashEmployeeImpl.getNewNumber(empl1));
-      empl1.setUserName("Norma Jean Baker");
+      empl1.setUserName("Émilie Chauchoin");
       
       GnucashWritableEmployee empl2 = gcshInFile.createWritableEmployee();
       empl2.setNumber(GnucashEmployeeImpl.getNewNumber(empl2));
-      empl2.setUserName("Madonna Louise Ciccone");
+      empl2.setUserName("Shirley Beaty");
       
       GnucashWritableEmployee empl3 = gcshInFile.createWritableEmployee();
       empl3.setNumber(GnucashEmployeeImpl.getNewNumber(empl3));
-      empl3.setUserName("Rowan Atkinson");
+      empl3.setUserName("Stefani Germanotta");
       
       File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnucashWritableEmployeeImpl.test02_1: '" + outFile.getPath() + "'");
@@ -335,10 +399,10 @@ public class TestGnucashWritableEmployeeImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_4_check(outFile);
+      test03_2_4_check(outFile);
   }
   
-  private void test03_4_check(File outFile) throws Exception
+  private void test03_2_4_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -360,19 +424,19 @@ public class TestGnucashWritableEmployeeImpl
       Node node = nList.item(nList.getLength() - 3);
       assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
       Element elt = (Element) node;
-      assertEquals("Norma Jean Baker", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+      assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
       assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
       node = nList.item(nList.getLength() - 2);
       assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
       elt = (Element) node;
-      assertEquals("Madonna Louise Ciccone", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+      assertEquals("Shirley Beaty", elt.getElementsByTagName("employee:username").item(0).getTextContent());
       assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
       node = nList.item(nList.getLength() - 1);
       assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
       elt = (Element) node;
-      assertEquals("Rowan Atkinson", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+      assertEquals("Stefani Germanotta", elt.getElementsByTagName("employee:username").item(0).getTextContent());
       assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
   }
 
