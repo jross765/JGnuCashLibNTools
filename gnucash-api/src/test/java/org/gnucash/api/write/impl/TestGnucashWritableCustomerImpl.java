@@ -57,6 +57,8 @@ public class TestGnucashWritableCustomerImpl
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
     
+    private GCshID newID = null;
+    
     // -----------------------------------------------------------------
   
   public static void main(String[] args) throws Exception
@@ -277,14 +279,73 @@ public class TestGnucashWritableCustomerImpl
   // PART 3.1: High-Level
   // ------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1_1() throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+      GnucashWritableCustomer cust = gcshInFile.createWritableCustomer();
+      cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
+      cust.setName("Frederic Austerlitz");
+      
+      // ----------------------------
+      // Check whether the object can has actually be created
+      // (in memory, not in the file yet).
+      
+      test03_1_1_check_memory(cust);
+      
+      // ----------------------------
+      // Now, check whether the created object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_1_check_persisted(outFile);
+  }
+  
+  private void test03_1_1_check_memory(GnucashWritableCustomer cust) throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+      newID = cust.getID();
+      assertEquals("Frederic Austerlitz", cust.getName());
+  }
+  
+  private void test03_1_1_check_persisted(File outFile) throws Exception
+  {
+      gcshOutFile = new GnucashFileImpl(outFile);
+      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+      
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+       
+      GnucashCustomer cust = gcshOutFile.getCustomerByID(newID);
+      assertNotEquals(null, cust);
+      
+      assertEquals(newID, cust.getID());
+      assertEquals("Frederic Austerlitz", cust.getName());
+  }
   
   // ------------------------------
   // PART 3.2: Low-Level
   // ------------------------------
   
   @Test
-  public void test03_1() throws Exception
+  public void test03_2_1() throws Exception
   {
       GnucashWritableCustomer cust = gcshInFile.createWritableCustomer();
       cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
@@ -296,13 +357,13 @@ public class TestGnucashWritableCustomerImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_1_check(outFile);
+      test03_2_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test03_2() throws Exception
+//  public void test03_2_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -328,7 +389,7 @@ public class TestGnucashWritableCustomerImpl
 //      // assertEquals(validResult);
 //  }
 
-  private void test03_1_check(File outFile) throws Exception
+  private void test03_2_1_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -357,7 +418,7 @@ public class TestGnucashWritableCustomerImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test03_4() throws Exception
+  public void test03_2_4() throws Exception
   {
       GnucashWritableCustomer cust1 = gcshInFile.createWritableCustomer();
       cust1.setNumber(GnucashCustomerImpl.getNewNumber(cust1));
@@ -377,10 +438,10 @@ public class TestGnucashWritableCustomerImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_4_check(outFile);
+      test03_2_4_check(outFile);
   }
   
-  private void test03_4_check(File outFile) throws Exception
+  private void test03_2_4_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());

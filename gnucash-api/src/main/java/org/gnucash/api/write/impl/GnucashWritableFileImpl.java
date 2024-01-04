@@ -1548,17 +1548,17 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	return retval;
     }
     
-//    @SuppressWarnings("exports")
-//    public GncV2.GncBook.GncGncBillTerm.BilltermDays createGncGncBillTermDaysType() {
-//	GncV2.GncBook.GncGncBillTerm.BilltermDays retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermDays();
-//	return retval;
-//    }
-//    
-//    @SuppressWarnings("exports")
-//    public GncV2.GncBook.GncGncBillTerm.BilltermProximo createGncGncBillTermProximoType() {
-//	GncV2.GncBook.GncGncBillTerm.BilltermProximo retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermProximo();
-//	return retval;
-//    }
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncGncBillTerm.BilltermDays createGncGncBillTermDaysType() {
+	GncV2.GncBook.GncGncBillTerm.BilltermDays retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermDays();
+	return retval;
+    }
+    
+    @SuppressWarnings("exports")
+    public GncV2.GncBook.GncGncBillTerm.BilltermProximo createGncGncBillTermProximoType() {
+	GncV2.GncBook.GncGncBillTerm.BilltermProximo retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermProximo();
+	return retval;
+    }
     
     // ---------------------------------------------------------------
     // ::TODO Description
