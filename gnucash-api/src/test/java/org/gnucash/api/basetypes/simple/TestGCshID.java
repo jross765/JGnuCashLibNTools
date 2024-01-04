@@ -38,8 +38,8 @@ public class TestGCshID {
 	gcshID.set("c258aa23358040a08fcfe1efad2a906c");
 	assertEquals("c258aa23358040a08fcfe1efad2a906c", gcshID.get());
 	assertEquals(true, gcshID.isSet());
-    }	
-    
+    }
+
     @Test
     public void test02() throws Exception {
 	gcshID.set("2B5F38B679E848EE8E397A3A43ED0EB2");
@@ -50,27 +50,27 @@ public class TestGCshID {
 	assertEquals("c258aa23358040a08fcfe1efad2a906c", gcshID.get());
 	assertEquals(true, gcshID.isSet());
     }
-    
+
     @Test
     public void test03() throws Exception {
 	try {
 	    gcshID.set("2b5f38b679e848ee8e397a3a43ed0eb"); // invalid string (too short)
 	    assertEquals(1, 0);
-	} catch ( Exception exc ) {
+	} catch (Exception exc) {
 	    assertEquals(0, 0);
 	}
 
 	try {
 	    gcshID.set("2b5f38b679e848ee8e397a3a43ed0eb2a"); // invalid string (too long)
 	    assertEquals(1, 0);
-	} catch ( Exception exc ) {
+	} catch (Exception exc) {
 	    assertEquals(0, 0);
 	}
 
 	try {
 	    gcshID.set("2z5f38b679e848ee8e397a3a43ed0eb"); // invalid string (illegal char, 2nd pos)
 	    assertEquals(1, 0);
-	} catch ( Exception exc ) {
+	} catch (Exception exc) {
 	    assertEquals(0, 0);
 	}
     }

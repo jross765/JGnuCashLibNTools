@@ -14,122 +14,106 @@ import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestGnucashGenerJobImpl
-{
-  public static final GCshID JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
-  public static final GCshID JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
+public class TestGnucashGenerJobImpl {
+    public static final GCshID JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
+    public static final GCshID JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
 
-  // -----------------------------------------------------------------
-  
-  private GnucashFile     gcshFile = null;
-  private GnucashGenerJob job = null;
-  
-  // -----------------------------------------------------------------
-  
-  public static void main(String[] args) throws Exception
-  {
-    junit.textui.TestRunner.run(suite());
-  }
+    // -----------------------------------------------------------------
 
-  @SuppressWarnings("exports")
-  public static junit.framework.Test suite() 
-  {
-    return new JUnit4TestAdapter(TestGnucashGenerJobImpl.class);  
-  }
-  
-  @Before
-  public void initialize() throws Exception
-  {
-    ClassLoader classLoader = getClass().getClassLoader();
-    // URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-    // System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-    InputStream gcshFileStream = null;
-    try 
-    {
-      gcshFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
-    } 
-    catch ( Exception exc ) 
-    {
-      System.err.println("Cannot generate input stream from resource");
-      return;
+    private GnucashFile gcshFile = null;
+    private GnucashGenerJob job = null;
+
+    // -----------------------------------------------------------------
+
+    public static void main(String[] args) throws Exception {
+	junit.textui.TestRunner.run(suite());
     }
-    
-    try
-    {
-      gcshFile = new GnucashFileImpl(gcshFileStream);
+
+    @SuppressWarnings("exports")
+    public static junit.framework.Test suite() {
+	return new JUnit4TestAdapter(TestGnucashGenerJobImpl.class);
     }
-    catch ( Exception exc )
-    {
-      System.err.println("Cannot parse GnuCash file");
-      exc.printStackTrace();
+
+    @Before
+    public void initialize() throws Exception {
+	ClassLoader classLoader = getClass().getClassLoader();
+	// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+	// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+	InputStream gcshFileStream = null;
+	try {
+	    gcshFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
+	} catch (Exception exc) {
+	    System.err.println("Cannot generate input stream from resource");
+	    return;
+	}
+
+	try {
+	    gcshFile = new GnucashFileImpl(gcshFileStream);
+	} catch (Exception exc) {
+	    System.err.println("Cannot parse GnuCash file");
+	    exc.printStackTrace();
+	}
     }
-  }
 
-  // -----------------------------------------------------------------
+    // -----------------------------------------------------------------
 
-  @Test
-  public void testCust01() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_1_ID);
-    assertNotEquals(null, job);
-    
-    assertEquals(JOB_1_ID, job.getID());
-    assertEquals("000001", job.getNumber());
-    assertEquals(GnucashGenerJob.TYPE_CUSTOMER, job.getOwnerType());
-    assertEquals("Do more for others", job.getName());
-  }
-  
-  @Test
-  public void testCust02() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_1_ID);
-    assertNotEquals(null, job);
-      
-    assertEquals(0, job.getPaidInvoices().size());
-    assertEquals(1, job.getUnpaidInvoices().size());
-  }
+    @Test
+    public void testCust01() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_1_ID);
+	assertNotEquals(null, job);
 
-  @Test
-  public void testCust03() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_1_ID);
-    assertNotEquals(null, job);
-      
-    GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-    assertEquals(custID, job.getOwnerID());
-  }
+	assertEquals(JOB_1_ID, job.getID());
+	assertEquals("000001", job.getNumber());
+	assertEquals(GnucashGenerJob.TYPE_CUSTOMER, job.getOwnerType());
+	assertEquals("Do more for others", job.getName());
+    }
 
-  // -----------------------------------------------------------------
+    @Test
+    public void testCust02() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_1_ID);
+	assertNotEquals(null, job);
 
-  @Test
-  public void testVend01() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_2_ID);
-    assertNotEquals(null, job);
-    
-    assertEquals(JOB_2_ID, job.getID());
-    assertEquals("000002", job.getNumber());
-    assertEquals(GnucashGenerJob.TYPE_VENDOR, job.getOwnerType());
-    assertEquals("Let's buy help", job.getName());
-  }
+	assertEquals(0, job.getPaidInvoices().size());
+	assertEquals(1, job.getUnpaidInvoices().size());
+    }
 
-  @Test
-  public void testVend02() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_2_ID);
-    assertNotEquals(null, job);
-      
-    assertEquals(0, job.getPaidInvoices().size());
-    assertEquals(1, job.getUnpaidInvoices().size());
-  }
+    @Test
+    public void testCust03() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_1_ID);
+	assertNotEquals(null, job);
 
-  @Test
-  public void testVend03() throws Exception
-  {
-    job = gcshFile.getGenerJobByID(JOB_2_ID);
-    assertNotEquals(null, job);
-      
-    GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-    assertEquals(vendID, job.getOwnerID());
-  }
+	GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
+	assertEquals(custID, job.getOwnerID());
+    }
+
+    // -----------------------------------------------------------------
+
+    @Test
+    public void testVend01() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_2_ID);
+	assertNotEquals(null, job);
+
+	assertEquals(JOB_2_ID, job.getID());
+	assertEquals("000002", job.getNumber());
+	assertEquals(GnucashGenerJob.TYPE_VENDOR, job.getOwnerType());
+	assertEquals("Let's buy help", job.getName());
+    }
+
+    @Test
+    public void testVend02() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_2_ID);
+	assertNotEquals(null, job);
+
+	assertEquals(0, job.getPaidInvoices().size());
+	assertEquals(1, job.getUnpaidInvoices().size());
+    }
+
+    @Test
+    public void testVend03() throws Exception {
+	job = gcshFile.getGenerJobByID(JOB_2_ID);
+	assertNotEquals(null, job);
+
+	GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+	assertEquals(vendID, job.getOwnerID());
+    }
 }

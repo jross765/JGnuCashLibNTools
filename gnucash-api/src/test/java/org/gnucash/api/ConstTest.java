@@ -1,7 +1,6 @@
 package org.gnucash.api;
 
-public class ConstTest extends Const
-{
+public class ConstTest extends Const {
 
     public static final String GCSH_FILENAME     = "test.gnucash";
 

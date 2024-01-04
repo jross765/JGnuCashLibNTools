@@ -441,10 +441,4 @@ public class TestGCshWritableBillTermsImpl {
 
     // ::TODO
 
-//  @AfterClass
-//  public void after() throws Exception
-//  {
-//      FileUtils.delete(outFileGlob);
-//  }
-
 }
