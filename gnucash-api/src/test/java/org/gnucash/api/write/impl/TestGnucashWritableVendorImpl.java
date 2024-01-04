@@ -14,14 +14,17 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
+import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.TestGnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnucashVendorBill;
+import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.junit.Before;
@@ -54,6 +57,8 @@ public class TestGnucashWritableVendorImpl
 
   private GCshFileStats           gcshInFileStats = null;
   private GCshFileStats           gcshOutFileStats = null;
+  
+  private GCshID newID = null;
   
   // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
   @SuppressWarnings("exports")
@@ -268,14 +273,73 @@ public class TestGnucashWritableVendorImpl
   // PART 3.1: High-Level
   // ------------------------------
   
-  // ::TODO
+  @Test
+  public void test03_1_1() throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+      GnucashWritableVendor vend = gcshInFile.createWritableVendor();
+      vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
+      vend.setName("Norma Jean Baker");
+      
+      // ----------------------------
+      // Check whether the object can has actually be created
+      // (in memory, not in the file yet).
+      
+      test03_1_1_check_memory(vend);
+      
+      // ----------------------------
+      // Now, check whether the created object can be written to the 
+      // output file, then re-read from it, and whether is is what
+      // we expect it is.
+      
+      File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+      //  System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+      outFile.delete(); // sic, the temp. file is already generated (empty), 
+                        // and the GnuCash file writer does not like that.
+      gcshInFile.writeFile(outFile);
+    
+      test03_1_1_check_persisted(outFile);
+  }
+  
+  private void test03_1_1_check_memory(GnucashWritableVendor vend) throws Exception
+  {
+      gcshInFileStats = new GCshFileStats(gcshInFile);
+
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+      newID = vend.getID();
+      assertEquals("Norma Jean Baker", vend.getName());
+  }
+  
+  private void test03_1_1_check_persisted(File outFile) throws Exception
+  {
+      gcshOutFile = new GnucashFileImpl(outFile);
+      gcshOutFileStats = new GCshFileStats(gcshOutFile);
+      
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+      assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+       
+      GnucashVendor vend = gcshOutFile.getVendorByID(newID);
+      assertNotEquals(null, vend);
+      
+      assertEquals(newID, vend.getID());
+      assertEquals("Norma Jean Baker", vend.getName());
+  }
   
   // ------------------------------
   // PART 3.2: Low-Level
   // ------------------------------
   
   @Test
-  public void test03_1() throws Exception
+  public void test03_2_1() throws Exception
   {
       GnucashWritableVendor vend = gcshInFile.createWritableVendor();
       vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
@@ -287,13 +351,13 @@ public class TestGnucashWritableVendorImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_1_check(outFile);
+      test03_2_1_check(outFile);
   }
 
   // -----------------------------------------------------------------
 
 //  @Test
-//  public void test03_2() throws Exception
+//  public void test03_2_2() throws Exception
 //  {
 //      assertNotEquals(null, outFileGlob);
 //      assertEquals(true, outFileGlob.exists());
@@ -319,7 +383,7 @@ public class TestGnucashWritableVendorImpl
 //      // assertEquals(validResult);
 //  }
 
-  private void test03_1_check(File outFile) throws Exception
+  private void test03_2_1_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());
@@ -348,7 +412,7 @@ public class TestGnucashWritableVendorImpl
   // -----------------------------------------------------------------
 
   @Test
-  public void test03_4() throws Exception
+  public void test03_2_4() throws Exception
   {
       GnucashWritableVendor vend1 = gcshInFile.createWritableVendor();
       vend1.setNumber(GnucashVendorImpl.getNewNumber(vend1));
@@ -368,10 +432,10 @@ public class TestGnucashWritableVendorImpl
                         // and the GnuCash file writer does not like that.
       gcshInFile.writeFile(outFile);
       
-      test03_4(outFile);
+      test03_2_4_check(outFile);
   }
   
-  private void test03_4(File outFile) throws Exception
+  private void test03_2_4_check(File outFile) throws Exception
   {
       assertNotEquals(null, outFile);
       assertEquals(true, outFile.exists());

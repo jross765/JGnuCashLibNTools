@@ -52,12 +52,12 @@ public class TestGnucashWritableCustomerImpl
     private GCshFileStats           gcshInFileStats = null;
     private GCshFileStats           gcshOutFileStats = null;
     
+    private GCshID newID = null;
+    
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
-    
-    private GCshID newID = null;
     
     // -----------------------------------------------------------------
   
