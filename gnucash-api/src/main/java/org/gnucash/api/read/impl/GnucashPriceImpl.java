@@ -205,7 +205,6 @@ public class GnucashPriceImpl extends GnucashObjectImpl
 		return LocalDate.parse(dateStr, DATE_FORMAT_FALLBACK);
 	    } catch (Exception e2) {
 		LOGGER.error("unparsable date '" + dateStr + "' (2nd try)!");
-		System.err.println("unparsable date '" + dateStr + "' (2nd try)!");
 		IllegalStateException ex2 = new IllegalStateException("unparsable date '" + dateStr + "' (2nd try)!");
 		ex2.initCause(e2);
 		throw ex2;
