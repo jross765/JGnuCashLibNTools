@@ -8,7 +8,7 @@ import java.util.HashSet;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashEmployee;
@@ -50,12 +50,12 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
      *
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @param file      the file to register under
-     * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncV2.GncBook.GncGncInvoice,
+     * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncGncInvoice,
      *      GnucashFile)
      */
     @SuppressWarnings("exports")
     public GnucashWritableEmployeeVoucherImpl(
-	    final GncV2.GncBook.GncGncInvoice jwsdpPeer, 
+	    final GncGncInvoice jwsdpPeer, 
 	    final GnucashFile file) {
 	super(jwsdpPeer, file);
     }

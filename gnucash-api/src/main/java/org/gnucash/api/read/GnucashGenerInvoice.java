@@ -8,8 +8,8 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 
 /**
  * This class represents an invoice that is sent to a customer

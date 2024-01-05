@@ -9,6 +9,7 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncCommodity jwsdpPeer;
+    private final GncCommodity jwsdpPeer;
 
     /**
      * The file we belong to.
@@ -36,7 +37,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashCommodityImpl(final GncV2.GncBook.GncCommodity peer, final GnucashFile gncFile) {
+    public GnucashCommodityImpl(final GncCommodity peer, final GnucashFile gncFile) {
 	this.jwsdpPeer = peer;
 	this.file = gncFile;
     }
@@ -47,7 +48,7 @@ public class GnucashCommodityImpl implements GnucashCommodity
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncCommodity getJwsdpPeer() {
+    public GncCommodity getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

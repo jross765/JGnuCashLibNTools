@@ -1,7 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.impl.GnucashWritableCommodityImpl;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -27,7 +27,7 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
      * @see FileCommodityManager#createAccount(GncAccount)
      */
     @Override
-    protected GnucashCommodityImpl createCommodity(final GncV2.GncBook.GncCommodity jwsdpCmdty) {
+    protected GnucashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
 	GnucashWritableCommodityImpl cmdty = new GnucashWritableCommodityImpl(jwsdpCmdty, (GnucashWritableFileImpl) gcshFile);
 	LOGGER.debug("Generated new writable commodity: " + cmdty.getQualifID());
 	return cmdty;

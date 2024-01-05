@@ -1,5 +1,6 @@
 package org.gnucash.api.write.impl.hlp;
 
+import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
@@ -25,11 +26,11 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see FileJobManager#createGenerJob(GncV2.GncBook.GncGncJob)
+     * @see FileJobManager#createGenerJob(GncGncJob)
      */
     // ::TODO
 //    @Override
-//    protected GnucashCustomerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+//    protected GnucashCustomerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
 //	// ::TODO: CUSTOMER job?
 //	GnucashWritableGenerJobImpl job = new GnucashWritableGenerJobImpl(jwsdpJob, gcshFile);
 //	LOGGER.debug("Generated new generic job: " + job.getID());
@@ -37,14 +38,14 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 //    }
     
     @Override
-    protected GnucashCustomerJobImpl createCustomerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+    protected GnucashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
 	GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, gcshFile);
 	LOGGER.debug("Generated new writable customer job: " + job.getID());
 	return job;
     }
 
     @Override
-    protected GnucashVendorJobImpl createVendorJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+    protected GnucashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
 	GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(jwsdpJob, gcshFile);
 	LOGGER.debug("Generated new writable vendor job: " + job.getID());
 	return job;

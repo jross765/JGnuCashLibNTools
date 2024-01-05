@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -40,10 +40,10 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
     /**
      * This overridden method creates the writable version of the returned object.
      *
-     * @see FileInvoiceManager#createGenerInvoice(GncV2.GncBook.GncGncInvoice)
+     * @see FileInvoiceManager#createGenerInvoice(GncGncInvoice)
      */
     @Override
-    protected GnucashGenerInvoiceImpl createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
+    protected GnucashGenerInvoiceImpl createGenerInvoice(final GncGncInvoice jwsdpInvc) {
 	GnucashWritableGenerInvoiceImpl invc = new GnucashWritableGenerInvoiceImpl(jwsdpInvc, gcshFile);
 	LOGGER.debug("Generated new writable generic invoice: " + invc.getID());
 	return invc;

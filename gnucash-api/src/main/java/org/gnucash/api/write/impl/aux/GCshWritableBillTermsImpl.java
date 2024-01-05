@@ -2,7 +2,7 @@ package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
@@ -34,7 +34,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 
     @SuppressWarnings("exports")
     public GCshWritableBillTermsImpl(
-	    final GncV2.GncBook.GncGncBillTerm jwsdpPeer, 
+	    final GncGncBillTerm jwsdpPeer, 
 	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
 	
@@ -163,7 +163,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 	    throw new IllegalArgumentException("unset parent ID given!");
 	}
 
-	GncV2.GncBook.GncGncBillTerm.BilltermParent intVal = ((GnucashWritableFileImpl) myFile).createGncGncBillTermParentType();
+	GncGncBillTerm.BilltermParent intVal = ((GnucashWritableFileImpl) myFile).createGncGncBillTermParentType();
 	intVal.setType(Const.XML_DATA_TYPE_GUID);
 	intVal.setValue(prntID.toString());
 	

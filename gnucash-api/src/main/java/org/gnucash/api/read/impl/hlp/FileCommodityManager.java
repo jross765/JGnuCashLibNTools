@@ -14,6 +14,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,10 +50,10 @@ public class FileCommodityManager {
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncCommodity)) {
+	    if (!(bookElement instanceof GncCommodity)) {
 		continue;
 	    }
-	    GncV2.GncBook.GncCommodity jwsdpCmdty = (GncV2.GncBook.GncCommodity) bookElement;
+	    GncCommodity jwsdpCmdty = (GncCommodity) bookElement;
 
 	    // CAUTION: As opposed to the other entities, there is always 
 	    // one additional object in the GnuCash file for commodities, 
@@ -98,7 +99,7 @@ public class FileCommodityManager {
      * @param jwsdpCmdty the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashCommodity to wrap the given JAXB object.
      */
-    protected GnucashCommodityImpl createCommodity(final GncV2.GncBook.GncCommodity jwsdpCmdty) {
+    protected GnucashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
 	GnucashCommodityImpl cmdty = new GnucashCommodityImpl(jwsdpCmdty, gcshFile);
 	LOGGER.debug("Generated new commodity: " + cmdty.getQualifID());
 	return cmdty;

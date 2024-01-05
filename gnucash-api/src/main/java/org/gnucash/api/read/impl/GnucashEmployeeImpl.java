@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
@@ -29,7 +30,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncEmployee jwsdpPeer;
+    private final GncGncEmployee jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -46,7 +47,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashEmployeeImpl(final GncV2.GncBook.GncGncEmployee peer, final GnucashFile gncFile) {
+    public GnucashEmployeeImpl(final GncGncEmployee peer, final GnucashFile gncFile) {
 	super((peer.getEmployeeSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEmployeeSlots(), gncFile);
 
 	if (peer.getEmployeeSlots() == null) {
@@ -62,7 +63,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncEmployee getJwsdpPeer() {
+    public GncGncEmployee getJwsdpPeer() {
 	return jwsdpPeer;
     }
 
@@ -131,7 +132,7 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 //     * {@inheritDoc}
 //     */
 //    public String getTaxTableID() {
-//	GncV2.GncBook.GncGncEmployee.EmployeeTaxtable emplTaxtable = jwsdpPeer.getEmployeeTaxtable();
+//	GncGncEmployee.EmployeeTaxtable emplTaxtable = jwsdpPeer.getEmployeeTaxtable();
 //	if (emplTaxtable == null) {
 //	    return null;
 //	}

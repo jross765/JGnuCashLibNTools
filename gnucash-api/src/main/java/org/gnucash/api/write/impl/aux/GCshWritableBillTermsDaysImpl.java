@@ -1,6 +1,6 @@
 package org.gnucash.api.write.impl.aux;
 
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.impl.aux.GCshBillTermsDaysImpl;
 import org.gnucash.api.write.GnucashWritableFile;
@@ -21,7 +21,7 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
 
     @SuppressWarnings("exports")
     public GCshWritableBillTermsDaysImpl(
-	    final GncV2.GncBook.GncGncBillTerm.BilltermDays jwsdpPeer, 
+	    final GncGncBillTerm.BilltermDays jwsdpPeer, 
 	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
     }

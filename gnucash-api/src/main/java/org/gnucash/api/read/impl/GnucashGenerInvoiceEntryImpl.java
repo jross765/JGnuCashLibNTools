@@ -9,11 +9,11 @@ import java.time.format.DateTimeFormatter;
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncEntry.EntryBTaxtable;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncEntry.EntryBill;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncEntry.EntryITaxtable;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncEntry.EntryInvoice;
+import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.GncGncEntry.EntryBTaxtable;
+import org.gnucash.api.generated.GncGncEntry.EntryBill;
+import org.gnucash.api.generated.GncGncEntry.EntryITaxtable;
+import org.gnucash.api.generated.GncGncEntry.EntryInvoice;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -53,7 +53,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    protected final GncV2.GncBook.GncGncEntry jwsdpPeer;
+    protected final GncGncEntry jwsdpPeer;
 
     // ------------------------------
 
@@ -104,7 +104,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
     @SuppressWarnings("exports")
     public GnucashGenerInvoiceEntryImpl(
 	    final GnucashGenerInvoice invc, 
-	    final GncV2.GncBook.GncGncEntry peer,
+	    final GncGncEntry peer,
 	    final boolean addEntrToInvc) {
 	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(),
 		invc.getFile());
@@ -132,7 +132,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnucashGenerInvoiceEntryImpl(
-	    final GncV2.GncBook.GncGncEntry peer, 
+	    final GncGncEntry peer, 
 	    final GnucashFileImpl gncFile,
 	    final boolean addEntrToInvc) {
 	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(), gncFile);
@@ -1327,7 +1327,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      * @return The JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncEntry getJwsdpPeer() {
+    public GncGncEntry getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

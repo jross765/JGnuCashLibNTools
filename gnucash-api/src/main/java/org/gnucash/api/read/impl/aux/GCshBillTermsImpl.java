@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermChild;
+import org.gnucash.api.generated.GncGncBillTerm;
+import org.gnucash.api.generated.GncGncBillTerm.BilltermChild;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
@@ -21,7 +21,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     /**
      * the JWSDP-object we are facading.
      */
-    protected final GncV2.GncBook.GncGncBillTerm jwsdpPeer;
+    protected final GncGncBillTerm jwsdpPeer;
 
     /**
      * the file we belong to.
@@ -37,7 +37,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
      */
     @SuppressWarnings("exports")
     public GCshBillTermsImpl(
-	    final GncV2.GncBook.GncGncBillTerm peer, 
+	    final GncGncBillTerm peer, 
 	    final GnucashFile gcshFile) {
 	super();
 
@@ -52,7 +52,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
      * @return The JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncBillTerm getJwsdpPeer() {
+    public GncGncBillTerm getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

@@ -8,7 +8,7 @@ import java.util.Collection;
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.OwnerId;
 import org.gnucash.api.read.GnucashFile;
@@ -42,7 +42,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      */
     @SuppressWarnings("exports")
     public GnucashWritableVendorJobImpl(
-	    final GncV2.GncBook.GncGncJob jwsdpPeer, 
+	    final GncGncJob jwsdpPeer, 
 	    final GnucashFile file) {
 	super(jwsdpPeer, file);
     }
@@ -89,7 +89,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
      * @param jobID   the internal id to use. May be null to generate an ID.
      * @return the jaxb-job
      */
-    private static GncV2.GncBook.GncGncJob createVendorJob_int(
+    private static GncGncJob createVendorJob_int(
 	    final GnucashWritableFileImpl file, 
 	    final GCshID jobID,
 	    final GnucashVendor vend,
@@ -110,7 +110,7 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
 	ObjectFactory factory = file.getObjectFactory();
 
-	GncV2.GncBook.GncGncJob jwsdpJob = file.createGncGncJobType();
+	GncGncJob jwsdpJob = file.createGncGncJobType();
 
 	jwsdpJob.setJobActive(1);
 	jwsdpJob.setJobId(number);
@@ -118,14 +118,14 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 	jwsdpJob.setVersion(Const.XML_FORMAT_VERSION);
 
 	{
-	    GncV2.GncBook.GncGncJob.JobGuid id = factory.createGncV2GncBookGncGncJobJobGuid();
+	    GncGncJob.JobGuid id = factory.createGncGncJobJobGuid();
 	    id.setType(Const.XML_DATA_TYPE_GUID);
 	    id.setValue(jobID.toString());
 	    jwsdpJob.setJobGuid(id);
 	}
 
 	{
-	    GncV2.GncBook.GncGncJob.JobOwner owner = factory.createGncV2GncBookGncGncJobJobOwner();
+	    GncGncJob.JobOwner owner = factory.createGncGncJobJobOwner();
 	    owner.setOwnerType(GCshOwner.Type.VENDOR.getCode());
 
 	    OwnerId ownerid = factory.createOwnerId();

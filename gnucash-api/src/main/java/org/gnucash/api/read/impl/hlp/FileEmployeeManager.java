@@ -7,12 +7,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncEmployee;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,10 +41,10 @@ public class FileEmployeeManager {
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncEmployee)) {
+	    if (!(bookElement instanceof GncGncEmployee)) {
 		continue;
 	    }
-	    GncV2.GncBook.GncGncEmployee jwsdpEmpl = (GncV2.GncBook.GncGncEmployee) bookElement;
+	    GncGncEmployee jwsdpEmpl = (GncGncEmployee) bookElement;
 
 	    try {
 		GnucashEmployeeImpl empl = createEmployee(jwsdpEmpl);
@@ -61,7 +62,7 @@ public class FileEmployeeManager {
      * @param jwsdpVend the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashVendor to wrap the given JAXB object.
      */
-    protected GnucashEmployeeImpl createEmployee(final GncV2.GncBook.GncGncEmployee jwsdpEmpl) {
+    protected GnucashEmployeeImpl createEmployee(final GncGncEmployee jwsdpEmpl) {
 	GnucashEmployeeImpl empl = new GnucashEmployeeImpl(jwsdpEmpl, gcshFile);
 	LOGGER.debug("Generated new employee: " + empl.getID());
 	return empl;

@@ -13,6 +13,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,10 +42,10 @@ public class FileCustomerManager {
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncCustomer)) {
+	    if (!(bookElement instanceof GncGncCustomer)) {
 		continue;
 	    }
-	    GncV2.GncBook.GncGncCustomer jwsdpCust = (GncV2.GncBook.GncGncCustomer) bookElement;
+	    GncGncCustomer jwsdpCust = (GncGncCustomer) bookElement;
 
 	    try {
 		GnucashCustomerImpl cust = createCustomer(jwsdpCust);
@@ -62,7 +63,7 @@ public class FileCustomerManager {
      * @param jwsdpCust the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashCustomer to wrap the given JAXB object.
      */
-    protected GnucashCustomerImpl createCustomer(final GncV2.GncBook.GncGncCustomer jwsdpCust) {
+    protected GnucashCustomerImpl createCustomer(final GncGncCustomer jwsdpCust) {
 	GnucashCustomerImpl cust = new GnucashCustomerImpl(jwsdpCust, gcshFile);
 	LOGGER.debug("Generated new customer: " + cust.getID());
 	return cust;

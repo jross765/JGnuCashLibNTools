@@ -6,8 +6,8 @@ import java.util.Locale;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
+import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
@@ -26,7 +26,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
     /**
      * the JWSDP-object we are facading.
      */
-    protected final GncV2.GncBook.GncGncJob jwsdpPeer;
+    protected final GncGncJob jwsdpPeer;
 
     /**
      * The file we belong to.
@@ -49,7 +49,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashGenerJobImpl(final GncV2.GncBook.GncGncJob peer, final GnucashFile gncFile) {
+    public GnucashGenerJobImpl(final GncGncJob peer, final GnucashFile gncFile) {
 	super();
 
 	jwsdpPeer = peer;
@@ -61,7 +61,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
      * @return The JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncJob getJwsdpPeer() {
+    public GncGncJob getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

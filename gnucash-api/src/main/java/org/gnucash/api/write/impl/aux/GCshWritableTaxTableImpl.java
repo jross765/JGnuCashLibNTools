@@ -1,8 +1,7 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
@@ -25,7 +24,7 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
 
     @SuppressWarnings("exports")
     public GCshWritableTaxTableImpl(
-	    final GncV2.GncBook.GncGncTaxTable jwsdpPeer, 
+	    final GncGncTaxTable jwsdpPeer, 
 	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
     }

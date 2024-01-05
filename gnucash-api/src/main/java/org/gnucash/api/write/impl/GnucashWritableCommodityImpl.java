@@ -6,7 +6,7 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.gnucash.api.write.GnucashWritableFile;
@@ -36,7 +36,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
     @SuppressWarnings("exports")
-    public GnucashWritableCommodityImpl(final GncV2.GncBook.GncCommodity jwsdpPeer,
+    public GnucashWritableCommodityImpl(final GncCommodity jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
@@ -66,7 +66,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @see GnucashWritableCommodity#remove()
      */
     public void remove() throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException {
-	GncV2.GncBook.GncCommodity peer = getJwsdpPeer();
+	GncCommodity peer = getJwsdpPeer();
 	(getGnucashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
 	(getGnucashFile()).removeCommodity(this);
     }
@@ -81,14 +81,14 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncCommodity createCommodity_int(
+    protected static GncCommodity createCommodity_int(
 	    final GnucashWritableFileImpl file,
 	    final GCshID cmdtID) {
 	if ( ! cmdtID.isSet() ) {
 	    throw new IllegalArgumentException("GUID not set!");
 	}
 
-	GncV2.GncBook.GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
+	GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
 
 	jwsdpCmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
 	jwsdpCmdty.setVersion(Const.XML_FORMAT_VERSION);

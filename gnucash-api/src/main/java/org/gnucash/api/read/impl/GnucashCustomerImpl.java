@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
@@ -36,7 +36,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncCustomer jwsdpPeer;
+    private final GncGncCustomer jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -53,7 +53,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashCustomerImpl(final GncV2.GncBook.GncGncCustomer peer, final GnucashFile gncFile) {
+    public GnucashCustomerImpl(final GncGncCustomer peer, final GnucashFile gncFile) {
 	super((peer.getCustSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getCustSlots(), gncFile);
 
 	if (peer.getCustSlots() == null) {
@@ -69,7 +69,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncCustomer getJwsdpPeer() {
+    public GncGncCustomer getJwsdpPeer() {
 	return jwsdpPeer;
     }
 
@@ -156,7 +156,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshID getTaxTableID() {
-	GncV2.GncBook.GncGncCustomer.CustTaxtable custTaxtable = jwsdpPeer.getCustTaxtable();
+	GncGncCustomer.CustTaxtable custTaxtable = jwsdpPeer.getCustTaxtable();
 	if (custTaxtable == null) {
 	    return null;
 	}
@@ -181,7 +181,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshID getTermsID() {
-	GncV2.GncBook.GncGncCustomer.CustTerms custTerms = jwsdpPeer.getCustTerms();
+	GncGncCustomer.CustTerms custTerms = jwsdpPeer.getCustTerms();
 	if (custTerms == null) {
 	    return null;
 	}

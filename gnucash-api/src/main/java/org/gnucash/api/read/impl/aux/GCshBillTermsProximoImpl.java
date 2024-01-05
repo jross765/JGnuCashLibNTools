@@ -1,9 +1,9 @@
 package org.gnucash.api.read.impl.aux;
 
+import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
     /**
      * the JWSDP-object we are facading.
      */
-    protected final GncV2.GncBook.GncGncBillTerm.BilltermProximo jwsdpPeer;
+    protected final GncGncBillTerm.BilltermProximo jwsdpPeer;
 
     /**
      * the file we belong to.
@@ -30,7 +30,7 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
      */
     @SuppressWarnings("exports")
     public GCshBillTermsProximoImpl(
-	    final GncV2.GncBook.GncGncBillTerm.BilltermProximo peer, 
+	    final GncGncBillTerm.BilltermProximo peer, 
 	    final GnucashFile gcshFile) {
 	super();
 
@@ -45,7 +45,7 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
      * @return The JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncBillTerm.BilltermProximo getJwsdpPeer() {
+    public GncGncBillTerm.BilltermProximo getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

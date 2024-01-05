@@ -3,6 +3,7 @@ package org.gnucash.api.read.impl.aux;
 import java.util.Objects;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -20,7 +21,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     /**
      * the jwsdp-object we are wrapping.
      */
-    protected GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer;
+    protected GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer;
 
     /**
      * the file we belong to.
@@ -40,7 +41,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @SuppressWarnings("exports")
     public GCshTaxTableEntryImpl(
-	    final GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element,
+	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element,
 	    final GnucashFile file) {
 	super();
 	
@@ -54,7 +55,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @return the jwsdp-object we are wrapping
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry getJwsdpPeer() {
+    public GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
@@ -50,10 +51,10 @@ public class FileInvoiceManager {
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncInvoice)) {
+	    if (!(bookElement instanceof GncGncInvoice)) {
 		continue;
 	    }
-	    GncV2.GncBook.GncGncInvoice jwsdpInvc = (GncV2.GncBook.GncGncInvoice) bookElement;
+	    GncGncInvoice jwsdpInvc = (GncGncInvoice) bookElement;
 
 	    try {
 		GnucashGenerInvoice invc = createGenerInvoice(jwsdpInvc);
@@ -71,7 +72,7 @@ public class FileInvoiceManager {
      * @param jwsdpInvc the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashGenerInvoice to wrap the given jaxb-object.
      */
-    protected GnucashGenerInvoiceImpl createGenerInvoice(final GncV2.GncBook.GncGncInvoice jwsdpInvc) {
+    protected GnucashGenerInvoiceImpl createGenerInvoice(final GncGncInvoice jwsdpInvc) {
 	GnucashGenerInvoiceImpl invc = new GnucashGenerInvoiceImpl(jwsdpInvc, gcshFile);
 	LOGGER.debug("createGenerInvoice: Generated new generic invoice: " + invc.getID());
 	return invc;

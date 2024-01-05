@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
@@ -51,10 +52,10 @@ public class FileJobManager {
     
         for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
             Object bookElement = iter.next();
-            if (!(bookElement instanceof GncV2.GncBook.GncGncJob)) {
+            if (!(bookElement instanceof GncGncJob)) {
         	continue;
             }
-            GncV2.GncBook.GncGncJob jwsdpJob = (GncV2.GncBook.GncGncJob) bookElement;
+            GncGncJob jwsdpJob = (GncGncJob) bookElement;
     
             try {
         	GnucashGenerJobImpl generJob = createGenerJob(jwsdpJob);
@@ -102,19 +103,19 @@ public class FileJobManager {
      * @param jwsdpJob the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashJob to wrap the given jaxb-object.
      */
-    protected GnucashGenerJobImpl createGenerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+    protected GnucashGenerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
 	GnucashGenerJobImpl job = new GnucashGenerJobImpl(jwsdpJob, gcshFile);
 	LOGGER.debug("Generated new generic job: " + job.getID());
 	return job;
     }
 
-    protected GnucashCustomerJobImpl createCustomerJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+    protected GnucashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
 	GnucashCustomerJobImpl job = new GnucashCustomerJobImpl(jwsdpJob, gcshFile);
 	LOGGER.debug("Generated new customer job: " + job.getID());
 	return job;
     }
 
-    protected GnucashVendorJobImpl createVendorJob(final GncV2.GncBook.GncGncJob jwsdpJob) {
+    protected GnucashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
 	GnucashVendorJobImpl job = new GnucashVendorJobImpl(jwsdpJob, gcshFile);
 	LOGGER.debug("Generated new vendor job: " + job.getID());
 	return job;

@@ -9,6 +9,7 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnucashGenerJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
      */
     @SuppressWarnings("exports")
     public GnucashCustomerJobImpl(
-            final GncV2.GncBook.GncGncJob peer,
+            final GncGncJob peer,
             final GnucashFile gncFile) {
         super(peer, gncFile);
     }

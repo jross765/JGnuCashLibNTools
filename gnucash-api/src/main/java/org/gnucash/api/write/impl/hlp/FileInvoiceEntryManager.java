@@ -1,6 +1,6 @@
 package org.gnucash.api.write.impl.hlp;
 
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceEntryImpl;
@@ -25,10 +25,10 @@ public class FileInvoiceEntryManager extends org.gnucash.api.read.impl.hlp.FileI
      *
      * @param jwsdpInvcEntr the xml-object to represent in the entry.
      * @return a new invoice-entry, already registered with this file.
-     * @see FileInvoiceEntryManager#createGenerInvoiceEntry(GncV2.GncBook.GncGncEntry)
+     * @see FileInvoiceEntryManager#createGenerInvoiceEntry(GncGncEntry)
      */
     @Override
-    protected GnucashGenerInvoiceEntryImpl createGenerInvoiceEntry(final GncV2.GncBook.GncGncEntry jwsdpInvcEntr) {
+    protected GnucashGenerInvoiceEntryImpl createGenerInvoiceEntry(final GncGncEntry jwsdpInvcEntr) {
 	GnucashWritableGenerInvoiceEntryImpl entr = new GnucashWritableGenerInvoiceEntryImpl(jwsdpInvcEntr, (GnucashWritableFileImpl) gcshFile);
 	LOGGER.debug("Generated new writable generic invoice entry: " + entr.getID());
 	return entr;

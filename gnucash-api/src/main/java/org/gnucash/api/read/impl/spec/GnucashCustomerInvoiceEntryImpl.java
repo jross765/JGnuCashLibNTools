@@ -10,6 +10,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +23,7 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
   @SuppressWarnings("exports")
   public GnucashCustomerInvoiceEntryImpl(
           final GnucashCustomerInvoice invoice,
-          final GncV2.GncBook.GncGncEntry peer) 
+          final GncGncEntry peer) 
   {
     super(invoice, peer, true);
   }
@@ -30,7 +31,7 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
   @SuppressWarnings("exports")
   public GnucashCustomerInvoiceEntryImpl(
           final GnucashGenerInvoice invoice,
-          final GncV2.GncBook.GncGncEntry peer) throws WrongInvoiceTypeException 
+          final GncGncEntry peer) throws WrongInvoiceTypeException 
   {
     super(invoice, peer, true);
 
@@ -41,7 +42,7 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
   }
 
   @SuppressWarnings("exports")
-  public GnucashCustomerInvoiceEntryImpl(final GncV2.GncBook.GncGncEntry peer, final GnucashFileImpl gncFile) 
+  public GnucashCustomerInvoiceEntryImpl(final GncGncEntry peer, final GnucashFileImpl gncFile) 
   {
     super(peer, gncFile, true);
   }

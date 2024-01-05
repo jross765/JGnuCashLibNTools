@@ -9,6 +9,7 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.GncV2;
 
 /**
@@ -571,5 +572,5 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // ---------------------------------------------------------------
 
   @SuppressWarnings("exports")
-  GncV2.GncBook.GncGncEntry getJwsdpPeer();
+  GncGncEntry getJwsdpPeer();
 }

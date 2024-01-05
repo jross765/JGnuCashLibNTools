@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
@@ -36,7 +36,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncV2.GncBook.GncGncVendor jwsdpPeer;
+    private final GncGncVendor jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -53,7 +53,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * @param gncFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashVendorImpl(final GncV2.GncBook.GncGncVendor peer, final GnucashFile gncFile) {
+    public GnucashVendorImpl(final GncGncVendor peer, final GnucashFile gncFile) {
 	super((peer.getVendorSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getVendorSlots(), gncFile);
 
 	if (peer.getVendorSlots() == null) {
@@ -69,7 +69,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncVendor getJwsdpPeer() {
+    public GncGncVendor getJwsdpPeer() {
 	return jwsdpPeer;
     }
 
@@ -129,7 +129,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshID getTaxTableID() {
-	GncV2.GncBook.GncGncVendor.VendorTaxtable vendTaxtable = jwsdpPeer.getVendorTaxtable();
+	GncGncVendor.VendorTaxtable vendTaxtable = jwsdpPeer.getVendorTaxtable();
 	if (vendTaxtable == null) {
 	    return null;
 	}
@@ -154,7 +154,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * {@inheritDoc}
      */
     public GCshID getTermsID() {
-	GncV2.GncBook.GncGncVendor.VendorTerms vendTerms = jwsdpPeer.getVendorTerms();
+	GncGncVendor.VendorTerms vendTerms = jwsdpPeer.getVendorTerms();
 	if (vendTerms == null) {
 	    return null;
 	}

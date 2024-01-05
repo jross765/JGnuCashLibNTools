@@ -8,7 +8,7 @@ import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
@@ -57,7 +57,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
     @SuppressWarnings("exports")
-    public GnucashWritableCustomerImpl(final GncV2.GncBook.GncGncCustomer jwsdpPeer,
+    public GnucashWritableCustomerImpl(final GncGncCustomer jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
@@ -86,7 +86,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param custID the ID we shall have
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncCustomer createCustomer_int(
+    protected static GncGncCustomer createCustomer_int(
 	    final GnucashWritableFileImpl file,
             final GCshID custID) {
         if ( ! custID.isSet() ) {
@@ -95,7 +95,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     
         ObjectFactory factory = file.getObjectFactory();
     
-        GncV2.GncBook.GncGncCustomer jwsdpCust = file.createGncGncCustomerType();
+        GncGncCustomer jwsdpCust = file.createGncGncCustomerType();
     
         jwsdpCust.setCustTaxincluded("USEGLOBAL");
         jwsdpCust.setVersion(Const.XML_FORMAT_VERSION);
@@ -105,7 +105,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         jwsdpCust.setCustName("no name given");
     
         {
-            GncV2.GncBook.GncGncCustomer.CustGuid id = factory.createGncV2GncBookGncGncCustomerCustGuid();
+            GncGncCustomer.CustGuid id = factory.createGncGncCustomerCustGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
             id.setValue(custID.toString());
             jwsdpCust.setCustGuid(id);
@@ -142,7 +142,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         }
     
         {
-            GncV2.GncBook.GncGncCustomer.CustCurrency currency = factory.createGncV2GncBookGncGncCustomerCustCurrency();
+            GncGncCustomer.CustCurrency currency = factory.createGncGncCustomerCustCurrency();
             currency.setCmdtyId(file.getDefaultCurrencyID());
             currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
             jwsdpCust.setCustCurrency(currency);
@@ -165,7 +165,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
     public void remove() {
-	GncV2.GncBook.GncGncCustomer peer = getJwsdpPeer();
+	GncGncCustomer peer = getJwsdpPeer();
 	(getGnucashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
 	(getGnucashFile()).removeCustomer(this);
     }

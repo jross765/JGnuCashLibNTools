@@ -12,9 +12,8 @@ import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice.InvoiceOwner;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -55,7 +54,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
   /**
    * the JWSDP-object we are facading.
    */
-  protected GncV2.GncBook.GncGncInvoice jwsdpPeer;
+  protected GncGncInvoice jwsdpPeer;
 
   /**
    * The file we belong to.
@@ -113,7 +112,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice
    */
   @SuppressWarnings("exports")
   public GnucashGenerInvoiceImpl(
-          final GncV2.GncBook.GncGncInvoice peer,
+          final GncGncInvoice peer,
           final GnucashFile gncFile) {
       super();
 

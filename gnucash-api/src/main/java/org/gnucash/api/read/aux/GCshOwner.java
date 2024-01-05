@@ -1,6 +1,7 @@
 package org.gnucash.api.read.aux;
 
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncJob;
 
 // ::TODO ::CHECK 
 // Really interface? Or shouldn't it just be a wrapper class
@@ -85,9 +86,9 @@ public interface GCshOwner {
     // -----------------------------------------------------------------
     
     @SuppressWarnings("exports")
-    GncV2.GncBook.GncGncInvoice.InvoiceOwner getInvcOwner() throws WrongOwnerJITypeException;
+    GncGncInvoice.InvoiceOwner getInvcOwner() throws WrongOwnerJITypeException;
 
     @SuppressWarnings("exports")
-    GncV2.GncBook.GncGncJob.JobOwner getJobOwner() throws WrongOwnerJITypeException;
+    GncGncJob.JobOwner getJobOwner() throws WrongOwnerJITypeException;
     
 }

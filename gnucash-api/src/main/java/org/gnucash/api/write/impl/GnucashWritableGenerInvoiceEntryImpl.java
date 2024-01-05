@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -63,7 +63,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws NoSuchFieldException 
      * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
-    protected static GncV2.GncBook.GncGncEntry createCustInvoiceEntry_int(
+    protected static GncGncEntry createCustInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableCustomerInvoiceImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
@@ -83,10 +83,10 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	GnucashWritableFileImpl gcshWFile = (GnucashWritableFileImpl) invc.getFile();
 	ObjectFactory factory = gcshWFile.getObjectFactory();
 
-	GncV2.GncBook.GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
+	GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
 	
 	{
-	    GncV2.GncBook.GncGncEntry.EntryIAcct iacct = factory.createGncV2GncBookGncGncEntryEntryIAcct();
+	    GncGncEntry.EntryIAcct iacct = factory.createGncGncEntryEntryIAcct();
 	    iacct.setType(Const.XML_DATA_TYPE_GUID);
 	    iacct.setValue(acct.getID().toString());
 	    entry.setEntryIAcct(iacct);
@@ -96,7 +96,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	entry.setEntryIDiscType("PERCENT");
 	
 	{
-	    GncV2.GncBook.GncGncEntry.EntryInvoice inv = factory.createGncV2GncBookGncGncEntryEntryInvoice();
+	    GncGncEntry.EntryInvoice inv = factory.createGncGncEntryEntryInvoice();
 	    inv.setType(Const.XML_DATA_TYPE_GUID);
 	    inv.setValue(invc.getID().toString());
 	    entry.setEntryInvoice(inv);
@@ -108,7 +108,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	{
 	    // TODO: use not the first but the default taxtable
-	    GncV2.GncBook.GncGncEntry.EntryITaxtable taxTabRef = factory.createGncV2GncBookGncGncEntryEntryITaxtable();
+	    GncGncEntry.EntryITaxtable taxTabRef = factory.createGncGncEntryEntryITaxtable();
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
@@ -154,7 +154,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws NoSuchFieldException 
      * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
-    protected static GncV2.GncBook.GncGncEntry createVendBillEntry_int(
+    protected static GncGncEntry createVendBillEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableVendorBillImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
@@ -174,17 +174,17 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	GnucashWritableFileImpl gcshWFile = (GnucashWritableFileImpl) invc.getFile();
 	ObjectFactory factory = gcshWFile.getObjectFactory();
 
-	GncV2.GncBook.GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
+	GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
 		
 	{
-	    GncV2.GncBook.GncGncEntry.EntryBAcct iacct = factory.createGncV2GncBookGncGncEntryEntryBAcct();
+	    GncGncEntry.EntryBAcct iacct = factory.createGncGncEntryEntryBAcct();
 	    iacct.setType(Const.XML_DATA_TYPE_GUID);
 	    iacct.setValue(acct.getID().toString());
 	    entry.setEntryBAcct(iacct);
 	}
 
 	{
-	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
+	    GncGncEntry.EntryBill bll = factory.createGncGncEntryEntryBill();
 	    bll.setType(Const.XML_DATA_TYPE_GUID);
 	    bll.setValue(invc.getID().toString());
 	    entry.setEntryBill(bll);
@@ -196,7 +196,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	{
 	    // TODO: use not the first but the default taxtable
-	    GncV2.GncBook.GncGncEntry.EntryBTaxtable taxTabRef = factory.createGncV2GncBookGncGncEntryEntryBTaxtable();
+	    GncGncEntry.EntryBTaxtable taxTabRef = factory.createGncGncEntryEntryBTaxtable();
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
@@ -242,7 +242,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws NoSuchFieldException 
      * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
-    protected static GncV2.GncBook.GncGncEntry createEmplVchEntry_int(
+    protected static GncGncEntry createEmplVchEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableEmployeeVoucherImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
@@ -261,17 +261,17 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	GnucashWritableFileImpl gcshWFile = (GnucashWritableFileImpl) invc.getFile();
 	ObjectFactory factory = gcshWFile.getObjectFactory();
 
-	GncV2.GncBook.GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
+	GncGncEntry entry = createGenerInvoiceEntryCommon(invc, gcshWFile, factory);
 		
 	{
-	    GncV2.GncBook.GncGncEntry.EntryBAcct iacct = factory.createGncV2GncBookGncGncEntryEntryBAcct();
+	    GncGncEntry.EntryBAcct iacct = factory.createGncGncEntryEntryBAcct();
 	    iacct.setType(Const.XML_DATA_TYPE_GUID);
 	    iacct.setValue(acct.getID().toString());
 	    entry.setEntryBAcct(iacct);
 	}
 
 	{
-	    GncV2.GncBook.GncGncEntry.EntryBill bll = factory.createGncV2GncBookGncGncEntryEntryBill();
+	    GncGncEntry.EntryBill bll = factory.createGncGncEntryEntryBill();
 	    bll.setType(Const.XML_DATA_TYPE_GUID);
 	    bll.setValue(invc.getID().toString());
 	    entry.setEntryBill(bll);
@@ -283,7 +283,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	{
 	    // TODO: use not the first but the default taxtable
-	    GncV2.GncBook.GncGncEntry.EntryBTaxtable taxTabRef = factory.createGncV2GncBookGncGncEntryEntryBTaxtable();
+	    GncGncEntry.EntryBTaxtable taxTabRef = factory.createGncGncEntryEntryBTaxtable();
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
@@ -329,7 +329,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @throws NoSuchFieldException 
      * @see {@link #GnucashWritableInvoiceEntryImpl(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}
      */
-    protected static GncV2.GncBook.GncGncEntry createJobInvoiceEntry_int(
+    protected static GncGncEntry createJobInvoiceEntry_int(
 	    final GnucashWritableGenerInvoiceImpl invc, // important: NOT GnucashWritableJobInvoiceImpl
 	    final GnucashAccount acct, 
 	    final FixedPointNumber quantity, 
@@ -353,7 +353,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	return null; // Compiler happy
     }
 
-    private static GncV2.GncBook.GncGncEntry createGenerInvoiceEntryCommon(
+    private static GncGncEntry createGenerInvoiceEntryCommon(
 	    final GnucashWritableGenerInvoiceImpl invc,
 	    final GnucashWritableFileImpl gcshWrtblFile,
 	    final ObjectFactory factory) throws IllegalArgumentException {
@@ -365,10 +365,10 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    throw new IllegalArgumentException("The given invoice has payments and is" + " thus not modifiable");
 	}
 
-	GncV2.GncBook.GncGncEntry entry = gcshWrtblFile.createGncGncEntryType();
+	GncGncEntry entry = gcshWrtblFile.createGncGncEntryType();
 	
 	{
-	    GncV2.GncBook.GncGncEntry.EntryGuid guid = factory.createGncV2GncBookGncGncEntryEntryGuid();
+	    GncGncEntry.EntryGuid guid = factory.createGncGncEntryEntryGuid();
 	    guid.setType(Const.XML_DATA_TYPE_GUID);
 	    guid.setValue(GCshID.getNew().toString());
 	    entry.setEntryGuid(guid);
@@ -377,7 +377,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	entry.setEntryAction(Action.HOURS.getLocaleString());
 	
 	{
-	    GncV2.GncBook.GncGncEntry.EntryDate entryDate = factory.createGncV2GncBookGncGncEntryEntryDate();
+	    GncGncEntry.EntryDate entryDate = factory.createGncGncEntryEntryDate();
 	    ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
 	    String dateTimeStr = dateTime.format(DATE_FORMAT_BOOK);
 	    entryDate.setTsDate(dateTimeStr);
@@ -387,7 +387,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	entry.setEntryDescription("no description");
 	
 	{
-	    GncV2.GncBook.GncGncEntry.EntryEntered entered = factory.createGncV2GncBookGncGncEntryEntryEntered();
+	    GncGncEntry.EntryEntered entered = factory.createGncGncEntryEntryEntered();
 	    ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.now(), ZoneId.systemDefault());
 	    String dateTimeStr = dateTime.format(DATE_FORMAT_BOOK);
 	    entered.setTsDate(dateTimeStr);
@@ -402,12 +402,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * @param gnucashFile the file we belong to
      * @param jwsdpPeer   the JWSDP-object we are facading.
-     * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncV2.GncBook.GncGncEntry,
+     * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry,
      *      GnucashFileImpl)
      */
     @SuppressWarnings("exports")
     public GnucashWritableGenerInvoiceEntryImpl(
-	    final GncV2.GncBook.GncGncEntry jwsdpPeer,
+	    final GncGncEntry jwsdpPeer,
 	    final GnucashWritableFileImpl gnucashFile) {
 	super(jwsdpPeer, gnucashFile, true);
     }
@@ -416,12 +416,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @param invc   the invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
-     *      GncV2.GncBook.GncGncEntry)
+     *      GncGncEntry)
      */
     @SuppressWarnings("exports")
     public GnucashWritableGenerInvoiceEntryImpl(
 	    final GnucashWritableGenerInvoiceImpl invc,
-	    final GncV2.GncBook.GncGncEntry jwsdpPeer) {
+	    final GncGncEntry jwsdpPeer) {
 	super(invc, jwsdpPeer, true);
 
 	this.invoice = invc;
@@ -431,12 +431,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * @param invc   the invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
-     *      GncV2.GncBook.GncGncEntry)
+     *      GncGncEntry)
      */
     @SuppressWarnings("exports")
     public GnucashWritableGenerInvoiceEntryImpl(
 	    final GnucashWritableGenerInvoiceImpl invc,
-	    final GncV2.GncBook.GncGncEntry jwsdpPeer,
+	    final GncGncEntry jwsdpPeer,
 	    final boolean addEntrToInvc) {
 	super(invc, jwsdpPeer, addEntrToInvc);
 
@@ -625,7 +625,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    if (getJwsdpPeer().getEntryITaxtable() == null) {
 		getJwsdpPeer().setEntryITaxtable(
 			((GnucashWritableFileImpl) getGenerInvoice().getFile())
-				.getObjectFactory().createGncV2GncBookGncGncEntryEntryITaxtable());
+				.getObjectFactory().createGncGncEntryEntryITaxtable());
 		getJwsdpPeer().getEntryITaxtable().setType(Const.XML_DATA_TYPE_GUID);
 	    }
 	    getJwsdpPeer().getEntryITaxtable().setValue(taxTab.getID().toString());
@@ -710,7 +710,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    if (getJwsdpPeer().getEntryBTaxtable() == null) {
 		getJwsdpPeer().setEntryBTaxtable(
 			((GnucashWritableFileImpl) getGenerInvoice().getFile())
-				.getObjectFactory().createGncV2GncBookGncGncEntryEntryBTaxtable());
+				.getObjectFactory().createGncGncEntryEntryBTaxtable());
 		getJwsdpPeer().getEntryBTaxtable().setType(Const.XML_DATA_TYPE_GUID);
 	    }
 	    getJwsdpPeer().getEntryBTaxtable().setValue(taxTab.getID().toString());
@@ -793,7 +793,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	    if (getJwsdpPeer().getEntryBTaxtable() == null) {
 		getJwsdpPeer().setEntryBTaxtable(
 			((GnucashWritableFileImpl) getGenerInvoice().getFile())
-				.getObjectFactory().createGncV2GncBookGncGncEntryEntryBTaxtable());
+				.getObjectFactory().createGncGncEntryEntryBTaxtable());
 		getJwsdpPeer().getEntryBTaxtable().setType(Const.XML_DATA_TYPE_GUID);
 	    }
 	    getJwsdpPeer().getEntryBTaxtable().setValue(taxTab.getID().toString());

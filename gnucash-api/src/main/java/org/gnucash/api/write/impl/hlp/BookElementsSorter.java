@@ -2,9 +2,17 @@ package org.gnucash.api.write.impl.hlp;
 
 import java.util.Comparator;
 
-
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
+import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.generated.GncGncBillTerm;
+import org.gnucash.api.generated.GncGncCustomer;
+import org.gnucash.api.generated.GncGncEmployee;
+import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.generated.GncGncTaxTable;
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
@@ -33,7 +41,7 @@ public class BookElementsSorter implements Comparator<Object> {
 	 * @return int > 0
 	 */
 	private int getType(final Object element) {
-		if (element instanceof GncV2.GncBook.GncCommodity) {
+		if (element instanceof GncCommodity) {
 			return 1;
 		} else if (element instanceof GncV2.GncBook.GncPricedb) {
 			return 2;
@@ -47,21 +55,21 @@ public class BookElementsSorter implements Comparator<Object> {
 			return 6;
 		} else if (element instanceof GncV2.GncBook.GncSchedxaction) {
 			return 7;
-		} else if (element instanceof GncV2.GncBook.GncGncJob) {
+		} else if (element instanceof GncGncJob) {
 			return 8;
-		} else if (element instanceof GncV2.GncBook.GncGncTaxTable) {
+		} else if (element instanceof GncGncTaxTable) {
 			return 9;
-		} else if (element instanceof GncV2.GncBook.GncGncInvoice) {
+		} else if (element instanceof GncGncInvoice) {
 			return 10;
-		} else if (element instanceof GncV2.GncBook.GncGncCustomer) {
+		} else if (element instanceof GncGncCustomer) {
 			return 11;
-		} else if (element instanceof GncV2.GncBook.GncGncEmployee) {
+		} else if (element instanceof GncGncEmployee) {
 			return 12;
-		} else if (element instanceof GncV2.GncBook.GncGncEntry) {
+		} else if (element instanceof GncGncEntry) {
 			return 13;
-		} else if (element instanceof GncV2.GncBook.GncGncBillTerm) {
+		} else if (element instanceof GncGncBillTerm) {
 			return 14;
-		} else if (element instanceof GncV2.GncBook.GncGncVendor) {
+		} else if (element instanceof GncGncVendor) {
 			return 15;
 		} else if (element instanceof GncV2.GncBook.GncPricedb.Price) {
 			return 16;

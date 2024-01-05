@@ -1,7 +1,7 @@
 package org.gnucash.api.write.impl.spec;
 
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
@@ -31,11 +31,11 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	/**
 	 * @param file      the file we belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncV2.GncBook.GncGncEntry, GnucashFileImpl)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry, GnucashFileImpl)
 	 */
 	@SuppressWarnings("exports")
 	public GnucashWritableJobInvoiceEntryImpl(
-		final GncV2.GncBook.GncGncEntry jwsdpPeer, 
+		final GncGncEntry jwsdpPeer, 
 		final GnucashWritableFileImpl file) {
 		super(jwsdpPeer, file);
 	}
@@ -43,12 +43,12 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	/**
 	 * @param invc   tne job invoice this entry shall belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncV2.GncBook.GncGncEntry)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncGncEntry)
 	 */
 //	@SuppressWarnings("exports")
 //	public GnucashWritableJobInvoiceEntryImpl(
 //		final GnucashWritableJobInvoiceImpl invc,
-//		final GncV2.GncBook.GncGncEntry jwsdpPeer) {
+//		final GncGncEntry jwsdpPeer) {
 //		super(invc, jwsdpPeer);
 //		
 //		this.myInvoice = invc;

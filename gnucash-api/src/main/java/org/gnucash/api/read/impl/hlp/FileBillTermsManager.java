@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashFileImpl;
@@ -37,10 +38,10 @@ public class FileBillTermsManager {
 
         List<Object> bookElements = pRootElement.getGncBook().getBookElements();
         for (Object bookElement : bookElements) {
-            if (!(bookElement instanceof GncV2.GncBook.GncGncBillTerm)) {
+            if (!(bookElement instanceof GncGncBillTerm)) {
                 continue;
             }
-            GncV2.GncBook.GncGncBillTerm jwsdpPeer = (GncV2.GncBook.GncGncBillTerm) bookElement;
+            GncGncBillTerm jwsdpPeer = (GncGncBillTerm) bookElement;
             GCshBillTermsImpl billTerms = new GCshBillTermsImpl(jwsdpPeer, gcshFile);
             bllTrmMap.put(billTerms.getID(), billTerms);
         }
@@ -52,7 +53,7 @@ public class FileBillTermsManager {
      * @param jwsdpCust the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GCshTaxTable to wrap the given JAXB object.
      */
-    protected GCshBillTermsImpl createBillTerms(final GncV2.GncBook.GncGncBillTerm jwsdpBllTrm) {
+    protected GCshBillTermsImpl createBillTerms(final GncGncBillTerm jwsdpBllTrm) {
 	GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm, gcshFile);
 	LOGGER.debug("Generated new bill terms: " + bllTrm.getID());
 	return bllTrm;

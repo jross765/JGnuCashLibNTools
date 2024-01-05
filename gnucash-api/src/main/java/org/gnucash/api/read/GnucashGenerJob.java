@@ -5,7 +5,8 @@ import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncJob.JobOwner;
+import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
@@ -27,7 +28,7 @@ public interface GnucashGenerJob {
     // -----------------------------------------------------------------
 
     @SuppressWarnings("exports")
-    GncV2.GncBook.GncGncJob getJwsdpPeer();
+    GncGncJob getJwsdpPeer();
 
     /**
      * The gnucash-file is the top-level class to contain everything.

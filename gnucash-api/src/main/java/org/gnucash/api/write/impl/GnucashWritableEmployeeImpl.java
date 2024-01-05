@@ -8,7 +8,7 @@ import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -56,7 +56,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
     @SuppressWarnings("exports")
-    public GnucashWritableEmployeeImpl(final GncV2.GncBook.GncGncEmployee jwsdpPeer,
+    public GnucashWritableEmployeeImpl(final GncGncEmployee jwsdpPeer,
 	    final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
@@ -85,7 +85,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param guid the ID we shall have
      * @return a new jwsdp-peer already entered into the jwsdp-peer of the file
      */
-    protected static GncV2.GncBook.GncGncEmployee createEmployee_int(
+    protected static GncGncEmployee createEmployee_int(
 	    final GnucashWritableFileImpl file,
             final GCshID emplID) {
         if ( ! emplID.isSet() ) {
@@ -94,13 +94,13 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     
         ObjectFactory factory = file.getObjectFactory();
     
-        GncV2.GncBook.GncGncEmployee jwsdpEmpl = file.createGncGncEmployeeType();
+        GncGncEmployee jwsdpEmpl = file.createGncGncEmployeeType();
     
         jwsdpEmpl.setVersion(Const.XML_FORMAT_VERSION);
         jwsdpEmpl.setEmployeeUsername("no user name given");
     
         {
-            GncV2.GncBook.GncGncEmployee.EmployeeGuid id = factory.createGncV2GncBookGncGncEmployeeEmployeeGuid();
+            GncGncEmployee.EmployeeGuid id = factory.createGncGncEmployeeEmployeeGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
             id.setValue(emplID.toString());
             jwsdpEmpl.setEmployeeGuid(id);
@@ -143,7 +143,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
         }
     
         {
-            GncV2.GncBook.GncGncEmployee.EmployeeCurrency currency = factory.createGncV2GncBookGncGncEmployeeEmployeeCurrency();
+            GncGncEmployee.EmployeeCurrency currency = factory.createGncGncEmployeeEmployeeCurrency();
             currency.setCmdtyId(file.getDefaultCurrencyID());
             currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
             jwsdpEmpl.setEmployeeCurrency(currency);
@@ -166,7 +166,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
     public void remove() {
-	GncV2.GncBook.GncGncEmployee peer = getJwsdpPeer();
+	GncGncEmployee peer = getJwsdpPeer();
 	(getGnucashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
 	(getGnucashFile()).removeEmployee(this);
     }

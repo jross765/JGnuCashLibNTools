@@ -1,5 +1,6 @@
 package org.gnucash.api.write.impl.hlp;
 
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -25,10 +26,10 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
      *
      * @param jwsdpCust the jwsdp-object the customer shall wrap
      * @return the new vendor
-     * @see FileVendorManager#createVendor(GncV2.GncBook.GncGncCustomer)
+     * @see FileVendorManager#createVendor(GncGncCustomer)
      */
     @Override
-    protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
+    protected GnucashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
 	GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, (GnucashWritableFileImpl) gcshFile);
 	LOGGER.debug("Generated new writable vendor: " + vend.getID());
 	return vend;

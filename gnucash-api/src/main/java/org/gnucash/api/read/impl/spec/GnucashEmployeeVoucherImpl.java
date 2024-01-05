@@ -17,7 +17,7 @@ import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncInvoice;
+import org.gnucash.api.generated.GncGncInvoice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

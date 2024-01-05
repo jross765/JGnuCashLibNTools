@@ -25,10 +25,18 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncCountData;
+import org.gnucash.api.generated.GncGncBillTerm;
+import org.gnucash.api.generated.GncGncCustomer;
+import org.gnucash.api.generated.GncGncEmployee;
+import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.generated.GncGncTaxTable;
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncGncBillTerm.BilltermParent;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -49,13 +57,13 @@ import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
+import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
@@ -413,23 +421,23 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
         	cntAccount++;
             } else if (element instanceof GncTransaction) {
         	cntTransaction++;
-            } else if (element instanceof GncV2.GncBook.GncGncInvoice) {
+            } else if (element instanceof GncGncInvoice) {
         	cntInvoice++;
-            } else if (element instanceof GncV2.GncBook.GncGncEntry) {
+            } else if (element instanceof GncGncEntry) {
         	cntIncEntry++;
-            } else if (element instanceof GncV2.GncBook.GncGncCustomer) {
+            } else if (element instanceof GncGncCustomer) {
         	cntCustomer++;
-            } else if (element instanceof GncV2.GncBook.GncGncVendor) {
+            } else if (element instanceof GncGncVendor) {
         	cntVendor++;
-            } else if (element instanceof GncV2.GncBook.GncGncEmployee) {
+            } else if (element instanceof GncGncEmployee) {
         	cntEmployee++;
-            } else if (element instanceof GncV2.GncBook.GncGncJob) {
+            } else if (element instanceof GncGncJob) {
         	cntJob++;
-            } else if (element instanceof GncV2.GncBook.GncGncTaxTable) {
+            } else if (element instanceof GncGncTaxTable) {
         	cntTaxTable++;
-            } else if (element instanceof GncV2.GncBook.GncGncBillTerm) {
+            } else if (element instanceof GncGncBillTerm) {
         	cntBillTerm++;
-            } else if (element instanceof GncV2.GncBook.GncCommodity) {
+            } else if (element instanceof GncCommodity) {
             	cntCommodity++;
             } else if (element instanceof GncV2.GncBook.GncPricedb) {
             	cntPrice += ((GncV2.GncBook.GncPricedb) element).getPrice().size();
@@ -1271,8 +1279,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	}
 	if (getCurrencyTable().getConversionFactor(pCmdtySpace, pCmdtyId) == null) {
 
-	    // GncV2.GncBook.GncCommodity newCurrency = getObjectFactory().createGncV2GncBookGncCommodity();
-	    GncV2.GncBook.GncCommodity newCurrency = createGncGncCommodityType();
+	    // GncCommodity newCurrency = getObjectFactory().createGncV2GncBookGncCommodity();
+	    GncCommodity newCurrency = createGncGncCommodityType();
 	    newCurrency.setCmdtyFraction(pCmdtyNameFraction);
 	    newCurrency.setCmdtySpace(pCmdtySpace);
 	    newCurrency.setCmdtyId(pCmdtyId);
@@ -1482,43 +1490,43 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     // ----------------------------
 
-    protected GncV2.GncBook.GncGncInvoice createGncGncInvoiceType() {
-	GncV2.GncBook.GncGncInvoice retval = getObjectFactory().createGncV2GncBookGncGncInvoice();
+    protected GncGncInvoice createGncGncInvoiceType() {
+	GncGncInvoice retval = getObjectFactory().createGncGncInvoice();
 	incrementCountDataFor("gnc:GncInvoice");
 	return retval;
     }
 
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncEntry createGncGncEntryType() {
-	GncV2.GncBook.GncGncEntry retval = getObjectFactory().createGncV2GncBookGncGncEntry();
+    public GncGncEntry createGncGncEntryType() {
+	GncGncEntry retval = getObjectFactory().createGncGncEntry();
 	incrementCountDataFor("gnc:GncEntry");
 	return retval;
     }
 
     // ----------------------------
 
-    protected GncV2.GncBook.GncGncCustomer createGncGncCustomerType() {
-	GncV2.GncBook.GncGncCustomer retval = getObjectFactory().createGncV2GncBookGncGncCustomer();
+    protected GncGncCustomer createGncGncCustomerType() {
+	GncGncCustomer retval = getObjectFactory().createGncGncCustomer();
 	incrementCountDataFor("gnc:GncCustomer");
 	return retval;
     }
 
-    protected GncV2.GncBook.GncGncVendor createGncGncVendorType() {
-	GncV2.GncBook.GncGncVendor retval = getObjectFactory().createGncV2GncBookGncGncVendor();
+    protected GncGncVendor createGncGncVendorType() {
+	GncGncVendor retval = getObjectFactory().createGncGncVendor();
 	incrementCountDataFor("gnc:GncVendor");
 	return retval;
     }
 
-    protected GncV2.GncBook.GncGncEmployee createGncGncEmployeeType() {
-	GncV2.GncBook.GncGncEmployee retval = getObjectFactory().createGncV2GncBookGncGncEmployee();
+    protected GncGncEmployee createGncGncEmployeeType() {
+	GncGncEmployee retval = getObjectFactory().createGncGncEmployee();
 	incrementCountDataFor("gnc:GncEmployee");
 	return retval;
     }
 
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncJob createGncGncJobType() {
+    public GncGncJob createGncGncJobType() {
  // ====== <--- sic
-	GncV2.GncBook.GncGncJob retval = getObjectFactory().createGncV2GncBookGncGncJob();
+	GncGncJob retval = getObjectFactory().createGncGncJob();
 	incrementCountDataFor("gnc:GncJob");
 	return retval;
     }
@@ -1527,8 +1535,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
     
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncCommodity createGncGncCommodityType() {
-	GncV2.GncBook.GncCommodity retval = getObjectFactory().createGncV2GncBookGncCommodity();
+    public GncCommodity createGncGncCommodityType() {
+	GncCommodity retval = getObjectFactory().createGncCommodity();
 	incrementCountDataFor("commodity");
 	return retval;
     }
@@ -1543,20 +1551,20 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     // ----------------------------
 
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncBillTerm.BilltermParent createGncGncBillTermParentType() {
-	GncV2.GncBook.GncGncBillTerm.BilltermParent retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermParent();
+    public GncGncBillTerm.BilltermParent createGncGncBillTermParentType() {
+	GncGncBillTerm.BilltermParent retval = getObjectFactory().createGncGncBillTermBilltermParent();
 	return retval;
     }
     
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncBillTerm.BilltermDays createGncGncBillTermDaysType() {
-	GncV2.GncBook.GncGncBillTerm.BilltermDays retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermDays();
+    public GncGncBillTerm.BilltermDays createGncGncBillTermDaysType() {
+	GncGncBillTerm.BilltermDays retval = getObjectFactory().createGncGncBillTermBilltermDays();
 	return retval;
     }
     
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncBillTerm.BilltermProximo createGncGncBillTermProximoType() {
-	GncV2.GncBook.GncGncBillTerm.BilltermProximo retval = getObjectFactory().createGncV2GncBookGncGncBillTermBilltermProximo();
+    public GncGncBillTerm.BilltermProximo createGncGncBillTermProximoType() {
+	GncGncBillTerm.BilltermProximo retval = getObjectFactory().createGncGncBillTermBilltermProximo();
 	return retval;
     }
     

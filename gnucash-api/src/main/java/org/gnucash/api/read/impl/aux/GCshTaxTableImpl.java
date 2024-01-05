@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
@@ -27,7 +27,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * the JWSDP-object we are facading.
      */
-    protected final GncV2.GncBook.GncGncTaxTable jwsdpPeer;
+    protected final GncGncTaxTable jwsdpPeer;
 
     /**
      * the file we belong to.
@@ -50,7 +50,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @SuppressWarnings("exports")
     public GCshTaxTableImpl(
-	    final GncV2.GncBook.GncGncTaxTable peer, 
+	    final GncGncTaxTable peer, 
 	    final GnucashFile gncFile) {
 	super();
 	
@@ -65,7 +65,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @return The JWSDP-Object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncGncTaxTable getJwsdpPeer() {
+    public GncGncTaxTable getJwsdpPeer() {
 	return jwsdpPeer;
     }
 
@@ -113,7 +113,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public GCshID getParentID() {
-	GncV2.GncBook.GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
+	GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
 	if (parent == null) {
 	    return null;
 	}
@@ -136,11 +136,11 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     @Override
     public Collection<GCshTaxTableEntry> getEntries() {
 	if (entries == null) {
-	    GncV2.GncBook.GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();
+	    GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();
 	    entries = new ArrayList<>(jwsdpEntries.getGncGncTaxTableEntry().size());
-	    for (Iterator<GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry> iter = jwsdpEntries
+	    for (Iterator<GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry> iter = jwsdpEntries
 		    .getGncGncTaxTableEntry().iterator(); iter.hasNext();) {
-		GncV2.GncBook.GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element = iter.next();
+		GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element = iter.next();
 
 		entries.add(new GCshTaxTableEntryImpl(element, myFile));
 	    }

@@ -12,6 +12,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,10 +41,10 @@ public class FileVendorManager {
 
 	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
 	    Object bookElement = iter.next();
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncVendor)) {
+	    if (!(bookElement instanceof GncGncVendor)) {
 		continue;
 	    }
-	    GncV2.GncBook.GncGncVendor jwsdpVend = (GncV2.GncBook.GncGncVendor) bookElement;
+	    GncGncVendor jwsdpVend = (GncGncVendor) bookElement;
 
 	    try {
 		GnucashVendorImpl vend = createVendor(jwsdpVend);
@@ -61,7 +62,7 @@ public class FileVendorManager {
      * @param jwsdpVend the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GnucashVendor to wrap the given JAXB object.
      */
-    protected GnucashVendorImpl createVendor(final GncV2.GncBook.GncGncVendor jwsdpVend) {
+    protected GnucashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
 	GnucashVendorImpl vend = new GnucashVendorImpl(jwsdpVend, gcshFile);
 	LOGGER.debug("Generated new vendor: " + vend.getID());
 	return vend;

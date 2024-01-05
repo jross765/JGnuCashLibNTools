@@ -21,11 +21,20 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
+import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.generated.GncGncBillTerm;
+import org.gnucash.api.generated.GncGncCustomer;
+import org.gnucash.api.generated.GncGncEmployee;
+import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.GncGncInvoice;
+import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.generated.GncGncTaxTable;
+import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncV2.GncBook.GncPricedb;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.GnucashCommodity;
@@ -35,6 +44,7 @@ import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.GnucashVendor;
@@ -1226,25 +1236,25 @@ public class GnucashFileImpl implements GnucashFile,
 		continue;
 	    } else if (bookElement instanceof GncTransaction) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncInvoice) {
+	    } else if (bookElement instanceof GncGncInvoice) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncEntry) {
+	    } else if (bookElement instanceof GncGncEntry) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncCustomer) {
+	    } else if (bookElement instanceof GncGncCustomer) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncVendor) {
+	    } else if (bookElement instanceof GncGncVendor) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncEmployee) {
+	    } else if (bookElement instanceof GncGncEmployee) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncJob) {
+	    } else if (bookElement instanceof GncGncJob) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncCommodity) {
+	    } else if (bookElement instanceof GncCommodity) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncTaxTable) {
+	    } else if (bookElement instanceof GncGncTaxTable) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncBillTerm) {
+	    } else if (bookElement instanceof GncGncBillTerm) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncGncVendor.VendorTerms) {
+	    } else if (bookElement instanceof GncGncVendor.VendorTerms) {
 		continue;
 	    } else if (bookElement instanceof GncV2.GncBook.GncPricedb) {
 		continue;
@@ -1285,7 +1295,7 @@ public class GnucashFileImpl implements GnucashFile,
 	}
     }
 
-    private void loadPriceDatabaseCore(GncV2.GncBook.GncPricedb priceDB)
+    private void loadPriceDatabaseCore(GncPricedb priceDB)
 	    throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 //	getCurrencyTable().clear();
 //	getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 

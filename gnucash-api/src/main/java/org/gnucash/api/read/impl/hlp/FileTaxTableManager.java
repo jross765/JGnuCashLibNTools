@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncTaxTable;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
-import org.gnucash.api.generated.GncV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +38,11 @@ public class FileTaxTableManager {
 
 	List<Object> bookElements = pRootElement.getGncBook().getBookElements();
 	for (Object bookElement : bookElements) {
-	    if (!(bookElement instanceof GncV2.GncBook.GncGncTaxTable)) {
+	    if (!(bookElement instanceof GncGncTaxTable)) {
 		continue;
 	    }
 		
-	    GncV2.GncBook.GncGncTaxTable jwsdpPeer = (GncV2.GncBook.GncGncTaxTable) bookElement;
+	    GncGncTaxTable jwsdpPeer = (GncGncTaxTable) bookElement;
 	    GCshTaxTableImpl taxTab = createTaxTable(jwsdpPeer);
 	    taxTabMap.put(taxTab.getID(), taxTab);
 	}
@@ -53,7 +54,7 @@ public class FileTaxTableManager {
      * @param jwsdpCust the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GCshTaxTable to wrap the given JAXB object.
      */
-    protected GCshTaxTableImpl createTaxTable(final GncV2.GncBook.GncGncTaxTable jwsdpTaxTab) {
+    protected GCshTaxTableImpl createTaxTable(final GncGncTaxTable jwsdpTaxTab) {
 	GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpTaxTab, gcshFile);
 	LOGGER.debug("Generated new tax table: " + taxTab.getID());
 	return taxTab;

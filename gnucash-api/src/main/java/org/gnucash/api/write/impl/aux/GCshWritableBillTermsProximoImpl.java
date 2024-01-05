@@ -1,6 +1,6 @@
 package org.gnucash.api.write.impl.aux;
 
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.impl.aux.GCshBillTermsProximoImpl;
 import org.gnucash.api.write.GnucashWritableFile;
@@ -21,7 +21,7 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
 
     @SuppressWarnings("exports")
     public GCshWritableBillTermsProximoImpl(
-	    final GncV2.GncBook.GncGncBillTerm.BilltermProximo jwsdpPeer, 
+	    final GncGncBillTerm.BilltermProximo jwsdpPeer, 
 	    final GnucashWritableFile gncFile) {
 	super(jwsdpPeer, gncFile);
     }
