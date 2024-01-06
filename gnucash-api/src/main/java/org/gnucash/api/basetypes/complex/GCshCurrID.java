@@ -129,15 +129,12 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 	String nameSpaceLoc = str.substring(0, posSep).trim();
 	String currSecCodeLoc = str.substring(posSep + 1, str.length()).trim();
 	
-	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) )
-	{
+	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
 	    result.setType(Type.CURRENCY);
 	    result.setNameSpace(nameSpaceLoc);
 	    result.setCode(currSecCodeLoc);
 	    result.setCurrency(Currency.getInstance(currSecCodeLoc));
-	}	
-	else 
-	{
+	} else {
 	    throw new InvalidCmdtyCurrIDException();
 	}
 	

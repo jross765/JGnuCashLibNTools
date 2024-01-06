@@ -117,16 +117,16 @@ public class TestGnucashCustomerInvoiceImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(1327.60, invcGen.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(1327.60, invcSpec.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invcGen.getCustInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invcSpec.getCustInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(1327.60, ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes().doubleValue(),
 		ConstTest.DIFF_TOLERANCE);
 
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(1327.60, invcGen.getInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(1327.60, invcSpec.getInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invcGen.getCustInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invcSpec.getCustInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(1327.60, ((SpecInvoiceCommon) invcSpec).getAmountWithTaxes().doubleValue(),
 		ConstTest.DIFF_TOLERANCE);
     }
@@ -158,8 +158,8 @@ public class TestGnucashCustomerInvoiceImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(true, invcGen.isInvcFullyPaid());
-	assertEquals(true, invcSpec.isInvcFullyPaid());
+	assertEquals(true, invcGen.isCustInvcFullyPaid());
+	assertEquals(true, invcSpec.isCustInvcFullyPaid());
 	assertEquals(true, ((SpecInvoiceCommon) invcSpec).isFullyPaid());
     }
 

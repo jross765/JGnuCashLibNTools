@@ -1,9 +1,5 @@
 package org.gnucash.api.read.impl;
 
-//other imports
-
-//automatically created logger for debug and error -output
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;

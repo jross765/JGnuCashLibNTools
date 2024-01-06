@@ -6,20 +6,20 @@ import org.gnucash.api.numbers.FixedPointNumber;
 
 public interface SimplePriceTable {
 
-    public FixedPointNumber getConversionFactor(final String code);
+    FixedPointNumber getConversionFactor(final String code);
 
-    public void setConversionFactor(final String code, final FixedPointNumber factor);
-
-    // ---------------------------------------------------------------
-
-    public boolean convertFromBaseCurrency(FixedPointNumber value, final String code);
-
-    public boolean convertToBaseCurrency(FixedPointNumber value, final String code);
+    void setConversionFactor(final String code, final FixedPointNumber factor);
 
     // ---------------------------------------------------------------
 
-    public Collection<String> getCurrencies();
+    boolean convertFromBaseCurrency(FixedPointNumber value, final String code);
 
-    public void clear();
+    boolean convertToBaseCurrency(FixedPointNumber value, final String code);
+
+    // ---------------------------------------------------------------
+
+    Collection<String> getCurrencies();
+
+    void clear();
 
 }

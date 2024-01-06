@@ -116,9 +116,9 @@ public class TestGnucashGenerInvoiceImpl {
 	invc = gcshFile.getGenerInvoiceByID(INVC_1_ID);
 	assertNotEquals(null, invc);
 
-	assertEquals(1327.60, invc.getInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invc.getCustInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(1327.60, invc.getInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(1327.60, invc.getCustInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class TestGnucashGenerInvoiceImpl {
 	assertEquals("29557cfdf4594eb68b1a1b710722f991",
 		((GnucashTransaction) trxList.toArray()[0]).getID().toString());
 
-	assertEquals(true, invc.isInvcFullyPaid());
+	assertEquals(true, invc.isCustInvcFullyPaid());
     }
 
     // -----------------------------------------------------------------
@@ -202,10 +202,10 @@ public class TestGnucashGenerInvoiceImpl {
 	invc = gcshFile.getGenerInvoiceByID(INVC_4_ID);
 	assertNotEquals(null, invc);
 
-	assertEquals(41.40, invc.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, invc.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	// Note: due to (purposefully) incorrect booking, the gross amount
 	// of this bill is *not* 49.27 EUR, but 41.40 EUR (its net amount).
-	assertEquals(41.40, invc.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, invc.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
     @Test
@@ -213,8 +213,8 @@ public class TestGnucashGenerInvoiceImpl {
 	invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
 	assertNotEquals(null, invc);
 
-	assertEquals(79.11, invc.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(94.14, invc.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(79.11, invc.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(94.14, invc.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
     @Test
@@ -232,7 +232,7 @@ public class TestGnucashGenerInvoiceImpl {
 //    assertEquals("xxx", 
 //                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getID());
 
-	assertEquals(false, invc.isBillFullyPaid());
+	assertEquals(false, invc.isVendBllFullyPaid());
     }
 
     @Test
@@ -248,7 +248,7 @@ public class TestGnucashGenerInvoiceImpl {
 	assertEquals("ccff780b18294435bf03c6cb1ac325c1",
 		((GnucashTransaction) trxList.toArray()[0]).getID().toString());
 
-	assertEquals(true, invc.isBillFullyPaid());
+	assertEquals(true, invc.isVendBllFullyPaid());
     }
 
     @Test

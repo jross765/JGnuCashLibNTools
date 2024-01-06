@@ -269,7 +269,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	GnucashWritableVendorBillEntry entry = createVendBillEntry(acct, 
+	GnucashWritableVendorBillEntry entry = createVendBllEntry(acct, 
 		                                                   singleUnitPrice, quantity);
 	return entry;
     }
@@ -292,7 +292,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final String taxTabName) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	GnucashWritableVendorBillEntry entry = createVendBillEntry(acct, 
+	GnucashWritableVendorBillEntry entry = createVendBllEntry(acct, 
 		                                                   singleUnitPrice, quantity, 
 		                                                   taxTabName);
 	return entry;
@@ -316,7 +316,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	    final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	GnucashWritableVendorBillEntry entry = createVendBillEntry(acct, 
+	GnucashWritableVendorBillEntry entry = createVendBllEntry(acct, 
 		                                                   singleUnitPrice, quantity, 
 		                                                   taxTab);
 	LOGGER.info("createEntry: Created vendor bill entry: " + entry.getID());

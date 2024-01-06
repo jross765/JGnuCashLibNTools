@@ -6,11 +6,10 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.generated.GncCommodity;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.read.GnucashPrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

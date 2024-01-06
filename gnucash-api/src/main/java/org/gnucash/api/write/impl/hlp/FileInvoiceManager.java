@@ -70,7 +70,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	    GnucashWritableGenerInvoiceImpl wrtblInvc = new GnucashWritableGenerInvoiceImpl((GnucashGenerInvoiceImpl) invc);
 	    if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
-		    if (wrtblInvc.isInvcFullyPaid()) {
+		    if (wrtblInvc.isCustInvcFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -79,7 +79,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		try {
-		    if (wrtblInvc.isBillFullyPaid()) {
+		    if (wrtblInvc.isVendBllFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -88,7 +88,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
 		try {
-		    if (wrtblInvc.isVoucherFullyPaid()) {
+		    if (wrtblInvc.isEmplVchFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -97,7 +97,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		try {
-		    if (wrtblInvc.isJobFullyPaid()) {
+		    if (wrtblInvc.isJobInvcFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -119,7 +119,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	    GnucashWritableGenerInvoiceImpl wrtblInvc = new GnucashWritableGenerInvoiceImpl((GnucashGenerInvoiceImpl) invc);
 	    if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
-		    if (wrtblInvc.isNotInvcFullyPaid()) {
+		    if (wrtblInvc.isNotCustInvcFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -128,7 +128,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		try {
-		    if (wrtblInvc.isNotBillFullyPaid()) {
+		    if (wrtblInvc.isNotVendBllFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -137,7 +137,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
 		try {
-		    if (wrtblInvc.isNotVoucherFullyPaid()) {
+		    if (wrtblInvc.isNotEmplVchFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -146,7 +146,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		}
 	    } else if ( wrtblInvc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		try {
-		    if (wrtblInvc.isNotJobFullyPaid()) {
+		    if (wrtblInvc.isNotInvcJobFullyPaid()) {
 			retval.add(wrtblInvc);
 		    }
 		} catch (WrongInvoiceTypeException e) {

@@ -1,7 +1,5 @@
 package org.gnucash.api.read;
 
-//other imports
-
 import java.util.Collection;
 
 //automatically created logger for debug and error -output

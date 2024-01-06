@@ -5,69 +5,76 @@ import java.time.ZonedDateTime;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Cust;
+import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Empl;
+import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Job;
+import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Vend;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.generated.GncGncEntry;
-import org.gnucash.api.generated.GncV2;
 
 /**
  * Entry-Line in an invoice stating one position
  * with it's name, single-unit-price and count.
  */
-public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoiceEntry> {
+public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoiceEntry>,
+                                                  GnucashGenerInvoiceEntry_Cust,
+                                                  GnucashGenerInvoiceEntry_Vend,
+                                                  GnucashGenerInvoiceEntry_Empl,
+                                                  GnucashGenerInvoiceEntry_Job
+{
 
-  // For the following enumerations cf.:
-  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
-  public enum Action {
+    // For the following enumerations cf.:
+    // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
+    public enum Action {
       
-      // ::MAGIC (actually kind of "half-magic")
-      JOB      ("INVC_ENTR_ACTION_JOB"),
-      MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
-      HOURS    ("INVC_ENTR_ACTION_HOURS");
+	// ::MAGIC (actually kind of "half-magic")
+	JOB      ("INVC_ENTR_ACTION_JOB"),
+	MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
+	HOURS    ("INVC_ENTR_ACTION_HOURS");
       
-      // ---
+	// ---
 
-      private String code = "UNSET";
+	private String code = "UNSET";
 	
-      // ---
+	// ---
 	
-      Action(String code) {
-	  this.code = code;
-      }
+	Action(String code) {
+	    this.code = code;
+	}
 
-      // ---
+	// ---
 	
-      public String getCode() {
-	  return code;
-      }
+	public String getCode() {
+	    return code;
+	}
 	
-      public String getLocaleString() throws IllegalArgumentException {
-	  return getLocaleString(Locale.getDefault());
-      }
+	public String getLocaleString() throws IllegalArgumentException {
+	    return getLocaleString(Locale.getDefault());
+	}
 
-      public String getLocaleString(Locale lcl) throws IllegalArgumentException {
-	  try {
-	      Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-	      Field fld = cls.getDeclaredField(code);
-	      return (String) fld.get(null);
-	  } catch ( Exception exc ) {
-	      throw new MappingException("Could not map string '" + code + "' to locale-specific string");
-	  }
-      }
+	public String getLocaleString(Locale lcl) throws IllegalArgumentException {
+	    try {
+		Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
+		Field fld = cls.getDeclaredField(code);
+		return (String) fld.get(null);
+	    } catch ( Exception exc ) {
+		throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+	    }
+	}
 		
-      // no typo!
-      public static Action valueOff(String code) throws IllegalArgumentException {
-	  for ( Action val : values() ) {
-	      if ( val.getLocaleString().equals(code) ) {
-		  return val;
-	      }
-	  }
-	    
-	  return null;
-      }
-  }
+	// no typo!
+	public static Action valueOff(String code) throws IllegalArgumentException {
+	    for ( Action val : values() ) {
+		if ( val.getLocaleString().equals(code) ) {
+		    return val;
+		}
+	    }
+
+	    return null;
+	}
+    }
   
   // Not yet, for future releases:
 //  public static final String ENTRY_DATE          = "date";
@@ -109,7 +116,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   /**
    * @return the type of the customer/vendor invoice entry, i.e. the owner type of
    *         the entry's invoice
- * @throws WrongInvoiceTypeException 
+   * @throws WrongInvoiceTypeException
    */
   GCshOwner.Type getType() throws WrongInvoiceTypeException;
 
@@ -128,84 +135,23 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
   // ---------------------------------------------------------------
 
   /**
-   * @return For a customer invoice, return the price of one single of the
-   *         ${@link #getQuantity()} items of type ${@link #getAction()}.
-   */
-  FixedPointNumber getInvcPrice() throws WrongInvoiceTypeException;
-
-  /**
-   * @return For a vendor bill, return the price of one single of the
-   *         ${@link #getQuantity()} items of type ${@link #getAction()}.
-   */
-  FixedPointNumber getBillPrice() throws WrongInvoiceTypeException;
-
-  /**
-   * @return For an employee voucher, return the price of one single of the
-   *         ${@link #getQuantity()} items of type ${@link #getAction()}.
-   */
-  FixedPointNumber getVoucherPrice() throws WrongInvoiceTypeException;
-
-  /**
-   * @return For a job invoice, return the price of one single of the
-   *         ${@link #getQuantity()} items of type ${@link #getAction()}.
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  FixedPointNumber getJobPrice() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ----------------------------
-
-  /**
-   * @return As ${@link #getInvcPrice()}, but formatted.
-   */
-  String getInvcPriceFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return As ${@link #getBillPrice()}, but formatted.
-   */
-  String getBillPriceFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return As ${@link #getVoucherPrice()}, but formatted.
-   */
-  String getVoucherPriceFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return As ${@link #getJobPrice()}, but formatted.
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  String getJobPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ---------------------------------------------------------------
-
-  /**
    * The returned text is saved locale-specific. E.g. "Stunden" instead of "hours"
    * for Germany.
    * 
    * @return HOURS or ITEMS, ....
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
+   * @throws IllegalArgumentException
+   * @throws SecurityException
    */
   Action getAction() throws IllegalArgumentException;
 
   /**
-   * @return the number of items of price ${@link #getInvcPrice()} and type
+   * @return the number of items of price ${@link #getCustInvcPrice()} and type
    *         ${@link #getAction()}.
    */
   FixedPointNumber getQuantity();
 
   /**
-   * @return the number of items of price ${@link #getInvcPrice()} and type
+   * @return the number of items of price ${@link #getCustInvcPrice()} and type
    *         ${@link #getAction()}.
    */
   String getQuantityFormatted();
@@ -225,349 +171,6 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    *         lines and non-ascii-characters)
    */
   String getDescription();
-
-  // ------------------------------
-
-  /**
-   *
-   * @return true if any sales-tax applies at all to this item.
-   * @throws WrongInvoiceTypeException 
-   */
-  boolean isInvcTaxable() throws WrongInvoiceTypeException;
-
-  /**
-   *
-   * @return true if any sales-tax applies at all to this item.
-   * @throws WrongInvoiceTypeException 
-   */
-  boolean isBillTaxable() throws WrongInvoiceTypeException;
-
-  /**
-   *
-   * @return true if any sales-tax applies at all to this item.
-   * @throws WrongInvoiceTypeException 
-   */
-  boolean isVoucherTaxable() throws WrongInvoiceTypeException;
-
-  boolean isJobTaxable() throws WrongInvoiceTypeException, IllegalArgumentException;
-  
-  // ------------------------------
-
-  public GCshTaxTable getInvcTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
-
-  public GCshTaxTable getBillTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
-
-  public GCshTaxTable getVoucherTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
-
-  public GCshTaxTable getJobTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ------------------------------
-
-  /**
-   *
-   * @return e.g. "0.16" for "16%"
-   * @throws WrongInvoiceTypeException 
-   */
-  FixedPointNumber getInvcApplicableTaxPercent() throws WrongInvoiceTypeException;
-
-  /**
-   *
-   * @return e.g. "0.16" for "16%"
-   * @throws WrongInvoiceTypeException 
-   */
-  FixedPointNumber getBillApplicableTaxPercent() throws WrongInvoiceTypeException;
-
-  /**
-   *
-   * @return e.g. "0.16" for "16%"
-   * @throws WrongInvoiceTypeException 
-   */
-  FixedPointNumber getVoucherApplicableTaxPercent() throws WrongInvoiceTypeException;
-
-  /**
-   *
-   * @return e.g. "0.16" for "16%"
-   * @throws WrongInvoiceTypeException 
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  FixedPointNumber getJobApplicableTaxPercent() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ------------------------------
-
-  /**
-   * @return never null, "0%" if no taxtable is there
-   * @throws WrongInvoiceTypeException 
-   */
-  String getInvcApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return never null, "0%" if no taxtable is there
- * @throws WrongInvoiceTypeException 
-   */
-  String getBillApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return never null, "0%" if no taxtable is there
- * @throws WrongInvoiceTypeException 
-   */
-  String getVoucherApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * @return never null, "0%" if no taxtable is there
- * @throws WrongInvoiceTypeException 
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  String getJobApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ---------------------------------------------------------------
-
-  /**
-   * This is the customer invoice sum as entered by the user. The user can decide
-   * to include or exclude taxes.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  FixedPointNumber getInvcSum() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getInvcSumInclTaxes() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getInvcSumExclTaxes() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * As ${@link #getInvcSum()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  String getInvcSumFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumInclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getInvcSumInclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumExclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getInvcSumExclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * This is the vendor bill sum as entered by the user. The user can decide to
-   * include or exclude taxes.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  FixedPointNumber getBillSum() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getBillSumInclTaxes() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getBillSumExclTaxes() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * As ${@link #getInvcSum()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  String getBillSumFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumInclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getBillSumInclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumExclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getBillSumExclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * This is the employee voucher sum as entered by the user. The user can decide to
-   * include or exclude taxes.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  FixedPointNumber getVoucherSum() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getVoucherSumInclTaxes() throws WrongInvoiceTypeException;
-
-  /**
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  FixedPointNumber getVoucherSumExclTaxes() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * As ${@link #getInvcSum()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  String getVoucherSumFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumInclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getVoucherSumInclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  /**
-   * As ${@link #getInvcSumExclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
-   */
-  String getVoucherSumExclTaxesFormatted() throws WrongInvoiceTypeException;
-
-  // ----------------------------
-
-  /**
-   * This is the vendor bill sum as entered by the user. The user can decide to
-   * include or exclude taxes.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  FixedPointNumber getJobSum() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  /**
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  FixedPointNumber getJobSumInclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  /**
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  FixedPointNumber getJobSumExclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  // ----------------------------
-
-  /**
-   * As ${@link #getInvcSum()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding or including taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   * @see #getInvcSumExclTaxes()
-   * @see #getInvcSumInclTaxes()
-   */
-  String getJobSumFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  /**
-   * As ${@link #getInvcSumInclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price including taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  String getJobSumInclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
-
-  /**
-   * As ${@link #getInvcSumExclTaxes()}. but formatted.
-   * 
-   * @return count*single-unit-price excluding taxes.
-   * @throws WrongInvoiceTypeException
- * @throws 
- * @throws IllegalArgumentException 
- * @throws ClassNotFoundException 
- * @throws SecurityException 
- * @throws NoSuchFieldException 
-   */
-  String getJobSumExclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
 
   // ---------------------------------------------------------------
 

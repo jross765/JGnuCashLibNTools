@@ -6,30 +6,29 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.WrongOwnerJITypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
-import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
-import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
-import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
+import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Cust;
+import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Empl;
+import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Job;
+import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Vend;
 
 /**
  * Invoice that can be modified if isModifiable() returns true
  *
  * @see #isModifiable()
  */
-public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice {
+public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
+                                                     GnucashWritableGenerInvoice_Cust,
+                                                     GnucashWritableGenerInvoice_Vend,
+                                                     GnucashWritableGenerInvoice_Empl,
+                                                     GnucashWritableGenerInvoice_Job
+{
 
     /**
      * The gnucash-file is tohe top-level class to contain everything.
@@ -52,16 +51,6 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice {
     // void setOwnerID(String ownerID);
 
     void setOwner(GCshOwner owner) throws WrongOwnerJITypeException;
-
-    // ------------------------
-
-    void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException;
-
-    void setVendor(final GnucashVendor vend) throws WrongInvoiceTypeException;
-
-    void setEmployee(final GnucashEmployee empl) throws WrongInvoiceTypeException;
-
-    void setGenerJob(final GnucashGenerJob job) throws WrongInvoiceTypeException;
 
     // -----------------------------------------------------------
 
@@ -89,316 +78,44 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice {
     // ------------------------
 
     /**
-     * @param id the id to look for
+     * @param entrID the id to look for
      * @return the modifiable version of the entry
      * @see GnucashGenerInvoice#getGenerInvcEntryByID(GCshID)
      */
-    GnucashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshID id);
+    GnucashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshID entrID);
 
     /**
      * remove this invoice from the system.
      * 
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws InvalidCmdtyCurrTypeException
+     * @throws NumberFormatException
+     * @throws IllegalTransactionSplitActionException
+     * @throws IllegalArgumentException
+     * @throws SecurityException
      *
      */
-    void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+    void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
 
     // -----------------------------------------------------------
 
     /**
      * create and add a new entry.<br/>
      * The entry will have 16% salex-tax and use the accounts of the SKR03.
+     * @param acct 
+     * @param singleUnitPrice 
+     * @param quantity 
+     * @return 
      * 
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws IllegalArgumentException
+     * @throws SecurityException
      */
-    GnucashWritableGenerInvoiceEntry createGenerEntry(
-	    final GnucashAccount acct, 
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException;
-    
-    // ----------------------------
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
+    GnucashWritableGenerInvoiceEntry createGenerEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException;
 
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     *
-     * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    // ----------------------------
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableVendorBillEntry createVendBillEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableVendorBillEntry createVendBillEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     *
-     * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableVendorBillEntry createVendBillEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    // ----------------------------
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     *
-     * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    // ----------------------------
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws UnknownInvoiceTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws UnknownInvoiceTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
-
-    /**
-     * create and add a new entry.<br/>
-     *
-     * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws UnknownInvoiceTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
-     * @throws IllegalTransactionSplitActionException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, 
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
 }

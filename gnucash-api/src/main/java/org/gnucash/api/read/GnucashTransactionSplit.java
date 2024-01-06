@@ -252,6 +252,8 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
     String getAccountBalanceFormatted() throws InvalidCmdtyCurrTypeException;
 
     /**
+     * @param lcl 
+     * @return 
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnucashAccount#getBalanceFormatted()
      */
@@ -311,9 +313,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      * @return null, or one of the ACTION_xyz values defined
      * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     Action getAction();
 

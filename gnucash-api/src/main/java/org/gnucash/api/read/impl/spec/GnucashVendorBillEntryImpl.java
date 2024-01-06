@@ -93,47 +93,47 @@ public class GnucashVendorBillEntryImpl extends GnucashGenerInvoiceEntryImpl
 
   @Override
   public FixedPointNumber getPrice() throws WrongInvoiceTypeException {
-    return getBillPrice();
+    return getVendBllPrice();
   }
 
   @Override
   public String getPriceFormatted() throws WrongInvoiceTypeException {
-      return getBillPriceFormatted();
+      return getVendBllPriceFormatted();
   }
   
   // ---------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getInvcPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getCustInvcPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getInvcPriceFormatted() throws WrongInvoiceTypeException {
-    throw new WrongInvoiceTypeException();
-  }
-
-  // ------------------------------
-
-  @Override
-  public FixedPointNumber getVoucherPrice() throws WrongInvoiceTypeException {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherPriceFormatted() throws WrongInvoiceTypeException {
+  public String getCustInvcPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   // ------------------------------
 
   @Override
-  public FixedPointNumber getJobPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getEmplVchPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobPriceFormatted() throws WrongInvoiceTypeException {
+  public String getEmplVchPriceFormatted() throws WrongInvoiceTypeException {
+    throw new WrongInvoiceTypeException();
+  }
+
+  // ------------------------------
+
+  @Override
+  public FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 

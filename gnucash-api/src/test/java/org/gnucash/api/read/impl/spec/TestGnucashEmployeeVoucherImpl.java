@@ -115,16 +115,16 @@ public class TestGnucashEmployeeVoucherImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(230.0, invcGen.getVoucherAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(230.0, vchSpec.getVoucherAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(230.0, invcGen.getEmplVchAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(230.0, vchSpec.getEmplVchAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(230.0, ((SpecInvoiceCommon) vchSpec).getAmountWithoutTaxes().doubleValue(),
 		ConstTest.DIFF_TOLERANCE);
 
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(230.0, invcGen.getVoucherAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(230.0, vchSpec.getVoucherAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(230.0, invcGen.getEmplVchAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(230.0, vchSpec.getEmplVchAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(230.0, ((SpecInvoiceCommon) vchSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
@@ -158,12 +158,12 @@ public class TestGnucashEmployeeVoucherImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(false, invcGen.isVoucherFullyPaid());
-	assertEquals(false, vchSpec.isVoucherFullyPaid());
+	assertEquals(false, invcGen.isEmplVchFullyPaid());
+	assertEquals(false, vchSpec.isEmplVchFullyPaid());
 	assertEquals(false, ((SpecInvoiceCommon) vchSpec).isFullyPaid());
 
-	assertEquals(!invcGen.isVoucherFullyPaid(), invcGen.isNotVoucherFullyPaid());
-	assertEquals(!vchSpec.isVoucherFullyPaid(), vchSpec.isNotVoucherFullyPaid());
+	assertEquals(!invcGen.isEmplVchFullyPaid(), invcGen.isNotEmplVchFullyPaid());
+	assertEquals(!vchSpec.isEmplVchFullyPaid(), vchSpec.isNotEmplVchFullyPaid());
 	assertEquals(!((SpecInvoiceCommon) vchSpec).isFullyPaid(), ((SpecInvoiceCommon) vchSpec).isNotFullyPaid());
     }
 

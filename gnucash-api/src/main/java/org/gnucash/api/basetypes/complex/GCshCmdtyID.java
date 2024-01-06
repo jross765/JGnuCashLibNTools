@@ -83,12 +83,9 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 	String nameSpaceLoc = str.substring(0, posSep).trim();
 	String currSecCodeLoc = str.substring(posSep + 1, str.length()).trim();
 	
-	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) )
-	{
+	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
 	    throw new InvalidCmdtyCurrIDException();
-	}	
-	else 
-	{
+	} else {
 	    result.setType(Type.SECURITY_GENERAL);
 	    result.setNameSpace(nameSpaceLoc);
 	    result.setCode(currSecCodeLoc);

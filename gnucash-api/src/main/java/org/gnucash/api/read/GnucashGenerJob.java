@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.Locale;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
@@ -87,47 +86,35 @@ public interface GnucashGenerJob {
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
     String getIncomeGeneratedFormatted() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @param lcl 
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
@@ -136,23 +123,16 @@ public interface GnucashGenerJob {
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
@@ -160,13 +140,10 @@ public interface GnucashGenerJob {
 
     /**
      *
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */

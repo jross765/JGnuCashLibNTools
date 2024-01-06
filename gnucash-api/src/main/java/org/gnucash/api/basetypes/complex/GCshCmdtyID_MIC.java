@@ -106,12 +106,9 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 	String nameSpaceLoc = str.substring(0, posSep).trim();
 	String currSecCodeLoc = str.substring(posSep + 1, str.length()).trim();
 	
-	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) )
-	{
+	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
 	    throw new InvalidCmdtyCurrTypeException();
-	}	
-	else 
-	{
+	} else {
 	    result.setType(Type.SECURITY_MIC);
 	    result.setNameSpace(nameSpaceLoc);
 	    result.setMIC(nameSpaceLoc);

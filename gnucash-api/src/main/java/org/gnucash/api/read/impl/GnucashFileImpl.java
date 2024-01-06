@@ -316,17 +316,17 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getAccountByID(java.lang.String)
      */
     @Override
-    public GnucashAccount getAccountByID(final GCshID id) {
-	return acctMgr.getAccountByID(id);
+    public GnucashAccount getAccountByID(final GCshID acctID) {
+	return acctMgr.getAccountByID(acctID);
     }
 
     /**
-     * @param id if null, gives all account that have no parent
+     * @param prntAcctID if null, gives all account that have no parent
      * @return the sorted collection of children of that account
      */
     @Override
-    public Collection<GnucashAccount> getAccountsByParentID(final GCshID id) {
-        return acctMgr.getAccountsByParentID(id);
+    public Collection<GnucashAccount> getAccountsByParentID(final GCshID prntAcctID) {
+        return acctMgr.getAccountsByParentID(prntAcctID);
     }
 
     @Override
@@ -368,7 +368,7 @@ public class GnucashFileImpl implements GnucashFile,
      * First try to fetch the account by id, then fall back to traversing all
      * accounts to get if by it's name.
      *
-     * @param id   the id to look for
+     * @param acctID   the id to look for
      * @param name the name to look for if nothing is found for the id
      * @return null if not found
      * @throws TooManyEntriesFoundException 
@@ -377,15 +377,15 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getAccountsByName(String)
      */
     @Override
-    public GnucashAccount getAccountByIDorName(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	return acctMgr.getAccountByIDorName(id, name);
+    public GnucashAccount getAccountByIDorName(final GCshID acctID, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+	return acctMgr.getAccountByIDorName(acctID, name);
     }
 
     /**
      * First try to fetch the account by id, then fall back to traversing all
      * accounts to get if by it's name.
      *
-     * @param id   the id to look for
+     * @param acctID   the id to look for
      * @param name the regular expression of the name to look for if nothing is
      *             found for the id
      * @return null if not found
@@ -395,8 +395,8 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getAccountsByName(String)
      */
     @Override
-    public GnucashAccount getAccountByIDorNameEx(final GCshID id, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
-	return acctMgr.getAccountByIDorNameEx(id, name);
+    public GnucashAccount getAccountByIDorNameEx(final GCshID acctID, final String name) throws NoEntryFoundException, TooManyEntriesFoundException {
+	return acctMgr.getAccountByIDorNameEx(acctID, name);
     }
 
     public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String acctName, 
@@ -447,8 +447,8 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
-    public GnucashTransaction getTransactionByID(final GCshID id) {
-	return trxMgr.getTransactionByID(id);
+    public GnucashTransaction getTransactionByID(final GCshID trxID) {
+	return trxMgr.getTransactionByID(trxID);
     }
 
     /**
@@ -467,8 +467,8 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @see GnucashFile#getTransactionByID(java.lang.String)
      */
-    public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
-        return trxMgr.getTransactionSplitByID(id);
+    public GnucashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+        return trxMgr.getTransactionSplitByID(spltID);
     }
 
     public Collection<GnucashTransactionSplit> getTransactionSplits() {
@@ -489,8 +489,8 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getGenerInvoiceByID(java.lang.String)
      */
     @Override
-    public GnucashGenerInvoice getGenerInvoiceByID(final GCshID id) {
-	return invcMgr.getGenerInvoiceByID(id);
+    public GnucashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
+	return invcMgr.getGenerInvoiceByID(invcID);
     }
 
     /**
@@ -820,8 +820,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     @Override
-    public GnucashCustomer getCustomerByID(final GCshID id) {
-	return custMgr.getCustomerByID(id);
+    public GnucashCustomer getCustomerByID(final GCshID custID) {
+	return custMgr.getCustomerByID(custID);
     }
 
     @Override
@@ -847,8 +847,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     @Override
-    public GnucashVendor getVendorByID(GCshID id) {
-	return vendMgr.getVendorByID(id);
+    public GnucashVendor getVendorByID(GCshID vendID) {
+	return vendMgr.getVendorByID(vendID);
     }
 
     @Override
@@ -874,8 +874,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     @Override
-    public GnucashEmployee getEmployeeByID(final GCshID id) {
-	return emplMgr.getEmployeeByID(id);
+    public GnucashEmployee getEmployeeByID(final GCshID emplID) {
+	return emplMgr.getEmployeeByID(emplID);
     }
 
     @Override
@@ -901,8 +901,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     @Override
-    public GnucashGenerJob getGenerJobByID(final GCshID id) {
-	return jobMgr.getGenerJobByID(id);
+    public GnucashGenerJob getGenerJobByID(final GCshID jobID) {
+	return jobMgr.getGenerJobByID(jobID);
     }
 
     @Override
@@ -928,8 +928,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ----------------------------
 
     @Override
-    public GnucashCustomerJob getCustomerJobByID(final GCshID id) {
-	return jobMgr.getCustomerJobByID(id);
+    public GnucashCustomerJob getCustomerJobByID(final GCshID custID) {
+	return jobMgr.getCustomerJobByID(custID);
     }
 
     @Override
@@ -963,8 +963,8 @@ public class GnucashFileImpl implements GnucashFile,
     // ----------------------------
 
     @Override
-    public GnucashVendorJob getVendorJobByID(final GCshID id) {
-	return jobMgr.getVendorJobByID(id);
+    public GnucashVendorJob getVendorJobByID(final GCshID vendID) {
+	return jobMgr.getVendorJobByID(vendID);
     }
 
     @Override
@@ -1055,12 +1055,12 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param id ID of a tax table
+     * @param taxTabID ID of a tax table
      * @return the identified tax table or null
      */
     @Override
-    public GCshTaxTable getTaxTableByID(final GCshID id) {
-	return taxTabMgr.getTaxTableByID(id);
+    public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
+	return taxTabMgr.getTaxTableByID(taxTabID);
     }
 
     /**
@@ -1084,12 +1084,12 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param id ID of a bill terms item
+     * @param bllTrmID ID of a bill terms item
      * @return the identified bill terms item or null
      */
     @Override
-    public GCshBillTerms getBillTermsByID(final GCshID id) {
-        return bllTrmMgr.getBillTermsByID(id);
+    public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
+        return bllTrmMgr.getBillTermsByID(bllTrmID);
     }
 
     /**
@@ -1256,8 +1256,6 @@ public class GnucashFileImpl implements GnucashFile,
 	    } else if (bookElement instanceof GncGncTaxTable) {
 		continue;
 	    } else if (bookElement instanceof GncGncBillTerm) {
-		continue;
-	    } else if (bookElement instanceof GncGncVendor.VendorTerms) {
 		continue;
 	    } else if (bookElement instanceof GncPricedb) {
 		continue;

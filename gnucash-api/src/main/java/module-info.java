@@ -11,6 +11,7 @@ module gnucash.api {
 	
 	exports org.gnucash.api.read;
 	exports org.gnucash.api.read.aux;
+	// exports org.gnucash.api.read.hlp;
 	exports org.gnucash.api.read.spec;
 	exports org.gnucash.api.read.impl;
 	exports org.gnucash.api.read.impl.aux;
@@ -19,6 +20,7 @@ module gnucash.api {
 	
 	exports org.gnucash.api.write;
 	exports org.gnucash.api.write.aux;
+	// exports org.gnucash.api.write.hlp;
 	exports org.gnucash.api.write.spec;
 	exports org.gnucash.api.write.impl;
 	exports org.gnucash.api.write.impl.aux;

@@ -100,11 +100,8 @@ public interface GnucashEmployee extends GnucashObject {
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
@@ -113,48 +110,36 @@ public interface GnucashEmployee extends GnucashObject {
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
     String getExpensesGeneratedFormatted() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @param lcl 
+     * @return 
      * @throws UnknownAccountTypeException 
      * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
@@ -166,11 +151,8 @@ public interface GnucashEmployee extends GnucashObject {
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, WrongInvoiceTypeException, IllegalArgumentException;
 
@@ -178,22 +160,17 @@ public interface GnucashEmployee extends GnucashObject {
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException, WrongInvoiceTypeException, IllegalArgumentException;
 
     /**
+     * @return 
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
@@ -201,13 +178,12 @@ public interface GnucashEmployee extends GnucashObject {
 
     /**
      *
+     * @param lcl 
+     * @return 
      * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
@@ -215,10 +191,27 @@ public interface GnucashEmployee extends GnucashObject {
 
     // ------------------------------------------------------------
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
 }

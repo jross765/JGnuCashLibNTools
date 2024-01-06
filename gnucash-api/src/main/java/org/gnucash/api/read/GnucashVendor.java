@@ -63,6 +63,7 @@ public interface GnucashVendor extends GnucashObject {
 
     /**
      * The id of the default tax table to use with this customer (may be null).
+     * @return 
      * 
      * @see {@link #getTaxTable()}
      */
@@ -70,6 +71,7 @@ public interface GnucashVendor extends GnucashObject {
 
     /**
      * The default tax table to use with this customer (may be null).
+     * @return 
      * 
      * @see {@link #getTaxTableID()}
      */
@@ -79,6 +81,7 @@ public interface GnucashVendor extends GnucashObject {
 
     /**
      * The id of the default terms to use with this customer (may be null).
+     * @return 
      * 
      * @see {@link #getTaxTable()}
      */
@@ -86,6 +89,7 @@ public interface GnucashVendor extends GnucashObject {
 
     /**
      * The default terms to use with this customer (may be null).
+     * @return 
      * 
      * @see {@link #getTaxTableID()}
      */
@@ -102,71 +106,55 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException 
      * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     // -------------------------------------
 
     /**
+     * @param readVar 
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getExpensesGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      */
     FixedPointNumber getExpensesGenerated_viaAllJobs() throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @param readVar 
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getExpensesGenerated() Formatted according to the current locale's
      *      currency-format
      */
     String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @param readVar 
+     * @param lcl 
+     * @return 
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @throws WrongInvoiceTypeException
      * @see #getExpensesGenerated() Formatted according to the given locale's
      *      currency-format
      */
@@ -175,14 +163,12 @@ public interface GnucashVendor extends GnucashObject {
     // -------------------------------------
 
     /**
+     * @param readVar 
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
@@ -190,11 +176,8 @@ public interface GnucashVendor extends GnucashObject {
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
@@ -202,22 +185,18 @@ public interface GnucashVendor extends GnucashObject {
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      */
     FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
     /**
+     * @param readVar 
+     * @return 
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
@@ -225,13 +204,13 @@ public interface GnucashVendor extends GnucashObject {
 
     /**
      *
+     * @param readVar 
+     * @param lcl 
+     * @return 
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
      * @throws SecurityException 
-     * @throws NoSuchFieldException 
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
@@ -248,14 +227,43 @@ public interface GnucashVendor extends GnucashObject {
 
     // ------------------------------------------------------------
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
+    /**
+     * @return
+     * @throws WrongInvoiceTypeException
+     * @throws UnknownAccountTypeException
+     * @throws IllegalArgumentException
+     */
     Collection<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
 
 }

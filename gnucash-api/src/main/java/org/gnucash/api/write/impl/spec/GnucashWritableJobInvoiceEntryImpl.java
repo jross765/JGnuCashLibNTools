@@ -62,7 +62,7 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	 * @param invc  the job invoice to add this split to
 	 * @param account  the income/expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
+	 * @param price    see ${@link GnucashGenerInvoiceEntry#getCustInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
 	 * @throws 
@@ -124,12 +124,12 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 	@Override
 	public void setPrice(String price)
 		throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setJobPrice(price);
+	    setJobInvcPrice(price);
 	}
 
 	@Override
 	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setJobPrice(price);
+	    setJobInvcPrice(price);
 	}
 
 }

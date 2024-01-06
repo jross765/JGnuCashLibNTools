@@ -87,9 +87,9 @@ public class TestGnucashWritableGenerInvoiceEntryImpl {
 	assertEquals(null, invcEntr.getAction());
 	assertEquals("Item 1", invcEntr.getDescription());
 
-	assertEquals(true, invcEntr.isBillTaxable());
-	assertEquals(0.19, invcEntr.getBillApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(12.50, invcEntr.getBillPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(true, invcEntr.isVendBllTaxable());
+	assertEquals(0.19, invcEntr.getVendBllApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(12.50, invcEntr.getVendBllPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(3, invcEntr.getQuantity().intValue());
     }
 
@@ -104,12 +104,12 @@ public class TestGnucashWritableGenerInvoiceEntryImpl {
 	assertEquals(GnucashGenerInvoiceEntry.Action.HOURS, invcEntr.getAction());
 	assertEquals("Gefälligkeiten", invcEntr.getDescription());
 
-	assertEquals(true, invcEntr.isBillTaxable());
+	assertEquals(true, invcEntr.isVendBllTaxable());
 	// Following: sic, because there is n o tax table entry assigned
 	// (this is an error in real life, but we have done it on purpose here
 	// for the tests).
-	assertEquals(0.00, invcEntr.getBillApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(13.80, invcEntr.getBillPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(0.00, invcEntr.getVendBllApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(13.80, invcEntr.getVendBllPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(3, invcEntr.getQuantity().intValue());
     }
 
@@ -124,9 +124,9 @@ public class TestGnucashWritableGenerInvoiceEntryImpl {
 	assertEquals(GnucashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
 	assertEquals("Posten 3", invcEntr.getDescription());
 
-	assertEquals(true, invcEntr.isInvcTaxable());
-	assertEquals(0.19, invcEntr.getInvcApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(120.00, invcEntr.getInvcPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(true, invcEntr.isCustInvcTaxable());
+	assertEquals(0.19, invcEntr.getCustInvcApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(120.00, invcEntr.getCustInvcPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(10, invcEntr.getQuantity().intValue());
     }
 

@@ -124,61 +124,61 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getInvcAmountUnpaidWithTaxes();
+    return getCustInvcAmountUnpaidWithTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getInvcAmountPaidWithTaxes();
+    return getCustInvcAmountPaidWithTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException
   {
-    return getInvcAmountPaidWithoutTaxes();
+    return getCustInvcAmountPaidWithoutTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException
   {
-    return getInvcAmountWithTaxes();
+    return getCustInvcAmountWithTaxes();
   }
   
   @Override
   public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException
   {
-    return getInvcAmountWithoutTaxes();
+    return getCustInvcAmountWithoutTaxes();
   }
 
   @Override
   public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getInvcAmountUnpaidWithTaxesFormatted();
+    return getCustInvcAmountUnpaidWithTaxesFormatted();
   }
 
   @Override
   public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getInvcAmountPaidWithTaxesFormatted();
+    return getCustInvcAmountPaidWithTaxesFormatted();
   }
 
   @Override
   public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException
   {
-    return getInvcAmountPaidWithoutTaxesFormatted();
+    return getCustInvcAmountPaidWithoutTaxesFormatted();
   }
 
   @Override
   public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException
   {
-    return getInvcAmountWithTaxesFormatted();
+    return getCustInvcAmountWithTaxesFormatted();
   }
 
   @Override
   public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
   {
-    return getInvcAmountWithoutTaxesFormatted();
+    return getCustInvcAmountWithoutTaxesFormatted();
   }
   
   // ------------------------------
@@ -186,135 +186,73 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return isInvcFullyPaid();
+    return isCustInvcFullyPaid();
   }
   
   @Override
   public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return isNotInvcFullyPaid();
+    return isNotCustInvcFullyPaid();
   }
   
   // ------------------------------
 
   @Override
-  public FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getVendBllAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getVendBllAmountPaidWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getBillAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getVendBllAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getBillAmountWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getVendBllAmountWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
   
   @Override
-  public FixedPointNumber getBillAmountWithoutTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getVendBllAmountWithoutTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getVendBllAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getVendBllAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getVendBllAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getVendBllAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
-  {
-    throw new WrongInvoiceTypeException();
-  }
-  
-  // ------------------------------
-
-  @Override
-  public FixedPointNumber getVoucherAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public FixedPointNumber getVoucherAmountPaidWithTaxes() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public FixedPointNumber getVoucherAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public FixedPointNumber getVoucherAmountWithTaxes() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-  
-  @Override
-  public FixedPointNumber getVoucherAmountWithoutTaxes() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public String getVoucherAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
+  public String getVendBllAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
   {
     throw new WrongInvoiceTypeException();
   }
@@ -322,75 +260,61 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // ------------------------------
 
   @Override
-  public FixedPointNumber getJobAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getEmplVchAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getJobAmountPaidWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getEmplVchAmountPaidWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getJobAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getEmplVchAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public FixedPointNumber getJobAmountWithTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getEmplVchAmountWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
   
   @Override
-  public FixedPointNumber getJobAmountWithoutTaxes() throws WrongInvoiceTypeException 
+  public FixedPointNumber getEmplVchAmountWithoutTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getEmplVchAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getEmplVchAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getEmplVchAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
+  public String getEmplVchAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
-  {
-    throw new WrongInvoiceTypeException();
-  }
-  
-  // ------------------------------
-
-  @Override
-  public boolean isBillFullyPaid() throws WrongInvoiceTypeException
-  {
-    throw new WrongInvoiceTypeException();
-  }
-
-  @Override
-  public boolean isNotBillFullyPaid() throws WrongInvoiceTypeException
+  public String getEmplVchAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
   {
     throw new WrongInvoiceTypeException();
   }
@@ -398,13 +322,61 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // ------------------------------
 
   @Override
-  public boolean isVoucherFullyPaid() throws WrongInvoiceTypeException
+  public FixedPointNumber getJobInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public boolean isNotVoucherFullyPaid() throws WrongInvoiceTypeException
+  public FixedPointNumber getJobInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getJobInvcAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getJobInvcAmountWithTaxes() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  @Override
+  public FixedPointNumber getJobInvcAmountWithoutTaxes() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getJobInvcAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
   {
     throw new WrongInvoiceTypeException();
   }
@@ -412,13 +384,41 @@ public class GnucashCustomerInvoiceImpl extends GnucashGenerInvoiceImpl
   // ------------------------------
 
   @Override
-  public boolean isJobFullyPaid() throws WrongInvoiceTypeException
+  public boolean isVendBllFullyPaid() throws WrongInvoiceTypeException
   {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public boolean isNotJobFullyPaid() throws WrongInvoiceTypeException
+  public boolean isNotVendBllFullyPaid() throws WrongInvoiceTypeException
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public boolean isEmplVchFullyPaid() throws WrongInvoiceTypeException
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public boolean isNotEmplVchFullyPaid() throws WrongInvoiceTypeException
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public boolean isJobInvcFullyPaid() throws WrongInvoiceTypeException
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public boolean isNotInvcJobFullyPaid() throws WrongInvoiceTypeException
   {
     throw new WrongInvoiceTypeException();
   }

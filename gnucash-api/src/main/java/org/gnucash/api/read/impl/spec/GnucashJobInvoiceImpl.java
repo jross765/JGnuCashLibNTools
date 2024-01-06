@@ -228,43 +228,43 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getJobAmountUnpaidWithTaxes();
+    return getJobInvcAmountUnpaidWithTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getJobAmountPaidWithTaxes();
+    return getJobInvcAmountPaidWithTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException
   {
-    return getJobAmountPaidWithoutTaxes();
+    return getJobInvcAmountPaidWithoutTaxes();
   }
 
   @Override
   public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException, IllegalArgumentException
   {
-    return getJobAmountWithTaxes();
+    return getJobInvcAmountWithTaxes();
   }
   
   @Override
   public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException
   {
-    return getJobAmountWithoutTaxes();
+    return getJobInvcAmountWithoutTaxes();
   }
 
   @Override
   public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getJobAmountUnpaidWithTaxesFormatted();
+    return getJobInvcAmountUnpaidWithTaxesFormatted();
   }
 
   @Override
   public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return getJobAmountPaidWithTaxesFormatted();
+    return getJobInvcAmountPaidWithTaxesFormatted();
   }
 
   @Override
@@ -277,13 +277,13 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException
   {
-    return getJobAmountWithTaxesFormatted();
+    return getJobInvcAmountWithTaxesFormatted();
   }
 
   @Override
   public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException
   {
-    return getJobAmountWithoutTaxesFormatted();
+    return getJobInvcAmountWithoutTaxesFormatted();
   }
   
   // ------------------------------
@@ -291,13 +291,13 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
   @Override
   public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return isJobFullyPaid();
+    return isJobInvcFullyPaid();
   }
   
   @Override
   public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException
   {
-    return isNotJobFullyPaid();
+    return isNotInvcJobFullyPaid();
   }
   
   // ------------------------------

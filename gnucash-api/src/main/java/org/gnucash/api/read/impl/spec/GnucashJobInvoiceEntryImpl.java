@@ -92,35 +92,35 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
   @Override
   public FixedPointNumber getPrice() throws WrongInvoiceTypeException, IllegalArgumentException {
-    return getJobPrice();
+    return getJobInvcPrice();
   }
 
   @Override
   public String getPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException {
-      return getJobPriceFormatted();
+      return getJobInvcPriceFormatted();
   }
   
   // ---------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getInvcPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getCustInvcPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getInvcPriceFormatted() throws WrongInvoiceTypeException {
+  public String getCustInvcPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
   
   // ------------------------------
 
   @Override
-  public FixedPointNumber getBillPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillPriceFormatted() throws WrongInvoiceTypeException {
+  public String getVendBllPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 

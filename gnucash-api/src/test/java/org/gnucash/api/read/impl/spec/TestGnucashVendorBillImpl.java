@@ -156,8 +156,8 @@ public class TestGnucashVendorBillImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(41.40, invcGen.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(41.40, bllSpec.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, invcGen.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, bllSpec.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(41.40, ((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes().doubleValue(),
 		ConstTest.DIFF_TOLERANCE);
 
@@ -166,8 +166,8 @@ public class TestGnucashVendorBillImpl {
 	// found with this test)
 	// Note: due to (purposefully) incorrect booking, the gross amount
 	// of this bill is *not* 49.27 EUR, but 41.40 EUR (its net amount).
-	assertEquals(41.40, invcGen.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(41.40, bllSpec.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, invcGen.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(41.40, bllSpec.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(41.40, ((SpecInvoiceCommon) bllSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
@@ -181,16 +181,16 @@ public class TestGnucashVendorBillImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(79.11, invcGen.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(79.11, bllSpec.getBillAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(79.11, invcGen.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(79.11, bllSpec.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(79.11, ((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes().doubleValue(),
 		ConstTest.DIFF_TOLERANCE);
 
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(94.14, invcGen.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(94.14, bllSpec.getBillAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(94.14, invcGen.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	assertEquals(94.14, bllSpec.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(94.14, ((SpecInvoiceCommon) bllSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
@@ -222,8 +222,8 @@ public class TestGnucashVendorBillImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(false, invcGen.isBillFullyPaid());
-	assertEquals(false, bllSpec.isBillFullyPaid());
+	assertEquals(false, invcGen.isVendBllFullyPaid());
+	assertEquals(false, bllSpec.isVendBllFullyPaid());
 	assertEquals(false, ((SpecInvoiceCommon) bllSpec).isFullyPaid());
     }
 
@@ -254,12 +254,12 @@ public class TestGnucashVendorBillImpl {
 	// Note: That the following three return the same result
 	// is *not* trivial (in fact, a serious implementation error was
 	// found with this test)
-	assertEquals(true, invcGen.isBillFullyPaid());
-	assertEquals(true, bllSpec.isBillFullyPaid());
+	assertEquals(true, invcGen.isVendBllFullyPaid());
+	assertEquals(true, bllSpec.isVendBllFullyPaid());
 	assertEquals(true, ((SpecInvoiceCommon) bllSpec).isFullyPaid());
 
-	assertEquals(!invcGen.isBillFullyPaid(), invcGen.isNotBillFullyPaid());
-	assertEquals(!bllSpec.isBillFullyPaid(), bllSpec.isNotBillFullyPaid());
+	assertEquals(!invcGen.isVendBllFullyPaid(), invcGen.isNotVendBllFullyPaid());
+	assertEquals(!bllSpec.isVendBllFullyPaid(), bllSpec.isNotVendBllFullyPaid());
 	assertEquals(!((SpecInvoiceCommon) bllSpec).isFullyPaid(), ((SpecInvoiceCommon) bllSpec).isNotFullyPaid());
     }
 

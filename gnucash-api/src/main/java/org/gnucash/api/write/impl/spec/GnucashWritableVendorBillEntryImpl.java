@@ -61,7 +61,7 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 	 * @param bll  the vendor bill to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
+	 * @param price    see ${@link GnucashGenerInvoiceEntry#getCustInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
 	 * @throws 
@@ -111,24 +111,24 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 	@Override
 	public void setTaxable(boolean val)
 		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setBillTaxable(val);
+	    setVendBllTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
 		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setBillTaxTable(taxTab);
+	    setVendBllTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
 		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setBillPrice(price);
+	    setVendBllPrice(price);
 	}
 
 	@Override
 	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setBillPrice(price);
+	    setVendBllPrice(price);
 	}
 
 }

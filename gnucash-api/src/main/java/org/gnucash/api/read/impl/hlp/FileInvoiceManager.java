@@ -138,7 +138,7 @@ public class FileInvoiceManager {
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
-		    if (invc.isInvcFullyPaid()) {
+		    if (invc.isCustInvcFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -147,7 +147,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		try {
-		    if (invc.isBillFullyPaid()) {
+		    if (invc.isVendBllFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -156,7 +156,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
 		try {
-		    if (invc.isVoucherFullyPaid()) {
+		    if (invc.isEmplVchFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -165,7 +165,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		try {
-		    if (invc.isJobFullyPaid()) {
+		    if (invc.isJobInvcFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -192,7 +192,7 @@ public class FileInvoiceManager {
 	for (GnucashGenerInvoice invc : getGenerInvoices()) {
 	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
-		    if (invc.isNotInvcFullyPaid()) {
+		    if (invc.isNotCustInvcFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -201,7 +201,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
 		try {
-		    if (invc.isNotBillFullyPaid()) {
+		    if (invc.isNotVendBllFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -210,7 +210,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
 		try {
-		    if (invc.isNotVoucherFullyPaid()) {
+		    if (invc.isNotEmplVchFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {
@@ -219,7 +219,7 @@ public class FileInvoiceManager {
 		}
 	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
 		try {
-		    if (invc.isNotJobFullyPaid()) {
+		    if (invc.isNotInvcJobFullyPaid()) {
 			retval.add(invc);
 		    }
 		} catch (WrongInvoiceTypeException e) {

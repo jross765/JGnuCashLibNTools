@@ -61,7 +61,7 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	 * @param vch  the employee voucher to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnucashGenerInvoiceEntry#getInvcPrice()}}
+	 * @param price    see ${@link GnucashGenerInvoiceEntry#getCustInvcPrice()}}
 	 * @throws WrongInvoiceTypeException 
 	 * @throws TaxTableNotFoundException 
 	 * @throws 
@@ -123,12 +123,12 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	@Override
 	public void setPrice(String price)
 		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setVoucherPrice(price);
+	    setEmplVchPrice(price);
 	}
 
 	@Override
 	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
-	    setVoucherPrice(price);
+	    setEmplVchPrice(price);
 	}
 
 }

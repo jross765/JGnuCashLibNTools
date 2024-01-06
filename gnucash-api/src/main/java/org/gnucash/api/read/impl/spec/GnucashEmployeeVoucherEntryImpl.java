@@ -93,47 +93,47 @@ public class GnucashEmployeeVoucherEntryImpl extends GnucashGenerInvoiceEntryImp
 
   @Override
   public FixedPointNumber getPrice() throws WrongInvoiceTypeException {
-    return getVoucherPrice();
+    return getEmplVchPrice();
   }
 
   @Override
   public String getPriceFormatted() throws WrongInvoiceTypeException {
-      return getVoucherPriceFormatted();
+      return getEmplVchPriceFormatted();
   }
   
   // ---------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getInvcPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getCustInvcPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getInvcPriceFormatted() throws WrongInvoiceTypeException {
+  public String getCustInvcPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   // ---------------------------------------------------------------
 
   @Override
-  public FixedPointNumber getBillPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getBillPriceFormatted() throws WrongInvoiceTypeException {
+  public String getVendBllPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   // ------------------------------
 
   @Override
-  public FixedPointNumber getJobPrice() throws WrongInvoiceTypeException {
+  public FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 
   @Override
-  public String getJobPriceFormatted() throws WrongInvoiceTypeException {
+  public String getJobInvcPriceFormatted() throws WrongInvoiceTypeException {
     throw new WrongInvoiceTypeException();
   }
 

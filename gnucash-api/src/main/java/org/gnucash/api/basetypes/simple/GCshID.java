@@ -62,11 +62,11 @@ public class GCshID {
     // -----------------------------------------------------------------
 
     public void validate() throws InvalidGCshIDException {
-	if (gcshID.length() != STANDARD_LENGTH)
+	if ( gcshID.length() != STANDARD_LENGTH )
 	    throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong string length");
 
-	for (int i = 0; i < STANDARD_LENGTH; i++) {
-	    if ( ! Character.isDigit(gcshID.charAt(i)) &&
+	for ( int i = 0; i < STANDARD_LENGTH; i++ ) {
+	    if ( ! Character.isDigit(gcshID.charAt(i) ) &&
 		 gcshID.charAt(i) != 'a' &&
 		 gcshID.charAt(i) != 'b' &&
 		 gcshID.charAt(i) != 'c' &&

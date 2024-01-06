@@ -81,16 +81,13 @@ public class GCshCmdtyCurrID {
 //	if ( nameSpaceFree.trim().equals("") )
 //	    throw new IllegalArgumentException("Name space is empty");
 //	
-//	if ( nameSpaceFree.trim().equals(CmdtyCurrNameSpace.CURRENCY) )
-//	{
+//	if ( nameSpaceFree.trim().equals(CmdtyCurrNameSpace.CURRENCY) ) {
 //	    this.type = Type.CURRENCY;
 //	    setCurrency(code);
 //	    this.exchange      = CmdtyCurrNameSpace.Exchange.UNSET;
 //	    this.secCode       = null;
 //	    this.nameSpaceFree = null;
-//	}
-//	else
-//	{
+//	} else {
 //	    this.type = Type.SECURITY_GENERAL;
 //	    setNameSpaceFree(nameSpaceFree);
 //	    setSecCode(code);
@@ -157,14 +154,11 @@ public class GCshCmdtyCurrID {
 	String nameSpaceLoc = str.substring(0, posSep).trim();
 	String currSecCodeLoc = str.substring(posSep + 1, str.length()).trim();
 	
-	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) )
-	{
+	if ( nameSpaceLoc.equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
 	    result.setType(Type.CURRENCY);
 	    result.setNameSpace(GCshCmdtyCurrNameSpace.CURRENCY);
 	    result.setCode(currSecCodeLoc);
-	}	
-	else 
-	{
+	} else {
 	    result.setType(Type.SECURITY_GENERAL);
 	    result.setNameSpace(nameSpaceLoc);
 	    result.setCode(currSecCodeLoc);

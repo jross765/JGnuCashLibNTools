@@ -19,50 +19,50 @@ import org.gnucash.api.generated.GncTransaction;
 public interface GnucashTransaction extends Comparable<GnucashTransaction>,
                                             HasAttachment
 {
-    
-  // For the following types cf.:
-  // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Transaction.h
-  public enum Type {
 
-      // ::MAGIC
-      NONE    (""),
-      INVOICE ("I"),
-      PAYMENT ("P"),
-      LINK    ("L");
-      
-      // ---
-      
-      // Note: In theory, the code should be a char, not a String.
-      // However, if we use a char, we would have to convert it to a String
-      // anyway when actually using this Type (or else, we have weird 
-      // errors writing the GnuCash file).
-      private String code = "X";
-      
-      // ---
-      
-      Type(String code) {
-	  this.code = code;
-      }
-      
-      // ---
-	
-      public String getCode() {
-	  return code;
-      }
-	
-      // no typo!
-      public static Type valueOff(String code) {
-	  for ( Type type : values() ) {
-	      if ( type.getCode().equals(code) ) {
-		  return type;
-	      }
-	  }
-	    
-	  return null;
-      }
-  }
-  
-  // -----------------------------------------------------------------
+    // For the following types cf.:
+    // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Transaction.h
+    public enum Type {
+
+	// ::MAGIC
+	NONE    ( "" ), 
+	INVOICE ( "I" ), 
+	PAYMENT ( "P" ), 
+	LINK    ( "L" );
+
+	// ---
+
+	// Note: In theory, the code should be a char, not a String.
+	// However, if we use a char, we would have to convert it to a String
+	// anyway when actually using this Type (or else, we have weird
+	// errors writing the GnuCash file).
+	private String code = "X";
+
+	// ---
+
+	Type(String code) {
+	    this.code = code;
+	}
+
+	// ---
+
+	public String getCode() {
+	    return code;
+	}
+
+	// no typo!
+	public static Type valueOff(String code) {
+	    for (Type type : values()) {
+		if (type.getCode().equals(code)) {
+		    return type;
+		}
+	    }
+
+	    return null;
+	}
+    }
+
+    // -----------------------------------------------------------------
 
     /**
      *
