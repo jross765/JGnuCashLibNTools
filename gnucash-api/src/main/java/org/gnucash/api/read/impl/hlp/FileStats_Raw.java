@@ -4,9 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit;
-import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncGncCustomer;
@@ -16,6 +13,9 @@ import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncGncVendor;
+import org.gnucash.api.generated.GncPricedb;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -222,11 +222,11 @@ public class FileStats_Raw implements FileStats {
 
     // ---------------------------------------------------------------
 
-    private GncV2.GncBook.GncPricedb getPriceDB() {
+    private GncPricedb getPriceDB() {
 	List<Object> bookElements = gcshFile.getRootElement().getGncBook().getBookElements();
 	for ( Object bookElement : bookElements ) {
-	    if ( bookElement instanceof GncV2.GncBook.GncPricedb ) {
-		return (GncV2.GncBook.GncPricedb) bookElement;
+	    if ( bookElement instanceof GncPricedb ) {
+		return (GncPricedb) bookElement;
 	    } 
 	}
 	

@@ -30,10 +30,13 @@ import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncGncVendor;
+import org.gnucash.api.generated.GncPricedb;
+import org.gnucash.api.generated.GncSchedxaction;
+import org.gnucash.api.generated.GncTemplateTransactions;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb;
 import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.Price;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashAccount.Type;
@@ -1228,9 +1231,9 @@ public class GnucashFileImpl implements GnucashFile,
 	    
 	    if (bookElement instanceof GncTransaction) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncSchedxaction) {
+	    } else if (bookElement instanceof GncSchedxaction) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncTemplateTransactions) {
+	    } else if (bookElement instanceof GncTemplateTransactions) {
 		continue;
 	    } else if (bookElement instanceof GncAccount) {
 		continue;
@@ -1256,7 +1259,7 @@ public class GnucashFileImpl implements GnucashFile,
 		continue;
 	    } else if (bookElement instanceof GncGncVendor.VendorTerms) {
 		continue;
-	    } else if (bookElement instanceof GncV2.GncBook.GncPricedb) {
+	    } else if (bookElement instanceof GncPricedb) {
 		continue;
 	    } else if (bookElement instanceof GncBudget) {
 		continue;
@@ -1277,7 +1280,7 @@ public class GnucashFileImpl implements GnucashFile,
     protected void loadPriceDatabase(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	boolean noPriceDB = true;
 
-	GncV2.GncBook.GncPricedb priceDB = prcMgr.getPriceDB();
+	GncPricedb priceDB = prcMgr.getPriceDB();
 	if ( priceDB.getPrice().size() > 0 )
 	    noPriceDB = false;
 	    
@@ -1304,9 +1307,9 @@ public class GnucashFileImpl implements GnucashFile,
 
 	String baseCurrency = getDefaultCurrencyID();
 	
-	for ( GncV2.GncBook.GncPricedb.Price price : priceDB.getPrice() ) {
-	    GncV2.GncBook.GncPricedb.Price.PriceCommodity fromCmdtyCurr = price.getPriceCommodity();
-//	    GncV2.GncBook.GncPricedb.Price.PriceCurrency  toCurr = price.getPriceCurrency();
+	for ( Price price : priceDB.getPrice() ) {
+	    Price.PriceCommodity fromCmdtyCurr = price.getPriceCommodity();
+//	    Price.PriceCurrency  toCurr = price.getPriceCurrency();
 //	    System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyID() + 
 //	                       " --> " + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyID());
 

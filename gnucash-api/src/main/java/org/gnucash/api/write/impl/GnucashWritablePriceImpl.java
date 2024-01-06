@@ -14,14 +14,15 @@ import org.gnucash.api.basetypes.complex.GCshCmdtyID;
 import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.Price;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.impl.GnucashPriceImpl;
-import org.gnucash.api.write.GnucashWritablePrice;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.write.GnucashWritablePrice;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 
     @SuppressWarnings("exports")
     public GnucashWritablePriceImpl(
-	    final GncV2.GncBook.GncPricedb.Price jwsdpPeer,
+	    final Price jwsdpPeer,
 	    final GnucashWritableFile file) {
 	super(jwsdpPeer, file);
     }
@@ -89,37 +90,37 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 //	return splt;
 //  }
 
-    private static GncV2.GncBook.GncPricedb.Price createPrice(
+    private static Price createPrice(
 	    final GnucashWritableFileImpl file, 
 	    final GCshID prcID) {
 	
         ObjectFactory factory = file.getObjectFactory();
         
-        GncV2.GncBook.GncPricedb.Price prc = file.createGncGncPricedbPriceType();
+        Price prc = file.createGncGncPricedbPriceType();
     
         {
-            GncV2.GncBook.GncPricedb.Price.PriceId gncPrcID = factory.createGncV2GncBookGncPricedbPricePriceId();
+            Price.PriceId gncPrcID = factory.createPricePriceId();
             gncPrcID.setType(Const.XML_DATA_TYPE_GUID);
             gncPrcID.setValue(prcID.toString());
             prc.setPriceId(gncPrcID);
         }
         
         {
-            GncV2.GncBook.GncPricedb.Price.PriceCommodity cmdty = factory.createGncV2GncBookGncPricedbPricePriceCommodity();
+            Price.PriceCommodity cmdty = factory.createPricePriceCommodity();
             cmdty.setCmdtySpace("xxx");
             cmdty.setCmdtyId("yyy");
             prc.setPriceCommodity(cmdty);
         }
     
         {
-            GncV2.GncBook.GncPricedb.Price.PriceCurrency curr = factory.createGncV2GncBookGncPricedbPricePriceCurrency();
+            Price.PriceCurrency curr = factory.createPricePriceCurrency();
             curr.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
             curr.setCmdtyId(file.getDefaultCurrencyID());
             prc.setPriceCurrency(curr);
         }
         
         {
-            GncV2.GncBook.GncPricedb.Price.PriceTime prcTim = factory.createGncV2GncBookGncPricedbPricePriceTime();
+            Price.PriceTime prcTim = factory.createPricePriceTime();
             LocalDate tsDate = LocalDate.now(); // ::TODO
             prcTim.setTsDate(tsDate.toString());
             prc.setPriceTime(prcTim);
@@ -130,7 +131,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
         prc.setPriceValue("1");
         
         // file.getRootElement().getGncBook().getBookElements().add(prc);
-	GncV2.GncBook.GncPricedb priceDB = file.getPrcMgr().getPriceDB();
+        GncPricedb priceDB = file.getPrcMgr().getPriceDB();
 	priceDB.getPrice().add(prc);
         file.setModified(true);
     

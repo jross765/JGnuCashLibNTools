@@ -17,14 +17,16 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
+import org.gnucash.api.generated.Price;
+import org.gnucash.api.generated.Price.PriceCommodity;
+import org.gnucash.api.generated.Price.PriceCurrency;
 import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.impl.GnucashPriceImpl;
+import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +42,7 @@ public class FilePriceManager {
     
     protected GnucashFileImpl gcshFile;
 
-    private GncV2.GncBook.GncPricedb priceDB = null;
+    private GncPricedb priceDB = null;
     private Map<GCshID, GnucashPrice>   prcMap  = null;
 
     // ---------------------------------------------------------------
@@ -56,8 +58,8 @@ public class FilePriceManager {
         prcMap = new HashMap<GCshID, GnucashPrice>();
 
         initPriceDB(pRootElement);
-        List<GncV2.GncBook.GncPricedb.Price> prices = priceDB.getPrice();
-        for ( GncV2.GncBook.GncPricedb.Price jwsdpPrc : prices ) {
+        List<Price> prices = priceDB.getPrice();
+        for ( Price jwsdpPrc : prices ) {
             GnucashPriceImpl price = createPrice(jwsdpPrc);
             prcMap.put(price.getID(), price);
         }
@@ -68,8 +70,8 @@ public class FilePriceManager {
     private void initPriceDB(final GncV2 pRootElement) {
 	List<Object> bookElements = pRootElement.getGncBook().getBookElements();
 	for ( Object bookElement : bookElements ) {
-	    if ( bookElement instanceof GncV2.GncBook.GncPricedb ) {
-		priceDB = (GncV2.GncBook.GncPricedb) bookElement;
+	    if ( bookElement instanceof GncPricedb ) {
+		priceDB = (GncPricedb) bookElement;
 		return;
 	    } 
 	}
@@ -79,7 +81,7 @@ public class FilePriceManager {
      * @param jwsdpInvc the JWSDP-peer (parsed xml-element) to fill our object with
      * @return the new GCshPrice to wrap the given jaxb-object.
      */
-    protected GnucashPriceImpl createPrice(final GncV2.GncBook.GncPricedb.Price jwsdpPrc) {
+    protected GnucashPriceImpl createPrice(final Price jwsdpPrc) {
 	GnucashPriceImpl prc = new GnucashPriceImpl(jwsdpPrc, gcshFile);
 	LOGGER.debug("Generated new price: " + prc.getID());
 	return prc;
@@ -99,7 +101,7 @@ public class FilePriceManager {
 
     // ---------------------------------------------------------------
 
-    public GncV2.GncBook.GncPricedb getPriceDB() {
+    public GncPricedb getPriceDB() {
 	return priceDB;
     }
 
@@ -178,7 +180,7 @@ public class FilePriceManager {
 	FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
 	final int maxRecursionDepth = RECURS_DEPTH_MAX;
 
-	for ( GncV2.GncBook.GncPricedb.Price priceQuote : priceDB.getPrice() ) {
+	for ( Price priceQuote : priceDB.getPrice() ) {
 	    if (priceQuote == null) {
 		LOGGER.warn("getLatestPrice: GnuCash file contains null price-quotes - there may be a problem with JWSDP");
 		continue;

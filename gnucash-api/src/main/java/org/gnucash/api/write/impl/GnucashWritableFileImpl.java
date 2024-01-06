@@ -35,8 +35,12 @@ import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncGncVendor;
+import org.gnucash.api.generated.GncPricedb;
+import org.gnucash.api.generated.GncSchedxaction;
+import org.gnucash.api.generated.GncTemplateTransactions;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.Price;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
@@ -439,11 +443,11 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
         	cntBillTerm++;
             } else if (element instanceof GncCommodity) {
             	cntCommodity++;
-            } else if (element instanceof GncV2.GncBook.GncPricedb) {
-            	cntPrice += ((GncV2.GncBook.GncPricedb) element).getPrice().size();
-            } else if (element instanceof GncV2.GncBook.GncTemplateTransactions) {
+            } else if (element instanceof GncPricedb) {
+            	cntPrice += ((GncPricedb) element).getPrice().size();
+            } else if (element instanceof GncTemplateTransactions) {
         	// ::TODO
-            } else if (element instanceof GncV2.GncBook.GncSchedxaction) {
+            } else if (element instanceof GncSchedxaction) {
         	// ::TODO
             } else if (element instanceof GncBudget) {
         	// ::TODO
@@ -1290,31 +1294,31 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	    // incrementCountDataFor("commodity");
 	}
 	// add price-quote
-	GncV2.GncBook.GncPricedb.Price.PriceCommodity currency = new GncV2.GncBook.GncPricedb.Price.PriceCommodity();
+	Price.PriceCommodity currency = new Price.PriceCommodity();
 	currency.setCmdtySpace(pCmdtySpace);
 	currency.setCmdtyId(pCmdtyId);
 
-	GncV2.GncBook.GncPricedb.Price.PriceCurrency baseCurrency = getObjectFactory()
-		.createGncV2GncBookGncPricedbPricePriceCurrency();
+	Price.PriceCurrency baseCurrency = getObjectFactory()
+		.createPricePriceCurrency();
 	baseCurrency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
 	baseCurrency.setCmdtyId(getDefaultCurrencyID());
 
-	GncV2.GncBook.GncPricedb.Price newQuote = getObjectFactory().createGncV2GncBookGncPricedbPrice();
+	Price newQuote = getObjectFactory().createPrice();
 	newQuote.setPriceSource("JGnucashLib");
-	newQuote.setPriceId(getObjectFactory().createGncV2GncBookGncPricedbPricePriceId());
+	newQuote.setPriceId(getObjectFactory().createPricePriceId());
 	newQuote.getPriceId().setType(Const.XML_DATA_TYPE_GUID);
 	newQuote.getPriceId().setValue(GCshID.getNew().toString());
 	newQuote.setPriceCommodity(currency);
 	newQuote.setPriceCurrency(baseCurrency);
-	newQuote.setPriceTime(getObjectFactory().createGncV2GncBookGncPricedbPricePriceTime());
+	newQuote.setPriceTime(getObjectFactory().createPricePriceTime());
 	newQuote.getPriceTime().setTsDate(FilePriceManager.PRICE_QUOTE_DATE_FORMAT.format(new Date()));
 	newQuote.setPriceType("last");
 	newQuote.setPriceValue(conversionFactor.toGnucashString());
 
 	List<Object> bookElements = getRootElement().getGncBook().getBookElements();
 	for (Object element : bookElements) {
-	    if (element instanceof GncV2.GncBook.GncPricedb) {
-		GncV2.GncBook.GncPricedb prices = (GncV2.GncBook.GncPricedb) element;
+	    if (element instanceof GncPricedb) {
+		GncPricedb prices = (GncPricedb) element;
 		prices.getPrice().add(newQuote);
 		getCurrencyTable().setConversionFactor(pCmdtySpace, pCmdtyId, conversionFactor);
 		return;
@@ -1542,8 +1546,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
     }
     
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncPricedb.Price createGncGncPricedbPriceType() {
-	GncV2.GncBook.GncPricedb.Price retval = getObjectFactory().createGncV2GncBookGncPricedbPrice();
+    public Price createGncGncPricedbPriceType() {
+	Price retval = getObjectFactory().createPrice();
 	incrementCountDataFor("price");
 	return retval;
     }

@@ -14,9 +14,9 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCommodity;
-import org.gnucash.api.generated.GncV2.GncBook.GncPricedb.Price.PriceCurrency;
+import org.gnucash.api.generated.Price;
+import org.gnucash.api.generated.Price.PriceCommodity;
+import org.gnucash.api.generated.Price.PriceCurrency;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
@@ -38,7 +38,7 @@ public class GnucashPriceImpl extends GnucashObjectImpl
     /**
      * The JWSDP-object we are wrapping.
      */
-    protected final GncV2.GncBook.GncPricedb.Price jwsdpPeer;
+    protected final Price jwsdpPeer;
 
     protected ZonedDateTime dateTime;
     protected NumberFormat currencyFormat = null;
@@ -49,7 +49,7 @@ public class GnucashPriceImpl extends GnucashObjectImpl
      * @param newPeer the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GnucashPriceImpl(final GncV2.GncBook.GncPricedb.Price newPeer, final GnucashFile gncFile) {
+    public GnucashPriceImpl(final Price newPeer, final GnucashFile gncFile) {
 	super(gncFile);
 
 	this.jwsdpPeer = newPeer;
@@ -61,7 +61,7 @@ public class GnucashPriceImpl extends GnucashObjectImpl
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
-    public GncV2.GncBook.GncPricedb.Price getJwsdpPeer() {
+    public Price getJwsdpPeer() {
 	return jwsdpPeer;
     }
 

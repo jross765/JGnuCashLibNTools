@@ -13,8 +13,11 @@ import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncGncVendor;
+import org.gnucash.api.generated.GncPricedb;
+import org.gnucash.api.generated.GncSchedxaction;
+import org.gnucash.api.generated.GncTemplateTransactions;
 import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.Price;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +46,7 @@ public class BookElementsSorter implements Comparator<Object> {
 	private int getType(final Object element) {
 		if (element instanceof GncCommodity) {
 			return 1;
-		} else if (element instanceof GncV2.GncBook.GncPricedb) {
+		} else if (element instanceof GncPricedb) {
 			return 2;
 		} else if (element instanceof GncAccount) {
 			return 3;
@@ -51,9 +54,9 @@ public class BookElementsSorter implements Comparator<Object> {
 			return 4;
 		} else if (element instanceof GncTransaction) {
 			return 5;
-		} else if (element instanceof GncV2.GncBook.GncTemplateTransactions) {
+		} else if (element instanceof GncTemplateTransactions) {
 			return 6;
-		} else if (element instanceof GncV2.GncBook.GncSchedxaction) {
+		} else if (element instanceof GncSchedxaction) {
 			return 7;
 		} else if (element instanceof GncGncJob) {
 			return 8;
@@ -71,7 +74,7 @@ public class BookElementsSorter implements Comparator<Object> {
 			return 14;
 		} else if (element instanceof GncGncVendor) {
 			return 15;
-		} else if (element instanceof GncV2.GncBook.GncPricedb.Price) {
+		} else if (element instanceof Price) {
 			return 16;
 		} else {
 			throw new IllegalStateException("Unexpected element in GNC:Book found! <" + element.toString() + ">");
