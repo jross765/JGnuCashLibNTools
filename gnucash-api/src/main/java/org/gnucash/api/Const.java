@@ -15,7 +15,8 @@ public class Const {
   
   public static final String SLOT_KEY_ASSOC_URI = "assoc_uri";
 
-  public static final String DUMMY_FILL = "dummy";
+  public static final String DUMMY_FILL        = "dummy";
+  public static final String DUMMY_FILL_ALTERN = "placeholder"; // obsolete
 
   // -----------------------------------------------------------------
 

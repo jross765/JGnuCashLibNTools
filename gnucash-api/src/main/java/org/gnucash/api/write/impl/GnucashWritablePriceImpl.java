@@ -272,6 +272,10 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 	helper.setUserDefinedAttribute(name, value);
     }
 
+    public void clean() {
+	helper.cleanSlots();
+    }
+
     // ---------------------------------------------------------------
     
     @Override

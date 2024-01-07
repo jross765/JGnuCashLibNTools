@@ -34,16 +34,16 @@ public class BookElementsSorter implements Comparator<Object> {
     @Override
     public int compare(final Object aO1, final Object aO2) {
 	// no secondary sorting
-	return (Integer.valueOf(getType(aO1)).compareTo(Integer.valueOf(getType(aO2))));
+	return (Integer.valueOf(getTypeOrder(aO1)).compareTo(Integer.valueOf(getTypeOrder(aO2))));
     }
 
-    /**
-     * Return an integer for the type of entry. This is the primary ordering used.
-     * 
-     * @param element the object to examine
-     * @return int > 0
-     */
-    private int getType(final Object element) {
+    // Return an integer for the type of entry. This is the primary ordering used.
+    // 
+    // The order numbers defined in this function do not absolutely have to be
+    // defined as they have been -- it just makes things easier as this is
+    // how GnuCash normally stores them (it can handle other variants as well,
+    // however).
+    private int getTypeOrder(final Object element) {
 	if (element instanceof GncCommodity) {
 	    return 1;
 	} else if (element instanceof GncPricedb) {
@@ -58,19 +58,19 @@ public class BookElementsSorter implements Comparator<Object> {
 	    return 6;
 	} else if (element instanceof GncSchedxaction) {
 	    return 7;
-	} else if (element instanceof GncGncJob) {
-	    return 8;
-	} else if (element instanceof GncGncTaxTable) {
-	    return 9;
-	} else if (element instanceof GncGncInvoice) {
-	    return 10;
-	} else if (element instanceof GncGncCustomer) {
-	    return 11;
-	} else if (element instanceof GncGncEmployee) {
-	    return 12;
-	} else if (element instanceof GncGncEntry) {
-	    return 13;
 	} else if (element instanceof GncGncBillTerm) {
+	    return 8;
+	} else if (element instanceof GncGncCustomer) {
+	    return 9;
+	} else if (element instanceof GncGncEmployee) {
+	    return 10;
+	} else if (element instanceof GncGncEntry) {
+	    return 11;
+	} else if (element instanceof GncGncInvoice) {
+	    return 12;
+	} else if (element instanceof GncGncJob) {
+	    return 13;
+	} else if (element instanceof GncGncTaxTable) {
 	    return 14;
 	} else if (element instanceof GncGncVendor) {
 	    return 15;

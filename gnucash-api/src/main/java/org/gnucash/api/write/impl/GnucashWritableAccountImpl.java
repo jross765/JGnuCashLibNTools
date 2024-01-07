@@ -66,6 +66,8 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     // ---------------------------------------------------------------
 
     /**
+     * @param jwsdpPeer 
+     * @param file 
      * @see GnucashAccountImpl#GnucashAccountImpl(GncAccount, GnucashFile)
      */
     @SuppressWarnings("exports")
@@ -74,6 +76,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     }
 
     /**
+     * @param file 
      * @see GnucashAccountImpl#GnucashAccountImpl(GncAccount, GnucashFile) )
      */
     public GnucashWritableAccountImpl(final GnucashWritableFileImpl file) {
@@ -146,7 +149,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	{
 	    Slot slot = factory.createSlot();
-	    slot.setSlotKey("placeholder");
+	    slot.setSlotKey(Const.DUMMY_FILL);
 	    SlotValue slottype = factory.createSlotValue();
 	    slottype.setType(Const.XML_DATA_TYPE_STRING);
 	    slottype.getContent().add("false");
@@ -563,9 +566,17 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	if (helper == null) {
 	    helper = new GnucashWritableObjectImpl(super.helper);
 	}
-	LOGGER.debug("GnucashWritableAccountImpl[account-id=" + getID() + " name=" + getName()
-		+ "].setUserDefinedAttribute(name=" + name + ", value=" + value + ")");
+	LOGGER.debug("setUserDefinedAttribute: [account-id=" + getID() + "] name=" + getName()
+		+ "] (name=" + name + ", value=" + value + ")");
 	helper.setUserDefinedAttribute(name, value);
+    }
+    
+    public void clean() {
+	if (helper == null) {
+	    helper = new GnucashWritableObjectImpl(super.helper);
+	}
+	LOGGER.debug("clean: [account-id=" + getID() + "]");
+	helper.cleanSlots();
     }
 
     // ---------------------------------------------------------------

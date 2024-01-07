@@ -30,391 +30,381 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableTransactionSplitImpl.class);
 
-    	/**
-	 * Our helper to implement the GnucashWritableObject-interface.
-	 */
-	private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
 
-	// -----------------------------------------------------------
-	
-	/**
-	 * @param jwsdpPeer   the JWSDP-object we are facading.
-	 * @param transaction the transaction we belong to
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
-	 */
-	@SuppressWarnings("exports")
-	public GnucashWritableTransactionSplitImpl(
-		final GncTransaction.TrnSplits.TrnSplit jwsdpPeer, 
-		final GnucashWritableTransaction transaction,
-		final boolean addSpltToAcct,
-		final boolean addSpltToInvc) throws IllegalArgumentException {
-		super(jwsdpPeer, transaction, 
-                      addSpltToAcct, addSpltToInvc);
+    // ---------------------------------------------------------------
+
+    /**
+     * @param jwsdpPeer   the JWSDP-object we are facading.
+     * @param transaction the transaction we belong to
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     */
+    @SuppressWarnings("exports")
+    public GnucashWritableTransactionSplitImpl(final GncTransaction.TrnSplits.TrnSplit jwsdpPeer,
+	    final GnucashWritableTransaction transaction, final boolean addSpltToAcct, final boolean addSpltToInvc)
+	    throws IllegalArgumentException {
+	super(jwsdpPeer, transaction, addSpltToAcct, addSpltToInvc);
+    }
+
+    /**
+     * create a new split and and add it to the given transaction.
+     *
+     * @param trx  transaction the transaction we will belong to
+     * @param acct the account we take money (or other things) from or give it to
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     */
+    public GnucashWritableTransactionSplitImpl(final GnucashWritableTransactionImpl trx, final GnucashAccount acct)
+	    throws IllegalArgumentException {
+	super(createTransactionSplit_int(trx, acct, GCshID.getNew()), trx, true, true);
+
+	// this is a workaround.
+	// if super does account.addSplit(this) it adds an instance on
+	// GnucashTransactionSplitImpl that is "!=
+	// (GnucashWritableTransactionSplitImpl)this";
+	// thus we would get warnings about duplicate split-ids and can no longer
+	// compare splits by instance.
+	// if(account!=null)
+	// ((GnucashAccountImpl)account).replaceTransactionSplit(account.getTransactionSplitByID(getID()),
+	// GnucashWritableTransactionSplitImpl.this);
+
+	trx.addSplit(this);
+    }
+
+    public GnucashWritableTransactionSplitImpl(final GnucashTransactionSplit split) throws IllegalArgumentException {
+	super(split.getJwsdpPeer(), split.getTransaction(), true, true);
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
+     *      java.lang.String)
+     */
+    public void setUserDefinedAttribute(final String name, final String value) {
+	helper.setUserDefinedAttribute(name, value);
+    }
+
+    public void clean() {
+	helper.cleanSlots();
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GnucashTransactionSplitImpl#getTransaction()
+     */
+    @Override
+    public GnucashWritableTransaction getTransaction() {
+	return (GnucashWritableTransaction) super.getTransaction();
+    }
+
+    /**
+     * Creates a new Transaction and add's it to the given gnucash-file Don't modify
+     * the ID of the new transaction!
+     * 
+     * @throws
+     * @throws IllegalArgumentException
+     * @throws ClassNotFoundException
+     * @throws SecurityException
+     * @throws NoSuchFieldException
+     */
+    protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
+	    final GnucashWritableTransactionImpl transaction, final GnucashAccount account, final GCshID spltID)
+	    throws IllegalArgumentException {
+	if (transaction == null) {
+	    throw new IllegalArgumentException("null transaction given");
 	}
 
-	/**
-	 * create a new split and and add it to the given transaction.
-	 *
-	 * @param trx transaction the transaction we will belong to
-	 * @param acct     the account we take money (or other things) from or give it to
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
-	 */
-	public GnucashWritableTransactionSplitImpl(
-		final GnucashWritableTransactionImpl trx, 
-		final GnucashAccount acct) throws IllegalArgumentException {
-		super(createTransactionSplit_int(trx, acct, GCshID.getNew()), 
-		      trx, 
-		      true, true);
-
-		// this is a workaround.
-		// if super does account.addSplit(this) it adds an instance on GnucashTransactionSplitImpl that is "!=
-		// (GnucashWritableTransactionSplitImpl)this";
-		// thus we would get warnings about duplicate split-ids and can no longer compare splits by instance.
-		//        if(account!=null)
-		//            ((GnucashAccountImpl)account).replaceTransactionSplit(account.getTransactionSplitByID(getID()),
-		// GnucashWritableTransactionSplitImpl.this);
-
-		trx.addSplit(this);
+	if (account == null) {
+	    throw new IllegalArgumentException("null account given");
 	}
 
-	public GnucashWritableTransactionSplitImpl(final GnucashTransactionSplit split) throws IllegalArgumentException {
-	    super(split.getJwsdpPeer(), split.getTransaction(), 
-		  true, true);
+	if (!spltID.isSet()) {
+	    throw new IllegalArgumentException("GUID not set!");
 	}
 
-	// -----------------------------------------------------------
-	
-	/**
-	 * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String, java.lang.String)
-	 */
-	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+	// this is needed because transaction.addSplit() later
+	// must have an already build List of splits.
+	// if not it will create the list from the JAXB-Data
+	// thus 2 instances of this GnucashWritableTransactionSplitImpl
+	// will exist. One created in getSplits() from this JAXB-Data
+	// the other is this object.
+	transaction.getSplits();
+
+	GnucashWritableFileImpl gnucashFileImpl = transaction.getWritableFile();
+	ObjectFactory factory = gnucashFileImpl.getObjectFactory();
+
+	GncTransaction.TrnSplits.TrnSplit jwsdpSplt = gnucashFileImpl
+		.createGncTransactionTypeTrnSplitsTypeTrnSplitType();
+	{
+	    GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
+	    id.setType(Const.XML_DATA_TYPE_GUID);
+	    id.setValue(spltID.toString());
+	    jwsdpSplt.setSplitId(id);
 	}
 
-	/**
-	 * @see GnucashTransactionSplitImpl#getTransaction()
-	 */
-	@Override
-	public GnucashWritableTransaction getTransaction() {
-		return (GnucashWritableTransaction) super.getTransaction();
+	jwsdpSplt.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
+
+	jwsdpSplt.setSplitQuantity("0/100");
+	jwsdpSplt.setSplitValue("0/100");
+	{
+	    GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory
+		    .createGncTransactionTrnSplitsTrnSplitSplitAccount();
+	    splitaccount.setType(Const.XML_DATA_TYPE_GUID);
+	    splitaccount.setValue(account.getID().toString());
+	    jwsdpSplt.setSplitAccount(splitaccount);
 	}
 
-	/**
-	 * Creates a new Transaction and add's it to the given gnucash-file
-	 * Don't modify the ID of the new transaction!
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
-	 */
-	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
-		final GnucashWritableTransactionImpl transaction,
-		final GnucashAccount account,
-		final GCshID spltID) throws IllegalArgumentException {
-		if (transaction == null) {
-			throw new IllegalArgumentException("null transaction given");
-		}
+	LOGGER.debug("createTransactionSplit_int: Created new transaction split (core): "
+		+ jwsdpSplt.getSplitId().getValue());
 
-		if (account == null) {
-			throw new IllegalArgumentException("null account given");
-		}
+	return jwsdpSplt;
+    }
 
-		if ( ! spltID.isSet() ) {
-		    throw new IllegalArgumentException("GUID not set!");
-		}
+    /**
+     * remove this split from it's transaction.
+     * 
+     * @throws IllegalArgumentException
+     * @throws SecurityException
+     */
+    public void remove() throws IllegalArgumentException {
+	getTransaction().remove(this);
+    }
 
-		// this is needed because transaction.addSplit() later
-		// must have an already build List of splits.
-		// if not it will create the list from the JAXB-Data
-		// thus 2 instances of this GnucashWritableTransactionSplitImpl
-		// will exist. One created in getSplits() from this JAXB-Data
-		// the other is this object.
-		transaction.getSplits();
+    /**
+     * @see GnucashWritableTransactionSplit#setAccount(GnucashAccount)
+     */
+    public void setAccountID(final GCshID accountId) {
+	setAccount(getTransaction().getGnucashFile().getAccountByID(accountId));
+    }
 
-		GnucashWritableFileImpl gnucashFileImpl = transaction.getWritableFile();
-		ObjectFactory factory = gnucashFileImpl.getObjectFactory();
+    /**
+     * @see GnucashWritableTransactionSplit#setAccount(GnucashAccount)
+     */
+    public void setAccount(final GnucashAccount account) {
+	if (account == null) {
+	    throw new NullPointerException("null account given");
+	}
+	String old = (getJwsdpPeer().getSplitAccount() == null ? null : getJwsdpPeer().getSplitAccount().getValue());
+	getJwsdpPeer().getSplitAccount().setType(Const.XML_DATA_TYPE_GUID);
+	getJwsdpPeer().getSplitAccount().setValue(account.getID().toString());
+	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		GncTransaction.TrnSplits.TrnSplit jwsdpSplt = gnucashFileImpl.createGncTransactionTypeTrnSplitsTypeTrnSplitType();
-		{
-			GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
-			id.setType(Const.XML_DATA_TYPE_GUID);
-			id.setValue(spltID.toString());
-			jwsdpSplt.setSplitId(id);
-		}
-
-		jwsdpSplt.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
-
-		jwsdpSplt.setSplitQuantity("0/100");
-		jwsdpSplt.setSplitValue("0/100");
-		{
-			GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory.createGncTransactionTrnSplitsTrnSplitSplitAccount();
-			splitaccount.setType(Const.XML_DATA_TYPE_GUID);
-			splitaccount.setValue(account.getID().toString());
-			jwsdpSplt.setSplitAccount(splitaccount);
-		}
-
-	        LOGGER.debug("createTransactionSplit_int: Created new transaction split (core): " + jwsdpSplt.getSplitId().getValue());
-	        
-	        return jwsdpSplt;
+	if (old == null || !old.equals(account.getID())) {
+	    if (getPropertyChangeSupport() != null) {
+		getPropertyChangeSupport().firePropertyChange("accountID", old, account.getID());
+	    }
 	}
 
-	/**
-	 * remove this split from it's transaction.
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchFieldException 
-	 */
-	public void remove() throws IllegalArgumentException {
-		getTransaction().remove(this);
+    }
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @see GnucashWritableTransactionSplit#setQuantity(FixedPointNumber)
+     */
+    public void setQuantity(final String n) throws InvalidCmdtyCurrTypeException {
+	try {
+	    this.setQuantity(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
+	} catch (NumberFormatException e) {
+	    try {
+		Number parsed = this.getQuantityCurrencyFormat().parse(n);
+		this.setQuantity(new FixedPointNumber(parsed.toString()));
+	    } catch (NumberFormatException e1) {
+		throw e;
+	    } catch (ParseException e1) {
+		throw e;
+	    }
+	}
+    }
+
+    /**
+     * @return true if the currency of transaction and account match
+     * @throws InvalidCmdtyCurrTypeException
+     */
+    private boolean isCurrencyMatching() throws InvalidCmdtyCurrTypeException {
+	GnucashAccount acct = getAccount();
+	if (acct == null) {
+	    return false;
+	}
+	GnucashWritableTransaction transaction = getTransaction();
+	if (transaction == null) {
+	    return false;
+	}
+	GCshCmdtyCurrID acctCmdtyCurrID = acct.getCmdtyCurrID();
+	if (acctCmdtyCurrID == null) {
+	    return false;
 	}
 
-	/**
-	 * @see GnucashWritableTransactionSplit#setAccount(GnucashAccount)
-	 */
-	public void setAccountID(final GCshID accountId) {
-		setAccount(getTransaction().getGnucashFile().getAccountByID(accountId));
+	// Important: Don't forget to cast the IDs to their most basic type
+	return ((GCshCmdtyCurrID) acctCmdtyCurrID).equals((GCshCmdtyCurrID) transaction.getCmdtyCurrID());
+    }
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @throws NumberFormatException
+     * @see GnucashWritableTransactionSplit#setQuantity(FixedPointNumber)
+     */
+    public void setQuantity(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
+	if (n == null) {
+	    throw new NullPointerException("null quantity given");
 	}
 
-	/**
-	 * @see GnucashWritableTransactionSplit#setAccount(GnucashAccount)
-	 */
-	public void setAccount(final GnucashAccount account) {
-		if (account == null) {
-			throw new NullPointerException("null account given");
+	String old = getJwsdpPeer().getSplitQuantity();
+	getJwsdpPeer().setSplitQuantity(n.toGnucashString());
+	((GnucashWritableFile) getGnucashFile()).setModified(true);
+	if (isCurrencyMatching()) {
+	    String oldvalue = getJwsdpPeer().getSplitValue();
+	    getJwsdpPeer().setSplitValue(n.toGnucashString());
+	    if (old == null || !old.equals(n.toGnucashString())) {
+		if (getPropertyChangeSupport() != null) {
+		    getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(oldvalue), n);
 		}
-		String old = (getJwsdpPeer().getSplitAccount() == null ? null
-				:
-						getJwsdpPeer().getSplitAccount().getValue());
-		getJwsdpPeer().getSplitAccount().setType(Const.XML_DATA_TYPE_GUID);
-		getJwsdpPeer().getSplitAccount().setValue(account.getID().toString());
-		((GnucashWritableFile) getGnucashFile()).setModified(true);
-
-		if (old == null || !old.equals(account.getID())) {
-			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("accountID", old, account.getID());
-			}
-		}
-
+	    }
 	}
 
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @see GnucashWritableTransactionSplit#setQuantity(FixedPointNumber)
-	 */
-	public void setQuantity(final String n) throws InvalidCmdtyCurrTypeException {
-		try {
-			this.setQuantity(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
+	if (old == null || !old.equals(n.toGnucashString())) {
+	    if (getPropertyChangeSupport() != null) {
+		getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(old), n);
+	    }
+	}
+    }
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @see GnucashWritableTransactionSplit#setValue(FixedPointNumber)
+     */
+    public void setValue(final String n) throws InvalidCmdtyCurrTypeException {
+	try {
+	    this.setValue(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
+	} catch (NumberFormatException e) {
+	    try {
+		Number parsed = this.getValueCurrencyFormat().parse(n);
+		this.setValue(new FixedPointNumber(parsed.toString()));
+	    } catch (NumberFormatException e1) {
+		throw e;
+	    } catch (ParseException e1) {
+		throw e;
+	    } catch (InvalidCmdtyCurrIDException e1) {
+		throw e;
+	    }
+	}
+    }
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @throws NumberFormatException
+     * @see GnucashWritableTransactionSplit#setValue(FixedPointNumber)
+     */
+    public void setValue(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
+	if (n == null) {
+	    throw new NullPointerException("null value given");
+	}
+	String old = getJwsdpPeer().getSplitValue();
+	getJwsdpPeer().setSplitValue(n.toGnucashString());
+	((GnucashWritableFile) getGnucashFile()).setModified(true);
+	if (isCurrencyMatching()) {
+	    String oldquantity = getJwsdpPeer().getSplitQuantity();
+	    getJwsdpPeer().setSplitQuantity(n.toGnucashString());
+	    if (old == null || !old.equals(n.toGnucashString())) {
+		if (getPropertyChangeSupport() != null) {
+		    getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldquantity), n);
 		}
-		catch (NumberFormatException e) {
-			try {
-				Number parsed = this.getQuantityCurrencyFormat().parse(n);
-				this.setQuantity(new FixedPointNumber(parsed.toString()));
-			}
-			catch (NumberFormatException e1) {
-				throw e;
-			}
-			catch (ParseException e1) {
-				throw e;
-			}
-		}
+	    }
 	}
 
-	/**
-	 * @return true if the currency of transaction and account match
-	 * @throws InvalidCmdtyCurrTypeException 
-	 */
-	private boolean isCurrencyMatching() throws InvalidCmdtyCurrTypeException {
-		GnucashAccount acct = getAccount();
-		if (acct == null) {
-			return false;
-		}
-		GnucashWritableTransaction transaction = getTransaction();
-		if (transaction == null) {
-			return false;
-		}
-		GCshCmdtyCurrID acctCmdtyCurrID = acct.getCmdtyCurrID();
-		if (acctCmdtyCurrID == null) {
-			return false;
-		}
-	
-		// Important: Don't forget to cast the IDs to their most basic type
-		return ((GCshCmdtyCurrID) acctCmdtyCurrID).equals((GCshCmdtyCurrID) transaction.getCmdtyCurrID());
+	if (old == null || !old.equals(n.toGnucashString())) {
+	    if (getPropertyChangeSupport() != null) {
+		getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
+	    }
+	}
+    }
+
+    /**
+     * Set the description-text.
+     *
+     * @param descr the new description
+     */
+    public void setDescription(final String descr) {
+	if (descr == null) {
+	    throw new IllegalArgumentException("null description given!");
 	}
 
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @throws NumberFormatException 
-	 * @see GnucashWritableTransactionSplit#setQuantity(FixedPointNumber)
-	 */
-	public void setQuantity(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
-		if (n == null) {
-			throw new NullPointerException("null quantity given");
-		}
-
-		String old = getJwsdpPeer().getSplitQuantity();
-		getJwsdpPeer().setSplitQuantity(n.toGnucashString());
-		((GnucashWritableFile) getGnucashFile()).setModified(true);
-		if (isCurrencyMatching()) {
-			String oldvalue = getJwsdpPeer().getSplitValue();
-			getJwsdpPeer().setSplitValue(n.toGnucashString());
-			if (old == null || !old.equals(n.toGnucashString())) {
-				if (getPropertyChangeSupport() != null) {
-					getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(oldvalue), n);
-				}
-			}
-		}
-
-		if (old == null || !old.equals(n.toGnucashString())) {
-			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(old), n);
-			}
-		}
-	}
-
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @see GnucashWritableTransactionSplit#setValue(FixedPointNumber)
-	 */
-	public void setValue(final String n) throws InvalidCmdtyCurrTypeException {
-		try {
-			this.setValue(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
-		}
-		catch (NumberFormatException e) {
-			try {
-				Number parsed = this.getValueCurrencyFormat().parse(n);
-				this.setValue(new FixedPointNumber(parsed.toString()));
-			} catch (NumberFormatException e1) {
-				throw e;
-			} catch (ParseException e1) {
-				throw e;
-			} catch (InvalidCmdtyCurrIDException e1) {
-				throw e;
-			}
-		}
-	}
-
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @throws NumberFormatException 
-	 * @see GnucashWritableTransactionSplit#setValue(FixedPointNumber)
-	 */
-	public void setValue(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
-		if (n == null) {
-			throw new NullPointerException("null value given");
-		}
-		String old = getJwsdpPeer().getSplitValue();
-		getJwsdpPeer().setSplitValue(n.toGnucashString());
-		((GnucashWritableFile) getGnucashFile()).setModified(true);
-		if (isCurrencyMatching()) {
-			String oldquantity = getJwsdpPeer().getSplitQuantity();
-			getJwsdpPeer().setSplitQuantity(n.toGnucashString());
-			if (old == null || !old.equals(n.toGnucashString())) {
-				if (getPropertyChangeSupport() != null) {
-					getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldquantity), n);
-				}
-			}
-		}
-
-		if (old == null || !old.equals(n.toGnucashString())) {
-			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
-			}
-		}
-	}
-
-	/**
-	 * Set the description-text.
-	 *
-	 * @param descr the new description
-	 */
-	public void setDescription(final String descr) {
-		if ( descr == null ) {
-			throw new IllegalArgumentException("null description given!");
-		}
-
-		// Caution: empty string allowed here
+	// Caution: empty string allowed here
 //		if ( descr.trim().length() == 0 ) {
 //		    throw new IllegalArgumentException("empty description given!");
 //		}
 
-		String old = getJwsdpPeer().getSplitMemo();
-		getJwsdpPeer().setSplitMemo(descr);
-		((GnucashWritableFile) getGnucashFile()).setModified(true);
+	String old = getJwsdpPeer().getSplitMemo();
+	getJwsdpPeer().setSplitMemo(descr);
+	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		if (old == null || !old.equals(descr)) {
-			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("description", old, descr);
-			}
-		}
+	if (old == null || !old.equals(descr)) {
+	    if (getPropertyChangeSupport() != null) {
+		getPropertyChangeSupport().firePropertyChange("description", old, descr);
+	    }
+	}
+    }
+
+    /**
+     * Set the type of association this split has with an invoice's lot.
+     *
+     * @param act null, or one of the defined ACTION_xyz values
+     * @throws IllegalTransactionSplitActionException
+     */
+    public void setAction(final Action act) throws IllegalArgumentException {
+	setActionStr(act.getLocaleString());
+    }
+
+    public void setActionStr(final String act) throws IllegalTransactionSplitActionException {
+	if (act == null) {
+	    throw new IllegalArgumentException("null action given!");
 	}
 
-	/**
-	 * Set the type of association this split has with
-	 * an invoice's lot.
-	 *
-	 * @param act null, or one of the defined ACTION_xyz values
-	 * @throws IllegalTransactionSplitActionException 
-	 */
-	public void setAction(final Action act) throws IllegalArgumentException {
-		setActionStr(act.getLocaleString());
+	if (act.trim().length() == 0) {
+	    throw new IllegalArgumentException("empty action given!");
 	}
 
-	public void setActionStr(final String act) throws IllegalTransactionSplitActionException {
-		if ( act == null ) {
-		    throw new IllegalArgumentException("null action given!");
-		}
+	String old = getJwsdpPeer().getSplitAction();
+	getJwsdpPeer().setSplitAction(act);
+	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
-		if ( act.trim().length() == 0 ) {
-		    throw new IllegalArgumentException("empty action given!");
-		}
+	if (old == null || !old.equals(act)) {
+	    if (getPropertyChangeSupport() != null) {
+		getPropertyChangeSupport().firePropertyChange("splitAction", old, act);
+	    }
+	}
+    }
 
-		String old = getJwsdpPeer().getSplitAction();
-		getJwsdpPeer().setSplitAction(act);
-		((GnucashWritableFile) getGnucashFile()).setModified(true);
-
-		if (old == null || !old.equals(act)) {
-			if (getPropertyChangeSupport() != null) {
-				getPropertyChangeSupport().firePropertyChange("splitAction", old, act);
-			}
-		}
+    public void setLotID(final String lotID) {
+	if (lotID == null) {
+	    throw new IllegalArgumentException("null lot ID given!");
 	}
 
-	public void setLotID(final String lotID) {
-		if ( lotID == null ) {
-		    throw new IllegalArgumentException("null lot ID given!");
-		}
+	if (lotID.trim().length() == 0) {
+	    throw new IllegalArgumentException("empty lot ID given!");
+	}
 
-		if ( lotID.trim().length() == 0 ) {
-		    throw new IllegalArgumentException("empty lot ID given!");
-		}
+	GnucashWritableTransactionImpl trx = (GnucashWritableTransactionImpl) getTransaction();
+	GnucashWritableFileImpl writingFile = trx.getWritableFile();
+	ObjectFactory factory = writingFile.getObjectFactory();
 
-		GnucashWritableTransactionImpl trx = (GnucashWritableTransactionImpl) getTransaction();
-		GnucashWritableFileImpl writingFile = trx.getWritableFile();
-		ObjectFactory factory = writingFile.getObjectFactory();
+	if (getJwsdpPeer().getSplitLot() == null) {
+	    GncTransaction.TrnSplits.TrnSplit.SplitLot lot = factory.createGncTransactionTrnSplitsTrnSplitSplitLot();
+	    getJwsdpPeer().setSplitLot(lot);
+	}
+	getJwsdpPeer().getSplitLot().setValue(lotID);
+	getJwsdpPeer().getSplitLot().setType(Const.XML_DATA_TYPE_GUID);
 
-		if (getJwsdpPeer().getSplitLot() == null) {
-			GncTransaction.TrnSplits.TrnSplit.SplitLot lot = factory.createGncTransactionTrnSplitsTrnSplitSplitLot();
-			getJwsdpPeer().setSplitLot(lot);
-		}
-		getJwsdpPeer().getSplitLot().setValue(lotID);
-		getJwsdpPeer().getSplitLot().setType(Const.XML_DATA_TYPE_GUID);
-
-		// if we have a lot, and if we are a paying transaction, then check the slots
-		// ::TODO ::CHECK
-		// 09.10.2023: This code, in the current setting, generates wrong
-		// output (a closing split slot tag without an opening one, and 
-                // we don't (always?) need a split slot anyway.
+	// if we have a lot, and if we are a paying transaction, then check the slots
+	// ::TODO ::CHECK
+	// 09.10.2023: This code, in the current setting, generates wrong
+	// output (a closing split slot tag without an opening one, and
+	// we don't (always?) need a split slot anyway.
 //		SlotsType slots = getJwsdpPeer().getSplitSlots();
 //		if (slots == null) {
 //			slots = factory.createSlotsType();
@@ -430,74 +420,74 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 //			slots.getSlot().add(slot);
 //		}
 
+    }
+
+    // --------------------- support for propertyChangeListeners ---------------
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @see GnucashWritableTransactionSplit#setQuantityFormattedForHTML(java.lang.String)
+     */
+    public void setQuantityFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
+	this.setQuantity(n);
+    }
+
+    /**
+     * @throws InvalidCmdtyCurrTypeException
+     * @see GnucashWritableTransactionSplit#setValueFormattedForHTML(java.lang.String)
+     */
+    public void setValueFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
+	this.setValue(n);
+    }
+
+    /**
+     * ${@inheritDoc}.
+     */
+    public GnucashWritableFile getWritableGnucashFile() {
+	return (GnucashWritableFile) getGnucashFile();
+    }
+
+    // ---------------------------------------------------------------
+
+    @Override
+    public String toString() {
+	StringBuffer buffer = new StringBuffer();
+	buffer.append("GnucashWritableTransactionSplitImpl [");
+
+	buffer.append("id=");
+	buffer.append(getID());
+
+	buffer.append(", action=");
+	try {
+	    buffer.append(getAction());
+	} catch (Exception e) {
+	    buffer.append("ERROR");
 	}
 
-	// --------------------- support for propertyChangeListeners ---------------
+	buffer.append(", transaction-id=");
+	buffer.append(getTransaction().getID());
 
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @see GnucashWritableTransactionSplit#setQuantityFormattedForHTML(java.lang.String)
-	 */
-	public void setQuantityFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
-		this.setQuantity(n);
-	}
-
-	/**
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @see GnucashWritableTransactionSplit#setValueFormattedForHTML(java.lang.String)
-	 */
-	public void setValueFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
-		this.setValue(n);
-	}
-
-	/**
-	 * ${@inheritDoc}.
-	 */
-	public GnucashWritableFile getWritableGnucashFile() {
-		return (GnucashWritableFile) getGnucashFile();
-	}
-
-	// ---------------------------------------------------------------
-	    
-	    @Override
-	    public String toString() {
-		StringBuffer buffer = new StringBuffer();
-		buffer.append("GnucashWritableTransactionSplitImpl [");
-
-		buffer.append("id=");
-		buffer.append(getID());
-
-		buffer.append(", action=");
-		try {
-		    buffer.append(getAction());
-		} catch (Exception e) {
-		    buffer.append("ERROR");
-		}
-
-		buffer.append(", transaction-id=");
-		buffer.append(getTransaction().getID());
-
-		buffer.append(", accountID=");
-		buffer.append(getAccountID());
+	buffer.append(", accountID=");
+	buffer.append(getAccountID());
 
 //		buffer.append(", account=");
 //		GnucashAccount account = getAccount();
 //		buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
 
-		buffer.append(", description='");
-		buffer.append(getDescription() + "'");
+	buffer.append(", description='");
+	buffer.append(getDescription() + "'");
 
-		buffer.append(", transaction-description='");
-		buffer.append(getTransaction().getDescription() + "'");
+	buffer.append(", transaction-description='");
+	buffer.append(getTransaction().getDescription() + "'");
 
-		buffer.append(", value=");
-		buffer.append(getValue());
+	buffer.append(", value=");
+	buffer.append(getValue());
 
-		buffer.append(", quantity=");
-		buffer.append(getQuantity());
+	buffer.append(", quantity=");
+	buffer.append(getQuantity());
 
-		buffer.append("]");
-		return buffer.toString();
-	    }
+	buffer.append("]");
+	return buffer.toString();
+    }
 
 }

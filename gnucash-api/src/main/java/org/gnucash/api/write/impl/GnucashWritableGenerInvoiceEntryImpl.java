@@ -484,6 +484,12 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	helper.setUserDefinedAttribute(name, value);
     }
 
+    public void clean() {
+	helper.cleanSlots();
+    }
+
+    // -----------------------------------------------------------
+
     /**
      * {@inheritDoc}
      */
@@ -704,6 +710,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     }
 
     /**
+     * @param val 
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
@@ -783,6 +790,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     // ------------------------
     
     /**
+     * @param val 
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 

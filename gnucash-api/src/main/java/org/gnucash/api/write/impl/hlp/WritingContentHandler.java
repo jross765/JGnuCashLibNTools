@@ -23,16 +23,20 @@ public class WritingContentHandler implements ContentHandler {
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(WritingContentHandler.class);
 
+    // ::MAGIC
     private static final int LAST_WAS_OPEN_ELEMENT   = 1;
     private static final int LAST_WAS_CLOSE_ELEMENT  = 2;
     private static final int LAST_WAS_CHARACTER_DATA = 3;
+
+    private static final int MAX_DEPTH_1 = 4;
+    private static final int MAX_DEPTH_2 = 6;
 
     // ---------------------------------------------------------------
 
     /**
      * where to write it to.
      */
-    private final Writer writer;
+    private final Writer wrt;
 
     // ----------------------------
 
@@ -42,74 +46,65 @@ public class WritingContentHandler implements ContentHandler {
     // ----------------------------
 
     int depth = 0;
-
     int last_was = 0;
-
     private char[] spaces;
     
+    boolean isGUID = false;
+    boolean isSlotvalueTypeString = false;
+    boolean isTrnDescription = false;
+    boolean insideGncTemplateTransactions = false;
+
     // ---------------------------------------------------------------
 
-    /**
-     * @param pwriter where to write it to
-     */
-    public WritingContentHandler(final Writer pwriter) {
-	writer = pwriter;
+    public WritingContentHandler(final Writer wrt) {
+	this.wrt = wrt;
     }
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see org.xml.sax.ContentHandler#endDocument()
-     */
     public void endDocument() throws SAXException {
 
 	try {
-	    writer.write("\n\n" + "<!-- Local variables: -->\n" + "<!-- mode: xml        -->\n"
+	    wrt.write("\n\n" + "<!-- Local variables: -->\n" + "<!-- mode: xml        -->\n"
 		    + "<!-- End:             -->\n");
 	} catch (IOException e) {
-	    LOGGER.error("Problem in WritingContentHandler", e);
+	    LOGGER.error("endDocument: Problem in WritingContentHandler", e);
 	}
 
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#startDocument()
-     */
     public void startDocument() throws SAXException {
 
 	try {
 	    // old gnucash-version writer.write("<?xml version=\"1.0\"?>\n");
-	    writer.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");
+	    wrt.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");
 	} catch (IOException e) {
 	    LOGGER.error("Problem in WritingContentHandler", e);
 	}
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#characters(char[], int, int)
-     */
     public void characters(char[] ch, int start, int length) throws SAXException {
 	try {
-	    if (last_was == LAST_WAS_OPEN_ELEMENT) {
-		writer.write(">");
+	    if ( last_was == LAST_WAS_OPEN_ELEMENT ) {
+		wrt.write(">");
 	    }
 
-	    if (last_was == LAST_WAS_CLOSE_ELEMENT) {
+	    if ( last_was == LAST_WAS_CLOSE_ELEMENT ) {
 		return;
 	    }
 
 	    // make shure GUIDs are written with non-capital letters
 	    if (isGUID) {
 		String s = new String(ch, start, length);
-		writer.write(s.toLowerCase());
+		wrt.write(s.toLowerCase());
 	    } else {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append(ch, start, length);
 
-		for (int j = 0; j < encodeme.length; j++) {
+		for ( int j = 0; j < encodeme.length; j++ ) {
 		    int index = 0;
-		    while ((index = sb.indexOf(encodeme[j], index)) != -1) {
+		    while ( (index = sb.indexOf(encodeme[j], index)) != -1 ) {
 			sb.replace(index, index + encodeme[j].length(), encoded[j]);
 			index += encoded[j].length() - encodeme[j].length() + 1;
 		    }
@@ -121,12 +116,12 @@ public class WritingContentHandler implements ContentHandler {
 		// System.err.println(s+"---"+Integer.toHexString(s.charAt(s.length()-1)));
 		// }
 
-		writer.write(sb.toString());
+		wrt.write(sb.toString());
 	    }
 
 	    last_was = LAST_WAS_CHARACTER_DATA;
 	} catch (IOException e) {
-	    LOGGER.error("Problem in WritingContentHandler", e);
+	    LOGGER.error("characters: Problem in WritingContentHandler", e);
 	}
 
     }
@@ -140,41 +135,28 @@ public class WritingContentHandler implements ContentHandler {
 
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#endPrefixMapping(java.lang.String)
-     */
     public void endPrefixMapping(final String prefix) throws SAXException {
-	LOGGER.debug("WritingContentHandler.endPrefixMapping(prefix='" + prefix + "')");
+	LOGGER.debug("endPrefixMapping: prefix='" + prefix + "')");
 
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#skippedEntity(java.lang.String)
-     */
     public void skippedEntity(final String name) throws SAXException {
-	LOGGER.debug("WritingContentHandler.skippedEntity(name='" + name + "')");
+	LOGGER.debug("skippedEntity: name='" + name + "')");
 
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#setDocumentLocator(org.xml.sax.Locator)
-     */
     public void setDocumentLocator(final Locator locator) {
 
     }
 
-    /**
-     * @see org.xml.sax.ContentHandler#processingInstruction(java.lang.String,
-     *      java.lang.String)
-     */
     public void processingInstruction(final String target, final String data) throws SAXException {
 	try {
-	    writer.write("<?" + target);
+	    wrt.write("<?" + target);
 	    if (data != null) {
-		writer.write(data);
+		wrt.write(data);
 	    }
 
-	    writer.write("?>\n");
+	    wrt.write("?>\n");
 	} catch (IOException e) {
 	    e.printStackTrace();
 	}
@@ -182,7 +164,7 @@ public class WritingContentHandler implements ContentHandler {
     }
 
     public void startPrefixMapping(final String prefix, final String uri) throws SAXException {
-	LOGGER.debug("WritingContentHandler.startPrefixMapping(prefix='" + prefix + "')");
+	LOGGER.debug("startPrefixMapping: prefix='" + prefix + "')");
 
     }
 
@@ -202,67 +184,60 @@ public class WritingContentHandler implements ContentHandler {
 	    depth -= 2;
 
 	    if (last_was == LAST_WAS_CLOSE_ELEMENT) {
-		writer.write("\n");
+		wrt.write("\n");
 		writeSpaces();
-		writer.write("</" + qName + ">");
+		wrt.write("</" + qName + ">");
 	    }
 
 	    if (last_was == LAST_WAS_OPEN_ELEMENT) {
-		writer.write("/>");
+		wrt.write("/>");
 	    }
 
 	    if (last_was == LAST_WAS_CHARACTER_DATA) {
-		writer.write("</" + qName + ">");
+		wrt.write("</" + qName + ">");
 	    }
 
 	    last_was = LAST_WAS_CLOSE_ELEMENT;
 	} catch (IOException e) {
-	    LOGGER.error("Problem in WritingContentHandler", e);
+	    LOGGER.error("endElement: Problem in WritingContentHandler", e);
 	}
 
     }
 
-    boolean isGUID = false;
-    boolean isSlotvalueTypeString = false;
-    boolean isTrnDescription = false;
-    boolean insideGncTemplateTransactions = false;
-
-    /**
-     * @see org.xml.sax.ContentHandler#startElement(java.lang.String,
-     *      java.lang.String, java.lang.String, org.xml.sax.Attributes)
-     */
     public void startElement(final String namespaceURI, final String localName, final String qName,
 	    final Attributes atts) throws SAXException {
 	try {
-	    if (last_was == LAST_WAS_OPEN_ELEMENT) {
-		writer.write(">\n");
+	    if ( last_was == LAST_WAS_OPEN_ELEMENT ) {
+		wrt.write(">\n");
 		writeSpaces();
 
 	    }
 
-	    if (last_was == LAST_WAS_CLOSE_ELEMENT) {
-		writer.write("\n");
+	    if ( last_was == LAST_WAS_CLOSE_ELEMENT ) {
+		wrt.write("\n");
 		writeSpaces();
 	    }
 
-	    writer.write("<" + qName);
+	    wrt.write("<" + qName);
 
-	    if (qName.equals("gnc_template-transactions")) {
+	    if ( qName.equals("gnc_template-transactions") ) {
 		insideGncTemplateTransactions = true;
 	    }
 
 	    isTrnDescription = qName.equals("trn_description");
 	    isGUID = false;
 	    isSlotvalueTypeString = false;
-	    for (int i = 0; i < atts.getLength(); i++) {
-		writer.write(" " + atts.getQName(i) + "=\"" + atts.getValue(i) + "\"");
+	    for ( int i = 0; i < atts.getLength(); i++ ) {
+		wrt.write(" " + atts.getQName(i) + "=\"" + atts.getValue(i) + "\"");
 
-		if (atts.getQName(i).equals("type") && atts.getValue(i).equals(Const.XML_DATA_TYPE_GUID)) {
+		if ( atts.getQName(i).equals("type") && 
+		     atts.getValue(i).equals(Const.XML_DATA_TYPE_GUID) ) {
 		    isGUID = true;
 		}
 
-		if (qName.equals("slot_value") && atts.getQName(i).equals("type")
-			&& atts.getValue(i).equals(Const.XML_DATA_TYPE_STRING)) {
+		if ( qName.equals("slot_value") && 
+		     atts.getQName(i).equals("type") && 
+		     atts.getValue(i).equals(Const.XML_DATA_TYPE_STRING) ) {
 		    isSlotvalueTypeString = true;
 		}
 
@@ -278,29 +253,27 @@ public class WritingContentHandler implements ContentHandler {
     
     // ---------------------------------------------------------------
 
-    /**
-     * @throws IOException
-     */
     private void writeSpaces() throws IOException {
 
-	if (insideGncTemplateTransactions) {
-	    if (depth < 6) {
+	if ( insideGncTemplateTransactions ) {
+	    if ( depth < MAX_DEPTH_2 ) {
 		return;
 	    }
 
-	    writer.write(getSpaces(), 0, depth - 6);
+	    wrt.write(getSpaces(), 0, depth - 6);
 	    return;
 	}
 
-	if (depth < 4) {
+	if ( depth < MAX_DEPTH_1 ) {
 	    return;
 	}
 
-	writer.write(getSpaces(), 0, depth - 4);
+	wrt.write(getSpaces(), 0, depth - 4);
     }
 
     protected char[] getSpaces() {
-	if (spaces == null || spaces.length < depth) {
+	if ( spaces == null || 
+	     spaces.length < depth ) {
 	    spaces = new char[depth];
 	    Arrays.fill(spaces, ' ');
 	}

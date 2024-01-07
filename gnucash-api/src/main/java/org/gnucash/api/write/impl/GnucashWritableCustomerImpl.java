@@ -405,6 +405,10 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	helper.setUserDefinedAttribute(name, value);
     }
 
+    public void clean() {
+	helper.cleanSlots();
+    }
+
     // -----------------------------------------------------------------
     // The methods in this part are overridden methods from
     // GnucashCustomerImpl.

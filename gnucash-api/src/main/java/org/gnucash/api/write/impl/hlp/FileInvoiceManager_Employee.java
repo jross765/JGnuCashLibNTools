@@ -24,16 +24,6 @@ public abstract class FileInvoiceManager_Employee {
     
     // ---------------------------------------------------------------
    
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
@@ -52,17 +42,6 @@ public abstract class FileInvoiceManager_Employee {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
@@ -81,17 +60,6 @@ public abstract class FileInvoiceManager_Employee {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr, final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();

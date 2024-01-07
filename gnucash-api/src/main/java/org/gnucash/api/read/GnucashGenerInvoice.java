@@ -36,21 +36,23 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
     // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncInvoice.h
 
     public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
-    public static final GCshOwner.Type TYPE_VENDOR = GCshOwner.Type.VENDOR;
-    public static final GCshOwner.Type TYPE_EMPLOYEE = GCshOwner.Type.EMPLOYEE; // Not used yet, for future releases
-    public static final GCshOwner.Type TYPE_JOB = GCshOwner.Type.JOB;
+    public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
+    public static final GCshOwner.Type TYPE_EMPLOYEE = GCshOwner.Type.EMPLOYEE;
+    public static final GCshOwner.Type TYPE_JOB      = GCshOwner.Type.JOB;
 
     // ------------------------------
 
     public enum ReadVariant {
-	DIRECT, // The entity that directly owns the
-		// invoice, be it a customer invoice,
-		// a vendor bill or a job invoice (thus,
-		// the customer's / vendor's / job's ID.
-	VIA_JOB, // If it's a job invoice, then this option means
-		 // that we want the ID of the customer / vendor
-		 // who is the owner of the job (depending of the
-		 // job's type).
+		DIRECT, 
+            // The entity that directly owns the
+            // invoice, be it a customer invoice,
+            // a vendor bill or a job invoice (thus,
+            // the customer's / vendor's / job's ID.
+		VIA_JOB, 
+            // If it's a job invoice, then this option means
+            // that we want the ID of the customer / vendor
+            // who is the owner of the job (depending of the
+            // job's type).
     }
 
     // -----------------------------------------------------------------
@@ -123,12 +125,6 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
      * @throws WrongInvoiceTypeException
      */
     GCshID getOwnerID(ReadVariant readvar) throws WrongInvoiceTypeException;
-
-//    /**
-//    *
-//    * @return Invoice' owner structure 
-//    */
-//    InvoiceOwner getOwner();
 
     GCshOwner.Type getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
 

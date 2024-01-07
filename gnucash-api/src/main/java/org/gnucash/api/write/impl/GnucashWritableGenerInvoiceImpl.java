@@ -82,6 +82,12 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableGenerInvoiceImpl.class);
 
+    // ---------------------------------------------------------------
+    
+    // ::TODO helper (writable object)
+
+    // ---------------------------------------------------------------
+
     /**
      * The gnucash-file is the top-level class to contain everything.
      *

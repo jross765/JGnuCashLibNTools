@@ -184,8 +184,14 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
      *      java.lang.String)
      */
+    // ::TODO ?
     public void setUserDefinedAttribute(final String name, final String value) {
 	// ::EMPTY
+    }
+
+    // ::TODO
+    public void clean() {
+	// helper.cleanSlots();
     }
 
     // -----------------------------------------------------------------

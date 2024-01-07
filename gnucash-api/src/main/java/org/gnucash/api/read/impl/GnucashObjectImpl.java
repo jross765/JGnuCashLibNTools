@@ -23,15 +23,25 @@ public class GnucashObjectImpl implements GnucashObject {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashObjectImpl.class);
 
+    // -----------------------------------------------------------------
+
+    /**
+     * The file we belong to.
+     */
+    private final GnucashFile myFile;
+
+    // ----------------------------
+
     /**
      * the user-defined values.
      */
     private SlotsType mySlots;
 
     /**
-     * The file we belong to.
+     * support for firing PropertyChangeEvents. (gets initialized only if we really
+     * have listeners)
      */
-    private final GnucashFile myFile;
+    private volatile PropertyChangeSupport myPropertyChange = null;
 
     // -----------------------------------------------------------------
 
@@ -59,6 +69,20 @@ public class GnucashObjectImpl implements GnucashObject {
     // -----------------------------------------------------------------
 
     /**
+     * @return Returns the file.
+     * @link #myFile
+     */
+    public GnucashFile getGnucashFile() {
+	return myFile;
+    }
+
+//  public void setGnucashFile(GnucashFile gcshFile) {
+//    this.myFile = gcshFile;
+//  }
+
+    // -----------------------------------------------------------------
+
+    /**
      * @return Returns the slots.
      * @link #mySlots
      */
@@ -68,12 +92,29 @@ public class GnucashObjectImpl implements GnucashObject {
     }
 
     /**
+     * Return slots without the ones with dummy content
+     * @return 
+     */
+    @SuppressWarnings("exports")
+    public List<Slot> getSlotsListClean() {
+	List<Slot> retval = new ArrayList<Slot>();
+
+	for ( Slot slot : getSlots().getSlot() ) {
+	    if ( ! slot.getSlotKey().equals(Const.DUMMY_FILL) ) {
+		retval.add(slot);
+	    }
+	}
+	
+	return retval;
+    }
+
+    /**
      * @param slots The slots to set.
      * @link #mySlots
      */
     @SuppressWarnings("exports")
     public void setSlots(final SlotsType slots) {
-	if (slots == null) {
+	if ( slots == null ) {
 	    throw new IllegalArgumentException("null 'slots' given!");
 	}
 
@@ -85,7 +126,7 @@ public class GnucashObjectImpl implements GnucashObject {
 	mySlots = slots;
 
 	// we have an xsd-problem saving empty slots so we add a dummy-value
-	if (slots.getSlot().isEmpty()) {
+	if ( slots.getSlot().isEmpty() ) {
 	    ObjectFactory objectFactory = new ObjectFactory();
 
 	    SlotValue value = objectFactory.createSlotValue();
@@ -105,18 +146,17 @@ public class GnucashObjectImpl implements GnucashObject {
 	    propertyChangeFirer.firePropertyChange("slots", oldSlots, slots);
 	}
     }
-
+    
     /**
-     * @return Returns the file.
-     * @link #myFile
+     * Remove slots with dummy content
      */
-    public GnucashFile getGnucashFile() {
-	return myFile;
+    public void cleanSlots() {
+	for ( Slot slot : getSlots().getSlot() ) {
+	    if ( ! slot.getSlotKey().equals(Const.DUMMY_FILL) ) {
+		getSlots().getSlot().remove(slot);
+	    }
+	}
     }
-
-//  public void setGnucashFile(GnucashFile gcshFile) {
-//    this.myFile = gcshFile;
-//  }
 
     // -----------------------------------------------------------------
 
@@ -125,10 +165,9 @@ public class GnucashObjectImpl implements GnucashObject {
      *         ${@link #getUserDefinedAttribute(String)}}.
      */
     public Collection<String> getUserDefinedAttributeKeys() {
-	List<Slot> slots = getSlots().getSlot();
-	List<String> retval = new ArrayList<String>(slots.size());
+	List<String> retval = new ArrayList<String>();
 
-	for (Slot slot : slots) {
+	for ( Slot slot : getSlots().getSlot() ) {
 	    retval.add(slot.getSlotKey());
 	}
 
@@ -211,12 +250,6 @@ public class GnucashObjectImpl implements GnucashObject {
     // ------------------------ support for propertyChangeListeners
 
     /**
-     * support for firing PropertyChangeEvents. (gets initialized only if we really
-     * have listeners)
-     */
-    private volatile PropertyChangeSupport myPropertyChange = null;
-
-    /**
      * Returned value may be null if we never had listeners.
      *
      * @return Our support for firing PropertyChangeEvents
@@ -243,27 +276,27 @@ public class GnucashObjectImpl implements GnucashObject {
      * Add a PropertyChangeListener for a specific property. The listener will be
      * invoked only when a call on firePropertyChange names that specific property.
      *
-     * @param propertyName The name of the property to listen on.
+     * @param ptyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
     @SuppressWarnings("exports")
-    public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
+    public final void addPropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 	if (myPropertyChange == null) {
 	    myPropertyChange = new PropertyChangeSupport(this);
 	}
-	myPropertyChange.addPropertyChangeListener(propertyName, listener);
+	myPropertyChange.addPropertyChangeListener(ptyName, listener);
     }
 
     /**
      * Remove a PropertyChangeListener for a specific property.
      *
-     * @param propertyName The name of the property that was listened on.
+     * @param ptyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
     @SuppressWarnings("exports")
-    public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
+    public final void removePropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 	if (myPropertyChange != null) {
-	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
+	    myPropertyChange.removePropertyChangeListener(ptyName, listener);
 	}
     }
 

@@ -27,16 +27,6 @@ public abstract class FileInvoiceManager_Vendor {
     
     // ---------------------------------------------------------------
     
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableVendorBill> getBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableVendorBill> retval = new ArrayList<GnucashWritableVendorBill>();
@@ -55,14 +45,6 @@ public abstract class FileInvoiceManager_Vendor {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public static Collection<GnucashWritableJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, IllegalArgumentException {
 	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
@@ -76,17 +58,6 @@ public abstract class FileInvoiceManager_Vendor {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableVendorBill> retval = new ArrayList<GnucashWritableVendorBill>();
@@ -105,15 +76,6 @@ public abstract class FileInvoiceManager_Vendor {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public static Collection<GnucashWritableJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
@@ -127,17 +89,6 @@ public abstract class FileInvoiceManager_Vendor {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
-     */
     public static Collection<GnucashWritableVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr, final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	Collection<GnucashWritableVendorBill> retval = new ArrayList<GnucashWritableVendorBill>();
@@ -156,15 +107,6 @@ public abstract class FileInvoiceManager_Vendor {
 	return retval;
     }
 
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
-     */
     public static Collection<GnucashWritableJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
 	Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();

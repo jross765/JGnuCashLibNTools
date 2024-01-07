@@ -22,7 +22,6 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
@@ -137,28 +136,36 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * @return a new transaction with no splits that is already added to this file
-     * @throws
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      */
     GnucashWritableTransaction createWritableTransaction() throws IllegalArgumentException;
 
     /**
      *
      * @param impl the transaction to remove.
-     * @throws
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      */
     void removeTransaction(GnucashWritableTransaction impl) throws IllegalArgumentException;
 
     // ---------------------------------------------------------------
 
     /**
+     * @param spltID
+     * @return
+     */
+    GnucashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID);
+
+    /**
+     * @return
+     */
+    Collection<GnucashWritableTransactionSplit> getWritableTransactionSplits();
+
+    // ---------------------------------------------------------------
+
+    /**
+     * @param invcID 
      * @see GnucashFile#getGenerInvoiceByID(GCshID)
      * @param id the id to look for
      * @return A changeable version of the invoice.
@@ -171,15 +178,21 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * FOR USE BY EXTENSIONS ONLY
+     * @param invoiceNumber 
+     * @param cust 
+     * @param incomeAcct 
+     * @param receivableAcct 
+     * @param openedDate 
+     * @param postDate 
+     * @param dueDate 
      * 
      * @return a new invoice with no entries that is already added to this file
+     * @throws WrongInvoiceTypeException 
      * @throws WrongOwnerTypeException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableCustomerInvoice createWritableCustomerInvoice(
@@ -195,14 +208,21 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * FOR USE BY EXTENSIONS ONLY
+     * @param invoiceNumber 
+     * @param vend 
+     * @param expensesAcct 
+     * @param payableAcct 
+     * @param openedDate 
+     * @param postDate 
+     * @param dueDate 
      * 
      * @return a new invoice with no entries that is already added to this file
+     * @throws WrongInvoiceTypeException 
+     * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableVendorBill createWritableVendorBill(
@@ -218,14 +238,21 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * FOR USE BY EXTENSIONS ONLY
+     * @param invoiceNumber 
+     * @param empl 
+     * @param expensesAcct 
+     * @param payableAcct 
+     * @param openedDate 
+     * @param postDate 
+     * @param dueDate 
      * 
      * @return a new invoice with no entries that is already added to this file
+     * @throws WrongInvoiceTypeException 
+     * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableEmployeeVoucher createWritableEmployeeVoucher(
@@ -241,15 +268,21 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * FOR USE BY EXTENSIONS ONLY
+     * @param invoiceNumber 
+     * @param job 
+     * @param incExpAcct 
+     * @param recvblPayblAcct 
+     * @param openedDate 
+     * @param postDate 
+     * @param dueDate 
      * 
      * @return a new invoice with no entries that is already added to this file
+     * @throws WrongInvoiceTypeException 
+     * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
-     * @throws
      * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
      * @throws SecurityException
-     * @throws NoSuchFieldException
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableJobInvoice createWritableJobInvoice(
@@ -268,6 +301,7 @@ public interface GnucashWritableFile extends GnucashFile,
     // ---------------------------------------------------------------
 
     /**
+     * @param invcEntrID 
      * @see GnucashFile#getGenerInvoiceEntryByID(GCshID)
      * @param id the id to look for
      * @return A changeable version of the invoice entry.
@@ -293,6 +327,8 @@ public interface GnucashWritableFile extends GnucashFile,
 
     GnucashWritableCustomer getWritableCustomerByID(final GCshID custID);
 
+    Collection<GnucashWritableCustomer> getWritableCustomers();
+
     // ----------------------------
 
     GnucashWritableCustomer createWritableCustomer();
@@ -303,6 +339,8 @@ public interface GnucashWritableFile extends GnucashFile,
 
     GnucashWritableVendor getWritableVendorByID(final GCshID vendID);
 
+    Collection<GnucashWritableVendor> getWritableVendors();
+
     // ----------------------------
 
     GnucashWritableVendor createWritableVendor();
@@ -312,6 +350,10 @@ public interface GnucashWritableFile extends GnucashFile,
     // ---------------------------------------------------------------
 
     GnucashWritableEmployee getWritableEmployeeByID(final GCshID emplID);
+
+    Collection<GnucashWritableEmployee> getWritableEmployees();
+
+    // ----------------------------
 
     GnucashWritableEmployee createWritableEmployee();
 
@@ -340,15 +382,26 @@ public interface GnucashWritableFile extends GnucashFile,
     // ----------------------------
 
     /**
+     * @param cust 
+     * @param number 
+     * @param name 
      * @return a new customer job with no values that is already added to this file
      */
-    GnucashWritableCustomerJob createWritableCustomerJob(final GnucashCustomer cust, final String number,
+    GnucashWritableCustomerJob createWritableCustomerJob(
+	    final GnucashCustomer cust, 
+	    final String number,
 	    final String name);
 
     /**
+     * @param vend 
+     * @param number 
+     * @param name 
      * @return a new vendor job with no values that is already added to this file
      */
-    GnucashWritableVendorJob createWritableVendorJob(final GnucashVendor vend, final String number, final String name);
+    GnucashWritableVendorJob createWritableVendorJob(
+	    final GnucashVendor vend, 
+	    final String number, 
+	    final String name);
 
     void removeGenerJob(final GnucashWritableGenerJob job);
 
@@ -378,6 +431,8 @@ public interface GnucashWritableFile extends GnucashFile,
     
     GnucashWritableCommodity getWritableCommodityByNameUniq(final String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
     
+    Collection<GnucashWritableCommodity> getWritableCommodities();
+
     // ----------------------------
 
     /**
@@ -412,6 +467,8 @@ public interface GnucashWritableFile extends GnucashFile,
     // ---------------------------------------------------------------
 
     GnucashWritablePrice getWritablePriceByID(final GCshID prcID);
+
+    Collection<GnucashWritablePrice> getWritablePrices();
 
     // ----------------------------
 
