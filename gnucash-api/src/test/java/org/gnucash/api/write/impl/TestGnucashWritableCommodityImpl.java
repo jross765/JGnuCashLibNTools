@@ -225,7 +225,7 @@ public class TestGnucashWritableCommodityImpl {
 	gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
+	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
 	GnucashCommodity cmdty = gcshOutFile.getCommodityByQualifID(newID);

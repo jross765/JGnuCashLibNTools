@@ -1,6 +1,5 @@
 package org.gnucash.api.write.impl.hlp;
 
-import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.impl.GnucashWritableCommodityImpl;
@@ -21,11 +20,9 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 
     // ---------------------------------------------------------------
     
-    /**
-     * This overridden method creates the writable version of the returned object.
-     *
-     * @see FileCommodityManager#createAccount(GncAccount)
-     */
+	/*
+	 * Creates the writable version of the returned object.
+	 */
     @Override
     protected GnucashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
 	GnucashWritableCommodityImpl cmdty = new GnucashWritableCommodityImpl(jwsdpCmdty, (GnucashWritableFileImpl) gcshFile);

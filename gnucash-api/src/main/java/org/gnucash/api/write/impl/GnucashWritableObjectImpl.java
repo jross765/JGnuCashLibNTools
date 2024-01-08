@@ -20,215 +20,214 @@ import org.slf4j.LoggerFactory;
  * read-only access.
  */
 public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE DO NOT EXTEND
-                                       implements GnucashWritableObject 
+		                               implements GnucashWritableObject 
 {
 
-    /**
-     * Automatically created logger for debug and error-output.
-     */
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableObjectImpl.class);
+	/**
+	 * Automatically created logger for debug and error-output.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableObjectImpl.class);
 
-    // ---------------------------------------------------------------
+	// ---------------------------------------------------------------
 
-    private GnucashObjectImpl gcshObj;
+	private GnucashObjectImpl gcshObj;
 
-    /**
-     * support for firing PropertyChangeEvents. (gets initialized only if we really
-     * have listeners)
-     */
-    private volatile PropertyChangeSupport myPropertyChange = null;
+	/**
+	 * support for firing PropertyChangeEvents. (gets initialized only if we really
+	 * have listeners)
+	 */
+	private volatile PropertyChangeSupport myPtyChg = null;
 
-    // ---------------------------------------------------------------
+	// ---------------------------------------------------------------
 
-    public GnucashWritableObjectImpl() {
-	super();
-	// TODO implement constructor for GnucashWritableObjectHelper
-    }
-
-    /**
-     * @param aGnucashObject the object we are helping with
-     */
-    public GnucashWritableObjectImpl(final GnucashObjectImpl aGnucashObject) {
-	super();
-	setGnucashObject(aGnucashObject);
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public GnucashWritableFile getWritableGnucashFile() {
-	return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public GnucashWritableFile getFile() {
-	return (GnucashWritableFile) getGnucashObject().getGnucashFile();
-	// return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
-    }
-
-    /**
-     * Remove slots with dummy content
-     */
-    public void cleanSlots() {
-	if ( gcshObj.getSlots() == null )
-	    return;
-
-	for ( Slot slot : gcshObj.getSlots().getSlot() ) {
-	    if ( slot.getSlotKey().equals(Const.DUMMY_FILL) ||
-		 slot.getSlotKey().equals(Const.DUMMY_FILL_ALTERN) ) {
-		gcshObj.getSlots().getSlot().remove(slot);
-		break;
-	    }
+	public GnucashWritableObjectImpl() {
+		super();
+		// TODO implement constructor for GnucashWritableObjectHelper
 	}
-    }
 
-    // ---------------------------------------------------------------
+	/**
+	 * @param aGnucashObject the object we are helping with
+	 */
+	public GnucashWritableObjectImpl(final GnucashObjectImpl aGnucashObject) {
+		super();
+		setGnucashObject(aGnucashObject);
+	}
 
-    /**
-     * @param name  the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    public void setUserDefinedAttribute(final String name, final String value) {
+	// ---------------------------------------------------------------
 
-	List<Slot> slots = getGnucashObject().getSlots().getSlot();
-	for ( Slot slot : slots ) {
-	    if ( slot.getSlotKey().equals(name) ) {
-		LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value + ") - overwriting existing slot ");
+	/**
+	 * {@inheritDoc}
+	 */
+	public GnucashWritableFile getWritableGnucashFile() {
+		return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
+	}
 
-		slot.getSlotValue().getContent().clear();
-		slot.getSlotValue().getContent().add(value);
+	/**
+	 * {@inheritDoc}
+	 */
+	public GnucashWritableFile getFile() {
+		return (GnucashWritableFile) getGnucashObject().getGnucashFile();
+		// return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
+	}
+
+	/**
+	 * Remove slots with dummy content
+	 */
+	public void cleanSlots() {
+		if ( gcshObj.getSlots() == null )
+			return;
+
+		for ( Slot slot : gcshObj.getSlots().getSlot() ) {
+			if ( slot.getSlotKey().equals(Const.SLOT_KEY_DUMMY) ) {
+				gcshObj.getSlots().getSlot().remove(slot);
+				break;
+			}
+		}
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * @param name  the name of the user-defined attribute
+	 * @param value the value or null if not set
+	 * @see {@link GnucashObject#getUserDefinedAttribute(String)}
+	 */
+	public void setUserDefinedAttribute(final String name, final String value) {
+		List<Slot> slots = getGnucashObject().getSlots().getSlot();
+		for ( Slot slot : slots ) {
+			if ( slot.getSlotKey().equals(name) ) {
+				LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value
+						+ ") - overwriting existing slot ");
+
+				slot.getSlotValue().getContent().clear();
+				slot.getSlotValue().getContent().add(value);
+				getFile().setModified(true);
+				return;
+			}
+		}
+
+		ObjectFactory objectFactory = new ObjectFactory();
+		Slot newSlot = objectFactory.createSlot();
+		newSlot.setSlotKey(name);
+		SlotValue newValue = objectFactory.createSlotValue();
+		newValue.setType(Const.XML_DATA_TYPE_STRING);
+		newValue.getContent().add(value);
+		newSlot.setSlotValue(newValue);
+		LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value + ") - adding new slot ");
+
+		slots.add(newSlot);
+
 		getFile().setModified(true);
-		return;
-	    }
-	}
-	
-	ObjectFactory objectFactory = new ObjectFactory();
-	Slot newSlot = objectFactory.createSlot();
-	newSlot.setSlotKey(name);
-	SlotValue newValue = objectFactory.createSlotValue();
-	newValue.setType(Const.XML_DATA_TYPE_STRING);
-	newValue.getContent().add(value);
-	newSlot.setSlotValue(newValue);
-	LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value + ") - adding new slot ");
-
-	slots.add(newSlot);
-
-	getFile().setModified(true);
-    }
-
-    // ------------------------ support for propertyChangeListeners
-
-    /**
-     * Returned value may be null if we never had listeners.
-     *
-     * @return Our support for firing PropertyChangeEvents
-     */
-    protected PropertyChangeSupport getPropertyChangeSupport() {
-	return myPropertyChange;
-    }
-
-    /**
-     * Add a PropertyChangeListener to the listener list. The listener is registered
-     * for all properties.
-     *
-     * @param listener The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-    public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-	if (myPropertyChange == null) {
-	    myPropertyChange = new PropertyChangeSupport(this);
-	}
-	myPropertyChange.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * Add a PropertyChangeListener for a specific property. The listener will be
-     * invoked only when a call on firePropertyChange names that specific property.
-     *
-     * @param ptyName The name of the property to listen on.
-     * @param listener     The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-    public final void addPropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
-	if (myPropertyChange == null) {
-	    myPropertyChange = new PropertyChangeSupport(this);
-	}
-	myPropertyChange.addPropertyChangeListener(ptyName, listener);
-    }
-
-    /**
-     * Remove a PropertyChangeListener for a specific property.
-     *
-     * @param ptyName The name of the property that was listened on.
-     * @param listener     The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-    public final void removePropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
-	if (myPropertyChange != null) {
-	    myPropertyChange.removePropertyChangeListener(ptyName, listener);
-	}
-    }
-
-    /**
-     * Remove a PropertyChangeListener from the listener list. This removes a
-     * PropertyChangeListener that was registered for all properties.
-     *
-     * @param listener The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-    public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-	if (myPropertyChange != null) {
-	    myPropertyChange.removePropertyChangeListener(listener);
-	}
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * @return Returns the gnucashObject.
-     * @see {@link #gcshObj}
-     */
-    public GnucashObjectImpl getGnucashObject() {
-	return gcshObj;
-    }
-
-    /**
-     * @param obj The gnucashObject to set.
-     * @see {@link #gcshObj}
-     */
-    public void setGnucashObject(final GnucashObjectImpl obj) {
-	if (obj == null) {
-	    throw new IllegalArgumentException("null GnuCash-object given!");
 	}
 
-	GnucashObjectImpl oldObj = this.gcshObj;
-	if (oldObj == obj) {
-	    return; // nothing has changed
-	}
-	
-	this.gcshObj = obj;
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("gnucashObject", oldObj, obj);
-	}
-    }
-    
-    // ---------------------------------------------------------------
+	// ------------------------ support for propertyChangeListeners
 
-    /**
-     * Just an overridden ToString to return this classe's name and hashCode.
-     *
-     * @return className and hashCode
-     */
-    @Override
-    public String toString() {
-	return "GnucashWritableObjectHelper@" + hashCode();
-    }
+	/**
+	 * Returned value may be null if we never had listeners.
+	 *
+	 * @return Our support for firing PropertyChangeEvents
+	 */
+	protected PropertyChangeSupport getPropertyChangeSupport() {
+		return myPtyChg;
+	}
+
+	/**
+	 * Add a PropertyChangeListener to the listener list. The listener is registered
+	 * for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be added
+	 */
+	@SuppressWarnings("exports")
+	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
+		if ( myPtyChg == null ) {
+			myPtyChg = new PropertyChangeSupport(this);
+		}
+		myPtyChg.addPropertyChangeListener(listener);
+	}
+
+	/**
+	 * Add a PropertyChangeListener for a specific property. The listener will be
+	 * invoked only when a call on firePropertyChange names that specific property.
+	 *
+	 * @param ptyName  The name of the property to listen on.
+	 * @param listener The PropertyChangeListener to be added
+	 */
+	@SuppressWarnings("exports")
+	public final void addPropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
+		if ( myPtyChg == null ) {
+			myPtyChg = new PropertyChangeSupport(this);
+		}
+		myPtyChg.addPropertyChangeListener(ptyName, listener);
+	}
+
+	/**
+	 * Remove a PropertyChangeListener for a specific property.
+	 *
+	 * @param ptyName  The name of the property that was listened on.
+	 * @param listener The PropertyChangeListener to be removed
+	 */
+	@SuppressWarnings("exports")
+	public final void removePropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
+		if ( myPtyChg != null ) {
+			myPtyChg.removePropertyChangeListener(ptyName, listener);
+		}
+	}
+
+	/**
+	 * Remove a PropertyChangeListener from the listener list. This removes a
+	 * PropertyChangeListener that was registered for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be removed
+	 */
+	@SuppressWarnings("exports")
+	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
+		if ( myPtyChg != null ) {
+			myPtyChg.removePropertyChangeListener(listener);
+		}
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * @return Returns the gnucashObject.
+	 * @see {@link #gcshObj}
+	 */
+	public GnucashObjectImpl getGnucashObject() {
+		return gcshObj;
+	}
+
+	/**
+	 * @param obj The gnucashObject to set.
+	 * @see {@link #gcshObj}
+	 */
+	public void setGnucashObject(final GnucashObjectImpl obj) {
+		if ( obj == null ) {
+			throw new IllegalArgumentException("null GnuCash-object given!");
+		}
+
+		GnucashObjectImpl oldObj = this.gcshObj;
+		if ( oldObj == obj ) {
+			return; // nothing has changed
+		}
+
+		this.gcshObj = obj;
+		// <<insert code to react further to this change here
+		PropertyChangeSupport ptyChgFirer = getPropertyChangeSupport();
+		if ( ptyChgFirer != null ) {
+			ptyChgFirer.firePropertyChange("gnucashObject", oldObj, obj);
+		}
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * Just an overridden ToString to return this classe's name and hashCode.
+	 *
+	 * @return className and hashCode
+	 */
+	@Override
+	public String toString() {
+		return "GnucashWritableObjectHelper@" + hashCode();
+	}
 
 }

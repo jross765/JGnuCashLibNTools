@@ -149,7 +149,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	{
 	    Slot slot = factory.createSlot();
-	    slot.setSlotKey(Const.DUMMY_FILL);
+	    slot.setSlotKey(Const.SLOT_KEY_ACCT_PLACEHOLDER);
 	    SlotValue slottype = factory.createSlotValue();
 	    slottype.setType(Const.XML_DATA_TYPE_STRING);
 	    slottype.getContent().add("false");
@@ -159,7 +159,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	{
 	    Slot slot = factory.createSlot();
-	    slot.setSlotKey("notes");
+	    slot.setSlotKey(Const.SLOT_KEY_ACCT_NOTES);
 	    SlotValue slottype = factory.createSlotValue();
 	    slottype.setType(Const.XML_DATA_TYPE_STRING);
 	    slottype.getContent().add("");
@@ -562,22 +562,22 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
      * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
      *      java.lang.String)
      */
-    public void setUserDefinedAttribute(final String name, final String value) {
-	if (helper == null) {
-	    helper = new GnucashWritableObjectImpl(super.helper);
+	public void setUserDefinedAttribute(final String name, final String value) {
+		if ( helper == null ) {
+			helper = new GnucashWritableObjectImpl(super.helper);
+		}
+		LOGGER.debug("setUserDefinedAttribute: [account-id=" + getID() + "] name=" + getName() + "] (name=" + name
+				+ ", value=" + value + ")");
+		helper.setUserDefinedAttribute(name, value);
 	}
-	LOGGER.debug("setUserDefinedAttribute: [account-id=" + getID() + "] name=" + getName()
-		+ "] (name=" + name + ", value=" + value + ")");
-	helper.setUserDefinedAttribute(name, value);
-    }
-    
-    public void clean() {
-	if (helper == null) {
-	    helper = new GnucashWritableObjectImpl(super.helper);
+
+	public void clean() {
+		if ( helper == null ) {
+			helper = new GnucashWritableObjectImpl(super.helper);
+		}
+		LOGGER.debug("clean: [account-id=" + getID() + "]");
+		helper.cleanSlots();
 	}
-	LOGGER.debug("clean: [account-id=" + getID() + "]");
-	helper.cleanSlots();
-    }
 
     // ---------------------------------------------------------------
 

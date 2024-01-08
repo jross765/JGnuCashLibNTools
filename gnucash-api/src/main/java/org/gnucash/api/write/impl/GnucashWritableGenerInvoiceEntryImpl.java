@@ -480,13 +480,13 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * {@inheritDoc}
      */
-    public void setUserDefinedAttribute(final String name, final String value) {
-	helper.setUserDefinedAttribute(name, value);
-    }
+	public void setUserDefinedAttribute(final String name, final String value) {
+		helper.setUserDefinedAttribute(name, value);
+	}
 
-    public void clean() {
-	helper.cleanSlots();
-    }
+	public void clean() {
+		helper.cleanSlots();
+	}
 
     // -----------------------------------------------------------
 

@@ -8,15 +8,24 @@ public class Const {
   public static final String XML_FORMAT_VERSION = "2.0.0";
   public static final String XML_FORMAT_VERSION_PRICEDB = "1";
   
-  public static final String XML_DATA_TYPE_GUID   = "guid";
-  public static final String XML_DATA_TYPE_STRING = "string";
+  public static final String XML_DATA_TYPE_GUID     = "guid";
+  public static final String XML_DATA_TYPE_STRING   = "string";
+  public static final String XML_DATA_TYPE_TIMESPEC = "timespec";
+  public static final String XML_DATA_TYPE_FRAME    = "frame";
   
   // -----------------------------------------------------------------
   
-  public static final String SLOT_KEY_ASSOC_URI = "assoc_uri";
-
-  public static final String DUMMY_FILL        = "dummy";
-  public static final String DUMMY_FILL_ALTERN = "placeholder"; // obsolete
+  public static final String SLOT_KEY_ACCT_PLACEHOLDER   = "placeholder";
+  public static final String SLOT_KEY_ACCT_NOTES         = "notes";
+  
+  public static final String SLOT_KEY_INVC_TYPE          = "gncInvoice";
+  public static final String SLOT_KEY_INVC_GUID          = "invoice-guid";
+  public static final String SLOT_KEY_INVC_TRX_TYPE      = "trans-txn-type";
+  public static final String SLOT_KEY_INVC_TRX_DATE_DUE  = "trans-date-due";
+  public static final String SLOT_KEY_INVC_TRX_READ_ONLY = "trans-read-only";
+  
+  public static final String SLOT_KEY_ASSOC_URI          = "assoc_uri";
+  public static final String SLOT_KEY_DUMMY              = "dummy";
 
   // -----------------------------------------------------------------
 

@@ -84,7 +84,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     // ---------------------------------------------------------------
     
-    // ::TODO helper (writable object)
+    /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper;
 
     // ---------------------------------------------------------------
 
@@ -104,16 +107,18 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * Create an editable invoice facading an existing JWSDP-peer.
      *
      * @param jwsdpPeer the JWSDP-object we are facading.
-     * @param file      the file to register under
+     * @param gncFile      the file to register under
      * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncGncInvoice,
      *      GnucashFile)
      */
     @SuppressWarnings("exports")
-    public GnucashWritableGenerInvoiceImpl(
-	    final GncGncInvoice jwsdpPeer, 
-	    final GnucashFile file) {
-	super(jwsdpPeer, file);
-    }
+	public GnucashWritableGenerInvoiceImpl(
+			final GncGncInvoice jwsdpPeer, 
+			final GnucashFile gncFile) {
+		super(jwsdpPeer, gncFile);
+
+		helper = new GnucashWritableObjectImpl(super.getGnucashObject());
+	}
 
 //    /**
 //     * @param file the file we are associated with.
@@ -230,6 +235,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     public GnucashWritableGenerInvoiceImpl(final GnucashGenerInvoiceImpl invc) {
 	super(invc.getJwsdpPeer(), invc.getFile());
 
+	helper = new GnucashWritableObjectImpl(super.getGnucashObject());
+	
 	// Entries
 	// Does not work:
 //	for ( GnucashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
@@ -260,6 +267,19 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    } // for splt
 	} // for trx
     }
+
+    // ---------------------------------------------------------------
+
+    /**
+     * {@inheritDoc}
+     */
+	public void setUserDefinedAttribute(final String name, final String value) {
+		helper.setUserDefinedAttribute(name, value);
+	}
+
+	public void clean() {
+		helper.cleanSlots();
+	}
 
     // ---------------------------------------------------------------
 
@@ -1523,7 +1543,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
-	    slot.setSlotKey("trans-txn-type");
+	    slot.setSlotKey(Const.SLOT_KEY_INVC_TRX_TYPE);
 	    value.setType(Const.XML_DATA_TYPE_STRING);
 	    value.getContent().add(GnucashTransaction.Type.INVOICE.getCode());
 
@@ -1535,8 +1555,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
-	    slot.setSlotKey("trans-date-due");
-	    value.setType("timespec");
+	    slot.setSlotKey(Const.SLOT_KEY_INVC_TRX_DATE_DUE);
+	    value.setType(Const.XML_DATA_TYPE_TIMESPEC);
 	    ZonedDateTime dueDateTime = ZonedDateTime.of(
 		    LocalDateTime.of(dueDate, LocalTime.MIN),
 		    ZoneId.systemDefault());
@@ -1552,7 +1572,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
-	    slot.setSlotKey("trans-read-only");
+	    slot.setSlotKey(Const.SLOT_KEY_INVC_TRX_READ_ONLY);
 	    value.setType(Const.XML_DATA_TYPE_STRING);
 	    value.getContent().add(Const.getLocaleString("INVC_READ_ONLY_SLOT_TEXT"));
 	    
@@ -1564,13 +1584,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
-	    slot.setSlotKey("gncInvoice");
-	    value.setType("frame");
+	    slot.setSlotKey(Const.SLOT_KEY_INVC_TYPE);
+	    value.setType(Const.XML_DATA_TYPE_FRAME);
 	    {
 		Slot subslot = factory.createSlot();
 		SlotValue subvalue = factory.createSlotValue();
 
-		subslot.setSlotKey("invoice-guid");
+		subslot.setSlotKey(Const.SLOT_KEY_INVC_GUID);
 		subvalue.setType(Const.XML_DATA_TYPE_GUID);
 		subvalue.getContent().add(invcID.toString());
 		subslot.setSlotValue(subvalue);
@@ -1710,13 +1730,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	{
 	    Slot slot = factory.createSlot();
 	    SlotValue value = factory.createSlotValue();
-	    slot.setSlotKey("gncInvoice");
-	    value.setType("frame");
+	    slot.setSlotKey(Const.SLOT_KEY_INVC_TYPE);
+	    value.setType(Const.XML_DATA_TYPE_FRAME);
 	    {
 		Slot subslot = factory.createSlot();
 		SlotValue subvalue = factory.createSlotValue();
 
-		subslot.setSlotKey("invoice-guid");
+		subslot.setSlotKey(Const.SLOT_KEY_INVC_GUID);
 		subvalue.setType(Const.XML_DATA_TYPE_GUID);
 		subvalue.getContent().add(invcID.toString());
 		subslot.setSlotValue(subvalue);

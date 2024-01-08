@@ -339,7 +339,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	}
 
 	for (Slot slot : (List<Slot>) slots.getSlot()) {
-	    if (!slot.getSlotKey().equals("gncInvoice")) {
+	    if (!slot.getSlotKey().equals(Const.SLOT_KEY_INVC_TYPE)) {
 		continue;
 	    }
 

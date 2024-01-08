@@ -23,7 +23,6 @@ import org.gnucash.api.generated.Price;
 import org.gnucash.api.generated.Price.PriceCommodity;
 import org.gnucash.api.generated.Price.PriceCurrency;
 import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashPriceImpl;
@@ -42,90 +41,80 @@ public class FilePriceManager {
     
     protected GnucashFileImpl gcshFile;
 
-    private GncPricedb priceDB = null;
-    private Map<GCshID, GnucashPrice>   prcMap  = null;
+    private GncPricedb                priceDB = null;
+    private Map<GCshID, GnucashPrice> prcMap  = null;
 
     // ---------------------------------------------------------------
     
-    public FilePriceManager(GnucashFileImpl gcshFile) {
-	this.gcshFile = gcshFile;
-	init(gcshFile.getRootElement());
-    }
-
-    // ---------------------------------------------------------------
-
-    private void init(final GncV2 pRootElement) {
-        prcMap = new HashMap<GCshID, GnucashPrice>();
-
-        initPriceDB(pRootElement);
-        List<Price> prices = priceDB.getPrice();
-        for ( Price jwsdpPrc : prices ) {
-            GnucashPriceImpl price = createPrice(jwsdpPrc);
-            prcMap.put(price.getID(), price);
-        }
-
-	LOGGER.debug("init: No. of entries in Price map: " + prcMap.size());
-    }
-
-    private void initPriceDB(final GncV2 pRootElement) {
-	List<Object> bookElements = pRootElement.getGncBook().getBookElements();
-	for ( Object bookElement : bookElements ) {
-	    if ( bookElement instanceof GncPricedb ) {
-		priceDB = (GncPricedb) bookElement;
-		return;
-	    } 
+	public FilePriceManager(GnucashFileImpl gcshFile) {
+		this.gcshFile = gcshFile;
+		init(gcshFile.getRootElement());
 	}
-    }
 
-    /**
-     * @param jwsdpInvc the JWSDP-peer (parsed xml-element) to fill our object with
-     * @return the new GCshPrice to wrap the given jaxb-object.
-     */
-    protected GnucashPriceImpl createPrice(final Price jwsdpPrc) {
-	GnucashPriceImpl prc = new GnucashPriceImpl(jwsdpPrc, gcshFile);
-	LOGGER.debug("Generated new price: " + prc.getID());
-	return prc;
-    }
+	// ---------------------------------------------------------------
 
-    // ---------------------------------------------------------------
+	private void init(final GncV2 pRootElement) {
+		prcMap = new HashMap<GCshID, GnucashPrice>();
 
-    public void addPrice(GnucashPrice prc) {
-	prcMap.put(prc.getID(), prc);
-	LOGGER.debug("Added price to cache: " + prc.getID());
-    }
+		initPriceDB(pRootElement);
+		List<Price> prices = priceDB.getPrice();
+		for ( Price jwsdpPrc : prices ) {
+			GnucashPriceImpl price = createPrice(jwsdpPrc);
+			prcMap.put(price.getID(), price);
+		}
 
-    public void removePrice(GnucashPrice prc) {
-	prcMap.remove(prc.getID());
-	LOGGER.debug("Removed price from cache: " + prc.getID());
-    }
+		LOGGER.debug("init: No. of entries in Price map: " + prcMap.size());
+	}
 
-    // ---------------------------------------------------------------
+	private void initPriceDB(final GncV2 pRootElement) {
+		List<Object> bookElements = pRootElement.getGncBook().getBookElements();
+		for ( Object bookElement : bookElements ) {
+			if ( bookElement instanceof GncPricedb ) {
+				priceDB = (GncPricedb) bookElement;
+				return;
+			}
+		}
+	}
 
-    public GncPricedb getPriceDB() {
-	return priceDB;
-    }
+	protected GnucashPriceImpl createPrice(final Price jwsdpPrc) {
+		GnucashPriceImpl prc = new GnucashPriceImpl(jwsdpPrc, gcshFile);
+		LOGGER.debug("Generated new price: " + prc.getID());
+		return prc;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public GnucashPrice getPriceByID(GCshID prcID) {
-        if (prcMap == null) {
-	    throw new IllegalStateException("no root-element loaded");
-        }
-        
-        return prcMap.get(prcID);
-    }
+	// ---------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
-    public Collection<GnucashPrice> getPrices() {
-        if (prcMap == null) {
-	    throw new IllegalStateException("no root-element loaded");
-        } 
+	public void addPrice(GnucashPrice prc) {
+		prcMap.put(prc.getID(), prc);
+		LOGGER.debug("Added price to cache: " + prc.getID());
+	}
 
-        return prcMap.values();
-    }
+	public void removePrice(GnucashPrice prc) {
+		prcMap.remove(prc.getID());
+		LOGGER.debug("Removed price from cache: " + prc.getID());
+	}
+
+	// ---------------------------------------------------------------
+
+	public GncPricedb getPriceDB() {
+		return priceDB;
+	}
+
+	public GnucashPrice getPriceByID(GCshID prcID) {
+		if ( prcMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
+		return prcMap.get(prcID);
+	}
+
+	public Collection<GnucashPrice> getPrices() {
+		if ( prcMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
+		return prcMap.values();
+	}
 
 //    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
 //      try {
@@ -138,194 +127,178 @@ public class FilePriceManager {
 //	    return getLatestPrice(cmdtyID);
 //      }
 //    }
-    
-    /**
-     * {@inheritDoc}
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     */
-    public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getLatestPrice(cmdtyCurrID, 0);
-    }
 
-    /**
-     * {@inheritDoc}
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
-     */
-    public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
-    }
-
-    /**
-     * @param pCmdtySpace the namespace for pCmdtyId
-     * @param pCmdtyId    the currency-name
-     * @param depth       used for recursion. Allways call with '0' for aborting
-     *                    recursive quotes (quotes to other then the base- currency)
-     *                    we abort if the depth reached 6.
-     * @return the latest price-quote in the gnucash-file in the default-currency
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @see {@link GnucashFile#getLatestPrice(String, String)}
-     * @see #getDefaultCurrencyID()
-     */
-    private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	if (cmdtyCurrID == null) {
-	    throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
+	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID)
+			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+		return getLatestPrice(cmdtyCurrID, 0);
 	}
-	// System.err.println("depth: " + depth);
 
-	Date latestDate = null;
-	FixedPointNumber latestQuote = null;
-	FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
-	final int maxRecursionDepth = RECURS_DEPTH_MAX;
+	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId)
+			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+		return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
+	}
 
-	for ( Price priceQuote : priceDB.getPrice() ) {
-	    if (priceQuote == null) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains null price-quotes - there may be a problem with JWSDP");
-		continue;
-	    }
-		    
-	    PriceCommodity fromCmdtyCurr = priceQuote.getPriceCommodity();
-	    PriceCurrency  toCurr        = priceQuote.getPriceCurrency();
+	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth)
+			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+		if ( cmdtyCurrID == null ) {
+			throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
+		}
+		// System.err.println("depth: " + depth);
 
-	    if ( fromCmdtyCurr == null ) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without from-commodity/currency: '"
-			+ priceQuote.toString() + "'");
-		continue;
-	    }
-				
-	    if ( toCurr == null ) {
-		LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without to-currency: '"
-			+ priceQuote.toString() + "'");
-		continue;
-	    }
+		Date latestDate = null;
+		FixedPointNumber latestQuote = null;
+		FixedPointNumber factor = new FixedPointNumber(1); // factor is used if the quote is not to our base-currency
+		final int maxRecursionDepth = RECURS_DEPTH_MAX;
 
-	    try {
-		if (fromCmdtyCurr.getCmdtySpace() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without namespace: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-			    
-		if (fromCmdtyCurr.getCmdtyId() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without code: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-				    
-		if (toCurr.getCmdtySpace() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with to-currency without namespace: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-					    
-		if (toCurr.getCmdtyId() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with to-currency without code: id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		if (priceQuote.getPriceTime() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without timestamp id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		if (priceQuote.getPriceValue() == null) {
-		    LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without value id='"
-			    + priceQuote.getPriceId().getValue() + "'");
-		    continue;
-		}
-		    
-		/*
-		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		 * priceQuote.getPriceType() == null) {
-		 * LOGGER.warn("getLatestPrice: GnuCash file contains FUND-price-quotes" + " with no type id='"
-		 * + priceQuote.getPriceID().getValue() + "'"); continue; }
-		 */
-		    
-		if ( ! ( fromCmdtyCurr.getCmdtySpace().equals(cmdtyCurrID.getNameSpace()) && 
-		         fromCmdtyCurr.getCmdtyId().equals(cmdtyCurrID.getCode()) ) ) {
-		    continue;
-		}
-		    
-		/*
-		 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
-		 * (priceQuote.getPriceType() == null ||
-		 * !priceQuote.getPriceType().equals("last") )) {
-		 * LOGGER.warn("getLatestPrice: ignoring FUND-price-quote of unknown type '" +
-		 * priceQuote.getPriceType() + "' expecting 'last' "); continue; }
-		 */
-
-		// BEGIN core
-		if ( ! toCurr.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
-		    // is commodity
-		    if ( depth > maxRecursionDepth ) {
-			LOGGER.warn("getLatestPrice: Ignoring price-quote that is not in an ISO4217-currency" 
-				+ " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
-			continue;
-		    }
-		    factor = getLatestPrice(new GCshCmdtyID(toCurr.getCmdtySpace(), toCurr.getCmdtyId()), depth + 1);
-		} else {
-		    // is currency
-		    if ( ! toCurr.getCmdtyId().equals(gcshFile.getDefaultCurrencyID()) ) {
-			if ( depth > maxRecursionDepth ) {
-			    LOGGER.warn("Ignoring price-quote that is not in " + gcshFile.getDefaultCurrencyID()
-			    + " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
-			    continue;
+		for ( Price priceQuote : priceDB.getPrice() ) {
+			if ( priceQuote == null ) {
+				LOGGER.warn(
+						"getLatestPrice: GnuCash file contains null price-quotes - there may be a problem with JWSDP");
+				continue;
 			}
-			factor = getLatestPrice(new GCshCurrID(toCurr.getCmdtyId()), depth + 1);
-		    }
+
+			PriceCommodity fromCmdtyCurr = priceQuote.getPriceCommodity();
+			PriceCurrency toCurr = priceQuote.getPriceCurrency();
+
+			if ( fromCmdtyCurr == null ) {
+				LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without from-commodity/currency: '"
+						+ priceQuote.toString() + "'");
+				continue;
+			}
+
+			if ( toCurr == null ) {
+				LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without to-currency: '"
+						+ priceQuote.toString() + "'");
+				continue;
+			}
+
+			try {
+				if ( fromCmdtyCurr.getCmdtySpace() == null ) {
+					LOGGER.warn(
+							"getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without namespace: id='"
+									+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				if ( fromCmdtyCurr.getCmdtyId() == null ) {
+					LOGGER.warn(
+							"getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without code: id='"
+									+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				if ( toCurr.getCmdtySpace() == null ) {
+					LOGGER.warn(
+							"getLatestPrice: GnuCash file contains price-quotes with to-currency without namespace: id='"
+									+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				if ( toCurr.getCmdtyId() == null ) {
+					LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes with to-currency without code: id='"
+							+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				if ( priceQuote.getPriceTime() == null ) {
+					LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without timestamp id='"
+							+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				if ( priceQuote.getPriceValue() == null ) {
+					LOGGER.warn("getLatestPrice: GnuCash file contains price-quotes without value id='"
+							+ priceQuote.getPriceId().getValue() + "'");
+					continue;
+				}
+
+				/*
+				 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
+				 * priceQuote.getPriceType() == null) {
+				 * LOGGER.warn("getLatestPrice: GnuCash file contains FUND-price-quotes" +
+				 * " with no type id='" + priceQuote.getPriceID().getValue() + "'"); continue; }
+				 */
+
+				if ( !(fromCmdtyCurr.getCmdtySpace().equals(cmdtyCurrID.getNameSpace())
+						&& fromCmdtyCurr.getCmdtyId().equals(cmdtyCurrID.getCode())) ) {
+					continue;
+				}
+
+				/*
+				 * if (priceQuote.getPriceCommodity().getCmdtySpace().equals("FUND") &&
+				 * (priceQuote.getPriceType() == null ||
+				 * !priceQuote.getPriceType().equals("last") )) {
+				 * LOGGER.warn("getLatestPrice: ignoring FUND-price-quote of unknown type '" +
+				 * priceQuote.getPriceType() + "' expecting 'last' "); continue; }
+				 */
+
+				// BEGIN core
+				if ( !toCurr.getCmdtySpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) ) {
+					// is commodity
+					if ( depth > maxRecursionDepth ) {
+						LOGGER.warn("getLatestPrice: Ignoring price-quote that is not in an ISO4217-currency"
+								+ " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
+						continue;
+					}
+					factor = getLatestPrice(new GCshCmdtyID(toCurr.getCmdtySpace(), toCurr.getCmdtyId()), depth + 1);
+				} else {
+					// is currency
+					if ( !toCurr.getCmdtyId().equals(gcshFile.getDefaultCurrencyID()) ) {
+						if ( depth > maxRecursionDepth ) {
+							LOGGER.warn("Ignoring price-quote that is not in " + gcshFile.getDefaultCurrencyID()
+									+ " but in '" + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyId() + "'");
+							continue;
+						}
+						factor = getLatestPrice(new GCshCurrID(toCurr.getCmdtyId()), depth + 1);
+					}
+				}
+				// END core
+
+				Date date = PRICE_QUOTE_DATE_FORMAT.parse(priceQuote.getPriceTime().getTsDate());
+
+				if ( latestDate == null || latestDate.before(date) ) {
+					latestDate = date;
+					latestQuote = new FixedPointNumber(priceQuote.getPriceValue());
+					LOGGER.debug("getLatestPrice: getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
+							+ "') converted " + latestQuote + " <= " + priceQuote.getPriceValue());
+				}
+
+			} catch (NumberFormatException e) {
+				LOGGER.error("getLatestPrice: [NumberFormatException] Problem in " + getClass().getName()
+						+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
+						+ priceQuote + "'", e);
+			} catch (ParseException e) {
+				LOGGER.error("getLatestPrice: [ParseException] Problem in " + getClass().getName() + " "
+						+ cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
+			} catch (NullPointerException e) {
+				LOGGER.error("getLatestPrice: [NullPointerException] Problem in " + getClass().getName()
+						+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
+						+ priceQuote + "'", e);
+			} catch (ArithmeticException e) {
+				LOGGER.error("getLatestPrice: [ArithmeticException] Problem in " + getClass().getName()
+						+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
+						+ priceQuote + "'", e);
+			}
+		} // for priceQuote
+
+		LOGGER.debug("getLatestPrice: " + getClass().getName() + ".getLatestPrice(pCmdtyCurrID='"
+				+ cmdtyCurrID.toString() + "')= " + latestQuote + " from " + latestDate);
+
+		if ( latestQuote == null ) {
+			return null;
 		}
-		// END core
 
-		Date date = PRICE_QUOTE_DATE_FORMAT.parse(priceQuote.getPriceTime().getTsDate());
-
-		if (latestDate == null || latestDate.before(date)) {
-		    latestDate = date;
-		    latestQuote = new FixedPointNumber(priceQuote.getPriceValue());
-		    LOGGER.debug("getLatestPrice: getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-		    	+ "') converted " + latestQuote + " <= " + priceQuote.getPriceValue());
+		if ( factor == null ) {
+			factor = new FixedPointNumber(1);
 		}
 
-	    } catch (NumberFormatException e) {
-		LOGGER.error("getLatestPrice: [NumberFormatException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    } catch (ParseException e) {
-		LOGGER.error("getLatestPrice: [ParseException] Problem in " + getClass().getName() + " "
-			+ cmdtyCurrID.toString() + "')! Ignoring a bad price-quote '"
-			+ priceQuote + "'", e);
-	    } catch (NullPointerException e) {
-		LOGGER.error("getLatestPrice: [NullPointerException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    } catch (ArithmeticException e) {
-		LOGGER.error("getLatestPrice: [ArithmeticException] Problem in " + getClass().getName()
-			+ ".getLatestPrice(pCmdtyCurrID='" + cmdtyCurrID.toString()
-			+ "')! Ignoring a bad price-quote '" + priceQuote + "'", e);
-	    }
-	} // for priceQuote
-
-	LOGGER.debug("getLatestPrice: " + getClass().getName() + ".getLatestPrice(pCmdtyCurrID='"
-		+ cmdtyCurrID.toString() + "')= " + latestQuote + " from " + latestDate);
-
-	if (latestQuote == null) {
-	    return null;
+		return factor.multiply(latestQuote);
 	}
 
-	if (factor == null) {
-	    factor = new FixedPointNumber(1);
+	// ---------------------------------------------------------------
+
+	public int getNofEntriesPriceMap() {
+		return prcMap.size();
 	}
-
-	return factor.multiply(latestQuote);
-    }
-
-    // ---------------------------------------------------------------
-
-    public int getNofEntriesPriceMap() {
-	return prcMap.size();
-    }
 
 }

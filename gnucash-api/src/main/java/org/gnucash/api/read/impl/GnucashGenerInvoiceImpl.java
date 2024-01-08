@@ -144,6 +144,10 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
     }
 
     // -----------------------------------------------------------------
+    
+    public GnucashObjectImpl getGnucashObject() {
+    	return helper;
+    }
 
     /**
      * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced

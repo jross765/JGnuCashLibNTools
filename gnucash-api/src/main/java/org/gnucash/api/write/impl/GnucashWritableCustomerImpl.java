@@ -401,13 +401,13 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      *      java.lang.String)
      */
     @Override
-    public void setUserDefinedAttribute(final String name, final String value) {
-	helper.setUserDefinedAttribute(name, value);
-    }
+	public void setUserDefinedAttribute(final String name, final String value) {
+		helper.setUserDefinedAttribute(name, value);
+	}
 
-    public void clean() {
-	helper.cleanSlots();
-    }
+	public void clean() {
+		helper.cleanSlots();
+	}
 
     // -----------------------------------------------------------------
     // The methods in this part are overridden methods from

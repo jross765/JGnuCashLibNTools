@@ -228,6 +228,10 @@
 				<xs:element name="cmdty_name" type="xs:string" minOccurs="0" maxOccurs="1"/>
 				<xs:element name="cmdty_xcode" type="xs:string" minOccurs="0" maxOccurs="1"/>
 				<xs:element name="cmdty_fraction" type="xs:int" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="cmdty_get_quotes" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="cmdty_quote_source" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="cmdty_quote_tz" type="xs:string" minOccurs="0" maxOccurs="1"/>
+				<xs:element type="slots_type" name="cmdty_slots" minOccurs="0" maxOccurs="1"/>
 			</xs:sequence>
 			<xs:attribute name="version" type="xs:string" use="required"/>
 		</xs:complexType>
