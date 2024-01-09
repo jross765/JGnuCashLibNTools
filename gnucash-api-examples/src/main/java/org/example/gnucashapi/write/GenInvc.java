@@ -172,8 +172,7 @@ public class GenInvc {
 
     // -----------------------------------------------------------------
 
-    private GnucashWritableCustomerInvoice doCustomer(GnucashWritableFileImpl gcshFile) 
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException, WrongAccountTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+    private GnucashWritableCustomerInvoice doCustomer(GnucashWritableFileImpl gcshFile) throws Exception {
 	GnucashCustomer cust = null;
 	try {
 	    cust = gcshFile.getWritableCustomerByID(custID);
@@ -219,8 +218,7 @@ public class GenInvc {
 	return invc;
     }
 
-    private GnucashWritableVendorBill doVendor(GnucashWritableFileImpl gcshFile) 
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException, WrongAccountTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+    private GnucashWritableVendorBill doVendor(GnucashWritableFileImpl gcshFile) throws Exception {
 	GnucashVendor vend = null;
 	try {
 	    vend = gcshFile.getVendorByID(vendID);
@@ -266,8 +264,7 @@ public class GenInvc {
 	return bll;
     }
 
-    private GnucashWritableEmployeeVoucher doEmployee(GnucashWritableFileImpl gcshFile) 
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException, WrongAccountTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+    private GnucashWritableEmployeeVoucher doEmployee(GnucashWritableFileImpl gcshFile) throws Exception {
 	GnucashEmployee empl = null;
 	try {
 	    empl = gcshFile.getEmployeeByID(emplID);
@@ -313,9 +310,7 @@ public class GenInvc {
 	return vch;
     }
 
-    private GnucashWritableJobInvoice doJob_cust(GnucashWritableFileImpl gcshFile)
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException,
-	    WrongAccountTypeException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+    private GnucashWritableJobInvoice doJob_cust(GnucashWritableFileImpl gcshFile) throws Exception {
 	GnucashGenerJob job = null;
 	try {
 	    job = gcshFile.getGenerJobByID(job1ID);
@@ -361,9 +356,7 @@ public class GenInvc {
 	return invc;
     }
 
-    private GnucashWritableJobInvoice doJob_vend(GnucashWritableFileImpl gcshFile)
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException, WrongOwnerTypeException,
-	    WrongAccountTypeException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+    private GnucashWritableJobInvoice doJob_vend(GnucashWritableFileImpl gcshFile) throws Exception {
 	GnucashGenerJob job = null;
 	try {
 	    job = gcshFile.getGenerJobByID(job2ID);

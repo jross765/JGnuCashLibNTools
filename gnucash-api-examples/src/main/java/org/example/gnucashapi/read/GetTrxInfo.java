@@ -67,7 +67,7 @@ public class GetTrxInfo {
 
     // -----------------------------------------------------------------
 
-    private void showSplits(GnucashTransaction trx) throws IllegalArgumentException {
+    private void showSplits(GnucashTransaction trx) {
 	System.out.println("");
 	System.out.println("Splits:");
 

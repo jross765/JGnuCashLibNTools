@@ -107,7 +107,7 @@ public class GetJobInfo {
 
     // -----------------------------------------------------------------
 
-    private void showInvoices(GnucashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    private void showInvoices(GnucashGenerJob job) throws Exception {
 	System.out.println("");
 	System.out.println("Invoices:");
 

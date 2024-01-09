@@ -180,7 +180,7 @@ public class GetCustInfo {
 	}
     }
 
-    private void showInvoices(GnucashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    private void showInvoices(GnucashCustomer cust) throws Exception {
 	System.out.println("");
 	System.out.println("Invoices:");
 
