@@ -14,6 +14,10 @@ import org.gnucash.api.write.hlp.GnucashWritableObject;
  * Vendor bill entry  that can be modified.
  * 
  * @see GnucashVendorBillEntry
+ * 
+ * @see GnucashWritableCustomerInvoiceEntry
+ * @see GnucashWritableEmployeeVoucherEntry
+ * @see GnucashWritableJobInvoiceEntry
  */
 public interface GnucashWritableVendorBillEntry extends GnucashWritableGenerInvoiceEntry, 
                                                         GnucashWritableObject 

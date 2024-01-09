@@ -19,30 +19,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of GnucashEmployeeVoucherEntryImpl to allow read-write access instead of
- * read-only access.
+ * Employee voucher entry that can be modified.
+ * 
+ * @see GnucashEmployeeVoucherEntry
+ * 
+ * @see GnucashWritableCustomerInvoiceEntryImpl
+ * @see GnucashWritableVendorBillEntryImpl
+ * @see GnucashWritableJobInvoiceEntryImpl
  */
 public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGenerInvoiceEntryImpl 
                                                      implements GnucashWritableEmployeeVoucherEntry
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableEmployeeVoucherEntryImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableEmployeeVoucherEntryImpl.class);
+
+	// ---------------------------------------------------------------
 
 	/**
 	 * @param file      the file we belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry, GnucashFileImpl)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry,
+	 *      GnucashFileImpl)
 	 */
 	@SuppressWarnings("exports")
-	public GnucashWritableEmployeeVoucherEntryImpl(
-		final GncGncEntry jwsdpPeer, 
-		final GnucashWritableFileImpl file) {
+	public GnucashWritableEmployeeVoucherEntryImpl(final GncGncEntry jwsdpPeer, final GnucashWritableFileImpl file) {
 		super(jwsdpPeer, file);
 	}
 
 	/**
-	 * @param vch   tne employee voucher this entry shall belong to
+	 * @param vch       tne employee voucher this entry shall belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncGncEntry)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
+	 *      GncGncEntry)
 	 */
 //	@SuppressWarnings("exports")
 //	public GnucashWritableEmployeeVoucherEntryImpl(
@@ -54,30 +61,21 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 //	}
 
 	/**
-	 * Create a taxable invoiceEntry.
-	 * (It has the tax table of the employee with a fallback
-	 * to the first tax table found assigned)
+	 * Create a taxable invoiceEntry. (It has the tax table of the employee with a
+	 * fallback to the first tax table found assigned)
 	 *
-	 * @param vch  the employee voucher to add this split to
+	 * @param vch      the employee voucher to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getCustInvcPrice()}}
-	 * @throws WrongInvoiceTypeException 
-	 * @throws TaxTableNotFoundException 
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 *  
-	 * @throws NoSuchFieldException 
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
 	 */
-	public GnucashWritableEmployeeVoucherEntryImpl(
-		final GnucashWritableEmployeeVoucherImpl vch,
-		final GnucashAccount account,
-		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException {
-		super(vch, 
-		      createEmplVchEntry_int(vch, account, quantity, price));
-		
+	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashWritableEmployeeVoucherImpl vch,
+			final GnucashAccount account, final FixedPointNumber quantity, final FixedPointNumber price)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException {
+		super(vch, createEmplVchEntry_int(vch, account, quantity, price));
+
 		// Caution: Call addVoucherEntry one level above now
 		// (GnucashWritableEmployeeVoucherImpl.createEmplVoucherEntry)
 		// vch.addVoucherEntry(this);
@@ -85,50 +83,51 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	}
 
 	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashGenerInvoiceEntry entry) {
-	    super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
 	}
 
 	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashEmployeeVoucherEntry entry) {
-	    super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
 	}
 
-	// -----------------------------------------------------------
+	// ---------------------------------------------------------------
 
 	@Override
 	public GnucashWritableFile getWritableGnucashFile() {
-	    // TODO Auto-generated method stub
-	    return null;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void setUserDefinedAttribute(String name, String value) {
-	    // TODO Auto-generated method stub
-	    
+		// TODO Auto-generated method stub
+
 	}
 
 	// -----------------------------------------------------------
 
 	@Override
 	public void setTaxable(boolean val)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVoucherTaxable(val);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVoucherTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVoucherTaxTable(taxTab);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVoucherTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setEmplVchPrice(price);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setEmplVchPrice(price);
 	}
 
 	@Override
-	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setEmplVchPrice(price);
+	public void setPrice(FixedPointNumber price)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setEmplVchPrice(price);
 	}
 
 }

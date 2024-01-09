@@ -19,6 +19,10 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
  * Vendor bill that can be modified if {@link #isModifiable()} returns true.
  * 
  * @see GnucashVendorBill
+ * 
+ * @see GnucashWritableCustomerInvoice
+ * @see GnucashWritableEmployeeVoucher
+ * @see GnucashWritableJobInvoice
  */
 public interface GnucashWritableVendorBill extends GnucashWritableGenerInvoice {
 

@@ -19,30 +19,37 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of GnucashVendorBillEntryImpl to allow read-write access instead of
- * read-only access.
+ * Vendor bill entry that can be modified.
+ * 
+ * @see GnucashVendorBillEntry
+ * 
+ * @see GnucashWritableCustomerInvoiceEntryImpl
+ * @see GnucashWritableEmployeeVoucherEntryImpl
+ * @see GnucashWritableJobInvoiceEntryImpl
  */
 public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvoiceEntryImpl 
                                                 implements GnucashWritableVendorBillEntry
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableVendorBillEntryImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableVendorBillEntryImpl.class);
+
+	// ---------------------------------------------------------------
 
 	/**
 	 * @param file      the file we belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry, GnucashFileImpl)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GncGncEntry,
+	 *      GnucashFileImpl)
 	 */
 	@SuppressWarnings("exports")
-	public GnucashWritableVendorBillEntryImpl(
-		final GncGncEntry jwsdpPeer, 
-		final GnucashWritableFileImpl file) {
+	public GnucashWritableVendorBillEntryImpl(final GncGncEntry jwsdpPeer, final GnucashWritableFileImpl file) {
 		super(jwsdpPeer, file);
 	}
 
 	/**
-	 * @param bll   tne vendor bill this entry shall belong to
+	 * @param bll       tne vendor bill this entry shall belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice, GncGncEntry)
+	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
+	 *      GncGncEntry)
 	 */
 //	@SuppressWarnings("exports")
 //	public GnucashWritableVendorBillEntryImpl(
@@ -54,30 +61,21 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 //	}
 
 	/**
-	 * Create a taxable invoiceEntry.
-	 * (It has the tax table of the vendor with a fallback
-	 * to the first tax table found assigned)
+	 * Create a taxable invoiceEntry. (It has the tax table of the vendor with a
+	 * fallback to the first tax table found assigned)
 	 *
-	 * @param bll  the vendor bill to add this split to
+	 * @param bll      the vendor bill to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnucashGenerInvoiceEntry#getQuantity()}
 	 * @param price    see ${@link GnucashGenerInvoiceEntry#getCustInvcPrice()}}
-	 * @throws WrongInvoiceTypeException 
-	 * @throws TaxTableNotFoundException 
-	 * @throws 
-	 * @throws IllegalArgumentException 
-	 * @throws ClassNotFoundException 
-	 *  
-	 * @throws NoSuchFieldException 
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
 	 */
-	public GnucashWritableVendorBillEntryImpl(
-		final GnucashWritableVendorBillImpl bll,
-		final GnucashAccount account,
-		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException {
-		super(bll, 
-		      createVendBillEntry_int(bll, account, quantity, price));
-		
+	public GnucashWritableVendorBillEntryImpl(final GnucashWritableVendorBillImpl bll, final GnucashAccount account,
+			final FixedPointNumber quantity, final FixedPointNumber price)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException {
+		super(bll, createVendBillEntry_int(bll, account, quantity, price));
+
 		// Caution: Call addBillEntry one level above now
 		// (GnucashWritableVendorBillImpl.createVendBillEntry)
 		// bll.addBillEntry(this);
@@ -85,50 +83,51 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 	}
 
 	public GnucashWritableVendorBillEntryImpl(final GnucashGenerInvoiceEntry entry) {
-	    super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
 	}
 
 	public GnucashWritableVendorBillEntryImpl(final GnucashVendorBillEntry entry) {
-	    super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
 	}
 
-	// -----------------------------------------------------------
+	// ---------------------------------------------------------------
 
 	@Override
 	public GnucashWritableFile getWritableGnucashFile() {
-	    // TODO Auto-generated method stub
-	    return null;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public void setUserDefinedAttribute(String name, String value) {
-	    // TODO Auto-generated method stub
-	    
+		// TODO Auto-generated method stub
+
 	}
 
 	// -----------------------------------------------------------
 
 	@Override
 	public void setTaxable(boolean val)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVendBllTaxable(val);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVendBllTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVendBllTaxTable(taxTab);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVendBllTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVendBllPrice(price);
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVendBllPrice(price);
 	}
 
 	@Override
-	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	    setVendBllPrice(price);
+	public void setPrice(FixedPointNumber price)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		setVendBllPrice(price);
 	}
 
 }

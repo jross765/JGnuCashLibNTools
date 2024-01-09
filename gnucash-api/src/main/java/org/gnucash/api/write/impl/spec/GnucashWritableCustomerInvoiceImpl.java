@@ -27,6 +27,7 @@ import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceImpl;
+import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -37,418 +38,372 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extension of GnucashCustomerInvoiceImpl to allow read-write access instead of
- * read-only access.
+ * Customer invoice that can be modified if {@link #isModifiable()} returns true.
+ * 
+ * @see GnucashCustomerInvoice
+ * 
+ * @see GnucashWritableEmployeeVoucherImpl
+ * @see GnucashWritableVendorBillImpl
+ * @see GnucashWritableJobInvoiceImpl
  */
 public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvoiceImpl 
                                                 implements GnucashWritableCustomerInvoice 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableCustomerInvoiceImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableCustomerInvoiceImpl.class);
 
-    /**
-     * Create an editable invoice facading an existing JWSDP-peer.
-     *
-     * @param jwsdpPeer the JWSDP-object we are facading.
-     * @param file      the file to register under
-     * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncGncInvoice,
-     *      GnucashFile)
-     */
-    @SuppressWarnings("exports")
-    public GnucashWritableCustomerInvoiceImpl(
-	    final GncGncInvoice jwsdpPeer, 
-	    final GnucashFile file) {
-	super(jwsdpPeer, file);
-    }
-
-    /**
-     * @param file the file we are associated with.
-     * @throws WrongOwnerTypeException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     * @throws IllegalTransactionSplitActionException 
-     */
-    public GnucashWritableCustomerInvoiceImpl(
-	    final GnucashWritableFileImpl file, 
-	    final String number,
-	    final GnucashCustomer cust, 
-	    final GnucashAccountImpl incomeAcct,
-	    final GnucashAccountImpl receivableAcct,
-	    final LocalDate openedDate,
-	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
-	super(createCustomerInvoice_int(file, 
-		                        number, cust,
-		                        false, // <-- caution!
-			                incomeAcct, receivableAcct,
-		                        openedDate, postDate, dueDate), 
-	      file);
-    }
-
-    /**
-     * @param file the file we are associated with.
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     */
-    public GnucashWritableCustomerInvoiceImpl(final GnucashWritableGenerInvoiceImpl invc)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	super(invc.getJwsdpPeer(), invc.getFile());
-
-	// No, we cannot check that first, because the super() method
-	// always has to be called first.
-	if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.CUSTOMER )
-	    throw new WrongInvoiceTypeException();
-
-	// Caution: In the following two loops, we may *not* iterate directly over
-	// invc.getGenerEntries(), because else, we will produce a ConcurrentModificationException.
-	// (It only works if the invoice has one single entry.)
-	// Hence the indirection via the redundant "entries" hash set.
-	Collection<GnucashGenerInvoiceEntry> entries = new HashSet<GnucashGenerInvoiceEntry>();
-	for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() ) {
-	    entries.add(entry);
-	}
-	
-	for ( GnucashGenerInvoiceEntry entry : entries ) {
-	    addEntry(new GnucashWritableCustomerInvoiceEntryImpl(entry));
+	// ---------------------------------------------------------------
+	/**
+	 * Create an editable invoice facading an existing JWSDP-peer.
+	 *
+	 * @param jwsdpPeer the JWSDP-object we are facading.
+	 * @param file      the file to register under
+	 * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncGncInvoice, GnucashFile)
+	 */
+	@SuppressWarnings("exports")
+	public GnucashWritableCustomerInvoiceImpl(final GncGncInvoice jwsdpPeer, final GnucashFile file) {
+		super(jwsdpPeer, file);
 	}
 
-	// Caution: Indirection via a redundant "trxs" hash set. 
-	// Same reason as above.
-	Collection<GnucashTransaction> trxs = new HashSet<GnucashTransaction>();
-	for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
-	    trxs.add(trx);
-	}
-	
-	for ( GnucashTransaction trx : trxs ) {
-	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
-		GCshID lot = splt.getLotID();
-		if ( lot != null ) {
-		    for ( GnucashGenerInvoice invc1 : splt.getTransaction().getGnucashFile().getGenerInvoices() ) {
-			GCshID lotID = invc1.getLotID();
-			if ( lotID != null &&
-			     lotID.equals(lot) ) {
-			    // Check if it's a payment transaction.
-			    // If so, add it to the invoice's list of payment transactions.
-			    if ( splt.getAction() == GnucashTransactionSplit.Action.PAYMENT ) {
-				addPayingTransaction(splt);
-			    }
-			} // if lotID
-		    } // for invc
-		} // if lot
-	    } // for splt
-	} // for trx
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    protected GnucashWritableFileImpl getWritableFile() {
-	return (GnucashWritableFileImpl) getFile();
-    }
-
-    /**
-     * support for firing PropertyChangeEvents. (gets initialized only if we really
-     * have listeners)
-     */
-    private volatile PropertyChangeSupport myPropertyChange = null;
-
-    /**
-     * Returned value may be null if we never had listeners.
-     *
-     * @return Our support for firing PropertyChangeEvents
-     */
-    protected PropertyChangeSupport getPropertyChangeSupport() {
-	return myPropertyChange;
-    }
-
-    /**
-     * Add a PropertyChangeListener to the listener list. The listener is registered
-     * for all properties.
-     *
-     * @param listener The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-    public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-	if (myPropertyChange == null) {
-	    myPropertyChange = new PropertyChangeSupport(this);
-	}
-	myPropertyChange.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * Add a PropertyChangeListener for a specific property. The listener will be
-     * invoked only when a call on firePropertyChange names that specific property.
-     *
-     * @param propertyName The name of the property to listen on.
-     * @param listener     The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-    public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-	if (myPropertyChange == null) {
-	    myPropertyChange = new PropertyChangeSupport(this);
-	}
-	myPropertyChange.addPropertyChangeListener(propertyName, listener);
-    }
-
-    /**
-     * Remove a PropertyChangeListener for a specific property.
-     *
-     * @param propertyName The name of the property that was listened on.
-     * @param listener     The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-    public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-	if (myPropertyChange != null) {
-	    myPropertyChange.removePropertyChangeListener(propertyName, listener);
-	}
-    }
-
-    /**
-     * Remove a PropertyChangeListener from the listener list. This removes a
-     * PropertyChangeListener that was registered for all properties.
-     *
-     * @param listener The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-    public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-	if (myPropertyChange != null) {
-	    myPropertyChange.removePropertyChangeListener(listener);
-	}
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-    public void setCustomer(GnucashCustomer cust) throws WrongInvoiceTypeException {
-	// ::TODO
-	GnucashCustomer oldCust = getCustomer();
-	if (oldCust == cust) {
-	    return; // nothing has changed
+	/**
+	 * @param file the file we are associated with.
+	 * @throws WrongOwnerTypeException
+	 * @throws InvalidCmdtyCurrTypeException
+	 * @throws IllegalArgumentException
+	 * @throws IllegalTransactionSplitActionException
+	 */
+	public GnucashWritableCustomerInvoiceImpl(final GnucashWritableFileImpl file, final String number,
+			final GnucashCustomer cust, final GnucashAccountImpl incomeAcct, final GnucashAccountImpl receivableAcct,
+			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
+			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+		super(createCustomerInvoice_int(file, number, cust, false, // <-- caution!
+				incomeAcct, receivableAcct, openedDate, postDate, dueDate), file);
 	}
 
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
-	getWritableFile().setModified(true);
+	/**
+	 * @param invc 
+	 * @param file the file we are associated with.
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 */
+	public GnucashWritableCustomerInvoiceImpl(final GnucashWritableGenerInvoiceImpl invc)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		super(invc.getJwsdpPeer(), invc.getFile());
 
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("customer", oldCust, cust);
+		// No, we cannot check that first, because the super() method
+		// always has to be called first.
+		if ( invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT) != GCshOwner.Type.CUSTOMER )
+			throw new WrongInvoiceTypeException();
+
+		// Caution: In the following two loops, we may *not* iterate directly over
+		// invc.getGenerEntries(), because else, we will produce a
+		// ConcurrentModificationException.
+		// (It only works if the invoice has one single entry.)
+		// Hence the indirection via the redundant "entries" hash set.
+		Collection<GnucashGenerInvoiceEntry> entries = new HashSet<GnucashGenerInvoiceEntry>();
+		for ( GnucashGenerInvoiceEntry entry : invc.getGenerEntries() ) {
+			entries.add(entry);
+		}
+
+		for ( GnucashGenerInvoiceEntry entry : entries ) {
+			addEntry(new GnucashWritableCustomerInvoiceEntryImpl(entry));
+		}
+
+		// Caution: Indirection via a redundant "trxs" hash set.
+		// Same reason as above.
+		Collection<GnucashTransaction> trxs = new HashSet<GnucashTransaction>();
+		for ( GnucashTransaction trx : invc.getPayingTransactions() ) {
+			trxs.add(trx);
+		}
+
+		for ( GnucashTransaction trx : trxs ) {
+			for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+				GCshID lot = splt.getLotID();
+				if ( lot != null ) {
+					for ( GnucashGenerInvoice invc1 : splt.getTransaction().getGnucashFile().getGenerInvoices() ) {
+						GCshID lotID = invc1.getLotID();
+						if ( lotID != null && lotID.equals(lot) ) {
+							// Check if it's a payment transaction.
+							// If so, add it to the invoice's list of payment transactions.
+							if ( splt.getAction() == GnucashTransactionSplit.Action.PAYMENT ) {
+								addPayingTransaction(splt);
+							}
+						} // if lotID
+					} // for invc
+				} // if lot
+			} // for splt
+		} // for trx
 	}
-    }
 
-    // -----------------------------------------------------------
+	// ---------------------------------------------------------------
 
-    /**
-     * create and add a new entry.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     */
-    public GnucashWritableCustomerInvoiceEntry createEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, 
-		                                                        singleUnitPrice, quantity);
-	return entry;
-    }
-
-    /**
-     * create and add a new entry.<br/>
-     * The entry will use the accounts of the SKR03.
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     */
-    public GnucashWritableCustomerInvoiceEntry createEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, 
-	    final String taxTabName) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, 
-		                                                        singleUnitPrice, quantity, 
-		                                                        taxTabName);
-	return entry;
-    }
-
-    /**
-     * create and add a new entry.<br/>
-     *
-     * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     */
-    public GnucashWritableCustomerInvoiceEntry createEntry(
-	    final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, 
-		                                                        singleUnitPrice, quantity, 
-		                                                        taxTab);
-	LOGGER.info("createEntry: Created customer invoice entry: " + entry.getID());
-	return entry;
-    }
-
-    // -----------------------------------------------------------
-
-    /**
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
-     */
-    protected void removeEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	removeInvcEntry(entry);
-	LOGGER.info("removeEntry: Removed customer invoice entry: " + entry.getID());
-    }
-
-    /**
-     * Called by
-     * ${@link GnucashWritableCustomerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
-     *
-     * @param entr the entry to add to our internal list of customer-invoice-entries
-     * @throws WrongInvoiceTypeException
-     * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
-     */
-    protected void addEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException, TaxTableNotFoundException {
-	addInvcEntry(entry);
-	LOGGER.info("addEntry: Added customer invoice entry: " + entry.getID());
-    }
-
-    protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-	subtractInvcEntry(entry);
-	LOGGER.info("subtractEntry: Subtracted customer invoice entry: " + entry.getID());
-    }
-
-    /**
-     * @return the ID of the Account to transfer the money from
-     * @throws WrongInvoiceTypeException
-     */
-    private GCshID getPostAccountID(final GnucashCustomerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException {
-	return getInvcPostAccountID(entry);
-    }
-
-    @Override
-    protected GCshID getBillPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException {
-	throw new WrongInvoiceTypeException();
-    }
-
-    @Override
-    protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException {
-	throw new WrongInvoiceTypeException();
-    }
-
-    @Override
-    protected GCshID getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException {
-	throw new WrongInvoiceTypeException();
-    }
-
-    /**
-     * Throw an IllegalStateException if we are not modifiable.
-     *
-     * @see #isModifiable()
-     */
-    protected void attemptChange() {
-	if (!isModifiable()) {
-	    throw new IllegalStateException(
-		    "this customer invoice is NOT changeable because there are already payment for it made!");
+	/**
+	 * The gnucash-file is the top-level class to contain everything.
+	 *
+	 * @return the file we are associated with
+	 */
+	protected GnucashWritableFileImpl getWritableFile() {
+		return (GnucashWritableFileImpl) getFile();
 	}
-    }
 
-    /**
-     * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
-     */
-    public GnucashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID id) {
-	return new GnucashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(id));
-    }
+	/**
+	 * support for firing PropertyChangeEvents. (gets initialized only if we really
+	 * have listeners)
+	 */
+	private volatile PropertyChangeSupport myPropertyChange = null;
 
-    // ---------------------------------------------------------------
+	/**
+	 * Returned value may be null if we never had listeners.
+	 *
+	 * @return Our support for firing PropertyChangeEvents
+	 */
+	protected PropertyChangeSupport getPropertyChangeSupport() {
+		return myPropertyChange;
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public GCshID getCustomerID() {
-	return getOwnerID();
-    }
+	/**
+	 * Add a PropertyChangeListener to the listener list. The listener is registered
+	 * for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be added
+	 */
+	@SuppressWarnings("exports")
+	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
+		if ( myPropertyChange == null ) {
+			myPropertyChange = new PropertyChangeSupport(this);
+		}
+		myPropertyChange.addPropertyChangeListener(listener);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public GnucashCustomer getCustomer() {
-	return getFile().getCustomerByID(getCustomerID());
-    }
+	/**
+	 * Add a PropertyChangeListener for a specific property. The listener will be
+	 * invoked only when a call on firePropertyChange names that specific property.
+	 *
+	 * @param propertyName The name of the property to listen on.
+	 * @param listener     The PropertyChangeListener to be added
+	 */
+	@SuppressWarnings("exports")
+	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
+		if ( myPropertyChange == null ) {
+			myPropertyChange = new PropertyChangeSupport(this);
+		}
+		myPropertyChange.addPropertyChangeListener(propertyName, listener);
+	}
 
-    // ---------------------------------------------------------------
+	/**
+	 * Remove a PropertyChangeListener for a specific property.
+	 *
+	 * @param propertyName The name of the property that was listened on.
+	 * @param listener     The PropertyChangeListener to be removed
+	 */
+	@SuppressWarnings("exports")
+	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
+		if ( myPropertyChange != null ) {
+			myPropertyChange.removePropertyChangeListener(propertyName, listener);
+		}
+	}
 
-    @Override
-    public void post(final GnucashAccount incomeAcct, 
-	             final GnucashAccount receivableAcct, 
-	             final LocalDate postDate,
-		     final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
-	postCustomerInvoice(
-		getFile(), 
-		this, getCustomer(), 
-		incomeAcct, receivableAcct, 
-		postDate, dueDate);
-    }
+	/**
+	 * Remove a PropertyChangeListener from the listener list. This removes a
+	 * PropertyChangeListener that was registered for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be removed
+	 */
+	@SuppressWarnings("exports")
+	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
+		if ( myPropertyChange != null ) {
+			myPropertyChange.removePropertyChangeListener(listener);
+		}
+	}
 
-    // ---------------------------------------------------------------
-	
-    public static GnucashCustomerInvoiceImpl toReadable(GnucashWritableCustomerInvoiceImpl invc) {
-	GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
-	return result;
-    }
+	// ---------------------------------------------------------------
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void setCustomer(GnucashCustomer cust) throws WrongInvoiceTypeException {
+		// ::TODO
+		GnucashCustomer oldCust = getCustomer();
+		if ( oldCust == cust ) {
+			return; // nothing has changed
+		}
+
+		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
+		getWritableFile().setModified(true);
+
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("customer", oldCust, cust);
+		}
+	}
+
+	// -----------------------------------------------------------
+
+	/**
+	 * create and add a new entry.
+	 * 
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 */
+	public GnucashWritableCustomerInvoiceEntry createEntry(final GnucashAccount acct,
+			final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity);
+		return entry;
+	}
+
+	/**
+	 * create and add a new entry.<br/>
+	 * The entry will use the accounts of the SKR03.
+	 * 
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 */
+	public GnucashWritableCustomerInvoiceEntry createEntry(final GnucashAccount acct,
+			final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final String taxTabName)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity, taxTabName);
+		return entry;
+	}
+
+	/**
+	 * create and add a new entry.<br/>
+	 *
+	 * @return an entry using the given Tax-Table
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 */
+	public GnucashWritableCustomerInvoiceEntry createEntry(final GnucashAccount acct,
+			final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final GCshTaxTable taxTab)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		GnucashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity, taxTab);
+		LOGGER.info("createEntry: Created customer invoice entry: " + entry.getID());
+		return entry;
+	}
+
+	// -----------------------------------------------------------
+
+	/**
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 * @throws
+	 * @throws IllegalArgumentException
+	 * @throws ClassNotFoundException
+	 * 
+	 * @throws NoSuchFieldException
+	 * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
+	 */
+	protected void removeEntry(final GnucashWritableCustomerInvoiceEntryImpl entry)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		removeInvcEntry(entry);
+		LOGGER.info("removeEntry: Removed customer invoice entry: " + entry.getID());
+	}
+
+	/**
+	 * Called by
+	 * ${@link GnucashWritableCustomerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+	 *
+	 * @param entr the entry to add to our internal list of customer-invoice-entries
+	 * @throws WrongInvoiceTypeException
+	 * @throws TaxTableNotFoundException
+	 * @throws InvalidCmdtyCurrTypeException
+	 * @throws
+	 * @throws IllegalArgumentException
+	 * @throws ClassNotFoundException
+	 * 
+	 * @throws NoSuchFieldException
+	 */
+	protected void addEntry(final GnucashWritableCustomerInvoiceEntryImpl entry) throws WrongInvoiceTypeException,
+			InvalidCmdtyCurrTypeException, IllegalArgumentException, TaxTableNotFoundException {
+		addInvcEntry(entry);
+		LOGGER.info("addEntry: Added customer invoice entry: " + entry.getID());
+	}
+
+	protected void subtractEntry(final GnucashGenerInvoiceEntryImpl entry)
+			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		subtractInvcEntry(entry);
+		LOGGER.info("subtractEntry: Subtracted customer invoice entry: " + entry.getID());
+	}
+
+	/**
+	 * @return the ID of the Account to transfer the money from
+	 * @throws WrongInvoiceTypeException
+	 */
+	@SuppressWarnings("unused")
+	private GCshID getPostAccountID(final GnucashCustomerInvoiceEntryImpl entry) throws WrongInvoiceTypeException {
+		return getInvcPostAccountID(entry);
+	}
+
+	@Override
+	protected GCshID getBillPostAccountID(final GnucashGenerInvoiceEntryImpl entry) throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+			throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	protected GCshID getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry) throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	/**
+	 * Throw an IllegalStateException if we are not modifiable.
+	 *
+	 * @see #isModifiable()
+	 */
+	protected void attemptChange() {
+		if ( !isModifiable() ) {
+			throw new IllegalStateException(
+					"this customer invoice is NOT changeable because there are already payment for it made!");
+		}
+	}
+
+	/**
+	 * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
+	 */
+	public GnucashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID id) {
+		return new GnucashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(id));
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * @return 
+	 */
+	public GCshID getCustomerID() {
+		return getOwnerID();
+	}
+
+	/**
+	 * @return 
+	 */
+	public GnucashCustomer getCustomer() {
+		return getFile().getCustomerByID(getCustomerID());
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public void post(final GnucashAccount incomeAcct, final GnucashAccount receivableAcct, final LocalDate postDate,
+			final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException,
+			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+		postCustomerInvoice(getFile(), this, getCustomer(), incomeAcct, receivableAcct, postDate, dueDate);
+	}
+
+	// ---------------------------------------------------------------
+
+	public static GnucashCustomerInvoiceImpl toReadable(GnucashWritableCustomerInvoiceImpl invc) {
+		GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
+		return result;
+	}
 
 }

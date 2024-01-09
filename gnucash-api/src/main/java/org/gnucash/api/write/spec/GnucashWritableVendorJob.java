@@ -9,6 +9,8 @@ import org.gnucash.api.write.GnucashWritableGenerJob;
  * Vendor job that can be modified.
  * 
  * @see GnucashVendorJob
+ * 
+ * @see GnucashWritableCustomerJob
  */
 public interface GnucashWritableVendorJob extends GnucashWritableGenerJob 
 {

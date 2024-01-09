@@ -19,6 +19,10 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
  * Employee voucher that can be modified if {@link #isModifiable()} returns true.
  * 
  * @see GnucashEmployeeVoucher
+ * 
+ * @see GnucashWritableCustomerInvoice
+ * @see GnucashWritableVendorBill
+ * @see GnucashWritableJobInvoice
  */
 public interface GnucashWritableEmployeeVoucher extends GnucashWritableGenerInvoice {
 
