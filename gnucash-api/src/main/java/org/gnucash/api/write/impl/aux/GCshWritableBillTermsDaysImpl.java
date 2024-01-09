@@ -22,8 +22,8 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsDaysImpl(
 	    final GncGncBillTerm.BilltermDays jwsdpPeer, 
-	    final GnucashWritableFile gncFile) {
-	super(jwsdpPeer, gncFile);
+	    final GnucashWritableFile gcshFile) {
+	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableBillTermsDaysImpl(final GCshBillTermsDaysImpl bllTrm) {

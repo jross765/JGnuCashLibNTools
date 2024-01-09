@@ -51,16 +51,21 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
     // ------------------------------
 
     public enum ReadVariant {
-		DIRECT, 
-            // The entity that directly owns the
-            // invoice, be it a customer invoice,
-            // a vendor bill or a job invoice (thus,
-            // the customer's / vendor's / job's ID.
-		VIA_JOB, 
-            // If it's a job invoice, then this option means
-            // that we want the ID of the customer / vendor
-            // who is the owner of the job (depending of the
-            // job's type).
+        /**
+         * The entity that directly owns the
+         * invoice, be it a customer invoice,
+         * a vendor bill or a job invoice (thus,
+         * the customer's / vendor's / job's ID.
+         */
+		DIRECT,
+		
+		/**
+		 * If it's a job invoice, then this option means
+		 * that we want the ID of the customer / vendor
+		 * who is the owner of the job (depending of the
+		 * job's type).
+		 */
+		VIA_JOB 
     }
 
     // -----------------------------------------------------------------

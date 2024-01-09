@@ -88,7 +88,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
     private BigDecimal value;
 
     /**
-     * @return true if we are >=0
+     * @return true if we are &gt;= 0
      */
     public boolean isPositive() {
 	return value.signum() != -1;
@@ -278,6 +278,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
     /**
      * internally converts the double to a String.
+     * @throws NumberFormatException 
      *
      * @deprecated Try not to use floating-point numbers. This class is for EXACT
      *             computation!
@@ -455,7 +456,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
     /**
      * @param other the value to compare to
-     * @return true if and only if this>other
+     * @return true if and only if this &gt; other
      */
     public boolean isGreaterThan(final FixedPointNumber other) {
 	return isGreaterThan(other.getBigDecimal());
@@ -463,6 +464,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
     /**
      * @param other the value to compare to
+     * @param tolerance 
      * @return as ifGreaterThan, but with given tolerance allowed
      */
     public boolean isGreaterThan(final FixedPointNumber other, double tolerance) {
@@ -471,7 +473,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
     /**
      * @param other the value to compare to
-     * @return true if and only if this>other
+     * @return true if and only if this &gt; other
      */
     public boolean isGreaterThan(final BigDecimal other) {
 	return value.compareTo(other) > 0.0;
@@ -479,6 +481,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
     /**
      * @param other the value to compare to
+     * @param tolerance 
      * @return as ifGreaterThan, but with given tolerance allowed
      */
     public boolean isGreaterThan(final BigDecimal other, double tolerance) {

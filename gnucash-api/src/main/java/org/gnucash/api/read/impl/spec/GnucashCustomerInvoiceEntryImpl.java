@@ -45,8 +45,8 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 	}
 
 	@SuppressWarnings("exports")
-	public GnucashCustomerInvoiceEntryImpl(final GncGncEntry peer, final GnucashFileImpl gncFile) {
-		super(peer, gncFile, true);
+	public GnucashCustomerInvoiceEntryImpl(final GncGncEntry peer, final GnucashFileImpl gcshFile) {
+		super(peer, gcshFile, true);
 	}
 
 	public GnucashCustomerInvoiceEntryImpl(final GnucashGenerInvoiceEntry entry) throws WrongInvoiceTypeException {
@@ -96,13 +96,37 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 		return getCustInvcPriceFormatted();
 	}
 
+	// ------------------------------
+
+	/**
+	 * Do not use
+	 */
+	@Override
+	public FixedPointNumber getEmplVchPrice() throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	/**
+	 * Do not use
+	 */
+	@Override
+	public String getEmplVchPriceFormatted() throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
 	// ---------------------------------------------------------------
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public String getVendBllPriceFormatted() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
@@ -110,23 +134,17 @@ public class GnucashCustomerInvoiceEntryImpl extends GnucashGenerInvoiceEntryImp
 
 	// ------------------------------
 
-	@Override
-	public FixedPointNumber getEmplVchPrice() throws WrongInvoiceTypeException {
-		throw new WrongInvoiceTypeException();
-	}
-
-	@Override
-	public String getEmplVchPriceFormatted() throws WrongInvoiceTypeException {
-		throw new WrongInvoiceTypeException();
-	}
-
-	// ------------------------------
-
+	/**
+	 * Do not use
+	 */
 	@Override
 	public FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public String getJobInvcPriceFormatted() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();

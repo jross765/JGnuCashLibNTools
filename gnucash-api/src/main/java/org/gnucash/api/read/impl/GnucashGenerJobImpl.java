@@ -21,289 +21,299 @@ import org.slf4j.LoggerFactory;
 
 public class GnucashGenerJobImpl implements GnucashGenerJob {
 
-    protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashGenerJobImpl.class);
+	protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashGenerJobImpl.class);
+	
+	// ---------------------------------------------------------------
 
-    /**
-     * the JWSDP-object we are facading.
-     */
-    protected final GncGncJob jwsdpPeer;
+	/**
+	 * the JWSDP-object we are facading.
+	 */
+	protected final GncGncJob jwsdpPeer;
 
-    /**
-     * The file we belong to.
-     */
-    protected final GnucashFile file;
+	/**
+	 * The file we belong to.
+	 */
+	protected final GnucashFile file;
 
-    /**
-     * The currencyFormat to use for default-formating.<br/>
-     * Please access only using {@link #getCurrencyFormat()}.
-     *
-     * @see #getCurrencyFormat()
-     */
-    private NumberFormat currencyFormat = null;
+	/**
+	 * The currencyFormat to use for default-formating.<br/>
+	 * Please access only using {@link #getCurrencyFormat()}.
+	 *
+	 * @see #getCurrencyFormat()
+	 */
+	private NumberFormat currencyFormat = null;
 
-    // -----------------------------------------------------------
+	// ---------------------------------------------------------------
 
-    /**
-     * @param peer the JWSDP-object we are facading.
-     * @see #jwsdpPeer
-     * @param gncFile the file to register under
-     */
-    @SuppressWarnings("exports")
-    public GnucashGenerJobImpl(final GncGncJob peer, final GnucashFile gncFile) {
-	super();
+	/**
+	 * @param peer the JWSDP-object we are facading.
+	 * @param gcshFile the file to register under
+	 */
+	@SuppressWarnings("exports")
+	public GnucashGenerJobImpl(final GncGncJob peer, final GnucashFile gcshFile) {
+		super();
 
-	jwsdpPeer = peer;
-	file = gncFile;
-    }
-
-    /**
-     *
-     * @return The JWSDP-Object we are wrapping.
-     */
-    @SuppressWarnings("exports")
-    public GncGncJob getJwsdpPeer() {
-	return jwsdpPeer;
-    }
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * 
-     * @return the file we are associated with
-     */
-    public GnucashFile getFile() {
-	return file;
-    }
-
-    /**
-     * @return the unique-id to identify this object with across name- and
-     *         hirarchy-changes
-     */
-    public GCshID getID() {
-	assert jwsdpPeer.getJobGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
-
-	String guid = jwsdpPeer.getJobGuid().getValue();
-	if (guid == null) {
-	    throw new IllegalStateException("job has a null guid-value! guid-type=" + jwsdpPeer.getJobGuid().getType());
+		jwsdpPeer = peer;
+		file = gcshFile;
 	}
 
-	return new GCshID(guid);
-    }
-
-    /**
-     * @return true if the job is still active
-     */
-    public boolean isActive() {
-	return getJwsdpPeer().getJobActive() == 1;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getNumber() {
-	return jwsdpPeer.getJobId();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public String getName() {
-	return jwsdpPeer.getJobName();
-    }
-
-    /**
-     * @return the currency-format to use if no locale is given.
-     */
-    protected NumberFormat getCurrencyFormat() {
-	if (currencyFormat == null) {
-	    currencyFormat = NumberFormat.getCurrencyInstance();
+	// ---------------------------------------------------------------
+	/**
+	 *
+	 * @return The JWSDP-Object we are wrapping.
+	 */
+	@SuppressWarnings("exports")
+	public GncGncJob getJwsdpPeer() {
+		return jwsdpPeer;
 	}
 
-	return currencyFormat;
-    }
+	/**
+	 * The gnucash-file is the top-level class to contain everything.
+	 * 
+	 * @return the file we are associated with
+	 */
+	public GnucashFile getFile() {
+		return file;
+	}
 
-    // ---------------------------------------------------------------
+	/**
+	 * @return the unique-id to identify this object with across name- and
+	 *         hirarchy-changes
+	 */
+	public GCshID getID() {
+		assert jwsdpPeer.getJobGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
-    /**
-     * {@inheritDoc}
-     */
-    public GCshOwner.Type getOwnerType() {
-	return GCshOwner.Type.valueOff( jwsdpPeer.getJobOwner().getOwnerType() );
-    }
+		String guid = jwsdpPeer.getJobGuid().getValue();
+		if ( guid == null ) {
+			throw new IllegalStateException("job has a null guid-value! guid-type=" + jwsdpPeer.getJobGuid().getType());
+		}
 
-    @Deprecated
-    public String getOwnerTypeStr() {
-	return jwsdpPeer.getJobOwner().getOwnerType();
-    }
+		return new GCshID(guid);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public GCshID getOwnerID() {
-	assert jwsdpPeer.getJobOwner().getOwnerId().getType().equals(Const.XML_DATA_TYPE_GUID);
-	return new GCshID( jwsdpPeer.getJobOwner().getOwnerId().getValue() );
-    }
+	/**
+	 * @return true if the job is still active
+	 */
+	public boolean isActive() {
+		return getJwsdpPeer().getJobActive() == 1;
+	}
 
-    // ---------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getNumber() {
+		return jwsdpPeer.getJobId();
+	}
 
-    /**
-     * {@inheritDoc}
-     * 
-     * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    @Override
-    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-	return getFile().getUnpaidInvoicesForJob(this).size();
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getName() {
+		return jwsdpPeer.getJobName();
+	}
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException {
-	FixedPointNumber retval = new FixedPointNumber();
+	/**
+	 * @return the currency-format to use if no locale is given.
+	 */
+	protected NumberFormat getCurrencyFormat() {
+		if ( currencyFormat == null ) {
+			currencyFormat = NumberFormat.getCurrencyInstance();
+		}
 
-	try {
-	    for ( GnucashJobInvoice invcSpec : getPaidInvoices() ) {
+		return currencyFormat;
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public GCshOwner.Type getOwnerType() {
+		return GCshOwner.Type.valueOff(jwsdpPeer.getJobOwner().getOwnerType());
+	}
+
+	@Deprecated
+	public String getOwnerTypeStr() {
+		return jwsdpPeer.getJobOwner().getOwnerType();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public GCshID getOwnerID() {
+		assert jwsdpPeer.getJobOwner().getOwnerId().getType().equals(Const.XML_DATA_TYPE_GUID);
+		return new GCshID(jwsdpPeer.getJobOwner().getOwnerId().getValue());
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws WrongInvoiceTypeException
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	@Override
+	public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+		return getFile().getUnpaidInvoicesForJob(this).size();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException {
+		FixedPointNumber retval = new FixedPointNumber();
+
+		try {
+			for ( GnucashJobInvoice invcSpec : getPaidInvoices() ) {
 //		if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_JOB) ) {
 //		    GnucashJobInvoice invcSpec = new GnucashJobInvoiceImpl(invcGen);
-		GnucashGenerJob job = invcSpec.getGenerJob();
-		if ( job.getID().equals( this.getID() ) ) {
-		    retval.add( ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes() );
-		}
+				GnucashGenerJob job = invcSpec.getGenerJob();
+				if ( job.getID().equals(this.getID()) ) {
+					retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
+				}
 //		} // if invc type
-	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getIncomeGenerated: Serious error");
+			} // for
+		} catch (WrongInvoiceTypeException e) {
+			LOGGER.error("getIncomeGenerated: Serious error");
+		}
+
+		return retval;
 	}
 
-	return retval;
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException {
+		return getCurrencyFormat().format(getIncomeGenerated());
+	}
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException {
-	return getCurrencyFormat().format(getIncomeGenerated());
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException {
+		return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated());
+	}
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException {
-	return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated());
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException {
+		FixedPointNumber retval = new FixedPointNumber();
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException {
-	FixedPointNumber retval = new FixedPointNumber();
-
-	try {
-	    for (GnucashJobInvoice invcSpec : getUnpaidInvoices()) {
+		try {
+			for ( GnucashJobInvoice invcSpec : getUnpaidInvoices() ) {
 //            if ( invcGen.getType().equals(GnucashGenerInvoice.TYPE_JOB) ) {
 //              GnucashJobInvoice invcSpec = new GnucashJobInvoiceImpl(invcGen); 
-		GnucashGenerJob job = invcSpec.getGenerJob();
-		if (job.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
-		}
+				GnucashGenerJob job = invcSpec.getGenerJob();
+				if ( job.getID().equals(this.getID()) ) {
+					retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
+				}
 //            } // if invc type
-	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getOutstandingValue: Serious error");
+			} // for
+		} catch (WrongInvoiceTypeException e) {
+			LOGGER.error("getOutstandingValue: Serious error");
+		}
+
+		return retval;
 	}
 
-	return retval;
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public String getOutstandingValueFormatted() throws UnknownAccountTypeException {
+		return getCurrencyFormat().format(getOutstandingValue());
+	}
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public String getOutstandingValueFormatted() throws UnknownAccountTypeException {
-	return getCurrencyFormat().format(getOutstandingValue());
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws UnknownAccountTypeException
+	 * 
+	 */
+	public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException {
+		return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
+	}
 
-    /**
-     * {@inheritDoc}
-     * @throws UnknownAccountTypeException 
-     *  
-     */
-    public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException {
-	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
-    }
+	// -----------------------------------------------------------------
 
-    // -----------------------------------------------------------------
+	@Override
+	public Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
+		return file.getInvoicesForJob(this);
+	}
 
-    @Override
-    public Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
-	return file.getInvoicesForJob(this);
-    }
+	@Override
+	public Collection<GnucashJobInvoice> getPaidInvoices()
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+		return file.getPaidInvoicesForJob(this);
+	}
 
-    @Override
-    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-	return file.getPaidInvoicesForJob(this);
-    }
+	@Override
+	public Collection<GnucashJobInvoice> getUnpaidInvoices()
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+		return file.getUnpaidInvoicesForJob(this);
+	}
 
-    @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-	return file.getUnpaidInvoicesForJob(this);
-    }
+	// ---------------------------------------------------------------
 
-    // ---------------------------------------------------------------
+	public static int getHighestNumber(GnucashGenerJob job) {
+		return ((GnucashFileImpl) job.getFile()).getHighestJobNumber();
+	}
 
-    public static int getHighestNumber(GnucashGenerJob job) {
-	return ((GnucashFileImpl) job.getFile()).getHighestJobNumber();
-    }
+	public static String getNewNumber(GnucashGenerJob job) {
+		return ((GnucashFileImpl) job.getFile()).getNewJobNumber();
+	}
 
-    public static String getNewNumber(GnucashGenerJob job) {
-	return ((GnucashFileImpl) job.getFile()).getNewJobNumber();
-    }
+	// -----------------------------------------------------------------
 
-    // -----------------------------------------------------------------
+	@SuppressWarnings("exports")
+	@Override
+	public JobOwner getOwnerPeerObj() {
+		return jwsdpPeer.getJobOwner();
+	}
 
-    @SuppressWarnings("exports")
-    @Override
-    public JobOwner getOwnerPeerObj() {
-	return jwsdpPeer.getJobOwner();
-    }
+	// -----------------------------------------------------------------
 
-    // -----------------------------------------------------------------
+	@Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnucashGenerJobImpl [");
+		buffer.append("id=");
+		buffer.append(getID());
 
-    @Override
-    public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnucashGenerJobImpl [");
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number=");
-	buffer.append(getNumber());
-	
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
-	
-	buffer.append(", owner-type=");
-	buffer.append(getOwnerType());
-	
-	buffer.append(", cust/vend-id=");
-	buffer.append(getOwnerID());
-	
-	buffer.append(", is-active=");
-	buffer.append(isActive());
-	
-	buffer.append("]");
-	return buffer.toString();
-    }
+		buffer.append(", number=");
+		buffer.append(getNumber());
+
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
+
+		buffer.append(", owner-type=");
+		buffer.append(getOwnerType());
+
+		buffer.append(", cust/vend-id=");
+		buffer.append(getOwnerID());
+
+		buffer.append(", is-active=");
+		buffer.append(isActive());
+
+		buffer.append("]");
+		return buffer.toString();
+	}
 
 }

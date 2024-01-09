@@ -47,8 +47,8 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@SuppressWarnings("exports")
-	public GnucashJobInvoiceImpl(final GncGncInvoice peer, final GnucashFile gncFile) {
-		super(peer, gncFile);
+	public GnucashJobInvoiceImpl(final GncGncInvoice peer, final GnucashFile gcshFile) {
+		super(peer, gcshFile);
 	}
 
 	public GnucashJobInvoiceImpl(final GnucashGenerInvoice invc)
@@ -150,7 +150,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 	 */
 	@Override
 	public GnucashGenerJob getGenerJob() {
-		return file.getGenerJobByID(getJobID());
+		return gcshFile.getGenerJobByID(getJobID());
 	}
 
 	/**

@@ -60,23 +60,26 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * Create an editable invoice facading an existing JWSDP-peer.
 	 *
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @param file      the file to register under
+	 * @param gcshFile      the file to register under
 	 * @see GnucashGenerInvoiceImpl#GnucashInvoiceImpl(GncGncInvoice, GnucashFile)
 	 */
 	@SuppressWarnings("exports")
-	public GnucashWritableJobInvoiceImpl(final GncGncInvoice jwsdpPeer, final GnucashFile file) {
-		super(jwsdpPeer, file);
+	public GnucashWritableJobInvoiceImpl(final GncGncInvoice jwsdpPeer, final GnucashFile gcshFile) {
+		super(jwsdpPeer, gcshFile);
 	}
 
 	/**
 	 * @param file the file we are associated with.
+	 * @param number 
+	 * @param job 
+	 * @param incExpAcct 
+	 * @param recvblPayblAcct 
+	 * @param openedDate 
+	 * @param postDate 
+	 * @param dueDate 
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
 	 * @throws IllegalArgumentException
-	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnucashWritableJobInvoiceImpl(final GnucashWritableFileImpl file, final String number,
@@ -88,15 +91,12 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	}
 
 	/**
+	 * @param invc 
 	 * @param file the file we are associated with.
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
 	 * @throws IllegalArgumentException
-	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 */
 	public GnucashWritableJobInvoiceImpl(final GnucashWritableGenerInvoiceImpl invc)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
@@ -271,7 +271,9 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * @throws UnknownInvoiceTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public GnucashWritableJobInvoiceEntry createEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
+	public GnucashWritableJobInvoiceEntry createEntry(
+			final GnucashAccount acct, 
+			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException,
 			UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 		GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity);
@@ -287,8 +289,11 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * @throws UnknownInvoiceTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public GnucashWritableJobInvoiceEntry createEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-			final FixedPointNumber quantity, final String taxTabName) throws WrongInvoiceTypeException,
+	public GnucashWritableJobInvoiceEntry createEntry(
+			final GnucashAccount acct, 
+			final FixedPointNumber singleUnitPrice,
+			final FixedPointNumber quantity, 
+			final String taxTabName) throws WrongInvoiceTypeException,
 			TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 		GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity, taxTabName);
 		return entry;
@@ -303,8 +308,11 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * @throws UnknownInvoiceTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public GnucashWritableJobInvoiceEntry createEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-			final FixedPointNumber quantity, final GCshTaxTable taxTab) throws WrongInvoiceTypeException,
+	public GnucashWritableJobInvoiceEntry createEntry(
+			final GnucashAccount acct, 
+			final FixedPointNumber singleUnitPrice,
+			final FixedPointNumber quantity, 
+			final GCshTaxTable taxTab) throws WrongInvoiceTypeException,
 			TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 		GnucashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity, taxTab);
 		LOGGER.info("createEntry: Created job invoice entry: " + entry.getID());
@@ -317,11 +325,8 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
 	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnucashWritableJobInvoiceEntryImpl entry)
@@ -339,11 +344,8 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
 	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 */
 	protected void addEntry(final GnucashWritableJobInvoiceEntryImpl entry)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
@@ -358,38 +360,48 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 		LOGGER.info("subtractEntry: Subtracted job invoice entry: " + entry.getID());
 	}
 
+	// ---------------------------------------------------------------
+	
 	/**
 	 * @return the ID of the Account to transfer the money from
 	 * @throws WrongInvoiceTypeException
-	 * @throws
 	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 */
 	@SuppressWarnings("unused")
 	private GCshID getPostAccountID(final GnucashJobInvoiceEntryImpl entry) throws WrongInvoiceTypeException {
-		return getJobPostAccountID(entry);
+		return getJobInvcPostAccountID(entry);
 	}
 
 	/*
-	 * CAUTION!
-	 * 
-	 * @Override protected String getInvcPostAccountID(final
-	 * GnucashGenerInvoiceEntryImpl entry) throws WrongInvoiceTypeException { throw
-	 * new WrongInvoiceTypeException(); }
-	 * 
-	 * @Override protected String getBillPostAccountID(final
-	 * GnucashGenerInvoiceEntryImpl entry) throws WrongInvoiceTypeException { throw
-	 * new WrongInvoiceTypeException(); }
+	 * Do not use
 	 */
-
 	@Override
-	protected GCshID getVoucherPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+	protected GCshID getCustInvcPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
 			throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/*
+	 * Do not use
+	 */
+	@Override
+	protected GCshID getVendBllPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+			throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	/*
+	 * Do not use
+	 */
+	@Override
+	protected GCshID getEmplVchPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+			throws WrongInvoiceTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	// ---------------------------------------------------------------
+	
 	/**
 	 * Throw an IllegalStateException if we are not modifiable.
 	 *

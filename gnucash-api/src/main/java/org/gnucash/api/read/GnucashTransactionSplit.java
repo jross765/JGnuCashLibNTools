@@ -307,12 +307,10 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
 
     public GCshID getLotID();
 
-      /**
+    /**
      * Get the type of association this split has with
      * an invoice's lot.
      * @return null, or one of the ACTION_xyz values defined
-     * @throws 
-     *  
      */
     Action getAction();
 

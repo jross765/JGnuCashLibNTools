@@ -254,7 +254,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
-	 * @throws NoSuchFieldException
 	 * @see {@link GnucashFileImpl#loadFile(java.io.File)}
 	 */
 	@Override
@@ -500,7 +499,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
-	 * @throws NoSuchFieldException
 	 * @see GnucashFileImpl#setRootElement(GncV2)
 	 */
 	@Override
@@ -728,9 +726,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	 * 
 	 * @throws
 	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
-	 *
 	 * @see GnucashTransactionImpl#createSplit(GncTransaction.TrnSplits.TrnSplit)
 	 */
 	protected void addTransaction(final GnucashTransactionImpl trx) {

@@ -111,8 +111,6 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * @throws
      * @throws IllegalArgumentException
      * @throws ClassNotFoundException
-     * 
-     * @throws NoSuchFieldException
      */
     protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
 	    final GnucashWritableTransactionImpl transaction, final GnucashAccount account, final GCshID spltID)

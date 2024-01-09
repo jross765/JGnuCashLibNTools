@@ -44,9 +44,6 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @param peer the JWSDP-object we are facading.
      * @param trx  the transaction this split belongs to
-     *  
-     * @see #jwsdpPeer
-     * @see #myTransaction
      */
     @SuppressWarnings("exports")
     public GnucashTransactionSplitImpl(

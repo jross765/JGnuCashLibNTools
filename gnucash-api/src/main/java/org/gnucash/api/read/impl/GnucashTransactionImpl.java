@@ -78,15 +78,15 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * Create a new Transaction, facading a JWSDP-transaction.
      *
      * @param peer    the JWSDP-object we are facading.
-     * @param gncFile the file to register under
-     * @see #jwsdpPeer
+     * @param gcshFile the file to register under
+     * @param addTrxToInvc 
      */
     @SuppressWarnings("exports")
     public GnucashTransactionImpl(
 	    final GncTransaction peer, 
-	    final GnucashFile gncFile,
+	    final GnucashFile gcshFile,
 	    final boolean addTrxToInvc) {
-	super((peer.getTrnSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getTrnSlots(), gncFile);
+	super((peer.getTrnSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getTrnSlots(), gcshFile);
 
 	if (peer.getTrnSlots() == null) {
 	    peer.setTrnSlots(getSlots());
@@ -96,12 +96,12 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	    throw new IllegalArgumentException("null jwsdpPeer given");
 	}
 
-	if (gncFile == null) {
+	if (gcshFile == null) {
 	    throw new IllegalArgumentException("null file given");
 	}
 
 	jwsdpPeer = peer;
-	file = gncFile;
+	file = gcshFile;
 
 	if ( addTrxToInvc ) {
 	    for ( GnucashGenerInvoice invc : getInvoices() ) {
@@ -357,8 +357,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     /**
      * @param impl the split to add to mySplits
      * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
      */
     protected void addSplit(final GnucashTransactionSplitImpl impl) {
 	if (!jwsdpPeer.getTrnSplits().getTrnSplit().contains(impl.getJwsdpPeer())) {
@@ -452,8 +450,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @param element the jaxb-data
      * @return the new split-instance
      * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
      */
     protected GnucashTransactionSplitImpl createSplit(
 	    final GncTransaction.TrnSplits.TrnSplit element,

@@ -46,21 +46,6 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 	}
 
 	/**
-	 * @param bll       tne vendor bill this entry shall belong to
-	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnucashGenerInvoiceEntryImpl#GnucashInvoiceEntryImpl(GnucashGenerInvoice,
-	 *      GncGncEntry)
-	 */
-//	@SuppressWarnings("exports")
-//	public GnucashWritableVendorBillEntryImpl(
-//		final GnucashWritableVendorBillImpl bll,
-//		final GncGncEntry jwsdpPeer) {
-//		super(bll, jwsdpPeer);
-//		
-//		this.myInvoice = bll;
-//	}
-
-	/**
 	 * Create a taxable invoiceEntry. (It has the tax table of the vendor with a
 	 * fallback to the first tax table found assigned)
 	 *
@@ -118,6 +103,60 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 		setVendBllTaxTable(taxTab);
 	}
 
+	// ----------------------------
+
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setCustInvcTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+	
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setEmplVchTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+	
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setJobInvcTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+	}
+	
+	// ----------------------------
+
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
+
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
+
+	/**
+	 * Do not use
+	 */
+	@Override
+    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
+
+    // 	---------------------------------------------------------------
+	
 	@Override
 	public void setPrice(String price)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
@@ -129,5 +168,32 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 		setVendBllPrice(price);
 	}
+
+	/**
+	 * Do not use
+	 */
+    @Override
+    public void setCustInvcPrice(final String n)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
+
+	/**
+	 * Do not use
+	 */
+    @Override
+    public void setEmplVchPrice(final String n)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
+
+	/**
+	 * Do not use
+	 */
+    @Override
+    public void setJobInvcPrice(final String n)
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+		throw new WrongInvoiceTypeException();
+    }
 
 }

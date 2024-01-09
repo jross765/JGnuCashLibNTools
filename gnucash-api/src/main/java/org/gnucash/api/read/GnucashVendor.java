@@ -105,7 +105,6 @@ public interface GnucashVendor extends GnucashObject {
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
      * @throws IllegalArgumentException 
      *  
      */

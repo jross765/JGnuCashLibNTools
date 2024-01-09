@@ -562,14 +562,14 @@ public interface GnucashFile extends GnucashObject {
     Collection<GnucashGenerJob> getGenerJobsByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashGenerJob> getGenerJobsByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -591,20 +591,20 @@ public interface GnucashFile extends GnucashObject {
     GnucashCustomerJob getCustomerJobByID(GCshID custID);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      */
     Collection<GnucashCustomerJob> getCustomerJobsByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashCustomerJob> getCustomerJobsByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -626,20 +626,20 @@ public interface GnucashFile extends GnucashObject {
     GnucashVendorJob getVendorJobByID(GCshID vendID);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      */
     Collection<GnucashVendorJob> getVendorJobsByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashVendorJob> getVendorJobsByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -664,23 +664,21 @@ public interface GnucashFile extends GnucashObject {
      * warning: this function has to traverse all customers. If it much faster to
      * try getCustomerByID first and only call this method if the returned account
      * does not have the right name.
-     * @param expr 
-     *
-     * @param name the name to look for
+     * @param expr  search expression
      * @return null if not found
      * @see #getCustomerByID(GCshID)
      */
     Collection<GnucashCustomer> getCustomersByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashCustomer> getCustomersByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -705,23 +703,21 @@ public interface GnucashFile extends GnucashObject {
      * warning: this function has to traverse all vendors. If it much faster to try
      * getVendorByID first and only call this method if the returned account does
      * not have the right name.
-     * @param expr 
-     *
-     * @param name the name to look for
+     * @param expr  search expression
      * @return null if not found
      * @see #getVendorByID(GCshID)
      */
     Collection<GnucashVendor> getVendorsByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashVendor> getVendorsByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -746,23 +742,21 @@ public interface GnucashFile extends GnucashObject {
      * warning: this function has to traverse all employees. If it much faster to
      * try getEmployeeByID first and only call this method if the returned account
      * does not have the right name.
-     * @param expr 
-     *
-     * @param name the name to look for
+     * @param expr  search expression
      * @return null if not found
      * @see #getEmployeeByID(GCshID)
      */
     Collection<GnucashEmployee> getEmployeesByUserName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashEmployee> getEmployeesByUserName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException
@@ -814,8 +808,7 @@ public interface GnucashFile extends GnucashObject {
     GnucashCommodity getCommodityByQualifID(GCshCmdtyCurrNameSpace.SecIdType secIdType, String id);
 
     /**
-     * @param qualifID 
-     * @param id the unique id of the currency/security/commodity to look for
+     * @param qualifID the unique id of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
@@ -823,8 +816,7 @@ public interface GnucashFile extends GnucashObject {
     GnucashCommodity getCommodityByQualifID(String qualifID);
 
     /**
-     * @param xCode 
-     * @param id the unique id of the currency/security/commodity to look for
+     * @param xCode the unique X-code of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
      */
     GnucashCommodity getCommodityByXCode(String xCode);
@@ -833,23 +825,21 @@ public interface GnucashFile extends GnucashObject {
      * warning: this function has to traverse all currencies/securities/commodities. If it much faster to try
      * getCommodityByID first and only call this method if the returned account does
      * not have the right name.
-     * @param expr 
-     *
-     * @param name the name to look for
+     * @param expr search expression
      * @return null if not found
      * @see #getCommodityByID(GCshID)
      */
     Collection<GnucashCommodity> getCommoditiesByName(String expr);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @param relaxed
      * @return
      */
     Collection<GnucashCommodity> getCommoditiesByName(String expr, boolean relaxed);
 
     /**
-     * @param expr
+     * @param expr search expression
      * @return
      * @throws NoEntryFoundException
      * @throws TooManyEntriesFoundException

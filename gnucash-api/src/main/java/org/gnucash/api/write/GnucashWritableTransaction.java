@@ -62,7 +62,6 @@ public interface GnucashWritableTransaction extends GnucashTransaction
 
     /**
      * @throws SplitNotFoundException 
-     * @throws 
      * @throws IllegalArgumentException 
      *  
      * @see GnucashTransaction#getSecondSplit()

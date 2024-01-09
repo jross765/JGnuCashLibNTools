@@ -46,11 +46,11 @@ public class GnucashAccountImpl extends SimpleAccount
 
     /**
      * @param peer    the JWSDP-object we are facading.
-     * @param gncFile the file to register under
+     * @param gcshFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashAccountImpl(final GncAccount peer, final GnucashFile gncFile) {
-	super(gncFile);
+    public GnucashAccountImpl(final GncAccount peer, final GnucashFile gcshFile) {
+	super(gcshFile);
 
 	if (peer.getActSlots() == null) {
 	    peer.setActSlots(new ObjectFactory().createSlotsType());
@@ -58,7 +58,7 @@ public class GnucashAccountImpl extends SimpleAccount
 
 	jwsdpPeer = peer;
 
-	helper = new GnucashObjectImpl(peer.getActSlots(), gncFile);
+	helper = new GnucashObjectImpl(peer.getActSlots(), gcshFile);
     }
 
     // ---------------------------------------------------------------

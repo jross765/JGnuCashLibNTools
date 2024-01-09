@@ -181,11 +181,8 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      *
      * @param element the jaxb-data
      * @return the new split-instance
-     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
      */
     @Override
     protected GnucashTransactionSplitImpl createSplit(
@@ -306,11 +303,8 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 
     /**
      * @param impl the split to add to mySplits
-     * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     *  
-     * @throws NoSuchFieldException 
      */
     protected void addSplit(final GnucashWritableTransactionSplitImpl impl) throws IllegalArgumentException {
 	super.addSplit(impl);

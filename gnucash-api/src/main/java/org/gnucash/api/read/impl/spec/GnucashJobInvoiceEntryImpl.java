@@ -45,8 +45,8 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 	}
 
 	@SuppressWarnings("exports")
-	public GnucashJobInvoiceEntryImpl(final GncGncEntry peer, final GnucashFileImpl gncFile) {
-		super(peer, gncFile, true);
+	public GnucashJobInvoiceEntryImpl(final GncGncEntry peer, final GnucashFileImpl gcshFile) {
+		super(peer, gcshFile, true);
 	}
 
 	public GnucashJobInvoiceEntryImpl(final GnucashGenerInvoiceEntry entry) throws WrongInvoiceTypeException {
@@ -98,11 +98,17 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
 	// ---------------------------------------------------------------
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public FixedPointNumber getCustInvcPrice() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public String getCustInvcPriceFormatted() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
@@ -110,11 +116,17 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
 	// ------------------------------
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public FixedPointNumber getEmplVchPrice() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public String getEmplVchPriceFormatted() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
@@ -122,11 +134,17 @@ public class GnucashJobInvoiceEntryImpl extends GnucashGenerInvoiceEntryImpl
 
 	// ------------------------------
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();
 	}
 
+	/**
+	 * Do not use
+	 */
 	@Override
 	public String getVendBllPriceFormatted() throws WrongInvoiceTypeException {
 		throw new WrongInvoiceTypeException();

@@ -44,11 +44,11 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	/**
 	 * @param jwsdpPeer the XML(jaxb)-object we are fronting.
-	 * @param file      the file we belong to
+	 * @param gcshFile      the file we belong to
 	 */
 	@SuppressWarnings("exports")
-	public GnucashWritableCustomerJobImpl(final GncGncJob jwsdpPeer, final GnucashFile file) {
-		super(jwsdpPeer, file);
+	public GnucashWritableCustomerJobImpl(final GncGncJob jwsdpPeer, final GnucashFile gcshFile) {
+		super(jwsdpPeer, gcshFile);
 	}
 
 	/**
@@ -68,11 +68,6 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws
-	 * @throws IllegalArgumentException
-	 * @throws ClassNotFoundException
-	 * 
-	 * @throws NoSuchFieldException
 	 * @see GnucashWritableCustomerJob#remove()
 	 */
 	public void remove() throws WrongInvoiceTypeException {

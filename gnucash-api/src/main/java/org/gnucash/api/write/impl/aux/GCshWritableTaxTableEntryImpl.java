@@ -25,8 +25,8 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @SuppressWarnings("exports")
     public GCshWritableTaxTableEntryImpl(
 	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer,
-	    final GnucashWritableFile gncFile) {
-	super(jwsdpPeer, gncFile);
+	    final GnucashWritableFile gcshFile) {
+	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableTaxTableEntryImpl(final GCshTaxTableEntryImpl entr) {

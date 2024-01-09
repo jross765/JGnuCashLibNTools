@@ -45,17 +45,16 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 
     /**
      * @param peer the JWSDP-object we are facading.
-     * @see #jwsdpPeer
-     * @param gncFile the file to register under
+     * @param gcshFile the file to register under
      */
     @SuppressWarnings("exports")
     public GCshTaxTableImpl(
 	    final GncGncTaxTable peer, 
-	    final GnucashFile gncFile) {
+	    final GnucashFile gcshFile) {
 	super();
 	
 	this.jwsdpPeer = peer;
-	this.myFile = gncFile;
+	this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------

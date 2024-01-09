@@ -44,11 +44,11 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 
     /**
      * @param peer    the JWSDP-object we are facading.
-     * @param gncFile the file to register under
+     * @param gcshFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnucashEmployeeImpl(final GncGncEmployee peer, final GnucashFile gncFile) {
-	super((peer.getEmployeeSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEmployeeSlots(), gncFile);
+    public GnucashEmployeeImpl(final GncGncEmployee peer, final GnucashFile gcshFile) {
+	super((peer.getEmployeeSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEmployeeSlots(), gcshFile);
 
 	if (peer.getEmployeeSlots() == null) {
 	    peer.setEmployeeSlots(getSlots());

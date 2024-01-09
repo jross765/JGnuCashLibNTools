@@ -155,7 +155,6 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * The returned list ist sorted by the natural order of the Transaction-Splits.
      *
      * @return all splits
-     * @link GnucashTransactionSplit
      */
     List<? extends GnucashTransactionSplit> getTransactionSplits();
 
@@ -181,7 +180,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     // ----------------------------
 
     /**
-     * @return true if ${@link #getTransactionSplits()}.size()>0
+     * @return true if ${@link #getTransactionSplits()}.size() &gt; 0
      */
     boolean hasTransactions();
 
@@ -195,7 +194,6 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * The returned list ist sorted by the natural order of the Transaction-Splits.
      *
      * @return all splits
-     * @link GnucashTransaction
      */
     List<GnucashTransaction> getTransactions();
 
@@ -284,7 +282,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * Ignores accounts for which this conversion is not possible.
      *
      * @param date     ignores transactions after the given date
-     * @param currency the currency the result shall be in
+     * @param curr 
      * @return Gets the balance including all sub-accounts.
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
@@ -296,8 +294,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * Ignores accounts for which this conversion is not possible.
      *
      * @param date              ignores transactions after the given date
-     * @param currencyNameSpace the currency the result shall be in
-     * @param currencyName      the currency the result shall be in
+     * @param secCurrID 
      * @return Gets the balance including all sub-accounts.
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 

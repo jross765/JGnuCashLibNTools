@@ -25,8 +25,7 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
 
     /**
      * @param peer the JWSDP-object we are facading.
-     * @see #jwsdpPeer
-     * @param gncFile the file to register under
+     * @param gcshFile the file to register under
      */
     @SuppressWarnings("exports")
     public GCshBillTermsProximoImpl(

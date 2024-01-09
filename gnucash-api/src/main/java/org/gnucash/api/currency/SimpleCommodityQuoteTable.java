@@ -49,7 +49,7 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
     }
 
     /**
-     * @param cmdtyID a currency-name in capital letters(e.g. "GBP")
+     * @param cmdtyQualifID a currency-name in capital letters(e.g. "GBP")
      * @param factor              a factor {@link FixedPointNumber} that is to be
      *                            multiplied with an amount of that currency to get
      *                            the value in the base-currency.

@@ -23,12 +23,11 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
 
 	/**
 	 * @param peer the JWSDP-object we are facading.
-	 * @see #jwsdpPeer
-	 * @param gncFile the file to register under
+	 * @param gcshFile the file to register under
 	 */
 	@SuppressWarnings("exports")
-	public GnucashCustomerJobImpl(final GncGncJob peer, final GnucashFile gncFile) {
-		super(peer, gncFile);
+	public GnucashCustomerJobImpl(final GncGncJob peer, final GnucashFile gcshFile) {
+		super(peer, gcshFile);
 	}
 
 	public GnucashCustomerJobImpl(final GnucashGenerJob job) throws WrongInvoiceTypeException {

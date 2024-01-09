@@ -155,8 +155,6 @@ public class GnucashFileImpl implements GnucashFile,
      *                     found)
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws ClassNotFoundException 
      * @see #loadFile(File)
      */
     public GnucashFileImpl(final InputStream is) throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
@@ -196,7 +194,6 @@ public class GnucashFileImpl implements GnucashFile,
      *                     found)
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
-     * @throws 
      * @throws ClassNotFoundException 
      * @see #setRootElement(GncV2)
      */
@@ -314,7 +311,7 @@ public class GnucashFileImpl implements GnucashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @see GnucashFile#getAccountByID(java.lang.String)
+     * @see #getAccountsByParentID(GCshID)
      */
     @Override
     public GnucashAccount getAccountByID(final GCshID acctID) {
@@ -324,6 +321,8 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @param prntAcctID if null, gives all account that have no parent
      * @return the sorted collection of children of that account
+     * 
+     * @see #getAccountByID(GCshID)
      */
     @Override
     public Collection<GnucashAccount> getAccountsByParentID(final GCshID prntAcctID) {
@@ -495,7 +494,8 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     /**
-     * @see GnucashFile#getGenerInvoices()
+     * @see #getPaidGenerInvoices()
+     * @see #getUnpaidGenerInvoices()
      */
     @Override
     public Collection<GnucashGenerInvoice> getGenerInvoices() {
@@ -507,7 +507,7 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getPaidGenerInvoices()
+     * @see #getUnpaidGenerInvoices()
      */
     @Override
     public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
@@ -517,7 +517,7 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidGenerInvoices()
+     * @see #getPaidGenerInvoices()
      */
     @Override
     public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
@@ -529,7 +529,7 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws WrongInvoiceTypeException
      *  
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     * @see #getPaidInvoicesForCustomer_viaAllJobs(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
@@ -540,7 +540,7 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws WrongInvoiceTypeException
      *  
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     * @see #getPaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
@@ -600,8 +600,10 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws WrongInvoiceTypeException
-     *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * 
+     * @see #getBillsForVendor_viaAllJobs(GnucashVendor)
+     * @see #getPaidBillsForVendor_direct(GnucashVendor)
+     * @see #getUnpaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
@@ -612,7 +614,9 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws WrongInvoiceTypeException
      *  
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     * @see #getBillsForVendor_direct(GnucashVendor)
+     * @see #getPaidBillsForVendor_viaAllJobs(GnucashVendor)
+     * @see #getUnpaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
@@ -624,7 +628,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * @see #getUnpaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
@@ -636,7 +640,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     * @see #getPaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
@@ -648,7 +652,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * @see #getPaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
@@ -660,7 +664,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
+     * @see #getPaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
@@ -1106,7 +1110,6 @@ public class GnucashFileImpl implements GnucashFile,
      * @param pRootElement the new root-element
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
-     * @throws 
      * @throws ClassNotFoundException 
      */
     protected void setRootElement(final GncV2 pRootElement) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
@@ -1347,7 +1350,6 @@ public class GnucashFileImpl implements GnucashFile,
      * Assuming that all customer numbers (manually set IDs, not GUIDs) are numeric
      * as generated by default.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1402,7 +1404,6 @@ public class GnucashFileImpl implements GnucashFile,
      * Assuming that all employee numbers (manually set IDs, not GUIDs) are numeric as
      * generated by default.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1431,7 +1432,6 @@ public class GnucashFileImpl implements GnucashFile,
      * CAUTION: As opposed to customers and vendors, it may not be a good idea to
      * actually have the job numbers generated automatically.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1462,7 +1462,6 @@ public class GnucashFileImpl implements GnucashFile,
      * Assuming that all customer numbers (manually set IDs, not GUIDs) are numeric
      * as generated by default.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1480,7 +1479,6 @@ public class GnucashFileImpl implements GnucashFile,
      * Assuming that all customer numbers (manually set IDs, not GUIDs) are numeric
      * as generated by default.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1498,7 +1496,6 @@ public class GnucashFileImpl implements GnucashFile,
      * Assuming that all employee numbers (manually set IDs, not GUIDs) are numeric
      * as generated by default.
      * 
-     * @param gcshFile
      * @return
      */
     @Override
@@ -1519,7 +1516,6 @@ public class GnucashFileImpl implements GnucashFile,
      * CAUTION: As opposed to customers and vendors, it may not be a good idea to
      * actually have the job numbers generated automatically.
      * 
-     * @param gcshFile
      * @return
      */
     @Override

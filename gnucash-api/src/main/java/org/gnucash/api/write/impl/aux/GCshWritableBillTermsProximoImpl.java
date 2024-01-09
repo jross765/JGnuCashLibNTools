@@ -22,8 +22,8 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsProximoImpl(
 	    final GncGncBillTerm.BilltermProximo jwsdpPeer, 
-	    final GnucashWritableFile gncFile) {
-	super(jwsdpPeer, gncFile);
+	    final GnucashWritableFile gcshFile) {
+	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableBillTermsProximoImpl(final GCshBillTermsProximoImpl bllTrm) {

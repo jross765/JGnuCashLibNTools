@@ -36,16 +36,16 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     /**
      * @param element the jwsdp-object we are wrapping
-     * @param file    the file we belong to
+     * @param gcshFile    the file we belong to
      */
     @SuppressWarnings("exports")
     public GCshTaxTableEntryImpl(
 	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element,
-	    final GnucashFile file) {
+	    final GnucashFile gcshFile) {
 	super();
 	
 	this.jwsdpPeer = element;
-	this.myFile = file;
+	this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------

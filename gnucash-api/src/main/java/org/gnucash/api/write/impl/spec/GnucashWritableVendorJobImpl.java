@@ -44,11 +44,11 @@ public class GnucashWritableVendorJobImpl extends GnucashVendorJobImpl
 
 	/**
 	 * @param jwsdpPeer the XML(jaxb)-object we are fronting.
-	 * @param file      the file we belong to
+	 * @param gcshFile      the file we belong to
 	 */
 	@SuppressWarnings("exports")
-	public GnucashWritableVendorJobImpl(final GncGncJob jwsdpPeer, final GnucashFile file) {
-		super(jwsdpPeer, file);
+	public GnucashWritableVendorJobImpl(final GncGncJob jwsdpPeer, final GnucashFile gcshFile) {
+		super(jwsdpPeer, gcshFile);
 	}
 
 	/**

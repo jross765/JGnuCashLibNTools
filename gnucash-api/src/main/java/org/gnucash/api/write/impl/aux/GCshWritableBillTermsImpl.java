@@ -35,8 +35,8 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsImpl(
 	    final GncGncBillTerm jwsdpPeer, 
-	    final GnucashWritableFile gncFile) {
-	super(jwsdpPeer, gncFile);
+	    final GnucashWritableFile gcshFile) {
+	super(jwsdpPeer, gcshFile);
 	
 	try {
 	    this.type = super.getType();
