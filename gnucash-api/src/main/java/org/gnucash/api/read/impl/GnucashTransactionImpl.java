@@ -156,14 +156,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     // ---------------------------------------------------------------
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#isBalanced()
      */
-    public boolean isBalanced() throws IllegalArgumentException {
+    public boolean isBalanced() {
 
 	return getBalance().equals(new FixedPointNumber());
 
@@ -184,14 +180,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * The result is in the currency of the transaction.
      *
      * @return the balance of the sum of all splits
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getBalance()
      */
-    public FixedPointNumber getBalance() throws IllegalArgumentException {
+    public FixedPointNumber getBalance() {
 
 	FixedPointNumber fp = new FixedPointNumber();
 
@@ -206,15 +198,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      *
      * @see GnucashTransaction#getBalanceFormatted()
      */
-    public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException {
+    public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	return getCurrencyFormat().format(getBalance());
     }
 
@@ -222,15 +210,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      *
      * @see GnucashTransaction#getBalanceFormatted(java.util.Locale)
      */
-    public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException {
+    public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 
 	NumberFormat cf = NumberFormat.getInstance(lcl);
 	if (getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
@@ -244,11 +228,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     /**
      * The result is in the currency of the transaction.
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      *
      * @see GnucashTransaction#getNegatedBalance()
      */
@@ -260,15 +240,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      *
      * @see GnucashTransaction#getNegatedBalanceFormatted()
      */
-    public String getNegatedBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException {
+    public String getNegatedBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	return getCurrencyFormat().format(getNegatedBalance());
     }
 
@@ -276,15 +252,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * The result is in the currency of the transaction.
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      *
      * @see GnucashTransaction#getNegatedBalanceFormatted(java.util.Locale)
      */
-    public String getNegatedBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IllegalArgumentException {
+    public String getNegatedBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	NumberFormat nf = NumberFormat.getInstance(lcl);
 	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    nf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
@@ -383,13 +355,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     /**
      * @param impl the split to add to mySplits
-     * @throws 
-     * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
-    protected void addSplit(final GnucashTransactionSplitImpl impl) throws IllegalArgumentException {
+    protected void addSplit(final GnucashTransactionSplitImpl impl) {
 	if (!jwsdpPeer.getTrnSplits().getTrnSplit().contains(impl.getJwsdpPeer())) {
 	    jwsdpPeer.getTrnSplits().getTrnSplit().add(impl.getJwsdpPeer());
 	}
@@ -402,26 +372,18 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     }
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSplitsCount()
      */
-    public int getSplitsCount() throws IllegalArgumentException {
+    public int getSplitsCount() {
 	return getSplits().size();
     }
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSplitByID(java.lang.String)
      */
-    public GnucashTransactionSplit getSplitByID(final GCshID id) throws IllegalArgumentException {
+    public GnucashTransactionSplit getSplitByID(final GCshID id) {
 	for (GnucashTransactionSplit split : getSplits()) {
 	    if (split.getID().equals(id)) {
 		return split;
@@ -433,14 +395,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     /**
      * @throws SplitNotFoundException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getFirstSplit()
      */
-    public GnucashTransactionSplit getFirstSplit() throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashTransactionSplit getFirstSplit() throws SplitNotFoundException {
 	if ( getSplits().size() == 0 )
 	    throw new SplitNotFoundException();
 	
@@ -450,14 +408,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     /**
      * @throws SplitNotFoundException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSecondSplit()
      */
-    public GnucashTransactionSplit getSecondSplit() throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashTransactionSplit getSecondSplit() throws SplitNotFoundException {
 	if ( getSplits().size() <= 1 )
 	    throw new SplitNotFoundException();
 	
@@ -467,25 +421,21 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     }
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSplits()
      */
-    public List<GnucashTransactionSplit> getSplits() throws IllegalArgumentException {
+    public List<GnucashTransactionSplit> getSplits() {
 	return getSplits(false, false);
     }
 
-    public List<GnucashTransactionSplit> getSplits(final boolean addToAcct, final boolean addToInvc) throws IllegalArgumentException {
+    public List<GnucashTransactionSplit> getSplits(final boolean addToAcct, final boolean addToInvc) {
 	if (mySplits == null) {
 	    initSplits(addToAcct, addToInvc);
 	}
 	return mySplits;
     }
 
-    private void initSplits(final boolean addToAcct, final boolean addToInvc) throws IllegalArgumentException {
+    private void initSplits(final boolean addToAcct, final boolean addToInvc) {
 	List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
 
 	mySplits = new ArrayList<GnucashTransactionSplit>(jwsdpSplits.size());
@@ -500,16 +450,14 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      *
      * @param element the jaxb-data
      * @return the new split-instance
-     * @throws 
-     * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     protected GnucashTransactionSplitImpl createSplit(
 	    final GncTransaction.TrnSplits.TrnSplit element,
 	    final boolean addToAcct, 
-	    final boolean addToInvc) throws IllegalArgumentException {
+	    final boolean addToInvc) {
 	return new GnucashTransactionSplitImpl(element, this, 
 		                               addToAcct, addToInvc);
     }

@@ -41,7 +41,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * @param jwsdpPeer   the JWSDP-object we are facading.
      * @param transaction the transaction we belong to
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     @SuppressWarnings("exports")
     public GnucashWritableTransactionSplitImpl(final GncTransaction.TrnSplits.TrnSplit jwsdpPeer,
@@ -56,7 +56,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * @param trx  transaction the transaction we will belong to
      * @param acct the account we take money (or other things) from or give it to
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     public GnucashWritableTransactionSplitImpl(final GnucashWritableTransactionImpl trx, final GnucashAccount acct)
 	    throws IllegalArgumentException {
@@ -110,7 +110,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * @throws
      * @throws IllegalArgumentException
      * @throws ClassNotFoundException
-     * @throws SecurityException
+     * 
      * @throws NoSuchFieldException
      */
     protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
@@ -170,7 +170,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * remove this split from it's transaction.
      * 
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     public void remove() throws IllegalArgumentException {
 	getTransaction().remove(this);

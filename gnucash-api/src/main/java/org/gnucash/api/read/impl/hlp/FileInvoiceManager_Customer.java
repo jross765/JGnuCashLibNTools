@@ -21,7 +21,7 @@ public abstract class FileInvoiceManager_Customer {
 	// ---------------------------------------------------------------
 
 	public static Collection<GnucashCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnucashCustomer cust) throws WrongInvoiceTypeException, IllegalArgumentException {
+			final GnucashCustomer cust) throws WrongInvoiceTypeException {
 		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -38,7 +38,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static Collection<GnucashJobInvoice> getInvoices_viaAllJobs(final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -52,7 +52,7 @@ public abstract class FileInvoiceManager_Customer {
 
 	public static Collection<GnucashCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
@@ -69,7 +69,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static Collection<GnucashJobInvoice> getPaidInvoices_viaAllJobs(final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {
@@ -83,7 +83,7 @@ public abstract class FileInvoiceManager_Customer {
 
 	public static Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
@@ -100,7 +100,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static Collection<GnucashJobInvoice> getUnpaidInvoices_viaAllJobs(final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {

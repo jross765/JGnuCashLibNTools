@@ -505,28 +505,21 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws WrongInvoiceTypeException
+     *  
      * @see GnucashFile#getPaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
 	return invcMgr.getPaidGenerInvoices();
     }
 
     /**
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws WrongInvoiceTypeException
+     *  
      * @see GnucashFile#getUnpaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
 	return invcMgr.getUnpaidGenerInvoices();
     }
 
@@ -534,87 +527,71 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForCustomer_direct(cust);
     }
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForCustomer_viaAllJobs(cust);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForCustomer_direct(cust);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForCustomer_direct(cust);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
     }
 
@@ -622,89 +599,71 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getBillsForVendor_direct(vend);
     }
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getBillsForVendor_viaAllJobs(vend);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidBillsForVendor_direct(vend);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidBillsForVendor_viaAllJobs(vend);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidBillsForVendor_direct(vend);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidBillsForVendor_viaAllJobs(vend);
     }
     
@@ -712,45 +671,36 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getVouchersForEmployee(empl);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidVouchersForEmployee(empl);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnucashEmployee empl)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidVouchersForEmployee(empl);
     }
 
@@ -758,45 +708,36 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForJob(job);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForJob(job);
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
     public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForJob(job);
     }
 

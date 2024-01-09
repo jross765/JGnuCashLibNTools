@@ -32,12 +32,12 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException,
 	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException;
 
     /**
      * create and add a new entry.<br/>
@@ -55,12 +55,12 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, final String taxTabName) throws WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
      * create and add a new entry.<br/>
@@ -77,10 +77,10 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity, final GCshTaxTable taxTab) throws WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 }

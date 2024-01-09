@@ -59,7 +59,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	// Cf. comments in GnucashWritableCustomerImpl.
 
 	public Collection<GnucashWritableGenerInvoice> getPaidWritableGenerInvoices()
-			throws UnknownAccountTypeException, IllegalArgumentException {
+			throws UnknownAccountTypeException {
 		Collection<GnucashWritableGenerInvoice> retval = new ArrayList<GnucashWritableGenerInvoice>();
 
 		for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -109,7 +109,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public Collection<GnucashWritableGenerInvoice> getUnpaidWritableGenerInvoices()
-			throws UnknownAccountTypeException, IllegalArgumentException {
+			throws UnknownAccountTypeException {
 		Collection<GnucashWritableGenerInvoice> retval = new ArrayList<GnucashWritableGenerInvoice>();
 
 		for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
@@ -167,7 +167,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public Collection<GnucashWritableJobInvoice> getWritableInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getInvoices_viaAllJobs(cust);
 	}
 
@@ -179,7 +179,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 
 	public Collection<GnucashWritableJobInvoice> getPaidWritableInvoicesForCustomer_viaAllJobs(
 			final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return FileInvoiceManager_Customer.getPaidInvoices_viaAllJobs(cust);
 	}
 
@@ -191,7 +191,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 
 	public Collection<GnucashWritableJobInvoice> getUnpaidWritableInvoicesForCustomer_viaAllJobs(
 			final GnucashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return FileInvoiceManager_Customer.getUnpaidInvoices_viaAllJobs(cust);
 	}
 
@@ -204,7 +204,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public Collection<GnucashWritableJobInvoice> getWritableBillsForVendor_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getBills_viaAllJobs(vend);
 	}
 
@@ -215,7 +215,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public Collection<GnucashWritableJobInvoice> getPaidWritableBillsForVendor_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return FileInvoiceManager_Vendor.getPaidBills_viaAllJobs(vend);
 	}
 
@@ -226,7 +226,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public Collection<GnucashWritableJobInvoice> getUnpaidWritableBillsForVendor_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return FileInvoiceManager_Vendor.getUnpaidBills_viaAllJobs(vend);
 	}
 

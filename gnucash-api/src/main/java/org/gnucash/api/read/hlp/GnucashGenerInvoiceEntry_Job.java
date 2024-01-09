@@ -10,36 +10,32 @@ public interface GnucashGenerInvoiceEntry_Job {
      * @return For a job invoice, return the price of one single of the
      *         ${@link #getQuantity()} items of type ${@link #getAction()}.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException, IllegalArgumentException;
+    FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException;
 
     /**
      * @return As ${@link #getJobInvcPrice()}, but formatted.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    String getJobInvcPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    String getJobInvcPriceFormatted() throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
      */
-    boolean isJobInvcTaxable() throws WrongInvoiceTypeException, IllegalArgumentException;
+    boolean isJobInvcTaxable() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws TaxTableNotFoundException
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
      */
     public GCshTaxTable getJobInvcTaxTable()
-	    throws TaxTableNotFoundException, WrongInvoiceTypeException, IllegalArgumentException;
+	    throws TaxTableNotFoundException, WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -47,18 +43,16 @@ public interface GnucashGenerInvoiceEntry_Job {
      *
      * @return e.g. "0.16" for "16%"
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    FixedPointNumber getJobInvcApplicableTaxPercent() throws WrongInvoiceTypeException, IllegalArgumentException;
+    FixedPointNumber getJobInvcApplicableTaxPercent() throws WrongInvoiceTypeException;
 
     /**
      * @return never null, "0%" if no taxtable is there
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    String getJobInvcApplicableTaxPercentFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    String getJobInvcApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -68,28 +62,25 @@ public interface GnucashGenerInvoiceEntry_Job {
      * 
      * @return count*single-unit-price excluding or including taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    FixedPointNumber getJobInvcSum() throws WrongInvoiceTypeException, IllegalArgumentException;
+    FixedPointNumber getJobInvcSum() throws WrongInvoiceTypeException;
 
     /**
      * @return count*single-unit-price including taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    FixedPointNumber getJobInvcSumInclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
+    FixedPointNumber getJobInvcSumInclTaxes() throws WrongInvoiceTypeException;
 
     /**
      * @return count*single-unit-price excluding taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    FixedPointNumber getJobInvcSumExclTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
+    FixedPointNumber getJobInvcSumExclTaxes() throws WrongInvoiceTypeException;
 
     // ----------------------------
 
@@ -98,31 +89,28 @@ public interface GnucashGenerInvoiceEntry_Job {
      * 
      * @return count*single-unit-price excluding or including taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    String getJobInvcSumFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    String getJobInvcSumFormatted() throws WrongInvoiceTypeException;
 
     /**
      * As ${@link #getCustInvcSumInclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price including taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    String getJobInvcSumInclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    String getJobInvcSumInclTaxesFormatted() throws WrongInvoiceTypeException;
 
     /**
      * As ${@link #getCustInvcSumExclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price excluding taxes.
      * @throws WrongInvoiceTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    String getJobInvcSumExclTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    String getJobInvcSumExclTaxesFormatted() throws WrongInvoiceTypeException;
 
 }

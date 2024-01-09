@@ -10,21 +10,19 @@ public interface GnucashGenerInvoice_Empl {
      * @return what the employee is yet to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getEmplVchAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the employee has already received (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getEmplVchAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the employee has already received (incl. taxes)
@@ -52,21 +50,19 @@ public interface GnucashGenerInvoice_Empl {
      * @return what the employee is still to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getEmplVchAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the employee already has received (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getEmplVchAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the employee already has received (incl. taxes)
@@ -104,18 +100,16 @@ public interface GnucashGenerInvoice_Empl {
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
     boolean isEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
     boolean isNotEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

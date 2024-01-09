@@ -79,7 +79,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      *
      * @param file the file we belong to
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableTransactionImpl(final GnucashWritableFileImpl file) throws IllegalArgumentException {
 	super(createTransaction_int(file, GCshID.getNew()), file, true);
@@ -183,7 +183,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     @Override
@@ -203,7 +203,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#createWritableSplit(GnucashAccount)
      */
     public GnucashWritableTransactionSplit createWritableSplit(final GnucashAccount acct) throws IllegalArgumentException {
@@ -218,7 +218,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * @param impl the split to remove from this transaction
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public void remove(final GnucashWritableTransactionSplit impl) throws IllegalArgumentException {
 	getJwsdpPeer().getTrnSplits().getTrnSplit().remove(((GnucashWritableTransactionSplitImpl) impl).getJwsdpPeer());
@@ -242,45 +242,45 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * @throws SplitNotFoundException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableFirstSplit()
      */
     @Override
-    public GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException {
 	return (GnucashWritableTransactionSplit) super.getFirstSplit();
     }
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableFirstSplit()
      */
-    public GnucashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException {
 	return (GnucashWritableTransactionSplit) super.getFirstSplit();
     }
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableSecondSplit()
      */
     @Override
-    public GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException {
 	return (GnucashWritableTransactionSplit) super.getSecondSplit();
     }
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableSecondSplit()
      */
-    public GnucashWritableTransactionSplit getWritableSecondSplit()  throws SplitNotFoundException, IllegalArgumentException {
+    public GnucashWritableTransactionSplit getWritableSecondSplit()  throws SplitNotFoundException {
 	return (GnucashWritableTransactionSplit) super.getSecondSplit();
     }
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableSplitByID(java.lang.String)
      */
     public GnucashWritableTransactionSplit getWritableSplitByID(final GCshID id) throws IllegalArgumentException {
@@ -289,7 +289,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#getWritableSplits()
      */
     public List<GnucashWritableTransactionSplit> getWritableSplits() throws IllegalArgumentException {
@@ -308,7 +308,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     protected void addSplit(final GnucashWritableTransactionSplitImpl impl) throws IllegalArgumentException {
@@ -318,7 +318,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 
     /**
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableTransaction#remove()
      */
     public void remove() throws IllegalArgumentException {

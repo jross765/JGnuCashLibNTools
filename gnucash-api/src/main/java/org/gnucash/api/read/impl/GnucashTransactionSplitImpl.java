@@ -43,11 +43,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * @param peer the JWSDP-object we are facading.
      * @param trx  the transaction this split belongs to
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see #jwsdpPeer
      * @see #myTransaction
      */
@@ -56,7 +52,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    final GncTransaction.TrnSplits.TrnSplit peer, 
 	    final GnucashTransaction trx,
 	    final boolean addSpltToAcct,
-	    final boolean addSpltToInvc) throws IllegalArgumentException {
+	    final boolean addSpltToInvc) {
 	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
 		trx.getGnucashFile());
 
@@ -129,11 +125,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     }
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransactionSplit#getActionStr()
      */
     @Override

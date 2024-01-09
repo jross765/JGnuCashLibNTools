@@ -136,18 +136,16 @@ public interface GnucashWritableFile extends GnucashFile,
 
     /**
      * @return a new transaction with no splits that is already added to this file
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    GnucashWritableTransaction createWritableTransaction() throws IllegalArgumentException;
+    GnucashWritableTransaction createWritableTransaction();
 
     /**
      *
      * @param impl the transaction to remove.
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
-    void removeTransaction(GnucashWritableTransaction impl) throws IllegalArgumentException;
+    void removeTransaction(GnucashWritableTransaction impl);
 
     // ---------------------------------------------------------------
 
@@ -191,8 +189,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableCustomerInvoice createWritableCustomerInvoice(
@@ -204,7 +201,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final LocalDate postDate, 
 	    final LocalDate dueDate)
 	    throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -221,8 +218,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableVendorBill createWritableVendorBill(
@@ -234,7 +230,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final LocalDate postDate, 
 	    final LocalDate dueDate)
 	    throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -251,8 +247,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableEmployeeVoucher createWritableEmployeeVoucher(
@@ -264,7 +259,7 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final LocalDate postDate, 
 	    final LocalDate dueDate)
 	    throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -281,8 +276,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @throws WrongOwnerTypeException 
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      * @throws IllegalTransactionSplitActionException
      */
     GnucashWritableJobInvoice createWritableJobInvoice(
@@ -294,9 +288,9 @@ public interface GnucashWritableFile extends GnucashFile,
 	    final LocalDate postDate, 
 	    final LocalDate dueDate)
 	    throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
 
-    void removeGenerInvoice(final GnucashWritableGenerInvoice impl) throws IllegalArgumentException;
+    void removeGenerInvoice(final GnucashWritableGenerInvoice impl);
 
     // ---------------------------------------------------------------
 

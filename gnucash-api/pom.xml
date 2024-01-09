@@ -23,8 +23,8 @@
 
 		<repository>
 			<id>central</id>
-        		<url>http://repo.maven.apache.org/maven2/</url>
-	    	</repository>
+			<url>http://repo.maven.apache.org/maven2/</url>
+		</repository>
 
 	</repositories>
 
@@ -142,7 +142,19 @@
 				</configuration>
 			</plugin>
 
-		</plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.3</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+					<!-- <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable> -->
+					<javadocExecutable>/usr/bin/javadoc</javadocExecutable>
+				</configuration>
+			</plugin>
+      
+      	</plugins>
 
 	</build>
 

@@ -10,21 +10,19 @@ public interface GnucashGenerInvoice_Cust {
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getCustInvcAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getCustInvcAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -52,21 +50,19 @@ public interface GnucashGenerInvoice_Cust {
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getCustInvcAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getCustInvcAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -104,17 +100,15 @@ public interface GnucashGenerInvoice_Cust {
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
-    boolean isCustInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    boolean isCustInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
     boolean isNotCustInvcFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

@@ -11,15 +11,15 @@ public interface GnucashWritableGenerInvoiceEntry_Cust {
 
     void setCustInvcPrice(String price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     void setCustInvcPrice(FixedPointNumber price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     void setCustInvcPriceFormatted(String price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     // ---------------------------------------------------------------
 
@@ -31,11 +31,11 @@ public interface GnucashWritableGenerInvoiceEntry_Cust {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     void setCustInvcTaxable(boolean val)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
      * @param tax the new tax table to use. Null sets isTaxable to false.

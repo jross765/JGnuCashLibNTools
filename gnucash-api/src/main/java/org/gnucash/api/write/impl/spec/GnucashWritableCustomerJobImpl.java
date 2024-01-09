@@ -70,11 +70,11 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see GnucashWritableCustomerJob#remove()
      */
-    public void remove() throws WrongInvoiceTypeException, IllegalArgumentException {
+    public void remove() throws WrongInvoiceTypeException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot remove a job that has invoices!");
 	}
@@ -180,11 +180,11 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see GnucashWritableCustomerJob#setCustomer(GnucashCustomer)
      */
-    public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException, IllegalArgumentException {
+    public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException {
 	if (!getInvoices().isEmpty()) {
 	    throw new IllegalStateException("cannot change customer of a job that has invoices!");
 	}
@@ -376,7 +376,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
     // Cf. comments in FileInvoiceManager (write-version).
 
     @Override
-    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	try {
 	    return getWritableFile().getUnpaidWritableInvoicesForJob(this).size();
 	} catch (TaxTableNotFoundException e) {
@@ -388,7 +388,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
+//    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException {
 //	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForJob(this) ) {
@@ -400,7 +400,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 //
 
     @Override
-    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
 	
 	try {
@@ -416,7 +416,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
 	
 	try {
@@ -437,7 +437,7 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
+//    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
 //	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForJob(this) ) {

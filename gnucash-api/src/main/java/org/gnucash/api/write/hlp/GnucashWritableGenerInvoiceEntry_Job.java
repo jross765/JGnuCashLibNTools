@@ -15,9 +15,9 @@ public interface GnucashWritableGenerInvoiceEntry_Job {
 
     void setJobInvcPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException,
 	    NumberFormatException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException;
 
     void setJobInvcPriceFormatted(String price) throws NumberFormatException, WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException;
 }

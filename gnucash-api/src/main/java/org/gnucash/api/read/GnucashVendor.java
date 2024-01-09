@@ -106,9 +106,9 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException 
      * @throws 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // -------------------------------------
 
@@ -117,36 +117,36 @@ public interface GnucashVendor extends GnucashObject {
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getExpensesGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getExpensesGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException;
 
     /**
      * @return the sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getExpensesGenerated_viaAllJobs() throws UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getExpensesGenerated_viaAllJobs() throws UnknownAccountTypeException;
 
     /**
      * @param readVar 
      * @return 
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see #getExpensesGenerated() Formatted according to the current locale's
      *      currency-format
      */
-    String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException, IllegalArgumentException;
+    String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
     /**
      * @param readVar 
@@ -154,11 +154,11 @@ public interface GnucashVendor extends GnucashObject {
      * @return 
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see #getExpensesGenerated() Formatted according to the given locale's
      *      currency-format
      */
-    String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException;
+    String getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
 
     // -------------------------------------
 
@@ -168,27 +168,27 @@ public interface GnucashVendor extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
-    FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @param readVar 
@@ -196,11 +196,11 @@ public interface GnucashVendor extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      *
@@ -210,11 +210,11 @@ public interface GnucashVendor extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ------------------------------------------------------------
 
@@ -232,7 +232,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException, IllegalArgumentException;
+    Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException;
 
     /**
      * @return
@@ -240,7 +240,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -248,7 +248,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -256,7 +256,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -264,6 +264,6 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    Collection<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

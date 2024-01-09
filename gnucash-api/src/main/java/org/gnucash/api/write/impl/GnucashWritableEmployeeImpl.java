@@ -320,7 +320,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     // Cf. comments in FileInvoiceManager (write-version).
 
     @Override
-    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	try {
 	    return getWritableGnucashFile().getUnpaidWritableVouchersForEmployee(this).size();
 	} catch (TaxTableNotFoundException e) {

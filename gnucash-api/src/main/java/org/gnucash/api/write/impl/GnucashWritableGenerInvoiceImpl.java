@@ -127,7 +127,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //     * @throws 
 //     * @throws IllegalArgumentException 
 //     * @throws ClassNotFoundException 
-//     * @throws SecurityException 
+//     *  
 //     * @throws NoSuchFieldException 
 //     * @throws IllegalTransactionSplitActionException 
 //     */
@@ -139,7 +139,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //	    final GnucashAccountImpl receivableAcct,
 //	    final LocalDate openedDate,
 //	    final LocalDate postDate,
-//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 //	super(createCustomerInvoice_int(file, 
 //		                    number, cust,
 //		                    false,
@@ -155,7 +155,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //     * @throws 
 //     * @throws IllegalArgumentException 
 //     * @throws ClassNotFoundException 
-//     * @throws SecurityException 
+//     *  
 //     * @throws NoSuchFieldException 
 //     * @throws IllegalTransactionSplitActionException 
 //     */
@@ -167,7 +167,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //	    final GnucashAccountImpl payableAcct,
 //	    final LocalDate openedDate,
 //	    final LocalDate postDate,
-//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 //	super(createVendorBill_int(file, 
 //		               number, vend,
 //		               false,
@@ -183,7 +183,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //     * @throws 
 //     * @throws IllegalArgumentException 
 //     * @throws ClassNotFoundException 
-//     * @throws SecurityException 
+//     *  
 //     * @throws NoSuchFieldException 
 //     * @throws IllegalTransactionSplitActionException 
 //     */
@@ -195,7 +195,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //	    final GnucashAccountImpl payableAcct,
 //	    final LocalDate openedDate,
 //	    final LocalDate postDate,
-//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 //	super(createEmployeeVoucher_int(file, 
 //		               number, empl,
 //		               false,
@@ -211,7 +211,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //     * @throws 
 //     * @throws IllegalArgumentException 
 //     * @throws ClassNotFoundException 
-//     * @throws SecurityException 
+//     *  
 //     * @throws NoSuchFieldException 
 //     * @throws IllegalTransactionSplitActionException 
 //     */
@@ -223,7 +223,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 //	    final GnucashAccountImpl payblRecvblAcct,
 //	    final LocalDate openedDate,
 //	    final LocalDate postDate,
-//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+//	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 //	super(createJobInvoice_int(file, 
 //		               number, job,
 //		               false,
@@ -289,13 +289,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableGenerInvoiceEntry createGenerEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException {
 //	System.err.println("GnucashWritableGenerInvoiceEntry.createGenerEntry");
 	
 	GnucashWritableGenerInvoiceEntryImpl entry = new GnucashWritableGenerInvoiceEntryImpl(
@@ -315,13 +315,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	GnucashWritableCustomerInvoiceEntryImpl entry = new GnucashWritableCustomerInvoiceEntryImpl(
 								new GnucashWritableCustomerInvoiceImpl(this), 
@@ -341,14 +341,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTabName == null )
 	    throw new IllegalStateException("Tax table name is null");
@@ -374,14 +374,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTab == null )
 	    throw new IllegalStateException("Tax table is null");
@@ -411,13 +411,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableVendorBillEntry createVendBllEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	
 	GnucashWritableVendorBillEntryImpl entry = new GnucashWritableVendorBillEntryImpl(
 								new GnucashWritableVendorBillImpl(this), 
@@ -437,14 +437,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableVendorBillEntry createVendBllEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTabName == null )
 	    throw new IllegalStateException("Tax table name is null");
@@ -470,14 +470,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableVendorBillEntry createVendBllEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTab == null )
 	    throw new IllegalStateException("Tax table is null");
@@ -507,13 +507,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	
 	GnucashWritableEmployeeVoucherEntryImpl entry = new GnucashWritableEmployeeVoucherEntryImpl(
 								new GnucashWritableEmployeeVoucherImpl(this), 
@@ -533,14 +533,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTabName == null )
 	    throw new IllegalStateException("Tax table name is null");
@@ -566,14 +566,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTab == null )
 	    throw new IllegalStateException("Tax table is null");
@@ -604,13 +604,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableJobInvoiceEntry createJobInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 	
 	GnucashWritableJobInvoiceEntryImpl entry = new GnucashWritableJobInvoiceEntryImpl(
 								new GnucashWritableJobInvoiceImpl(this), 
@@ -631,14 +631,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableJobInvoiceEntry createJobInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTabName == null )
 	    throw new IllegalStateException("Tax table name is null");
@@ -665,14 +665,14 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public GnucashWritableJobInvoiceEntry createJobInvcEntry(
 	    final GnucashAccount acct,
 	    final FixedPointNumber singleUnitPrice, 
 	    final FixedPointNumber quantity, 
 	    final GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
 
 	if ( taxTab == null )
 	    throw new IllegalStateException("Tax table is null");
@@ -706,7 +706,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @throws IllegalTransactionSplitActionException 
      */
@@ -719,7 +719,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl receivableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
@@ -807,7 +807,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @throws IllegalTransactionSplitActionException 
      */
@@ -820,7 +820,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
@@ -906,7 +906,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @throws IllegalTransactionSplitActionException 
      */
@@ -919,7 +919,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl payableAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
@@ -1004,7 +1004,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @throws IllegalTransactionSplitActionException 
      */
@@ -1017,7 +1017,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl recvblPayblAcct,
 	    final LocalDate openedDate,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 
 	ObjectFactory fact = file.getObjectFactory();
 	GCshID invcGUID = GCshID.getNew();
@@ -1105,7 +1105,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccount incomeAcct, 
 	    final GnucashAccount receivableAcct, 
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	LOGGER.debug("postCustomerInvoice: Posting customer invoice " + invc.getID() + "...");
 	
 	ObjectFactory fact = ((GnucashWritableFileImpl) file).getObjectFactory();
@@ -1131,7 +1131,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccount expensesAcct, 
 	    final GnucashAccount payableAcct, 
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	LOGGER.debug("postVendorBill: Posting vendor bill " + bll.getID() + "...");
 	
 	ObjectFactory fact = ((GnucashWritableFileImpl) file).getObjectFactory();
@@ -1157,7 +1157,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccount expensesAcct, 
 	    final GnucashAccount payableAcct, 
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	LOGGER.debug("postEmployeeVoucher: Posting employee voucher " + vch.getID() + "...");
 	
 	ObjectFactory fact = ((GnucashWritableFileImpl) file).getObjectFactory();
@@ -1183,7 +1183,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccount incomeAcct, 
 	    final GnucashAccount receivableAcct, 
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	LOGGER.debug("postJobInvoice: Posting job invoice " + invc.getID() + "...");
 	
 	ObjectFactory fact = ((GnucashWritableFileImpl) file).getObjectFactory();
@@ -1214,7 +1214,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GnucashAccountImpl receivableAcct,
 	    final FixedPointNumber amount,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	// post account
 	{
 	    GncGncInvoice.InvoicePostacc postAcct = fact.createGncGncInvoiceInvoicePostacc();
@@ -1283,7 +1283,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
             final GnucashAccountImpl payableAcct, 
 	    final FixedPointNumber amount,
             final LocalDate postDate,
-            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
         // post account
         {
             GncGncInvoice.InvoicePostacc postAcct = fact.createGncGncInvoiceInvoicePostacc();
@@ -1350,7 +1350,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
             final GnucashAccountImpl payableAcct, 
 	    final FixedPointNumber amount,
             final LocalDate postDate,
-            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
         // post account
         {
             GncGncInvoice.InvoicePostacc postAcct = fact.createGncGncInvoiceInvoicePostacc();
@@ -1417,7 +1417,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
             final GnucashAccountImpl recvblPayblAcct, 
 	    final FixedPointNumber amount,
             final LocalDate postDate,
-            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+            final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
         // post account
         {
             GncGncInvoice.InvoicePostacc postAcct = fact.createGncGncInvoiceInvoicePostacc();
@@ -1481,7 +1481,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @throws IllegalTransactionSplitActionException 
      * @see #GnucashWritableInvoiceImpl(GnucashWritableFileImpl, String, String,
@@ -1500,7 +1500,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final FixedPointNumber amount,
 	    final FixedPointNumber quantity,
 	    final LocalDate postDate,
-	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    final LocalDate dueDate) throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	if ( invcOwnerType != GCshOwner.Type.CUSTOMER &&
 	     invcOwnerType != GCshOwner.Type.VENDOR ) // sic, TYPE_JOB not allowed here
 	    throw new WrongOwnerTypeException();
@@ -1761,12 +1761,12 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
     protected void removeInvcEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( getType() != GCshOwner.Type.CUSTOMER &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
@@ -1786,12 +1786,12 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
     protected void removeBillEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( getType() != GCshOwner.Type.VENDOR &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
@@ -1811,12 +1811,12 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
     protected void removeVoucherEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( getType() != GCshOwner.Type.EMPLOYEE &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
@@ -1836,12 +1836,12 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      * @see #addInvcEntry(GnucashGenerInvoiceEntryImpl)
      */
     protected void removeJobEntry(final GnucashWritableGenerInvoiceEntryImpl impl)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -1883,10 +1883,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public void addInvcEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.CUSTOMER &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
@@ -1932,10 +1932,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public void addBillEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.VENDOR &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
@@ -1981,10 +1981,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public void addVoucherEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 	
@@ -2029,10 +2029,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     public void addJobEntry(final GnucashWritableGenerInvoiceEntryImpl generInvcEntr)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
@@ -2071,7 +2071,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     // ---------------------------------------------------------------
 
     protected void subtractInvcEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.CUSTOMER &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
@@ -2102,7 +2102,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     protected void subtractBillEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.VENDOR &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
@@ -2133,7 +2133,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     protected void subtractVoucherEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.EMPLOYEE &&
 	     getType() != GCshOwner.Type.JOB ) // ::CHECK
 	    throw new WrongInvoiceTypeException();
@@ -2164,7 +2164,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     protected void subtractJobEntry(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 	
@@ -2247,11 +2247,11 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     protected GCshID getJobPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-	    throws WrongInvoiceTypeException, IllegalArgumentException {
+	    throws WrongInvoiceTypeException {
 	if ( getType() != GnucashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -2271,7 +2271,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     private void updateEntry(
@@ -2280,7 +2280,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final FixedPointNumber sumExclTaxes,
 	    final FixedPointNumber sumInclTaxes, 
 	    final GCshID postAcctID)
-	    throws InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    throws InvalidCmdtyCurrTypeException {
 	LOGGER.debug("GnucashWritableGenerInvoiceImpl.updateEntry " 
 		+ "isTaxable=" + isTaxable + " "
 		+ "post-acct=" + postAcctID + " ");
@@ -2306,7 +2306,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final FixedPointNumber sumExclTaxes, 
 	    final FixedPointNumber sumInclTaxes,
 	    final GCshID postAcctID, 
-	    GnucashWritableTransactionImpl postTrx) throws InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException, IllegalArgumentException {
+	    GnucashWritableTransactionImpl postTrx) throws InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	// get the first account of the taxTable
 	GCshTaxTableEntry taxTableEntry = taxtable.getEntries().iterator().next();
 	GnucashAccount taxAcct = taxTableEntry.getAccount();
@@ -2374,13 +2374,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws 
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @throws NoSuchFieldException 
      */
     private void updateNonTaxableEntry(
 	    final FixedPointNumber sumExclTaxes, 
 	    final FixedPointNumber sumInclTaxes,
-	    final GCshID accountToTransferMoneyFrom) throws InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	    final GCshID accountToTransferMoneyFrom) throws InvalidCmdtyCurrTypeException {
 
 //	System.err.println("GnucashWritableGenerInvoiceImpl.updateNonTaxableEntry " 
 //		+ "accountToTransferMoneyFrom=" + accountToTransferMoneyFrom);
@@ -2644,7 +2644,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     /**
      * @return 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashGenerInvoice#getPayingTransactions()
      */
     public Collection<GnucashWritableTransaction> getWritablePayingTransactions() throws IllegalArgumentException {
@@ -2684,10 +2684,10 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      * @see GnucashWritableGenerInvoice#remove()
      */
-    public void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+    public void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 
 	if (!isModifiable()) {
 	    throw new IllegalStateException("Invoice has payments and cannot be deleted!");

@@ -10,21 +10,19 @@ public interface GnucashGenerInvoice_Vend {
      * @return what the vendor is yet to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getVendBllAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the vendor has already received (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     FixedPointNumber getVendBllAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the vendor has already received (incl. taxes)
@@ -52,21 +50,19 @@ public interface GnucashGenerInvoice_Vend {
      * @return what the vendor is still to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getVendBllAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the vendor already has received (incl. taxes)
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     String getVendBllAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return what the vendor already has received (incl. taxes)
@@ -104,17 +100,15 @@ public interface GnucashGenerInvoice_Vend {
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
-    boolean isVendBllFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    boolean isVendBllFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
-     * @throws IllegalArgumentException
      */
     boolean isNotVendBllFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

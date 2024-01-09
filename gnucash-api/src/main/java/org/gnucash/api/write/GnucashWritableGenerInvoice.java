@@ -92,12 +92,11 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      *
      */
     void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     // -----------------------------------------------------------
 
@@ -111,11 +110,10 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
      * 
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     GnucashWritableGenerInvoiceEntry createGenerEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
 	    final FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException;
+	    throws WrongInvoiceTypeException, TaxTableNotFoundException;
 
 }

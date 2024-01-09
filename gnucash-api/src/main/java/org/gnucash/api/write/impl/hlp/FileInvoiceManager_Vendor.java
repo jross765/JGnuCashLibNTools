@@ -45,7 +45,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashWritableJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException {
 		Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -77,7 +77,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashWritableJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -109,7 +109,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashWritableJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashWritableJobInvoice> retval = new ArrayList<GnucashWritableJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {

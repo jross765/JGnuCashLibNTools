@@ -21,32 +21,32 @@ import org.gnucash.api.read.UnknownAccountTypeException;
  */
 public interface SpecInvoiceCommon {
 
-    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
+    public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
 
-    public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
+    public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException;
     
-    public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException;
+    public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException;
 
     // ----------------------------
 
-    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
-    public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
 
-    public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+    public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
-    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException;
+    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

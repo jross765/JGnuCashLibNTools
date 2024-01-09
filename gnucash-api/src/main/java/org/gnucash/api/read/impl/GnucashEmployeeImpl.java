@@ -159,13 +159,10 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      */
     @Override
-    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidVouchersForEmployee(this).size();
     }
 
@@ -174,24 +171,18 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * @return the net sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      */
-    public FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException, IllegalArgumentException {
+    public FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException {
 	return getExpensesGenerated_direct();
     }
 
     /**
      * @return the net sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      */
-    public FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException, IllegalArgumentException {
+    public FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -214,13 +205,10 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * @return formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted() throws UnknownAccountTypeException, IllegalArgumentException {
+    public String getExpensesGeneratedFormatted() throws UnknownAccountTypeException {
 	return getCurrencyFormat().format(getExpensesGenerated());
 
     }
@@ -229,13 +217,10 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @param lcl the locale to format for
      * @return formatted according to the given locale's currency-format
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted(final Locale lcl) throws UnknownAccountTypeException, IllegalArgumentException {
+    public String getExpensesGeneratedFormatted(final Locale lcl) throws UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated());
     }
 
@@ -245,12 +230,9 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      */
-    public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getOutstandingValue_direct();
     }
 
@@ -258,12 +240,9 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      */
-    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -286,34 +265,28 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * @return Formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see #getOutstandingValue()
      */
-    public String getOutstandingValueFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public String getOutstandingValueFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
+     *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    public String getOutstandingValueFormatted(final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public String getOutstandingValueFormatted(final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
     // -----------------------------------------------------------------
 
     @Override
-    public Collection<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException, IllegalArgumentException {
+    public Collection<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException {
 	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashEmployeeVoucher invc : getGnucashFile().getVouchersForEmployee(this) ) {
@@ -324,12 +297,12 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
 

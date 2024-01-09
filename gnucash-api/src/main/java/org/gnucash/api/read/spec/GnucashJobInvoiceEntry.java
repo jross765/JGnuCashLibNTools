@@ -8,12 +8,12 @@ public interface GnucashJobInvoiceEntry extends GnucashGenerInvoiceEntry
 {
   GCshID getInvoiceID();
 
-  GnucashJobInvoice getInvoice() throws WrongInvoiceTypeException, IllegalArgumentException;
+  GnucashJobInvoice getInvoice() throws WrongInvoiceTypeException;
   
   // -----------------------------------------------------------------
 
-  FixedPointNumber getPrice() throws WrongInvoiceTypeException, IllegalArgumentException;
+  FixedPointNumber getPrice() throws WrongInvoiceTypeException;
 
-  String getPriceFormatted() throws WrongInvoiceTypeException, IllegalArgumentException;
+  String getPriceFormatted() throws WrongInvoiceTypeException;
   
 }

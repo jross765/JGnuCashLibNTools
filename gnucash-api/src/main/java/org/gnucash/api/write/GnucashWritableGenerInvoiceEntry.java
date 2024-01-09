@@ -41,19 +41,19 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
 
     // ---------------------------------------------------------------
 
-    void setAction(Action act) throws IllegalArgumentException;
+    void setAction(Action act);
 
     void setQuantity(String quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     void setQuantity(FixedPointNumber quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     void setQuantityFormatted(String n)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
      * @throws WrongInvoiceTypeException
@@ -61,11 +61,10 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     // ---------------------------------------------------------------
 

@@ -21,7 +21,7 @@ public abstract class FileInvoiceManager_Vendor {
 	// ---------------------------------------------------------------
 
 	public static Collection<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
-			final GnucashVendor vend) throws WrongInvoiceTypeException, IllegalArgumentException {
+			final GnucashVendor vend) throws WrongInvoiceTypeException {
 		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getGenerInvoices() ) {
@@ -38,7 +38,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -52,7 +52,7 @@ public abstract class FileInvoiceManager_Vendor {
 
 	public static Collection<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
 			final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getPaidGenerInvoices() ) {
@@ -69,7 +69,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
@@ -83,7 +83,7 @@ public abstract class FileInvoiceManager_Vendor {
 
 	public static Collection<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
 			final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getUnpaidGenerInvoices() ) {
@@ -100,7 +100,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static Collection<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {

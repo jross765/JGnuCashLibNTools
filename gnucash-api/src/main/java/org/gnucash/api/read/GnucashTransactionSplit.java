@@ -114,7 +114,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
 	  return getLocaleString(Locale.getDefault());
       }
 
-      public String getLocaleString(Locale lcl) throws IllegalArgumentException {
+      public String getLocaleString(Locale lcl) {
 	  try {
 	      Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
 	      Field fld = cls.getDeclaredField(code);
@@ -125,7 +125,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
       }
 		
       // no typo!
-      public static Action valueOff(String code) throws IllegalArgumentException {
+      public static Action valueOff(String code) {
 	  for ( Action val : values() ) {
 	      if ( val.getLocaleString().equals(code) ) {
 		  return val;
@@ -312,8 +312,7 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
      * an invoice's lot.
      * @return null, or one of the ACTION_xyz values defined
      * @throws 
-     * @throws IllegalArgumentException 
-     * @throws SecurityException 
+     *  
      */
     Action getAction();
 

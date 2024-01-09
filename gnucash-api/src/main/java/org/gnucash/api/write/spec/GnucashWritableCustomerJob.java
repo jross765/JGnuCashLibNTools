@@ -7,7 +7,7 @@ import org.gnucash.api.write.GnucashWritableGenerJob;
 public interface GnucashWritableCustomerJob extends GnucashWritableGenerJob 
 {
 
-    void remove() throws WrongInvoiceTypeException, IllegalArgumentException;
+    void remove() throws WrongInvoiceTypeException;
 
     /**
      * Not used.
@@ -22,12 +22,8 @@ public interface GnucashWritableCustomerJob extends GnucashWritableGenerJob
      * 
      * @param newCustomer the customer who issued this job.
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      */
-    void setCustomer(GnucashCustomer newCustomer) throws WrongInvoiceTypeException, IllegalArgumentException;
+    void setCustomer(GnucashCustomer newCustomer) throws WrongInvoiceTypeException;
 
 }

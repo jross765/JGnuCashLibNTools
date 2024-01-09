@@ -89,8 +89,7 @@ public class FileTransactionManager {
 	}
 
 	protected GnucashTransactionSplitImpl createTransactionSplit(final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
-			final GnucashTransaction trx, final boolean addSpltToAcct, final boolean addSpltToInvc)
-			throws IllegalArgumentException {
+			final GnucashTransaction trx, final boolean addSpltToAcct, final boolean addSpltToInvc) {
 		GnucashTransactionSplitImpl splt = new GnucashTransactionSplitImpl(jwsdpTrxSplt, trx, addSpltToAcct,
 				addSpltToInvc);
 		LOGGER.debug("Generated new transaction split: " + splt.getID());
@@ -99,11 +98,11 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public void addTransaction(GnucashTransaction trx) throws IllegalArgumentException {
+	public void addTransaction(GnucashTransaction trx) {
 		addTransaction(trx, true);
 	}
 
-	public void addTransaction(GnucashTransaction trx, boolean withSplt) throws IllegalArgumentException {
+	public void addTransaction(GnucashTransaction trx, boolean withSplt) {
 		trxMap.put(trx.getID(), trx);
 
 		if ( withSplt ) {
@@ -115,11 +114,11 @@ public class FileTransactionManager {
 		LOGGER.debug("Added transaction to cache: " + trx.getID());
 	}
 
-	public void removeTransaction(GnucashTransaction trx) throws IllegalArgumentException {
+	public void removeTransaction(GnucashTransaction trx) {
 		removeTransaction(trx, true);
 	}
 
-	public void removeTransaction(GnucashTransaction trx, boolean withSplt) throws IllegalArgumentException {
+	public void removeTransaction(GnucashTransaction trx, boolean withSplt) {
 		if ( withSplt ) {
 			for ( GnucashTransactionSplit splt : trx.getSplits() ) {
 				removeTransactionSplit(splt, false);
@@ -133,11 +132,11 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public void addTransactionSplit(GnucashTransactionSplit splt) throws IllegalArgumentException {
+	public void addTransactionSplit(GnucashTransactionSplit splt) {
 		addTransactionSplit(splt, true);
 	}
 
-	public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws IllegalArgumentException {
+	public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) {
 		trxSpltMap.put(splt.getID(), splt);
 
 		if ( withInvc ) {
@@ -145,11 +144,11 @@ public class FileTransactionManager {
 		}
 	}
 
-	public void removeTransactionSplit(GnucashTransactionSplit splt) throws IllegalArgumentException {
+	public void removeTransactionSplit(GnucashTransactionSplit splt) {
 		removeTransactionSplit(splt, true);
 	}
 
-	public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) throws IllegalArgumentException {
+	public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) {
 		if ( withInvc ) {
 			removeTransaction(splt.getTransaction(), false);
 		}

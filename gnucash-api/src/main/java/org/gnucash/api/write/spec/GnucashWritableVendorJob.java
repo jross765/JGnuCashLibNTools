@@ -7,7 +7,7 @@ import org.gnucash.api.write.GnucashWritableGenerJob;
 public interface GnucashWritableVendorJob extends GnucashWritableGenerJob 
 {
 
-    void remove() throws WrongInvoiceTypeException, IllegalArgumentException;
+    void remove() throws WrongInvoiceTypeException;
 
     /**
      * Not used.
@@ -22,12 +22,8 @@ public interface GnucashWritableVendorJob extends GnucashWritableGenerJob
      * 
      * @param newVendor the vendor who issued this job.
      * @throws WrongInvoiceTypeException
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      */
-    void setVendor(GnucashVendor newVendor) throws WrongInvoiceTypeException, IllegalArgumentException;
+    void setVendor(GnucashVendor newVendor) throws WrongInvoiceTypeException;
 
 }

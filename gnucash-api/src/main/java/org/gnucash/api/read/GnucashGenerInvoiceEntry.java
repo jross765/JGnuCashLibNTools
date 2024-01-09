@@ -50,11 +50,11 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 	    return code;
 	}
 	
-	public String getLocaleString() throws IllegalArgumentException {
+	public String getLocaleString() {
 	    return getLocaleString(Locale.getDefault());
 	}
 
-	public String getLocaleString(Locale lcl) throws IllegalArgumentException {
+	public String getLocaleString(Locale lcl) {
 	    try {
 		Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
 		Field fld = cls.getDeclaredField(code);
@@ -65,7 +65,7 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
 	}
 		
 	// no typo!
-	public static Action valueOff(String code) throws IllegalArgumentException {
+	public static Action valueOff(String code) {
 	    for ( Action val : values() ) {
 		if ( val.getLocaleString().equals(code) ) {
 		    return val;
@@ -110,10 +110,9 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
    * for Germany.
    * 
    * @return HOURS or ITEMS, ....
-   * @throws IllegalArgumentException
-   * @throws SecurityException
+   * 
    */
-  Action getAction() throws IllegalArgumentException;
+  Action getAction();
 
   /**
    * @return the number of items of price ${@link #getCustInvcPrice()} and type

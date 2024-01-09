@@ -52,90 +52,66 @@ public interface GnucashWritableTransaction extends GnucashTransaction
     void setNumber(String string);
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     * @throws SplitNotFoundException 
+     *  
      * @see GnucashTransaction#getFirstSplit()
      */
-    GnucashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException, IllegalArgumentException;
+    GnucashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException;
 
     /**
+     * @throws SplitNotFoundException 
      * @throws 
      * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSecondSplit()
      */
-    GnucashWritableTransactionSplit getWritableSecondSplit() throws SplitNotFoundException, IllegalArgumentException;
+    GnucashWritableTransactionSplit getWritableSecondSplit() throws SplitNotFoundException;
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSplitByID(GCshID)
      */
-    GnucashWritableTransactionSplit getWritableSplitByID(GCshID id) throws IllegalArgumentException;
+    GnucashWritableTransactionSplit getWritableSplitByID(GCshID id);
 
     /**
      *
      * @return the first split of this transaction or null.
      */
-    GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException, IllegalArgumentException;
+    GnucashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
      */
-    GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException, IllegalArgumentException;
+    GnucashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException;
 
     /**
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      * @see GnucashTransaction#getSplits()
      */
-    List<GnucashWritableTransactionSplit> getWritableSplits() throws IllegalArgumentException;
+    List<GnucashWritableTransactionSplit> getWritableSplits();
 
     /**
      * Create a new split, already atached to this transaction.
      * 
      * @param account the account for the new split
      * @return a new split, already atached to this transaction
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      */
-    GnucashWritableTransactionSplit createWritableSplit(GnucashAccount account) throws IllegalArgumentException;
+    GnucashWritableTransactionSplit createWritableSplit(GnucashAccount account);
 
     /**
      * Also removes the split from it's account.
      * 
      * @param impl the split to remove from this transaction
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      */
-    void remove(GnucashWritableTransactionSplit impl) throws IllegalArgumentException;
+    void remove(GnucashWritableTransactionSplit impl);
 
     /**
      * remove this transaction.
-     * @throws 
-     * @throws IllegalArgumentException 
-     * @throws ClassNotFoundException 
-     * @throws SecurityException 
-     * @throws NoSuchFieldException 
+     *  
      */
-    void remove() throws IllegalArgumentException;
+    void remove();
 
     /**
      * Add a PropertyChangeListener to the listener list. The listener is registered
@@ -143,7 +119,8 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      *
      * @param listener The PropertyChangeListener to be added
      */
-    void addPropertyChangeListener(PropertyChangeListener listener);
+    @SuppressWarnings("exports")
+	void addPropertyChangeListener(PropertyChangeListener listener);
 
     /**
      * Add a PropertyChangeListener for a specific property. The listener will be
@@ -152,7 +129,8 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @param propertyName The name of the property to listen on.
      * @param listener     The PropertyChangeListener to be added
      */
-    void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
+    @SuppressWarnings("exports")
+	void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
     /**
      * Remove a PropertyChangeListener for a specific property.
@@ -160,7 +138,8 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      * @param propertyName The name of the property that was listened on.
      * @param listener     The PropertyChangeListener to be removed
      */
-    void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
+    @SuppressWarnings("exports")
+	void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
 
     /**
      * Remove a PropertyChangeListener from the listener list. This removes a
@@ -168,7 +147,8 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      *
      * @param listener The PropertyChangeListener to be removed
      */
-    void removePropertyChangeListener(PropertyChangeListener listener);
+    @SuppressWarnings("exports")
+	void removePropertyChangeListener(PropertyChangeListener listener);
 
     /**
      * @param name  the name of the user-defined attribute

@@ -10,15 +10,15 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 public interface GnucashWritableGenerInvoiceEntry_Vend {
 
     void setVendBllPrice(String price) throws NumberFormatException, WrongInvoiceTypeException, TaxTableNotFoundException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     void setVendBllPrice(FixedPointNumber price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     void setVendBllPriceFormatted(String price)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
 
     // -----------------------------------------------------------
 
@@ -30,7 +30,7 @@ public interface GnucashWritableGenerInvoiceEntry_Vend {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * @throws IllegalArgumentException
-     * @throws SecurityException
+     * 
      */
     void setVendBllTaxable(boolean val) throws InvalidCmdtyCurrTypeException, IllegalArgumentException,
 	    WrongInvoiceTypeException, TaxTableNotFoundException;
@@ -43,6 +43,6 @@ public interface GnucashWritableGenerInvoiceEntry_Vend {
      * @throws TaxTableNotFoundException
      */
     void setVendBllTaxTable(GCshTaxTable tax) throws WrongInvoiceTypeException, TaxTableNotFoundException,
-	    InvalidCmdtyCurrTypeException, IllegalArgumentException;
+	    InvalidCmdtyCurrTypeException;
 
 }

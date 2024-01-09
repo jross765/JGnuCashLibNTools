@@ -67,14 +67,14 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	 * @throws 
 	 * @throws IllegalArgumentException 
 	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
+	 *  
 	 * @throws NoSuchFieldException 
 	 */
 	public GnucashWritableEmployeeVoucherEntryImpl(
 		final GnucashWritableEmployeeVoucherImpl vch,
 		final GnucashAccount account,
 		final FixedPointNumber quantity,
-		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalArgumentException {
+		final FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException {
 		super(vch, 
 		      createEmplVchEntry_int(vch, account, quantity, price));
 		
@@ -110,24 +110,24 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 
 	@Override
 	public void setTaxable(boolean val)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	    setVoucherTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	    setVoucherTaxTable(taxTab);
 	}
 
 	@Override
 	public void setPrice(String price)
-		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+		throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	    setEmplVchPrice(price);
 	}
 
 	@Override
-	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException, IllegalArgumentException {
+	public void setPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
 	    setEmplVchPrice(price);
 	}
 

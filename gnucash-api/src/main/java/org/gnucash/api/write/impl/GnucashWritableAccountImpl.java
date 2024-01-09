@@ -84,7 +84,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     }
 
     public GnucashWritableAccountImpl(final GnucashAccount acct, final boolean addSplits)
-	    throws IllegalArgumentException, UnknownAccountTypeException {
+	    throws UnknownAccountTypeException {
 	super(acct.getJwsdpPeer(), acct.getGnucashFile());
 
 	if (addSplits) {

@@ -327,7 +327,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     // Cf. comments in FileInvoiceManager (write-version).
 
     @Override
-    public int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+    public int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	try {
 	    return getWritableGnucashFile().getUnpaidWritableBillsForVendor_direct(this).size();
 	} catch (TaxTableNotFoundException e) {
@@ -339,7 +339,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException, IllegalArgumentException {
+//    public Collection<GnucashGenerInvoice> getInvoices() throws WrongInvoiceTypeException {
 //	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForCustomer_direct(this) ) {
@@ -370,7 +370,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnucashWritableJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+//    public Collection<GnucashWritableJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 //	return getWritableGnucashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
@@ -391,7 +391,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnucashWritableJobInvoice>      getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+//    public Collection<GnucashWritableJobInvoice>      getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 //	return getWritableGnucashFile().getUnpaidWritableBillsForVendor_viaAllJobs(this);
 //    }
 
@@ -401,7 +401,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getWritableBills() throws WrongInvoiceTypeException, IllegalArgumentException {
+//    public Collection<GnucashGenerInvoice> getWritableBills() throws WrongInvoiceTypeException {
 //	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForCustomer_direct(this) ) {
@@ -420,7 +420,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnucashWritableJobInvoice>      getPaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+//    public Collection<GnucashWritableJobInvoice>      getPaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 //	return getWritableGnucashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
@@ -429,7 +429,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnucashWritableJobInvoice>      getUnpaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+//    public Collection<GnucashWritableJobInvoice>      getUnpaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 //	return getWritableGnucashFile().getUnpaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
