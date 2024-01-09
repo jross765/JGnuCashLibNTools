@@ -69,6 +69,7 @@ import org.gnucash.api.read.impl.hlp.FilePriceManager;
 import org.gnucash.api.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.api.read.impl.hlp.FileTransactionManager;
 import org.gnucash.api.read.impl.hlp.FileVendorManager;
+import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;

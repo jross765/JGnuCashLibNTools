@@ -1,4 +1,4 @@
-package org.gnucash.api.write.impl;
+package org.gnucash.api.write.impl.hlp;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -8,10 +8,10 @@ import org.gnucash.api.Const;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
-import org.gnucash.api.read.GnucashObject;
-import org.gnucash.api.read.impl.GnucashObjectImpl;
+import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.write.GnucashWritableFile;
-import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

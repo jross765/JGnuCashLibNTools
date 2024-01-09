@@ -9,6 +9,7 @@ import org.gnucash.api.basetypes.complex.GCshCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.read.GnucashCommodity;
 
 public interface GnucashWritablePrice extends GnucashPrice, 

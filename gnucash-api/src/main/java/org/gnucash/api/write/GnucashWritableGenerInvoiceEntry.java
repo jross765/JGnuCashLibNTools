@@ -5,14 +5,15 @@ import java.time.LocalDate;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
-import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Cust;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Empl;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Job;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Vend;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Invoice-Entry that can be modified.

@@ -1,6 +1,7 @@
-package org.gnucash.api.write;
+package org.gnucash.api.write.hlp;
 
-import org.gnucash.api.read.GnucashObject;
+import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.write.GnucashWritableFile;
 
 /**
  * Interface that all interfaces for writable gnucash-entities shall implement

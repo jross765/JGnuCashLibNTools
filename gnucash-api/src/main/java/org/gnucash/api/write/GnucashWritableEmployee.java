@@ -2,9 +2,10 @@ package org.gnucash.api.write;
 
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.aux.GCshAddress;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Employee that can be modified

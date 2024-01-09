@@ -1,6 +1,8 @@
-package org.gnucash.api.read;
+package org.gnucash.api.read.hlp;
 
 import java.util.Collection;
+
+import org.gnucash.api.read.GnucashFile;
 
 //automatically created logger for debug and error -output
 //automatically created propertyChangeListener-Support

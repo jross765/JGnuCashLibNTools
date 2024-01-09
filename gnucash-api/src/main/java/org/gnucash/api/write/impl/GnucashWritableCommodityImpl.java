@@ -10,7 +10,7 @@ import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.gnucash.api.write.GnucashWritableFile;
-import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

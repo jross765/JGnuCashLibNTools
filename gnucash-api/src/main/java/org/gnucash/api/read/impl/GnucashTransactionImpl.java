@@ -28,6 +28,7 @@ import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.SplitNotFoundException;
+import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -8,6 +8,7 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Transaction-split that can be modified<br/>

@@ -28,6 +28,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
+import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableJobInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.slf4j.Logger;

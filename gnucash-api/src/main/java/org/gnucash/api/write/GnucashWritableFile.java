@@ -26,6 +26,7 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorJobImpl;

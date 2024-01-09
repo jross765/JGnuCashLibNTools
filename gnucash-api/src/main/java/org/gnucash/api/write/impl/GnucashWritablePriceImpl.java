@@ -21,8 +21,9 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.write.GnucashWritableFile;
-import org.gnucash.api.write.GnucashWritableObject;
 import org.gnucash.api.write.GnucashWritablePrice;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

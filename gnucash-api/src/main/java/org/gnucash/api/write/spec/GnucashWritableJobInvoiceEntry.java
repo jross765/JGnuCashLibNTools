@@ -8,7 +8,7 @@ import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
-import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Invoice-Entry that can be modified.

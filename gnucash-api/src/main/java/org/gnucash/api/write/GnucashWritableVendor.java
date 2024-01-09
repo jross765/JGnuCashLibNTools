@@ -1,9 +1,10 @@
 package org.gnucash.api.write;
 
-import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshAddress;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Vendor that can be modified

@@ -29,8 +29,9 @@ import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.write.GnucashWritableAccount;
 import org.gnucash.api.write.GnucashWritableFile;
-import org.gnucash.api.write.GnucashWritableObject;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

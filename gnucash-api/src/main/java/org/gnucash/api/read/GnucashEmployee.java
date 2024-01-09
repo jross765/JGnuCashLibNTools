@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshAddress;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 

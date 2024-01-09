@@ -8,9 +8,9 @@ import java.util.List;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.SplitNotFoundException;
+import org.gnucash.api.read.hlp.GnucashObject;
 
 /**
  * Transaction that can be modified.<br/>

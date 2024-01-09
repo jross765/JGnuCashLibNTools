@@ -52,6 +52,7 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
+import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceEntryImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherEntryImpl;

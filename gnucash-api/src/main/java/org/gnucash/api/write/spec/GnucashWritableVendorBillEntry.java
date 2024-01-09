@@ -7,7 +7,7 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
-import org.gnucash.api.write.GnucashWritableObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Vendor bill entry  that can be modified.

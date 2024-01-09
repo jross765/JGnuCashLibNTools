@@ -8,8 +8,9 @@ import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashObject;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 
 /**

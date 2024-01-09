@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl;
+package org.gnucash.api.read.impl.hlp;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashObject;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
