@@ -12,6 +12,11 @@ import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.read.GnucashCommodity;
 
+/**
+ * Price that can be modified.
+ * 
+ * @see GnucashPrice
+ */
 public interface GnucashWritablePrice extends GnucashPrice, 
                                               GnucashWritableObject
 {

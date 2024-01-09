@@ -17,6 +17,8 @@ import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Invoice-Entry that can be modified.
+ * 
+ * @see GnucashGenerInvoiceEntry
  */
 public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEntry,
                                                           GnucashWritableGenerInvoiceEntry_Cust,

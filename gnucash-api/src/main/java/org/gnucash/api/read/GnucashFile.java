@@ -23,10 +23,8 @@ import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 /**
- * Interface of a top-level class<br/>
- * that gives access to a gnucash-file <br/>
- * with all it's transactions and accounts,... <br/>
- * <br/>
+ * Interface of a top-level class that gives access to a GnuCash file
+ * with all its accounts, transactions, etc.
  */
 public interface GnucashFile extends GnucashObject {
 

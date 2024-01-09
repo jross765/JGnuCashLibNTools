@@ -11,11 +11,14 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
+import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 
 /**
- * Vendor bill that can be modified if isModifiable() returns true
+ * Vendor bill that can be modified if {@link #isModifiable()} returns true.
+ * 
+ * @see GnucashVendorBill
  */
 public interface GnucashWritableVendorBill extends GnucashWritableGenerInvoice {
 

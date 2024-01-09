@@ -8,7 +8,9 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
- * Employee that can be modified
+ * Employee that can be modified.
+ * 
+ * @see GnucashEmployee
  */
 public interface GnucashWritableEmployee extends GnucashEmployee, 
                                                  GnucashWritableObject 

@@ -5,12 +5,15 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Employee voucher entry that can be modified.
+ * 
+ * @see GnucashEmployeeVoucherEntry
  */
 public interface GnucashWritableEmployeeVoucherEntry extends GnucashWritableGenerInvoiceEntry, 
                                                              GnucashWritableObject 

@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerJob;
 
 /**
  * This class represents a voucher that is sent from an employee
@@ -19,8 +18,10 @@ import org.gnucash.api.read.GnucashGenerJob;
  * Implementations of this interface are comparable and sorts primarily on the date the 
  * voucher was created and secondarily on the date it should be paid.
  *
- * @see GnucashGenerJob
- * @see GnucashEmployee
+ * @see GnucashCustomerInvoice
+ * @see GnucashVendorBill
+ * @see GnucashJobInvoice
+ * @see GnucashGenerInvoice
  */
 public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
 

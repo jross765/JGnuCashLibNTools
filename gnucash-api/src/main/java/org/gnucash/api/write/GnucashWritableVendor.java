@@ -7,7 +7,9 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
- * Vendor that can be modified
+ * Vendor that can be modified.
+ * 
+ * @see GnucashVendor
  */
 public interface GnucashWritableVendor extends GnucashVendor, 
                                                GnucashWritableObject 

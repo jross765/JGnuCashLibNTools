@@ -4,6 +4,11 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashGenerJob;
 
+/**
+ * A {@link GnucashGenerJob} that belongs to a {@link GnucashCustomer}
+ * 
+ * @see GnucashVendorJob
+ */
 public interface GnucashCustomerJob extends GnucashGenerJob {
 
 	/**

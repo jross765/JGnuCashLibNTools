@@ -5,12 +5,15 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Customer invoice entry that can be modified.
+ * 
+ * @see GnucashCustomerInvoiceEntry
  */
 public interface GnucashWritableCustomerInvoiceEntry extends GnucashWritableGenerInvoiceEntry, 
                                                              GnucashWritableObject 

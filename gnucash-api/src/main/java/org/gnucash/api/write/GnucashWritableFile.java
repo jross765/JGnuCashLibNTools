@@ -38,7 +38,9 @@ import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.gnucash.api.write.spec.GnucashWritableVendorJob;
 
 /**
- * Extension of GnucashFile that allows writing
+ * Extension of GnucashFile that allows writing.
+ * 
+ * æsee {@link GnucashFile}
  */
 public interface GnucashWritableFile extends GnucashFile, 
                                              GnucashWritableObject 

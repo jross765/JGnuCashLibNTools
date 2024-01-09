@@ -12,9 +12,10 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
-
 /**
- * Account that can be modified
+ * Account that can be modified.
+ * 
+ * @see GnucashAccount
  */
 public interface GnucashWritableAccount extends GnucashAccount, 
                                                 GnucashWritableObject 

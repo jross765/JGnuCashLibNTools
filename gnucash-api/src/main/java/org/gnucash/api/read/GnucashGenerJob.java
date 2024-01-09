@@ -8,16 +8,20 @@ import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
+import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 
 /**
- * A job needs to be done. Once it or a part of it<br>
- * is done an invoice can be created and later be Paid by the customer<br>
- * of this job.
- * @see GnucashGenerInvoice
- * @see GnucashCustomer
+ * This class represents a generic job.
+ * <br>
+ * It normally should be avoided to 
+ * use it directly; instead, use one of its specialized variants.
+ *  
+ * @see GnucashCustomerJob
+ * @see GnucashVendorJob
  */
 public interface GnucashGenerJob {
 

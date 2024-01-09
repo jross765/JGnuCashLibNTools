@@ -13,12 +13,15 @@ import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
+import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 
 /**
- * Job invoice that can be modified if isModifiable() returns true
+ * Job invoice that can be modified if {@link #isModifiable()} returns true.
+ * 
+ * @see GnucashJobInvoice
  */
 public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
 

@@ -10,8 +10,10 @@ import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
 
 /**
- * This class represents an invoice that is sent to a customer
- * so (s)he knows what to pay you. <br>
+ * This class represents an invoice that is sent to a customer or a vendor
+ * so (s)he knows what to pay you. However, as opposed to {@link GnucashCustomerInvoice}
+ * and {@link GnucashVendorBill}, this one does <strong>not directly</strong> belong to a customer
+ * or a vendor, but is attached to a customer/vendor <strong>job</strong>.<br>
  * <br>
  * Note: The correct business term is "invoice" (as opposed to "bill"), 
  * as used in the GnuCash documentation. However, on a technical level, both 
@@ -20,8 +22,12 @@ import org.gnucash.api.read.aux.GCshOwner;
  * Implementations of this interface are comparable and sorts primarily on the date the Invoice was
  * created and secondarily on the date it should be paid.
  *
+ * @see GnucashCustomerInvoice
+ * @see GnucashEmployeeVoucher
+ * @see GnucashVendorBill
  * @see GnucashGenerJob
  * @see GnucashCustomer
+ * @see GnucashVendor
  */
 public interface GnucashJobInvoice extends GnucashGenerInvoice {
 

@@ -8,7 +8,9 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
- * Customer that can be modified
+ * Customer that can be modified.
+ * 
+ * @see GnucashCustomer
  */
 public interface GnucashWritableCustomer extends GnucashCustomer, 
                                                  GnucashWritableObject 

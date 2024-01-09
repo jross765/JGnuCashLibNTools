@@ -7,7 +7,9 @@ import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.write.impl.ObjectCascadeException;
 
 /**
- * Commodity that can be modified
+ * Commodity that can be modified.
+ * 
+ * @see GnucashCommodity
  */
 public interface GnucashWritableCommodity extends GnucashCommodity
 {

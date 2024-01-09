@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
 
 /**
@@ -18,8 +17,9 @@ import org.gnucash.api.read.GnucashVendor;
  * Implementations of this interface are comparable and sorts primarily on the date the 
  * bill was created and secondarily on the date it should be paid.
  *
- * @see GnucashGenerJob
- * @see GnucashVendor
+ * @see GnucashCustomerInvoice
+ * @see GnucashEmployeeVoucher
+ * @see GnucashGenerInvoice
  */
 public interface GnucashVendorBill extends GnucashGenerInvoice {
 

@@ -3,7 +3,9 @@ package org.gnucash.api.write;
 import org.gnucash.api.read.GnucashGenerJob;
 
 /**
- * Generic job that can be modified
+ * Generic job that can be modified.
+ * 
+ * @see GnucashGenerJob
  */
 public interface GnucashWritableGenerJob extends GnucashGenerJob 
 {

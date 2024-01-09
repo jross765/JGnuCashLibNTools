@@ -19,9 +19,12 @@ import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Job;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Vend;
 
 /**
- * Invoice that can be modified if isModifiable() returns true
+ * Invoice that can be modified.</br>
+ * 
+ * Note: As opposed to the other "Writable"-classes, there is an additional
+ * condition here: the method {@link #isModifiable()} must return true.
  *
- * @see #isModifiable()
+ * @see GnucashGenerInvoice
  */
 public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
                                                      GnucashWritableGenerInvoice_Cust,

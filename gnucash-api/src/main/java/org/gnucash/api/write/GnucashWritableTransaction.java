@@ -16,6 +16,8 @@ import org.gnucash.api.read.hlp.GnucashObject;
  * Transaction that can be modified.<br/>
  * For PropertyChange-Listeners we support the properties:
  * "description" and "splits".
+ * 
+ * @see GnucashTransaction
  */
 public interface GnucashWritableTransaction extends GnucashTransaction
 {

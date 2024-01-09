@@ -1,9 +1,15 @@
 package org.gnucash.api.write.spec;
 
 import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerJob;
 
+/**
+ * Vendor job that can be modified.
+ * 
+ * @see GnucashVendorJob
+ */
 public interface GnucashWritableVendorJob extends GnucashWritableGenerJob 
 {
 

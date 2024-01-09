@@ -4,6 +4,14 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 
+/**
+ * One entry (line item) of a {@link GnucashVendorBill}
+ * 
+ *  @see GnucashCustomerInvoiceEntry
+ *  @see GnucashEmployeeVoucherEntry
+ *  @see GnucashJobInvoiceEntry
+ *  @see GnucashGenerInvoiceEntry
+ */
 public interface GnucashVendorBillEntry extends GnucashGenerInvoiceEntry 
 {
   GCshID getBillID();

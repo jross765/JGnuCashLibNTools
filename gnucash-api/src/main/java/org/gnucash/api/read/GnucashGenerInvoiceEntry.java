@@ -12,11 +12,22 @@ import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Cust;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Empl;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Job;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Vend;
+import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
+import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
+import org.gnucash.api.read.spec.GnucashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 /**
- * Entry-Line in an invoice stating one position
- * with it's name, single-unit-price and count.
+ * Entry (line item) of a {@link GnucashGenerInvoice}
+ * <br>
+ * Just as the class {@link GnucashGenerInvoice}, you normally should avoided to 
+ * use this one directly; instead, use one its specialized variants.
+ * 
+ * @see GnucashCustomerInvoiceEntry
+ * @see GnucashEmployeeVoucherEntry
+ * @see GnucashVendorBillEntry
+ * @see GnucashJobInvoiceEntry
  */
 public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoiceEntry>,
                                                   GnucashGenerInvoiceEntry_Cust,

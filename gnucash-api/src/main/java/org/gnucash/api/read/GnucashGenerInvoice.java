@@ -11,17 +11,25 @@ import org.gnucash.api.read.hlp.GnucashGenerInvoice_Cust;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Empl;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Job;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Vend;
+import org.gnucash.api.read.spec.GnucashCustomerInvoice;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
+import org.gnucash.api.read.spec.GnucashJobInvoice;
+import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 /**
- * This class represents an invoice that is sent to a customer
- * so (s)he knows what to pay you. <br>
+ * This class represents a generic invoice.
+ * <br>
+ * It normally should be avoided to 
+ * use it directly; instead, use one of its specialized variants. 
  * <br>
  * Implementations of this interface are comparable and sorts primarily on the date the Invoice was
  * created and secondarily on the date it should be paid.
  *
- * @see GnucashGenerJob
- * @see GnucashCustomer
+ * @see GnucashCustomerInvoice
+ * @see GnucashEmployeeVoucher
+ * @see GnucashVendorBill
+ * @see GnucashJobInvoice
  */
 public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
                                              GnucashGenerInvoice_Cust,

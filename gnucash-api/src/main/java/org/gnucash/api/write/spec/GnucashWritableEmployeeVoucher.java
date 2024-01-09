@@ -11,11 +11,14 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
+import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 
 /**
- * Employee bill that can be modified if isModifiable() returns true
+ * Employee voucher that can be modified if {@link #isModifiable()} returns true.
+ * 
+ * @see GnucashEmployeeVoucher
  */
 public interface GnucashWritableEmployeeVoucher extends GnucashWritableGenerInvoice {
 
