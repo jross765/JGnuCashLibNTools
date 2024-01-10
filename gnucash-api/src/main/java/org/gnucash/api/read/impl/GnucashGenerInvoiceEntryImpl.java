@@ -253,11 +253,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     protected void setCustInvcTaxTable(final GCshTaxTable aTaxtable)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+    	if ( getType() != GCshOwner.Type.CUSTOMER && 
+      		 getType() != GCshOwner.Type.JOB )
+       		    throw new WrongInvoiceTypeException();
+
 	myInvcTaxtable = aTaxtable;
     }
 
     /**
-     * @param aTaxtable the taxtable to set
+     * @param aTaxtable the tax table to set
      * @throws TaxTableNotFoundException
      * @throws WrongInvoiceTypeException
      * @throws InvalidCmdtyCurrTypeException 
@@ -267,11 +271,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     protected void setVendBllTaxTable(final GCshTaxTable aTaxtable)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+    	if ( getType() != GCshOwner.Type.VENDOR && 
+   		     getType() != GCshOwner.Type.JOB )
+    		    throw new WrongInvoiceTypeException();
+
 	myBillTaxtable = aTaxtable;
     }
 
     /**
-     * @param aTaxtable the taxtable to set
+     * @param aTaxtable the tax table to set
      * @throws TaxTableNotFoundException
      * @throws WrongInvoiceTypeException
      * @throws InvalidCmdtyCurrTypeException 
@@ -281,13 +289,15 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     protected void setEmplVchTaxTable(final GCshTaxTable aTaxtable)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+    	if ( getType() != GCshOwner.Type.EMPLOYEE )
+    		    throw new WrongInvoiceTypeException();
+
 	myBillTaxtable = aTaxtable;
     }
 
     protected void setJobInvcTaxTable(final GCshTaxTable aTaxtable)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
-	
-	if ( getType() == GCshOwner.Type.JOB )
+	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
 	GnucashJobInvoice jobInvc = new GnucashJobInvoiceImpl(getGenerInvoice());

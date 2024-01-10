@@ -32,7 +32,6 @@ import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
@@ -373,23 +372,25 @@ public class GnucashWritableJobInvoiceImpl extends GnucashWritableGenerInvoiceIm
 		return getJobInvcPostAccountID(entry);
 	}
 
-	/*
-	 * Do not use
-	 */
-	@Override
-	protected GCshID getCustInvcPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-			throws WrongInvoiceTypeException {
-		throw new WrongInvoiceTypeException();
-	}
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/*
+//	 * Do not use
+//	 */
+//	@Override
+//	protected GCshID getCustInvcPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+//			throws WrongInvoiceTypeException {
+//		throw new WrongInvoiceTypeException();
+//	}
 
-	/*
-	 * Do not use
-	 */
-	@Override
-	protected GCshID getVendBllPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
-			throws WrongInvoiceTypeException {
-		throw new WrongInvoiceTypeException();
-	}
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/*
+//	 * Do not use
+//	 */
+//	@Override
+//	protected GCshID getVendBllPostAccountID(final GnucashGenerInvoiceEntryImpl entry)
+//			throws WrongInvoiceTypeException {
+//		throw new WrongInvoiceTypeException();
+//	}
 
 	/*
 	 * Do not use

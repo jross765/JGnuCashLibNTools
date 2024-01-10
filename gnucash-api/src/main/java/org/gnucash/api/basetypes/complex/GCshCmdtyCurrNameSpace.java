@@ -1,5 +1,19 @@
 package org.gnucash.api.basetypes.complex;
 
+/**
+ * The name space that fully qualifies a (real) commodity ID or currency ID.  
+ * 
+ * In theory, the name space string, if type is set to "SECURITY", can 
+ * be freely set in GnuCash. However, in practice, it usual to select one 
+ * of the world's major exchanges' official abbreviation. We therefore 
+ * limit the valid values to these abbreviations.
+ * 
+ * Yes, there are exceptions to this rule, but we currently do not 
+ * support these but rather profit from enhanced type safety instead.
+ * (Apart from that, nothing stops you from adding new exchange codes
+ * to the enum CmdtyCurrNameSpace.Exchange or to open another enum
+ * in this class, if you absolutely need it. After all, this is FOSS...)
+ */
 public class GCshCmdtyCurrNameSpace {
 
     // Currency: Note that the old "ISO4217" has been deprecated
@@ -280,8 +294,8 @@ public class GCshCmdtyCurrNameSpace {
     
     // Widely-used security ID types/systems
     public enum SecIdType {
-	ISIN,  // Truly global
-	       // Cf. https://en.wikipedia.org/wiki/International_Securities_Identification_Number
+	ISIN,  // Truly global 
+	       // Cf. https://en.wikipedia.org/wiki/International_Securities_Identification_Number 
 	
 	// Region/country-specific:
 	

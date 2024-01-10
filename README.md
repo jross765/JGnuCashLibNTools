@@ -9,6 +9,7 @@ Version 1.3 of the library has been tested with 5.4 on Linux (locale de_DE) and 
 
 * English
 * French
+* Spanish
 * German
 
 However, it has **not** been thoroughly tested with all of them, but just on a system with locale de_DE. (for details, cf. the API module documentation).

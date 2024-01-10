@@ -4,31 +4,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * In theory, the name space string, if type is set to "SECURITY", can 
- * be freely set in GnuCash. However, in practice, it usual to select one 
- * of the world's major exchanges' official abbreviation. We therefore 
- * limit the valid values to these abbreviations.
+ * A fully-qualified (real) commodity ID <strong>or</strong> currency ID 
+ * (the most generic type of this kind). The name space is unspecified.
+ * More specific ones are: 
+ * <ul>
+ *   <li>{@link GCshCmdtyID} and its children</li>
+ *   <li>{@link GCshCurrID}</li>
+ * </ul>
+ * <br>
+ * Please note that your normally should not use this class when
+ * creating instances -- it is, however, advisable to use it as a 
+ * type for objects returned by methods in case it is not not (yet)
+ * clear of which more specific type it is. 
  * 
- * Yes, there are exceptions to this rule, but we currently do not 
- * support these but rather profit from enhanced type safety instead.
- * (Apart from that, nothing stops you from adding new exchange codes
- * to the enum CmdtyCurrNameSpace.Exchange or to open another enum
- * in this class, if you absolutely need it. After all, this is FOSS...)
- *  
- * @param exchange
- * @param code
+ * @see GCshCmdtyID
+ * @see GCshCurrID
  */
 public class GCshCmdtyCurrID {
     
     // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gnc-commodity.h#L108
     // We do not use the GnuCash-internally used "NONCURRENCY"
     public enum Type {
-	CURRENCY,
-	SECURITY_EXCHANGE,  // name space is semi-formal abbrev. of major world exchange
-	SECURITY_MIC,       // name space is formal abbrev. of major world exchange
-	SECURITY_SECIDTYPE, // name space is widely-used security ID type/scheme
-	SECURITY_GENERAL,   // name space can be freely chosen
-	UNSET
+    	CURRENCY,
+    	SECURITY_EXCHANGE,  // name space is semi-formal abbrev. of major world exchange
+    	SECURITY_MIC,       // name space is formal abbrev. of major world exchange
+    	SECURITY_SECIDTYPE, // name space is widely-used security ID type/scheme
+    	SECURITY_GENERAL,   // name space can be freely chosen
+    	UNSET
     }
     
     // ---------------------------------------------------------------

@@ -1,8 +1,13 @@
 package org.gnucash.api.basetypes.simple;
 
+import org.gnucash.api.read.GnucashCommodity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * A technical entry ID for all GnuCash entities except {@link GnucashCommodity}.
+ * (essentially a wrapper for a GUID-string, primarily defined for type safety).
+ */
 public class GCshID {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshID.class);

@@ -109,13 +109,14 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 
 	// ----------------------------
 
-	/**
-	 * Do not use
-	 */
-	@Override
-    public void setCustInvcTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-	}
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//	@Override
+//    public void setCustInvcTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//	}
 	
 	/**
 	 * Do not use
@@ -125,23 +126,25 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		throw new WrongInvoiceTypeException();
 	}
 	
-	/**
-	 * Do not use
-	 */
-	@Override
-    public void setVendBllTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-	}
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//	@Override
+//    public void setVendBllTaxable(final boolean val) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//	}
 	
 	// ----------------------------
 
-	/**
-	 * Do not use
-	 */
-	@Override
-    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-    }
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//	@Override
+//    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//    }
 
 	/**
 	 * Do not use
@@ -151,13 +154,14 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		throw new WrongInvoiceTypeException();
     }
 
-	/**
-	 * Do not use
-	 */
-	@Override
-    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-    }
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//	@Override
+//    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//    }
 
     // 	---------------------------------------------------------------
 	
@@ -173,14 +177,15 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		setJobInvcPrice(price);
 	}
 
-	/**
-	 * Do not use
-	 */
-    @Override
-    public void setCustInvcPrice(final String n)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-    }
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//    @Override
+//    public void setCustInvcPrice(final String n)
+//	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//    }
 
 	/**
 	 * Do not use
@@ -191,13 +196,14 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		throw new WrongInvoiceTypeException();
     }
 
-	/**
-	 * Do not use
-	 */
-    @Override
-    public void setVendBllPrice(final String n)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		throw new WrongInvoiceTypeException();
-    }
+	// CAUTION: THIS ONE MUST NOT BE UNCOMMENTED!
+//	/**
+//	 * Do not use
+//	 */
+//    @Override
+//    public void setVendBllPrice(final String n)
+//	    throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+//		throw new WrongInvoiceTypeException();
+//    }
 
 }

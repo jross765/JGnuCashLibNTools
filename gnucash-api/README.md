@@ -20,9 +20,14 @@
 
 * Renamed `GCsh(Writable)Price(Impl)` to `Gnucash(Writable)Price(Impl)` and moved it from the "`aux`" sub-package up one level, as, in fact, price is a main entity.
 
+* Introduced new packages "`hlp`" (both for interfaces and implementations) for interfaces/classes that are purely internal. *Note: This is not the same as the "`aux`" packages, whose contents are auxiliary but public).*
+
 * Significantly improved test coverage. In so doing, found and fixed a couple of bugs.
 
-* Lots of minor improvements. One of the major changes here: De-cluttered classes `Gnucash(Writable)FileImpl` by introducing helper classes in sub-package "`hlp`". All this greatly improved the readability and maintainability of the code.
+* Lots of minor improvements and code-cleaning. Among the major changes here: 
+
+  * De-cluttered classes `Gnucash(Writable)FileImpl` by introducing helper classes in sub-package "`hlp`". All this greatly improved the readability and maintainability of the code.
+  * Updated the JavaDoc-descriptions (still a lot of work to do, though...).
 
 * Last not least: From this version on, the author tries to keep the project as symmetrical as possible with its sister project, `JKMyMoneyLib`.
 
@@ -148,7 +153,7 @@ It should go without saying, but the following points are of course subject to c
 * Last not least: Provide user documentation.
 
 # Known Issues
-* As mentioned above: As of now, the lib only works well when your GnuCash files are generated on a german system (locale de_DE).
+* As mentioned above: As of now, the lib only works well when your GnuCash files are generated on a handful of system locales.
 
 * When generating invoices, you cannot/should not call the `post()`-method immediately after composing the object. The post-method will work, but the amount of the post-transaction will be wrong (thus, the transaction will be useless as it cannot be corrected manually in GnuCash; post-transactions are read-only). Instead, you should first write the results to the output file using the `GnucashWritableFile.writeFile()`-method, then re-load/re-parse the invoice generated before and then use the `post()`-method. Then, the amount will be correct.
 
