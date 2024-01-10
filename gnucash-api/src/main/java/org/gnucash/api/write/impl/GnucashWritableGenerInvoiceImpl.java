@@ -161,6 +161,8 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * {@inheritDoc}
+     * @param name 
+     * @param value 
      */
 	public void setUserDefinedAttribute(final String name, final String value) {
 		helper.setUserDefinedAttribute(name, value);
@@ -586,7 +588,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Use
-     * ${@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
+     * {@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
      * instead of calling this method!
      *
      * @param accountToTransferMoneyTo e.g. "Forderungen aus Lieferungen und
@@ -685,7 +687,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Use
-     * ${@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
+     * {@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
      * instead of calling this method!
      *
      * @param accountToTransferMoneyFrom e.g. "Forderungen aus Lieferungen und
@@ -782,7 +784,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Use
-     * ${@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
+     * {@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
      * instead of calling this method!
      *
      * @param accountToTransferMoneyFrom e.g. "Forderungen aus Lieferungen und
@@ -879,7 +881,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Use
-     * ${@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
+     * {@link GnucashWritableFile#createWritableInvoice(String, GnucashGenerJob, GnucashAccount, java.util.Date)}
      * instead of calling this method!
      *
      * @param accountToTransferMoneyTo e.g. "Forderungen aus Lieferungen und Leistungen"
@@ -1729,7 +1731,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Called by
-     * ${@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+     * {@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
      * @param generEntr the entry to add to our internal list of invoice-entries
      * @throws WrongInvoiceTypeException
@@ -1747,7 +1749,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Called by
-     * ${@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+     * {@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
      * @param generInvcEntr the entry to add to our internal list of invoice-entries
      * @throws WrongInvoiceTypeException
@@ -1796,7 +1798,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Called by
-     * ${@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+     * {@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
      * @param generInvcEntr the entry to add to our internal list of invoice-entries
      * @throws WrongInvoiceTypeException
@@ -1845,7 +1847,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Called by
-     * ${@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+     * {@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
      * @param generInvcEntr the entry to add to our internal list of invoice-entries
      * @throws WrongInvoiceTypeException
@@ -1893,7 +1895,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
     /**
      * Called by
-     * ${@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
+     * {@link GnucashWritableGenerInvoiceEntryImpl#createCustInvoiceEntry_int(GnucashWritableGenerInvoiceImpl, GnucashAccount, FixedPointNumber, FixedPointNumber)}.
      *
      * @param generInvcEntr the entry to add to our internal list of invoice-entries
      * @throws WrongInvoiceTypeException
@@ -2404,7 +2406,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     // -----------------------------------------------------------
 
     /**
-     * @see GnucashWritableGenerInvoice#setDateOpened(LocalDateTime)
+     * @see #setDatePosted(String)
      */
     public void setDateOpened(final LocalDate d) {
 	if ( d == null ) {
@@ -2419,7 +2421,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     /**
-     * @see GnucashWritableGenerInvoice#setDateOpened(java.lang.String)
+     * @see #setDatePosted(String)
      */
     public void setDateOpened(final String d) throws java.text.ParseException {
 	if ( d == null ) {
@@ -2436,7 +2438,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     /**
-     * @see GnucashWritableGenerInvoice#setDatePosted(LocalDateTime)
+     * @see #setDateOpened(String)
      */
     public void setDatePosted(final LocalDate d) {
 	if ( d == null ) {
@@ -2535,7 +2537,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     }
 
     /**
-     * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
+     * @see #getGenerEntryByID(GCshID)
      */
     public GnucashWritableGenerInvoiceEntry getWritableGenerEntryByID(final GCshID id) {
 	return new GnucashWritableGenerInvoiceEntryImpl(super.getGenerEntryByID(id));

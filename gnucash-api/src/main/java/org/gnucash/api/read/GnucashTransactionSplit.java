@@ -7,13 +7,17 @@ import java.util.Locale;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.numbers.FixedPointNumber;
 
 /**
- * This denotes a single addition or removal of some
- * value from one account in a transaction made up of
- * multiple such splits.
+ * A single addition or removal of a quantity of an account's accounted-for items 
+ * (i.e. commodity), having a specific value, from that account in a transaction.
+ * <br>
+ * A transaction split never exists alone, but is always grouped in a transaction
+ * together with at least one more split.
+ * 
+ * @see GnucashTransaction
  */
 public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSplit> {
 

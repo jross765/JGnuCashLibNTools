@@ -223,6 +223,8 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return the net sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
      *  
+     * @see #getIncomeGenerated_direct()
+     * @see #getIncomeGenerated_viaAllJobs()
      */
     public FixedPointNumber getIncomeGenerated(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
 	if ( readVar == GnucashGenerInvoice.ReadVariant.DIRECT )
@@ -236,7 +238,8 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * @return the net sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
-     *  
+     * 
+     * @see #getIncomeGenerated_viaAllJobs()
      */
     public FixedPointNumber getIncomeGenerated_direct() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -262,6 +265,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return the net sum of payments for invoices to this client
      * @throws UnknownAccountTypeException 
      *  
+     * @see #getIncomeGenerated_direct()
      */
     public FixedPointNumber getIncomeGenerated_viaAllJobs() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -287,7 +291,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getIncomeGenerated()
+     * @see #getIncomeGenerated(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)
      */
     public String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
 	return getCurrencyFormat().format(getIncomeGenerated(readVar));
@@ -298,8 +302,6 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @param lcl the locale to format for
      * @return formatted according to the given locale's currency-format
      * @throws UnknownAccountTypeException 
-     *  
-     * @see #getIncomeGenerated()
      */
     public String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated(readVar));
@@ -310,7 +312,9 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
-     *  
+     * 
+     * @see #getOutstandingValue_direct()
+     * @see #getOutstandingValue_viaAllJobs()
      */
     public FixedPointNumber getOutstandingValue(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
 	if ( readVar == GnucashGenerInvoice.ReadVariant.DIRECT )
@@ -325,6 +329,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
      *  
+     * @see #getOutstandingValue_viaAllJobs()
      */
     public FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -350,6 +355,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return the sum of left to pay Unpaid invoiced
      * @throws UnknownAccountTypeException 
      *  
+     * @see #getOutstandingValue_direct()
      */
     public FixedPointNumber getOutstandingValue_viaAllJobs() throws UnknownAccountTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
@@ -375,7 +381,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      * @return Formatted according to the current locale's currency-format
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getOutstandingValue()
+     * @see #getOutstandingValue(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)
      */
     public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
 	return getCurrencyFormat().format(getOutstandingValue(readVar));
@@ -384,8 +390,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
     /**
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getOutstandingValue() Formatted according to the given locale's
-     *      currency-format
+     * @see #getOutstandingValue(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)
      */
     public String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
@@ -395,8 +400,7 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 
     /**
      * @return the jobs that have this customer associated with them.
-     * @throws WrongInvoiceTypeException 
-     * @see GnucashCustomer#getGenerJobs()
+     * @throws WrongInvoiceTypeException
      */
     public java.util.Collection<GnucashCustomerJob> getJobs() throws WrongInvoiceTypeException {
 

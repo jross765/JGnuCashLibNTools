@@ -21,7 +21,16 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * Entry (line item) of a {@link GnucashGenerInvoice}
  * <br>
- * Just as the class {@link GnucashGenerInvoice}, you normally should avoided to 
+ * <br>
+ * Please note that, just as is the case with generic invoice, In GnuCash lingo, 
+ * an "invoice entry" is a technical umbrella term comprising:
+ * <ul>
+ *   <li>a customer invoice entry  ({@link GnucashCustomerInvoiceEntry})</li>
+ *   <li>a vendor bill entry       ({@link GnucashVendorBillEntry})</li>
+ *   <li>an employee voucher entry ({@link GnucashEmployeeVoucherEntry})</li>
+ *   <li>a job invoice entry       ({@link GnucashJobInvoiceEntry})</li>
+ * </ul>
+ * Additionally, just as the class {@link GnucashGenerInvoice}, you normally should avoid to 
  * use this one directly; instead, use one its specialized variants.
  * 
  * @see GnucashCustomerInvoiceEntry

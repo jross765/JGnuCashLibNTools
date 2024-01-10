@@ -1061,7 +1061,6 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * @throws IllegalArgumentException 
      *  
-     * @see GnucashWritableGenerInvoiceEntry#setAction(java.lang.String)
      */
     public void setAction(final Action act) throws IllegalArgumentException {
 	if (!this.getGenerInvoice().isModifiable()) {

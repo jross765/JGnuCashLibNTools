@@ -1347,7 +1347,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	 * date it was entered.
 	 *
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 * @param o invoice to compare with
+	 * @param otherInvc invoice to compare with
 	 * @return -1 0 or 1
 	 */
 	public int compareTo(final GnucashGenerInvoice otherInvc) {

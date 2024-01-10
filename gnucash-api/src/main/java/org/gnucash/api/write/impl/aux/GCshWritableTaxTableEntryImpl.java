@@ -54,8 +54,7 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     }
 
     /**
-     * @param account The account to set.
-     * @link #myAccount
+     * @param acctId ID of the account to set.
      */
     @Override
     public void setAccountID(final GCshID acctId) {

@@ -499,7 +499,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
-	 * @see GnucashFileImpl#setRootElement(GncV2)
+	 * 
+	 * @see #getRootElement()
 	 */
 	@Override
 	protected void setRootElement(final GncV2 rootElement)
@@ -515,7 +516,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	 * @param type the type to look for
 	 * @return A changeable version of all accounts of that type.
 	 * @throws UnknownAccountTypeException
-	 * @see {@link GnucashWritableFile#getAccountsByType(String)}
+	 * 
+	 * @see {@link #getAccountsByTypeAndName(org.gnucash.api.read.GnucashAccount.Type, String, boolean, boolean)}
 	 */
 	@Override
 	public Collection<GnucashWritableAccount> getWritableAccountsByType(final GnucashAccount.Type type)
@@ -538,7 +540,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @param acctID the unique account-id
 	 * @return A changeable version of the account or null if not found.
-	 * @see GnucashFile#getAccountByID(GCshID)
+	 * 
+	 * @see #getAccountByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableAccount getWritableAccountByID(final GCshID acctID) {
@@ -564,7 +567,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @param name the name of the account
 	 * @return A changeable version of the first account with that name.
-	 * @see GnucashFile#getAccountsByName(String)
+	 * 
+	 * @see #getAccountByNameUniq(String, boolean)
 	 */
 	@Override
 	public GnucashWritableAccount getWritableAccountByNameUniq(final String name, final boolean qualif)
@@ -574,6 +578,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	/**
 	 * @return a read-write collection of all accounts
+	 * 
+	 * @see #getAccounts()
 	 */
 	@Override
 	public Collection<GnucashWritableAccount> getWritableAccounts() {
@@ -589,6 +595,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @return a read-only collection of all accounts that have no parent
 	 * @throws UnknownAccountTypeException
+	 * 
+	 * @see #getWritableRootAccounts()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
@@ -640,9 +648,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * @see GnucashWritableFile#createWritableAccount()
-	 */
 	@Override
 	public GnucashWritableAccount createWritableAccount() {
 		GnucashWritableAccount acct = new GnucashWritableAccountImpl(this);
@@ -667,7 +672,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	// ---------------------------------------------------------------
 
 	/**
-	 * @see GnucashWritableFile#getTransactionByID(java.lang.String)
+	 * @see #getTransactionByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableTransaction getWritableTransactionByID(final GCshID trxID) {
@@ -692,10 +697,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	}
 
 	/**
-	 * @see GnucashWritableFile#getWritableTransactions()
+	 * @see #getTransactions()
 	 */
 	@Override
-	@SuppressWarnings("unchecked")
 	public Collection<? extends GnucashWritableTransaction> getWritableTransactions() {
 		Collection<GnucashWritableTransaction> result = new ArrayList<GnucashWritableTransaction>();
 
@@ -710,11 +714,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * 
-	 */
 	@Override
 	public GnucashWritableTransaction createWritableTransaction() {
 		return new GnucashWritableTransactionImpl(this);
@@ -757,6 +756,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @param spltID
 	 * @return
+	 * 
+	 * @see #getTransactionSplitByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID) {
@@ -774,6 +775,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	/**
 	 * @return
+	 * 
+	 * @see #getTransactionSplits()
 	 */
 	@Override
 	public Collection<GnucashWritableTransactionSplit> getWritableTransactionSplits() {
@@ -1028,7 +1031,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	// ---------------------------------------------------------------
 
 	/**
-	 * @see GnucashFile#getWritableCustomerByID(java.lang.String)
+	 * @see #getCustomerByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableCustomer getWritableCustomerByID(final GCshID custID) {
@@ -1044,6 +1047,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return new GnucashWritableCustomerImpl((GnucashCustomerImpl) cust);
 	}
 
+	/**
+	 * @see #getCustomers()
+	 */
 	@Override
 	public Collection<GnucashWritableCustomer> getWritableCustomers() {
 		Collection<GnucashWritableCustomer> result = new ArrayList<GnucashWritableCustomer>();
@@ -1058,9 +1064,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * @see GnucashWritableFile#createWritableCustomer()
-	 */
 	@Override
 	public GnucashWritableCustomer createWritableCustomer() {
 		GnucashWritableCustomerImpl cust = new GnucashWritableCustomerImpl(this);
@@ -1081,7 +1084,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	// ---------------------------------------------------------------
 
 	/**
-	 * @see GnucashFile#getWritableCustomerByID(java.lang.String)
+	 * @see #getVendorByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableVendor getWritableVendorByID(final GCshID vendID) {
@@ -1097,6 +1100,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return new GnucashWritableVendorImpl((GnucashVendorImpl) vend);
 	}
 
+	/**
+	 * @see #getVendors()
+	 */
 	@Override
 	public Collection<GnucashWritableVendor> getWritableVendors() {
 		Collection<GnucashWritableVendor> result = new ArrayList<GnucashWritableVendor>();
@@ -1111,9 +1117,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * @see GnucashWritableFile#createWritableVendor()
-	 */
 	@Override
 	public GnucashWritableVendor createWritableVendor() {
 		GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(this);
@@ -1122,7 +1125,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	}
 
 	/**
-	 * @param impl the vendor to remove
+	 * @param vend the vendor to remove
 	 */
 	@Override
 	public void removeVendor(final GnucashWritableVendor vend) {
@@ -1134,7 +1137,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	// ---------------------------------------------------------------
 
 	/**
-	 * @see GnucashFile#getWritableCustomerByID(java.lang.String)
+	 * @see #getEmployeeByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableEmployee getWritableEmployeeByID(final GCshID emplID) {
@@ -1150,6 +1153,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return new GnucashWritableEmployeeImpl((GnucashEmployeeImpl) empl);
 	}
 
+	/**
+	 * {@link #getEmployees()}
+	 */
 	@Override
 	public Collection<GnucashWritableEmployee> getWritableEmployees() {
 		Collection<GnucashWritableEmployee> result = new ArrayList<GnucashWritableEmployee>();
@@ -1164,9 +1170,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * @see GnucashWritableFile#createWritableEmployee()
-	 */
 	@Override
 	public GnucashWritableEmployee createWritableEmployee() {
 		GnucashWritableEmployeeImpl empl = new GnucashWritableEmployeeImpl(this);
@@ -1189,8 +1192,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @param jobID the id of the job to fetch
 	 * @return A changeable version of the job or null of not found.
-	 * @see GnucashFile#getGenerJobByID(GCshID)
-	 * @see GnucashWritableFile#getGenerJobByID(GCshID)
+	 * 
+	 * @see #getGenerJobByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableGenerJob getWritableGenerJobByID(final GCshID jobID) {
@@ -1217,6 +1220,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	/**
 	 * @param jnr the job-number to look for.
 	 * @return the (first) jobs that have this number or null if not found
+	 * 
+	 * @see getGenerJobByNumber
 	 */
 	@Override
 	public GnucashWritableGenerJob getWritableGenerJobByNumber(final String jnr) {
@@ -1231,7 +1236,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	}
 
 	/**
-	 * @see GnucashWritableFile#getWritableGenerJobs()
+	 * @see #getGenerJobs()
 	 */
 	@Override
 	public Collection<GnucashWritableGenerJob> getWritableGenerJobs() {
@@ -1250,9 +1255,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	// ----------------------------
 
-	/**
-	 * @see GnucashWritableFile#createWritableCustomerJob(GnucashCustomer)
-	 */
 	@Override
 	public GnucashWritableCustomerJob createWritableCustomerJob(final GnucashCustomer cust, final String number,
 			final String name) {
@@ -1265,9 +1267,6 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return job;
 	}
 
-	/**
-	 * @see GnucashWritableFile#createWritableCustomerJob(GnucashCustomer)
-	 */
 	@Override
 	public GnucashWritableVendorJob createWritableVendorJob(final GnucashVendor vend, final String number,
 			final String name) {
@@ -1281,7 +1280,10 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 	}
 
 	/**
-	 * @param impl what to remove
+	 * @param job what to remove
+	 * 
+	 * @see #removeCustomerJob(GnucashWritableCustomerJobImpl)
+	 * @see #removeVendorJob(GnucashWritableVendorJobImpl)
 	 */
 	@Override
 	public void removeGenerJob(final GnucashWritableGenerJob job) {
@@ -1625,6 +1627,9 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return new GCshWritableBillTermsImpl((GCshBillTermsImpl) bllTrm);
 	}
 
+	/**
+	 * {@link #getBillTermsByName(String)}
+	 */
 	@Override
 	public GCshWritableBillTerms getWritableBillTermsByName(final String name) {
 		GCshBillTerms bllTrm = super.getBillTermsByName(name);
@@ -1633,7 +1638,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 
 	/**
 	 * @return all TaxTables defined in the book
-	 * @see {@link GCshBillTerms}
+	 * 
+	 * @see #getBillTerms()
 	 */
 	@Override
 	public Collection<GCshWritableBillTerms> getWritableBillTerms() {

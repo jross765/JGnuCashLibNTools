@@ -77,6 +77,9 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 
 	// ---------------------------------------------------------------
 
+	/**
+	 * @see #getGnucashFile()
+	 */
 	@Override
 	public GnucashWritableFile getWritableGnucashFile() {
 		// TODO Auto-generated method stub

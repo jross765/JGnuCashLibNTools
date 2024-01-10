@@ -7,11 +7,10 @@ import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
 
 /**
- * This class represents a voucher that is sent from an employee
- * so you know what to pay him/her.<br>
+ * A voucher that is sent from an employee so you know what to pay him/her.<br>
  * <br>
  * Note: The correct business term is "voucher" (as opposed to "invoice" or "bill"), 
- * as used in the GnuCash documentation. However, on a technical level, both 
+ * as used in the GnuCash documentation. However, on a technical level,  
  * customer invoices, vendor bills and employee vouchers are referred to as 
  * "GncInvoice" objects.
  * <br>

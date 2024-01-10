@@ -230,8 +230,9 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     *  
+     * @throws UnknownAccountTypeException
+     * 
+     * @see #getOutstandingValue_direct()
      */
     public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getOutstandingValue_direct();

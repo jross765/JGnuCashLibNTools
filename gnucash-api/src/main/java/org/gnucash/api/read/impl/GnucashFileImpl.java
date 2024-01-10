@@ -271,7 +271,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @return Returns the currencyTable.
-     * @link #currencyTable
      */
     public ComplexPriceTable getCurrencyTable() {
 	return currencyTable;
@@ -444,16 +443,10 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashFile#getTransactionByID(java.lang.String)
-     */
     public GnucashTransaction getTransactionByID(final GCshID trxID) {
 	return trxMgr.getTransactionByID(trxID);
     }
 
-    /**
-     * @see GnucashFile#getTransactions()
-     */
     public Collection<? extends GnucashTransaction> getTransactions() {
 	return trxMgr.getTransactions();
     }
@@ -464,9 +457,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashFile#getTransactionByID(java.lang.String)
-     */
     public GnucashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
         return trxMgr.getTransactionSplitByID(spltID);
     }
@@ -485,9 +475,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashFile#getGenerInvoiceByID(java.lang.String)
-     */
     @Override
     public GnucashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
 	return invcMgr.getGenerInvoiceByID(invcID);
@@ -677,7 +664,8 @@ public class GnucashFileImpl implements GnucashFile,
     /**
      * @throws WrongInvoiceTypeException
      *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * @see #getPaidVouchersForEmployee(GnucashEmployee)
+     * @see #getUnpaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getVouchersForEmployee(final GnucashEmployee empl)
@@ -689,7 +677,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * @see #getUnpaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee(final GnucashEmployee empl)
@@ -701,7 +689,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException 
      *  
-     * @see GnucashFile#getUnpaidBillsForVendor_viaJob(GnucashVendor)
+     * @see #getPaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
     public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnucashEmployee empl)
@@ -748,17 +736,11 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashFile#getGenerInvoiceByID(java.lang.String)
-     */
     @Override
     public GnucashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID id) {
 	return invcEntrMgr.getGenerInvoiceEntryByID(id);
     }
 
-    /**
-     * @see GnucashFile#getGenerInvoices()
-     */
     public Collection<GnucashGenerInvoiceEntry> getGenerInvoiceEntries() {
 	return invcEntrMgr.getGenerInvoiceEntries();
     }
@@ -1020,7 +1002,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @return all TaxTables defined in the book
-     * @link GnucashTaxTable
      */
     @Override
     public Collection<GCshTaxTable> getTaxTables() {
@@ -1049,7 +1030,6 @@ public class GnucashFileImpl implements GnucashFile,
 
     /**
      * @return all TaxTables defined in the book
-     * @link GnucashTaxTable
      */
     public Collection<GCshBillTerms> getBillTerms() {
         return bllTrmMgr.getBillTerms();

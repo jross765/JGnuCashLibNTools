@@ -382,7 +382,6 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
     /**
      * @throws UnknownAccountTypeException
-     * @see GnucashWritableAccount#setInvcType(java.lang.String)
      */
     public void setType(final Type type) throws UnknownAccountTypeException {
 	Type oldType = getType();

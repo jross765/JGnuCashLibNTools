@@ -17,8 +17,16 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * This class represents a generic job.
  * <br>
- * It normally should be avoided to 
- * use it directly; instead, use one of its specialized variants.
+ * Please note: In GnuCash lingo, a "job" is a technical umbrella term comprising:
+ * <ul>
+ *   <li>a customer job ({@link GnucashCustomerJob})</li>
+ *   <li>a vendor job   ({@link GnucashVendorJob})</li>
+ * </ul>
+ * This is the reason why here, we call the invoice "generic" in order to avoid
+ * misunderstandings. 
+ * <br>
+ * It normally should be avoided to use it directly; instead, use one of its 
+ * specialized variants.
  *  
  * @see GnucashCustomerJob
  * @see GnucashVendorJob

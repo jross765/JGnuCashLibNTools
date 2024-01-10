@@ -13,8 +13,13 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * An employee that can hand in expense vouchers and, obviously, receive
  * a salary
+ * <br>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-emply.html">GnuCash manual</a>
  *
  * @see GnucashEmployeeVoucher
+ * 
+ * @see GnucashCustomer
+ * @see GnucashVendor
  */
 public interface GnucashEmployee extends GnucashObject {
 

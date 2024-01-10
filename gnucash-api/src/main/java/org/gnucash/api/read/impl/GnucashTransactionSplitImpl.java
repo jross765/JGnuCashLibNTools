@@ -401,9 +401,6 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	return buffer.toString();
     }
 
-    /**
-     * @see java.lang.Comparable#compareTo(GnucashTransactionSplit)
-     */
     public int compareTo(final GnucashTransactionSplit otherSplt) {
 	try {
 	    GnucashTransaction otherTrans = otherSplt.getTransaction();

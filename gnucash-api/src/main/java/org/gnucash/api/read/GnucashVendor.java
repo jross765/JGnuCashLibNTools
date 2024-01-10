@@ -17,9 +17,14 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * A vendor that can issue jobs and send bills paid by us
  * (and hopefully pay them).
+ * <br>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-ap-vendors1.html">GnuCash manual</a>
  *
  * @see GnucashVendorJob
  * @see GnucashVendorBill
+ * 
+ * @see GnucashCustomer
+ * @see GnucashEmployee
  */
 public interface GnucashVendor extends GnucashObject {
 

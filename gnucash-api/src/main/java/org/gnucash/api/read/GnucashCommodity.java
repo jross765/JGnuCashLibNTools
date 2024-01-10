@@ -5,6 +5,17 @@ import java.util.Collection;
 import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
 
+/**
+ * In GnuCash lingo, "commodity" is an umbrella term for
+ * <ul>
+ *   <li>Currencies</li>
+ *   <li>(Real) Securities (shares, bonds, funds, etc.)</li>
+ *   <li>Possibly other assets that can be mapped to this GnuCash entity as pseudo-securities, 
+ *   such as crypto-currencies, physical precious metals, etc.</li>
+ * </ul>
+ * <br>
+ * Cf. <a href="https://code.gnucash.org/website/docs/v1.6/C/t1784.html">GnuCash manual</a>
+ */
 public interface GnucashCommodity {
 
     /**

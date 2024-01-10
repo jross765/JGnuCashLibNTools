@@ -56,7 +56,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param acctID the unique id of the account to look for
+     * @param acctID the unique ID of the account to look for
      * @return the account or null if it's not found
      */
     GnucashAccount getAccountByID(GCshID acctID);
@@ -183,7 +183,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param trxID the unique id of the transaction to look for
+     * @param trxID the unique ID of the transaction to look for
      * @return the transaction or null if it's not found
      */
     GnucashTransaction getTransactionByID(GCshID trxID);
@@ -197,7 +197,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param spltID the unique id of the transaction split to look for
+     * @param spltID the unique ID of the transaction split to look for
      * @return the transaction split or null if it's not found
      */
     GnucashTransactionSplit getTransactionSplitByID(GCshID spltID);
@@ -210,7 +210,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param invcID the unique id of the (generic) invoice to look for
+     * @param invcID the unique ID of the (generic) invoice to look for
      * @return the invoice or null if it's not found
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
@@ -533,7 +533,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param id the unique id of the (generic) invoice entry to look for
+     * @param id the unique ID of the (generic) invoice entry to look for
      * @return the invoice entry or null if it's not found
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
@@ -550,7 +550,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param jobID the unique id of the job to look for
+     * @param jobID the unique ID of the job to look for
      * @return the job or null if it's not found
      */
     GnucashGenerJob getGenerJobByID(GCshID jobID);
@@ -585,7 +585,7 @@ public interface GnucashFile extends GnucashObject {
     // ----------------------------
 
     /**
-     * @param custID the unique id of the customer job to look for
+     * @param custID the unique ID of the customer job to look for
      * @return the job or null if it's not found
      */
     GnucashCustomerJob getCustomerJobByID(GCshID custID);
@@ -620,7 +620,7 @@ public interface GnucashFile extends GnucashObject {
     // ----------------------------
 
     /**
-     * @param vendID the unique id of the vendor job to look for
+     * @param vendID the unique ID of the vendor job to look for
      * @return the job or null if it's not found
      */
     GnucashVendorJob getVendorJobByID(GCshID vendID);
@@ -655,7 +655,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param custID the unique id of the customer to look for
+     * @param custID the unique ID of the customer to look for
      * @return the customer or null if it's not found
      */
     GnucashCustomer getCustomerByID(GCshID custID);
@@ -694,7 +694,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param vendID the unique id of the vendor to look for
+     * @param vendID the unique ID of the vendor to look for
      * @return the vendor or null if it's not found
      */
     GnucashVendor getVendorByID(GCshID vendID);
@@ -733,7 +733,7 @@ public interface GnucashFile extends GnucashObject {
     // ---------------------------------------------------------------
 
     /**
-     * @param emplID the unique id of the employee to look for
+     * @param emplID the unique ID of the employee to look for
      * @return the employee or null if it's not found
      */
     GnucashEmployee getEmployeeByID(GCshID emplID);
@@ -774,7 +774,7 @@ public interface GnucashFile extends GnucashObject {
 
     /**
      * @param cmdtyCurrID 
-     * @param id the unique id of the currency/security/commodity to look for
+     * @param id the unique ID of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
      */
     GnucashCommodity getCommodityByQualifID(GCshCmdtyCurrID cmdtyCurrID);
@@ -808,7 +808,7 @@ public interface GnucashFile extends GnucashObject {
     GnucashCommodity getCommodityByQualifID(GCshCmdtyCurrNameSpace.SecIdType secIdType, String id);
 
     /**
-     * @param qualifID the unique id of the currency/security/commodity to look for
+     * @param qualifID the unique ID of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 

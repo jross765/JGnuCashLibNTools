@@ -58,8 +58,9 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
     @SuppressWarnings("exports")
-    public GnucashWritableCustomerImpl(final GncGncCustomer jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
+    public GnucashWritableCustomerImpl(
+    		final GncGncCustomer jwsdpPeer,
+    		final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
 
@@ -234,7 +235,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     }
 
     /**
-     * @see GnucashWritableCustomer#setDiscount(java.lang.String)
+     * @see #setCredit(FixedPointNumber)
      */
     @Override
     public void setDiscount(final FixedPointNumber discount) {
@@ -253,7 +254,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     }
 
     /**
-     * @see GnucashWritableCustomer#setDiscount(java.lang.String)
+     * @see #setDiscount(FixedPointNumber)
      */
     @Override
     public void setCredit(final FixedPointNumber credit) {
@@ -272,7 +273,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     }
 
     /**
-     * @see GnucashWritableCustomer#setAdress(org.gnucash.fileformats.gnucash.GnucashCustomer.ShippingAdress)
+     * @see #setShippingAddress(GCshAddress)
      */
     @Override
     public void setAddress(final GCshAddress adr) {
@@ -305,7 +306,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     }
 
     /**
-     * @see GnucashWritableCustomer#setShippingAddress(GCshWritableAddress)
+     * @see #setAddress(GCshAddress)
      */
     @Override
     public void setShippingAddress(final GCshAddress adr) {

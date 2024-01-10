@@ -387,7 +387,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	}
 
 	/**
-	 * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
+	 * @see #getGenerEntryByID(GCshID)
 	 */
 	@Override
 	public GnucashWritableEmployeeVoucherEntry getWritableEntryByID(final GCshID id) {

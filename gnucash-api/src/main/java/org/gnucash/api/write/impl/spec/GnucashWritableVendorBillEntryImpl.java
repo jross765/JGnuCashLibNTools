@@ -77,6 +77,9 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 
 	// ---------------------------------------------------------------
 
+	/**
+	 * @see #getGnucashFile()
+	 */
 	@Override
 	public GnucashWritableFile getWritableGnucashFile() {
 		// TODO Auto-generated method stub

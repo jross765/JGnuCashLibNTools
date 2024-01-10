@@ -279,7 +279,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * @throws IllegalArgumentException 
      *  
-     * @see GnucashWritableTransaction#getWritableSplitByID(java.lang.String)
+     * @see {@link #getSplitByID(GCshID)}
      */
     public GnucashWritableTransactionSplit getWritableSplitByID(final GCshID id) throws IllegalArgumentException {
 	return (GnucashWritableTransactionSplit) super.getSplitByID(id);
@@ -288,7 +288,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * @throws IllegalArgumentException 
      *  
-     * @see GnucashWritableTransaction#getWritableSplits()
+     * @see #getSplits()
      */
     public List<GnucashWritableTransactionSplit> getWritableSplits() throws IllegalArgumentException {
 	List<GnucashWritableTransactionSplit> result = new ArrayList<GnucashWritableTransactionSplit>();
@@ -350,9 +350,8 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     }
 
     /**
-     * @param id the new commodity/currency name-space/code
-     * @see #setCurrencyNameSpace(String)
-     * @see {@link GnucashTransaction#getCurrencyID()}
+     * @param cmdtyCurrID the new commodity/currency name-space/code
+     * 
      */
     public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
 	this.getJwsdpPeer().getTrnCurrency().setCmdtySpace(cmdtyCurrID.getNameSpace());
@@ -381,9 +380,6 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 	setDateEntered(dateEntered.atZone(ZoneId.systemDefault()));
     }
     
-    /**
-     * @see GnucashWritableTransaction#setDatePosted(LocalDateTime)
-     */
     public void setDatePosted(final LocalDate datePosted) {
 	if ( datePosted == null ) {
 	    throw new IllegalArgumentException("null date given!");
@@ -395,9 +391,6 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 	getWritableFile().setModified(true);
     }
 
-    /**
-     * @see GnucashWritableTransaction#setNotes(java.lang.String)
-     */
     public void setDescription(final String descr) {
 	if ( descr == null) {
 	    throw new IllegalArgumentException("null description given!");

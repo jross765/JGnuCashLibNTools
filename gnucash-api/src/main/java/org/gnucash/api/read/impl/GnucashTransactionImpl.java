@@ -168,7 +168,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     /**
      * @throws InvalidCmdtyCurrTypeException 
-     * @see GnucashAccount#getCurrencyID()
      */
     public GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException {
 
@@ -378,10 +377,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	return getSplits().size();
     }
 
-    /**
-     *  
-     * @see GnucashTransaction#getSplitByID(java.lang.String)
-     */
     public GnucashTransactionSplit getSplitByID(final GCshID id) {
 	for (GnucashTransactionSplit split : getSplits()) {
 	    if (split.getID().equals(id)) {

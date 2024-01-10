@@ -15,12 +15,19 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.numbers.FixedPointNumber;
 
 /**
- * An account is a collection of transactions that start or end there. <br>
- * You can compare it's functionality to an abstracted bank account. <br>
- * It has a balance, may have a parent-account(@see #getParentAccount()) and child-accounts(@see #getSubAccounts()) to form
- * a tree. <br>
+ * A GnuCash account satisfies the "normal" definition of the term in 
+ * accounting (<a href="https://en.wikipedia.org/wiki/Account_(bookkeeping)">Wikipedia</a>).
+ * <br>
+ * You can also see it as a collection of transactions that start or end there. 
+ * <br>
+ * An account has a balance.  
+ * <br>
+ * All accounts taken together define the so-called chart of accounts,
+ * organized in a tree (the top node of the tree being the root account). 
+ * That means that each account may have a parent-account as well as one or 
+ * several child-accounts.
  * 
- * @see #getParentAccount()
+ * Cf. <a href="https://lists.gnucash.org/docs/C/gnucash-manual/acct-types.html">GnuCash manual</a>
  */
 public interface GnucashAccount extends Comparable<GnucashAccount> {
 

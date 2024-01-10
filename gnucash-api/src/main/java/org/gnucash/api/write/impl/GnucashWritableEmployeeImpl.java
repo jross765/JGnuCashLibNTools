@@ -57,8 +57,9 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
     @SuppressWarnings("exports")
-    public GnucashWritableEmployeeImpl(final GncGncEmployee jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
+    public GnucashWritableEmployeeImpl(
+    		final GncGncEmployee jwsdpPeer,
+    		final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
 
@@ -219,9 +220,6 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	}
     }
 
-    /**
-     * @see GnucashWritableEmployee#setName(java.lang.String)
-     */
     @Override
     public void setUserName(final String userName) {
 	if ( userName == null ) {
@@ -242,9 +240,6 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	}
     }
 
-    /**
-     * @see GnucashWritableEmployee#setAdress(org.gnucash.fileformats.gnucash.GnucashEmployee.ShippingAdress)
-     */
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {

@@ -391,7 +391,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	}
 
 	/**
-	 * @see GnucashWritableGenerInvoice#getWritableGenerEntryByID(java.lang.String)
+	 * @see #getGenerEntryByID(GCshID)
 	 */
 	public GnucashWritableVendorBillEntry getWritableEntryByID(final GCshID id) {
 		return new GnucashWritableVendorBillEntryImpl(getGenerEntryByID(id));

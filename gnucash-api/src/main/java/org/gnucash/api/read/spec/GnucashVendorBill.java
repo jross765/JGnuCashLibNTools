@@ -7,12 +7,12 @@ import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashVendor;
 
 /**
- * This class represents a bill that is sent from a vendor
- * so you know what to pay him/her.<br>
+ * A bill that is sent from a vendor so you know what to pay him/her.<br>
  * <br>
- * Note: The correct business term is "bill" (as opposed to "invoice"), 
- * as used in the GnuCash documentation. However, on a technical level, both 
- * customer invoices and vendor bills are referred to as "GncInvoice" objects.
+ * Note: The correct business term is "bill" (as opposed to "invoice" or "voucher"), 
+ * as used in the GnuCash documentation. However, on a technical level,  
+ * customer invoices, vendor bills and employee vouchers are referred to 
+ * as "GncInvoice" objects.
  * <br>
  * Implementations of this interface are comparable and sorts primarily on the date the 
  * bill was created and secondarily on the date it should be paid.

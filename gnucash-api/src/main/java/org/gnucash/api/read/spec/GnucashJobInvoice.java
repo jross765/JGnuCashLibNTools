@@ -10,14 +10,11 @@ import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
 
 /**
- * This class represents an invoice that is sent to a customer or a vendor
- * so (s)he knows what to pay you. However, as opposed to {@link GnucashCustomerInvoice}
- * and {@link GnucashVendorBill}, this one does <strong>not directly</strong> belong to a customer
- * or a vendor, but is attached to a customer/vendor <strong>job</strong>.<br>
- * <br>
- * Note: The correct business term is "invoice" (as opposed to "bill"), 
- * as used in the GnuCash documentation. However, on a technical level, both 
- * customer invoices and vendor bills are referred to as "GncInvoice" objects.
+ * A special variant of a customer invoice or a vendor bill 
+ * (<strong>not</strong> of an employee voucher):
+ * As opposed to {@link GnucashCustomerInvoice} and {@link GnucashVendorBill}, this one 
+ * does <strong>not directly</strong> belong to a customer
+ * or a vendor, but is attached to a customer/vendor <strong>job</strong>.
  * <br>
  * Implementations of this interface are comparable and sorts primarily on the date the Invoice was
  * created and secondarily on the date it should be paid.

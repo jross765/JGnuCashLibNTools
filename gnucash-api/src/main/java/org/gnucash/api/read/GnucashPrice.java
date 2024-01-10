@@ -11,6 +11,15 @@ import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.hlp.GnucashObject;
 
+/**
+ * According to GnuCash's definition of a {@link GnucashCommodity},
+ * a price is an umbrella term comprising:
+ * <ul>
+ *   <li>A currency's exchange rate</li>
+ *   <li>A security's quote</li>
+ *   <li>A pseudo-security's price</li> 
+ * </ul>
+ */
 public interface GnucashPrice extends GnucashObject {
 
     // For the following enums, cf.:

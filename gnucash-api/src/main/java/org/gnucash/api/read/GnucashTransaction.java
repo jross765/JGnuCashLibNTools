@@ -13,8 +13,14 @@ import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncTransaction;
 
 /**
- * It is comparable and sorts primarily on the date the transaction happened
- * and secondarily on the date it was entered.
+ * A financial transaction between two or more accounts.
+ * <br>
+ * A transaction has two or more transaction splits ({@link GnucashTransactionSplit})
+ * whose values normally add up to zero.
+ * <br>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual//ch_Common_Trans_Ops.html">GnuCash manual</a>
+ * 
+ * @see GnucashTransactionSplit
  */
 public interface GnucashTransaction extends Comparable<GnucashTransaction>,
                                             HasAttachment

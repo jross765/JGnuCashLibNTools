@@ -17,9 +17,14 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * A customer that can issue jobs and receive invoices by us
  * (and hopefully pay them).
+ * <br>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-ar-customers1.html">GnuCash manual</a>
  *
  * @see GnucashCustomerJob
  * @see GnucashCustomerInvoice
+ * 
+ * @see GnucashEmployee
+ * @see GnucashVendor
  */
 public interface GnucashCustomer extends GnucashObject {
 
@@ -155,8 +160,7 @@ public interface GnucashCustomer extends GnucashObject {
      * @return 
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getIncomeGenerated() Formatted according to the current locale's
-     *      currency-format
+     * @see {@link #getIncomeGenerated(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)}
      */
     String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
@@ -166,8 +170,7 @@ public interface GnucashCustomer extends GnucashObject {
      * @return 
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getIncomeGenerated() Formatted according to the given locale's
-     *      currency-format
+     * @see {@link #getIncomeGenerated(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)}
      */
     String getIncomeGeneratedFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
 
@@ -200,8 +203,7 @@ public interface GnucashCustomer extends GnucashObject {
      * @return 
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getOutstandingValue() Formatted according to the current locale's
-     *      currency-format
+     * @see {@link #getOutstandingValue(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)}
      */
     String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
 
@@ -212,8 +214,7 @@ public interface GnucashCustomer extends GnucashObject {
      * @return 
      * @throws UnknownAccountTypeException 
      *  
-     * @see #getOutstandingValue() Formatted according to the given locale's
-     *      currency-format
+     * @see {@link #getOutstandingValue(org.gnucash.api.read.GnucashGenerInvoice.ReadVariant)}
      */
     String getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
 

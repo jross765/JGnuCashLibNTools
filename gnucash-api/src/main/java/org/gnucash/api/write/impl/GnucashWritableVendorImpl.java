@@ -57,8 +57,10 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      */
-    public GnucashWritableVendorImpl(final GncGncVendor jwsdpPeer,
-	    final GnucashWritableFileImpl file) {
+    @SuppressWarnings("exports")
+	public GnucashWritableVendorImpl(
+			final GncGncVendor jwsdpPeer,
+			final GnucashWritableFileImpl file) {
 	super(jwsdpPeer, file);
     }
 
@@ -224,9 +226,6 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	}
     }
 
-    /**
-     * @see GnucashWritableVendor#setAdress(org.gnucash.fileformats.gnucash.GnucashVendor.ShippingAdress)
-     */
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {

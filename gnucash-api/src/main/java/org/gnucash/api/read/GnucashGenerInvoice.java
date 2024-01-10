@@ -20,11 +20,26 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 /**
  * This class represents a generic invoice.
  * <br>
- * It normally should be avoided to 
- * use it directly; instead, use one of its specialized variants. 
+ * Please note: In GnuCash lingo, an "invoice" does not precisely meet the 
+ * normal definition of the business term 
+ * (<a href="https://en.wikipedia.org/wiki/Invoice">Wikipedia</a>).
+ * Rather, it is a technical umbrella term comprising:
+ * <ul>
+ *   <li>a customer invoice  ({@link GnucashCustomerInvoice})</li>
+ *   <li>a vendor bill       ({@link GnucashVendorBill})</li>
+ *   <li>an employee voucher ({@link GnucashEmployeeVoucher})</li>
+ *   <li>a job invoice       ({@link GnucashJobInvoice})</li>
+ * </ul>
+ * This is the reason why here, we call the invoice "generic" in order to avoid
+ * misunderstandings. 
+ * <br>
+ * Please note that it normally should be avoided to use it directly; 
+ * instead, use one of its specialized variants. 
  * <br>
  * Implementations of this interface are comparable and sorts primarily on the date the Invoice was
  * created and secondarily on the date it should be paid.
+ * <br>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-ar-invoices1.html">GnuCash manual</a>
  *
  * @see GnucashCustomerInvoice
  * @see GnucashEmployeeVoucher

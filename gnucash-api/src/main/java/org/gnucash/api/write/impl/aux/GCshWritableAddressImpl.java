@@ -1,7 +1,6 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
-import org.gnucash.api.write.GnucashWritableCustomer;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.slf4j.Logger;
@@ -40,7 +39,9 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see GCshWritableAddress#setAddressLine1(java.lang.String)
+     * @see #setAddressLine2(String)
+     * @see #setAddressLine3(String)
+     * @see #setAddressLine4(String)
      */
     public void setAddressLine1(final String a) {
 	getJwsdpPeer().setAddrAddr1(a);
@@ -48,7 +49,9 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see GCshWritableAddress#setAddressLine2(java.lang.String)
+     * @see #setAddressLine1(String)
+     * @see #setAddressLine3(String)
+     * @see #setAddressLine4(String)
      */
     public void setAddressLine2(final String a) {
 	getJwsdpPeer().setAddrAddr2(a);
@@ -56,7 +59,9 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see GnucashWritableCustomer.WritableAddress#setAddressLine4(java.lang.String)
+     * @see #setAddressLine1(String)
+     * @see #setAddressLine2(String)
+     * @see #setAddressLine4(String)
      */
     public void setAddressLine3(final String a) {
 	getJwsdpPeer().setAddrAddr3(a);
@@ -64,32 +69,25 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see GnucashWritableCustomer.WritableAddress#setAddressLine4(java.lang.String)
+     * @see #setAddressLine1(String)
+     * @see #setAddressLine2(String)
+     * @see #setAddressLine3(String)
      */
     public void setAddressLine4(final String a) {
 	getJwsdpPeer().setAddrAddr4(a);
 	// TODO: setModified()
     }
 
-    /**
-     * @see GnucashWritableCustomer.WritableAddress#setTel(java.lang.String)
-     */
     public void setTel(final String a) {
 	getJwsdpPeer().setAddrPhone(a);
 	// TODO: setModified()
     }
 
-    /**
-     * @see GnucashWritableCustomer.WritableAddress#setFac(java.lang.String)
-     */
     public void setFax(final String a) {
 	getJwsdpPeer().setAddrFax(a);
 	// TODO: setModified()
     }
 
-    /**
-     * @see GnucashWritableCustomer.WritableAddress#setEmail(java.lang.String)
-     */
     public void setEmail(final String a) {
 	getJwsdpPeer().setAddrEmail(a);
 	// TODO: setModified()

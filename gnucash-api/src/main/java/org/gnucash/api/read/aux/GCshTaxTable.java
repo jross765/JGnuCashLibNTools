@@ -3,12 +3,18 @@ package org.gnucash.api.read.aux;
 import java.util.Collection;
 
 import org.gnucash.api.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.spec.GnucashCustomerInvoice;
+import org.gnucash.api.read.spec.GnucashVendorBill;
 
 
 /**
- * Contains Tax-Rates.
- * @see GnucashCustomer
+ * Tax tables can used to determine the tax for customer invoices or vendor bills. 
+ * <br>
+ * Cf. <a href="https://cvs.gnucash.org/docs/C/gnucash-guide/bus-setuptaxtables.html">GnuCash manual</a>
+ * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-ar-setup1.html#busnss-ar-setuptaxtables">GnuCash manual</a>
+ * 
+ * @see GnucashCustomerInvoice
+ * @see GnucashVendorBill
  */
 public interface GCshTaxTable {
 
