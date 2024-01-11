@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /*
  * This is a base-class that helps implementing the GnucashAccount
- * interface with it's extensive number of convenience-methods.<br/>
+ * interface with its extensive number of convenience-methods.<br/>
  */
 public abstract class SimpleAccount implements GnucashAccount {
 

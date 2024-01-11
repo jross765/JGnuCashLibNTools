@@ -22,7 +22,6 @@ import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
 import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;

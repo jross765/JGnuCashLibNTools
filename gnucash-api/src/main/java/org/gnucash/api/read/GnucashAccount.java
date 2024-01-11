@@ -26,7 +26,7 @@ import org.gnucash.api.numbers.FixedPointNumber;
  * organized in a tree (the top node of the tree being the root account). 
  * That means that each account may have a parent-account as well as one or 
  * several child-accounts.
- * 
+ * <br>
  * Cf. <a href="https://lists.gnucash.org/docs/C/gnucash-manual/acct-types.html">GnuCash manual</a>
  */
 public interface GnucashAccount extends Comparable<GnucashAccount> {
