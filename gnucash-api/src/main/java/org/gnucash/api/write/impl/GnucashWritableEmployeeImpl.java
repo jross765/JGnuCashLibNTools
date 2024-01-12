@@ -89,10 +89,14 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     protected static GncGncEmployee createEmployee_int(
 	    final GnucashWritableFileImpl file,
-            final GCshID emplID) {
-        if ( ! emplID.isSet() ) {
-            throw new IllegalArgumentException("GUID not set!");
-        }
+            final GCshID newID) {
+		if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
     
         ObjectFactory factory = file.getObjectFactory();
     
@@ -104,7 +108,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
         {
             GncGncEmployee.EmployeeGuid id = factory.createGncGncEmployeeEmployeeGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(emplID.toString());
+            id.setValue(newID.toString());
             jwsdpEmpl.setEmployeeGuid(id);
             jwsdpEmpl.setEmployeeId(id.getValue());
         }

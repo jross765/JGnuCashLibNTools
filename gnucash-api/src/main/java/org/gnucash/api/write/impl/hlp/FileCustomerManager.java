@@ -24,8 +24,7 @@ public class FileCustomerManager extends org.gnucash.api.read.impl.hlp.FileCusto
 	 */
 	@Override
 	protected GnucashCustomerImpl createCustomer(final GncGncCustomer jwsdpCust) {
-		GnucashWritableCustomerImpl cust = new GnucashWritableCustomerImpl(jwsdpCust,
-				(GnucashWritableFileImpl) gcshFile);
+		GnucashWritableCustomerImpl cust = new GnucashWritableCustomerImpl(jwsdpCust, (GnucashWritableFileImpl) gcshFile);
 		LOGGER.debug("Generated new writable customer: " + cust.getID());
 		return cust;
 	}

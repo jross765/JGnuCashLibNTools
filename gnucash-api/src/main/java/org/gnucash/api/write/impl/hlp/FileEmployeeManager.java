@@ -24,8 +24,7 @@ public class FileEmployeeManager extends org.gnucash.api.read.impl.hlp.FileEmplo
 	 */
 	@Override
 	protected GnucashEmployeeImpl createEmployee(final GncGncEmployee jwsdpEmpl) {
-		GnucashWritableEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl,
-				(GnucashWritableFileImpl) gcshFile);
+		GnucashWritableEmployeeImpl empl = new GnucashWritableEmployeeImpl(jwsdpEmpl, (GnucashWritableFileImpl) gcshFile);
 		LOGGER.debug("Generated new writable employee: " + empl.getID());
 		return empl;
 	}

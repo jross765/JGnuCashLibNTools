@@ -85,15 +85,19 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      * the ID of the new transaction!
      *
      * @param file the file we will belong to
-     * @param custID the ID we shall have
+     * @param newID the ID we shall have
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
     protected static GncGncCustomer createCustomer_int(
 	    final GnucashWritableFileImpl file,
-            final GCshID custID) {
-        if ( ! custID.isSet() ) {
-            throw new IllegalArgumentException("GUID not set!");
-        }
+            final GCshID newID) {
+		if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
     
         ObjectFactory factory = file.getObjectFactory();
     
@@ -109,7 +113,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         {
             GncGncCustomer.CustGuid id = factory.createGncGncCustomerCustGuid();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(custID.toString());
+            id.setValue(newID.toString());
             jwsdpCust.setCustGuid(id);
             jwsdpCust.setCustId(id.getValue());
         }

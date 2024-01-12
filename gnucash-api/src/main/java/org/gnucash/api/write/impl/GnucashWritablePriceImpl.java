@@ -53,7 +53,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
     }
 
     public GnucashWritablePriceImpl(final GnucashWritableFileImpl file) {
-	super(createPrice(file, GCshID.getNew()), file);
+	super(createPrice_int(file, GCshID.getNew()), file);
     }
 
     public GnucashWritablePriceImpl(GnucashPriceImpl prc) {
@@ -91,10 +91,17 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 //	return splt;
 //  }
 
-    private static Price createPrice(
+    private static Price createPrice_int(
 	    final GnucashWritableFileImpl file, 
-	    final GCshID prcID) {
+	    final GCshID newID) {
 	
+		if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
         ObjectFactory factory = file.getObjectFactory();
         
         Price prc = file.createGncGncPricedbPriceType();
@@ -102,7 +109,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
         {
             Price.PriceId gncPrcID = factory.createPricePriceId();
             gncPrcID.setType(Const.XML_DATA_TYPE_GUID);
-            gncPrcID.setValue(prcID.toString());
+            gncPrcID.setValue(newID.toString());
             prc.setPriceId(gncPrcID);
         }
         
@@ -281,7 +288,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
     
     @Override
     public String toString() {
-	String result = "GCshWritablePriceImpl [";
+	String result = "GnucashWritablePriceImpl [";
 	
 	result += "id=" + getID();
 	

@@ -313,9 +313,7 @@ public class TestGnucashWritableAccountImpl {
 
     private void test03_1_check_memory(GnucashWritableAccount acct) throws Exception {
 	assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
-	// CAUTION: The counter has not been updated yet.
-	// This is on purpose
-	assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
+	assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
 	assertEquals(ConstTest.Stats.NOF_ACCT + 1, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 
 	assertEquals(newAcctID, acct.getID());

@@ -250,7 +250,7 @@ public class GnucashPriceImpl extends GnucashObjectImpl
 
 	@Override
 	public String toString() {
-		String result = "GCshPriceImpl [";
+		String result = "GnucashPriceImpl [";
 
 		result += "id=" + getID();
 

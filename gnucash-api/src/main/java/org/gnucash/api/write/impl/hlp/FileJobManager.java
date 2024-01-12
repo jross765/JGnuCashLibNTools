@@ -28,21 +28,21 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 //    @Override
 //    protected GnucashCustomerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
 //	// ::TODO: CUSTOMER job?
-//	GnucashWritableGenerJobImpl job = new GnucashWritableGenerJobImpl(jwsdpJob, gcshFile);
+//	GnucashWritableGenerJobImpl job = new GnucashWritableGenerJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
 //	LOGGER.debug("Generated new generic job: " + job.getID());
 //	return job;
 //    }
 
 	@Override
 	protected GnucashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
-		GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, gcshFile);
+		GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
 		LOGGER.debug("Generated new writable customer job: " + job.getID());
 		return job;
 	}
 
 	@Override
 	protected GnucashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
-		GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(jwsdpJob, gcshFile);
+		GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
 		LOGGER.debug("Generated new writable vendor job: " + job.getID());
 		return job;
 	}

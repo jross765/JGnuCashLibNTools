@@ -110,14 +110,20 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
      * @param file
      * @return
      */
-    private static GncAccount createAccount_int(final GnucashWritableFileImpl file, final GCshID acctID) {
-	if (!acctID.isSet()) {
-	    throw new IllegalArgumentException("GUID not set!");
-	}
+    private static GncAccount createAccount_int(
+    		final GnucashWritableFileImpl file, 
+    		final GCshID newID) {
+    	if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
 
 	ObjectFactory factory = file.getObjectFactory();
 
-	GncAccount jwsdpAcct = factory.createGncAccount();
+	GncAccount jwsdpAcct = file.createGncAccountType();
 	// left unset account.setActCode();
 	jwsdpAcct.setActCommodityScu(100); // x,yz
 	jwsdpAcct.setActDescription("no description yet");
@@ -139,7 +145,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	{
 	    GncAccount.ActId guid = factory.createGncAccountActId();
 	    guid.setType(Const.XML_DATA_TYPE_GUID);
-	    guid.setValue(acctID.toString());
+	    guid.setValue(newID.toString());
 	    jwsdpAcct.setActId(guid);
 	}
 

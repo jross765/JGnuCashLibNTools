@@ -129,18 +129,23 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
      */
     protected static GncTransaction createTransaction_int(
             final GnucashWritableFileImpl file, 
-            final GCshID trxID) {
-        if ( ! trxID.isSet() ) {
-            throw new IllegalArgumentException("GUID not set!");
-        }
+            final GCshID newID) {
+		if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
     
         ObjectFactory factory = file.getObjectFactory();
+        
         GncTransaction jwsdpTrx = file.createGncTransactionType();
     
         {
             GncTransaction.TrnId id = factory.createGncTransactionTrnId();
             id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(trxID.toString());
+            id.setValue(newID.toString());
             jwsdpTrx.setTrnId(id);
         }
     

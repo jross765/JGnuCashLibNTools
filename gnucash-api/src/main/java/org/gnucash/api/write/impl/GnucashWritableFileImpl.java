@@ -124,7 +124,9 @@ import jakarta.xml.bind.Marshaller;
  * Extension of GnucashFileImpl to allow read-write access instead of read-only
  * access.
  */
-public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashWritableFile {
+public class GnucashWritableFileImpl extends GnucashFileImpl 
+                                     implements GnucashWritableFile 
+{
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableFileImpl.class);
 
 	// ::MAGIC
@@ -1730,7 +1732,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl implements GnucashW
 		return retval;
 	}
 
-	protected GncTransaction.TrnSplits.TrnSplit createGncTransactionTypeTrnSplitsTypeTrnSplitType() {
+	protected GncTransaction.TrnSplits.TrnSplit createGncTransactionSplitType() {
 		GncTransaction.TrnSplits.TrnSplit retval = getObjectFactory().createGncTransactionTrnSplitsTrnSplit();
 		// Does not apply:
 		// incrementCountDataFor();

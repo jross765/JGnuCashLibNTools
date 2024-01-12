@@ -24,7 +24,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 	 */
 	@Override
 	protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
-		GnucashWritableTransactionImpl trx = new GnucashWritableTransactionImpl(jwsdpTrx, gcshFile);
+		GnucashWritableTransactionImpl trx = new GnucashWritableTransactionImpl(jwsdpTrx, (GnucashWritableFileImpl) gcshFile);
 		LOGGER.debug("Generated new writable transaction: " + trx.getID());
 		return trx;
 	}

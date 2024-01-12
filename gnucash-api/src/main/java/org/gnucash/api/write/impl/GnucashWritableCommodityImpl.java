@@ -83,10 +83,14 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      */
     protected static GncCommodity createCommodity_int(
 	    final GnucashWritableFileImpl file,
-	    final GCshID cmdtID) {
-	if ( ! cmdtID.isSet() ) {
-	    throw new IllegalArgumentException("GUID not set!");
-	}
+	    final GCshID newID) {
+		if ( newID == null ) {
+			throw new IllegalArgumentException("null ID given");
+		}
+
+		if ( ! newID.isSet() ) {
+			throw new IllegalArgumentException("empty ID given");
+		}
 
 	GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
 
