@@ -323,6 +323,35 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	// ---------------------------------------------------------------
 
 	/**
+	 * Keep the count-data up to date.
+	 *
+	 * @param type  the type to set it for
+	 * @param val the value
+	 */
+	protected void setCountDataFor(final String type, final int val) {
+	
+		if ( type == null ) {
+			throw new IllegalArgumentException("null type given");
+		}
+	
+		if ( type.trim().length() == 0 ) {
+			throw new IllegalArgumentException("empty type given");
+		}
+	
+		if ( val < 0 ) {
+			throw new IllegalArgumentException("val < 0 given");
+		}
+	
+		List<GncCountData> cdList = getRootElement().getGncBook().getGncCountData();
+		for ( GncCountData gncCountData : cdList ) {
+			if ( type.equals(gncCountData.getCdType()) ) {
+				gncCountData.setValue(val);
+				setModified(true);
+			}
+		}
+	}
+
+	/**
 	 * Keep the count-data up to date. The count-data is re-calculated on the fly
 	 * before writing but we like to keep our internal model up-to-date just to be
 	 * defensive. <gnc:count-data cd:type="commodity">2</gnc:count-data>
@@ -336,15 +365,11 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			throw new IllegalArgumentException("null type given");
 		}
 
-		List<GncCountData> l = getRootElement().getGncBook().getGncCountData();
-		for ( Iterator<GncCountData> iter = l.iterator(); iter.hasNext(); ) {
-			GncCountData gncCountData = (GncCountData) iter.next();
-
-			if ( type.equals(gncCountData.getCdType()) ) {
-				gncCountData.setValue(gncCountData.getValue() + 1);
-				setModified(true);
-			}
+		if ( type.trim().length() == 0 ) {
+			throw new IllegalArgumentException("empty type given");
 		}
+		
+		incrementCountDataForCore(type, 1);
 	}
 
 	/**
@@ -360,40 +385,35 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			throw new IllegalArgumentException("null type given");
 		}
 
-		List<GncCountData> l = getRootElement().getGncBook().getGncCountData();
-		for ( Iterator<GncCountData> iter = l.iterator(); iter.hasNext(); ) {
-			GncCountData gncCountData = (GncCountData) iter.next();
-
-			if ( type.equals(gncCountData.getCdType()) ) {
-				gncCountData.setValue(gncCountData.getValue() - 1);
-				setModified(true);
-			}
+		if ( type.trim().length() == 0 ) {
+			throw new IllegalArgumentException("empty type given");
 		}
+		
+		incrementCountDataForCore(type, -1);
 	}
 
-	/**
-	 * Keep the count-data up to date.
-	 *
-	 * @param type  the type to set it for
-	 * @param count the value
-	 */
-	protected void setCountDataFor(final String type, final int count) {
+	private void incrementCountDataForCore(final String type, int val) {
 
 		if ( type == null ) {
 			throw new IllegalArgumentException("null type given");
 		}
 
-		if ( count < 0 ) {
-			throw new IllegalArgumentException("count < 0 given");
+		if ( type.trim().length() == 0 ) {
+			throw new IllegalArgumentException("empty type given");
 		}
+		
+		List<GncCountData> l = getRootElement().getGncBook().getGncCountData();
+		for ( Iterator<GncCountData> iter = l.iterator(); iter.hasNext(); ) {
+			GncCountData gncCountData = (GncCountData) iter.next();
 
-		List<GncCountData> cdList = getRootElement().getGncBook().getGncCountData();
-		for ( GncCountData gncCountData : cdList ) {
 			if ( type.equals(gncCountData.getCdType()) ) {
-				gncCountData.setValue(count);
+				gncCountData.setValue(gncCountData.getValue() + val);
 				setModified(true);
+				return;
 			}
 		}
+
+		throw new IllegalArgumentException("Unknown type '" + type + "'");
 	}
 
 	/**
@@ -598,11 +618,11 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	 * @return a read-only collection of all accounts that have no parent
 	 * @throws UnknownAccountTypeException
 	 * 
-	 * @see #getWritableRootAccounts()
+	 * @see #getWritableParentlessAccounts()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<? extends GnucashWritableAccount> getWritableRootAccounts() throws UnknownAccountTypeException {
+	public Collection<? extends GnucashWritableAccount> getWritableParentlessAccounts() throws UnknownAccountTypeException {
 		return (Collection<? extends GnucashWritableAccount>) getParentlessAccounts();
 	}
 
@@ -618,18 +638,18 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		if ( rootAcctList.size() > 1 ) {
 			GnucashAccount root = null;
 			StringBuilder roots = new StringBuilder();
-			for ( GnucashAccount gnucashAccount : rootAcctList ) {
-				if ( gnucashAccount == null ) {
+			for ( GnucashAccount gcshAcct : rootAcctList ) {
+				if ( gcshAcct == null ) {
 					continue;
 				}
-				if ( gnucashAccount.getType() != null && gnucashAccount.getType() == GnucashAccount.Type.ROOT ) {
-					root = gnucashAccount;
+				if ( gcshAcct.getType() != null && 
+					 gcshAcct.getType() == GnucashAccount.Type.ROOT ) {
+					root = gcshAcct;
 					continue;
 				}
-				roots.append(gnucashAccount.getID()).append("=\"").append(gnucashAccount.getName()).append("\" ");
+				roots.append(gcshAcct.getID()).append("=\"").append(gcshAcct.getName()).append("\" ");
 			}
-			LOGGER.warn(
-					"getParentlessAccounts: File has more than one root-account! Attaching excess accounts to root-account: "
+			LOGGER.warn("getParentlessAccounts: File has more than one root-account! Attaching excess accounts to root-account: "
 							+ roots.toString());
 			ArrayList<GnucashAccount> rootAccounts2 = new ArrayList<GnucashAccount>();
 			rootAccounts2.add(root);

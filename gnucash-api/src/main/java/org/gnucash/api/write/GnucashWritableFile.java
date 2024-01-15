@@ -104,7 +104,7 @@ public interface GnucashWritableFile extends GnucashFile,
      * @return a read-only collection of all accounts that have no parent
      * @throws UnknownAccountTypeException
      */
-    Collection<? extends GnucashWritableAccount> getWritableRootAccounts() throws UnknownAccountTypeException;
+    Collection<? extends GnucashWritableAccount> getWritableParentlessAccounts() throws UnknownAccountTypeException;
 
     /**
      *

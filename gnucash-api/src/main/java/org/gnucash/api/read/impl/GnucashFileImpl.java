@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.api.Const;
@@ -22,6 +23,7 @@ import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncGncEmployee;
@@ -262,10 +264,30 @@ public class GnucashFileImpl implements GnucashFile,
 
     // ---------------------------------------------------------------
     
-//    @SuppressWarnings("exports")
-//    public FileTransactionManager getTransactionManager() {
-//	return trxMgr;
-//    }
+	/**
+	 * Get count data for specific type.
+	 *
+	 * @param type  the type to set it for
+	 */
+	protected int getCountDataFor(final String type) {
+	
+		if ( type == null ) {
+			throw new IllegalArgumentException("null type given");
+		}
+	
+		if ( type.trim().length() == 0 ) {
+			throw new IllegalArgumentException("empty type given");
+		}
+	
+		List<GncCountData> cdList = getRootElement().getGncBook().getGncCountData();
+		for ( GncCountData gncCountData : cdList ) {
+			if ( type.equals(gncCountData.getCdType()) ) {
+				return gncCountData.getValue();
+			}
+		}
+		
+		throw new IllegalArgumentException("Unknown type '" + type + "'");
+	}
 
     // ---------------------------------------------------------------
 

@@ -258,7 +258,8 @@ public class FileAccountManager {
 
 	public GnucashAccount getRootAccount() throws UnknownAccountTypeException {
 		for ( GnucashAccount acct : getAccounts() ) {
-			if ( acct.getParentAccountID() == null && acct.getType() == GnucashAccount.Type.ROOT ) {
+			if ( acct.getParentAccountID() == null && 
+				 acct.getType() == GnucashAccount.Type.ROOT ) {
 				return acct;
 			}
 		}
@@ -279,10 +280,10 @@ public class FileAccountManager {
 
 			return retval;
 		} catch (RuntimeException e) {
-			LOGGER.error("getRootAccounts: Problem getting all root-account", e);
+			LOGGER.error("getParentlessAccounts: Problem getting all root-account", e);
 			throw e;
 		} catch (Throwable e) {
-			LOGGER.error("getRootAccounts: SERIOUS Problem getting all root-account", e);
+			LOGGER.error("getParentlessAccounts: SERIOUS Problem getting all root-account", e);
 			return new ArrayList<GnucashAccount>();
 		}
 	}
