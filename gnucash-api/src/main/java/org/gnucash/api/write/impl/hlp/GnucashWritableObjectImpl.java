@@ -46,11 +46,11 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	}
 
 	/**
-	 * @param aGnucashObject the object we are helping with
+	 * @param obj the object we are helping with
 	 */
-	public GnucashWritableObjectImpl(final GnucashObjectImpl aGnucashObject) {
+	public GnucashWritableObjectImpl(final GnucashObjectImpl obj) {
 		super();
-		setGnucashObject(aGnucashObject);
+		setGnucashObject(obj);
 	}
 
 	// ---------------------------------------------------------------
@@ -137,7 +137,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	 *
 	 * @param listener The PropertyChangeListener to be added
 	 */
-	@SuppressWarnings("exports")
 	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
 		if ( myPtyChg == null ) {
 			myPtyChg = new PropertyChangeSupport(this);
@@ -152,7 +151,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	 * @param ptyName  The name of the property to listen on.
 	 * @param listener The PropertyChangeListener to be added
 	 */
-	@SuppressWarnings("exports")
 	public final void addPropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 		if ( myPtyChg == null ) {
 			myPtyChg = new PropertyChangeSupport(this);
@@ -166,7 +164,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	 * @param ptyName  The name of the property that was listened on.
 	 * @param listener The PropertyChangeListener to be removed
 	 */
-	@SuppressWarnings("exports")
 	public final void removePropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 		if ( myPtyChg != null ) {
 			myPtyChg.removePropertyChangeListener(ptyName, listener);
@@ -179,7 +176,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	 *
 	 * @param listener The PropertyChangeListener to be removed
 	 */
-	@SuppressWarnings("exports")
 	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 		if ( myPtyChg != null ) {
 			myPtyChg.removePropertyChangeListener(listener);
@@ -190,7 +186,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 
 	/**
 	 * @return Returns the gnucashObject.
-	 * @see {@link #gcshObj}
 	 */
 	public GnucashObjectImpl getGnucashObject() {
 		return gcshObj;
@@ -198,7 +193,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 
 	/**
 	 * @param obj The gnucashObject to set.
-	 * @see {@link #gcshObj}
 	 */
 	public void setGnucashObject(final GnucashObjectImpl obj) {
 		if ( obj == null ) {

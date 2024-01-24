@@ -55,7 +55,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 * @param slots    ${@link #mySlots}
 	 * @param gcshFile The file we belong to
 	 */
-	@SuppressWarnings("exports")
 	public GnucashObjectImpl(final SlotsType slots, final GnucashFile gcshFile) {
 		super();
 
@@ -70,7 +69,6 @@ public class GnucashObjectImpl implements GnucashObject {
 
 	/**
 	 * @return Returns the file.
-	 * @link #myFile
 	 */
 	public GnucashFile getGnucashFile() {
 		return myFile;
@@ -86,7 +84,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 * @return Returns the slots.
 	 * @link #mySlots
 	 */
-	@SuppressWarnings("exports")
 	public SlotsType getSlots() {
 		return mySlots;
 	}
@@ -96,7 +93,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("exports")
 	public List<Slot> getSlotsListClean() {
 		List<Slot> retval = new ArrayList<Slot>();
 
@@ -111,9 +107,7 @@ public class GnucashObjectImpl implements GnucashObject {
 
     /**
      * @param slots The slots to set.
-     * @link #mySlots
      */
-    @SuppressWarnings("exports")
 	public void setSlots(final SlotsType slots) {
 		if ( slots == null ) {
 			throw new IllegalArgumentException("null 'slots' given!");
@@ -264,7 +258,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 *
 	 * @param listener The PropertyChangeListener to be added
 	 */
-	@SuppressWarnings("exports")
 	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
 		if ( myPtyChg == null ) {
 			myPtyChg = new PropertyChangeSupport(this);
@@ -279,7 +272,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 * @param ptyName  The name of the property to listen on.
 	 * @param listener The PropertyChangeListener to be added
 	 */
-	@SuppressWarnings("exports")
 	public final void addPropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 		if ( myPtyChg == null ) {
 			myPtyChg = new PropertyChangeSupport(this);
@@ -293,7 +285,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 * @param ptyName  The name of the property that was listened on.
 	 * @param listener The PropertyChangeListener to be removed
 	 */
-	@SuppressWarnings("exports")
 	public final void removePropertyChangeListener(final String ptyName, final PropertyChangeListener listener) {
 		if ( myPtyChg != null ) {
 			myPtyChg.removePropertyChangeListener(ptyName, listener);
@@ -306,7 +297,6 @@ public class GnucashObjectImpl implements GnucashObject {
 	 *
 	 * @param listener The PropertyChangeListener to be removed
 	 */
-	@SuppressWarnings("exports")
 	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
 		if ( myPtyChg != null ) {
 			myPtyChg.removePropertyChangeListener(listener);

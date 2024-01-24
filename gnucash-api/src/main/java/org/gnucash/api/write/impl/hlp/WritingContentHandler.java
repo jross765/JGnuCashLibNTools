@@ -64,7 +64,7 @@ public class WritingContentHandler implements ContentHandler {
 			wrt.write("<!-- mode: xml        -->\n");
 			wrt.write("<!-- End: Written by JGnuCashLib, " + LocalDateTime.now() + " -->\n");
 		} catch (IOException e) {
-			LOGGER.error("endDocument: Problem in WritingContentHandler", e);
+			LOGGER.error("endDocument: Problem", e);
 		}
 
 	}
@@ -73,7 +73,7 @@ public class WritingContentHandler implements ContentHandler {
 		try {
 			wrt.write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");
 		} catch (IOException e) {
-			LOGGER.error("Problem in WritingContentHandler", e);
+			LOGGER.error("startDocument: Problem", e);
 		}
 	}
 
@@ -87,7 +87,7 @@ public class WritingContentHandler implements ContentHandler {
 				return;
 			}
 
-			// make shure GUIDs are written with non-capital letters
+			// make sure GUIDs are written with non-capital letters
 			if ( isGUID ) {
 				String s = new String(ch, start, length);
 				wrt.write(s.toLowerCase());
@@ -115,7 +115,7 @@ public class WritingContentHandler implements ContentHandler {
 
 			last_was = LAST_WAS_CHARACTER_DATA;
 		} catch (IOException e) {
-			LOGGER.error("characters: Problem in WritingContentHandler", e);
+			LOGGER.error("characters: Problem", e);
 		}
 
 	}
@@ -123,7 +123,7 @@ public class WritingContentHandler implements ContentHandler {
 	public void ignorableWhitespace(final char[] ch, final int start, final int length) {
 		/*
 		 * try { writer.write(ch, start, length); last_was = LAST_WAS_CHARACTERDATA; }
-		 * catch (IOException e) { LOGGER.error("Problem in WritingContentHandler", e);
+		 * catch (IOException e) { LOGGER.error("ignorableWhitespace: Problem", e);
 		 * }
 		 */
 
@@ -193,7 +193,7 @@ public class WritingContentHandler implements ContentHandler {
 
 			last_was = LAST_WAS_CLOSE_ELEMENT;
 		} catch (IOException e) {
-			LOGGER.error("endElement: Problem in WritingContentHandler", e);
+			LOGGER.error("endElement: Problem", e);
 		}
 
 	}
@@ -238,7 +238,7 @@ public class WritingContentHandler implements ContentHandler {
 
 			last_was = LAST_WAS_OPEN_ELEMENT;
 		} catch (IOException e) {
-			LOGGER.error("Problem in WritingContentHandler", e);
+			LOGGER.error("startElement: Problem", e);
 		}
 
 	}

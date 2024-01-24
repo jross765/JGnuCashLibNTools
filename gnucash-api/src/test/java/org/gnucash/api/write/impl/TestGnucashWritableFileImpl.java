@@ -146,7 +146,7 @@ public class TestGnucashWritableFileImpl {
     @Test
     public void test10() throws Exception {
 	// CAUTION: This one is an exception:
-	// There is one additional commoditiy object on the "raw" level:
+	// There is one additional commodity object on the "raw" level:
 	// the "template".
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));

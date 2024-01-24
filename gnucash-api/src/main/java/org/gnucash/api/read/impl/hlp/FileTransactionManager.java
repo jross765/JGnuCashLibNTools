@@ -136,10 +136,10 @@ public class FileTransactionManager {
 		addTransactionSplit(splt, true);
 	}
 
-	public void addTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) {
+	public void addTransactionSplit(GnucashTransactionSplit splt, boolean withTrx) {
 		trxSpltMap.put(splt.getID(), splt);
 
-		if ( withInvc ) {
+		if ( withTrx ) {
 			addTransaction(splt.getTransaction(), false);
 		}
 	}
@@ -148,8 +148,8 @@ public class FileTransactionManager {
 		removeTransactionSplit(splt, true);
 	}
 
-	public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withInvc) {
-		if ( withInvc ) {
+	public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withTrx) {
+		if ( withTrx ) {
 			removeTransaction(splt.getTransaction(), false);
 		}
 
