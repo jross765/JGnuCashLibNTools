@@ -431,7 +431,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     private void initSplits(final boolean addToAcct, final boolean addToInvc) {
 	List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
 
-	mySplits = new ArrayList<GnucashTransactionSplit>(jwsdpSplits.size());
+	mySplits = new ArrayList<GnucashTransactionSplit>();
 	for (GncTransaction.TrnSplits.TrnSplit element : jwsdpSplits) {
 	    mySplits.add(createSplit(element, 
 		                     addToAcct, addToInvc));
@@ -441,15 +441,15 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     /**
      * Create a new split for a split found in the jaxb-data.
      *
-     * @param element the jaxb-data
+     * @param jwsdpSplt the jaxb-data
      * @return the new split-instance
      * @throws ClassNotFoundException 
      */
     protected GnucashTransactionSplitImpl createSplit(
-	    final GncTransaction.TrnSplits.TrnSplit element,
+	    final GncTransaction.TrnSplits.TrnSplit jwsdpSplt,
 	    final boolean addToAcct, 
 	    final boolean addToInvc) {
-	return new GnucashTransactionSplitImpl(element, this, 
+	return new GnucashTransactionSplitImpl(jwsdpSplt, this, 
 		                               addToAcct, addToInvc);
     }
 

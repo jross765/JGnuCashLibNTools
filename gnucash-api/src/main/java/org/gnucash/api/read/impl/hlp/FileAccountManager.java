@@ -235,6 +235,19 @@ public class FileAccountManager {
 		return retval;
 	}
 
+	public Collection<GnucashAccount> getAccountsByType(Type type)
+			throws UnknownAccountTypeException {
+		Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+
+		for ( GnucashAccount acct : getAccounts() ) {
+			if ( acct.getType() == type ) {
+				result.add(acct);
+			}
+		}
+
+		return result;
+	}
+
 	public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed)
 			throws UnknownAccountTypeException {
 		Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();

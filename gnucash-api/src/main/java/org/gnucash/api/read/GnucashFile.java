@@ -148,6 +148,16 @@ public interface GnucashFile extends GnucashObject {
      * @return
      * @throws UnknownAccountTypeException
      */
+    Collection<GnucashAccount> getAccountsByType(Type type) throws UnknownAccountTypeException;
+    
+    /**
+     * @param type
+     * @param acctName
+     * @param qualif
+     * @param relaxed
+     * @return
+     * @throws UnknownAccountTypeException
+     */
     Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String acctName, 
 		                                        boolean qualif, boolean relaxed) throws UnknownAccountTypeException;
     /**

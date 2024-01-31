@@ -420,6 +420,12 @@ public class GnucashFileImpl implements GnucashFile,
 	return acctMgr.getAccountByIDorNameEx(acctID, name);
     }
 
+    @Override
+    public Collection<GnucashAccount> getAccountsByType(Type type) throws UnknownAccountTypeException {
+    	return acctMgr.getAccountsByType(type);
+    }
+
+    @Override
     public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String acctName, 
 	    						       boolean qualif, boolean relaxed) throws UnknownAccountTypeException {
 	return acctMgr.getAccountsByTypeAndName(type, acctName,
