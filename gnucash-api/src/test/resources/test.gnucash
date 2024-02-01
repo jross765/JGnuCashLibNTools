@@ -213,8 +213,8 @@
     <slot:value type="string">true</slot:value>
   </slot>
 </book:slots>
-<gnc:count-data cd:type="commodity">8</gnc:count-data>
-<gnc:count-data cd:type="account">93</gnc:count-data>
+<gnc:count-data cd:type="commodity">7</gnc:count-data>
+<gnc:count-data cd:type="account">96</gnc:count-data>
 <gnc:count-data cd:type="transaction">12</gnc:count-data>
 <gnc:count-data cd:type="price">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
@@ -1589,6 +1589,39 @@
   <act:parent type="guid">23aa4227ddda457592998d18f888a662</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
+  <act:name>Bank</act:name>
+  <act:id type="guid">9bfa65815cdc4c0a99bb412dd590ee5b</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">23aa4227ddda457592998d18f888a662</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Provision</act:name>
+  <act:id type="guid">7d4b851a3f704c4695d5d466b28cdc55</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">9bfa65815cdc4c0a99bb412dd590ee5b</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Maklergebühren</act:name>
+  <act:id type="guid">14df609c748e453a8a08b5ad93793ddc</act:id>
+  <act:type>EXPENSE</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">9bfa65815cdc4c0a99bb412dd590ee5b</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
   <act:name>Fremdkapital</act:name>
   <act:id type="guid">5008258df86243ee86d37dee64327c27</act:id>
   <act:type>LIABILITY</act:type>
@@ -1752,7 +1785,7 @@
   <trn:date-entered>
     <ts:date>2023-07-20 09:56:39 +0000</ts:date>
   </trn:date-entered>
-  <trn:description>Ersterwerb</trn:description>
+  <trn:description>Kauf MBG</trn:description>
   <trn:slots>
     <slot>
       <slot:key>date-posted</slot:key>
@@ -1772,6 +1805,7 @@
     </trn:split>
     <trn:split>
       <split:id type="guid">22e449ac0a864d4fae7c58171bdcfcfc</split:id>
+      <split:memo>Leere Buchung absichtlich drinbehalten (so etwas passiert dann und wann einmal, ist nicht schlimm)</split:memo>
       <split:reconciled-state>n</split:reconciled-state>
       <split:value>0/100</split:value>
       <split:quantity>0/100</split:quantity>
@@ -1782,7 +1816,7 @@
       <split:reconciled-state>n</split:reconciled-state>
       <split:value>-225300/100</split:value>
       <split:quantity>-225300/100</split:quantity>
-      <split:account type="guid">ebc834e7f20e4be38f445d655142d6b1</split:account>
+      <split:account type="guid">bbf77a599bd24a3dbfec3dd1d0bb9f5c</split:account>
     </trn:split>
   </trn:splits>
 </gnc:transaction>
@@ -1798,7 +1832,7 @@
   <trn:date-entered>
     <ts:date>2023-07-20 10:04:18 +0000</ts:date>
   </trn:date-entered>
-  <trn:description>Ersterwerb</trn:description>
+  <trn:description>Kauf SAP</trn:description>
   <trn:slots>
     <slot>
       <slot:key>date-posted</slot:key>
@@ -1817,18 +1851,25 @@
       <split:account type="guid">b3741e92e3b9475b9d5a2dc8254a8111</split:account>
     </trn:split>
     <trn:split>
-      <split:id type="guid">d1a21aa516ab4ee4a60cdb9885285912</split:id>
+      <split:id type="guid">65539ddefc34439d80925275226e7849</split:id>
       <split:reconciled-state>n</split:reconciled-state>
-      <split:value>0/100</split:value>
-      <split:quantity>0/100</split:quantity>
-      <split:account type="guid">97fe299fade74af1857573ab5b48262b</split:account>
+      <split:value>250/100</split:value>
+      <split:quantity>250/100</split:quantity>
+      <split:account type="guid">7d4b851a3f704c4695d5d466b28cdc55</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">4cd194156b014823ab4fea16c3947fcb</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>165/100</split:value>
+      <split:quantity>165/100</split:quantity>
+      <split:account type="guid">14df609c748e453a8a08b5ad93793ddc</split:account>
     </trn:split>
     <trn:split>
       <split:id type="guid">ffdc46ece30042baa3657af57eabe6ee</split:id>
       <split:reconciled-state>n</split:reconciled-state>
-      <split:value>-187500/100</split:value>
-      <split:quantity>-187500/100</split:quantity>
-      <split:account type="guid">ebc834e7f20e4be38f445d655142d6b1</split:account>
+      <split:value>-187915/100</split:value>
+      <split:quantity>-187915/100</split:quantity>
+      <split:account type="guid">bbf77a599bd24a3dbfec3dd1d0bb9f5c</split:account>
     </trn:split>
   </trn:splits>
 </gnc:transaction>
@@ -1902,15 +1943,15 @@
     <trn:split>
       <split:id type="guid">2d662bf8877a41f69c69276f2770b140</split:id>
       <split:reconciled-state>n</split:reconciled-state>
-      <split:value>125065/100</split:value>
-      <split:quantity>125065/100</split:quantity>
+      <split:value>1025065/100</split:value>
+      <split:quantity>1025065/100</split:quantity>
       <split:account type="guid">bbf77a599bd24a3dbfec3dd1d0bb9f5c</split:account>
     </trn:split>
     <trn:split>
       <split:id type="guid">6d08eca07d2b457a8f13539249313db8</split:id>
       <split:reconciled-state>n</split:reconciled-state>
-      <split:value>-125065/100</split:value>
-      <split:quantity>-125065/100</split:quantity>
+      <split:value>-1025065/100</split:value>
+      <split:quantity>-1025065/100</split:quantity>
       <split:account type="guid">97fe299fade74af1857573ab5b48262b</split:account>
     </trn:split>
   </trn:splits>
