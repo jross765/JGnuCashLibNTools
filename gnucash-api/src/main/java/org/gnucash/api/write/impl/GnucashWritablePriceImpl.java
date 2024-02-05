@@ -100,8 +100,9 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("empty ID given");
+			throw new IllegalArgumentException("unset ID given");
 		}
+		
         ObjectFactory factory = file.getObjectFactory();
         
         Price prc = file.createGncGncPricedbPriceType();

@@ -96,7 +96,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("empty ID given");
+			throw new IllegalArgumentException("unset ID given");
 		}
     
         ObjectFactory factory = file.getObjectFactory();

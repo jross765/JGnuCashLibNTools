@@ -57,6 +57,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
@@ -506,6 +507,11 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public GnucashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
 	return invcMgr.getGenerInvoiceByID(invcID);
+    }
+
+    @Override
+    public Collection<GnucashGenerInvoice> getGenerInvoicesByType(final GCshOwner.Type type) {
+    	return invcMgr.getGenerInvoicesByType(type);
     }
 
     /**

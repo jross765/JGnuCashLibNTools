@@ -43,7 +43,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
                                         implements GnucashWritableAccount 
 {
     /**
-     * Our logger for debug- and error-ourput.
+     * Our logger for debug- and error-output.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableAccountImpl.class);
 
@@ -84,17 +84,14 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	super(createAccount_int(file, GCshID.getNew()), file);
     }
 
-    public GnucashWritableAccountImpl(final GnucashAccount acct, final boolean addSplits)
+    public GnucashWritableAccountImpl(final GnucashAccountImpl acct, final boolean addSplits)
 	    throws UnknownAccountTypeException {
 	super(acct.getJwsdpPeer(), acct.getGnucashFile());
 
 	if (addSplits) {
-	    // acct.getGnucashFile()).getTransactionSplitsRaw().size());
-	    // for ( GnucashTransactionSplit splt :
-	    // acct.getGnucashFile().getTransactionSplits() ) {
-	    for (GnucashTransactionSplit splt : ((GnucashFileImpl) acct.getGnucashFile())
-		    .getTransactionSplits_readAfresh()) {
-		if (acct.getType() != Type.ROOT && splt.getAccountID().equals(acct.getID())) {
+	    for ( GnucashTransactionSplit splt : ((GnucashFileImpl) acct.getGnucashFile()).getTransactionSplits_readAfresh() ) {
+		if ( acct.getType() != Type.ROOT && 
+			 splt.getAccountID().equals(acct.getID()) ) {
 		    super.addTransactionSplit(splt);
 		    // NO:
 //			    addTransactionSplit(new GnucashTransactionSplitImpl(splt.getJwsdpPeer(), splt.getTransaction(), 
@@ -118,7 +115,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("empty ID given");
+			throw new IllegalArgumentException("unset ID given");
 		}
 
 	ObjectFactory factory = file.getObjectFactory();
@@ -188,11 +185,11 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
      */
     public void remove() {
 	if ( getTransactionSplits().size() > 0 ) {
-	    throw new IllegalStateException("cannot remove account while it contains transaction-splits!");
+	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits!");
 	}
 	
 	if ( this.getChildren().size() > 0 ) {
-	    throw new IllegalStateException("cannot remove account while it contains child-accounts!");
+	    throw new IllegalStateException("Cannot remove account while it contains child-accounts!");
 	}
 
 	getWritableGnucashFile().getRootElement().getGncBook().getBookElements().remove(getJwsdpPeer());
@@ -208,7 +205,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	return (GnucashWritableFileImpl) getGnucashFile();
     }
     
-    // ---------------------------------------------------------------
+	// ---------------------------------------------------------------
 
     /**
      * @see GnucashAccount#addTransactionSplit(GnucashTransactionSplit)
@@ -220,7 +217,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	setIsModified();
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
+	if ( propertyChangeFirer != null ) {
 	    propertyChangeFirer.firePropertyChange("transactionSplits", null, getTransactionSplits());
 	}
     }
@@ -235,7 +232,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	setIsModified();
 	// <<insert code to react further to this change here
 	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
+	if ( propertyChangeFirer != null ) {
 	    propertyChangeFirer.firePropertyChange("transactionSplits", null, transactionSplits);
 	}
     }
@@ -440,7 +437,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	GncAccount.ActParent parent = getJwsdpPeer().getActParent();
 	if (parent == null) {
 	    parent = ((GnucashWritableFileImpl) getWritableGnucashFile()).getObjectFactory()
-		    .createGncAccountActParent();
+	    		.createGncAccountActParent();
 	    parent.setType(Const.XML_DATA_TYPE_GUID);
 	    parent.setValue(prntAcct.getID().toString());
 	    getJwsdpPeer().setActParent(parent);
@@ -471,18 +468,18 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     @Override
     public FixedPointNumber getBalance() {
 
-	if (myBalanceCached != null) {
+	if ( myBalanceCached != null ) {
 	    return myBalanceCached;
 	}
 
 	Collection<GnucashTransactionSplit> after = new ArrayList<GnucashTransactionSplit>();
 	FixedPointNumber balance = getBalance(LocalDate.now(), after);
-
-	if (after.isEmpty()) {
+	
+	if ( after.isEmpty() ) {
 	    myBalanceCached = balance;
 
 	    // add a listener to keep the cache up to date
-	    if (myBalanceCachedInvalidtor != null) {
+	    if ( myBalanceCachedInvalidtor != null ) {
 		myBalanceCachedInvalidtor = new PropertyChangeListener() {
 		    private final Collection<GnucashTransactionSplit> splitsWeAreAddedTo = new HashSet<GnucashTransactionSplit>();
 
@@ -490,7 +487,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			myBalanceCached = null;
 
 			// we don't handle the case of removing an account
-			// because that happenes seldomly enough
+			// because that happens seldomly enough
 
 			if ( evt.getPropertyName().equals("account") && 
 			     evt.getSource() instanceof GnucashWritableTransactionSplit ) {
@@ -500,14 +497,13 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 				splitw.removePropertyChangeListener("quantity", this);
 				splitw.getTransaction().removePropertyChangeListener("datePosted", this);
 				splitsWeAreAddedTo.remove(splitw);
-
 			    }
 
 			}
 			
 			if ( evt.getPropertyName().equals("transactionSplits") ) {
 			    Collection<GnucashTransactionSplit> splits = (Collection<GnucashTransactionSplit>) evt.getNewValue();
-			    for (GnucashTransactionSplit split : splits) {
+			    for ( GnucashTransactionSplit split : splits ) {
 				if ( ! (split instanceof GnucashWritableTransactionSplit) || 
 				     splitsWeAreAddedTo.contains(split)) {
 				    continue;

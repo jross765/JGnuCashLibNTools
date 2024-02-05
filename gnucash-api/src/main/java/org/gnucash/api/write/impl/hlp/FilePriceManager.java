@@ -25,7 +25,7 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
 	@Override
 	protected GnucashPriceImpl createPrice(final Price jwsdpPrc) {
 		GnucashWritablePriceImpl prc = new GnucashWritablePriceImpl(jwsdpPrc, (GnucashWritableFileImpl) gcshFile);
-		LOGGER.debug("Generated new writable price: " + prc.getID());
+		LOGGER.debug("createPrice: Generated new writable price: " + prc.getID());
 		return prc;
 	}
 

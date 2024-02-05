@@ -84,15 +84,18 @@ public class FileTransactionManager {
 
 	protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
 		GnucashTransactionImpl trx = new GnucashTransactionImpl(jwsdpTrx, gcshFile.getGnucashFile(), true);
-		LOGGER.debug("Generated new transaction: " + trx.getID());
+		LOGGER.debug("createTransaction: Generated new transaction: " + trx.getID());
 		return trx;
 	}
 
-	protected GnucashTransactionSplitImpl createTransactionSplit(final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
-			final GnucashTransaction trx, final boolean addSpltToAcct, final boolean addSpltToInvc) {
-		GnucashTransactionSplitImpl splt = new GnucashTransactionSplitImpl(jwsdpTrxSplt, trx, addSpltToAcct,
-				addSpltToInvc);
-		LOGGER.debug("Generated new transaction split: " + splt.getID());
+	protected GnucashTransactionSplitImpl createTransactionSplit(
+			final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
+			final GnucashTransaction trx, 
+			final boolean addSpltToAcct, 
+			final boolean addSpltToInvc) {
+		GnucashTransactionSplitImpl splt = new GnucashTransactionSplitImpl(jwsdpTrxSplt, trx, 
+				                                                           addSpltToAcct, addSpltToInvc);
+		LOGGER.debug("createTransactionSplit: Generated new transaction split: " + splt.getID());
 		return splt;
 	}
 
@@ -111,7 +114,7 @@ public class FileTransactionManager {
 			}
 		}
 
-		LOGGER.debug("Added transaction to cache: " + trx.getID());
+		LOGGER.debug("addTransaction: Added transaction to cache: " + trx.getID());
 	}
 
 	public void removeTransaction(GnucashTransaction trx) {
@@ -127,7 +130,7 @@ public class FileTransactionManager {
 
 		trxMap.remove(trx.getID());
 
-		LOGGER.debug("Removed transaction from cache: " + trx.getID());
+		LOGGER.debug("removeTransaction: Removed transaction from cache: " + trx.getID());
 	}
 
 	// ---------------------------------------------------------------
@@ -158,16 +161,16 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnucashTransaction getTransactionByID(final GCshID id) {
+	public GnucashTransaction getTransactionByID(final GCshID trxID) {
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashTransaction retval = trxMap.get(id);
+		GnucashTransaction retval = trxMap.get(trxID);
 		if ( retval == null ) {
-			LOGGER.warn("getTransactionByID: No Transaction with id '" + id + "'. We know " + trxMap.size()
-					+ " transactions.");
+			LOGGER.warn("getTransactionByID: No Transaction with id '" + trxID + "'. We know " + trxMap.size() + " transactions.");
 		}
+
 		return retval;
 	}
 
@@ -180,16 +183,16 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
+	public GnucashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
 		if ( trxSpltMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashTransactionSplit retval = trxSpltMap.get(id);
+		GnucashTransactionSplit retval = trxSpltMap.get(spltID);
 		if ( retval == null ) {
-			LOGGER.warn("getTransactionSplitByID: No Transaction-Split with id '" + id + "'. We know "
-					+ trxSpltMap.size() + " transaction splits.");
+			LOGGER.warn("getTransactionSplitByID: No Transaction-Split with id '" + spltID + "'. We know " + trxSpltMap.size() + " transaction splits.");
 		}
+
 		return retval;
 	}
 
@@ -204,7 +207,7 @@ public class FileTransactionManager {
 				LOGGER.error("getTransactions_readAfresh: [RuntimeException] Problem in " + getClass().getName()
 						+ ".getTransactions_readAfresh: " + "ignoring illegal Transaction entry with id="
 						+ jwsdpTrx.getTrnId().getValue(), e);
-//		System.err.println("getTransactions_readAfresh: gnoring illegal Transaction entry with id: " + jwsdpTrx.getTrnID().getValue());
+//		System.err.println("getTransactions_readAfresh: ignoring illegal Transaction entry with id: " + jwsdpTrx.getTrnID().getValue());
 //		System.err.println("  " + e.getMessage());
 			}
 		}
@@ -245,11 +248,11 @@ public class FileTransactionManager {
 		for ( GnucashTransaction trx : getTransactions_readAfresh() ) {
 			for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 				try {
-					GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, false, false);
+					GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx,
+																			  false, false);
 					result.add(splt);
 				} catch (RuntimeException e) {
 					LOGGER.error("getTransactionSplits_readAfresh(1): [RuntimeException] Problem in "
-							+ getClass().getName() + ".getTransactionSplits_readAfresh: "
 							+ "ignoring illegal Transaction Split entry with id="
 							+ jwsdpTrxSplt.getSplitId().getValue(), e);
 //			System.err.println("getTransactionSplits_readAfresh(1): ignoring illegal Transaction Split entry with id: " + jwsdpTrxSplt.getSplitID().getValue());
@@ -268,11 +271,11 @@ public class FileTransactionManager {
 			if ( trx.getID().equals(trxID) ) {
 				for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 					try {
-						GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, true, true);
+						GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, 
+																				  true, true);
 						result.add(splt);
 					} catch (RuntimeException e) {
 						LOGGER.error("getTransactionSplits_readAfresh(2): [RuntimeException] Problem in "
-								+ getClass().getName() + ".getTransactionSplits_readAfresh: "
 								+ "ignoring illegal Transaction Split entry with id="
 								+ jwsdpTrxSplt.getSplitId().getValue(), e);
 //			System.err.println("getTransactionSplits_readAfresh(2): ignoring illegal Transaction Split entry with id: " + jwsdpTrxSplt.getSplitID().getValue());

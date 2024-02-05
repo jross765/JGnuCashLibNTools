@@ -36,14 +36,14 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 	@Override
 	protected GnucashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
 		GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
-		LOGGER.debug("Generated new writable customer job: " + job.getID());
+		LOGGER.debug("createCustomerJob: Generated new writable customer job: " + job.getID());
 		return job;
 	}
 
 	@Override
 	protected GnucashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
 		GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
-		LOGGER.debug("Generated new writable vendor job: " + job.getID());
+		LOGGER.debug("createVendorJob: Generated new writable vendor job: " + job.getID());
 		return job;
 	}
 

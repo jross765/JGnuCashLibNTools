@@ -25,7 +25,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 	@Override
 	protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
 		GnucashWritableTransactionImpl trx = new GnucashWritableTransactionImpl(jwsdpTrx, (GnucashWritableFileImpl) gcshFile);
-		LOGGER.debug("Generated new writable transaction: " + trx.getID());
+		LOGGER.debug("createTransaction: Generated new writable transaction: " + trx.getID());
 		return trx;
 	}
 
@@ -38,7 +38,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 //	    final boolean addSpltToInvc)  throws IllegalArgumentException {
 //	GnucashWritableTransactionSplitImpl splt = new GnucashWritableTransactionSplitImpl(jwsdpTrxSplt, trx, 
 //                								           addSpltToAcct, addSpltToInvc);
-//	LOGGER.debug("Generated new writable transaction split: " + splt.getID());
+//	LOGGER.debug("createTransactionSplit: Generated new writable transaction split: " + splt.getID());
 //	return splt;
 //    }
 

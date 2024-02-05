@@ -74,7 +74,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     
     // -----------------------------------------------------------------
     
-    public static String SEPARATOR = "::";
+    public static String SEPARATOR = ":";
 
     // -----------------------------------------------------------------
 
@@ -163,7 +163,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      *
      * @return all splits
      */
-    List<? extends GnucashTransactionSplit> getTransactionSplits();
+    List<GnucashTransactionSplit> getTransactionSplits();
 
     /**
      * @param id the split-id to look for
@@ -234,6 +234,9 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      */
     FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after);
 
+	FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException;
+	
+	FixedPointNumber getBalance(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
     /**
      * @param lastIncludesSplit last split to be included
      * @return the balance up to and including the given split

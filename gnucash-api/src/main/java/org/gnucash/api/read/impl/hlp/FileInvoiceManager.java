@@ -16,6 +16,7 @@ import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
@@ -99,6 +100,26 @@ public class FileInvoiceManager {
 		}
 
 		return retval;
+	}
+
+	public Collection<GnucashGenerInvoice> getGenerInvoicesByType(final GCshOwner.Type type) {
+		if ( type != GnucashGenerInvoice.TYPE_CUSTOMER &&
+			 type != GnucashGenerInvoice.TYPE_VENDOR &&
+			 type != GnucashGenerInvoice.TYPE_EMPLOYEE &&
+			 type != GnucashGenerInvoice.TYPE_JOB )
+		{
+			throw new IllegalArgumentException("Illegal owner type for invoice");
+		}
+		
+		Collection<GnucashGenerInvoice> result = new ArrayList<GnucashGenerInvoice>();
+
+		for ( GnucashGenerInvoice invc : getGenerInvoices() ) {
+			if ( invc.getType() == type ) {
+				result.add(invc);
+			}
+		}
+
+		return result;
 	}
 
 	public Collection<GnucashGenerInvoice> getGenerInvoices() {

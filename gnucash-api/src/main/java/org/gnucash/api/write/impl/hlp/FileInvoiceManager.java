@@ -42,7 +42,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	@Override
 	protected GnucashGenerInvoiceImpl createGenerInvoice(final GncGncInvoice jwsdpInvc) {
 		GnucashWritableGenerInvoiceImpl invc = new GnucashWritableGenerInvoiceImpl(jwsdpInvc, (GnucashWritableFileImpl)  gcshFile);
-		LOGGER.debug("Generated new writable generic invoice: " + invc.getID());
+		LOGGER.debug("createGenerInvoice: Generated new writable generic invoice: " + invc.getID());
 		return invc;
 	}
 

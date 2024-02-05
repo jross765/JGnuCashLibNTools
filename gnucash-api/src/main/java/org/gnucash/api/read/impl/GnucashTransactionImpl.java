@@ -434,7 +434,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	mySplits = new ArrayList<GnucashTransactionSplit>();
 	for (GncTransaction.TrnSplits.TrnSplit element : jwsdpSplits) {
 	    mySplits.add(createSplit(element, 
-		                     addToAcct, addToInvc));
+		                         addToAcct, addToInvc));
 	}
     }
 
@@ -450,7 +450,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	    final boolean addToAcct, 
 	    final boolean addToInvc) {
 	return new GnucashTransactionSplitImpl(jwsdpSplt, this, 
-		                               addToAcct, addToInvc);
+		                                   addToAcct, addToInvc);
     }
 
     /**

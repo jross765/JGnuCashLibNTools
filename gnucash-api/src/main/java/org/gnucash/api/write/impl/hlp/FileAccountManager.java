@@ -25,7 +25,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 	@Override
 	protected GnucashAccountImpl createAccount(final GncAccount jwsdpAcct) {
 		GnucashWritableAccountImpl acct = new GnucashWritableAccountImpl(jwsdpAcct, (GnucashWritableFileImpl) gcshFile);
-		LOGGER.debug("Generated new writable account: " + acct.getID());
+		LOGGER.debug("createAccount: Generated new writable account: " + acct.getID());
 		return acct;
 	}
 

@@ -76,12 +76,12 @@ public class FileAccountManager {
 
 	public void addAccount(GnucashAccount acct) {
 		acctMap.put(acct.getID(), acct);
-		LOGGER.debug("Added account to cache: " + acct.getID());
+		LOGGER.debug("addAccount: Added account to cache: " + acct.getID());
 	}
 
 	public void removeAccount(GnucashAccount acct) {
 		acctMap.remove(acct.getID());
-		LOGGER.debug("Removed account from cache: " + acct.getID());
+		LOGGER.debug("removeAccount: Removed account from cache: " + acct.getID());
 	}
 
 	// ---------------------------------------------------------------
@@ -89,39 +89,37 @@ public class FileAccountManager {
 	/**
 	 * @see GnucashFile#getAccountByID(java.lang.String)
 	 */
-	public GnucashAccount getAccountByID(final GCshID id) {
+	public GnucashAccount getAccountByID(final GCshID acctID) {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashAccount retval = acctMap.get(id);
+		GnucashAccount retval = acctMap.get(acctID);
 		if ( retval == null ) {
 			LOGGER.error(
-					"getAccountByID: No Account with id '" + id + "'. " + "We know " + acctMap.size() + " accounts.");
+					"getAccountByID: No Account with ID '" + acctID + "'. " + "We know " + acctMap.size() + " accounts.");
 		}
 		return retval;
 	}
 
-	public Collection<GnucashAccount> getAccountsByParentID(final GCshID id) {
+	public Collection<GnucashAccount> getAccountsByParentID(final GCshID acctID) {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
 		SortedSet<GnucashAccount> retval = new TreeSet<GnucashAccount>();
 
-		for ( Object element : acctMap.values() ) {
-			GnucashAccount account = (GnucashAccount) element;
-
-			GCshID parentID = account.getParentAccountID();
-			if ( parentID == null ) {
-				if ( id == null ) {
-					retval.add((GnucashAccount) account);
-				} else if ( !id.isSet() ) {
-					retval.add((GnucashAccount) account);
+		for ( GnucashAccount acct : acctMap.values() ) {
+			GCshID prntID = acct.getParentAccountID();
+			if ( prntID == null ) {
+				if ( acctID == null ) {
+					retval.add((GnucashAccount) acct);
+				} else if ( ! acctID.isSet() ) {
+					retval.add((GnucashAccount) acct);
 				}
 			} else {
-				if ( parentID.equals(id) ) {
-					retval.add((GnucashAccount) account);
+				if ( prntID.equals(acctID) ) {
+					retval.add((GnucashAccount) acct);
 				}
 			}
 		}
@@ -197,10 +195,10 @@ public class FileAccountManager {
 		}
 		Pattern pattern = Pattern.compile(nameRegEx);
 
-		for ( GnucashAccount account : acctMap.values() ) {
-			Matcher matcher = pattern.matcher(account.getName());
+		for ( GnucashAccount acct : acctMap.values() ) {
+			Matcher matcher = pattern.matcher(acct.getName());
 			if ( matcher.matches() ) {
-				return account;
+				return acct;
 			}
 		}
 
@@ -261,6 +259,8 @@ public class FileAccountManager {
 		return result;
 	}
 
+	// ---------------------------------------------------------------
+
 	public Collection<GnucashAccount> getAccounts() {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
@@ -307,10 +307,12 @@ public class FileAccountManager {
 		GCshID rootAcctID = getRootAccount().getID();
 		for ( GnucashAccount acct : getAccounts() ) {
 			if ( acct.getParentAccountID() != null ) {
-				if ( acct.getParentAccountID().equals(rootAcctID) && (acct.getType() == GnucashAccount.Type.ASSET
-						|| acct.getType() == GnucashAccount.Type.LIABILITY
-						|| acct.getType() == GnucashAccount.Type.INCOME || acct.getType() == GnucashAccount.Type.EXPENSE
-						|| acct.getType() == GnucashAccount.Type.EQUITY) ) {
+				if ( acct.getParentAccountID().equals(rootAcctID) &&
+					 ( acct.getType() == GnucashAccount.Type.ASSET ||
+					   acct.getType() == GnucashAccount.Type.LIABILITY ||
+					   acct.getType() == GnucashAccount.Type.INCOME ||
+					   acct.getType() == GnucashAccount.Type.EXPENSE ||
+					   acct.getType() == GnucashAccount.Type.EQUITY) ) {
 					result.add(acct.getID());
 				}
 			}

@@ -337,7 +337,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		if ( type.trim().length() == 0 ) {
 			throw new IllegalArgumentException("empty type given");
 		}
-	
+
 		if ( val < 0 ) {
 			throw new IllegalArgumentException("val < 0 given");
 		}
@@ -392,7 +392,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		incrementCountDataForCore(type, -1);
 	}
 
-	private void incrementCountDataForCore(final String type, int val) {
+	private void incrementCountDataForCore(final String type, final int val) {
 
 		if ( type == null ) {
 			throw new IllegalArgumentException("null type given");
@@ -417,7 +417,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	}
 
 	/**
-	 * Calculate and set the correct valued for all the following count-data.<br/>
+	 * Calculate and set the correct values for all the following count-data.<br/>
 	 * Also check the that only valid elements are in the book-element and that they
 	 * have the correct order.
 	 */
@@ -576,7 +576,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		}
 
 		try {
-			return new GnucashWritableAccountImpl(super.getAccountByID(acctID), true);
+			GnucashAccount acct = super.getAccountByID(acctID);
+			return new GnucashWritableAccountImpl((GnucashAccountImpl) acct, true);
 		} catch (Exception exc) {
 			LOGGER.error(
 					"getWritableAccountByID: Could not instantiate writable account object from read-only account object (ID: "

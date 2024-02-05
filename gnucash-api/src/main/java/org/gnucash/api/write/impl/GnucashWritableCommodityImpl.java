@@ -89,7 +89,7 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("empty ID given");
+			throw new IllegalArgumentException("unset ID given");
 		}
 
 	GncCommodity jwsdpCmdty = file.createGncGncCommodityType();

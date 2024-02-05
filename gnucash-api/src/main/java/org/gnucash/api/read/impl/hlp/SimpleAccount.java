@@ -42,7 +42,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 
 	private static NumberFormat currencyFormat = null;
 
-	private volatile PropertyChangeSupport myPropertyChange = null;
+	private volatile PropertyChangeSupport myPtyChg = null;
 
 	// ---------------------------------------------------------------
 
@@ -78,8 +78,7 @@ public abstract class SimpleAccount implements GnucashAccount {
 			return true;
 		}
 
-		for ( Object element : getChildren() ) {
-			GnucashAccount child = (GnucashAccount) element;
+		for ( GnucashAccount child : getChildren() ) {
 			if ( this == child ) {
 				return true;
 			}
@@ -95,22 +94,16 @@ public abstract class SimpleAccount implements GnucashAccount {
 		return getQualifiedName();
 	}
 
-	/*
-	 * same as getBalance(new Date()).<br/> ignores transactions after the current
-	 * date+time
-	 */
-	public FixedPointNumber getBalance() {
-		return getBalance(LocalDate.now());
-	}
-
-	/*
-	 * get name including the name of the parent.accounts.
+	/**
+	 * Get name including the name of the parent accounts.
 	 */
 	public String getQualifiedName() {
 		GnucashAccount acc = getParentAccount();
 
-		if ( acc == null || acc.getID() == getID() ) {
-			if ( getParentAccountID() == null || getParentAccountID().equals("") ) {
+		if ( acc == null || 
+			 acc.getID() == getID() ) {
+			if ( getParentAccountID() == null || 
+				 getParentAccountID().equals("") ) {
 				return getName();
 			}
 
@@ -121,35 +114,113 @@ public abstract class SimpleAccount implements GnucashAccount {
 	}
 
 	public GnucashAccount getParentAccount() {
-		GCshID id = getParentAccountID();
-		if ( id == null ) {
+		GCshID parentID = getParentAccountID();
+		if ( parentID == null ) {
 			return null;
 		}
 
-		return getGnucashFile().getAccountByID(id);
+		return getGnucashFile().getAccountByID(parentID);
 	}
 
 	public Collection<GnucashAccount> getSubAccounts() {
 		return getChildren();
 	}
 
-	public FixedPointNumber getBalance(final LocalDate date, final Currency currency)
+	@Override
+	public FixedPointNumber getBalance() {
+		return getBalance(LocalDate.now());
+	}
+
+	@Override
+	public FixedPointNumber getBalance(final LocalDate date) {
+		return getBalance(date, (Collection<GnucashTransactionSplit>) null);
+	}
+
+	/**
+	 * The currency will be the one of this account.
+	 */
+	@Override
+	public FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after) {
+	
+		FixedPointNumber balance = new FixedPointNumber();
+	
+		for ( GnucashTransactionSplit splt : getTransactionSplits() ) {
+			if ( date != null && 
+				 after != null ) {
+				if ( splt.getTransaction().getDatePosted().isAfter(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
+					after.add(splt);
+					continue;
+				}
+			}
+	
+			// the currency of the quantity is the one of the account
+			balance.add(splt.getQuantity());
+		}
+	
+		return balance;
+	}
+
+	@Override
+	public FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
+			throws InvalidCmdtyCurrTypeException {
+		FixedPointNumber retval = getBalance(date);
+
+		if ( retval == null ) {
+			LOGGER.error("getBalance: Error creating balance!");
+			return null;
+		}
+
+		// is conversion needed?
+		if ( getCmdtyCurrID().equals(cmdtyCurrID) ) {
+			return retval;
+		}
+	
+		ComplexPriceTable priceTab = getGnucashFile().getCurrencyTable();
+	
+		if ( priceTab == null ) {
+			LOGGER.error("getBalance: Cannot transfer "
+					+ "to given currency because we have no currency-table!");
+			return null;
+		}
+	
+		if ( ! priceTab.convertToBaseCurrency(retval, cmdtyCurrID) ) {
+			Collection<String> currList = getGnucashFile().getCurrencyTable()
+					.getCurrencies(getCmdtyCurrID().getNameSpace());
+			LOGGER.error("getBalance: Cannot transfer " + "from our currency '"
+					+ getCmdtyCurrID().toString() + "' to the base-currency!" + " \n(we know "
+					+ getGnucashFile().getCurrencyTable().getNameSpaces().size() + " currency-namespaces and "
+					+ (currList == null ? "no" : "" + currList.size()) + " currencies in our namespace)");
+			return null;
+		}
+	
+		if ( ! priceTab.convertFromBaseCurrency(retval, cmdtyCurrID) ) {
+			LOGGER.error("getBalance: Cannot transfer " + "from base-currenty to given currency '"
+					+ cmdtyCurrID.toString() + "'!");
+			return null;
+		}
+	
+		return retval;
+	}
+
+	@Override
+	public FixedPointNumber getBalance(final LocalDate date, final Currency curr)
 			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 
 		FixedPointNumber retval = getBalance(date);
 
 		if ( retval == null ) {
-			LOGGER.warn("SimpleAccount.getBalance() - error creating balance!");
+			LOGGER.warn("getBalance: Error creating balance!");
 			return null;
 		}
 
-		if ( currency == null || retval.equals(new FixedPointNumber()) ) {
+		if ( curr == null ||
+			 retval.equals(new FixedPointNumber()) ) {
 			return retval;
 		}
 
 		// is conversion needed?
 		if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-			if ( getCmdtyCurrID().getCode().equals(currency.getCurrencyCode()) ) {
+			if ( getCmdtyCurrID().getCode().equals(curr.getCurrencyCode()) ) {
 				return retval;
 			}
 		}
@@ -157,33 +228,52 @@ public abstract class SimpleAccount implements GnucashAccount {
 		ComplexPriceTable priceTab = getGnucashFile().getCurrencyTable();
 
 		if ( priceTab == null ) {
-			LOGGER.warn("SimpleAccount.getBalance() - cannot transfer "
+			LOGGER.warn("getBalance: Cannot transfer "
 					+ "to given currency because we have no currency-table!");
 			return null;
 		}
 
-		if ( !priceTab.convertToBaseCurrency(retval, getCmdtyCurrID()) ) {
-			LOGGER.warn("SimpleAccount.getBalance() - cannot transfer " + "from our currency '"
+		if ( ! priceTab.convertToBaseCurrency(retval, getCmdtyCurrID()) ) {
+			LOGGER.warn("getBalance: Cannot transfer " + "from our currency '"
 					+ getCmdtyCurrID().toString() + "' to the base-currency!");
 			return null;
 		}
 
-		if ( !priceTab.convertFromBaseCurrency(retval, new GCshCurrID(currency)) ) {
-			LOGGER.warn("SimpleAccount.getBalance() - cannot transfer " + "from base-currenty to given currency '"
-					+ currency + "'!");
+		if ( ! priceTab.convertFromBaseCurrency(retval, new GCshCurrID(curr)) ) {
+			LOGGER.warn("getBalance: Cannot transfer " + "from base-currenty to given currency '"
+					+ curr + "'!");
 			return null;
 		}
 
 		return retval;
 	}
 
-	public String getBalanceRecursiveFormatted(final LocalDate date)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-		return getCurrencyFormat().format(getBalanceRecursive(date));
+	@Override
+	public FixedPointNumber getBalance(final GnucashTransactionSplit lastIncludesSplit) {
+	
+		FixedPointNumber balance = new FixedPointNumber();
+	
+		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
+			balance.add(split.getQuantity());
+	
+			if ( split == lastIncludesSplit ) {
+				break;
+			}
+	
+		}
+	
+		return balance;
 	}
 
-	public String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-		return getCurrencyFormat().format(getBalanceRecursive());
+	public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException {
+		return getCurrencyFormat().format(getBalance());
+	}
+
+	public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException {
+	
+		NumberFormat cf = NumberFormat.getCurrencyInstance(lcl);
+		cf.setCurrency(getCurrency());
+		return cf.format(getBalance());
 	}
 
 	public FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
@@ -195,34 +285,30 @@ public abstract class SimpleAccount implements GnucashAccount {
 		return getBalanceRecursive(date, getCmdtyCurrID());
 	}
 
-	public GnucashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date) {
-
-		GnucashTransactionSplit lastSplit = null;
-
-		for ( Object element : getTransactionSplits() ) {
-			GnucashTransactionSplit split = (GnucashTransactionSplit) element;
-			if ( date == null || split.getTransaction().getDatePosted()
-					.isBefore(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
-				if ( lastSplit == null || split.getTransaction().getDatePosted()
-						.isAfter(lastSplit.getTransaction().getDatePosted()) ) {
-					lastSplit = split;
-				}
-			}
+	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
+				throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	
+			// BEGIN OLD IMPL
+//		    FixedPointNumber retval = getBalance(date, cmdtyCurrID);
+//	
+//		    if (retval == null) {
+//			retval = new FixedPointNumber();
+//		    }
+//	
+//		    for ( GnucashAccount child : getChildren() ) {
+//			retval.add(child.getBalanceRecursive(date, cmdtyCurrID));
+//		    }
+//	
+//		    return retval;
+			// END OLD IMPL
+	
+			if ( cmdtyCurrID.getType() == GCshCmdtyCurrID.Type.CURRENCY )
+				return getBalanceRecursive(date, new GCshCurrID(cmdtyCurrID.getCode()).getCurrency());
+			else
+				return getBalance(date, cmdtyCurrID); // CAUTION: This assumes that under a stock account,
+													  // there are no children (which sounds sensible,
+													  // but there might be special cases)
 		}
-
-		for ( Iterator iter = getSubAccounts().iterator(); iter.hasNext(); ) {
-			GnucashAccount account = (GnucashAccount) iter.next();
-			GnucashTransactionSplit split = account.getLastSplitBeforeRecursive(date);
-			if ( split != null && split.getTransaction() != null ) {
-				if ( lastSplit == null || split.getTransaction().getDatePosted()
-						.isAfter(lastSplit.getTransaction().getDatePosted()) ) {
-					lastSplit = split;
-				}
-			}
-		}
-
-		return lastSplit;
-	}
 
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr)
 			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
@@ -233,46 +319,70 @@ public abstract class SimpleAccount implements GnucashAccount {
 			retval = new FixedPointNumber();
 		}
 
-		for ( Object element : getChildren() ) {
-			GnucashAccount child = (GnucashAccount) element;
+		for ( GnucashAccount child : getChildren() ) {
 			retval.add(child.getBalanceRecursive(date, curr));
 		}
 
 		return retval;
 	}
 
-	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
+	@Override
+	public String getBalanceRecursiveFormatted()
 			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-
-		// >>>> NO, ABSOLUTE SYMMETRY DOES NOT WORK HERE!
-//	    FixedPointNumber retval = getBalance(date, cmdtyCurrID);
-//
-//	    if (retval == null) {
-//		retval = new FixedPointNumber();
-//	    }
-//
-//	    for ( GnucashAccount child : getChildren() ) {
-//		retval.add(child.getBalanceRecursive(date, cmdtyCurrID));
-//	    }
-//
-//	    return retval;
-		// <<<< NO, ABSOLUTE SYMMETRY DOES NOT WORK HERE!
-
-		if ( cmdtyCurrID.getType() == GCshCmdtyCurrID.Type.CURRENCY )
-			return getBalanceRecursive(date, new GCshCurrID(cmdtyCurrID.getCode()).getCurrency());
-		else
-			return getBalance(date, cmdtyCurrID); // CAUTION: This assumes that under a stock account,
-													// there are no children (which sounds sensible,
-													// but there might be special cases)
+		return getCurrencyFormat().format(getBalanceRecursive());
 	}
 
+	@Override
+	public String getBalanceRecursiveFormatted(final LocalDate date)
+			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+		return getCurrencyFormat().format(getBalanceRecursive(date));
+	}
+
+	@Override
+	public GnucashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date) {
+
+		GnucashTransactionSplit lastSplit = null;
+
+		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
+			if ( date == null || 
+				 split.getTransaction().getDatePosted()
+				 	.isBefore(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
+				if ( lastSplit == null ||
+					 split.getTransaction().getDatePosted()
+						.isAfter(lastSplit.getTransaction().getDatePosted()) ) {
+					lastSplit = split;
+				}
+			}
+		}
+
+		for ( Iterator<GnucashAccount> iter = getSubAccounts().iterator(); iter.hasNext(); ) {
+			GnucashAccount account = (GnucashAccount) iter.next();
+			GnucashTransactionSplit split = account.getLastSplitBeforeRecursive(date);
+			if ( split != null && 
+				 split.getTransaction() != null ) {
+				if ( lastSplit == null ||
+					 split.getTransaction().getDatePosted()
+						.isAfter(lastSplit.getTransaction().getDatePosted()) ) {
+					lastSplit = split;
+				}
+			}
+		}
+
+		return lastSplit;
+	}
+
+	@Override
+	public boolean hasTransactions() {
+		return this.getTransactionSplits().size() > 0;
+	}
+
+	@Override
 	public boolean hasTransactionsRecursive() {
 		if ( this.hasTransactions() ) {
 			return true;
 		}
 
-		for ( Object element : getChildren() ) {
-			GnucashAccount child = (GnucashAccount) element;
+		for ( GnucashAccount child : getChildren() ) {
 			if ( child.hasTransactionsRecursive() ) {
 				return true;
 			}
@@ -281,51 +391,10 @@ public abstract class SimpleAccount implements GnucashAccount {
 		return false;
 	}
 
-	public boolean hasTransactions() {
-		return this.getTransactionSplits().size() > 0;
-	}
-
-	public FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrTypeException {
-		FixedPointNumber retval = getBalance(date);
-
-		if ( retval == null ) {
-			LOGGER.error("SimpleAccount.getBalance() - error creating balance!");
-			return null;
-		}
-
-		// is conversion needed?
-		if ( getCmdtyCurrID().equals(cmdtyCurrID) ) {
-			return retval;
-		}
-
-		ComplexPriceTable priceTab = getGnucashFile().getCurrencyTable();
-
-		if ( priceTab == null ) {
-			LOGGER.error("SimpleAccount.getBalance() - cannot transfer "
-					+ "to given currency because we have no currency-table!");
-			return null;
-		}
-
-		if ( !priceTab.convertToBaseCurrency(retval, cmdtyCurrID) ) {
-			Collection<String> currList = getGnucashFile().getCurrencyTable()
-					.getCurrencies(getCmdtyCurrID().getNameSpace());
-			LOGGER.error("SimpleAccount.getBalance() - cannot transfer " + "from our currency '"
-					+ getCmdtyCurrID().toString() + "' to the base-currency!" + " \n(we know "
-					+ getGnucashFile().getCurrencyTable().getNameSpaces().size() + " currency-namespaces and "
-					+ (currList == null ? "no" : "" + currList.size()) + " currencies in our namespace)");
-			return null;
-		}
-
-		if ( !priceTab.convertFromBaseCurrency(retval, cmdtyCurrID) ) {
-			LOGGER.error("SimpleAccount.getBalance() - cannot transfer " + "from base-currenty to given currency '"
-					+ cmdtyCurrID.toString() + "'!");
-			return null;
-		}
-
-		return retval;
-	}
-
+	/**
+	 * @return null if we are no currency but e.g. a fund
+	 * @throws InvalidCmdtyCurrTypeException
+	 */
 	public Currency getCurrency() throws InvalidCmdtyCurrTypeException {
 		if ( getCmdtyCurrID().getType() != GCshCmdtyCurrID.Type.CURRENCY ) {
 			return null;
@@ -351,67 +420,13 @@ public abstract class SimpleAccount implements GnucashAccount {
 		return currencyFormat;
 	}
 
-	public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException {
-		return getCurrencyFormat().format(getBalance());
-	}
-
-	public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException {
-
-		NumberFormat cf = NumberFormat.getCurrencyInstance(lcl);
-		cf.setCurrency(getCurrency());
-		return cf.format(getBalance());
-	}
-
-	/*
-	 * The currency will be the one of this account.
-	 */
-	public FixedPointNumber getBalance(final LocalDate date) {
-		return getBalance(date, (Collection<GnucashTransactionSplit>) null);
-	}
-
-	/*
-	 * The currency will be the one of this account.
-	 */
-	public FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after) {
-
-		FixedPointNumber balance = new FixedPointNumber();
-
-		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
-			if ( date != null && after != null ) {
-				if ( split.getTransaction().getDatePosted().isAfter(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
-					after.add(split);
-					continue;
-				}
-			}
-
-			// the currency of the quantity is the one of the account
-			balance.add(split.getQuantity());
-		}
-
-		return balance;
-	}
-
-	public FixedPointNumber getBalance(final GnucashTransactionSplit lastIncludesSplit) {
-
-		FixedPointNumber balance = new FixedPointNumber();
-
-		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
-			balance.add(split.getQuantity());
-
-			if ( split == lastIncludesSplit ) {
-				break;
-			}
-
-		}
-
-		return balance;
-	}
-
 	public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");
-//		} else if (! id.isSet() ) {
-//			throw new IllegalArgumentException("ID not set");
+		} 
+
+		if ( ! id.isSet() ) {
+			throw new IllegalArgumentException("ID not set");
 		}
 
 		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
@@ -427,12 +442,15 @@ public abstract class SimpleAccount implements GnucashAccount {
 	/*
 	 * This is an extension to ${@link #compareNamesTo(Object)} that makes sure that
 	 * NEVER 2 accounts with different IDs compare to 0. Compares our name to
-	 * o.toString() .<br/> If both starts with some digits the resulting ${@link
-	 * java.lang.Integer} are compared.<br/> If one starts with a number and the
-	 * other does not, the one starting with a number is "bigger"<br/> else and if
-	 * both integers are equals a normals comparison of the ${@link
-	 * java.lang.String} is done. *
+	 * o.toString() .<br/> 
+	 * If both starts with some digits the resulting ${@link
+	 * java.lang.Integer} are compared.<br/> 
+	 * If one starts with a number and the other does not, the one starting with a
+	 * number is "bigger"<br/>
+	 * else and if both integers are equals a normals comparison of the
+	 * ${@link java.lang.String} is done.
 	 */
+	@Override
 	public int compareTo(final GnucashAccount otherAcc) {
 
 		int i = compareNamesTo(otherAcc);
@@ -451,11 +469,12 @@ public abstract class SimpleAccount implements GnucashAccount {
 	}
 
 	/*
-	 * Compares our name to o.toString() .<br/> If both starts with some digits the
-	 * resulting ${@link java.lang.Integer} are compared.<br/> If one starts with a
-	 * number and the other does not, the one starting with a number is
-	 * "bigger"<br/> else and if both integers are equals a normals comparison of
-	 * the �{@link java.lang.String} is done. *
+	 * Compares our name to o.toString() .<br/>
+	 * If both starts with some digits the resulting ${@link java.lang.Integer} are
+	 * compared.<br/>
+	 * If one starts with a number and the other does not, the one starting with a
+	 * number is "bigger"<br/>
+	 * else and if both integers are equals a normals comparison of the
 	 */
 	public int compareNamesTo(final Object o) throws ClassCastException {
 
@@ -469,8 +488,10 @@ public abstract class SimpleAccount implements GnucashAccount {
 		// for numbers is used within our parent-
 		// account too and not just in the top-
 		// level accounts
-		if ( o instanceof GnucashAccount && ((GnucashAccount) o).getParentAccountID() != null
-				&& getParentAccountID() != null && ((GnucashAccount) o).getParentAccountID().toString()
+		if ( o instanceof GnucashAccount && 
+				((GnucashAccount) o).getParentAccountID() != null && 
+				getParentAccountID() != null && 
+				((GnucashAccount) o).getParentAccountID().toString()
 						.equalsIgnoreCase(getParentAccountID().toString()) ) {
 			other = ((GnucashAccount) o).getName();
 			me = getName();
@@ -495,6 +516,10 @@ public abstract class SimpleAccount implements GnucashAccount {
 		return i1.compareTo(i0);
 	}
 
+	/*
+	 * Helper used in ${@link #compareTo(Object)} to compare names starting with a
+	 * number.
+	 */
 	private Long startsWithNumber(final String s) {
 		int digitCount = 0;
 		for ( int i = 0; i < s.length() && Character.isDigit(s.charAt(i)); i++ ) {
@@ -509,43 +534,57 @@ public abstract class SimpleAccount implements GnucashAccount {
 	// ------------------------ support for propertyChangeListeners
 
 	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPropertyChange;
+		return myPtyChg;
 	}
 
+	/**
+	 * Add a PropertyChangeListener to the listener list. The listener is registered
+	 * for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be added
+	 */
 	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
+		if ( myPtyChg == null ) {
+			myPtyChg = new PropertyChangeSupport(this);
 		}
-		myPropertyChange.addPropertyChangeListener(listener);
+		myPtyChg.addPropertyChangeListener(listener);
 	}
 
-	/*
+	/**
 	 * Add a PropertyChangeListener for a specific property. The listener will be
 	 * invoked only when a call on firePropertyChange names that specific property.
+	 * 
+	 * @param propertyName 
+	 * @param listener 
 	 */
 	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
+		if ( myPtyChg == null ) {
+			myPtyChg = new PropertyChangeSupport(this);
 		}
-		myPropertyChange.addPropertyChangeListener(propertyName, listener);
+		myPtyChg.addPropertyChangeListener(propertyName, listener);
 	}
 
-	/*
+	/**
 	 * Remove a PropertyChangeListener for a specific property.
+	 * 
+	 * @param propertyName 
+	 * @param listener 
 	 */
 	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(propertyName, listener);
+		if ( myPtyChg != null ) {
+			myPtyChg.removePropertyChangeListener(propertyName, listener);
 		}
 	}
 
-	/*
+	/**
 	 * Remove a PropertyChangeListener from the listener list. This removes a
 	 * PropertyChangeListener that was registered for all properties.
+	 *
+	 * @param listener The PropertyChangeListener to be removed
 	 */
 	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(listener);
+		if ( myPtyChg != null ) {
+			myPtyChg.removePropertyChangeListener(listener);
 		}
 	}
 

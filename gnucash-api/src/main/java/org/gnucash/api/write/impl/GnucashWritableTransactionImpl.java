@@ -135,7 +135,7 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("empty ID given");
+			throw new IllegalArgumentException("unset ID given");
 		}
     
         ObjectFactory factory = file.getObjectFactory();
@@ -184,24 +184,24 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     /**
      * Create a new split for a split found in the jaxb-data.
      *
-     * @param element the jaxb-data
+     * @param splt the jaxb-data
      * @return the new split-instance
      * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      */
     @Override
     protected GnucashTransactionSplitImpl createSplit(
-	    final GncTransaction.TrnSplits.TrnSplit element,
+	    final GncTransaction.TrnSplits.TrnSplit splt,
 	    final boolean addToAcct,
 	    final boolean addToInvc) throws IllegalArgumentException {
-	GnucashWritableTransactionSplitImpl splt = 
-		new GnucashWritableTransactionSplitImpl(element, this,
-			                                addToAcct, addToInvc);
+	GnucashWritableTransactionSplitImpl gcshTrxSplt = 
+		new GnucashWritableTransactionSplitImpl(splt, this,
+			                                    addToAcct, addToInvc);
 	if (getPropertyChangeSupport() != null) {
 	    getPropertyChangeSupport().firePropertyChange("splits", null, getWritableSplits());
 	}
 
-	return splt;
+	return gcshTrxSplt;
     }
 
     /**

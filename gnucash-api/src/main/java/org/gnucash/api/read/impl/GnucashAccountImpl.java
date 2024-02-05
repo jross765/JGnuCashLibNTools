@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
  * jwsdp-generated backend.
  */
 public class GnucashAccountImpl extends SimpleAccount 
-                                implements GnucashAccount 
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashAccountImpl.class);
 
@@ -37,11 +36,29 @@ public class GnucashAccountImpl extends SimpleAccount
      */
     private GncAccount jwsdpPeer;
     
+    // ---------------------------------------------------------------
+
     /**
      * Helper to implement the {@link GnucashObject}-interface.
      */
     protected GnucashObjectImpl helper;
 
+    // ---------------------------------------------------------------
+
+    /**
+     * The splits of this transaction. May not be fully initialized during loading
+     * of the gnucash-file.
+     *
+     * @see #mySplitsNeedSorting
+     */
+    private final List<GnucashTransactionSplit> mySplits = new ArrayList<GnucashTransactionSplit>();
+
+    /**
+     * If {@link #mySplits} needs to be sorted because it was modified. Sorting is
+     * done in a lazy way.
+     */
+    private boolean mySplitsNeedSorting = false;
+    
     // ---------------------------------------------------------------
 
     /**
@@ -71,25 +88,6 @@ public class GnucashAccountImpl extends SimpleAccount
 	return jwsdpPeer;
     }
 
-    /**
-     * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
-     * in gnucash2.0 to hide accounts.
-     *
-     * @param name the name of the user-defined attribute
-     * @return the value or null if not set
-     */
-    public String getUserDefinedAttribute(final String name) {
-	return helper.getUserDefinedAttribute(name);
-    }
-
-    /**
-     * @return all keys that can be used with
-     *         ${@link #getUserDefinedAttribute(String)}}.
-     */
-    public Collection<String> getUserDefinedAttributeKeys() {
-	return helper.getUserDefinedAttributeKeys();
-    }
-
     // ---------------------------------------------------------------
 
     /**
@@ -98,6 +96,8 @@ public class GnucashAccountImpl extends SimpleAccount
     public GCshID getID() {
 	return new GCshID(jwsdpPeer.getActId().getValue());
     }
+
+    // ---------------------------------------------------------------
 
     /**
      * @see GnucashAccount#getParentAccountID()
@@ -115,48 +115,34 @@ public class GnucashAccountImpl extends SimpleAccount
      * @see GnucashAccount#getChildren()
      */
     public Collection<GnucashAccount> getChildren() {
-	return getGnucashFile().getAccountsByParentID(getID());
+    	return getGnucashFile().getAccountsByParentID(getID());
     }
+
+    // ---------------------------------------------------------------
 
     /**
      * @see GnucashAccount#getName()
      */
     public String getName() {
-	return jwsdpPeer.getActName();
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws InvalidCmdtyCurrTypeException 
-     */
-    public GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException {
-	if ( jwsdpPeer.getActCommodity() == null &&
-	     jwsdpPeer.getActType().equals(Type.ROOT.toString()) ) {
-	    return new GCshCurrID(); // default-currency because gnucash 2.2 has no currency on the root-account
-	}
-	
-	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getActCommodity().getCmdtySpace(),
-		                             jwsdpPeer.getActCommodity().getCmdtyId()); 
-	
-	return result;
+    	return jwsdpPeer.getActName();
     }
 
     /**
      * @see GnucashAccount#getDescription()
      */
     public String getDescription() {
-	return jwsdpPeer.getActDescription();
+    	return jwsdpPeer.getActDescription();
     }
 
     /**
      * @see GnucashAccount#getCode()
      */
     public String getCode() {
-	return jwsdpPeer.getActCode();
+    	return jwsdpPeer.getActCode();
     }
 
     private String getTypeStr() throws UnknownAccountTypeException {
-	return jwsdpPeer.getActType();
+    	return jwsdpPeer.getActType();
     }
 
     /**
@@ -173,57 +159,60 @@ public class GnucashAccountImpl extends SimpleAccount
     }
 
     /**
-     * The splits of this transaction. May not be fully initialized during loading
-     * of the gnucash-file.
-     *
-     * @see #mySplitsNeedSorting
-     */
-    private final List<GnucashTransactionSplit> mySplits = new ArrayList<GnucashTransactionSplit>();
-
-    /**
-     * If {@link #mySplits} needs to be sorted because it was modified. Sorting is
-     * done in a lazy way.
-     */
-    private boolean mySplitsNeedSorting = false;
-
-    /**
-     * @see GnucashAccount#getTransactionSplits()
-     */
-    public List<GnucashTransactionSplit> getTransactionSplits() {
-
-	if (mySplitsNeedSorting) {
-	    Collections.sort(mySplits);
-	    mySplitsNeedSorting = false;
+	 * {@inheritDoc}
+	 * @throws InvalidCmdtyCurrTypeException 
+	 */
+    @Override
+	public GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException {
+	if ( jwsdpPeer.getActCommodity() == null &&
+	     jwsdpPeer.getActType().equals(Type.ROOT.toString()) ) {
+	    return new GCshCurrID(); // default-currency because gnucash 2.2 has no currency on the root-account
+	}
+	
+	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getActCommodity().getCmdtySpace(),
+		                             jwsdpPeer.getActCommodity().getCmdtyId()); 
+	
+	return result;
 	}
 
-	return mySplits;
+	/**
+     * @see GnucashAccount#getTransactionSplits()
+     */
+    @Override
+    public List<GnucashTransactionSplit> getTransactionSplits() {
+
+    	if (mySplitsNeedSorting) {
+    		Collections.sort(mySplits);
+    		mySplitsNeedSorting = false;
+    	}
+
+    	return mySplits;
     }
 
     /**
      * @see GnucashAccount#addTransactionSplit(GnucashTransactionSplit)
      */
     public void addTransactionSplit(final GnucashTransactionSplit splt) {
-
 	GnucashTransactionSplit old = getTransactionSplitByID(splt.getID());
-	if (old != null) {
+	if ( old != null ) {
 	    // There already is a split with that ID
 	    if ( ! old.equals(splt) ) {
-		System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
-			old.getID() + "[" + old.getClass().getName() + "]\n" + 
-			"new=" + splt.toString() + "\n" + 
-			"old=" + old.toString());
-		LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
-			old.getID() + "[" + old.getClass().getName() + "]\n" + 
-			"new=" + splt.toString() + "\n" + 
-			"old=" + old.toString());
-		IllegalStateException exc = new IllegalStateException("DEBUG");
-		exc.printStackTrace();
-		replaceTransactionSplit(old, splt);
+	    	System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+	    			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
+	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
+	    			"new=" + splt.toString() + "\n" + 
+	    			"old=" + old.toString());
+	    	LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+	    			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
+	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
+	    			"new=" + splt.toString() + "\n" + 
+	    			"old=" + old.toString());
+	    	IllegalStateException exc = new IllegalStateException("DEBUG");
+	    	exc.printStackTrace();
+	    	replaceTransactionSplit(old, splt);
 	    }
 	} else {
-	    // There is a no split with that ID yet
+	    // There is no split with that ID yet
 	    mySplits.add(splt);
 	    mySplitsNeedSorting = true;
 	}
@@ -232,16 +221,36 @@ public class GnucashAccountImpl extends SimpleAccount
     /**
      * For internal use only.
      *
-     * @param transactionSplitByID -
-     * @param impl                 -
+     * @param splt
      */
-    private void replaceTransactionSplit(final GnucashTransactionSplit transactionSplitByID,
+    private void replaceTransactionSplit(final GnucashTransactionSplit splt,
 	    final GnucashTransactionSplit impl) {
-	if (!mySplits.remove(transactionSplitByID)) {
-	    throw new IllegalArgumentException("old object not found!");
-	}
+    	if ( ! mySplits.remove(splt) ) {
+    		throw new IllegalArgumentException("old object not found!");
+    	}
 
-	mySplits.add(impl);
+    	mySplits.add(impl);
+    }
+
+    // -----------------------------------------------------------------
+
+    /**
+     * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
+     * in gnucash2.0 to hide accounts.
+     *
+     * @param name the name of the user-defined attribute
+     * @return the value or null if not set
+     */
+    public String getUserDefinedAttribute(final String name) {
+	return helper.getUserDefinedAttribute(name);
+    }
+
+    /**
+     * @return all keys that can be used with
+     *         ${@link #getUserDefinedAttribute(String)}}.
+     */
+    public Collection<String> getUserDefinedAttributeKeys() {
+	return helper.getUserDefinedAttributeKeys();
     }
 
     // -----------------------------------------------------------------

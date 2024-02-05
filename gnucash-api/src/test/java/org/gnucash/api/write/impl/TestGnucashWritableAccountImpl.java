@@ -96,7 +96,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(ACCT_1_ID, acct.getID());
 	assertEquals(GnucashAccount.Type.BANK, acct.getType());
 	assertEquals("Giro RaiBa", acct.getName());
-	assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Sichteinlagen:KK:Giro RaiBa", acct.getQualifiedName());
 	assertEquals("Girokonto 1", acct.getDescription());
 	assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
 
@@ -123,7 +123,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(ACCT_2_ID, acct.getID());
 	assertEquals(GnucashAccount.Type.ASSET, acct.getType());
 	assertEquals("Depot RaiBa", acct.getName());
-	assertEquals("Root Account::Aktiva::Depots::Depot RaiBa", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Depots:Depot RaiBa", acct.getQualifiedName());
 	assertEquals("Aktiendepot 1", acct.getDescription());
 	assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
 
@@ -204,7 +204,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(ACCT_1_ID, acct.getID());
 	assertEquals(GnucashAccount.Type.BANK, acct.getType());
 	assertEquals("Giro Bossa Nova", acct.getName());
-	assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Bossa Nova", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Sichteinlagen:KK:Giro Bossa Nova", acct.getQualifiedName());
 	assertEquals("Buffda Duffda Deuf", acct.getDescription());
 	assertEquals("CURRENCY:CAD", acct.getCmdtyCurrID().toString());
 
@@ -237,7 +237,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(ACCT_1_ID, acct.getID());
 	assertEquals(GnucashAccount.Type.BANK, acct.getType());
 	assertEquals("Giro Bossa Nova", acct.getName());
-	assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Bossa Nova", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Sichteinlagen:KK:Giro Bossa Nova", acct.getQualifiedName());
 	assertEquals("Buffda Duffda Deuf", acct.getDescription());
 	assertEquals("CURRENCY:CAD", acct.getCmdtyCurrID().toString());
 
@@ -284,8 +284,7 @@ public class TestGnucashWritableAccountImpl {
 	// Modify the object
 
 	acct.setType(GnucashAccount.Type.BANK);
-	acct.setParentAccountID(new GCshID("fdffaa52f5b04754901dfb1cf9221494")); // Root
-										 // Account::Aktiva::Sichteinlagen::KK
+	acct.setParentAccountID(new GCshID("fdffaa52f5b04754901dfb1cf9221494")); // Root Account:Aktiva:Sichteinlagen:KK
 	acct.setName("Giro Rhumba");
 	acct.setDescription("Cha-cha-cha");
 	acct.setCmdtyCurrID(new GCshCurrID("JPY"));
@@ -319,7 +318,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(newAcctID, acct.getID());
 	assertEquals(GnucashAccount.Type.BANK, acct.getType());
 	assertEquals("Giro Rhumba", acct.getName());
-	assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Rhumba", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Sichteinlagen:KK:Giro Rhumba", acct.getQualifiedName());
 	assertEquals("Cha-cha-cha", acct.getDescription());
 	assertEquals("CURRENCY:JPY", acct.getCmdtyCurrID().toString());
 
@@ -347,7 +346,7 @@ public class TestGnucashWritableAccountImpl {
 	assertEquals(newAcctID, acct.getID());
 	assertEquals(GnucashAccount.Type.BANK, acct.getType());
 	assertEquals("Giro Rhumba", acct.getName());
-	assertEquals("Root Account::Aktiva::Sichteinlagen::KK::Giro Rhumba", acct.getQualifiedName());
+	assertEquals("Root Account:Aktiva:Sichteinlagen:KK:Giro Rhumba", acct.getQualifiedName());
 	assertEquals("Cha-cha-cha", acct.getDescription());
 	assertEquals("CURRENCY:JPY", acct.getCmdtyCurrID().toString());
 

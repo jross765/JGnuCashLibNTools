@@ -31,6 +31,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableTransactionSplitImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
@@ -40,17 +42,21 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 
     /**
      * @param jwsdpPeer   the JWSDP-object we are facading.
-     * @param transaction the transaction we belong to
+     * @param trx the transaction we belong to
      * @param addSpltToAcct 
      * @param addSpltToInvc 
      * @throws IllegalArgumentException
      * 
      */
     @SuppressWarnings("exports")
-    public GnucashWritableTransactionSplitImpl(final GncTransaction.TrnSplits.TrnSplit jwsdpPeer,
-	    final GnucashWritableTransaction transaction, final boolean addSpltToAcct, final boolean addSpltToInvc)
+    public GnucashWritableTransactionSplitImpl(
+    		final GncTransaction.TrnSplits.TrnSplit jwsdpPeer,
+    		final GnucashWritableTransaction trx, 
+    		final boolean addSpltToAcct, 
+    		final boolean addSpltToInvc)
 	    throws IllegalArgumentException {
-	super(jwsdpPeer, transaction, addSpltToAcct, addSpltToInvc);
+    	super(jwsdpPeer, trx, 
+    		  addSpltToAcct, addSpltToInvc);
     }
 
     /**
@@ -61,9 +67,14 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      * @throws IllegalArgumentException
      * 
      */
-    public GnucashWritableTransactionSplitImpl(final GnucashWritableTransactionImpl trx, final GnucashAccount acct)
+    public GnucashWritableTransactionSplitImpl(
+    		final GnucashWritableTransactionImpl trx, 
+    		final GnucashAccount acct)
 	    throws IllegalArgumentException {
-	super(createTransactionSplit_int(trx, acct, GCshID.getNew()), trx, true, true);
+	super(createTransactionSplit_int(trx, acct,
+									 GCshID.getNew()), 
+		  trx, 
+		  true, true);
 
 	// this is a workaround.
 	// if super does account.addSplit(this) it adds an instance on
@@ -79,12 +90,81 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
     }
 
     public GnucashWritableTransactionSplitImpl(final GnucashTransactionSplit split) throws IllegalArgumentException {
-	super(split.getJwsdpPeer(), split.getTransaction(), true, true);
+    	super(split.getJwsdpPeer(), split.getTransaction(), 
+    		  true, true);
     }
 
     // ---------------------------------------------------------------
 
     /**
+	 * Creates a new Transaction and add's it to the given gnucash-file Don't modify
+	 * the ID of the new transaction!
+	 * 
+	 * @throws
+	 * @throws IllegalArgumentException
+	 * @throws ClassNotFoundException
+	 */
+	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
+	    final GnucashWritableTransactionImpl trx, 
+	    final GnucashAccount acct, 
+	    final GCshID newID)
+	    throws IllegalArgumentException {
+	if ( trx == null ) {
+	    throw new IllegalArgumentException("null transaction given");
+	}
+	
+	if ( acct == null ) {
+	    throw new IllegalArgumentException("null account given");
+	}
+	
+	if ( newID == null ) {
+		throw new IllegalArgumentException("null ID given");
+	}
+	
+	if ( ! newID.isSet() ) {
+		throw new IllegalArgumentException("unset ID given");
+	}
+	
+	// This is needed because transaction.addSplit() later
+	// must have an already build List of splits.
+	// if not it will create the list from the JAXB-Data
+	// thus 2 instances of this GnucashWritableTransactionSplitImpl
+	// will exist. One created in getSplits() from this JAXB-Data
+	// the other is this object.
+	trx.getSplits();
+	
+	GnucashWritableFileImpl gnucashFileImpl = trx.getWritableFile();
+	ObjectFactory factory = gnucashFileImpl.getObjectFactory();
+	
+	GncTransaction.TrnSplits.TrnSplit jwsdpSplt = gnucashFileImpl.createGncTransactionSplitType();
+	
+	{
+	    GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
+	    id.setType(Const.XML_DATA_TYPE_GUID);
+	    id.setValue(newID.toString());
+	    jwsdpSplt.setSplitId(id);
+	}
+	
+	jwsdpSplt.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
+	
+	jwsdpSplt.setSplitQuantity("0/100");
+	jwsdpSplt.setSplitValue("0/100");
+	{
+	    GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory.createGncTransactionTrnSplitsTrnSplitSplitAccount();
+	    splitaccount.setType(Const.XML_DATA_TYPE_GUID);
+	    splitaccount.setValue(acct.getID().toString());
+	    jwsdpSplt.setSplitAccount(splitaccount);
+	}
+	
+	LOGGER.debug("createTransactionSplit_int: Created new transaction split (core): "
+		+ jwsdpSplt.getSplitId().getValue());
+	
+	return jwsdpSplt;
+	}
+
+    // ---------------------------------------------------------------
+
+	/**
      * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
      *      java.lang.String)
      */
@@ -104,73 +184,6 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
     @Override
     public GnucashWritableTransaction getTransaction() {
 	return (GnucashWritableTransaction) super.getTransaction();
-    }
-
-    /**
-     * Creates a new Transaction and add's it to the given gnucash-file Don't modify
-     * the ID of the new transaction!
-     * 
-     * @throws
-     * @throws IllegalArgumentException
-     * @throws ClassNotFoundException
-     */
-    protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
-	    final GnucashWritableTransactionImpl trx, 
-	    final GnucashAccount acct, 
-	    final GCshID newID)
-	    throws IllegalArgumentException {
-	if (trx == null) {
-	    throw new IllegalArgumentException("null transaction given");
-	}
-
-	if (acct == null) {
-	    throw new IllegalArgumentException("null account given");
-	}
-
-	if ( newID == null ) {
-		throw new IllegalArgumentException("null ID given");
-	}
-
-	if ( ! newID.isSet() ) {
-		throw new IllegalArgumentException("empty ID given");
-	}
-
-	// this is needed because transaction.addSplit() later
-	// must have an already build List of splits.
-	// if not it will create the list from the JAXB-Data
-	// thus 2 instances of this GnucashWritableTransactionSplitImpl
-	// will exist. One created in getSplits() from this JAXB-Data
-	// the other is this object.
-	trx.getSplits();
-
-	GnucashWritableFileImpl gnucashFileImpl = trx.getWritableFile();
-	ObjectFactory factory = gnucashFileImpl.getObjectFactory();
-
-	GncTransaction.TrnSplits.TrnSplit jwsdpSplt = gnucashFileImpl.createGncTransactionSplitType();
-	
-	{
-	    GncTransaction.TrnSplits.TrnSplit.SplitId id = factory.createGncTransactionTrnSplitsTrnSplitSplitId();
-	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue(newID.toString());
-	    jwsdpSplt.setSplitId(id);
-	}
-
-	jwsdpSplt.setSplitReconciledState(GnucashTransactionSplit.ReconStatus.NREC.getCode());
-
-	jwsdpSplt.setSplitQuantity("0/100");
-	jwsdpSplt.setSplitValue("0/100");
-	{
-	    GncTransaction.TrnSplits.TrnSplit.SplitAccount splitaccount = factory
-		    .createGncTransactionTrnSplitsTrnSplitSplitAccount();
-	    splitaccount.setType(Const.XML_DATA_TYPE_GUID);
-	    splitaccount.setValue(acct.getID().toString());
-	    jwsdpSplt.setSplitAccount(splitaccount);
-	}
-
-	LOGGER.debug("createTransactionSplit_int: Created new transaction split (core): "
-		+ jwsdpSplt.getSplitId().getValue());
-
-	return jwsdpSplt;
     }
 
     /**

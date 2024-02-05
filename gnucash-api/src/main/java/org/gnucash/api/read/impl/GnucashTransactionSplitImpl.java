@@ -29,6 +29,8 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashTransactionSplitImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * the JWSDP-object we are facading.
      */
@@ -47,7 +49,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnucashTransactionSplitImpl(
-	    final GncTransaction.TrnSplits.TrnSplit peer, 
+	    final GncTransaction.TrnSplits.TrnSplit peer,
 	    final GnucashTransaction trx,
 	    final boolean addSpltToAcct,
 	    final boolean addSpltToInvc) {
@@ -60,11 +62,11 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	if ( addSpltToAcct ) {
 	    GnucashAccount acct = getAccount();
 	    if (acct == null) {
-		LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getID()
-			+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getID()
-			+ "' description '" + getTransaction().getDescription() + "'");
+	    	LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getID()
+	    		+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getID()
+	    		+ "' description '" + getTransaction().getDescription() + "'");
 	    } else {
-		acct.addTransactionSplit(this);
+	    	acct.addTransactionSplit(this);
 	    }
 	}
 
@@ -93,21 +95,28 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GncTransaction.TrnSplits.TrnSplit getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     /**
      * @param newPeer the JWSDP-object we are facading.
      */
     protected void setJwsdpPeer(final GncTransaction.TrnSplits.TrnSplit newPeer) {
-	if (newPeer == null) {
-	    throw new IllegalArgumentException("null not allowed for field this.jwsdpPeer");
-	}
+    	if (newPeer == null) {
+    		throw new IllegalArgumentException("null not allowed for field this.jwsdpPeer");
+    	}
 
-	jwsdpPeer = newPeer;
+    	jwsdpPeer = newPeer;
     }
 
     // ---------------------------------------------------------------
+
+    /**
+     * @see GnucashTransactionSplit#getID()
+     */
+    public GCshID getID() {
+	return new GCshID( jwsdpPeer.getSplitId().getValue() );
+    }
 
     /**
      * @return the lot-id that identifies this transaction to belong to an invoice
@@ -128,67 +137,60 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      */
     @Override
     public Action getAction() {
-	try {
-	    return Action.valueOff( getActionStr() );
-	} catch (Exception e) {
-	    throw new MappingException("Could not map string '" + getActionStr() + "' to Action enum");
-	}
+    	try {
+    		return Action.valueOff( getActionStr() );
+    	} catch (Exception e) {
+    		throw new MappingException("Could not map string '" + getActionStr() + "' to Action enum");
+    	}
     }
 
     /**
-     * @see GnucashTransactionSplit#getActionStr()
+     * @see GnucashTransactionSplit#getAction()
      */
     public String getActionStr() {
-	if (getJwsdpPeer().getSplitAction() == null) {
-	    return "";
-	}
+    	if (getJwsdpPeer().getSplitAction() == null) {
+    		return "";
+    	}
 
-	return getJwsdpPeer().getSplitAction();
-    }
-
-    /**
-     * @see GnucashTransactionSplit#getID()
-     */
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getSplitId().getValue() );
+    	return getJwsdpPeer().getSplitAction();
     }
 
     /**
      * @see GnucashTransactionSplit#getAccountID()
      */
     public GCshID getAccountID() {
-	assert jwsdpPeer.getSplitAccount().getType().equals(Const.XML_DATA_TYPE_GUID);
-	String id = jwsdpPeer.getSplitAccount().getValue();
-	assert id != null;
-	return new GCshID(id);
+    	assert jwsdpPeer.getSplitAccount().getType().equals(Const.XML_DATA_TYPE_GUID);
+    	String acctID = jwsdpPeer.getSplitAccount().getValue();
+    	assert acctID != null;
+    	return new GCshID(acctID);
     }
 
     /**
      * @see GnucashTransactionSplit#getAccount()
      */
     public GnucashAccount getAccount() {
-	return myTransaction.getGnucashFile().getAccountByID(getAccountID());
+    	return myTransaction.getGnucashFile().getAccountByID(getAccountID());
     }
 
     /**
      * @see GnucashTransactionSplit#getAccountID()
      */
     public GCshID getTransactionID() {
-	return myTransaction.getID();
+    	return myTransaction.getID();
     }
 
     /**
      * @see GnucashTransactionSplit#getTransaction()
      */
     public GnucashTransaction getTransaction() {
-	return myTransaction;
+    	return myTransaction;
     }
 
     /**
      * @see GnucashTransactionSplit#getValue()
      */
     public FixedPointNumber getValue() {
-	return new FixedPointNumber(jwsdpPeer.getSplitValue());
+    	return new FixedPointNumber(jwsdpPeer.getSplitValue());
     }
 
     /**
@@ -196,8 +198,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      */
     protected NumberFormat getQuantityCurrencyFormat() throws InvalidCmdtyCurrTypeException {
-
-	return ((GnucashAccountImpl) getAccount()).getCurrencyFormat();
+    	return ((GnucashAccountImpl) getAccount()).getCurrencyFormat();
     }
 
     /**
@@ -206,8 +207,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      */
     public NumberFormat getValueCurrencyFormat() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-
-	return ((GnucashTransactionImpl) getTransaction()).getCurrencyFormat();
+    	return ((GnucashTransactionImpl) getTransaction()).getCurrencyFormat();
     }
 
     /**

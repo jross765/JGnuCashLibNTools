@@ -12,6 +12,7 @@ import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount.Type;
 import org.gnucash.api.read.aux.GCshBillTerms;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
@@ -228,6 +229,13 @@ public interface GnucashFile extends GnucashObject {
      * @see #getUnpaidInvoicesForCustomer_viaJob(GnucashCustomer)
      */
     GnucashGenerInvoice getGenerInvoiceByID(GCshID invcID);
+
+    /**
+     * 
+     * @param type
+     * @return
+     */
+    Collection<GnucashGenerInvoice> getGenerInvoicesByType(GCshOwner.Type type);
 
     /**
      * @return a (possibly read-only) collection of all invoices Do not modify the
