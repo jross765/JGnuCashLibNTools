@@ -202,7 +202,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @see GnucashTransaction#getBalanceFormatted()
      */
     public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	return getCurrencyFormat().format(getBalance());
+    	return getCurrencyFormat().format(getBalance());
     }
 
     /**
@@ -216,7 +216,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 
 	NumberFormat cf = NumberFormat.getInstance(lcl);
-	if (getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    cf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
 	} else {
 	    cf.setCurrency(null);
@@ -482,10 +482,10 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     protected NumberFormat getCurrencyFormat() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
 	if (currencyFormat == null) {
 	    currencyFormat = NumberFormat.getCurrencyInstance();
-	    if (getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY) {
-		currencyFormat.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
+	    if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+	    	currencyFormat.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
 	    } else {
-		currencyFormat = NumberFormat.getInstance();
+	    	currencyFormat = NumberFormat.getInstance();
 	    }
 
 	}

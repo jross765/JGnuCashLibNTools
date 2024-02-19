@@ -14,6 +14,10 @@ public class NamespaceAdderWriter extends Writer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NamespaceAdderWriter.class);
 
 	// ---------------------------------------------------------------
+	
+	private static final String HEADER_TAG = "<gnc-v2";
+
+	// ---------------------------------------------------------------
 
 	private final Writer output;
 
@@ -86,7 +90,8 @@ public class NamespaceAdderWriter extends Writer {
 		output.write(cbuf, off, len);
 
 		// this is a quick hack to add the missing xmlns-declarations
-		if ( len == 7 && new String(cbuf, off, len).equals("<gnc-v2") ) {
+		if ( len == HEADER_TAG.length() && 
+			 new String(cbuf, off, len).equals(HEADER_TAG) ) {
 			output.write("\n" 
 					+ "     xmlns:gnc=\"http://www.gnucash.org/XML/gnc\"\n"
 					+ "     xmlns:act=\"http://www.gnucash.org/XML/act\"\n"

@@ -216,15 +216,14 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
      * @see GnucashTransactionSplit#getValueFormatted()
      */
     public String getValueFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
-	NumberFormat nf = getValueCurrencyFormat();
-	if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    // redundant, but symmetry:
-	    nf.setCurrency(new GCshCurrID(getTransaction().getCmdtyCurrID()).getCurrency());
-	    return nf.format(getValue());
-	}
-	else {
-	    return nf.format(getValue()) + " " + getTransaction().getCmdtyCurrID().toString(); 
-	}
+    	NumberFormat nf = getValueCurrencyFormat();
+    	if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+    		// redundant, but symmetry:
+    		nf.setCurrency(new GCshCurrID(getTransaction().getCmdtyCurrID()).getCurrency());
+    		return nf.format(getValue());
+    	} else {
+    		return nf.format(getValue()) + " " + getTransaction().getCmdtyCurrID().toString(); 
+    	}
     }
 
     /**

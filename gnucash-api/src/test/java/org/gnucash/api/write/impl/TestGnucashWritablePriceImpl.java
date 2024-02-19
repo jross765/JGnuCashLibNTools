@@ -322,7 +322,7 @@ public class TestGnucashWritablePriceImpl {
 	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
-			  // and the GnuCash file writer does not like that.
+			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
 	test02_1_check_persisted(outFile);
@@ -413,7 +413,7 @@ public class TestGnucashWritablePriceImpl {
 	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
-			  // and the GnuCash file writer does not like that.
+			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
 	test03_1_1_check_persisted(outFile);

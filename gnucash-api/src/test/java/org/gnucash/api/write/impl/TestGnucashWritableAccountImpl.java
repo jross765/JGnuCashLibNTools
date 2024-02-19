@@ -106,7 +106,7 @@ public class TestGnucashWritableAccountImpl {
 //    assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //    assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(8, acct.getTransactions().size());
+	assertEquals(9, acct.getTransactions().size());
 	assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 	assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
@@ -185,7 +185,7 @@ public class TestGnucashWritableAccountImpl {
 	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
-			  // and the GnuCash file writer does not like that.
+			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
 	test02_1_check_persisted(outFile);
@@ -214,7 +214,7 @@ public class TestGnucashWritableAccountImpl {
 //      assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //      assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(8, acct.getTransactions().size());
+	assertEquals(9, acct.getTransactions().size());
 	assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 	assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
@@ -247,7 +247,7 @@ public class TestGnucashWritableAccountImpl {
 //     assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 //     assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(8, acct.getTransactions().size());
+	assertEquals(9, acct.getTransactions().size());
 	assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 	assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
@@ -304,7 +304,7 @@ public class TestGnucashWritableAccountImpl {
 	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
-			  // and the GnuCash file writer does not like that.
+			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
 	test03_1_check_persisted(outFile);

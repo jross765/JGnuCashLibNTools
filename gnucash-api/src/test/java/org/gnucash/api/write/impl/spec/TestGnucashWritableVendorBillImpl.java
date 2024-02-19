@@ -125,7 +125,7 @@ public class TestGnucashWritableVendorBillImpl {
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnucashWritableVendorImpl.test01_1: '" + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
-			  // and the GnuCash file writer does not like that.
+			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
 	// test01_2();
