@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 import org.gnucash.api.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
@@ -14,11 +15,36 @@ public class GenTrx {
     // BEGIN Example data -- adapt to your needs
     private static String gcshInFileName     = "example_in.gnucash";
     private static String gcshOutFileName    = "example_out.gnucash";
-    private static GCshID fromAcctID         = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
-    private static GCshID toAcctID           = new GCshID("87b7dc076d684bb78044795a89d665c8"); // Root Account::Aktiva::Sichteinlagen::nicht-KK::Tagesgeld RaiBa
-    private static FixedPointNumber amount   = new FixedPointNumber("1250/100");
-    private static FixedPointNumber quantity = amount;
-    private static LocalDate datePosted      = LocalDate.now();
+    
+    // ---
+    
+    private static GCshID           fromAcct1ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account::Aktiva::Sichteinlagen::KK::Giro RaiBa
+    private static GCshID           toAcct1ID   = new GCshID("87b7dc076d684bb78044795a89d665c8"); // Root Account::Aktiva::Sichteinlagen::nicht-KK::Tagesgeld RaiBa
+    private static GnucashTransactionSplit.Action act1 = null;                                    // Do not set here
+    private static FixedPointNumber amt1        = new FixedPointNumber("1234/100");
+    private static FixedPointNumber qty1        = amt1;
+    private static LocalDate        datPst1      = LocalDate.of(2024, 2, 15);
+    private static String           descr1       = "Bahnhof Zeitungskiosk";
+    
+    // ---
+    
+    // Following two account IDs: sic, not KMMComplAcctID
+    private static GCshID           fromAcct2ID  = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account:Aktiva:Sichteinlagen:KK:Giro RaiBa
+    private static GCshID           toAcct21ID   = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
+    private static GCshID           toAcct22ID   = new GCshID("d3f947fdfbf54240b0cfb09fea4963ca"); // Root Account:Aufwendungen:Sonstiges:Bankgebühren
+    private static GCshID           pye2ID       = null;                     // Do not set here
+    private static GnucashTransactionSplit.Action act2 = GnucashTransactionSplit.Action.BUY;
+    private static FixedPointNumber qty22        = new FixedPointNumber("15");
+    // private static FixedPointNumber prc1         = new FixedPointNumber("1/1");       // optional
+    private static FixedPointNumber prc2         = new FixedPointNumber("15574/100"); // half-mandatory
+    // private static FixedPointNumber prc3         = prc1;                              // optional
+    private static FixedPointNumber amt22        = qty22.multiply(prc2);              // net
+    private static FixedPointNumber amt23        = new FixedPointNumber("95/10");     // fees & commissions
+    private static FixedPointNumber amt21        = amt22.add(amt23);                  // gross
+    private static FixedPointNumber qty21        = amt21;
+    private static FixedPointNumber qty23        = amt23;
+    private static LocalDate        datPst2      = LocalDate.of(2024, 1, 15);
+    private static String           descr2       = "Aktienkauf";
     // END Example data
 
     // -----------------------------------------------------------------
@@ -37,25 +63,96 @@ public class GenTrx {
     protected void kernel() throws Exception {
 	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
 
-	System.err.println("Account name (from): '" + gcshFile.getAccountByID(fromAcctID).getQualifiedName() + "'");
-	System.err.println("Account name (to):   '" + gcshFile.getAccountByID(toAcctID).getQualifiedName() + "'");
+	System.out.println("---------------------------");
+	System.out.println("Generate transaction no. 1:");
+	System.out.println("---------------------------");
+	genTrx1(gcshFile);
+
+	System.out.println("");
+	System.out.println("---------------------------");
+	System.out.println("Generate transaction no. 2:");
+	System.out.println("---------------------------");
+	genTrx2(gcshFile);
+	
+	System.out.println("");
+	System.out.println("---------------------------");
+	System.out.println("Write file:");
+	System.out.println("---------------------------");
+	gcshFile.writeFile(new File(gcshOutFileName));
+	
+	System.out.println("OK");
+    }
+
+    private void genTrx1(GnucashWritableFileImpl gcshFile) {
+	System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct1ID).getQualifiedName() + "'");
+	System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct1ID).getQualifiedName() + "'");
 
 	GnucashWritableTransaction trx = gcshFile.createWritableTransaction();
 	trx.setDescription("Generated by GenTrx " + LocalDateTime.now().toString());
 
-	GnucashWritableTransactionSplit split1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcctID));
-	split1.setValue(new FixedPointNumber(amount.negate()));
-	split1.setQuantity(new FixedPointNumber(quantity.negate()));
+	GnucashWritableTransactionSplit split1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct1ID));
+	split1.setValue(new FixedPointNumber(amt1.negate()));
+	split1.setQuantity(new FixedPointNumber(qty1.negate()));
 
-	GnucashWritableTransactionSplit split2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcctID));
-	split2.setValue(new FixedPointNumber(amount));
-	split2.setQuantity(new FixedPointNumber(quantity));
+	GnucashWritableTransactionSplit split2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct1ID));
+	split2.setValue(new FixedPointNumber(amt1));
+	split2.setQuantity(new FixedPointNumber(qty1));
 
-	trx.setDatePosted(datePosted);
+	trx.setDatePosted(datPst1);
 	trx.setDateEntered(LocalDateTime.now());
 
 	System.out.println("Transaction to write: " + trx.toString());
-	gcshFile.writeFile(new File(gcshOutFileName));
-	System.out.println("OK");
     }
+    
+    private void genTrx2(GnucashWritableFileImpl gcshFile) {
+	System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct2ID).getQualifiedName() + "'");
+	System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct21ID).getQualifiedName() + "'");
+	System.err.println("Account 3 name (to):   '" + gcshFile.getAccountByID(toAcct22ID).getQualifiedName() + "'");
+
+	// ---
+
+	GnucashWritableTransaction trx = gcshFile.createWritableTransaction();
+	// Does not work like that: The description/memo on transaction
+	// level is purely internal:
+	// trx.setDescription(description);
+	trx.setDescription("Generated by GenTrx, " + LocalDateTime.now());
+
+	// ---
+
+	GnucashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct2ID));
+	splt1.setValue(new FixedPointNumber(amt21.negate()));
+	splt1.setQuantity(new FixedPointNumber(qty21.negate()));
+	// This is what we actually want (cf. above):
+	splt1.setDescription(descr2);
+	System.out.println("Split 1 to write: " + splt1.toString());
+
+	// ---
+
+	GnucashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct21ID));
+	splt2.setValue(new FixedPointNumber(amt22));
+	splt2.setQuantity(new FixedPointNumber(qty22));
+	splt2.setAction(act2);
+	// Cf. above
+	splt2.setDescription(descr2);
+	System.out.println("Split 2 to write: " + splt2.toString());
+
+	// ---
+
+	GnucashWritableTransactionSplit splt3 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct22ID));
+	splt3.setValue(new FixedPointNumber(amt23));
+	splt3.setQuantity(new FixedPointNumber(qty23));
+	// Cf. above
+	splt3.setDescription(descr2);
+	System.out.println("Split 3 to write: " + splt3.toString());
+
+	// ---
+
+	trx.setDatePosted(datPst2);
+	trx.setDateEntered(LocalDateTime.now());
+
+	// ---
+
+	System.out.println("Transaction to write: " + trx.toString());
+    }
+    
 }
