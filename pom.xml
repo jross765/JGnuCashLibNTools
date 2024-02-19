@@ -5,7 +5,7 @@
 
 	<groupId>org.gnucash</groupId>
 	<artifactId>gnucash</artifactId>
-	<version>1.4.0-RELEASE</version>
+	<version>${project.version}</version>
 	<packaging>pom</packaging>
 	<name>${project.title}</name>
 
@@ -13,11 +13,13 @@
 		<java.version>17</java.version>
 		<slf4j.version>2.0.9</slf4j.version>
 		<project.title>GnuCash.org</project.title>
+		<project.version>1.4.0-RELEASE</project.version>
 	</properties>
 
 	<modules>
 
 		<module>gnucash-api</module>
+		<module>gnucash-api-ext</module>
 		<module>gnucash-api-examples</module>
 
 	</modules>

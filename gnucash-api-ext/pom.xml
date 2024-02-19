@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -9,9 +9,9 @@
 		<version>${project.version}</version>
 	</parent>
 
-	<artifactId>gnucash-api-examples</artifactId>
+	<artifactId>gnucash-api-ext</artifactId>
 
-	<name>${project.title} : API Examples</name>
+	<name>${project.title} : API Extensions</name>
 
 	<properties>
 
@@ -30,7 +30,7 @@
 
 	<dependencies>
 
-		<!-- GnuCash API -->
+		<!-- KMyMoney API -->
 		<dependency>
 			<groupId>org.gnucash</groupId>
 			<artifactId>gnucash-api</artifactId>
