@@ -20,14 +20,17 @@ with locale de_DE (for details, cf. the API module documentation).
 ## Version Compatibility
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.4     | (w.i.p.)         |                                |
 | 1.3     | no               | "Medium" changes in interfaces |
 | 1.2     | no               | Minor changes in interfaces    |
 | 1.1     | no               | Major changes in interfaces    |
-| 1.0.1   | yes              |                                
+| 1.0.1   | yes              |                                |
 
 # Modules and Further Details
 
 * [API](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api/README.md)
+
+* [API Extensions](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-ext/README.md)
 
 * [Example Programs](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-examples/README.md)
 
