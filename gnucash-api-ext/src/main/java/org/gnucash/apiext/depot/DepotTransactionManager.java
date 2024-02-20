@@ -15,10 +15,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DepotTransactionManager {
+    
+    public enum Type {
+	BUY_STOCK
+    }
+    
     // Logger
     private static final Logger LOGGER = LoggerFactory.getLogger(DepotTransactionManager.class);
 
-    private static void genBuyStockTrx(
+    // ---------------------------------------------------------------
+    
+    public static GnucashWritableTransaction genBuyStockTrx(
 	    final GnucashWritableFileImpl gcshFile,
 	    final GCshID stockAcctID,
 	    final GCshID taxFeeAcctID,
@@ -45,9 +52,9 @@ public class DepotTransactionManager {
 	    throw new IllegalArgumentException("unset account ID given");
 	}
 		
-	LOGGER.debug("genBuyStockTrx: Account 1 name (from): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
-	LOGGER.debug("genBuyStockTrx: Account 2 name (to):   '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
-	LOGGER.debug("genBuyStockTrx: Account 3 name (to):   '" + gcshFile.getAccountByID(taxFeeAcctID).getQualifiedName() + "'");
+	LOGGER.debug("genBuyStockTrx: Account 1 name (offsetting): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
+	LOGGER.debug("genBuyStockTrx: Account 2 name (stock):      '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
+	LOGGER.debug("genBuyStockTrx: Account 3 name (taxes/fees): '" + gcshFile.getAccountByID(taxFeeAcctID).getQualifiedName() + "'");
 
 	// ---
 	// Check account types
@@ -119,7 +126,8 @@ public class DepotTransactionManager {
 
 	// ---
 
-	LOGGER.info("genBuyStockTrx: Transaction to write: " + trx.toString());
+	LOGGER.info("genBuyStockTrx: Generated new Transaction: " + trx.getID());
+	return trx;
     }
     
 }
