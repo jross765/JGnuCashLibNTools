@@ -214,7 +214,7 @@
   </slot>
 </book:slots>
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
-<gnc:count-data cd:type="account">99</gnc:count-data>
+<gnc:count-data cd:type="account">102</gnc:count-data>
 <gnc:count-data cd:type="transaction">14</gnc:count-data>
 <gnc:count-data cd:type="price">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
@@ -815,6 +815,100 @@
   <act:parent type="guid">14305dc80e034834b3f531696d81b493</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
+  <act:name>Gehalt</act:name>
+  <act:id type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Gehalt und Zulagen</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Gehalt</act:name>
+  <act:id type="guid">79dc5683ff7440bda747c21d9b73e7d0</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Gehalt</act:description>
+  <act:parent type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Zulagen</act:name>
+  <act:id type="guid">5bf9465931fc4536bc9737602b200c79</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Zulagen und Bonus zum Gehalt</act:description>
+  <act:parent type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Geschenke</act:name>
+  <act:id type="guid">ee77765f229542b1843e358df89a4e2b</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Empfangene Geschenke</act:description>
+  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Sonstiges</act:name>
+  <act:id type="guid">fed745c4da5c49ebb0fde0f47222b35b</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Sonstige Erträge</act:description>
+  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Honorar</act:name>
+  <act:id type="guid">690f25c6ef0649cba836529ba6724f78</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Kapitalertraege</act:name>
+  <act:id type="guid">d81fd0a20c01452aa009db11647d6477</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
   <act:name>Zinsen</act:name>
   <act:id type="guid">5c19955b95f44d9a9ba7aa5eb4b02c9a</act:id>
   <act:type>INCOME</act:type>
@@ -830,7 +924,7 @@
       <slot:value type="string">true</slot:value>
     </slot>
   </act:slots>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+  <act:parent type="guid">d81fd0a20c01452aa009db11647d6477</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
   <act:name>Bausparvertrag</act:name>
@@ -905,73 +999,24 @@
   <act:parent type="guid">5c19955b95f44d9a9ba7aa5eb4b02c9a</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
-  <act:name>Gehalt</act:name>
-  <act:id type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:id>
+  <act:name>Dividenden</act:name>
+  <act:id type="guid">da2b964bc1b044719c598bd41f404c71</act:id>
   <act:type>INCOME</act:type>
   <act:commodity>
     <cmdty:space>CURRENCY</cmdty:space>
     <cmdty:id>EUR</cmdty:id>
   </act:commodity>
   <act:commodity-scu>100</act:commodity-scu>
-  <act:description>Gehalt und Zulagen</act:description>
   <act:slots>
     <slot>
       <slot:key>placeholder</slot:key>
       <slot:value type="string">true</slot:value>
     </slot>
   </act:slots>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+  <act:parent type="guid">d81fd0a20c01452aa009db11647d6477</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
-  <act:name>Gehalt</act:name>
-  <act:id type="guid">79dc5683ff7440bda747c21d9b73e7d0</act:id>
-  <act:type>INCOME</act:type>
-  <act:commodity>
-    <cmdty:space>CURRENCY</cmdty:space>
-    <cmdty:id>EUR</cmdty:id>
-  </act:commodity>
-  <act:commodity-scu>100</act:commodity-scu>
-  <act:description>Gehalt</act:description>
-  <act:parent type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:parent>
-</gnc:account>
-<gnc:account version="2.0.0">
-  <act:name>Zulagen</act:name>
-  <act:id type="guid">5bf9465931fc4536bc9737602b200c79</act:id>
-  <act:type>INCOME</act:type>
-  <act:commodity>
-    <cmdty:space>CURRENCY</cmdty:space>
-    <cmdty:id>EUR</cmdty:id>
-  </act:commodity>
-  <act:commodity-scu>100</act:commodity-scu>
-  <act:description>Zulagen und Bonus zum Gehalt</act:description>
-  <act:parent type="guid">9cf1e0386cb14cd19f66ea90ad7856ba</act:parent>
-</gnc:account>
-<gnc:account version="2.0.0">
-  <act:name>Geschenke</act:name>
-  <act:id type="guid">ee77765f229542b1843e358df89a4e2b</act:id>
-  <act:type>INCOME</act:type>
-  <act:commodity>
-    <cmdty:space>CURRENCY</cmdty:space>
-    <cmdty:id>EUR</cmdty:id>
-  </act:commodity>
-  <act:commodity-scu>100</act:commodity-scu>
-  <act:description>Empfangene Geschenke</act:description>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
-</gnc:account>
-<gnc:account version="2.0.0">
-  <act:name>Sonstiges</act:name>
-  <act:id type="guid">fed745c4da5c49ebb0fde0f47222b35b</act:id>
-  <act:type>INCOME</act:type>
-  <act:commodity>
-    <cmdty:space>CURRENCY</cmdty:space>
-    <cmdty:id>EUR</cmdty:id>
-  </act:commodity>
-  <act:commodity-scu>100</act:commodity-scu>
-  <act:description>Sonstige Erträge</act:description>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
-</gnc:account>
-<gnc:account version="2.0.0">
-  <act:name>Dividenden</act:name>
+  <act:name>Inland</act:name>
   <act:id type="guid">d7c384bfc136464490965f3f254313b1</act:id>
   <act:type>INCOME</act:type>
   <act:commodity>
@@ -980,18 +1025,18 @@
   </act:commodity>
   <act:commodity-scu>100</act:commodity-scu>
   <act:description>Dividenden</act:description>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+  <act:parent type="guid">da2b964bc1b044719c598bd41f404c71</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
-  <act:name>Honorar</act:name>
-  <act:id type="guid">690f25c6ef0649cba836529ba6724f78</act:id>
+  <act:name>Ausland</act:name>
+  <act:id type="guid">c41ca0148f9048968c66c2d392e2cebc</act:id>
   <act:type>INCOME</act:type>
   <act:commodity>
     <cmdty:space>CURRENCY</cmdty:space>
     <cmdty:id>EUR</cmdty:id>
   </act:commodity>
   <act:commodity-scu>100</act:commodity-scu>
-  <act:parent type="guid">a4cd5c75d9f44370bce02592fda63ae2</act:parent>
+  <act:parent type="guid">da2b964bc1b044719c598bd41f404c71</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
   <act:name>Aufwendungen</act:name>
