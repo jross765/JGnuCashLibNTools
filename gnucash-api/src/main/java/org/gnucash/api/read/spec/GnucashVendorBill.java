@@ -2,7 +2,7 @@ package org.gnucash.api.read.spec;
 
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashVendor;
 

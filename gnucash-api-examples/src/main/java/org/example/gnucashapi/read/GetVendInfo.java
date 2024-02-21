@@ -3,7 +3,7 @@ package org.example.gnucashapi.read;
 import java.io.File;
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.NoEntryFoundException;

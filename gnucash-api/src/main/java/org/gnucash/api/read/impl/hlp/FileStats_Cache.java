@@ -2,8 +2,8 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.io.IOException;
 
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

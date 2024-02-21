@@ -11,7 +11,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashAccount;

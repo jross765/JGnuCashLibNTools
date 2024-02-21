@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshBillTerms;

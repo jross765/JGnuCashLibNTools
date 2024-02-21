@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashTransaction;

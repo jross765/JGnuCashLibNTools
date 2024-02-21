@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;

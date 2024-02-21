@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.generated.ObjectFactory;

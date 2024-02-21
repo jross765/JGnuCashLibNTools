@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import org.gnucash.api.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;

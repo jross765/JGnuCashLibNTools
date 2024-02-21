@@ -5,8 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.SplitNotFoundException;

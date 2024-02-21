@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashEmployee;

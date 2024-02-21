@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;

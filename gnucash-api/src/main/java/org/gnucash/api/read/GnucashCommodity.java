@@ -2,8 +2,8 @@ package org.gnucash.api.read;
 
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 
 /**
  * In GnuCash lingo, "commodity" is an umbrella term for

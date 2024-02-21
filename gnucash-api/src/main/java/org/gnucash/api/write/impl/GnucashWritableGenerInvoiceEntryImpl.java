@@ -8,8 +8,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;

@@ -3,9 +3,9 @@ package org.gnucash.api.write;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.UnknownAccountTypeException;

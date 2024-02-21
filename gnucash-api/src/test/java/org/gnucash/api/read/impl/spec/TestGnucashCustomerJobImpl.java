@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.impl.GnucashFileImpl;

@@ -3,7 +3,7 @@ package org.gnucash.api.read;
 import java.time.ZonedDateTime;
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.read.aux.GCshOwner;

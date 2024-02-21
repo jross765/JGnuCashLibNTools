@@ -3,7 +3,7 @@ package org.gnucash.apiext.depot;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransactionSplit;

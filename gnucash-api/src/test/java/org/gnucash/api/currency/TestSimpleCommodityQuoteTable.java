@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.impl.GnucashFileImpl;

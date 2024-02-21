@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;

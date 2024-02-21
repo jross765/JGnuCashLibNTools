@@ -3,7 +3,7 @@ package org.gnucash.api.read.impl.aux;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncGncBillTerm.BilltermChild;
 import org.gnucash.api.read.GnucashFile;

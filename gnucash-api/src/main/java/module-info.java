@@ -4,8 +4,8 @@ module gnucash.api {
 	requires jakarta.xml.bind;
 	requires java.xml;
 	
-	exports org.gnucash.api.basetypes.simple;
-	exports org.gnucash.api.basetypes.complex;
+	requires gnucash.base;
+	
 	exports org.gnucash.api.currency;
 	exports org.gnucash.api.numbers;
 	

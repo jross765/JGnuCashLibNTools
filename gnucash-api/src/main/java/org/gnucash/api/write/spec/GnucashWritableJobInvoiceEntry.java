@@ -1,6 +1,6 @@
 package org.gnucash.api.write.spec;
 
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;

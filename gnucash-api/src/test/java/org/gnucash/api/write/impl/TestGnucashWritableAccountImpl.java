@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashAccountImpl;

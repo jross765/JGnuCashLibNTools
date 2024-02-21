@@ -3,7 +3,7 @@ package org.gnucash.api.read;
 import java.util.Collection;
 import java.util.Locale;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.numbers.FixedPointNumber;

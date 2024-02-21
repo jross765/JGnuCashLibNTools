@@ -1,6 +1,6 @@
 package org.gnucash.api.read.impl.spec;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;

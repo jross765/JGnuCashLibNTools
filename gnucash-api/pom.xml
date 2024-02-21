@@ -30,6 +30,14 @@
 
 	<dependencies>
 
+		<!-- GnuCash Base -->
+		<dependency>
+			<groupId>org.gnucash</groupId>
+			<artifactId>gnucash-base</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
 			<artifactId>jakarta.xml.bind-api</artifactId>

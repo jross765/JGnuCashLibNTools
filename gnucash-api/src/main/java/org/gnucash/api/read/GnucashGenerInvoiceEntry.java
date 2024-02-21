@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;

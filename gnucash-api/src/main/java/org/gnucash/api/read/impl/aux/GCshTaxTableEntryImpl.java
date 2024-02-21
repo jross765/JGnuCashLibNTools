@@ -2,7 +2,7 @@ package org.gnucash.api.read.impl.aux;
 
 import java.util.Objects;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;

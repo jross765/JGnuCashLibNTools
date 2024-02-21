@@ -3,7 +3,7 @@ package org.example.gnucashapi.write;
 import java.io.File;
 import java.time.LocalDateTime;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;

@@ -3,7 +3,7 @@ package org.gnucash.api.write.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;

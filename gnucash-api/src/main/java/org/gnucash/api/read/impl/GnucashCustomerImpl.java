@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.numbers.FixedPointNumber;

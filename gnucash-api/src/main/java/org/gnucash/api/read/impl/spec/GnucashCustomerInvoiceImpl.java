@@ -3,7 +3,7 @@ package org.gnucash.api.read.impl.spec;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;

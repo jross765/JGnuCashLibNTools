@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.gnucash</groupId>
+		<artifactId>gnucash</artifactId>
+		<version>${project.version}</version>
+	</parent>
+
+	<artifactId>gnucash-base</artifactId>
+
+	<name>${project.title} : Base</name>
+
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+	</properties>
+
+	<repositories>
+
+		<repository>
+			<id>central</id>
+			<url>http://repo.maven.apache.org/maven2/</url>
+		</repository>
+
+	</repositories>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.3</version>
+				<configuration>
+					<show>private</show>
+					<nohelp>true</nohelp>
+					<!-- <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable> -->
+					<javadocExecutable>/usr/bin/javadoc</javadocExecutable>
+				</configuration>
+			</plugin>
+      
+      	</plugins>
+
+	</build>
+
+</project>

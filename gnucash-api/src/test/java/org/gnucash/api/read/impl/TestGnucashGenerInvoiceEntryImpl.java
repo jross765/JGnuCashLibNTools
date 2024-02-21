@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.Locale;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.aux.GCshFileStats;

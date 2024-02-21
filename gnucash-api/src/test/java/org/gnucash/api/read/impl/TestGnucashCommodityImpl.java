@@ -7,10 +7,10 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.junit.Before;

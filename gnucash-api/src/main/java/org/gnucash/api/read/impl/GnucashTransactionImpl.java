@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;

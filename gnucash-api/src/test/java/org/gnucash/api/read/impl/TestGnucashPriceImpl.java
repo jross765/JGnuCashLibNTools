@@ -8,11 +8,11 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID_Exchange;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;

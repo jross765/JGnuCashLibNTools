@@ -3,10 +3,10 @@ package org.gnucash.api.write;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.gnucash.api.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.api.basetypes.complex.GCshCmdtyID;
-import org.gnucash.api.basetypes.complex.GCshCurrID;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.write.hlp.GnucashWritableObject;

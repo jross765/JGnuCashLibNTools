@@ -7,8 +7,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.GncGncEntry.EntryBTaxtable;
 import org.gnucash.api.generated.GncGncEntry.EntryBill;
