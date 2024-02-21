@@ -28,6 +28,8 @@ with locale de_DE (for details, cf. the API module documentation).
 
 # Modules and Further Details
 
+* [Base](https://github.com/jross765/jgnucashlib/tree/master/gnucash-base/README.md)
+
 * [API](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api/README.md)
 
 * [API Extensions](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-ext/README.md)
