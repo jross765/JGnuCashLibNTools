@@ -78,6 +78,14 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 	}
 
 	// ---------------------------------------------------------------
+	
+	public void set(GCshCmdtyID_SecIdType val) {
+		setType(val.getType());
+		setSecIdType(val.getSecIdType());
+		setCode(val.getCode());
+	}
+
+	// ---------------------------------------------------------------
 
 	public static GCshCmdtyID_SecIdType parse(String str)
 			throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
