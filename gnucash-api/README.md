@@ -1,4 +1,12 @@
 # Major Changes 
+## V. 1.3 &rarr; 1.4
+* Changed project structure: 
+  * Introduced new module "Base", moved some basic packages from module "API" into it.
+
+    This was necessary because the author is using the new module in other, external projects (not published).
+
+  * Introduced new module "API Extensions", which contains one class: `DepotTransactionManager`, which provides a simplified, high-level interface for generating buy- and dividend transactions in an investment account.
+
 ## V. 1.2 &rarr; 1.3
 * Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that are no "employee jobs" that one might expect):
   * `Gnucash(Writable)Employee(Impl)` 
@@ -140,11 +148,10 @@ It should go without saying, but the following points are of course subject to c
 
 * Configurable values in `Const` class.
 
-* Possibly some macro code (i.e., wrappers for generating specific variants), e.g. wrappers for:
+* Possibly some additional high-level helper classes/methods in module "API Extensions" (i.e., wrappers for generating specific variants), e.g. wrappers for:
 
   * generating specific variants of invoices/bills,
-  * booking invoice-payement transaction,
-  * booking dividend payments from a share.
+  * booking invoice-payment transactions.
 
 * Possibly taking over other original code from Marcus Wolschon (there are two more packages).
 
