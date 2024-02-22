@@ -1,11 +1,11 @@
 package org.gnucash.api.write;
 
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Customer that can be modified.

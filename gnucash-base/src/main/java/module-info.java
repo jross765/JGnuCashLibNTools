@@ -4,4 +4,6 @@ module gnucash.base {
 	
 	exports org.gnucash.base.basetypes.simple;
 	exports org.gnucash.base.basetypes.complex;
+	exports org.gnucash.base.numbers;
+	exports org.gnucash.base.tuples;
 }

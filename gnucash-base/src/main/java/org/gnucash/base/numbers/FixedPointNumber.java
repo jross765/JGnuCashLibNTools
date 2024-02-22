@@ -1,4 +1,4 @@
-package org.gnucash.api.numbers;
+package org.gnucash.base.numbers;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

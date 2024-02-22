@@ -5,8 +5,8 @@ import java.time.ZonedDateTime;
 import java.util.Locale;
 
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Cust;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Empl;

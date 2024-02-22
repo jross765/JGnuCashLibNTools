@@ -1,8 +1,8 @@
 package org.gnucash.api.write.impl.spec;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;

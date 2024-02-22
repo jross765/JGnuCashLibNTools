@@ -12,10 +12,10 @@ import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;

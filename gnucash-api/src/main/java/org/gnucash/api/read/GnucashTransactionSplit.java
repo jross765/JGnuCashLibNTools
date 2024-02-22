@@ -7,8 +7,8 @@ import java.util.Locale;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.numbers.FixedPointNumber;
 
 /**
  * A single addition or removal of a quantity of an account's accounted-for items 

@@ -4,7 +4,7 @@ import java.beans.PropertyChangeListener;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;

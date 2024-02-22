@@ -1,4 +1,4 @@
-package org.gnucash.api.numbers;
+package org.gnucash.base.numbers;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -3,7 +3,7 @@ package org.gnucash.api.write;
 import java.time.LocalDate;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;

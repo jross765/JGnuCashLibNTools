@@ -14,7 +14,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.read.GnucashPrice.Type;

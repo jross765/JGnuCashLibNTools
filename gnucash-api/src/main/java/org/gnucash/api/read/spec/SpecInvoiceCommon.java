@@ -1,7 +1,7 @@
 package org.gnucash.api.read.spec;
 
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Methods common to all specialized variants of invoices (and only those).

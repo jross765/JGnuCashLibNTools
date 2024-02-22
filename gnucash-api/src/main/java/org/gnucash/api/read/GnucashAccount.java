@@ -11,8 +11,8 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.numbers.FixedPointNumber;
 
 /**
  * A GnuCash account satisfies the "normal" definition of the term in 

@@ -8,8 +8,8 @@ import java.util.HashSet;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;

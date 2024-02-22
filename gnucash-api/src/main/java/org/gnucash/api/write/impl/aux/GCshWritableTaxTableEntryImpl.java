@@ -2,8 +2,8 @@ package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncTaxTable;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
 import org.gnucash.api.write.GnucashWritableFile;

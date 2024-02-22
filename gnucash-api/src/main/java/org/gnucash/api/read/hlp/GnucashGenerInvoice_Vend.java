@@ -1,9 +1,9 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnucashGenerInvoice_Vend {
     /**

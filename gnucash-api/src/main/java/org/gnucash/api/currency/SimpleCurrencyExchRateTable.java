@@ -6,7 +6,7 @@ import java.util.Currency;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

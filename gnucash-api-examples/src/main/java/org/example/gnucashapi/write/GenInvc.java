@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.AccountNotFoundException;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCustomer;

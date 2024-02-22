@@ -1,8 +1,8 @@
 package org.gnucash.api.read.impl.spec;
 
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.aux.GCshOwner;

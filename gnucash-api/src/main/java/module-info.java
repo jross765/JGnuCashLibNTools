@@ -7,7 +7,6 @@ module gnucash.api {
 	requires gnucash.base;
 	
 	exports org.gnucash.api.currency;
-	exports org.gnucash.api.numbers;
 	
 	exports org.gnucash.api.read;
 	exports org.gnucash.api.read.aux;

@@ -1,7 +1,7 @@
 package org.gnucash.api.write.hlp;
 
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;

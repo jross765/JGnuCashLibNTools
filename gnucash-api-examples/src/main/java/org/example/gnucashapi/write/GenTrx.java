@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;

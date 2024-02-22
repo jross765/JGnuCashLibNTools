@@ -1,9 +1,9 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnucashGenerInvoiceEntry_Cust {
 

@@ -9,7 +9,7 @@ import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.junit.Before;

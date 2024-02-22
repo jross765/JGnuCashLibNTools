@@ -214,7 +214,7 @@
   </slot>
 </book:slots>
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
-<gnc:count-data cd:type="account">103</gnc:count-data>
+<gnc:count-data cd:type="account">102</gnc:count-data>
 <gnc:count-data cd:type="transaction">14</gnc:count-data>
 <gnc:count-data cd:type="price">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
@@ -1432,17 +1432,6 @@
   </act:commodity>
   <act:commodity-scu>100</act:commodity-scu>
   <act:description>Sonstige Sozialabgaben</act:description>
-  <act:parent type="guid">4681684348c64a10bac7f6e82a07f7d6</act:parent>
-</gnc:account>
-<gnc:account version="2.0.0">
-  <act:name>Kapitalertrag</act:name>
-  <act:id type="guid">2a195872e24048a0a6228107ca8b6a52</act:id>
-  <act:type>EXPENSE</act:type>
-  <act:commodity>
-    <cmdty:space>CURRENCY</cmdty:space>
-    <cmdty:id>EUR</cmdty:id>
-  </act:commodity>
-  <act:commodity-scu>100</act:commodity-scu>
   <act:parent type="guid">4681684348c64a10bac7f6e82a07f7d6</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">

@@ -6,9 +6,9 @@ import java.util.Locale;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.UnknownAccountTypeException;

@@ -7,7 +7,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.numbers.FixedPointNumber;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashPrice;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.read.GnucashCommodity;

@@ -1,10 +1,10 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.generated.GncGncBillTerm;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.impl.aux.GCshBillTermsProximoImpl;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableBillTermsProximo;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

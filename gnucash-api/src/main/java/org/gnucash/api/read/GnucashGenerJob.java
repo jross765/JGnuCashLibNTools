@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.Locale;
 
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
-import org.gnucash.api.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
