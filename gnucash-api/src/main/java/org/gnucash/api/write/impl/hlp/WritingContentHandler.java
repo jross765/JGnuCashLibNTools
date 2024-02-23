@@ -35,8 +35,8 @@ public class WritingContentHandler implements ContentHandler {
 
     // ----------------------------
 
-    private final String encodeme[] = new String[] { "&", ">", "<" };
-    private final String encoded[]  = new String[] { "&amp;", "&gt;", "&lt;" };
+    private final String encodeme[] = new String[] { "&", ">", "<", "\"" };
+    private final String encoded[]  = new String[] { "&amp;", "&gt;", "&lt;", "&quot;" };
 
     // ----------------------------
 
