@@ -7,6 +7,8 @@
 
   * Introduced new module "API Extensions", which contains one class: `DepotTransactionManager`, which provides a simplified, high-level interface for generating buy- and dividend transactions in an investment account.
 
+* Improved test coverage.
+
 ## V. 1.2 &rarr; 1.3
 * Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that are no "employee jobs" that one might expect):
   * `Gnucash(Writable)Employee(Impl)` 
