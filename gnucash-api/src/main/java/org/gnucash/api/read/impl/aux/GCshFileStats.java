@@ -2,13 +2,13 @@ package org.gnucash.api.read.impl.aux;
 
 import java.io.IOException;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.hlp.FileStats;
 import org.gnucash.api.read.impl.hlp.FileStats_Cache;
 import org.gnucash.api.read.impl.hlp.FileStats_Counters;
 import org.gnucash.api.read.impl.hlp.FileStats_Raw;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -203,5 +203,89 @@ public class GCshFileStats {
 	
 	return FileStats.ERROR; // Compiler happy
     }
+
+	// ---------------------------------------------------------------
+	
+	public boolean equals(GCshFileStats other) {
+		if ( other.getNofEntriesAccounts(Type.RAW)     != getNofEntriesAccounts(Type.RAW) ||
+			 other.getNofEntriesAccounts(Type.COUNTER) != getNofEntriesAccounts(Type.COUNTER) ||
+			 other.getNofEntriesAccounts(Type.CACHE)   != getNofEntriesAccounts(Type.CACHE)) {
+			return false;
+		}
+		
+		if ( other.getNofEntriesTransactions(Type.RAW)     != getNofEntriesTransactions(Type.RAW) ||
+			 other.getNofEntriesTransactions(Type.COUNTER) != getNofEntriesTransactions(Type.COUNTER) ||
+			 other.getNofEntriesTransactions(Type.CACHE)   != getNofEntriesTransactions(Type.CACHE)) {
+			return false;
+		}
+			
+		if ( other.getNofEntriesTransactionSplits(Type.RAW)     != getNofEntriesTransactionSplits(Type.RAW) ||
+			 other.getNofEntriesTransactionSplits(Type.COUNTER) != getNofEntriesTransactionSplits(Type.COUNTER) ||
+			 other.getNofEntriesTransactionSplits(Type.CACHE)   != getNofEntriesTransactionSplits(Type.CACHE)) {
+			return false;
+		}
+				
+		if ( other.getNofEntriesGenerInvoices(Type.RAW)     != getNofEntriesGenerInvoices(Type.RAW) ||
+			 other.getNofEntriesGenerInvoices(Type.COUNTER) != getNofEntriesGenerInvoices(Type.COUNTER) ||
+			 other.getNofEntriesGenerInvoices(Type.CACHE)   != getNofEntriesGenerInvoices(Type.CACHE)) {
+			return false;
+		}
+					
+		if ( other.getNofEntriesGenerInvoiceEntries(Type.RAW)     != getNofEntriesGenerInvoiceEntries(Type.RAW) ||
+			 other.getNofEntriesGenerInvoiceEntries(Type.COUNTER) != getNofEntriesGenerInvoiceEntries(Type.COUNTER) ||
+			 other.getNofEntriesGenerInvoiceEntries(Type.CACHE)   != getNofEntriesGenerInvoiceEntries(Type.CACHE)) {
+			return false;
+		}
+						
+		if ( other.getNofEntriesCustomers(Type.RAW)     != getNofEntriesCustomers(Type.RAW) ||
+			 other.getNofEntriesCustomers(Type.COUNTER) != getNofEntriesCustomers(Type.COUNTER) ||
+			 other.getNofEntriesCustomers(Type.CACHE)   != getNofEntriesCustomers(Type.CACHE)) {
+			return false;
+		}
+					
+		if ( other.getNofEntriesVendors(Type.RAW)     != getNofEntriesVendors(Type.RAW) ||
+			 other.getNofEntriesVendors(Type.COUNTER) != getNofEntriesVendors(Type.COUNTER) ||
+			 other.getNofEntriesVendors(Type.CACHE)   != getNofEntriesVendors(Type.CACHE)) {
+			return false;
+		}
+						
+		if ( other.getNofEntriesEmployees(Type.RAW)     != getNofEntriesEmployees(Type.RAW) ||
+			 other.getNofEntriesEmployees(Type.COUNTER) != getNofEntriesEmployees(Type.COUNTER) ||
+			 other.getNofEntriesEmployees(Type.CACHE)   != getNofEntriesEmployees(Type.CACHE)) {
+			return false;
+		}
+							
+		if ( other.getNofEntriesGenerJobs(Type.RAW)     != getNofEntriesGenerJobs(Type.RAW) ||
+			 other.getNofEntriesGenerJobs(Type.COUNTER) != getNofEntriesGenerJobs(Type.COUNTER) ||
+			 other.getNofEntriesGenerJobs(Type.CACHE)   != getNofEntriesGenerJobs(Type.CACHE)) {
+			return false;
+		}
+								
+		if ( other.getNofEntriesCommodities(Type.RAW)     != getNofEntriesCommodities(Type.RAW) ||
+			 other.getNofEntriesCommodities(Type.COUNTER) != getNofEntriesCommodities(Type.COUNTER) ||
+			 other.getNofEntriesCommodities(Type.CACHE)   != getNofEntriesCommodities(Type.CACHE)) {
+			return false;
+		}
+					
+		if ( other.getNofEntriesPrices(Type.RAW)     != getNofEntriesPrices(Type.RAW) ||
+			 other.getNofEntriesPrices(Type.COUNTER) != getNofEntriesPrices(Type.COUNTER) ||
+			 other.getNofEntriesPrices(Type.CACHE)   != getNofEntriesPrices(Type.CACHE)) {
+			return false;
+		}
+									
+		if ( other.getNofEntriesTaxTables(Type.RAW)     != getNofEntriesTaxTables(Type.RAW) ||
+			 other.getNofEntriesTaxTables(Type.COUNTER) != getNofEntriesTaxTables(Type.COUNTER) ||
+			 other.getNofEntriesTaxTables(Type.CACHE)   != getNofEntriesTaxTables(Type.CACHE)) {
+			return false;
+		}
+						
+		if ( other.getNofEntriesBillTerms(Type.RAW)     != getNofEntriesBillTerms(Type.RAW) ||
+			 other.getNofEntriesBillTerms(Type.COUNTER) != getNofEntriesBillTerms(Type.COUNTER) ||
+			 other.getNofEntriesBillTerms(Type.CACHE)   != getNofEntriesBillTerms(Type.CACHE)) {
+			return false;
+		}
+							
+		return true;
+	}
 
 }
