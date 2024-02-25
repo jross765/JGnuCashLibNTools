@@ -3,13 +3,14 @@ package org.gnucash.api.read.impl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -123,8 +124,8 @@ public class GnucashCommodityImpl implements GnucashCommodity
 
     // ::TODO sort the entries by date
     @Override
-    public Collection<GnucashPrice> getQuotes() throws InvalidCmdtyCurrTypeException {
-	Collection<GnucashPrice> result = new ArrayList<GnucashPrice>();
+    public List<GnucashPrice> getQuotes() throws InvalidCmdtyCurrTypeException {
+    	List<GnucashPrice> result = new ArrayList<GnucashPrice>();
 	
 	Collection<GnucashPrice> prices = getGnucashFile().getPrices();
 	for ( GnucashPrice price : prices ) {

@@ -133,14 +133,14 @@ public abstract class SimpleAccount implements GnucashAccount {
 
 	@Override
 	public FixedPointNumber getBalance(final LocalDate date) {
-		return getBalance(date, (Collection<GnucashTransactionSplit>) null);
+		return getBalance(date, (List<GnucashTransactionSplit>) null);
 	}
 
 	/**
 	 * The currency will be the one of this account.
 	 */
 	@Override
-	public FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after) {
+	public FixedPointNumber getBalance(final LocalDate date, List<GnucashTransactionSplit> after) {
 	
 		FixedPointNumber balance = new FixedPointNumber();
 	

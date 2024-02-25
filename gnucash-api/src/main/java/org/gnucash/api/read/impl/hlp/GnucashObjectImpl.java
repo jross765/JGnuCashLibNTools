@@ -159,7 +159,7 @@ public class GnucashObjectImpl implements GnucashObject {
      * @return all keys that can be used with
      *         ${@link #getUserDefinedAttribute(String)}}.
      */
-	public Collection<String> getUserDefinedAttributeKeys() {
+	public List<String> getUserDefinedAttributeKeys() {
 		List<String> retval = new ArrayList<String>();
 
 		for ( Slot slot : getSlots().getSlot() ) {

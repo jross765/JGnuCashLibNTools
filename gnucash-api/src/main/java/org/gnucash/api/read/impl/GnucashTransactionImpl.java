@@ -5,18 +5,11 @@ import java.text.NumberFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
@@ -28,6 +21,12 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -277,8 +276,8 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @return the invoices this transaction belongs to (not payments but the
      *         transaction belonging to handing out the invoice)
      */
-    public Collection<GnucashGenerInvoice> getInvoices() {
-	Collection<GCshID> invoiceIDs = getInvoiceIDs();
+    public List<GnucashGenerInvoice> getInvoices() {
+    	List<GCshID> invoiceIDs = getInvoiceIDs();
 	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>(invoiceIDs.size());
 
 	for (GCshID invoiceID : invoiceIDs) {
@@ -300,7 +299,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
      * @return the invoices this transaction belongs to (not payments but the
      *         transaction belonging to handing out the invoice)
      */
-    public Collection<GCshID> getInvoiceIDs() {
+    public List<GCshID> getInvoiceIDs() {
 
 	List<GCshID> retval = new ArrayList<GCshID>();
 
@@ -361,7 +360,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	    jwsdpPeer.getTrnSplits().getTrnSplit().add(impl.getJwsdpPeer());
 	}
 
-	Collection<GnucashTransactionSplit> splits = getSplits();
+	List<GnucashTransactionSplit> splits = getSplits();
 	if (!splits.contains(impl)) {
 	    splits.add(impl);
 	}

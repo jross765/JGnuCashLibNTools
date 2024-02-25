@@ -196,8 +196,8 @@ public class FileTransactionManager {
 		return retval;
 	}
 
-	public Collection<GnucashTransactionImpl> getTransactions_readAfresh() {
-		Collection<GnucashTransactionImpl> result = new ArrayList<GnucashTransactionImpl>();
+	public List<GnucashTransactionImpl> getTransactions_readAfresh() {
+		List<GnucashTransactionImpl> result = new ArrayList<GnucashTransactionImpl>();
 
 		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
 			try {
@@ -215,10 +215,10 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	private Collection<GncTransaction> getTransactions_raw() {
+	private List<GncTransaction> getTransactions_raw() {
 		GncV2 pRootElement = gcshFile.getRootElement();
 
-		Collection<GncTransaction> result = new ArrayList<GncTransaction>();
+		List<GncTransaction> result = new ArrayList<GncTransaction>();
 
 		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
 			Object bookElement = iter.next();
@@ -235,15 +235,21 @@ public class FileTransactionManager {
 
 	// ----------------------------
 
-	public Collection<GnucashTransactionSplit> getTransactionSplits() {
+	public List<GnucashTransactionSplit> getTransactionSplits() {
 		if ( trxSpltMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
-		return Collections.unmodifiableCollection(trxSpltMap.values());
+		
+		List<GnucashTransactionSplit> result = new ArrayList<GnucashTransactionSplit>();
+		for ( GnucashTransactionSplit elt : trxSpltMap.values() ) {
+			result.add(elt);
+		}
+		
+		return Collections.unmodifiableList(result);
 	}
 
-	public Collection<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh() {
-		Collection<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
+	public List<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh() {
+		List<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
 
 		for ( GnucashTransaction trx : getTransactions_readAfresh() ) {
 			for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
@@ -264,8 +270,8 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	public Collection<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
-		Collection<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
+	public List<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
+		List<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
 
 		for ( GnucashTransaction trx : getTransactions_readAfresh() ) {
 			if ( trx.getID().equals(trxID) ) {
@@ -288,8 +294,8 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	private Collection<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GncTransaction jwsdpTrx) {
-		Collection<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
+	private List<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GncTransaction jwsdpTrx) {
+		List<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
 
 		for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : jwsdpTrx.getTrnSplits().getTrnSplit() ) {
 			result.add(jwsdpTrxSplt);
@@ -298,8 +304,8 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	private Collection<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GCshID trxID) {
-		Collection<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
+	private List<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GCshID trxID) {
+		List<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
 
 		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
 			if ( jwsdpTrx.getTrnId().getValue().equals(trxID.toString()) ) {

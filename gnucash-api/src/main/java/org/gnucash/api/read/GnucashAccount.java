@@ -232,7 +232,7 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      * @param after splits that are after date are added here.
      * @return the balance formatted using the current locale
      */
-    FixedPointNumber getBalance(final LocalDate date, Collection<GnucashTransactionSplit> after);
+    FixedPointNumber getBalance(final LocalDate date, List<GnucashTransactionSplit> after);
 
 	FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException;
 	

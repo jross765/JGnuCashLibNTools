@@ -1,9 +1,8 @@
 package org.gnucash.api.read;
 
 import java.time.ZonedDateTime;
-import java.util.Collection;
+import java.util.List;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -16,6 +15,7 @@ import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
  * This class represents a generic invoice.
@@ -185,7 +185,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
      *
      * @return the transactions the customer Paid this invoice vis.
      */
-    Collection<? extends GnucashTransaction> getPayingTransactions();
+    List<? extends GnucashTransaction> getPayingTransactions();
 
     /**
      *
@@ -215,7 +215,7 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
      * @return the content of the invoice
      * @see ${@link GnucashGenerInvoiceEntry}
      */
-    Collection<GnucashGenerInvoiceEntry> getGenerEntries();
+    List<GnucashGenerInvoiceEntry> getGenerEntries();
 
     /**
      * This method is used internally during the loading of a file.

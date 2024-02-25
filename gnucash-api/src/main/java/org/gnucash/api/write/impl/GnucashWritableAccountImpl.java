@@ -472,7 +472,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	    return myBalanceCached;
 	}
 
-	Collection<GnucashTransactionSplit> after = new ArrayList<GnucashTransactionSplit>();
+	List<GnucashTransactionSplit> after = new ArrayList<GnucashTransactionSplit>();
 	FixedPointNumber balance = getBalance(LocalDate.now(), after);
 	
 	if ( after.isEmpty() ) {
@@ -502,7 +502,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			}
 			
 			if ( evt.getPropertyName().equals("transactionSplits") ) {
-			    Collection<GnucashTransactionSplit> splits = (Collection<GnucashTransactionSplit>) evt.getNewValue();
+				List<GnucashTransactionSplit> splits = (List<GnucashTransactionSplit>) evt.getNewValue();
 			    for ( GnucashTransactionSplit split : splits ) {
 				if ( ! (split instanceof GnucashWritableTransactionSplit) || 
 				     splitsWeAreAddedTo.contains(split)) {

@@ -6,13 +6,9 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncInvoice.InvoiceOwner;
 import org.gnucash.api.generated.ObjectFactory;
@@ -31,6 +27,8 @@ import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,12 +81,12 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	/**
 	 * The entries of this invoice.
 	 */
-	protected Collection<GnucashGenerInvoiceEntry> entries = new HashSet<GnucashGenerInvoiceEntry>();
+	protected List<GnucashGenerInvoiceEntry> entries = new ArrayList<GnucashGenerInvoiceEntry>();
 
 	/**
 	 * The transactions that are paying for this invoice.
 	 */
-	private final Collection<GnucashTransaction> payingTransactions = new ArrayList<GnucashTransaction>();
+	private final List<GnucashTransaction> payingTransactions = new ArrayList<GnucashTransaction>();
 
 	// ------------------------------
 
@@ -165,7 +163,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	 * @return all keys that can be used with
 	 *         ${@link #getUserDefinedAttribute(String)}}.
 	 */
-	public Collection<String> getUserDefinedAttributeKeys() {
+	public List<String> getUserDefinedAttributeKeys() {
 		return helper.getUserDefinedAttributeKeys();
 	}
 
@@ -285,7 +283,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Collection<GnucashTransaction> getPayingTransactions() {
+	public List<GnucashTransaction> getPayingTransactions() {
 		return payingTransactions;
 	}
 
@@ -1188,7 +1186,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Collection<GnucashGenerInvoiceEntry> getGenerEntries() {
+	public List<GnucashGenerInvoiceEntry> getGenerEntries() {
 		return entries;
 	}
 
