@@ -2,13 +2,7 @@ package org.gnucash.api.write.impl.hlp;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
-import org.gnucash.api.Const;
-import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.generated.Slot;
-import org.gnucash.api.generated.SlotValue;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
@@ -19,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * Extension of GnucashObjectImpl to allow read-write access instead of
  * read-only access.
  */
-public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE DO NOT EXTEND
+public class GnucashWritableObjectImpl extends GnucashObjectImpl
 		                               implements GnucashWritableObject 
 {
 
@@ -30,7 +24,7 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 
 	// ---------------------------------------------------------------
 
-	private GnucashObjectImpl gcshObj;
+	private Object obj;
 
 	/**
 	 * support for firing PropertyChangeEvents. (gets initialized only if we really
@@ -40,17 +34,18 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 
 	// ---------------------------------------------------------------
 
-	public GnucashWritableObjectImpl() {
-		super();
+	public GnucashWritableObjectImpl(final GnucashWritableFile myFile) {
+		super(myFile);
 		// TODO implement constructor for GnucashWritableObjectHelper
 	}
 
 	/**
+	 * @param myFile 
 	 * @param obj the object we are helping with
 	 */
-	public GnucashWritableObjectImpl(final GnucashObjectImpl obj) {
-		super();
-		setGnucashObject(obj);
+	public GnucashWritableObjectImpl(final GnucashWritableFile myFile, final Object obj) {
+		super(myFile);
+		this.obj = obj;
 	}
 
 	// ---------------------------------------------------------------
@@ -59,75 +54,17 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 	 * {@inheritDoc}
 	 */
 	public GnucashWritableFile getWritableGnucashFile() {
-		return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public GnucashWritableFile getFile() {
-		return (GnucashWritableFile) getGnucashObject().getGnucashFile();
-		// return ((GnucashWritableObject) getGnucashObject()).getWritableGnucashFile();
-	}
-
-	/**
-	 * Remove slots with dummy content
-	 */
-	public void cleanSlots() {
-		if ( gcshObj.getSlots() == null )
-			return;
-
-		for ( Slot slot : gcshObj.getSlots().getSlot() ) {
-			if ( slot.getSlotKey().equals(Const.SLOT_KEY_DUMMY) ) {
-				gcshObj.getSlots().getSlot().remove(slot);
-				break;
-			}
-		}
+		return (GnucashWritableFile) getGnucashFile();
 	}
 
 	// ---------------------------------------------------------------
-
-	/**
-	 * @param name  the name of the user-defined attribute
-	 * @param value the value or null if not set
-	 * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-	 */
-	public void setUserDefinedAttribute(final String name, final String value) {
-		List<Slot> slots = getGnucashObject().getSlots().getSlot();
-		for ( Slot slot : slots ) {
-			if ( slot.getSlotKey().equals(name) ) {
-				LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value
-						+ ") - overwriting existing slot ");
-
-				slot.getSlotValue().getContent().clear();
-				slot.getSlotValue().getContent().add(value);
-				getFile().setModified(true);
-				return;
-			}
-		}
-
-		ObjectFactory objectFactory = new ObjectFactory();
-		Slot newSlot = objectFactory.createSlot();
-		newSlot.setSlotKey(name);
-		SlotValue newValue = objectFactory.createSlotValue();
-		newValue.setType(Const.XML_DATA_TYPE_STRING);
-		newValue.getContent().add(value);
-		newSlot.setSlotValue(newValue);
-		LOGGER.debug("setUserDefinedAttribute: (name=" + name + ", value=" + value + ") - adding new slot ");
-
-		slots.add(newSlot);
-
-		getFile().setModified(true);
-	}
-
-	// ------------------------ support for propertyChangeListeners
 
 	/**
 	 * Returned value may be null if we never had listeners.
 	 *
 	 * @return Our support for firing PropertyChangeEvents
 	 */
-	protected PropertyChangeSupport getPropertyChangeSupport() {
+	public PropertyChangeSupport getPropertyChangeSupport() {
 		return myPtyChg;
 	}
 
@@ -184,41 +121,6 @@ public class GnucashWritableObjectImpl // extends GnucashObjectImpl <-- NO, WE D
 
 	// ---------------------------------------------------------------
 
-	/**
-	 * @return Returns the gnucashObject.
-	 */
-	public GnucashObjectImpl getGnucashObject() {
-		return gcshObj;
-	}
-
-	/**
-	 * @param obj The gnucashObject to set.
-	 */
-	public void setGnucashObject(final GnucashObjectImpl obj) {
-		if ( obj == null ) {
-			throw new IllegalArgumentException("null GnuCash-object given!");
-		}
-
-		GnucashObjectImpl oldObj = this.gcshObj;
-		if ( oldObj == obj ) {
-			return; // nothing has changed
-		}
-
-		this.gcshObj = obj;
-		// <<insert code to react further to this change here
-		PropertyChangeSupport ptyChgFirer = getPropertyChangeSupport();
-		if ( ptyChgFirer != null ) {
-			ptyChgFirer.firePropertyChange("gnucashObject", oldObj, obj);
-		}
-	}
-
-	// ---------------------------------------------------------------
-
-	/**
-	 * Just an overridden ToString to return this classe's name and hashCode.
-	 *
-	 * @return className and hashCode
-	 */
 	@Override
 	public String toString() {
 		return "GnucashWritableObjectHelper@" + hashCode();

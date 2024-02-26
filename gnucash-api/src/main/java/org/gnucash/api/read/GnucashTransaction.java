@@ -11,6 +11,9 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.hlp.HasAttachment;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 
 /**
  * A financial transaction between two or more accounts.
@@ -23,7 +26,9 @@ import org.gnucash.api.generated.GncTransaction;
  * @see GnucashTransactionSplit
  */
 public interface GnucashTransaction extends Comparable<GnucashTransaction>,
-                                            HasAttachment
+                                            GnucashObject,
+                                            HasAttachment,
+                                            HasUserDefinedAttributes
 {
 
     // For the following types cf.:
@@ -92,12 +97,6 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
     @SuppressWarnings("exports")
     GncTransaction getJwsdpPeer();
 
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * @return the file we are associated with
-     */
-    GnucashFile getGnucashFile();
-    
     // ----------------------------
 
     /**
@@ -223,14 +222,4 @@ public interface GnucashTransaction extends Comparable<GnucashTransaction>,
      */
     String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
-    /**
-     * @return all keys that can be used with ${@link #getUserDefinedAttribute(String)}}.
-     */
-    Collection<String> getUserDefinedAttributeKeys();
-
-    /**
-     * @param name the name of the user-defined attribute
-     * @return the value or null if not set
-     */
-    String getUserDefinedAttribute(final String name);
 }

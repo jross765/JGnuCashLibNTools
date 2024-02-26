@@ -10,6 +10,9 @@ import org.gnucash.api.read.hlp.GnucashGenerInvoice_Cust;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Empl;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Job;
 import org.gnucash.api.read.hlp.GnucashGenerInvoice_Vend;
+import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.hlp.HasAttachment;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
@@ -51,6 +54,8 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
                                              GnucashGenerInvoice_Vend,
                                              GnucashGenerInvoice_Empl,
                                              GnucashGenerInvoice_Job,
+                                             GnucashObject,
+                                             HasUserDefinedAttributes,
                                              HasAttachment
 {
 
@@ -104,13 +109,6 @@ public interface GnucashGenerInvoice extends Comparable<GnucashGenerInvoice>,
 
     @SuppressWarnings("exports")
     GncGncInvoice getJwsdpPeer();
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * 
-     * @return the file we are associated with
-     */
-    GnucashFile getFile();
 
     // ---------------------------------------------------------------
 

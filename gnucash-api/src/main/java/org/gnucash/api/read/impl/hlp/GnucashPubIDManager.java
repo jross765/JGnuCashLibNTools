@@ -1,4 +1,4 @@
-package org.gnucash.api.read.impl;
+package org.gnucash.api.read.impl.hlp;
 
 /**
  * In this interface, we assume that the numbers of customers, vendors, 

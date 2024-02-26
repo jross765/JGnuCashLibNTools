@@ -6,9 +6,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCustomer;
@@ -29,11 +26,13 @@ import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,16 +134,29 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 		} // for trx
 	}
 
-	// ---------------------------------------------------------------
+    // ---------------------------------------------------------------
 
-	/**
-	 * The gnucash-file is the top-level class to contain everything.
-	 *
-	 * @return the file we are associated with
-	 */
-	protected GnucashWritableFileImpl getWritableFile() {
-		return (GnucashWritableFileImpl) getFile();
-	}
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    // ---------------------------------------------------------------
 
 	/**
 	 * support for firing PropertyChangeEvents. (gets initialized only if we really
@@ -229,7 +241,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 		}
 
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
-		getWritableFile().setModified(true);
+		getWritableGnucashFile().setModified(true);
 
 		// <<insert code to react further to this change here
 		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();

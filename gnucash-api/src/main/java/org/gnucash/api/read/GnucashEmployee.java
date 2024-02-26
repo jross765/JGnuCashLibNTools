@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -21,17 +22,9 @@ import org.gnucash.base.numbers.FixedPointNumber;
  * @see GnucashCustomer
  * @see GnucashVendor
  */
-public interface GnucashEmployee extends GnucashObject {
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * 
-     * @return the file we are associated with
-     */
-    GnucashFile getGnucashFile();
-
-    // ------------------------------------------------------------
-
+public interface GnucashEmployee extends GnucashObject,
+										 HasUserDefinedAttributes
+{
     /**
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes

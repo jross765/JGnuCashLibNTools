@@ -2,14 +2,10 @@ package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncCustomer;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -20,12 +16,15 @@ import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +33,12 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashCustomerImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncGncCustomer jwsdpPeer;
+    protected final GncGncCustomer jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -55,11 +56,11 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnucashCustomerImpl(final GncGncCustomer peer, final GnucashFile gcshFile) {
-	super((peer.getCustSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getCustSlots(), gcshFile);
+	super(gcshFile);
 
-	if (peer.getCustSlots() == null) {
-	    peer.setCustSlots(getSlots());
-	}
+//	if (peer.getCustSlots() == null) {
+//	    peer.setCustSlots(getJwsdpPeer().getCustSlots());
+//	}
 
 	jwsdpPeer = peer;
     }
@@ -457,6 +458,20 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 
     // ------------------------------------------------------------
 
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeCore(jwsdpPeer.getCustSlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getCustSlots().getSlot());
+	}
+    
+    // ------------------------------------------------------------
+
     public static int getHighestNumber(GnucashCustomer cust) {
 	return ((GnucashFileImpl) cust.getGnucashFile()).getHighestCustomerNumber();
     }
@@ -483,5 +498,5 @@ public class GnucashCustomerImpl extends GnucashObjectImpl
 	buffer.append("]");
 	return buffer.toString();
     }
-    
+
 }

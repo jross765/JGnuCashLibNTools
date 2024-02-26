@@ -5,19 +5,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.hlp.GnucashObject;
-import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SimpleAccount;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +33,14 @@ public class GnucashAccountImpl extends SimpleAccount
     /**
      * the JWSDP-object we are facading.
      */
-    private GncAccount jwsdpPeer;
+    protected final GncAccount jwsdpPeer;
     
     // ---------------------------------------------------------------
 
     /**
      * Helper to implement the {@link GnucashObject}-interface.
      */
-    protected GnucashObjectImpl helper;
+//    protected GnucashObjectImpl helper;
 
     // ---------------------------------------------------------------
 
@@ -69,13 +68,11 @@ public class GnucashAccountImpl extends SimpleAccount
     public GnucashAccountImpl(final GncAccount peer, final GnucashFile gcshFile) {
 	super(gcshFile);
 
-	if (peer.getActSlots() == null) {
-	    peer.setActSlots(new ObjectFactory().createSlotsType());
-	}
+//	if (peer.getActSlots() == null) {
+//	    peer.setActSlots(new ObjectFactory().createSlotsType());
+//	}
 
 	jwsdpPeer = peer;
-
-	helper = new GnucashObjectImpl(peer.getActSlots(), gcshFile);
     }
 
     // ---------------------------------------------------------------
@@ -242,15 +239,17 @@ public class GnucashAccountImpl extends SimpleAccount
      * @return the value or null if not set
      */
     public String getUserDefinedAttribute(final String name) {
-	return helper.getUserDefinedAttribute(name);
+    	return HasUserDefinedAttributesImpl
+    			.getUserDefinedAttributeCore(jwsdpPeer.getActSlots().getSlot(), name);
     }
 
     /**
      * @return all keys that can be used with
      *         ${@link #getUserDefinedAttribute(String)}}.
      */
-    public Collection<String> getUserDefinedAttributeKeys() {
-	return helper.getUserDefinedAttributeKeys();
+    public List<String> getUserDefinedAttributeKeys() {
+    	return HasUserDefinedAttributesImpl
+    			.getUserDefinedAttributeKeysCore(jwsdpPeer.getActSlots().getSlot());
     }
 
     // -----------------------------------------------------------------

@@ -3,9 +3,9 @@ package org.gnucash.api.write;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.aux.GCshAddress;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
 /**
  * Employee that can be modified.
@@ -13,7 +13,8 @@ import org.gnucash.api.write.hlp.GnucashWritableObject;
  * @see GnucashEmployee
  */
 public interface GnucashWritableEmployee extends GnucashEmployee, 
-                                                 GnucashWritableObject 
+                                                 GnucashWritableObject,
+                                                 HasWritableUserDefinedAttributes
 {
 
     void remove();
@@ -37,12 +38,4 @@ public interface GnucashWritableEmployee extends GnucashEmployee,
 
     GCshWritableAddress getAddress();
 
-    // ---------------------------------------------------------------
-
-    /**
-     * @param name  the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    void setUserDefinedAttribute(final String name, final String value);
 }

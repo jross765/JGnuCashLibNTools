@@ -67,6 +67,8 @@ import org.gnucash.api.read.impl.hlp.FileTaxTableManager;
 import org.gnucash.api.read.impl.hlp.FileTransactionManager;
 import org.gnucash.api.read.impl.hlp.FileVendorManager;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.GnucashPubIDManager;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.NamespaceRemoverReader;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -1143,13 +1145,13 @@ public class GnucashFileImpl implements GnucashFile,
         prcMgr    = new FilePriceManager(this);
 
 	loadPriceDatabase(pRootElement);
-	if (pRootElement.getGncBook().getBookSlots() == null) {
-	    pRootElement.getGncBook().setBookSlots((new ObjectFactory()).createSlotsType());
-	}
+//	if (pRootElement.getGncBook().getBookSlots() == null) {
+//	    pRootElement.getGncBook().setBookSlots((new ObjectFactory()).createSlotsType());
+//	}
 	
 	// ---
 
-	myGnucashObject = new GnucashObjectImpl(pRootElement.getGncBook().getBookSlots(), this);
+	myGnucashObject = new GnucashObjectImpl(this);
 
 	// ---
 	// Init helper entity managers / fill maps
@@ -1335,12 +1337,15 @@ public class GnucashFileImpl implements GnucashFile,
 	return this;
     }
 
+	// -----------------------------------------------------------------
+
     /**
      * {@inheritDoc}
      */
     @Override
     public String getUserDefinedAttribute(final String aName) {
-	return myGnucashObject.getUserDefinedAttribute(aName);
+    	return HasUserDefinedAttributesImpl
+    			.getUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots().getSlot(), aName);
     }
 
     /**
@@ -1348,7 +1353,8 @@ public class GnucashFileImpl implements GnucashFile,
      */
     @Override
     public List<String> getUserDefinedAttributeKeys() {
-	return myGnucashObject.getUserDefinedAttributeKeys();
+    	return HasUserDefinedAttributesImpl
+    			.getUserDefinedAttributeKeysCore(getRootElement().getGncBook().getBookSlots().getSlot());
     }
 
     // ---------------------------------------------------------------

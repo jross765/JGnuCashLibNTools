@@ -21,9 +21,9 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -35,8 +35,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Implementation of GnucashInvoice that uses JWSDP.
  */
-public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
-
+public class GnucashGenerInvoiceImpl extends GnucashObjectImpl
+									 implements GnucashGenerInvoice 
+{
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashGenerInvoiceImpl.class);
 
 	protected static final DateTimeFormatter DATE_OPENED_FORMAT       = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);
@@ -54,17 +55,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	/**
 	 * the JWSDP-object we are facading.
 	 */
-	protected GncGncInvoice jwsdpPeer;
-
-	/**
-	 * The file we belong to.
-	 */
-	protected final GnucashFile gcshFile;
-
-	/**
-	 * Helper to implement the {@link GnucashObject}-interface.
-	 */
-	protected GnucashObjectImpl helper;
+	protected final GncGncInvoice jwsdpPeer;
 
 	// ------------------------------
 
@@ -112,41 +103,37 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	 */
 	@SuppressWarnings("exports")
 	public GnucashGenerInvoiceImpl(final GncGncInvoice peer, final GnucashFile gcshFile) {
-		super();
+		super(gcshFile);
 
-		if ( peer.getInvoiceSlots() == null ) {
-			peer.setInvoiceSlots(new ObjectFactory().createSlotsType());
-		}
+//		if ( peer.getInvoiceSlots() == null ) {
+//			peer.setInvoiceSlots(new ObjectFactory().createSlotsType());
+//		}
 
 		this.jwsdpPeer = peer;
-		this.gcshFile = gcshFile;
-
-		helper = new GnucashObjectImpl(peer.getInvoiceSlots(), gcshFile);
 	}
 
 	// Copy-constructor
 	public GnucashGenerInvoiceImpl(final GnucashGenerInvoice invc) {
-		super();
+		super(invc.getGnucashFile());
 
-		if ( invc.getJwsdpPeer().getInvoiceSlots() == null ) {
-			invc.getJwsdpPeer().setInvoiceSlots(new ObjectFactory().createSlotsType());
-		}
+//		if ( invc.getJwsdpPeer().getInvoiceSlots() == null ) {
+//			invc.getJwsdpPeer().setInvoiceSlots(new ObjectFactory().createSlotsType());
+//		}
 
 		this.jwsdpPeer = invc.getJwsdpPeer();
-		this.gcshFile = invc.getFile();
-
-		helper = new GnucashObjectImpl(invc.getJwsdpPeer().getInvoiceSlots(), invc.getFile());
 
 		for ( GnucashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
 			addGenerEntry(entr);
 		}
 	}
 
+//	// -----------------------------------------------------------------
+//
+//	public GnucashObjectImpl getGnucashObject() {
+//		return helper;
+//	}
+//
 	// -----------------------------------------------------------------
-
-	public GnucashObjectImpl getGnucashObject() {
-		return helper;
-	}
 
 	/**
 	 * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
@@ -156,7 +143,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	 * @return the value or null if not set
 	 */
 	public String getUserDefinedAttribute(final String name) {
-		return helper.getUserDefinedAttribute(name);
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeCore(jwsdpPeer.getInvoiceSlots().getSlot(), name);
 	}
 
 	/**
@@ -164,7 +152,8 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 	 *         ${@link #getUserDefinedAttribute(String)}}.
 	 */
 	public List<String> getUserDefinedAttributeKeys() {
-		return helper.getUserDefinedAttributeKeys();
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeKeysCore(jwsdpPeer.getInvoiceSlots().getSlot());
 	}
 
 	// -----------------------------------------------------------------
@@ -316,7 +305,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		if ( getPostAccountID() == null ) {
 			return null;
 		}
-		return gcshFile.getAccountByID(getPostAccountID());
+		return getGnucashFile().getAccountByID(getPostAccountID());
 	}
 
 	/**
@@ -327,7 +316,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		if ( getPostTransactionID() == null ) {
 			return null;
 		}
-		return gcshFile.getTransactionByID(getPostTransactionID());
+		return getGnucashFile().getTransactionByID(getPostTransactionID());
 	}
 
 	// -----------------------------------------------------------------
@@ -1160,13 +1149,6 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		return jwsdpPeer;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public GnucashFile getFile() {
-		return gcshFile;
-	}
-
 	// ----------------------------
 
 	/**
@@ -1298,7 +1280,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnucashGenerJob job = gcshFile.getGenerJobByID(getOwnerID());
+		GnucashGenerJob job = getGnucashFile().getGenerJobByID(getOwnerID());
 		return job.getOwnerID();
 	}
 
@@ -1327,7 +1309,7 @@ public class GnucashGenerInvoiceImpl implements GnucashGenerInvoice {
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnucashGenerJob job = gcshFile.getGenerJobByID(getOwnerID());
+		GnucashGenerJob job = getGnucashFile().getGenerJobByID(getOwnerID());
 		return job.getOwnerType();
 	}
 

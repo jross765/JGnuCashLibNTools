@@ -4,19 +4,20 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Cust;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Empl;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Job;
 import org.gnucash.api.read.hlp.GnucashGenerInvoiceEntry_Vend;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnucashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Entry (line item) of a {@link GnucashGenerInvoice}
@@ -42,7 +43,8 @@ public interface GnucashGenerInvoiceEntry extends Comparable<GnucashGenerInvoice
                                                   GnucashGenerInvoiceEntry_Cust,
                                                   GnucashGenerInvoiceEntry_Vend,
                                                   GnucashGenerInvoiceEntry_Empl,
-                                                  GnucashGenerInvoiceEntry_Job
+                                                  GnucashGenerInvoiceEntry_Job,
+                                                  HasUserDefinedAttributes
 {
 
     // For the following enumerations cf.:

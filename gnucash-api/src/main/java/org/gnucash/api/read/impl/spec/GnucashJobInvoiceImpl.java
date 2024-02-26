@@ -53,7 +53,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	public GnucashJobInvoiceImpl(final GnucashGenerInvoice invc)
 			throws WrongInvoiceTypeException, IllegalArgumentException {
-		super(invc.getJwsdpPeer(), invc.getFile());
+		super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -150,7 +150,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 	 */
 	@Override
 	public GnucashGenerJob getGenerJob() {
-		return gcshFile.getGenerJobByID(getJobID());
+		return getGnucashFile().getGenerJobByID(getJobID());
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 		if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
-		return getFile().getCustomerByID(getCustomerID());
+		return getGnucashFile().getCustomerByID(getCustomerID());
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 		if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
-		return getFile().getVendorByID(getVendorID());
+		return getGnucashFile().getVendorByID(getVendorID());
 	}
 
 	// ---------------------------------------------------------------

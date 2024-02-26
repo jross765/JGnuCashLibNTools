@@ -31,7 +31,7 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
 	}
 
 	public GnucashCustomerJobImpl(final GnucashGenerJob job) throws WrongInvoiceTypeException {
-		super(job.getJwsdpPeer(), job.getFile());
+		super(job.getJwsdpPeer(), job.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -58,7 +58,7 @@ public class GnucashCustomerJobImpl extends GnucashGenerJobImpl
 	 * {@inheritDoc}
 	 */
 	public GnucashCustomer getCustomer() {
-		return file.getCustomerByID(getCustomerID());
+		return getGnucashFile().getCustomerByID(getCustomerID());
 	}
 
 	// -----------------------------------------------------------------

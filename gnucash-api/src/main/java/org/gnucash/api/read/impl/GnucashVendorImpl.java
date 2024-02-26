@@ -2,14 +2,10 @@ package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncVendor;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerJob;
@@ -20,12 +16,15 @@ import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,10 +33,12 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashVendorImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncGncVendor jwsdpPeer;
+    protected final GncGncVendor jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -55,11 +56,11 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnucashVendorImpl(final GncGncVendor peer, final GnucashFile gcshFile) {
-	super((peer.getVendorSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getVendorSlots(), gcshFile);
+	super(gcshFile);
 
-	if (peer.getVendorSlots() == null) {
-	    peer.setVendorSlots(getSlots());
-	}
+//	if (peer.getVendorSlots() == null) {
+//	    peer.setVendorSlots(getJwsdpPeer().getVendorSlots());
+//	}
 
 	jwsdpPeer = peer;
     }
@@ -429,6 +430,20 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     public List<GnucashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
+
+    // ------------------------------------------------------------
+
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeCore(jwsdpPeer.getVendorSlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getVendorSlots().getSlot());
+	}
 
     // ------------------------------------------------------------
 

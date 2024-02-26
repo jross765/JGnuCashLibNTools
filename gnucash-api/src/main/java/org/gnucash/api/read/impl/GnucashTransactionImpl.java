@@ -21,6 +21,7 @@ import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
@@ -46,12 +47,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    private GncTransaction jwsdpPeer;
-
-    /**
-     * The file we belong to.
-     */
-    private final GnucashFile file;
+    protected final GncTransaction jwsdpPeer;
 
     /**
      * The Currency-Format to use if no locale is given.
@@ -84,11 +80,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	    final GncTransaction peer, 
 	    final GnucashFile gcshFile,
 	    final boolean addTrxToInvc) {
-	super((peer.getTrnSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getTrnSlots(), gcshFile);
+	super(gcshFile);
 
-	if (peer.getTrnSlots() == null) {
-	    peer.setTrnSlots(getSlots());
-	}
+//	if (peer.getTrnSlots() == null) {
+//	    peer.setTrnSlots(jwsdpPeer.getTrnSlots());
+//	}
 
 	if (peer == null) {
 	    throw new IllegalArgumentException("null jwsdpPeer given");
@@ -99,7 +95,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	}
 
 	jwsdpPeer = peer;
-	file = gcshFile;
 
 	if ( addTrxToInvc ) {
 	    for ( GnucashGenerInvoice invc : getInvoices() ) {
@@ -110,12 +105,11 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
     // Copy-constructor
     public GnucashTransactionImpl(final GnucashTransaction trx) {
-	super((trx.getJwsdpPeer().getTrnSlots() == null) ? new ObjectFactory().createSlotsType()
-		: trx.getJwsdpPeer().getTrnSlots(), trx.getGnucashFile());
+	super(trx.getGnucashFile());
 
-	if (trx.getJwsdpPeer().getTrnSlots() == null) {
-	    trx.getJwsdpPeer().setTrnSlots(getSlots());
-	}
+//	if (trx.getJwsdpPeer().getTrnSlots() == null) {
+//	    trx.getJwsdpPeer().setTrnSlots(jwsdpPeer.getTrnSlots());
+//	}
 
 	if (trx.getJwsdpPeer() == null) {
 	    throw new IllegalArgumentException("Transaction not correctly initialized: null jwsdpPeer given");
@@ -126,7 +120,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	}
 
 	jwsdpPeer = trx.getJwsdpPeer();
-	file = trx.getGnucashFile();
 
 	for ( GnucashGenerInvoice invc : getInvoices() ) {
 	    invc.addTransaction(this);
@@ -142,14 +135,6 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     @SuppressWarnings("exports")
     public GncTransaction getJwsdpPeer() {
 	return jwsdpPeer;
-    }
-
-    /**
-     * @see GnucashTransaction#getGnucashFile()
-     */
-    @Override
-    public GnucashFile getGnucashFile() {
-	return file;
     }
 
     // ---------------------------------------------------------------
@@ -282,7 +267,7 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 
 	for (GCshID invoiceID : invoiceIDs) {
 
-	    GnucashGenerInvoice invoice = file.getGenerInvoiceByID(invoiceID);
+	    GnucashGenerInvoice invoice = getGnucashFile().getGenerInvoiceByID(invoiceID);
 	    if (invoice == null) {
 		LOGGER.error("No invoice with id='" + invoiceID + "' for transaction '" + getID() + 
 			     "' description '" + getDescription() + "'");
@@ -525,6 +510,18 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
     }
 
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeCore(jwsdpPeer.getTrnSlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeKeysCore(jwsdpPeer.getTrnSlots().getSlot());
+	}
+
 	// -----------------------------------------------------------
     
     @Override
@@ -596,4 +593,5 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     public String getTransactionNumber() {
 	return getJwsdpPeer().getTrnNum();
     }
+
 }

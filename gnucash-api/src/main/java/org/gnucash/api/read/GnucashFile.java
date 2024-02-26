@@ -10,6 +10,7 @@ import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
@@ -28,7 +29,9 @@ import org.gnucash.base.numbers.FixedPointNumber;
  * Interface of a top-level class that gives access to a GnuCash file
  * with all its accounts, transactions, etc.
  */
-public interface GnucashFile extends GnucashObject {
+public interface GnucashFile extends GnucashObject,
+                                     HasUserDefinedAttributes 
+{
 
     /**
      *

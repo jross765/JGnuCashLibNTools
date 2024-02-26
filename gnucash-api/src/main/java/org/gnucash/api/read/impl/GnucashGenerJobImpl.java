@@ -1,26 +1,28 @@
 package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GnucashGenerJobImpl implements GnucashGenerJob {
+public class GnucashGenerJobImpl extends GnucashObjectImpl 
+                                 implements GnucashGenerJob 
+{
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashGenerJobImpl.class);
 	
@@ -30,11 +32,6 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	 * the JWSDP-object we are facading.
 	 */
 	protected final GncGncJob jwsdpPeer;
-
-	/**
-	 * The file we belong to.
-	 */
-	protected final GnucashFile file;
 
 	/**
 	 * The currencyFormat to use for default-formating.<br/>
@@ -52,10 +49,9 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	 */
 	@SuppressWarnings("exports")
 	public GnucashGenerJobImpl(final GncGncJob peer, final GnucashFile gcshFile) {
-		super();
+		super(gcshFile);
 
 		jwsdpPeer = peer;
-		file = gcshFile;
 	}
 
 	// ---------------------------------------------------------------
@@ -66,15 +62,6 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	@SuppressWarnings("exports")
 	public GncGncJob getJwsdpPeer() {
 		return jwsdpPeer;
-	}
-
-	/**
-	 * The gnucash-file is the top-level class to contain everything.
-	 * 
-	 * @return the file we are associated with
-	 */
-	public GnucashFile getFile() {
-		return file;
 	}
 
 	/**
@@ -157,7 +144,7 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	 */
 	@Override
 	public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		return getFile().getUnpaidInvoicesForJob(this).size();
+		return getGnucashFile().getUnpaidInvoicesForJob(this).size();
 	}
 
 	/**
@@ -256,29 +243,29 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 
 	@Override
 	public List<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
-		return file.getInvoicesForJob(this);
+		return getGnucashFile().getInvoicesForJob(this);
 	}
 
 	@Override
 	public List<GnucashJobInvoice> getPaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		return file.getPaidInvoicesForJob(this);
+		return getGnucashFile().getPaidInvoicesForJob(this);
 	}
 
 	@Override
 	public List<GnucashJobInvoice> getUnpaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		return file.getUnpaidInvoicesForJob(this);
+		return getGnucashFile().getUnpaidInvoicesForJob(this);
 	}
 
 	// ---------------------------------------------------------------
 
 	public static int getHighestNumber(GnucashGenerJob job) {
-		return ((GnucashFileImpl) job.getFile()).getHighestJobNumber();
+		return ((GnucashFileImpl) job.getGnucashFile()).getHighestJobNumber();
 	}
 
 	public static String getNewNumber(GnucashGenerJob job) {
-		return ((GnucashFileImpl) job.getFile()).getNewJobNumber();
+		return ((GnucashFileImpl) job.getGnucashFile()).getNewJobNumber();
 	}
 
 	// -----------------------------------------------------------------

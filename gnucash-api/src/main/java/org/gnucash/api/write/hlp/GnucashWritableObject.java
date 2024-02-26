@@ -1,6 +1,5 @@
 package org.gnucash.api.write.hlp;
 
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.GnucashWritableFile;
 
 /**
@@ -13,10 +12,4 @@ public interface GnucashWritableObject {
      */
     GnucashWritableFile getWritableGnucashFile();
 
-    /**
-     * @param name the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    void setUserDefinedAttribute(String name, String value);
 }

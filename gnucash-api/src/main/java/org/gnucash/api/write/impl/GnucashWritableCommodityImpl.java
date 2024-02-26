@@ -1,16 +1,19 @@
 package org.gnucash.api.write.impl;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
+import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,13 +23,21 @@ import org.slf4j.LoggerFactory;
  */
 public class GnucashWritableCommodityImpl extends GnucashCommodityImpl 
                                           implements GnucashWritableCommodity,
-                                                     GnucashWritableObject
+                                                     GnucashWritableObject,
+                                                     HasWritableUserDefinedAttributes
 {
     /**
      * Automatically created logger for debug and error-output.
      */
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableCommodityImpl.class);
     
+    // ---------------------------------------------------------------
+
+    /**
+     * Our helper to implement the GnucashWritableObject-interface.
+     */
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
+
     // ---------------------------------------------------------------
 
     /**
@@ -188,14 +199,16 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
      * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
      *      java.lang.String)
      */
-    // ::TODO ?
+    @Override
     public void setUserDefinedAttribute(final String name, final String value) {
-	// ::EMPTY
+    	HasWritableUserDefinedAttributesImpl
+    		.setUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots().getSlot(), 
+    									 getGnucashFile(), 
+    									 name, value);
     }
 
-    // ::TODO
     public void clean() {
-	// helper.cleanSlots();
+    	HasWritableUserDefinedAttributesImpl.cleanSlots(jwsdpPeer.getCmdtySlots());
     }
 
     // -----------------------------------------------------------------

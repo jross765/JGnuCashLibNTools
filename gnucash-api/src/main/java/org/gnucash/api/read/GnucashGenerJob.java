@@ -1,18 +1,18 @@
 package org.gnucash.api.read;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 
 /**
@@ -32,7 +32,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
  * @see GnucashCustomerJob
  * @see GnucashVendorJob
  */
-public interface GnucashGenerJob {
+public interface GnucashGenerJob extends GnucashObject {
 
     public static final GCshOwner.Type TYPE_CUSTOMER = GCshOwner.Type.CUSTOMER;
     public static final GCshOwner.Type TYPE_VENDOR   = GCshOwner.Type.VENDOR;
@@ -41,13 +41,6 @@ public interface GnucashGenerJob {
 
     @SuppressWarnings("exports")
     GncGncJob getJwsdpPeer();
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * 
-     * @return the file we are associated with
-     */
-    GnucashFile getFile();
 
     // -----------------------------------------------------------------
 

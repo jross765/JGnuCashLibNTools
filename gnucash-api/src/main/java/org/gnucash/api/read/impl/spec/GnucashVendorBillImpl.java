@@ -42,7 +42,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
 
 	public GnucashVendorBillImpl(final GnucashGenerInvoice invc)
 			throws WrongInvoiceTypeException, IllegalArgumentException {
-		super(invc.getJwsdpPeer(), invc.getFile());
+		super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -90,7 +90,7 @@ public class GnucashVendorBillImpl extends GnucashGenerInvoiceImpl
 			throw new WrongInvoiceTypeException();
 
 		GCshID ownerID = new GCshID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
-		return gcshFile.getVendorByID(ownerID);
+		return getGnucashFile().getVendorByID(ownerID);
 	}
 
 	// ---------------------------------------------------------------

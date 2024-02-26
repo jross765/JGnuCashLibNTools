@@ -1,23 +1,24 @@
 package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.MappingException;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     /**
      * the JWSDP-object we are facading.
      */
-    private GncTransaction.TrnSplits.TrnSplit jwsdpPeer;
+    protected final GncTransaction.TrnSplits.TrnSplit jwsdpPeer;
 
     /**
      * the transaction this split belongs to.
@@ -53,8 +54,7 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	    final GnucashTransaction trx,
 	    final boolean addSpltToAcct,
 	    final boolean addSpltToInvc) {
-	super((peer.getSplitSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getSplitSlots(),
-		trx.getGnucashFile());
+	super(trx.getGnucashFile());
 
 	jwsdpPeer = peer;
 	myTransaction = trx;
@@ -96,17 +96,6 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     @SuppressWarnings("exports")
     public GncTransaction.TrnSplits.TrnSplit getJwsdpPeer() {
     	return jwsdpPeer;
-    }
-
-    /**
-     * @param newPeer the JWSDP-object we are facading.
-     */
-    protected void setJwsdpPeer(final GncTransaction.TrnSplits.TrnSplit newPeer) {
-    	if (newPeer == null) {
-    		throw new IllegalArgumentException("null not allowed for field this.jwsdpPeer");
-    	}
-
-    	jwsdpPeer = newPeer;
     }
 
     // ---------------------------------------------------------------
@@ -356,6 +345,18 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
 	}
 	return jwsdpPeer.getSplitMemo();
     }
+
+    // ---------------------------------------------------------------
+    
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl.getUserDefinedAttributeCore(jwsdpPeer.getSplitSlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl.getUserDefinedAttributeKeysCore(jwsdpPeer.getSplitSlots().getSlot());
+	}
 
     // ---------------------------------------------------------------
     

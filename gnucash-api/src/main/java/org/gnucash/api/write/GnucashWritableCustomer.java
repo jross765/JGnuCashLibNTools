@@ -2,9 +2,9 @@ package org.gnucash.api.write;
 
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.aux.GCshAddress;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
@@ -13,7 +13,8 @@ import org.gnucash.base.numbers.FixedPointNumber;
  * @see GnucashCustomer
  */
 public interface GnucashWritableCustomer extends GnucashCustomer, 
-                                                 GnucashWritableObject 
+                                                 GnucashWritableObject,
+                                                 HasWritableUserDefinedAttributes
 {
 
     void remove();
@@ -52,12 +53,4 @@ public interface GnucashWritableCustomer extends GnucashCustomer,
 
     GCshWritableAddress getShippingAddress();
     
-    // ---------------------------------------------------------------
-
-    /**
-     * @param name  the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    void setUserDefinedAttribute(final String name, final String value);
 }

@@ -18,12 +18,6 @@ import java.util.TreeSet;
 import java.util.zip.GZIPOutputStream;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
 import org.gnucash.api.generated.GncCommodity;
@@ -42,7 +36,6 @@ import org.gnucash.api.generated.GncTemplateTransactions;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.Price;
-import org.gnucash.api.generated.Slot;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashCustomer;
@@ -99,6 +92,7 @@ import org.gnucash.api.write.impl.aux.GCshWritableBillTermsImpl;
 import org.gnucash.api.write.impl.aux.GCshWritableTaxTableImpl;
 import org.gnucash.api.write.impl.hlp.BookElementsSorter;
 import org.gnucash.api.write.impl.hlp.FilePriceManager;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
 import org.gnucash.api.write.impl.hlp.WritingContentHandler;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
@@ -113,6 +107,12 @@ import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.gnucash.api.write.spec.GnucashWritableVendorJob;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -209,22 +209,10 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	 */
 	@Override
 	public void setUserDefinedAttribute(final String aName, final String aValue) {
-		List<Slot> slots = getRootElement().getGncBook().getBookSlots().getSlot();
-		for ( Slot slot : slots ) {
-			if ( slot.getSlotKey().equals(aName) ) {
-				slot.getSlotValue().getContent().clear();
-				slot.getSlotValue().getContent().add(aValue);
-				return;
-			}
-		}
-
-		// create new slot
-		Slot newSlot = getObjectFactory().createSlot();
-		newSlot.setSlotKey(aName);
-		newSlot.setSlotValue(getObjectFactory().createSlotValue());
-		newSlot.getSlotValue().getContent().add(aValue);
-		newSlot.getSlotValue().setType(Const.XML_DATA_TYPE_STRING);
-		getRootElement().getGncBook().getBookSlots().getSlot().add(newSlot);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots().getSlot(), 
+										 getWritableGnucashFile(), 
+										 aName, aValue);
 	}
 
 	// ---------------------------------------------------------------
@@ -1880,11 +1868,8 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 		for ( GnucashWritableEmployee empl : getWritableEmployees() ) {
 			((GnucashWritableEmployeeImpl) empl).clean();
 		}
-
-		// ::TODO ?
-//        for ( GnucashWritableGenerJob job : getWritableGenerJobs() ) {
-//            ((GnucashWritableGenerJobImpl) job).clean();
-//        }
+		
+		// NOT GnucashWritableGenerJob
 
 		// ------------------------
 
@@ -1892,9 +1877,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			((GnucashWritableCommodityImpl) cmdty).clean();
 		}
 
-		for ( GnucashWritablePrice prc : getWritablePrices() ) {
-			((GnucashWritablePriceImpl) prc).clean();
-		}
+		// NOT GnucashWritablePrice
 
 	}
 

@@ -1,4 +1,4 @@
-package org.gnucash.api.read;
+package org.gnucash.api.read.hlp;
 
 public interface HasAttachment {
   

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncV2;
@@ -130,8 +132,11 @@ public class FileCustomerManager {
 			return custList.iterator().next();
 	}
 
+	// ::CHECK
+	// https://stackoverflow.com/questions/52620446/collectors-tounmodifiablelist-vs-collections-unmodifiablelist-in-java-10?rq=3
 	public Collection<GnucashCustomer> getCustomers() {
 		return Collections.unmodifiableCollection(custMap.values());
+		// return custMap.values().stream().collect( Collectors.toUnmodifiableList() );
 	}
 
 	// ---------------------------------------------------------------

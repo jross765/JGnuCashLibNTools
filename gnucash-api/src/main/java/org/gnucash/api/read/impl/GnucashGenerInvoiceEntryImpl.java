@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
@@ -26,6 +27,7 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -49,7 +51,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
      */
     protected static final DateFormat ENTRY_DATE_FORMAT = new SimpleDateFormat(Const.STANDARD_DATE_FORMAT);
 
-    // ------------------------------
+    // ---------------------------------------------------------------
 
     /**
      * the JWSDP-object we are facading.
@@ -103,12 +105,11 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    final GnucashGenerInvoice invc, 
 	    final GncGncEntry peer,
 	    final boolean addEntrToInvc) {
-	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(),
-		invc.getFile());
+	super(invc.getGnucashFile());
 
-	if (peer.getEntrySlots() == null) {
-	    peer.setEntrySlots(getSlots());
-	}
+//	if (peer.getEntrySlots() == null) {
+//	    peer.setEntrySlots(getJwsdpPeer().getEntrySlots());
+//	}
 
 	this.myInvoice = invc;
 	this.jwsdpPeer = peer;
@@ -131,11 +132,11 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    final GncGncEntry peer, 
 	    final GnucashFileImpl gcshFile,
 	    final boolean addEntrToInvc) {
-	super((peer.getEntrySlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEntrySlots(), gcshFile);
+	super(gcshFile);
 
-	if (peer.getEntrySlots() == null) {
-	    peer.setEntrySlots(getSlots());
-	}
+//	if (peer.getEntrySlots() == null) {
+//	    peer.setEntrySlots(getJwsdpPeer().getEntrySlots());
+//	}
 
 	this.jwsdpPeer = peer;
 
@@ -152,13 +153,17 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 
     // Copy-constructor
     public GnucashGenerInvoiceEntryImpl(final GnucashGenerInvoiceEntry entry) {
-	super(entry.getGenerInvoice().getFile());
+	super(entry.getGenerInvoice().getGnucashFile());
 
-	if (entry.getJwsdpPeer().getEntrySlots() == null) {
-	    setSlots(new ObjectFactory().createSlotsType());
-	} else {
-	    setSlots(entry.getJwsdpPeer().getEntrySlots());
-	}
+//	if (entry.getJwsdpPeer().getEntrySlots() == null) {
+//		HasUserDefinedAttributesImpl
+//			.setSlotsInit(getJwsdpPeer().getEntrySlots(), 
+//						  new ObjectFactory().createSlotsType());
+//	} else {
+//		HasUserDefinedAttributesImpl
+//			.setSlotsInit(getJwsdpPeer().getEntrySlots(), 
+//						  entry.getJwsdpPeer().getEntrySlots());
+//	}
 
 	this.myInvoice = entry.getGenerInvoice();
 	this.jwsdpPeer = entry.getJwsdpPeer();
@@ -1308,7 +1313,23 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return 0;
 	}
     }
+    
+    // ---------------------------------------------------------------
+    
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(), name);
+	}
 
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getEntrySlots().getSlot());
+	}
+
+    // ---------------------------------------------------------------
+    
     /**
      * {@inheritDoc}
      */

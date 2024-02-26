@@ -21,6 +21,7 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -46,7 +47,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -218,7 +219,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	getJwsdpPeer().setEmployeeId(number);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("employeeNumber", oldNumber, number);
 	}
@@ -238,7 +239,7 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	getJwsdpPeer().setEmployeeUsername(userName);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("username", oldUserName, userName);
 	}
@@ -300,11 +301,14 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
      */
     @Override
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots().getSlot(),
+									 	 getWritableGnucashFile(),
+									 	 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getEmployeeSlots());
 	}
 
     // -----------------------------------------------------------------

@@ -29,6 +29,7 @@ import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableJobInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 import org.slf4j.Logger;
@@ -46,7 +47,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     /**
      * @see {@link #getGenerInvoice()}
@@ -466,11 +467,14 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
      * {@inheritDoc}
      */
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(),
+										 getWritableGnucashFile(),
+										 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(jwsdpPeer.getEntrySlots());
 	}
 
     // -----------------------------------------------------------
@@ -504,7 +508,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	String dateTimeStr = dateTime.format(DATE_FORMAT_BOOK);
 	getJwsdpPeer().getEntryDate().setTsDate(dateTimeStr);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("date", oldDate, date);
 	}
@@ -529,7 +533,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	String oldDescr = getDescription();
 	getJwsdpPeer().setEntryDescription(descr);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("description", oldDescr, descr);
 	}
@@ -875,7 +879,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addInvcEntry(this);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("price", oldPrice, price);
 	}
@@ -929,7 +933,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addBillEntry(this);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("price", oldPrice, price);
 	}
@@ -984,7 +988,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addVoucherEntry(this);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("price", oldPrice, price);
 	}
@@ -1070,7 +1074,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	Action oldAction = getAction();
 	getJwsdpPeer().setEntryAction(act.getLocaleString());
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("action", oldAction, act);
 	}
@@ -1125,7 +1129,7 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 	getJwsdpPeer().setEntryQty(qty.toGnucashString());
 	((GnucashWritableGenerInvoiceImpl) getGenerInvoice()).addInvcEntry(this);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("quantity", oldQty, qty);
 	}

@@ -53,6 +53,7 @@ import org.gnucash.api.write.GnucashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceEntryImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherEntryImpl;
@@ -88,7 +89,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper;
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -99,7 +100,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
      */
     @Override
     public GnucashWritableFile getFile() {
-	return (GnucashWritableFile) super.getFile();
+	return (GnucashWritableFile) super.getGnucashFile();
     }
     
     // ---------------------------------------------------------------
@@ -117,29 +118,25 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 			final GncGncInvoice jwsdpPeer, 
 			final GnucashFile gcshFile) {
 		super(jwsdpPeer, gcshFile);
-
-		helper = new GnucashWritableObjectImpl(super.getGnucashObject());
 	}
 
     public GnucashWritableGenerInvoiceImpl(final GnucashGenerInvoiceImpl invc) {
-	super(invc.getJwsdpPeer(), invc.getFile());
+	super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
-	helper = new GnucashWritableObjectImpl(super.getGnucashObject());
-	
 	// Entries
 	// Does not work:
 //	for ( GnucashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
 //	    addGenerEntry(entr);
 //	}
 	// This works: 
-	for ( GnucashGenerInvoiceEntry entr : invc.getFile().getGenerInvoiceEntries() ) {
+	for ( GnucashGenerInvoiceEntry entr : invc.getGnucashFile().getGenerInvoiceEntries() ) {
 	    if ( entr.getGenerInvoiceID().equals(invc.getID()) ) {
 		addGenerEntry(entr);
 	    }
 	}
 
 	// Paying transactions
-	for ( GnucashTransaction trx : invc.getFile().getTransactions() ) {
+	for ( GnucashTransaction trx : invc.getGnucashFile().getTransactions() ) {
 	    for ( GnucashTransactionSplit splt : trx.getSplits() ) {
 		GCshID lot = splt.getLotID();
 		if ( lot != null ) {
@@ -160,16 +157,41 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     // ---------------------------------------------------------------
 
     /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+    	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+    	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    // ---------------------------------------------------------------
+
+    /**
      * {@inheritDoc}
      * @param name 
      * @param value 
      */
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getInvoiceSlots().getSlot(),
+										 getWritableGnucashFile(),
+										 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(jwsdpPeer.getInvoiceSlots());
 	}
 
     // ---------------------------------------------------------------

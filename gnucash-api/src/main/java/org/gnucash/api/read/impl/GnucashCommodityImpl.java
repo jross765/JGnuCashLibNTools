@@ -9,12 +9,15 @@ import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashPrice;
+import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GnucashCommodityImpl implements GnucashCommodity 
+public class GnucashCommodityImpl extends GnucashObjectImpl 
+								  implements GnucashCommodity 
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashCommodityImpl.class);
 
@@ -23,13 +26,8 @@ public class GnucashCommodityImpl implements GnucashCommodity
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncCommodity jwsdpPeer;
+    protected final GncCommodity jwsdpPeer;
 
-    /**
-     * The file we belong to.
-     */
-    protected final GnucashFile gcshFile;
-    
     // ---------------------------------------------------------------
 
     /**
@@ -38,8 +36,9 @@ public class GnucashCommodityImpl implements GnucashCommodity
      */
     @SuppressWarnings("exports")
     public GnucashCommodityImpl(final GncCommodity peer, final GnucashFile gcshFile) {
-	this.jwsdpPeer = peer;
-	this.gcshFile = gcshFile;
+    	super(gcshFile);
+    	
+    	this.jwsdpPeer = peer;
     }
 
     // ---------------------------------------------------------------
@@ -50,10 +49,6 @@ public class GnucashCommodityImpl implements GnucashCommodity
     @SuppressWarnings("exports")
     public GncCommodity getJwsdpPeer() {
 	return jwsdpPeer;
-    }
-
-    public GnucashFile getGnucashFile() {
-	return gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -152,6 +147,20 @@ public class GnucashCommodityImpl implements GnucashCommodity
 
 	return result;
     }
+
+    // -----------------------------------------------------------------
+
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getCmdtySlots().getSlot());
+	}
 
     // -----------------------------------------------------------------
 

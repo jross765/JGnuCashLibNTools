@@ -1,14 +1,12 @@
 package org.gnucash.api.write;
 
-import java.beans.PropertyChangeListener;
-
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Transaction-split that can be modified.<br/>
@@ -125,42 +123,5 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 
 	void setActionStr(String action) throws IllegalTransactionSplitActionException;
 
-	/**
-	 * Add a PropertyChangeListener to the listener list.
-	 * The listener is registered for all properties.
-	 *
-	 * @param listener  The PropertyChangeListener to be added
-	 */
-	void addPropertyChangeListener(PropertyChangeListener listener);
-
-	/**
-	 * Add a PropertyChangeListener for a specific property.  The listener
-	 * will be invoked only when a call on firePropertyChange names that
-	 * specific property.
-	 *
-	 * @param propertyName  The name of the property to listen on.
-	 * @param listener  The PropertyChangeListener to be added
-	 */
-	void addPropertyChangeListener(String propertyName,
-								   PropertyChangeListener listener);
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 *
-	 * @param propertyName  The name of the property that was listened on.
-	 * @param listener  The PropertyChangeListener to be removed
-	 */
-	void removePropertyChangeListener(String propertyName,
-									  PropertyChangeListener listener);
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list.
-	 * This removes a PropertyChangeListener that was registered
-	 * for all properties.
-	 *
-	 * @param listener  The PropertyChangeListener to be removed
-	 */
-	void removePropertyChangeListener(
-			PropertyChangeListener listener);
 }
 

@@ -14,6 +14,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceEntryImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,11 +69,11 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 	}
 
 	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashGenerInvoiceEntry entry) {
-		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getGnucashFile());
 	}
 
 	public GnucashWritableEmployeeVoucherEntryImpl(final GnucashEmployeeVoucherEntry entry) {
-		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getFile());
+		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getGnucashFile());
 	}
 
 	// ---------------------------------------------------------------
@@ -88,8 +89,10 @@ public class GnucashWritableEmployeeVoucherEntryImpl extends GnucashWritableGene
 
 	@Override
 	public void setUserDefinedAttribute(String name, String value) {
-		// TODO Auto-generated method stub
-
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(), 
+										 getWritableGnucashFile(), 
+										 name, value);
 	}
 
 	// -----------------------------------------------------------

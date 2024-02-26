@@ -21,6 +21,7 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -47,7 +48,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -209,7 +210,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	getJwsdpPeer().setCustId(number);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("customerNumber", oldNumber, number);
 	}
@@ -232,7 +233,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	getJwsdpPeer().setCustName(name);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("name", oldName, name);
 	}
@@ -251,7 +252,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	getJwsdpPeer().setCustDiscount(discount.toGnucashString());
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("discount", oldDiscount, discount);
 	}
@@ -270,7 +271,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	getJwsdpPeer().setCustCredit(credit.toGnucashString());
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("discount", oldCredit, credit);
 	}
@@ -360,7 +361,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
         getJwsdpPeer().setCustNotes(notes);
         getGnucashFile().setModified(true);
     
-        PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+        PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
         if (propertyChangeSupport != null) {
             propertyChangeSupport.firePropertyChange("notes", oldNotes, notes);
         }
@@ -408,11 +409,14 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
      */
     @Override
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getCustSlots().getSlot(),
+									 	 getWritableGnucashFile(),
+									 	 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getCustSlots());
 	}
 
     // -----------------------------------------------------------------
@@ -553,5 +557,5 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 	buffer.append("]");
 	return buffer.toString();
     }
-    
+
 }

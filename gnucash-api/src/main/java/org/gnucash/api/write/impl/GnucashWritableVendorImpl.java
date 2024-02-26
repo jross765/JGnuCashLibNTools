@@ -22,6 +22,7 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableVendorBillImpl;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -47,7 +48,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -197,7 +198,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	getJwsdpPeer().setVendorId(number);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("VendorNumber", oldNumber, number);
 	}
@@ -220,7 +221,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	getJwsdpPeer().setVendorName(name);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("name", oldName, name);
 	}
@@ -275,7 +276,7 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
 	getJwsdpPeer().setVendorNotes(notes);
 	getGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("notes", oldNotes, notes);
 	}
@@ -307,11 +308,14 @@ public class GnucashWritableVendorImpl extends GnucashVendorImpl
      */
     @Override
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getVendorSlots().getSlot(),
+										 getWritableGnucashFile(),
+										 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getVendorSlots());
 	}
 
     // -----------------------------------------------------------------

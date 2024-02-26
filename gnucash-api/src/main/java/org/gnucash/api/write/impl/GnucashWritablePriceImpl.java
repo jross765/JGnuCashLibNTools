@@ -8,13 +8,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Price;
@@ -22,8 +15,14 @@ import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.impl.GnucashPriceImpl;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritablePrice;
-import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +40,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -224,7 +223,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
 	getWritableGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("price", oldDate, date);
 	}
@@ -238,7 +237,7 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
 	getWritableGnucashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
 	    propertyChangeSupport.firePropertyChange("price", oldDate, dateTime);
 	}
@@ -269,21 +268,6 @@ public class GnucashWritablePriceImpl extends GnucashPriceImpl
 	jwsdpPeer.setPriceValue(val.toGnucashString());
 	getWritableGnucashFile().setModified(true);
     }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
-    @Override
-	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
-	}
-
-	public void clean() {
-		helper.cleanSlots();
-	}
 
     // ---------------------------------------------------------------
     

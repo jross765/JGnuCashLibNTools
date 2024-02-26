@@ -1,14 +1,14 @@
 package org.gnucash.api.read;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
 import java.util.Locale;
 
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.generated.GncTransaction;
 
 /**
  * A single addition or removal of a quantity of an account's accounted-for items 
@@ -19,7 +19,9 @@ import org.gnucash.api.generated.GncTransaction;
  * 
  * @see GnucashTransaction
  */
-public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSplit> {
+public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSplit>,
+												 HasUserDefinedAttributes 
+{
 
   // For the following enumerations cf.:
   //  - https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Split.h
@@ -167,12 +169,6 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
   @SuppressWarnings("exports")
   GncTransaction.TrnSplits.TrnSplit getJwsdpPeer();
 
-  /**
-   * The gnucash-file is the top-level class to contain everything.
-   * @return the file we are associated with
-   */
-  GnucashFile getGnucashFile();
-  
   // -----------------------------------------------------------------
 
 
@@ -319,16 +315,5 @@ public interface GnucashTransactionSplit extends Comparable<GnucashTransactionSp
     Action getAction();
 
     String getActionStr();
-
-    /**
-     * @return all keys that can be used with ${@link #getUserDefinedAttribute(String)}}.
-     */
-    Collection<String> getUserDefinedAttributeKeys();
-
-    /**
-     * @param name the name of the user-defined attribute
-     * @return the value or null if not set
-     */
-    String getUserDefinedAttribute(final String name);
 
 }

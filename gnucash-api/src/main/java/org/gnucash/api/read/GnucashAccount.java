@@ -13,6 +13,7 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 
 /**
  * A GnuCash account satisfies the "normal" definition of the term in 
@@ -29,7 +30,9 @@ import org.gnucash.api.generated.GncAccount;
  * <br>
  * Cf. <a href="https://lists.gnucash.org/docs/C/gnucash-manual/acct-types.html">GnuCash manual</a>
  */
-public interface GnucashAccount extends Comparable<GnucashAccount> {
+public interface GnucashAccount extends Comparable<GnucashAccount>,
+										HasUserDefinedAttributes
+{
 
     // For the following types cf.:
     // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/Account.h
@@ -81,12 +84,6 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
     @SuppressWarnings("exports")
     GncAccount getJwsdpPeer();
 
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * @return the file we are associated with
-     */
-    GnucashFile getGnucashFile();
-    
     // -----------------------------------------------------------------
 
     /**
@@ -335,20 +332,4 @@ public interface GnucashAccount extends Comparable<GnucashAccount> {
      */
     String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
 
-    // -----------------------------------------------------------------
-
-    /**
-     * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
-     * in gnucash2.0 to hide accounts.
-     *
-     * @param name the name of the user-defined attribute
-     * @return the value or null if not set
-     */
-    String getUserDefinedAttribute(final String name);
-
-    /**
-     * @return all keys that can be used with
-     *         ${@link #getUserDefinedAttribute(String)}}.
-     */
-    Collection<String> getUserDefinedAttributeKeys();
 }

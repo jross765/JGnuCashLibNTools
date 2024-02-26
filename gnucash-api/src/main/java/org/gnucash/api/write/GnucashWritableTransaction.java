@@ -1,16 +1,16 @@
 package org.gnucash.api.write;
 
-import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.SplitNotFoundException;
-import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
  * Transaction that can be modified.<br/>
@@ -19,7 +19,9 @@ import org.gnucash.api.read.hlp.GnucashObject;
  * 
  * @see GnucashTransaction
  */
-public interface GnucashWritableTransaction extends GnucashTransaction
+public interface GnucashWritableTransaction extends GnucashTransaction,
+													GnucashWritableObject,
+													HasWritableUserDefinedAttributes
 {
 
     /**
@@ -113,49 +115,5 @@ public interface GnucashWritableTransaction extends GnucashTransaction
      *  
      */
     void remove();
-
-    /**
-     * Add a PropertyChangeListener to the listener list. The listener is registered
-     * for all properties.
-     *
-     * @param listener The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-	void addPropertyChangeListener(PropertyChangeListener listener);
-
-    /**
-     * Add a PropertyChangeListener for a specific property. The listener will be
-     * invoked only when a call on firePropertyChange names that specific property.
-     *
-     * @param propertyName The name of the property to listen on.
-     * @param listener     The PropertyChangeListener to be added
-     */
-    @SuppressWarnings("exports")
-	void addPropertyChangeListener(String propertyName, PropertyChangeListener listener);
-
-    /**
-     * Remove a PropertyChangeListener for a specific property.
-     *
-     * @param propertyName The name of the property that was listened on.
-     * @param listener     The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-	void removePropertyChangeListener(String propertyName, PropertyChangeListener listener);
-
-    /**
-     * Remove a PropertyChangeListener from the listener list. This removes a
-     * PropertyChangeListener that was registered for all properties.
-     *
-     * @param listener The PropertyChangeListener to be removed
-     */
-    @SuppressWarnings("exports")
-	void removePropertyChangeListener(PropertyChangeListener listener);
-
-    /**
-     * @param name  the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    void setUserDefinedAttribute(final String name, final String value);
 
 }

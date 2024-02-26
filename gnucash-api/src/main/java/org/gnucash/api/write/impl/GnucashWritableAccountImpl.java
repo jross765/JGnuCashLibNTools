@@ -5,17 +5,12 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
@@ -30,8 +25,13 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.write.GnucashWritableAccount;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
-import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,7 +52,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private GnucashWritableObjectImpl helper;
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
     
     /**
      * Used by ${@link #getBalance()} to cache the result.
@@ -196,15 +196,28 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	getWritableGnucashFile().removeAccount(this);
     }
 
+    // ---------------------------------------------------------------
+
     /**
      * The gnucash-file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
-    public GnucashWritableFile getWritableGnucashFile() {
-	return (GnucashWritableFileImpl) getGnucashFile();
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
-    
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
 	// ---------------------------------------------------------------
 
     /**
@@ -216,7 +229,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if ( propertyChangeFirer != null ) {
 	    propertyChangeFirer.firePropertyChange("transactionSplits", null, getTransactionSplits());
 	}
@@ -231,7 +244,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if ( propertyChangeFirer != null ) {
 	    propertyChangeFirer.firePropertyChange("transactionSplits", null, transactionSplits);
 	}
@@ -258,7 +271,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	this.getJwsdpPeer().setActName(name);
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("name", oldName, name);
 	}
@@ -283,7 +296,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	this.getJwsdpPeer().setActCode(code);
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("code", oldCode, code);
 	}
@@ -310,7 +323,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	this.getJwsdpPeer().getActCommodity().setCmdtySpace(currNameSpace);
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("currencyNameSpace", oldCurrNameSpace, currNameSpace);
 	}
@@ -343,7 +356,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	this.getJwsdpPeer().getActCommodity().setCmdtyId(currID);
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("currencyID", oldCurrencyId, currID);
 	}
@@ -377,7 +390,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	getJwsdpPeer().setActDescription(descr);
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("description", oldDescr, descr);
 	}
@@ -395,7 +408,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	getJwsdpPeer().setActType(type.toString());
 	setIsModified();
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("type", oldType, type);
 	}
@@ -449,7 +462,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 	setIsModified();
 
 	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 	if (propertyChangeFirer != null) {
 	    propertyChangeFirer.firePropertyChange("parentAccount", oldPrntAcct, prntAcct);
 	}
@@ -493,9 +506,9 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 			     evt.getSource() instanceof GnucashWritableTransactionSplit ) {
 			    GnucashWritableTransactionSplit splitw = (GnucashWritableTransactionSplit) evt.getSource();
 			    if (splitw.getAccount() != GnucashWritableAccountImpl.this) {
-				splitw.removePropertyChangeListener("account", this);
-				splitw.removePropertyChangeListener("quantity", this);
-				splitw.getTransaction().removePropertyChangeListener("datePosted", this);
+				helper.removePropertyChangeListener("account", this);
+				helper.removePropertyChangeListener("quantity", this);
+				helper.removePropertyChangeListener("datePosted", this);
 				splitsWeAreAddedTo.remove(splitw);
 			    }
 
@@ -509,18 +522,18 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 				    continue;
 				}
 				GnucashWritableTransactionSplit splitw = (GnucashWritableTransactionSplit) split;
-				splitw.addPropertyChangeListener("account", this);
-				splitw.addPropertyChangeListener("quantity", this);
-				splitw.getTransaction().addPropertyChangeListener("datePosted", this);
+				helper.addPropertyChangeListener("account", this);
+				helper.addPropertyChangeListener("quantity", this);
+				helper.addPropertyChangeListener("datePosted", this);
 				splitsWeAreAddedTo.add(splitw);
 			    }
 			}
 		    }
 		};
 		
-		addPropertyChangeListener("currencyID", myBalanceCachedInvalidtor);
-		addPropertyChangeListener("currencyNameSpace", myBalanceCachedInvalidtor);
-		addPropertyChangeListener("transactionSplits", myBalanceCachedInvalidtor);
+		helper.addPropertyChangeListener("currencyID", myBalanceCachedInvalidtor);
+		helper.addPropertyChangeListener("currencyNameSpace", myBalanceCachedInvalidtor);
+		helper.addPropertyChangeListener("transactionSplits", myBalanceCachedInvalidtor);
 	    }
 	}
 
@@ -558,27 +571,17 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
     // ---------------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     *
-     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
-	public void setUserDefinedAttribute(final String name, final String value) {
-		if ( helper == null ) {
-			helper = new GnucashWritableObjectImpl(super.helper);
-		}
-		LOGGER.debug("setUserDefinedAttribute: [account-id=" + getID() + "] name=" + getName() + "] (name=" + name
-				+ ", value=" + value + ")");
-		helper.setUserDefinedAttribute(name, value);
+	@Override
+	public void setUserDefinedAttribute(String name, String value) {
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getActSlots().getSlot(), 
+										 getWritableGnucashFile(), 
+										 name, value);	
 	}
 
 	public void clean() {
-		if ( helper == null ) {
-			helper = new GnucashWritableObjectImpl(super.helper);
-		}
 		LOGGER.debug("clean: [account-id=" + getID() + "]");
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getActSlots());
 	}
 
     // ---------------------------------------------------------------

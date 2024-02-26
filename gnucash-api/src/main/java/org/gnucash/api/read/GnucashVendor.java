@@ -7,6 +7,7 @@ import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.hlp.GnucashObject;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
@@ -26,17 +27,9 @@ import org.gnucash.base.numbers.FixedPointNumber;
  * @see GnucashCustomer
  * @see GnucashEmployee
  */
-public interface GnucashVendor extends GnucashObject {
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     * 
-     * @return the file we are associated with
-     */
-    GnucashFile getGnucashFile();
-
-    // ------------------------------------------------------------
-
+public interface GnucashVendor extends GnucashObject,
+									   HasUserDefinedAttributes
+{
     /**
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes

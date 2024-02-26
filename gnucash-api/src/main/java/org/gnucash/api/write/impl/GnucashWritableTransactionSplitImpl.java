@@ -3,11 +3,8 @@ package org.gnucash.api.write.impl;
 import java.text.ParseException;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
@@ -17,8 +14,12 @@ import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
     /**
      * Our helper to implement the GnucashWritableObject-interface.
      */
-    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(this);
+    private final GnucashWritableObjectImpl helper = new GnucashWritableObjectImpl(getWritableGnucashFile(), this);
 
     // ---------------------------------------------------------------
 
@@ -169,11 +170,14 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
      *      java.lang.String)
      */
 	public void setUserDefinedAttribute(final String name, final String value) {
-		helper.setUserDefinedAttribute(name, value);
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getSplitSlots().getSlot(),
+										 getWritableGnucashFile(),
+										 name, value);
 	}
 
 	public void clean() {
-		helper.cleanSlots();
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getSplitSlots());
 	}
 
     // ---------------------------------------------------------------
@@ -216,8 +220,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
 	if (old == null || !old.equals(account.getID())) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("accountID", old, account.getID());
+	    if (helper.getPropertyChangeSupport() != null) {
+	    	helper.getPropertyChangeSupport().firePropertyChange("accountID", old, account.getID());
 	    }
 	}
 
@@ -281,15 +285,15 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	    String oldvalue = getJwsdpPeer().getSplitValue();
 	    getJwsdpPeer().setSplitValue(n.toGnucashString());
 	    if (old == null || !old.equals(n.toGnucashString())) {
-		if (getPropertyChangeSupport() != null) {
-		    getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(oldvalue), n);
+		if (helper.getPropertyChangeSupport() != null) {
+		    helper.getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(oldvalue), n);
 		}
 	    }
 	}
 
 	if (old == null || !old.equals(n.toGnucashString())) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(old), n);
+	    if (helper.getPropertyChangeSupport() != null) {
+	    	helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(old), n);
 	    }
 	}
     }
@@ -331,15 +335,15 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	    String oldquantity = getJwsdpPeer().getSplitQuantity();
 	    getJwsdpPeer().setSplitQuantity(n.toGnucashString());
 	    if (old == null || !old.equals(n.toGnucashString())) {
-		if (getPropertyChangeSupport() != null) {
-		    getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldquantity), n);
+		if (helper.getPropertyChangeSupport() != null) {
+		    helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldquantity), n);
 		}
 	    }
 	}
 
 	if (old == null || !old.equals(n.toGnucashString())) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
+	    if (helper.getPropertyChangeSupport() != null) {
+		helper.getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
 	    }
 	}
     }
@@ -364,8 +368,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
 	if (old == null || !old.equals(descr)) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("description", old, descr);
+	    if (helper.getPropertyChangeSupport() != null) {
+	    	helper.getPropertyChangeSupport().firePropertyChange("description", old, descr);
 	    }
 	}
     }
@@ -394,8 +398,8 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	((GnucashWritableFile) getGnucashFile()).setModified(true);
 
 	if (old == null || !old.equals(act)) {
-	    if (getPropertyChangeSupport() != null) {
-		getPropertyChangeSupport().firePropertyChange("splitAction", old, act);
+	    if (helper.getPropertyChangeSupport() != null) {
+	    	helper.getPropertyChangeSupport().firePropertyChange("splitAction", old, act);
 	    }
 	}
     }
@@ -460,11 +464,26 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 	this.setValue(n);
     }
 
+    // ---------------------------------------------------------------
+
     /**
-     * ${@inheritDoc}.
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
      */
-    public GnucashWritableFile getWritableGnucashFile() {
-	return (GnucashWritableFile) getGnucashFile();
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
+
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
 
     // ---------------------------------------------------------------

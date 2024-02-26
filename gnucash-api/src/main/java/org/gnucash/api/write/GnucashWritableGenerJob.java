@@ -1,13 +1,15 @@
 package org.gnucash.api.write;
 
 import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.write.hlp.GnucashWritableObject;
 
 /**
  * Generic job that can be modified.
  * 
  * @see GnucashGenerJob
  */
-public interface GnucashWritableGenerJob extends GnucashGenerJob 
+public interface GnucashWritableGenerJob extends GnucashGenerJob,
+                                                 GnucashWritableObject
 {
     
     void setNumber(String number);

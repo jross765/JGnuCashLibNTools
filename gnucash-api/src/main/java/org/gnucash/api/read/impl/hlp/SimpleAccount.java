@@ -30,15 +30,12 @@ import org.slf4j.LoggerFactory;
  * This is a base-class that helps implementing the GnucashAccount
  * interface with its extensive number of convenience-methods.<br/>
  */
-public abstract class SimpleAccount implements GnucashAccount {
-
+public abstract class SimpleAccount extends GnucashObjectImpl 
+									implements GnucashAccount 
+{
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleAccount.class);
 
 	// ---------------------------------------------------------------
-
-	private final GnucashFile myFile;
-
-	// ----------------------------
 
 	private static NumberFormat currencyFormat = null;
 
@@ -46,9 +43,8 @@ public abstract class SimpleAccount implements GnucashAccount {
 
 	// ---------------------------------------------------------------
 
-	public SimpleAccount(final GnucashFile myFile) {
-		super();
-		this.myFile = myFile;
+	public SimpleAccount(final GnucashFile gcshFile) {
+		super(gcshFile);
 	}
 
 	// ---------------------------------------------------------------
@@ -66,10 +62,6 @@ public abstract class SimpleAccount implements GnucashAccount {
 		}
 
 		return retval;
-	}
-
-	public GnucashFile getGnucashFile() {
-		return myFile;
 	}
 
 	public boolean isChildAccountRecursive(final GnucashAccount account) {
@@ -308,7 +300,8 @@ public abstract class SimpleAccount implements GnucashAccount {
 				return getBalance(date, cmdtyCurrID); // CAUTION: This assumes that under a stock account,
 													  // there are no children (which sounds sensible,
 													  // but there might be special cases)
-		}
+//		}
+	}
 
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr)
 			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
@@ -529,63 +522,6 @@ public abstract class SimpleAccount implements GnucashAccount {
 			return null;
 		}
 		return Long.valueOf(s.substring(0, digitCount));
-	}
-
-	// ------------------------ support for propertyChangeListeners
-
-	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPtyChg;
-	}
-
-	/**
-	 * Add a PropertyChangeListener to the listener list. The listener is registered
-	 * for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be added
-	 */
-	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPtyChg == null ) {
-			myPtyChg = new PropertyChangeSupport(this);
-		}
-		myPtyChg.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Add a PropertyChangeListener for a specific property. The listener will be
-	 * invoked only when a call on firePropertyChange names that specific property.
-	 * 
-	 * @param propertyName 
-	 * @param listener 
-	 */
-	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPtyChg == null ) {
-			myPtyChg = new PropertyChangeSupport(this);
-		}
-		myPtyChg.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 * 
-	 * @param propertyName 
-	 * @param listener 
-	 */
-	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPtyChg != null ) {
-			myPtyChg.removePropertyChangeListener(propertyName, listener);
-		}
-	}
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list. This removes a
-	 * PropertyChangeListener that was registered for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be removed
-	 */
-	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPtyChg != null ) {
-			myPtyChg.removePropertyChangeListener(listener);
-		}
 	}
 
 }

@@ -2,18 +2,18 @@ package org.gnucash.api.write;
 
 import java.time.LocalDate;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Cust;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Empl;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Job;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoiceEntry_Vend;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Invoice-Entry that can be modified.
@@ -25,7 +25,8 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
                                                           GnucashWritableGenerInvoiceEntry_Vend,
                                                           GnucashWritableGenerInvoiceEntry_Empl,
                                                           GnucashWritableGenerInvoiceEntry_Job,
-                                                          GnucashWritableObject 
+                                                          GnucashWritableObject,
+                                                          HasWritableUserDefinedAttributes
 {
 
     /**
@@ -69,12 +70,4 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
     void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
-    // ---------------------------------------------------------------
-
-    /**
-     * @param name  the name of the user-defined attribute
-     * @param value the value or null if not set
-     * @see {@link GnucashObject#getUserDefinedAttribute(String)}
-     */
-    void setUserDefinedAttribute(final String name, final String value);
 }

@@ -2,12 +2,10 @@ package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.generated.GncGncEmployee;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -15,6 +13,7 @@ import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -28,10 +27,12 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GnucashEmployeeImpl.class);
 
+    // ---------------------------------------------------------------
+
     /**
      * the JWSDP-object we are facading.
      */
-    private final GncGncEmployee jwsdpPeer;
+    protected final GncGncEmployee jwsdpPeer;
 
     /**
      * The currencyFormat to use for default-formating.<br/>
@@ -49,11 +50,11 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnucashEmployeeImpl(final GncGncEmployee peer, final GnucashFile gcshFile) {
-	super((peer.getEmployeeSlots() == null) ? new ObjectFactory().createSlotsType() : peer.getEmployeeSlots(), gcshFile);
+	super(gcshFile);
 
-	if (peer.getEmployeeSlots() == null) {
-	    peer.setEmployeeSlots(getSlots());
-	}
+//	if (peer.getEmployeeSlots() == null) {
+//	    peer.setEmployeeSlots(getJwsdpPeer().getEmployeeSlots());
+//	}
 
 	jwsdpPeer = peer;
     }
@@ -308,6 +309,20 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     public List<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
+
+    // ------------------------------------------------------------
+
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots().getSlot(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getEmployeeSlots().getSlot());
+	}
 
     // ------------------------------------------------------------
 
