@@ -1,14 +1,14 @@
 package org.gnucash.api.read;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * An employee that can hand in expense vouchers and, obviously, receive
@@ -191,20 +191,20 @@ public interface GnucashEmployee extends GnucashObject {
      * @return
      * @throws WrongInvoiceTypeException
      */
-    Collection<GnucashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException;
+    List<GnucashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

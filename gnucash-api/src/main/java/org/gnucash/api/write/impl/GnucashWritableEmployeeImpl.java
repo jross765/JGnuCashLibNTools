@@ -2,12 +2,9 @@ package org.gnucash.api.write.impl;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashEmployee;
@@ -26,6 +23,9 @@ import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -331,8 +331,8 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     // ----------------------------
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
-	Collection<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
+    public List<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    	List<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
 	
 	try {
 	    for ( GnucashWritableEmployeeVoucher wrtblVch : getPaidWritableVouchers() ) {
@@ -347,8 +347,8 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
-	Collection<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
+    public List<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    	List<GnucashEmployeeVoucher> result = new ArrayList<GnucashEmployeeVoucher>();
 	
 	try {
 	    for ( GnucashWritableEmployeeVoucher wrtblVch : getUnpaidWritableVouchers() ) {
@@ -367,11 +367,11 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
     // The methods in this part are the "writable"-variants of 
     // the according ones in the super class GnucashEmployeeImpl.
 
-    public Collection<GnucashWritableEmployeeVoucher> getPaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnucashWritableEmployeeVoucher> getPaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnucashFile().getPaidWritableVouchersForEmployee(this);
     }
 
-    public Collection<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnucashFile().getUnpaidWritableVouchersForEmployee(this);
     }
     

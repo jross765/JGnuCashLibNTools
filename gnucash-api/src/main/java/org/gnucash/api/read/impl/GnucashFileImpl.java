@@ -14,12 +14,6 @@ import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncBudget;
@@ -81,6 +75,12 @@ import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -510,7 +510,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public Collection<GnucashGenerInvoice> getGenerInvoicesByType(final GCshOwner.Type type) {
+    public List<GnucashGenerInvoice> getGenerInvoicesByType(final GCshOwner.Type type) {
     	return invcMgr.getGenerInvoicesByType(type);
     }
 
@@ -519,7 +519,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getGenerInvoices() {
+    public List<GnucashGenerInvoice> getGenerInvoices() {
 	return invcMgr.getGenerInvoices();
     }
     
@@ -531,7 +531,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
+    public List<GnucashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
 	return invcMgr.getPaidGenerInvoices();
     }
 
@@ -541,7 +541,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidGenerInvoices()
      */
     @Override
-    public Collection<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
+    public List<GnucashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
 	return invcMgr.getUnpaidGenerInvoices();
     }
 
@@ -553,7 +553,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidInvoicesForCustomer_viaAllJobs(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
+    public List<GnucashCustomerInvoice> getInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForCustomer_direct(cust);
     }
@@ -564,7 +564,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
+    public List<GnucashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForCustomer_viaAllJobs(cust);
     }
@@ -576,7 +576,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
+    public List<GnucashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForCustomer_direct(cust);
     }
@@ -588,7 +588,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
+    public List<GnucashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForCustomer_viaAllJobs(cust);
     }
@@ -600,7 +600,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
+    public List<GnucashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForCustomer_direct(cust);
     }
@@ -612,7 +612,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
+    public List<GnucashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnucashCustomer cust)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
     }
@@ -627,7 +627,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
-    public Collection<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
+    public List<GnucashVendorBill> getBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getBillsForVendor_direct(vend);
     }
@@ -640,7 +640,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
-    public Collection<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public List<GnucashJobInvoice> getBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getBillsForVendor_viaAllJobs(vend);
     }
@@ -652,7 +652,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
-    public Collection<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
+    public List<GnucashVendorBill> getPaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidBillsForVendor_direct(vend);
     }
@@ -664,7 +664,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
-    public Collection<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public List<GnucashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidBillsForVendor_viaAllJobs(vend);
     }
@@ -676,7 +676,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidBillsForVendor_viaAllJobs(GnucashVendor)
      */
     @Override
-    public Collection<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
+    public List<GnucashVendorBill> getUnpaidBillsForVendor_direct(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidBillsForVendor_direct(vend);
     }
@@ -688,7 +688,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidBillsForVendor_direct(GnucashVendor)
      */
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
+    public List<GnucashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnucashVendor vend)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidBillsForVendor_viaAllJobs(vend);
     }
@@ -702,7 +702,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
-    public Collection<GnucashEmployeeVoucher> getVouchersForEmployee(final GnucashEmployee empl)
+    public List<GnucashEmployeeVoucher> getVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getVouchersForEmployee(empl);
     }
@@ -714,7 +714,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getUnpaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
-    public Collection<GnucashEmployeeVoucher> getPaidVouchersForEmployee(final GnucashEmployee empl)
+    public List<GnucashEmployeeVoucher> getPaidVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidVouchersForEmployee(empl);
     }
@@ -726,7 +726,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see #getPaidVouchersForEmployee(GnucashEmployee)
      */
     @Override
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnucashEmployee empl)
+    public List<GnucashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnucashEmployee empl)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidVouchersForEmployee(empl);
     }
@@ -739,7 +739,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
+    public List<GnucashJobInvoice> getInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException {
 	return invcMgr.getInvoicesForJob(job);
     }
@@ -751,7 +751,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
+    public List<GnucashJobInvoice> getPaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getPaidInvoicesForJob(job);
     }
@@ -763,7 +763,7 @@ public class GnucashFileImpl implements GnucashFile,
      * @see GnucashFile#getUnpaidInvoicesForCustomer_direct(GnucashCustomer)
      */
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
+    public List<GnucashJobInvoice> getUnpaidInvoicesForJob(final GnucashGenerJob job)
 	    throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return invcMgr.getUnpaidInvoicesForJob(job);
     }
@@ -1347,7 +1347,7 @@ public class GnucashFileImpl implements GnucashFile,
      * {@inheritDoc}
      */
     @Override
-    public Collection<String> getUserDefinedAttributeKeys() {
+    public List<String> getUserDefinedAttributeKeys() {
 	return myGnucashObject.getUserDefinedAttributeKeys();
     }
 

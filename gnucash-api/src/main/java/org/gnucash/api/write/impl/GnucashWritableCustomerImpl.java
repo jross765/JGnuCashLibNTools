@@ -2,13 +2,9 @@ package org.gnucash.api.write.impl;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashCustomer;
@@ -27,6 +23,10 @@ import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnucashWritableObjectImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -455,8 +455,8 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 //    }
 //
     @Override
-    public Collection<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
-	Collection<GnucashCustomerInvoice> result = new ArrayList<GnucashCustomerInvoice>();
+    public List<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    	List<GnucashCustomerInvoice> result = new ArrayList<GnucashCustomerInvoice>();
 	
 	try {
 	    for ( GnucashWritableCustomerInvoice wrtblInvc : getPaidWritableInvoices_direct() ) {
@@ -476,8 +476,8 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 //    }
 
     @Override
-    public Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
-	Collection<GnucashCustomerInvoice> result = new ArrayList<GnucashCustomerInvoice>();
+    public List<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    	List<GnucashCustomerInvoice> result = new ArrayList<GnucashCustomerInvoice>();
 	
 	try {
 	    for ( GnucashWritableCustomerInvoice wrtblInvc : getUnpaidWritableInvoices_direct() ) {
@@ -502,8 +502,8 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
-//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+//    public List<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
+//	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForCustomer_direct(this) ) {
 //	    retval.add(invc);
@@ -516,7 +516,7 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 //	return retval;
 //    }
 
-    public Collection<GnucashWritableCustomerInvoice> getPaidWritableInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnucashWritableCustomerInvoice> getPaidWritableInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnucashFile().getPaidWritableInvoicesForCustomer_direct(this);
     }
 
@@ -525,12 +525,12 @@ public class GnucashWritableCustomerImpl extends GnucashCustomerImpl
 //	return getWritableGnucashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
-    public Collection<GnucashWritableCustomerInvoice> getUnpaidWritableInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnucashWritableCustomerInvoice> getUnpaidWritableInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnucashFile().getUnpaidWritableInvoicesForCustomer_direct(this);
     }
 
     // ::TODO
-//    public Collection<GnucashWritableJobInvoice>      getUnpaidWritableInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+//    public List<GnucashWritableJobInvoice>      getUnpaidWritableInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 //	return getWritableGnucashFile().getUnpaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 

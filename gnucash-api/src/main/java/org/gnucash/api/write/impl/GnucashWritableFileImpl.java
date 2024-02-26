@@ -1680,14 +1680,14 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	// ::TODO Description
 	// ---------------------------------------------------------------
 
-	public Collection<GnucashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
+	public List<GnucashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
 			final GnucashCustomer cust) throws InvalidCmdtyCurrTypeException,
 			WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getPaidWritableInvoicesForCustomer_direct(cust);
 	}
 
-	public Collection<GnucashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
+	public List<GnucashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
 			final GnucashCustomer cust) throws InvalidCmdtyCurrTypeException,
 			WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
@@ -1696,13 +1696,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	// ----------------------------
 
-	public Collection<GnucashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnucashVendor vend)
+	public List<GnucashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnucashVendor vend)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableBillsForVendor_direct(vend);
 	}
 
-	public Collection<GnucashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnucashVendor vend)
+	public List<GnucashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnucashVendor vend)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
@@ -1711,13 +1711,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	// ----------------------------
 
-	public Collection<GnucashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnucashEmployee empl)
+	public List<GnucashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnucashEmployee empl)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableVouchersForEmployee(empl);
 	}
 
-	public Collection<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnucashEmployee empl)
+	public List<GnucashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnucashEmployee empl)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableVouchersForEmployee(empl);
@@ -1725,13 +1725,13 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 
 	// ----------------------------
 
-	public Collection<GnucashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnucashGenerJob job)
+	public List<GnucashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnucashGenerJob job)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableInvoicesForJob(job);
 	}
 
-	public Collection<GnucashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnucashGenerJob job)
+	public List<GnucashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnucashGenerJob job)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
 			UnknownAccountTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForJob(job);

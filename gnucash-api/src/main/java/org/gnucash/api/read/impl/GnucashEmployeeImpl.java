@@ -3,10 +3,9 @@ package org.gnucash.api.read.impl;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashEmployee;
@@ -19,6 +18,8 @@ import org.gnucash.api.read.impl.hlp.GnucashObjectImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -288,8 +289,8 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
-    public Collection<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException {
-	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+    public List<GnucashGenerInvoice> getVouchers() throws WrongInvoiceTypeException {
+    	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashEmployeeVoucher invc : getGnucashFile().getVouchersForEmployee(this) ) {
 	    retval.add(invc);
@@ -299,12 +300,12 @@ public class GnucashEmployeeImpl extends GnucashObjectImpl
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
-    public Collection<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidVouchersForEmployee(this);
     }
 

@@ -1,9 +1,8 @@
 package org.gnucash.api.write.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -13,6 +12,7 @@ import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +22,10 @@ public abstract class FileInvoiceManager_Employee {
 
 	// ---------------------------------------------------------------
 
-	public static Collection<GnucashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl) throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -41,10 +41,10 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static Collection<GnucashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 		for ( GnucashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -60,10 +60,10 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static Collection<GnucashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		Collection<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
 
 		for ( GnucashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {

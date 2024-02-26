@@ -2,6 +2,7 @@ package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.Const;
@@ -254,18 +255,18 @@ public class GnucashGenerJobImpl implements GnucashGenerJob {
 	// -----------------------------------------------------------------
 
 	@Override
-	public Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
+	public List<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
 		return file.getInvoicesForJob(this);
 	}
 
 	@Override
-	public Collection<GnucashJobInvoice> getPaidInvoices()
+	public List<GnucashJobInvoice> getPaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return file.getPaidInvoicesForJob(this);
 	}
 
 	@Override
-	public Collection<GnucashJobInvoice> getUnpaidInvoices()
+	public List<GnucashJobInvoice> getUnpaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
 		return file.getUnpaidInvoicesForJob(this);
 	}

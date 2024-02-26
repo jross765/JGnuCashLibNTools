@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashVendor;
@@ -20,9 +20,9 @@ public abstract class FileInvoiceManager_Vendor {
 
 	// ---------------------------------------------------------------
 
-	public static Collection<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
+	public static List<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
 			final GnucashVendor vend) throws WrongInvoiceTypeException {
-		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
@@ -37,9 +37,9 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
 			throws WrongInvoiceTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
@@ -50,10 +50,10 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static Collection<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
+	public static List<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
 			final GnucashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getPaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
@@ -68,9 +68,9 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
@@ -81,10 +81,10 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static Collection<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
+	public static List<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
 			final GnucashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
 
 		for ( GnucashGenerInvoice invc : invMgr.getUnpaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
@@ -99,9 +99,9 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashVendorJob job : vend.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {

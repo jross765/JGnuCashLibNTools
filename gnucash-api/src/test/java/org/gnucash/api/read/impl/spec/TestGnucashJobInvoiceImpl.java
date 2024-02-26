@@ -153,7 +153,7 @@ public class TestGnucashJobInvoiceImpl {
 	assertEquals(0, invcGen.getPayingTransactions().size());
 	assertEquals(0, invcSpec.getPayingTransactions().size());
 
-//    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) invcSpec.getPayingTransactions();
+//    List<GnucashTransaction> trxList = (List<GnucashTransaction>) invcSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("29557cfdf4594eb68b1a1b710722f991", 
 //                 ((GnucashTransaction) trxList.toArray()[0]).getID());

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -134,13 +135,12 @@ public class TestGnucashWritableVendorImpl {
 	assertEquals(vend.getPaidBills_direct().size(),
 		((GnucashWritableVendorImpl) vend).getPaidWritableBills_direct().size()); // not trivial
 
-	Collection<GnucashVendorBill> bllList1 = vend.getPaidBills_direct();
-	Collections.sort((ArrayList<GnucashVendorBill>) bllList1);
+	List<GnucashVendorBill> bllList1 = vend.getPaidBills_direct();
+	Collections.sort(bllList1);
 	assertEquals("286fc2651a7848038a23bb7d065c8b67",
 		((GnucashVendorBill) bllList1.toArray()[0]).getID().toString());
-	Collection<GnucashWritableVendorBill> bllList2 = ((GnucashWritableVendorImpl) vend)
-		.getPaidWritableBills_direct();
-	Collections.sort((ArrayList<GnucashWritableVendorBill>) bllList2);
+	List<GnucashWritableVendorBill> bllList2 = ((GnucashWritableVendorImpl) vend).getPaidWritableBills_direct();
+	Collections.sort(bllList2);
 	assertEquals("286fc2651a7848038a23bb7d065c8b67",
 		((GnucashWritableVendorBill) bllList2.toArray()[0]).getID().toString());
 
@@ -149,11 +149,11 @@ public class TestGnucashWritableVendorImpl {
 		((GnucashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size()); // not trivial
 
 	bllList1 = vend.getUnpaidBills_direct();
-	Collections.sort((ArrayList<GnucashVendorBill>) bllList1);
+	Collections.sort(bllList1);
 	assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4",
 		((GnucashVendorBill) bllList1.toArray()[0]).getID().toString());
 	bllList2 = ((GnucashWritableVendorImpl) vend).getUnpaidWritableBills_direct();
-	Collections.sort((ArrayList<GnucashWritableVendorBill>) bllList2);
+	Collections.sort(bllList2);
 	assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4",
 		((GnucashWritableVendorBill) bllList2.toArray()[0]).getID().toString());
     }

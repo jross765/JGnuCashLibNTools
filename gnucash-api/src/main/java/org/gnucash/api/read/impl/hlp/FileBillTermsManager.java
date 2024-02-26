@@ -1,16 +1,17 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,7 +97,7 @@ public class FileBillTermsManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return bllTrmMap.values();
+		return Collections.unmodifiableCollection(bllTrmMap.values());
 	}
 
 	// ---------------------------------------------------------------

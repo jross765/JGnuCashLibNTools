@@ -2,18 +2,20 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.api.generated.GncGncVendor;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashVendorImpl;
-import org.gnucash.api.generated.GncGncVendor;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,16 +92,16 @@ public class FileVendorManager {
 		return retval;
 	}
 
-	public Collection<GnucashVendor> getVendorsByName(final String name) {
+	public List<GnucashVendor> getVendorsByName(final String name) {
 		return getVendorsByName(name, true);
 	}
 
-	public Collection<GnucashVendor> getVendorsByName(final String expr, final boolean relaxed) {
+	public List<GnucashVendor> getVendorsByName(final String expr, final boolean relaxed) {
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashVendor> result = new ArrayList<GnucashVendor>();
+		List<GnucashVendor> result = new ArrayList<GnucashVendor>();
 
 		for ( GnucashVendor vend : getVendors() ) {
 			if ( relaxed ) {
@@ -132,7 +134,7 @@ public class FileVendorManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return vendMap.values();
+		return Collections.unmodifiableCollection(vendMap.values());
 	}
 
 	// ---------------------------------------------------------------

@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -18,9 +18,9 @@ public abstract class FileInvoiceManager_Employee {
 
 	// ---------------------------------------------------------------
 
-	public static Collection<GnucashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl) throws WrongInvoiceTypeException {
-		Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -35,10 +35,10 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static Collection<GnucashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
@@ -53,10 +53,10 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static Collection<GnucashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
+	public static List<GnucashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
 			final GnucashEmployee empl)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {

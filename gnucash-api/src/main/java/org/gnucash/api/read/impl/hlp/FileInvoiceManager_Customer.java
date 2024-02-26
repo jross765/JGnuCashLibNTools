@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashGenerInvoice;
@@ -20,9 +20,9 @@ public abstract class FileInvoiceManager_Customer {
 
 	// ---------------------------------------------------------------
 
-	public static Collection<GnucashCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr,
+	public static List<GnucashCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnucashCustomer cust) throws WrongInvoiceTypeException {
-		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
+		List<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
@@ -37,9 +37,9 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getInvoices_viaAllJobs(final GnucashCustomer cust)
+	public static List<GnucashJobInvoice> getInvoices_viaAllJobs(final GnucashCustomer cust)
 			throws WrongInvoiceTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
@@ -50,10 +50,10 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static Collection<GnucashCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
+	public static List<GnucashCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnucashCustomer cust)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
+		List<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
@@ -68,9 +68,9 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getPaidInvoices_viaAllJobs(final GnucashCustomer cust)
+	public static List<GnucashJobInvoice> getPaidInvoices_viaAllJobs(final GnucashCustomer cust)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
@@ -81,10 +81,10 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
+	public static List<GnucashCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnucashCustomer cust)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
+		List<GnucashCustomerInvoice> retval = new ArrayList<GnucashCustomerInvoice>();
 
 		for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
@@ -99,9 +99,9 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static Collection<GnucashJobInvoice> getUnpaidInvoices_viaAllJobs(final GnucashCustomer cust)
+	public static List<GnucashJobInvoice> getUnpaidInvoices_viaAllJobs(final GnucashCustomer cust)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
 
 		for ( GnucashCustomerJob job : cust.getJobs() ) {
 			for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {

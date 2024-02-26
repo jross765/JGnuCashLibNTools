@@ -2,11 +2,12 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashEmployee;
@@ -14,6 +15,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,17 +92,17 @@ public class FileEmployeeManager {
 		return retval;
 	}
 
-	public Collection<GnucashEmployee> getEmployeesByUserName(final String userName) {
+	public List<GnucashEmployee> getEmployeesByUserName(final String userName) {
 		return getEmployeesByUserName(userName, true);
 	}
 
-	public Collection<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
+	public List<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
 
 		if ( emplMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
+		List<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
 
 		for ( GnucashEmployee empl : getEmployees() ) {
 			if ( relaxed ) {
@@ -119,7 +121,7 @@ public class FileEmployeeManager {
 
 	public GnucashEmployee getEmployeeByUserNameUniq(final String userName)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashEmployee> emplList = getEmployeesByUserName(userName);
+		List<GnucashEmployee> emplList = getEmployeesByUserName(userName);
 		if ( emplList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( emplList.size() > 1 )
@@ -129,7 +131,7 @@ public class FileEmployeeManager {
 	}
 
 	public Collection<GnucashEmployee> getEmployees() {
-		return emplMap.values();
+		return Collections.unmodifiableCollection(emplMap.values());
 	}
 
 	// ---------------------------------------------------------------

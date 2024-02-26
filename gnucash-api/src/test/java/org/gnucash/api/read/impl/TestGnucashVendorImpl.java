@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.List;
 import java.util.ArrayList;
 
 import org.gnucash.api.ConstTest;
@@ -130,13 +131,13 @@ public class TestGnucashVendorImpl {
 
 	assertEquals(1, vend.getPaidBills_direct().size());
 
-	ArrayList<GnucashVendorBill> bllList = (ArrayList<GnucashVendorBill>) vend.getPaidBills_direct();
+	List<GnucashVendorBill> bllList = vend.getPaidBills_direct();
 	Collections.sort(bllList);
 	assertEquals("286fc2651a7848038a23bb7d065c8b67", ((GnucashVendorBill) bllList.toArray()[0]).getID().toString());
 
 	assertEquals(1, vend.getUnpaidBills_direct().size());
 
-	bllList = (ArrayList<GnucashVendorBill>) vend.getUnpaidBills_direct();
+	bllList = vend.getUnpaidBills_direct();
 	Collections.sort(bllList);
 	assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", ((GnucashVendorBill) bllList.toArray()[0]).getID().toString());
     }

@@ -266,7 +266,7 @@ public class FileAccountManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return Collections.unmodifiableCollection(new TreeSet<>(acctMap.values()));
+		return Collections.unmodifiableCollection(acctMap.values());
 	}
 
 	public GnucashAccount getRootAccount() throws UnknownAccountTypeException {

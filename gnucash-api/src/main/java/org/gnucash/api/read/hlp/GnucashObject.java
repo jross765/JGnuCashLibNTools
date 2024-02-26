@@ -1,6 +1,6 @@
 package org.gnucash.api.read.hlp;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.read.GnucashFile;
 
@@ -23,7 +23,7 @@ public interface GnucashObject {
      * 
      * @return all keys that can be used with ${@link #getUserDefinedAttribute(String)}}.
      */
-    Collection<String> getUserDefinedAttributeKeys();
+    List<String> getUserDefinedAttributeKeys();
 
     /**
      * @return the File we belong to.

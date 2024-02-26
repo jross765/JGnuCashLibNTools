@@ -1,10 +1,8 @@
 package org.gnucash.api.read;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -13,6 +11,8 @@ import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * A vendor that can issue jobs and send bills paid by us
@@ -228,7 +228,7 @@ public interface GnucashVendor extends GnucashObject {
      *         with them.
      * @throws WrongInvoiceTypeException
      */
-    Collection<GnucashVendorJob> getJobs() throws WrongInvoiceTypeException;
+    List<GnucashVendorJob> getJobs() throws WrongInvoiceTypeException;
 
     // ------------------------------------------------------------
 
@@ -237,7 +237,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws WrongInvoiceTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException;
+    List<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException;
 
     /**
      * @return
@@ -245,7 +245,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -253,7 +253,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -261,7 +261,7 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
@@ -269,6 +269,6 @@ public interface GnucashVendor extends GnucashObject {
      * @throws UnknownAccountTypeException
      * @throws IllegalArgumentException
      */
-    Collection<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }

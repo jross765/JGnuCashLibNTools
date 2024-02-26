@@ -2,11 +2,12 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
@@ -14,6 +15,7 @@ import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashCustomerImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,17 +92,17 @@ public class FileCustomerManager {
 		return retval;
 	}
 
-	public Collection<GnucashCustomer> getCustomersByName(final String name) {
+	public List<GnucashCustomer> getCustomersByName(final String name) {
 		return getCustomersByName(name, true);
 	}
 
-	public Collection<GnucashCustomer> getCustomersByName(final String expr, boolean relaxed) {
+	public List<GnucashCustomer> getCustomersByName(final String expr, boolean relaxed) {
 
 		if ( custMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashCustomer> result = new ArrayList<GnucashCustomer>();
+		List<GnucashCustomer> result = new ArrayList<GnucashCustomer>();
 
 		for ( GnucashCustomer cust : getCustomers() ) {
 			if ( relaxed ) {
@@ -119,7 +121,7 @@ public class FileCustomerManager {
 
 	public GnucashCustomer getCustomerByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashCustomer> custList = getCustomersByName(name);
+		List<GnucashCustomer> custList = getCustomersByName(name);
 		if ( custList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( custList.size() > 1 )
@@ -129,7 +131,7 @@ public class FileCustomerManager {
 	}
 
 	public Collection<GnucashCustomer> getCustomers() {
-		return custMap.values();
+		return Collections.unmodifiableCollection(custMap.values());
 	}
 
 	// ---------------------------------------------------------------

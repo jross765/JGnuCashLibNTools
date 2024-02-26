@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.TreeSet;
 
@@ -150,7 +151,7 @@ public class TestGnucashCustomerInvoiceImpl {
 	assertEquals(1, invcGen.getPayingTransactions().size());
 	assertEquals(1, invcSpec.getPayingTransactions().size());
 
-	ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) invcSpec.getPayingTransactions();
+	List<GnucashTransaction> trxList = (List<GnucashTransaction>) invcSpec.getPayingTransactions();
 	Collections.sort(trxList);
 	assertEquals("29557cfdf4594eb68b1a1b710722f991",
 		((GnucashTransaction) trxList.toArray()[0]).getID().toString());

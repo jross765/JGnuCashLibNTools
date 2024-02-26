@@ -5,14 +5,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,14 +93,14 @@ public class FileInvoiceEntryManager {
 		return retval;
 	}
 
-	public Collection<GnucashGenerInvoiceEntry> getGenerInvoiceEntries() {
+	public List<GnucashGenerInvoiceEntry> getGenerInvoiceEntries() {
 
 		Collection<GnucashGenerInvoiceEntry> c = invcEntrMap.values();
 
-		ArrayList<GnucashGenerInvoiceEntry> retval = new ArrayList<GnucashGenerInvoiceEntry>(c);
+		List<GnucashGenerInvoiceEntry> retval = new ArrayList<GnucashGenerInvoiceEntry>(c);
 		Collections.sort(retval);
 
-		return retval;
+		return Collections.unmodifiableList(retval);
 	}
 
 	// ---------------------------------------------------------------

@@ -3,11 +3,9 @@ package org.gnucash.api.write.impl.spec;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.OwnerId;
@@ -25,6 +23,8 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -387,9 +387,9 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 //
 
 	@Override
-	public Collection<GnucashJobInvoice> getPaidInvoices()
+	public List<GnucashJobInvoice> getPaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
 
 		try {
 			for ( GnucashWritableJobInvoice wrtblInvc : getPaidWritableInvoices() ) {
@@ -405,9 +405,9 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	}
 
 	@Override
-	public Collection<GnucashJobInvoice> getUnpaidInvoices()
+	public List<GnucashJobInvoice> getUnpaidInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		Collection<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
+		List<GnucashJobInvoice> result = new ArrayList<GnucashJobInvoice>();
 
 		try {
 			for ( GnucashWritableJobInvoice wrtblInvc : getUnpaidWritableInvoices() ) {
@@ -428,8 +428,8 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 
 	// ::TODO
 //    @Override
-//    public Collection<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
-//	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+//    public List<GnucashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
+//	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 //
 //	for ( GnucashCustomerInvoice invc : getWritableGnucashFile().getInvoicesForJob(this) ) {
 //	    retval.add(invc);
@@ -438,13 +438,13 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 //	return retval;
 //    }
 
-	public Collection<GnucashWritableJobInvoice> getPaidWritableInvoices()
+	public List<GnucashWritableJobInvoice> getPaidWritableInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableFile().getPaidWritableInvoicesForJob(this);
 	}
 
-	public Collection<GnucashWritableJobInvoice> getUnpaidWritableInvoices()
+	public List<GnucashWritableJobInvoice> getUnpaidWritableInvoices()
 			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableFile().getUnpaidWritableInvoicesForJob(this);

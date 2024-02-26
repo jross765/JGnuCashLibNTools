@@ -5,11 +5,10 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
 import java.util.Collections;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashTransaction;
@@ -19,6 +18,7 @@ import org.gnucash.api.read.impl.TestGnucashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.GnucashVendorBillEntry;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -214,7 +214,7 @@ public class TestGnucashVendorBillImpl {
 	assertEquals(0, bllSpec.getPayingTransactions().size());
 	assertEquals(0, bllSpec.getPayingTransactions().size());
 
-//    ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) bllSpec.getPayingTransactions();
+//    List<GnucashTransaction> trxList = (List<GnucashTransaction>) bllSpec.getPayingTransactions();
 //    Collections.sort(trxList);
 //    assertEquals("xxx", 
 //                 ((GnucashTransaction) bllSpec.getPayingTransactions().toArray()[0]).getID());
@@ -246,7 +246,7 @@ public class TestGnucashVendorBillImpl {
 	assertEquals(1, invcGen.getPayingTransactions().size());
 	assertEquals(1, bllSpec.getPayingTransactions().size());
 
-	ArrayList<GnucashTransaction> trxList = (ArrayList<GnucashTransaction>) bllSpec.getPayingTransactions();
+	List<GnucashTransaction> trxList = (List<GnucashTransaction>) bllSpec.getPayingTransactions();
 	Collections.sort(trxList);
 	assertEquals("ccff780b18294435bf03c6cb1ac325c1",
 		((GnucashTransaction) trxList.toArray()[0]).getID().toString());

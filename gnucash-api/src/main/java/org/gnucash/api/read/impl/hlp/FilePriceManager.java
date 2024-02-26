@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +114,7 @@ public class FilePriceManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return prcMap.values();
+		return Collections.unmodifiableCollection(prcMap.values());
 	}
 
 //    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {

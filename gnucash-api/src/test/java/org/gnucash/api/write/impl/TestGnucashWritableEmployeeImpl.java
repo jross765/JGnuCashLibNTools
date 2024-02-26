@@ -5,15 +5,13 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
@@ -22,6 +20,7 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.write.GnucashWritableEmployee;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -126,13 +125,13 @@ public class TestGnucashWritableEmployeeImpl {
 	assertEquals(1, ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
 	assertEquals(empl.getUnpaidVouchers().size(), ((GnucashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
 
-	Collection<GnucashEmployeeVoucher> vchList1 = empl.getUnpaidVouchers();
-	Collections.sort((ArrayList<GnucashEmployeeVoucher>) vchList1);
+	List<GnucashEmployeeVoucher> vchList1 = empl.getUnpaidVouchers();
+	Collections.sort(vchList1);
 	assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
 		((GnucashEmployeeVoucher) vchList1.toArray()[0]).getID().toString());
-	Collection<GnucashWritableEmployeeVoucher> vchList2 = ((GnucashWritableEmployeeImpl) empl)
+	List<GnucashWritableEmployeeVoucher> vchList2 = ((GnucashWritableEmployeeImpl) empl)
 		.getUnpaidWritableVouchers();
-	Collections.sort((ArrayList<GnucashWritableEmployeeVoucher>) vchList2);
+	Collections.sort(vchList2);
 	assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
 		((GnucashWritableEmployeeVoucher) vchList2.toArray()[0]).getID().toString());
     }

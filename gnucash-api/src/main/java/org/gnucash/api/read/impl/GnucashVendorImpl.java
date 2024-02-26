@@ -377,7 +377,7 @@ public class GnucashVendorImpl extends GnucashObjectImpl
      * @return the jobs that have this vendor associated with them.
      * @throws WrongInvoiceTypeException 
      */
-    public java.util.Collection<GnucashVendorJob> getJobs() throws WrongInvoiceTypeException {
+    public List<GnucashVendorJob> getJobs() throws WrongInvoiceTypeException {
 
 	List<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
 
@@ -396,8 +396,8 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
-    public Collection<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException {
-	Collection<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
+    public List<GnucashGenerInvoice> getBills() throws WrongInvoiceTypeException {
+    	List<GnucashGenerInvoice> retval = new ArrayList<GnucashGenerInvoice>();
 
 	for ( GnucashVendorBill invc : getGnucashFile().getBillsForVendor_direct(this) ) {
 	    retval.add(invc);
@@ -411,22 +411,22 @@ public class GnucashVendorImpl extends GnucashObjectImpl
     }
 
     @Override
-    public Collection<GnucashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getPaidBillsForVendor_direct(this);
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashJobInvoice> getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getPaidBillsForVendor_viaAllJobs(this);
     }
 
     @Override
-    public Collection<GnucashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidBillsForVendor_direct(this);
     }
 
     @Override
-    public Collection<GnucashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnucashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
 	return getGnucashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
 

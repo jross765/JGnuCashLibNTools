@@ -2,11 +2,12 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCustomer;
@@ -21,6 +22,7 @@ import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashVendorJob;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -272,16 +274,16 @@ public class FileJobManager {
 		return retval;
 	}
 
-	public Collection<GnucashGenerJob> getGenerJobsByName(String name) {
+	public List<GnucashGenerJob> getGenerJobsByName(String name) {
 		return getGenerJobsByName(name, true);
 	}
 
-	public Collection<GnucashGenerJob> getGenerJobsByName(final String expr, final boolean relaxed) {
+	public List<GnucashGenerJob> getGenerJobsByName(final String expr, final boolean relaxed) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashGenerJob> result = new ArrayList<GnucashGenerJob>();
+		List<GnucashGenerJob> result = new ArrayList<GnucashGenerJob>();
 
 		for ( GnucashGenerJob job : jobMap.values() ) {
 			if ( relaxed ) {
@@ -300,7 +302,7 @@ public class FileJobManager {
 
 	public GnucashGenerJob getGenerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashGenerJob> jobList = getGenerJobsByName(name, false);
+		List<GnucashGenerJob> jobList = getGenerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( jobList.size() > 1 )
@@ -313,7 +315,8 @@ public class FileJobManager {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
-		return jobMap.values();
+
+		return Collections.unmodifiableCollection(jobMap.values());
 	}
 
 	// ----------------------------
@@ -332,16 +335,16 @@ public class FileJobManager {
 		return retval;
 	}
 
-	public Collection<GnucashCustomerJob> getCustomerJobsByName(String name) {
+	public List<GnucashCustomerJob> getCustomerJobsByName(String name) {
 		return getCustomerJobsByName(name, true);
 	}
 
-	public Collection<GnucashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
+	public List<GnucashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
 		if ( custJobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashCustomerJob> result = new ArrayList<GnucashCustomerJob>();
+		List<GnucashCustomerJob> result = new ArrayList<GnucashCustomerJob>();
 
 		for ( GnucashCustomerJob job : custJobMap.values() ) {
 			if ( relaxed ) {
@@ -360,7 +363,7 @@ public class FileJobManager {
 
 	public GnucashCustomerJob getCustomerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashCustomerJob> jobList = getCustomerJobsByName(name, false);
+		List<GnucashCustomerJob> jobList = getCustomerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( jobList.size() > 1 )
@@ -392,16 +395,16 @@ public class FileJobManager {
 		return retval;
 	}
 
-	public Collection<GnucashVendorJob> getVendorJobsByName(String name) {
+	public List<GnucashVendorJob> getVendorJobsByName(String name) {
 		return getVendorJobsByName(name, true);
 	}
 
-	public Collection<GnucashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
+	public List<GnucashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
 		if ( vendJobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashVendorJob> result = new ArrayList<GnucashVendorJob>();
+		List<GnucashVendorJob> result = new ArrayList<GnucashVendorJob>();
 
 		for ( GnucashVendorJob job : vendJobMap.values() ) {
 			if ( relaxed ) {
@@ -420,7 +423,7 @@ public class FileJobManager {
 
 	public GnucashVendorJob getVendorJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashVendorJob> jobList = getVendorJobsByName(name, false);
+		List<GnucashVendorJob> jobList = getVendorJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( jobList.size() > 1 )
@@ -441,12 +444,12 @@ public class FileJobManager {
 
 	// ---------------------------------------------------------------
 
-	public Collection<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
+	public List<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
 		if ( custJobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
+		List<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
 
 		for ( GnucashCustomerJob custJob : custJobMap.values() ) {
 			if ( custJob.getOwnerID().equals(cust.getID()) ) {
@@ -457,12 +460,12 @@ public class FileJobManager {
 		return retval;
 	}
 
-	public Collection<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
+	public List<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
 		if ( vendJobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
+		List<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
 
 		for ( GnucashVendorJob vendJob : vendJobMap.values() ) {
 			if ( vendJob.getOwnerID().equals(vend.getID()) ) {

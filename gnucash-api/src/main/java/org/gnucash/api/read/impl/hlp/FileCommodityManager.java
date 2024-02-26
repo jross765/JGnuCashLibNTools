@@ -2,20 +2,22 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.generated.GncCommodity;
-import org.gnucash.api.generated.GncV2;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -196,16 +198,16 @@ public class FileCommodityManager {
 		return retval;
 	}
 
-	public Collection<GnucashCommodity> getCommoditiesByName(final String expr) {
+	public List<GnucashCommodity> getCommoditiesByName(final String expr) {
 		return getCommoditiesByName(expr, true);
 	}
 
-	public Collection<GnucashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
+	public List<GnucashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
 		if ( cmdtyMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashCommodity> result = new ArrayList<GnucashCommodity>();
+		List<GnucashCommodity> result = new ArrayList<GnucashCommodity>();
 
 		for ( GnucashCommodity cmdty : getCommodities() ) {
 			if ( cmdty.getName() != null ) // yes, that can actually happen!
@@ -241,7 +243,7 @@ public class FileCommodityManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return cmdtyMap.values();
+		return Collections.unmodifiableCollection(cmdtyMap.values());
 	}
 
 	// ---------------------------------------------------------------

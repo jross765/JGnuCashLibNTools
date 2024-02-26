@@ -3,16 +3,15 @@ package org.gnucash.api.read.impl.hlp;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
 import org.gnucash.api.generated.SlotsType;
+import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

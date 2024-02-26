@@ -1,16 +1,17 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,8 +102,7 @@ public class FileTaxTableManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		// return Collections.unmodifiableCollection(new TreeSet<>(taxTabMap.values()));
-		return taxTabMap.values();
+		return Collections.unmodifiableCollection(taxTabMap.values());
 	}
 
 	// ---------------------------------------------------------------

@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -136,25 +137,25 @@ public class TestGnucashWritableCustomerImpl {
 	assertEquals(cust.getPaidInvoices_direct().size(),
 		((GnucashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
 
-	Collection<GnucashCustomerInvoice> invcList1 = cust.getPaidInvoices_direct();
-	Collections.sort((ArrayList<GnucashCustomerInvoice>) invcList1);
+	List<GnucashCustomerInvoice> invcList1 = cust.getPaidInvoices_direct();
+	Collections.sort(invcList1);
 	assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
 		((GnucashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
-	Collection<GnucashWritableCustomerInvoice> invcList2 = ((GnucashWritableCustomerImpl) cust)
+	List<GnucashWritableCustomerInvoice> invcList2 = ((GnucashWritableCustomerImpl) cust)
 		.getPaidWritableInvoices_direct();
-	Collections.sort((ArrayList<GnucashWritableCustomerInvoice>) invcList2);
+	Collections.sort(invcList2);
 	assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
 		((GnucashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
 
 	invcList1 = cust.getUnpaidInvoices_direct();
-	Collections.sort((ArrayList<GnucashCustomerInvoice>) invcList1);
+	Collections.sort(invcList1);
 	assertEquals(1, ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
 	assertEquals(cust.getUnpaidInvoices_direct().size(),
 		((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial
 	assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
 		((GnucashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
 	invcList2 = ((GnucashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct();
-	Collections.sort((ArrayList<GnucashWritableCustomerInvoice>) invcList2);
+	Collections.sort(invcList2);
 	assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
 		((GnucashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
     }

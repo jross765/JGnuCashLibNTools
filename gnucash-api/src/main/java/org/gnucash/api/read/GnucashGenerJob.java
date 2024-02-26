@@ -1,6 +1,7 @@
 package org.gnucash.api.read;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -156,11 +157,11 @@ public interface GnucashGenerJob {
 
     // ---------------------------------------------------------------
 
-    Collection<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException;
+    List<GnucashJobInvoice> getInvoices() throws WrongInvoiceTypeException;
 
-    Collection<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
-    Collection<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     // ---------------------------------------------------------------
 

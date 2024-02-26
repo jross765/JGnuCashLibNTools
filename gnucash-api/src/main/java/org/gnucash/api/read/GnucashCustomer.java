@@ -1,10 +1,8 @@
 package org.gnucash.api.read;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -13,6 +11,8 @@ import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * A customer that can issue jobs and receive invoices by us
@@ -225,7 +225,7 @@ public interface GnucashCustomer extends GnucashObject {
      *         with them.
      * @throws WrongInvoiceTypeException
      */
-    Collection<GnucashCustomerJob> getJobs() throws WrongInvoiceTypeException;
+    List<GnucashCustomerJob> getJobs() throws WrongInvoiceTypeException;
 
     // ------------------------------------------------------------
 
@@ -233,34 +233,34 @@ public interface GnucashCustomer extends GnucashObject {
      * @return
      * @throws WrongInvoiceTypeException
      */
-    Collection<GnucashGenerInvoice>    getInvoices() throws WrongInvoiceTypeException;
+    List<GnucashGenerInvoice>    getInvoices() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
      * @throws UnknownAccountTypeException
      */
-    Collection<GnucashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnucashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
 
 }
