@@ -6,13 +6,13 @@ import org.gnucash.api.read.aux.GCshBillTerms;
 
 public interface GCshWritableBillTerms extends GCshBillTerms {
 
-    void setRefcount(final int refCnt);
+    void setRefcount(int refCnt);
 
-    void setName(final String name);
+    void setName(String name);
 
-    void setDescription(final String descr);
+    void setDescription(String descr);
 
-    void setInvisible(final boolean val);
+    void setInvisible(boolean val);
     
     // ----------------------------
     
@@ -22,17 +22,17 @@ public interface GCshWritableBillTerms extends GCshBillTerms {
 
     // ----------------------------
     
-    void setType(final Type type) throws BillTermsTypeException;
+    void setType(Type type) throws BillTermsTypeException;
 
-    void setDays(final GCshWritableBillTermsDays bllTrmsDays);
+    void setDays(GCshWritableBillTermsDays bllTrmsDays);
 
-    void setProximo(final GCshWritableBillTermsProximo bllTrmsProx );
+    void setProximo(GCshWritableBillTermsProximo bllTrmsProx );
 
     // ----------------------------
     
-    void setParentID(final GCshID prntID);
+    void setParentID(GCshID prntID);
 
-    void addChild(final String chld);
+    void addChild(String chld);
 
     void removeChild(String chld);
 

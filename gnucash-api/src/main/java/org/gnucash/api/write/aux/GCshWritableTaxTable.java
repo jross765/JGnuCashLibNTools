@@ -6,15 +6,15 @@ import org.gnucash.api.read.aux.GCshTaxTableEntry;
 
 public interface GCshWritableTaxTable extends GCshTaxTable {
     
-    void setName(final String name);
+    void setName(String name);
     
-    void setParentID(final GCshID prntID);
+    void setParentID(GCshID prntID);
 
-    void setParent(final GCshTaxTable prnt);
+    void setParent(GCshTaxTable prnt);
     
     // ---------------------------------------------------------------
     
-    void addEntry(final GCshTaxTableEntry entry);
+    void addEntry(GCshTaxTableEntry entry);
     
     void removeEntry(GCshTaxTableEntry entry);
 

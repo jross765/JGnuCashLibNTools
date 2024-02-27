@@ -5,10 +5,10 @@ import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GCshWritableBillTermsDays extends GCshBillTermsDays {
 
-    void setDueDays(final Integer dueDays);
+    void setDueDays(Integer dueDays);
 
-    void setDiscountDays(final Integer dscntDays);
+    void setDiscountDays(Integer dscntDays);
 
-    void setDiscount(final FixedPointNumber dscnt);
+    void setDiscount(FixedPointNumber dscnt);
 
 }

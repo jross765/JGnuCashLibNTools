@@ -7,13 +7,13 @@ import org.gnucash.api.read.aux.GCshTaxTableEntry;
 
 public interface GCshWritableTaxTableEntry extends GCshTaxTableEntry {
 
-    void setType(final Type type);
+    void setType(Type type);
 
-    void setTypeStr(final String typeStr);
+    void setTypeStr(String typeStr);
 
-    void setAccountID(final GCshID acctID);
+    void setAccountID(GCshID acctID);
 
-    void setAccount(final GnucashAccount acct);
+    void setAccount(GnucashAccount acct);
 
-    void setAmount(final FixedPointNumber amt);
+    void setAmount(FixedPointNumber amt);
 }

@@ -5,10 +5,10 @@ import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GCshWritableBillTermsProximo extends GCshBillTermsProximo {
 
-    void setDueDay(final Integer dueDay);
+    void setDueDay(Integer dueDay);
 
-    void getDiscountDay(final Integer dscntDay);
+    void getDiscountDay(Integer dscntDay);
 
-    void setDiscount(final FixedPointNumber dscnt);
+    void setDiscount(FixedPointNumber dscnt);
 
 }
