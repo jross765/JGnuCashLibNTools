@@ -7,10 +7,15 @@ import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
+import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.GnucashTransactionSplit;
+import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
@@ -32,7 +37,6 @@ public class TestHasUserDefinedAttributesImpl {
 	// -----------------------------------------------------------------
 
     private GnucashFile gcshFile = null;
-    private GCshTaxTable taxTab = null;
 
     // -----------------------------------------------------------------
 
@@ -40,7 +44,6 @@ public class TestHasUserDefinedAttributesImpl {
     	junit.textui.TestRunner.run(suite());
     }
 
-    @SuppressWarnings("exports")
     public static junit.framework.Test suite() {
     	return new JUnit4TestAdapter(TestHasUserDefinedAttributesImpl.class);
     }
@@ -65,6 +68,12 @@ public class TestHasUserDefinedAttributesImpl {
 			exc.printStackTrace();
 		}
 	}
+
+    // -----------------------------------------------------------------
+    // Book
+    // -----------------------------------------------------------------
+    
+    // ::TODO
 
     // -----------------------------------------------------------------
     // Account
@@ -134,6 +143,13 @@ public class TestHasUserDefinedAttributesImpl {
     }
     
     // -----------------------------------------------------------------
+    // Transaction Split
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // There are none with slots
+
+    // -----------------------------------------------------------------
     // Invoice
     // -----------------------------------------------------------------
 
@@ -166,11 +182,99 @@ public class TestHasUserDefinedAttributesImpl {
     	assertEquals("0", trx.getUserDefinedAttribute(ConstTest.SLOT_KEY_INVC_CREDIT_NOTE));
     }
 
-//	for ( GnucashGenerInvoice invc : gcshFile.getGenerInvoices() ) {
-//	if ( invc.getUserDefinedAttributeKeys() != null ) {
-//		if ( invc.getUserDefinedAttributeKeys().size() == 1 ) {
-//			System.err.println("yyy1: " + invc.getID() );
-//		}
-//	}
-//}
+    // -----------------------------------------------------------------
+    // Invoice Entry
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // There are none with slots
+
+    // -----------------------------------------------------------------
+    // Commodity
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // The following have slots
+//    ISIN:DE000BASF111
+//    ISIN:US1912161007
+//    ISIN:FR0000120644
+//    ISIN:GB0009895292
+
+    // -----------------------------------------------------------------
+    // Customer
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // There are none with slots
+
+    // -----------------------------------------------------------------
+    // Vendor
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // There are none with slots
+
+    // -----------------------------------------------------------------
+    // Employee
+    // -----------------------------------------------------------------
+    
+    // ::TODO
+    // There are none with slots
+
+    // -----------------------------------------------------------------
+    // Stats/Meta
+    // -----------------------------------------------------------------
+    
+//    @Test
+//    public void test_meta() throws Exception {
+//    	for ( GnucashTransactionSplit elt : gcshFile.getTransactionSplits() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy splt: " + elt.getID() );
+//    			}
+//    		}
+//    	}
+//
+//    	for ( GnucashGenerInvoiceEntry elt : gcshFile.getGenerInvoiceEntries() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy invc-entr: " + elt.getID() );
+//    			}
+//    		}
+//    	}
+//
+//    	for ( GnucashCommodity elt : gcshFile.getCommodities() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy cmdty: " + elt.getQualifID() );
+//    			}
+//    		}
+//    	}
+//
+//    	for ( GnucashCustomer elt : gcshFile.getCustomers() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy cust: " + elt.getID() );
+//    			}
+//    		}
+//    	}
+//
+//    	for ( GnucashVendor elt : gcshFile.getVendors() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy vend: " + elt.getID() );
+//    			}
+//    		}
+//    	}
+//
+//    	for ( GnucashEmployee elt : gcshFile.getEmployees() ) {
+//    		if ( elt.getUserDefinedAttributeKeys() != null ) {
+//    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
+//    				System.err.println("yyy empl: " + elt.getID() );
+//    			}
+//    		}
+//    	}
+//
+//    }
+
 }

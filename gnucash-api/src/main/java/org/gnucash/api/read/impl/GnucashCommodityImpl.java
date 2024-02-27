@@ -153,13 +153,13 @@ public class GnucashCommodityImpl extends GnucashObjectImpl
 	@Override
 	public String getUserDefinedAttribute(String name) {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots().getSlot(), name);
+					.getUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots(), name);
 	}
 
 	@Override
 	public List<String> getUserDefinedAttributeKeys() {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeKeysCore(jwsdpPeer.getCmdtySlots().getSlot());
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getCmdtySlots());
 	}
 
     // -----------------------------------------------------------------

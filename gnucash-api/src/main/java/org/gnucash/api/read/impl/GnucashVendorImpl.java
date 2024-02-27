@@ -436,13 +436,13 @@ public class GnucashVendorImpl extends GnucashObjectImpl
 	@Override
 	public String getUserDefinedAttribute(String name) {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeCore(jwsdpPeer.getVendorSlots().getSlot(), name);
+					.getUserDefinedAttributeCore(jwsdpPeer.getVendorSlots(), name);
 	}
 
 	@Override
 	public List<String> getUserDefinedAttributeKeys() {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeKeysCore(jwsdpPeer.getVendorSlots().getSlot());
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getVendorSlots());
 	}
 
     // ------------------------------------------------------------

@@ -350,12 +350,12 @@ public class GnucashTransactionSplitImpl extends GnucashObjectImpl
     
 	@Override
 	public String getUserDefinedAttribute(String name) {
-		return HasUserDefinedAttributesImpl.getUserDefinedAttributeCore(jwsdpPeer.getSplitSlots().getSlot(), name);
+		return HasUserDefinedAttributesImpl.getUserDefinedAttributeCore(jwsdpPeer.getSplitSlots(), name);
 	}
 
 	@Override
 	public List<String> getUserDefinedAttributeKeys() {
-		return HasUserDefinedAttributesImpl.getUserDefinedAttributeKeysCore(jwsdpPeer.getSplitSlots().getSlot());
+		return HasUserDefinedAttributesImpl.getUserDefinedAttributeKeysCore(jwsdpPeer.getSplitSlots());
 	}
 
     // ---------------------------------------------------------------

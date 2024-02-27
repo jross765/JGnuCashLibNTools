@@ -8,15 +8,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.GncGncEntry.EntryBTaxtable;
 import org.gnucash.api.generated.GncGncEntry.EntryBill;
 import org.gnucash.api.generated.GncGncEntry.EntryITaxtable;
 import org.gnucash.api.generated.GncGncEntry.EntryInvoice;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashGenerJob;
@@ -31,6 +27,9 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1319,13 +1318,13 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	@Override
 	public String getUserDefinedAttribute(String name) {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(), name);
+					.getUserDefinedAttributeCore(jwsdpPeer.getEntrySlots(), name);
 	}
 
 	@Override
 	public List<String> getUserDefinedAttributeKeys() {
 		return HasUserDefinedAttributesImpl
-					.getUserDefinedAttributeKeysCore(jwsdpPeer.getEntrySlots().getSlot());
+					.getUserDefinedAttributeKeysCore(jwsdpPeer.getEntrySlots());
 	}
 
     // ---------------------------------------------------------------
