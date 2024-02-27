@@ -240,7 +240,7 @@ public class GnucashAccountImpl extends SimpleAccount
      */
     public String getUserDefinedAttribute(final String name) {
     	return HasUserDefinedAttributesImpl
-    			.getUserDefinedAttributeCore(jwsdpPeer.getActSlots().getSlot(), name);
+    			.getUserDefinedAttributeCore(jwsdpPeer.getActSlots(), name);
     }
 
     /**
@@ -249,7 +249,7 @@ public class GnucashAccountImpl extends SimpleAccount
      */
     public List<String> getUserDefinedAttributeKeys() {
     	return HasUserDefinedAttributesImpl
-    			.getUserDefinedAttributeKeysCore(jwsdpPeer.getActSlots().getSlot());
+    			.getUserDefinedAttributeKeysCore(jwsdpPeer.getActSlots());
     }
 
     // -----------------------------------------------------------------

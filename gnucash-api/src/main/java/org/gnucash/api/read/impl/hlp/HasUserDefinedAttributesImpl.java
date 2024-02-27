@@ -11,13 +11,22 @@ import org.gnucash.api.generated.SlotsType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
+import jakarta.xml.bind.JAXBElement;
+
+public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes <-- NO!
 {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HasUserDefinedAttributesImpl.class);
 
 	// ---------------------------------------------------------------
 
+	public static String getUserDefinedAttributeCore(final SlotsType slots, final String name) {
+		if ( slots == null )
+			return null;
+		
+		return getUserDefinedAttributeCore(slots.getSlot(), name);
+	}
+	
 	public static String getUserDefinedAttributeCore(final List<Slot> slotList, final String name) {
 		if ( slotList == null )
 			return null;
@@ -58,11 +67,37 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 					Object value = objList.get(0);
 					if ( value == null )
 						return null;
-					if ( !(value instanceof String) ) {
+					LOGGER.debug("User-defined attribute for key '" + nameFirst + "' may not be a String."
+							+ " It is of type [" + value.getClass().getName() + "]");
+					if ( value instanceof String ) {
+						return (String) value;
+					} else if ( value instanceof JAXBElement ) {
+						JAXBElement elt = (JAXBElement) value;
+						return elt.getValue().toString();
+					} else {
 						LOGGER.error("User-defined attribute for key '" + nameFirst + "' may not be a String."
-								+ " It is of type [" + value.getClass().getName() + "]");
+								+ " It is of UNKNOWN type [" + value.getClass().getName() + "]");
+						return "ERROR";
 					}
-					return value.toString();
+				} else if ( slot.getSlotValue().getType().equals("gdate") ) {
+					List<Object> objList = slot.getSlotValue().getContent();
+					if ( objList == null || objList.size() == 0 )
+						return null;
+					Object value = objList.get(1); // ::MAGIC
+					if ( value == null )
+						return null;
+					LOGGER.debug("User-defined attribute for key '" + nameFirst + "' may not be a String."
+							+ " It is of type [" + value.getClass().getName() + "]");
+					if ( value instanceof String ) {
+						return (String) value;
+					} else if ( value instanceof JAXBElement ) {
+						JAXBElement elt = (JAXBElement) value;
+						return elt.getValue().toString();
+					} else {
+						LOGGER.error("User-defined attribute for key '" + nameFirst + "' may not be a String."
+								+ " It is of UNKNOWN type [" + value.getClass().getName() + "]");
+						return "ERROR";
+					}
 				} else if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_FRAME) ) {
 					List<Slot> subSlots = new ArrayList<Slot>();
 					for ( Object obj : slot.getSlotValue().getContent() ) {
@@ -82,7 +117,19 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 		return null;
 	}
 
+	// -----------------------------------------------------------------
+
+	public static List<String> getUserDefinedAttributeKeysCore(final SlotsType slots) {
+		if ( slots == null )
+			return null;
+		
+		return getUserDefinedAttributeKeysCore(slots.getSlot());
+	}
+    
     public static List<String> getUserDefinedAttributeKeysCore(final List<Slot> slotList) {
+		if ( slotList == null )
+			return null;
+		
 		List<String> retval = new ArrayList<String>();
 
 		for ( Slot slt : slotList ) {

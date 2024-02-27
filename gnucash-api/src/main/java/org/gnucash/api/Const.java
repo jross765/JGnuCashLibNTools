@@ -18,8 +18,12 @@ public class Const {
   public static final String SLOT_KEY_ACCT_PLACEHOLDER   = "placeholder";
   public static final String SLOT_KEY_ACCT_NOTES         = "notes";
   
+  public static final String SLOT_KEY_TRX_DATE_POSTED    = "date-posted";
+  public static final String SLOT_KEY_TRX_TRX_TYPE       = "trans-txn-type";
+  
   public static final String SLOT_KEY_INVC_TYPE          = "gncInvoice";
   public static final String SLOT_KEY_INVC_GUID          = "invoice-guid";
+  public static final String SLOT_KEY_INVC_CREDIT_NOTE   = "credit-note";
   public static final String SLOT_KEY_INVC_TRX_TYPE      = "trans-txn-type";
   public static final String SLOT_KEY_INVC_TRX_DATE_DUE  = "trans-date-due";
   public static final String SLOT_KEY_INVC_TRX_READ_ONLY = "trans-read-only";

@@ -62,7 +62,7 @@ public interface GnucashWritableGenerInvoice_Job {
     GnucashWritableJobInvoiceEntry createJobInvcEntry(
     		GnucashAccount acct,
     		FixedPointNumber singleUnitPrice,
-FixedPointNumber quantity,
+    		FixedPointNumber quantity,
 			String taxTabName) throws WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;

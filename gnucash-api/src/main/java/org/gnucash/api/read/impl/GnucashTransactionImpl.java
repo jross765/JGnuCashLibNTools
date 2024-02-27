@@ -513,13 +513,13 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
 	@Override
 	public String getUserDefinedAttribute(String name) {
 		return HasUserDefinedAttributesImpl
-				.getUserDefinedAttributeCore(jwsdpPeer.getTrnSlots().getSlot(), name);
+				.getUserDefinedAttributeCore(jwsdpPeer.getTrnSlots(), name);
 	}
 
 	@Override
 	public List<String> getUserDefinedAttributeKeys() {
 		return HasUserDefinedAttributesImpl
-				.getUserDefinedAttributeKeysCore(jwsdpPeer.getTrnSlots().getSlot());
+				.getUserDefinedAttributeKeysCore(jwsdpPeer.getTrnSlots());
 	}
 
 	// -----------------------------------------------------------
