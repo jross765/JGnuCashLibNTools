@@ -37,7 +37,7 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 	 * @param accountId the new account to give this
 	 *        money to/take it from.
 	 */
-	void setAccountID(final GCshID accountId);
+	void setAccountID(GCshID accountId);
 
 	/**
 	 * Does not convert the quantity to another
@@ -56,7 +56,7 @@ public interface GnucashWritableTransactionSplit extends GnucashTransactionSplit
 	 * @param accountId the new account to give this
 	 *        money to/take it from.
 	 */
-	void setLotID(final String accountId);
+	void setLotID(String accountId);
 
 
 	/**

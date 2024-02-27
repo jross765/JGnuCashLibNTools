@@ -12,7 +12,7 @@ import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
 
 public interface GnucashWritableGenerInvoice_Vend {
 
-    void setVendor(final GnucashVendor vend) throws WrongInvoiceTypeException;
+    void setVendor(GnucashVendor vend) throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -32,8 +32,10 @@ public interface GnucashWritableGenerInvoice_Vend {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableVendorBillEntry createVendBllEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity)
+    GnucashWritableVendorBillEntry createVendBllEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -54,8 +56,11 @@ public interface GnucashWritableGenerInvoice_Vend {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableVendorBillEntry createVendBllEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final String taxTabName)
+    GnucashWritableVendorBillEntry createVendBllEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		String taxTabName)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -75,8 +80,11 @@ public interface GnucashWritableGenerInvoice_Vend {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableVendorBillEntry createVendBllEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final GCshTaxTable taxTab)
+    GnucashWritableVendorBillEntry createVendBllEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 

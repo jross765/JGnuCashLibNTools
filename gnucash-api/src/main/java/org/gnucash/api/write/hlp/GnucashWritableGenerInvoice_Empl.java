@@ -12,7 +12,7 @@ import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
 
 public interface GnucashWritableGenerInvoice_Empl {
 
-    void setEmployee(final GnucashEmployee empl) throws WrongInvoiceTypeException;
+    void setEmployee(GnucashEmployee empl) throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -32,8 +32,10 @@ public interface GnucashWritableGenerInvoice_Empl {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity)
+    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -54,8 +56,11 @@ public interface GnucashWritableGenerInvoice_Empl {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final String taxTabName)
+    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		String taxTabName)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -75,8 +80,11 @@ public interface GnucashWritableGenerInvoice_Empl {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final GCshTaxTable taxTab)
+    GnucashWritableEmployeeVoucherEntry createEmplVchEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 

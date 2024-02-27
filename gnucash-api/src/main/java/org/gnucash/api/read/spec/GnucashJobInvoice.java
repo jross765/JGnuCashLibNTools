@@ -90,6 +90,6 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
 
     Collection<GnucashJobInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
 
-    void addEntry(final GnucashJobInvoiceEntry entry);
+    void addEntry(GnucashJobInvoiceEntry entry);
     
 }

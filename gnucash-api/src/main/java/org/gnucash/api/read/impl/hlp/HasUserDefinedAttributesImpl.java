@@ -1,6 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 

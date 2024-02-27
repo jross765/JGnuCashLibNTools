@@ -1,6 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -12,17 +11,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import org.gnucash.api.currency.ComplexPriceTable;
+import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnucashTransaction;
+import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.currency.ComplexPriceTable;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

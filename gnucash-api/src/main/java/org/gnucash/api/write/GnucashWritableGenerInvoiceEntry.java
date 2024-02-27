@@ -34,14 +34,14 @@ public interface GnucashWritableGenerInvoiceEntry extends GnucashGenerInvoiceEnt
      */
     GnucashWritableGenerInvoice getGenerInvoice();
 
-    void setDate(final LocalDate date);
+    void setDate(LocalDate date);
 
     /**
      * Set the description-text.
      *
      * @param desc the new description
      */
-    void setDescription(final String desc);
+    void setDescription(String desc);
 
     // ---------------------------------------------------------------
 

@@ -41,6 +41,6 @@ public interface GnucashCustomerInvoice extends GnucashGenerInvoice {
 
     Collection<GnucashCustomerInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
 
-    void addEntry(final GnucashCustomerInvoiceEntry entry);
+    void addEntry(GnucashCustomerInvoiceEntry entry);
     
 }

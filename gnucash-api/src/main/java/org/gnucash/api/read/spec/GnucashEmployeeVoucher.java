@@ -41,6 +41,6 @@ public interface GnucashEmployeeVoucher extends GnucashGenerInvoice {
 
     Collection<GnucashEmployeeVoucherEntry> getEntries() throws WrongInvoiceTypeException;
 
-    void addEntry(final GnucashEmployeeVoucherEntry entry);
+    void addEntry(GnucashEmployeeVoucherEntry entry);
 
 }

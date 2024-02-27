@@ -40,6 +40,6 @@ public interface GnucashVendorBill extends GnucashGenerInvoice {
 
     Collection<GnucashVendorBillEntry> getEntries() throws WrongInvoiceTypeException;
 
-    void addEntry(final GnucashVendorBillEntry entry);
+    void addEntry(GnucashVendorBillEntry entry);
 
 }

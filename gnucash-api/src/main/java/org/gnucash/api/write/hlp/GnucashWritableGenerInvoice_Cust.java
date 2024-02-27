@@ -12,7 +12,7 @@ import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
 
 public interface GnucashWritableGenerInvoice_Cust {
 
-    void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException;
+    void setCustomer(GnucashCustomer cust) throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -32,8 +32,10 @@ public interface GnucashWritableGenerInvoice_Cust {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity)
+    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice, 
+    		FixedPointNumber quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -54,8 +56,11 @@ public interface GnucashWritableGenerInvoice_Cust {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final String taxTabName)
+    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice, 
+    		FixedPointNumber quantity, 
+    		String taxTabName)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -75,8 +80,11 @@ public interface GnucashWritableGenerInvoice_Cust {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(final GnucashAccount acct,
-	    final FixedPointNumber singleUnitPrice, final FixedPointNumber quantity, final GCshTaxTable taxTab)
+    GnucashWritableCustomerInvoiceEntry createCustInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 }

@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.gnucash.api.read.GnucashGenerInvoice;

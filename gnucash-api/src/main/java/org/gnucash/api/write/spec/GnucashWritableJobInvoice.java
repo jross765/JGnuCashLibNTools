@@ -61,28 +61,28 @@ public interface GnucashWritableJobInvoice extends GnucashWritableGenerInvoice {
 
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    FixedPointNumber singleUnitPrice,
+	    FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
 
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, 
-	    final String taxTabName)
+	    FixedPointNumber singleUnitPrice,
+	    FixedPointNumber quantity, 
+	    String taxTabName)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
 
     GnucashWritableJobInvoiceEntry createEntry(
 	    GnucashAccount acct, 
-	    final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, 
-	    final GCshTaxTable taxTab)
+	    FixedPointNumber singleUnitPrice,
+	    FixedPointNumber quantity, 
+	    GCshTaxTable taxTab)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
 
     // ---------------------------------------------------------------
     
-    void post(final GnucashAccount incExpAcct,
-	      final GnucashAccount recvblPayablAcct,
-	      final LocalDate postDate,
-	      final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+    void post(GnucashAccount incExpAcct,
+	      GnucashAccount recvblPayablAcct,
+	      LocalDate postDate,
+	      LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
 
 }

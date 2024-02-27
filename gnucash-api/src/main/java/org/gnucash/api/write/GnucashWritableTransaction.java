@@ -29,7 +29,7 @@ public interface GnucashWritableTransaction extends GnucashTransaction,
      * @see #setCurrencyNameSpace(String)
      * @see {@link GnucashTransaction#getCurrencyID()}
      */
-    void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID);
+    void setCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 
     /**
      * The gnucash-file is the top-level class to contain everything.
@@ -43,15 +43,15 @@ public interface GnucashWritableTransaction extends GnucashTransaction,
      *                    entered into the system
      * @see {@link #setDatePosted(LocalDateTime)}
      */
-    void setDateEntered(final LocalDateTime dateEntered); // sic, not LocalDate
+    void setDateEntered(LocalDateTime dateEntered); // sic, not LocalDate
 
     /**
      * @param datePosted the day (time is ignored) that the money was transfered
      * @see {@link #setDateEntered(LocalDateTime)}
      */
-    void setDatePosted(final LocalDate datePosted);
+    void setDatePosted(LocalDate datePosted);
 
-    void setDescription(final String desc);
+    void setDescription(String desc);
 
     void setNumber(String string);
 

@@ -13,7 +13,7 @@ import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
 
 public interface GnucashWritableGenerInvoice_Job {
 
-    void setGenerJob(final GnucashGenerJob job) throws WrongInvoiceTypeException;
+    void setGenerJob(GnucashGenerJob job) throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 
@@ -34,8 +34,10 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException,
+    GnucashWritableJobInvoiceEntry createJobInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity) throws WrongInvoiceTypeException, TaxTableNotFoundException,
 	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException,
 	    InvalidCmdtyCurrTypeException;
 
@@ -57,8 +59,11 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, final String taxTabName) throws WrongInvoiceTypeException,
+    GnucashWritableJobInvoiceEntry createJobInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+FixedPointNumber quantity,
+			String taxTabName) throws WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
@@ -79,8 +84,11 @@ public interface GnucashWritableGenerInvoice_Job {
      * @throws IllegalArgumentException
      * 
      */
-    GnucashWritableJobInvoiceEntry createJobInvcEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity, final GCshTaxTable taxTab) throws WrongInvoiceTypeException,
+    GnucashWritableJobInvoiceEntry createJobInvcEntry(
+    		GnucashAccount acct,
+    		FixedPointNumber singleUnitPrice,
+    		FixedPointNumber quantity,
+    		GCshTaxTable taxTab) throws WrongInvoiceTypeException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 }

@@ -24,6 +24,6 @@ public interface GnucashWritableGenerJob extends GnucashGenerJob,
     /**
      * @param jobActive true is the job is to be (re)activated, false to deactivate
      */
-    public void setActive(final boolean jobActive);
+    public void setActive(boolean jobActive);
 
 }

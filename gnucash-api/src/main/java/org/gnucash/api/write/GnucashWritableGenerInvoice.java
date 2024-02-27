@@ -71,9 +71,9 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
 
     // -----------------------------------------------------------
 
-    void setNumber(final String number);
+    void setNumber(String number);
 
-    void setDescription(final String descr);
+    void setDescription(String descr);
 
     // -----------------------------------------------------------
 
@@ -119,8 +119,8 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
      * @throws TaxTableNotFoundException
      * 
      */
-    GnucashWritableGenerInvoiceEntry createGenerEntry(final GnucashAccount acct, final FixedPointNumber singleUnitPrice,
-	    final FixedPointNumber quantity)
+    GnucashWritableGenerInvoiceEntry createGenerEntry(GnucashAccount acct, FixedPointNumber singleUnitPrice,
+	    FixedPointNumber quantity)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException;
 
 }

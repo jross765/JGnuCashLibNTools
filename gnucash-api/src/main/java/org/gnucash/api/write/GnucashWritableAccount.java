@@ -74,7 +74,7 @@ public interface GnucashWritableAccount extends GnucashAccount,
      * @see #setCurrencyNameSpace(String)
      * @see {@link GnucashAccount#getCurrencyID()}
      */
-    void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException;
+    void setCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException;
 
     /**
      * @param newparent the new account or null to make it a top-level-account
