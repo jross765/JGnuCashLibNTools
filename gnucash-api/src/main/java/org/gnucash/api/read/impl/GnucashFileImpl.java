@@ -99,7 +99,6 @@ import jakarta.xml.bind.Unmarshaller;
 public class GnucashFileImpl implements GnucashFile,
                                         GnucashPubIDManager
 {
-
     protected static final Logger LOGGER = LoggerFactory.getLogger(GnucashFileImpl.class);
 
     // ---------------------------------------------------------------
@@ -1345,7 +1344,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public String getUserDefinedAttribute(final String aName) {
     	return HasUserDefinedAttributesImpl
-    			.getUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots().getSlot(), aName);
+    			.getUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots(), aName);
     }
 
     /**
@@ -1354,7 +1353,7 @@ public class GnucashFileImpl implements GnucashFile,
     @Override
     public List<String> getUserDefinedAttributeKeys() {
     	return HasUserDefinedAttributesImpl
-    			.getUserDefinedAttributeKeysCore(getRootElement().getGncBook().getBookSlots().getSlot());
+    			.getUserDefinedAttributeKeysCore(getRootElement().getGncBook().getBookSlots());
     }
 
     // ---------------------------------------------------------------

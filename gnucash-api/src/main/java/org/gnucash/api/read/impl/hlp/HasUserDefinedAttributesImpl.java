@@ -15,8 +15,9 @@ import jakarta.xml.bind.JAXBElement;
 
 public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes <-- NO!
 {
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(HasUserDefinedAttributesImpl.class);
+	
+	public static final String HIERARCHY_SEPARATOR = ".";
 
 	// ---------------------------------------------------------------
 
@@ -33,19 +34,19 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 
 		if ( name.equals("") )
 			return null;
-
+		
 		// ---
 
 		String nameFirst = "";
 		String nameRest = "";
-		if ( name.contains(".") ) {
-			String[] nameParts = name.split("\\.");
+		if ( name.contains(HIERARCHY_SEPARATOR) ) {
+			String[] nameParts = name.split(HIERARCHY_SEPARATOR.replace(".", "\\."));
 			nameFirst = nameParts[0];
 			if ( nameParts.length > 1 ) {
 				for ( int i = 1; i < nameParts.length; i++ ) {
 					nameRest += nameParts[i];
 					if ( i < nameParts.length - 1 )
-						nameRest += ".";
+						nameRest += HIERARCHY_SEPARATOR;
 				}
 			}
 		} else {
@@ -58,9 +59,9 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 	
 		for ( Slot slot : slotList ) {
 			if ( slot.getSlotKey().equals(nameFirst) ) {
-				if ( slot.getSlotValue().getType().equals("string") || 
-					 slot.getSlotValue().getType().equals("integer") || 
-					 slot.getSlotValue().getType().equals("guid") ) {
+				if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_STRING) || 
+					 slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_INTEGER) || 
+					 slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GUID) ) {
 					List<Object> objList = slot.getSlotValue().getContent();
 					if ( objList == null || objList.size() == 0 )
 						return null;
@@ -79,7 +80,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 								+ " It is of UNKNOWN type [" + value.getClass().getName() + "]");
 						return "ERROR";
 					}
-				} else if ( slot.getSlotValue().getType().equals("gdate") ) {
+				} else if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GDATE) ) {
 					List<Object> objList = slot.getSlotValue().getContent();
 					if ( objList == null || objList.size() == 0 )
 						return null;
@@ -99,8 +100,11 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 						return "ERROR";
 					}
 				} else if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_FRAME) ) {
+					List<Object> objList = slot.getSlotValue().getContent();
+					if ( objList == null || objList.size() == 0 )
+						return null;
 					List<Slot> subSlots = new ArrayList<Slot>();
-					for ( Object obj : slot.getSlotValue().getContent() ) {
+					for ( Object obj : objList ) {
 						if ( obj instanceof Slot ) {
 							Slot subSlot = (Slot) obj;
 							subSlots.add(subSlot);
@@ -141,11 +145,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
     
 	// -----------------------------------------------------------------
 
-	/**
-	 * Return slots without the ones with dummy content
-	 * 
-	 * @return
-	 */
+	// Return slots without the ones with dummy content
 	public static List<Slot> getSlotsListClean(final List<Slot> slotList) {
 		List<Slot> retval = new ArrayList<Slot>();
 
@@ -158,9 +158,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 		return retval;
 	}
 
-	/**
-	 * Remove slots with dummy content
-	 */
+	// Remove slots with dummy content
 	public static void cleanSlots(final List<Slot> slotList) {
 		for ( Slot slot : slotList ) {
 			if ( ! slot.getSlotKey().equals(Const.SLOT_KEY_DUMMY) ) {
@@ -171,9 +169,6 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 	
 	// ---------------------------------------------------------------
 	
-    /**
-     * @param newSlots The slots to set.
-     */
 	// Sic, not in HasWritableUserDefinedAttributes
 	//                ========
 	public static void setSlotsInit(

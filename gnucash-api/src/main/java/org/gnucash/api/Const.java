@@ -8,12 +8,20 @@ public class Const {
   public static final String XML_FORMAT_VERSION = "2.0.0";
   public static final String XML_FORMAT_VERSION_PRICEDB = "1";
   
-  public static final String XML_DATA_TYPE_GUID     = "guid";
+  public static final String XML_DATA_TYPE_INTEGER  = "integer";
   public static final String XML_DATA_TYPE_STRING   = "string";
   public static final String XML_DATA_TYPE_TIMESPEC = "timespec";
+  public static final String XML_DATA_TYPE_GDATE    = "gdate";
+  public static final String XML_DATA_TYPE_GUID     = "guid";
   public static final String XML_DATA_TYPE_FRAME    = "frame";
   
   // -----------------------------------------------------------------
+  
+  public static final String SLOT_KEY_BOOK_COUNTER_FORMATS = "counter_formats";
+  public static final String SLOT_KEY_BOOK_COUNTERS      = "counters";
+  public static final String SLOT_KEY_BOOK_FEATURES      = "features";
+  public static final String SLOT_KEY_BOOK_OPTIONS       = "options";
+  public static final String SLOT_KEY_BOOK_REMOVE_COLOR_NOT_SETS_SLOTS = "remove-color-not-set-slots";
   
   public static final String SLOT_KEY_ACCT_PLACEHOLDER   = "placeholder";
   public static final String SLOT_KEY_ACCT_NOTES         = "notes";
@@ -27,6 +35,8 @@ public class Const {
   public static final String SLOT_KEY_INVC_TRX_TYPE      = "trans-txn-type";
   public static final String SLOT_KEY_INVC_TRX_DATE_DUE  = "trans-date-due";
   public static final String SLOT_KEY_INVC_TRX_READ_ONLY = "trans-read-only";
+  
+  public static final String SLOT_KEY_CMDTY_USER_SYMBOL  = "user_symbol";
   
   public static final String SLOT_KEY_ASSOC_URI          = "assoc_uri";
   public static final String SLOT_KEY_DUMMY              = "dummy";

@@ -8,15 +8,13 @@ import java.io.InputStream;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +31,9 @@ public class TestHasUserDefinedAttributesImpl {
 		
 	public static final GCshID INVC_2_ID = new GCshID( "8de4467c17e04bb2895fb68cc07fc4df" );
 	public static final GCshID INVC_3_ID = new GCshID( "169331c9860642cf84b04f3e3151058a" );
+
+	public static final GCshCmdtyID_Exchange  CMDTY_1_ID = new GCshCmdtyID_Exchange( GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "MBG" );
+	public static final GCshCmdtyID_SecIdType CMDTY_2_ID = new GCshCmdtyID_SecIdType( GCshCmdtyCurrNameSpace.SecIdType.ISIN, "DE000BASF111" );
 
 	// -----------------------------------------------------------------
 
@@ -73,7 +74,63 @@ public class TestHasUserDefinedAttributesImpl {
     // Book
     // -----------------------------------------------------------------
     
-    // ::TODO
+    // Several slots
+    @Test
+    public void test_book_01() throws Exception {
+    	assertNotEquals(null, gcshFile.getUserDefinedAttributeKeys());
+    	
+    	assertEquals(5, gcshFile.getUserDefinedAttributeKeys().size());
+    	assertEquals(ConstTest.SLOT_KEY_BOOK_COUNTER_FORMATS, gcshFile.getUserDefinedAttributeKeys().get(0));
+    	assertEquals(ConstTest.SLOT_KEY_BOOK_COUNTERS, gcshFile.getUserDefinedAttributeKeys().get(1));
+    	assertEquals(ConstTest.SLOT_KEY_BOOK_FEATURES, gcshFile.getUserDefinedAttributeKeys().get(2));
+    	assertEquals(ConstTest.SLOT_KEY_BOOK_OPTIONS, gcshFile.getUserDefinedAttributeKeys().get(3));
+    	assertEquals(ConstTest.SLOT_KEY_BOOK_REMOVE_COLOR_NOT_SETS_SLOTS, gcshFile.getUserDefinedAttributeKeys().get(4));
+    	
+    	assertEquals(null, gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_COUNTER_FORMATS + 
+    														HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    														"gncBill"));
+    	assertEquals(null, gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_COUNTER_FORMATS + 
+    														HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    														"gncCustomer"));
+    	// etc.
+    	
+    	assertEquals("1", gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_COUNTERS + 
+    													   HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    													   "gncBill"));
+    	assertEquals("3", gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_COUNTERS + 
+    													   HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    													   "gncCustomer"));
+    	// etc.
+    	
+    	// CAUTION: This one does not work because the key contains a dot ("."),
+    	// which we have chosen as the hierarchy-separator 
+    	// (it's a very badly chosen key, b.t.w.).
+//    	assertEquals("Store the register sort and filter settings in .gcm metadata file (requires at least GnuCash 3.3)", 
+//    				 gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_FEATURES + 
+//    			                                      HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+//                                                    "Register sort and filter settings stored in .gcm file"));
+    	assertEquals("Use a dedicated opening balance account identified by an 'equity-type' slot (requires at least Gnucash 4.3)", 
+    				 gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_FEATURES + 
+    						 						  HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    						 						  "Use a dedicated opening balance account identified by an 'equity-type' slot"));
+    	
+    	assertEquals("f", gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_OPTIONS + 
+    													   HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    													   "Accounts"+ 
+    													   HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    													   "Use Trading Accounts"));
+    	assertEquals("83b1859fd415421cb24f8c72eb755fcc", 
+    			     gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_OPTIONS + 
+    			    		 						  HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+    			    		 						  "Business.Default Customer TaxTable"));
+    	assertEquals(null, gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_OPTIONS + 
+    														HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+                                                            "Tax" + 
+                                                            HasUserDefinedAttributesImpl.HIERARCHY_SEPARATOR + 
+                                                            "Tax Number"));
+    	
+    	assertEquals("true", gcshFile.getUserDefinedAttribute(ConstTest.SLOT_KEY_BOOK_REMOVE_COLOR_NOT_SETS_SLOTS));
+    }
 
     // -----------------------------------------------------------------
     // Account
@@ -156,7 +213,7 @@ public class TestHasUserDefinedAttributesImpl {
     // No slots
     // Such a case does not exist, at least not with "organic" data
 
-//  // One slot
+    // One slot
     @Test
     public void test_invc_02() throws Exception {
     	GnucashGenerInvoice invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
@@ -193,12 +250,29 @@ public class TestHasUserDefinedAttributesImpl {
     // Commodity
     // -----------------------------------------------------------------
     
-    // ::TODO
-    // The following have slots
-//    ISIN:DE000BASF111
-//    ISIN:US1912161007
-//    ISIN:FR0000120644
-//    ISIN:GB0009895292
+    // No slots
+    @Test
+    public void test_cmdty_01() throws Exception {
+    	GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_1_ID);
+    	assertNotEquals(null, cmdty);
+    	
+    	assertEquals(null, cmdty.getUserDefinedAttributeKeys());
+    }
+    
+    // One slot
+    @Test
+    public void test_cmdty_02() throws Exception {
+    	GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_2_ID);
+    	assertNotEquals(null, cmdty);
+  	
+    	assertNotEquals(null, cmdty.getUserDefinedAttributeKeys());
+    	assertEquals(1, cmdty.getUserDefinedAttributeKeys().size());
+    	assertEquals(ConstTest.SLOT_KEY_CMDTY_USER_SYMBOL, cmdty.getUserDefinedAttributeKeys().get(0));
+    	assertEquals("BAS", cmdty.getUserDefinedAttribute(ConstTest.SLOT_KEY_CMDTY_USER_SYMBOL));
+    }
+
+    // Several slots
+    // There are none with several slots, at least not "organically"
 
     // -----------------------------------------------------------------
     // Customer
