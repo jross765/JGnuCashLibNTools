@@ -25,9 +25,7 @@ import org.slf4j.LoggerFactory;
  * read-only access.
  */
 public class GnucashWritableCommodityImpl extends GnucashCommodityImpl 
-                                          implements GnucashWritableCommodity,
-                                                     GnucashWritableObject,
-                                                     HasWritableUserDefinedAttributes
+                                          implements GnucashWritableCommodity
 {
     /**
      * Automatically created logger for debug and error-output.

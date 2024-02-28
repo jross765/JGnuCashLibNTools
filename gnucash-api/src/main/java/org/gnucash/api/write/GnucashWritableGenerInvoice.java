@@ -38,15 +38,6 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
 {
 
     /**
-     * The gnucash-file is tohe top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    GnucashWritableFile getFile();
-
-    // -----------------------------------------------------------
-
-    /**
      * @return false if already payments have been made or this invoice sent to a
      *         customer!
      */

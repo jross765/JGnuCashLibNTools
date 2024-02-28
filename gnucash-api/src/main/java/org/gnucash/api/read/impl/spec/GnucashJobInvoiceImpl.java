@@ -26,6 +26,7 @@ import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnucashVendorJob;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,11 +156,12 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	/**
 	 * {@inheritDoc}
+	 * @throws WrongJobTypeException 
 	 */
 	@Override
-	public GnucashCustomerJob getCustJob() throws WrongInvoiceTypeException {
+	public GnucashCustomerJob getCustJob() throws WrongJobTypeException {
 		if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_CUSTOMER )
-			throw new WrongInvoiceTypeException();
+			throw new WrongJobTypeException();
 
 		return new GnucashCustomerJobImpl(getGenerJob());
 	}
@@ -168,9 +170,9 @@ public class GnucashJobInvoiceImpl extends GnucashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GnucashVendorJob getVendJob() throws WrongInvoiceTypeException {
+	public GnucashVendorJob getVendJob() throws WrongJobTypeException {
 		if ( getGenerJob().getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
-			throw new WrongInvoiceTypeException();
+			throw new WrongJobTypeException();
 
 		return new GnucashVendorJobImpl(getGenerJob());
 	}

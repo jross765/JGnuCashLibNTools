@@ -1,6 +1,5 @@
 package org.gnucash.api.write.impl.spec;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -89,7 +88,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	 */
 	public GnucashWritableEmployeeVoucherImpl(final GnucashWritableGenerInvoiceImpl invc)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		super(invc.getJwsdpPeer(), invc.getFile());
+		super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -325,7 +324,7 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	 * @return
 	 */
 	public GnucashEmployee getEmployee() {
-		return getFile().getEmployeeByID(getEmployeeID());
+		return getGnucashFile().getEmployeeByID(getEmployeeID());
 	}
 
 	// ---------------------------------------------------------------
@@ -334,13 +333,13 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	public void post(final GnucashAccount expensesAcct, final GnucashAccount payablAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException,
 			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
-		postEmployeeVoucher(getFile(), this, getEmployee(), expensesAcct, payablAcct, postDate, dueDate);
+		postEmployeeVoucher(getGnucashFile(), this, getEmployee(), expensesAcct, payablAcct, postDate, dueDate);
 	}
 
 	// ---------------------------------------------------------------
 
 	public static GnucashEmployeeVoucherImpl toReadable(GnucashWritableEmployeeVoucherImpl invc) {
-		GnucashEmployeeVoucherImpl result = new GnucashEmployeeVoucherImpl(invc.getJwsdpPeer(), invc.getFile());
+		GnucashEmployeeVoucherImpl result = new GnucashEmployeeVoucherImpl(invc.getJwsdpPeer(), invc.getGnucashFile());
 		return result;
 	}
 

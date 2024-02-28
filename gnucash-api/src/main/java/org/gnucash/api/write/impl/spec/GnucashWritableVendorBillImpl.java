@@ -1,14 +1,10 @@
 package org.gnucash.api.write.impl.spec;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
@@ -29,11 +25,13 @@ import org.gnucash.api.read.impl.spec.GnucashVendorBillEntryImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorBillImpl;
 import org.gnucash.api.read.spec.GnucashVendorBill;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableVendorBill;
 import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +92,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	 */
 	public GnucashWritableVendorBillImpl(final GnucashWritableGenerInvoiceImpl invc)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		super(invc.getJwsdpPeer(), invc.getFile());
+		super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -149,78 +147,10 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	 * @return the file we are associated with
 	 */
 	protected GnucashWritableFileImpl getWritableFile() {
-		return (GnucashWritableFileImpl) getFile();
+		return (GnucashWritableFileImpl) getGnucashFile();
 	}
 
-	/**
-	 * support for firing PropertyChangeEvents. (gets initialized only if we really
-	 * have listeners)
-	 */
-	private volatile PropertyChangeSupport myPropertyChange = null;
-
-	/**
-	 * Returned value may be null if we never had listeners.
-	 *
-	 * @return Our support for firing PropertyChangeEvents
-	 */
-	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPropertyChange;
-	}
-
-	/**
-	 * Add a PropertyChangeListener to the listener list. The listener is registered
-	 * for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Add a PropertyChangeListener for a specific property. The listener will be
-	 * invoked only when a call on firePropertyChange names that specific property.
-	 *
-	 * @param propertyName The name of the property to listen on.
-	 * @param listener     The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 *
-	 * @param propertyName The name of the property that was listened on.
-	 * @param listener     The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(propertyName, listener);
-		}
-	}
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list. This removes a
-	 * PropertyChangeListener that was registered for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(listener);
-		}
-	}
+	
 
 	// ---------------------------------------------------------------
 
@@ -238,7 +168,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 		getWritableFile().setModified(true);
 
 		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {
 			propertyChangeFirer.firePropertyChange("vendor", oldVend, vend);
 		}
@@ -410,7 +340,7 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	 * @return
 	 */
 	public GnucashVendor getVendor() {
-		return getFile().getVendorByID(getVendorID());
+		return getGnucashFile().getVendorByID(getVendorID());
 	}
 
 	// ---------------------------------------------------------------
@@ -419,13 +349,13 @@ public class GnucashWritableVendorBillImpl extends GnucashWritableGenerInvoiceIm
 	public void post(final GnucashAccount expensesAcct, final GnucashAccount payablAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException,
 			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
-		postVendorBill(getFile(), this, getVendor(), expensesAcct, payablAcct, postDate, dueDate);
+		postVendorBill(getGnucashFile(), this, getVendor(), expensesAcct, payablAcct, postDate, dueDate);
 	}
 
 	// ---------------------------------------------------------------
 
 	public static GnucashVendorBillImpl toReadable(GnucashWritableVendorBillImpl invc) {
-		GnucashVendorBillImpl result = new GnucashVendorBillImpl(invc.getJwsdpPeer(), invc.getFile());
+		GnucashVendorBillImpl result = new GnucashVendorBillImpl(invc.getJwsdpPeer(), invc.getGnucashFile());
 		return result;
 	}
 

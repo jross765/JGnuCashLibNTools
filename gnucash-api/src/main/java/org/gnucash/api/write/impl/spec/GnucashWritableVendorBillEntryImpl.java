@@ -1,7 +1,5 @@
 package org.gnucash.api.write.impl.spec;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
@@ -11,11 +9,11 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnucashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceEntryImpl;
-import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

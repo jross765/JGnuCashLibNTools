@@ -869,7 +869,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public Collection<GnucashGenerJob> getGenerJobsByName(String name) {
+    public Collection<GnucashGenerJob> getGenerJobsByName(final String name) {
 	return jobMgr.getGenerJobsByName(name);
     }
     
@@ -896,7 +896,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public Collection<GnucashCustomerJob> getCustomerJobsByName(String name) {
+    public Collection<GnucashCustomerJob> getCustomerJobsByName(final String name) {
 	return jobMgr.getCustomerJobsByName(name);
     }
     
@@ -931,7 +931,7 @@ public class GnucashFileImpl implements GnucashFile,
     }
 
     @Override
-    public Collection<GnucashVendorJob> getVendorJobsByName(String name) {
+    public Collection<GnucashVendorJob> getVendorJobsByName(final String name) {
 	return jobMgr.getVendorJobsByName(name);
     }
     

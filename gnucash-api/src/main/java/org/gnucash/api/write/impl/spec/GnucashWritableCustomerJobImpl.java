@@ -1,6 +1,5 @@
 package org.gnucash.api.write.impl.spec;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,6 @@ import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.OwnerId;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -20,7 +18,9 @@ import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.impl.GnucashWritableGenerJobImpl;
 import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  * 
  * @see GnucashWritableVendorJobImpl
  */
-public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl 
+public class GnucashWritableCustomerJobImpl extends GnucashWritableGenerJobImpl 
                                             implements GnucashWritableCustomerJob 
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnucashWritableCustomerJobImpl.class);
@@ -54,10 +54,24 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 	/**
 	 * @param owner the customer the job is from
 	 * @param file  the file to add the customer job to
+	 * @param number 
+	 * @param name 
 	 */
-	public GnucashWritableCustomerJobImpl(final GnucashWritableFileImpl file, final GnucashCustomer owner,
-			final String number, final String name) {
+	public GnucashWritableCustomerJobImpl(
+			final GnucashWritableFileImpl file, 
+			final GnucashCustomer owner,
+			final String number, 
+			final String name) {
 		super(createCustomerJob_int(file, GCshID.getNew(), owner, number, name), file);
+	}
+
+	public GnucashWritableCustomerJobImpl(GnucashWritableGenerJobImpl job) throws WrongJobTypeException {
+		super(job.getJwsdpPeer(), job.getGnucashFile());
+
+		// No, we cannot check that first, because the super() method
+		// always has to be called first.
+		if ( job.getOwnerType() != GCshOwner.Type.CUSTOMER )
+			throw new WrongJobTypeException();
 	}
 
 	public GnucashWritableCustomerJobImpl(GnucashCustomerJobImpl job) {
@@ -79,87 +93,23 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 		writableFile.removeGenerJob(this);
 	}
 
+	// ---------------------------------------------------------------
+
 	/**
-	 * @param cust  the customer the job is from
-	 * @param file  the file to add the customer job to
-	 * @param jobID the internal id to use. May be null to generate an ID.
-	 * @return the jaxb-job
+	 * @return 
 	 */
-	private static GncGncJob createCustomerJob_int(final GnucashWritableFileImpl file, final GCshID jobID,
-			final GnucashCustomer cust, final String number, final String name) {
-
-		if ( file == null ) {
-			throw new IllegalArgumentException("null file given");
-		}
-
-		if ( !jobID.isSet() ) {
-			throw new IllegalArgumentException("GUID not set!");
-		}
-
-		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
-		}
-
-		ObjectFactory factory = file.getObjectFactory();
-
-		GncGncJob jwsdpJob = file.createGncGncJobType();
-
-		jwsdpJob.setJobActive(1);
-		jwsdpJob.setJobId(number);
-		jwsdpJob.setJobName(name);
-		jwsdpJob.setVersion(Const.XML_FORMAT_VERSION);
-
-		{
-			GncGncJob.JobGuid id = factory.createGncGncJobJobGuid();
-			id.setType(Const.XML_DATA_TYPE_GUID);
-			id.setValue(jobID.toString());
-			jwsdpJob.setJobGuid(id);
-		}
-
-		{
-			GncGncJob.JobOwner owner = factory.createGncGncJobJobOwner();
-			owner.setOwnerType(GCshOwner.Type.CUSTOMER.getCode());
-
-			OwnerId ownerid = factory.createOwnerId();
-			ownerid.setType(Const.XML_DATA_TYPE_GUID);
-			ownerid.setValue(cust.getID().toString());
-
-			owner.setOwnerId(ownerid);
-			owner.setVersion(Const.XML_FORMAT_VERSION);
-			jwsdpJob.setJobOwner(owner);
-		}
-
-		file.getRootElement().getGncBook().getBookElements().add(jwsdpJob);
-		file.setModified(true);
-
-		LOGGER.debug("createCustomerJob_int: Created new customer job (core): " + jwsdpJob.getJobGuid().getValue());
-
-		return jwsdpJob;
+	public GCshID getCustomerID() {
+		return getOwnerID();
 	}
 
-    // ---------------------------------------------------------------
+	/**
+	 * @return 
+	 */
+	public GnucashCustomer getCustomer() {
+		return getGnucashFile().getCustomerByID(getCustomerID());
+	}
 
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    @Override
-    public GnucashWritableFileImpl getWritableGnucashFile() {
-	return (GnucashWritableFileImpl) super.getGnucashFile();
-    }
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    @Override
-    public GnucashWritableFileImpl getGnucashFile() {
-	return (GnucashWritableFileImpl) super.getGnucashFile();
-    }
-
-    // ---------------------------------------------------------------
+	// ---------------------------------------------------------------
 
 //    /**
 //     * @see GnucashWritableCustomerJob#setCustomerType(java.lang.String)
@@ -183,11 +133,11 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 //    }
 
 	/**
-	 * @throws WrongInvoiceTypeException
+	 * @throws WrongJobTypeException
 	 * @see GnucashWritableCustomerJob#setCustomer(GnucashCustomer)
 	 */
-	public void setCustomer(final GnucashCustomer cust) throws WrongInvoiceTypeException {
-		if ( !getInvoices().isEmpty() ) {
+	public void setCustomer(final GnucashCustomer cust) throws WrongJobTypeException {
+		if ( ! getInvoices().isEmpty() ) {
 			throw new IllegalStateException("cannot change customer of a job that has invoices!");
 		}
 
@@ -202,166 +152,9 @@ public class GnucashWritableCustomerJobImpl extends GnucashCustomerJobImpl
 		getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getID().toString());
 		getWritableGnucashFile().setModified(true);
 		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {
 			propertyChangeFirer.firePropertyChange("customer", oldCust, cust);
-		}
-	}
-
-	/**
-	 * @see GnucashWritableCustomerJob#setNumber(java.lang.String)
-	 */
-	@Override
-	public void setNumber(final String jobNumber) {
-		if ( jobNumber == null ) {
-			throw new IllegalArgumentException("null job-number given!");
-		}
-
-		if ( jobNumber.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty job-number given!");
-		}
-
-		GnucashGenerJob otherJob = getWritableGnucashFile().getWritableGenerJobByNumber(jobNumber);
-		if ( otherJob != null ) {
-			if ( !otherJob.getID().equals(getID()) ) {
-				throw new IllegalArgumentException("another job (id='" + otherJob.getID()
-						+ "' already exists with given job number '" + jobNumber + "')");
-			}
-		}
-
-		String oldJobNumber = getJwsdpPeer().getJobId();
-		if ( oldJobNumber.equals(jobNumber) ) {
-			return; // nothing has changed
-		}
-
-		getJwsdpPeer().setJobId(jobNumber);
-		getWritableGnucashFile().setModified(true);
-		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-		if ( propertyChangeFirer != null ) {
-			propertyChangeFirer.firePropertyChange("id", oldJobNumber, jobNumber);
-		}
-
-	}
-
-	/**
-	 * @see GnucashWritableCustomerJob#setName(java.lang.String)
-	 */
-	public void setName(final String jobName) {
-		if ( jobName == null ) {
-			throw new IllegalArgumentException("null job-name given!");
-		}
-
-		if ( jobName.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty job-name given!");
-		}
-
-		String oldJobName = getJwsdpPeer().getJobName();
-		if ( oldJobName.equals(jobName) ) {
-			return; // nothing has changed
-		}
-
-		getJwsdpPeer().setJobName(jobName);
-		getWritableGnucashFile().setModified(true);
-		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-		if ( propertyChangeFirer != null ) {
-			propertyChangeFirer.firePropertyChange("name", oldJobName, jobName);
-		}
-	}
-
-	/**
-	 * @param jobActive true is the job is to be (re)activated, false to deactivate
-	 */
-	public void setActive(final boolean jobActive) {
-
-		boolean oldJobActive = getJwsdpPeer().getJobActive() != 0;
-		if ( oldJobActive == jobActive ) {
-			return; // nothing has changed
-		}
-
-		if ( jobActive ) {
-			getJwsdpPeer().setJobActive(1);
-		} else {
-			getJwsdpPeer().setJobActive(0);
-		}
-		getWritableGnucashFile().setModified(true);
-		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
-		if ( propertyChangeFirer != null ) {
-			propertyChangeFirer.firePropertyChange("active", oldJobActive, jobActive);
-		}
-	}
-
-// ------------------------ support for propertyChangeListeners ------------------
-
-	/**
-	 * support for firing PropertyChangeEvents. (gets initialized only if we really
-	 * have listeners)
-	 */
-	private volatile PropertyChangeSupport myPropertyChange = null;
-
-	/**
-	 * Returned value may be null if we never had listeners.
-	 *
-	 * @return Our support for firing PropertyChangeEvents
-	 */
-	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPropertyChange;
-	}
-
-	/**
-	 * Add a PropertyChangeListener to the listener list. The listener is registered
-	 * for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Add a PropertyChangeListener for a specific property. The listener will be
-	 * invoked only when a call on firePropertyChange names that specific property.
-	 *
-	 * @param propertyName The name of the property to listen on.
-	 * @param listener     The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 *
-	 * @param propertyName The name of the property that was listened on.
-	 * @param listener     The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(propertyName, listener);
-		}
-	}
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list. This removes a
-	 * PropertyChangeListener that was registered for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(listener);
 		}
 	}
 

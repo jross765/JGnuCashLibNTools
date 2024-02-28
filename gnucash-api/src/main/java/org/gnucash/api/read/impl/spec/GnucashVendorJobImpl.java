@@ -1,13 +1,13 @@
 package org.gnucash.api.read.impl.spec;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.impl.GnucashGenerJobImpl;
 import org.gnucash.api.read.spec.GnucashVendorJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.read.spec.WrongJobTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,13 +30,13 @@ public class GnucashVendorJobImpl extends GnucashGenerJobImpl
 		super(peer, gcshFile);
 	}
 
-	public GnucashVendorJobImpl(final GnucashGenerJob job) throws WrongInvoiceTypeException {
+	public GnucashVendorJobImpl(final GnucashGenerJob job) throws WrongJobTypeException {
 		super(job.getJwsdpPeer(), job.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
 		if ( job.getOwnerType() != GnucashGenerJob.TYPE_VENDOR )
-			throw new WrongInvoiceTypeException();
+			throw new WrongJobTypeException();
 
 		// ::TODO
 //	for ( GnucashGenerInvoice invc : job.getInvoices() )

@@ -2,12 +2,12 @@ package org.gnucash.api.read.spec;
 
 import java.util.Collection;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnucashCustomer;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerJob;
 import org.gnucash.api.read.GnucashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
  * A special variant of a customer invoice or a vendor bill 
@@ -62,13 +62,13 @@ public interface GnucashJobInvoice extends GnucashGenerInvoice {
      * @return Job of customer this invoice has been sent to.
      * @throws WrongInvoiceTypeException 
      */
-    GnucashCustomerJob getCustJob() throws WrongInvoiceTypeException;
+    GnucashCustomerJob getCustJob() throws WrongJobTypeException;
 	
     /**
      * @return Job of vendor this bill has been sent from.
      * @throws WrongInvoiceTypeException 
      */
-    GnucashVendorJob getVendJob() throws WrongInvoiceTypeException;
+    GnucashVendorJob getVendJob() throws WrongJobTypeException;
 	
     // ----------------------------
 

@@ -12,8 +12,7 @@ import org.gnucash.api.write.GnucashWritableGenerJob;
  * 
  * @see GnucashWritableCustomerJob
  */
-public interface GnucashWritableVendorJob extends GnucashWritableGenerJob 
-{
+public interface GnucashWritableVendorJob extends GnucashWritableGenerJob {
 
     void remove() throws WrongInvoiceTypeException;
 

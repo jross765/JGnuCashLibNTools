@@ -22,6 +22,7 @@ import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
 import org.gnucash.api.read.spec.GnucashVendorJob;
+import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +35,7 @@ public class FileJobManager {
     
     protected GnucashFileImpl gcshFile;
 
-    private Map<GCshID, GnucashGenerJob>    jobMap;
-    private Map<GCshID, GnucashCustomerJob> custJobMap;
-    private Map<GCshID, GnucashVendorJob>   vendJobMap;
+    protected Map<GCshID, GnucashGenerJob> jobMap;
 
     // ---------------------------------------------------------------
     
@@ -49,8 +48,6 @@ public class FileJobManager {
 
 	private void init(final GncV2 pRootElement) {
 		jobMap = new HashMap<GCshID, GnucashGenerJob>();
-		custJobMap = new HashMap<GCshID, GnucashCustomerJob>();
-		vendJobMap = new HashMap<GCshID, GnucashVendorJob>();
 
 		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
 			Object bookElement = iter.next();
@@ -68,27 +65,6 @@ public class FileJobManager {
 					jobID = new GCshID(GCshID.NULL_ID);
 				}
 				jobMap.put(jobID, generJob);
-
-				if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
-					GnucashCustomerJobImpl custJob = createCustomerJob(jwsdpJob);
-					GCshID custJobID = custJob.getID();
-					if ( custJobID == null ) {
-						LOGGER.error("init: File contains a customer Job w/o an ID. indexing it with the Null-ID '"
-								+ GCshID.NULL_ID + "'");
-						custJobID = new GCshID(GCshID.NULL_ID);
-					}
-					custJobMap.put(custJobID, custJob);
-				} else if ( generJob.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
-					GnucashVendorJobImpl vendJob = createVendorJob(jwsdpJob);
-					GCshID vendJobID = vendJob.getID();
-					if ( vendJobID == null ) {
-						LOGGER.error("init: File contains a vendor Job w/o an ID. indexing it with the Null-ID '"
-								+ GCshID.NULL_ID + "'");
-						vendJobID = new GCshID(GCshID.NULL_ID);
-					}
-					vendJobMap.put(vendJobID, vendJob);
-				}
-
 			} catch (RuntimeException e) {
 				LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
 						+ "ignoring illegal (generic) Job entry with id=" + jwsdpJob.getJobId(), e);
@@ -96,12 +72,6 @@ public class FileJobManager {
 		} // for
 
 		LOGGER.debug("init: No. of entries in generic Job map: " + jobMap.size());
-		LOGGER.debug("init: No. of entries in customer Job map: " + custJobMap.size());
-		LOGGER.debug("init: No. of entries in vendor Job map: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("init: Numbers of entries in three map objects are not consistent");
-		}
 	}
 
 	protected GnucashGenerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
@@ -125,138 +95,15 @@ public class FileJobManager {
 	// ---------------------------------------------------------------
 
 	public void addGenerJob(GnucashGenerJob job) {
-		addGenerJob(job, true);
+		jobMap.put(job.getID(), job);
+
 		LOGGER.debug("Added (generic) jop to cache: " + job.getID());
 	}
 
-	private void addGenerJob(GnucashGenerJob job, boolean withSpec) {
-		jobMap.put(job.getID(), job);
-
-		if ( withSpec ) {
-			if ( job.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
-				addCustomerJob((GnucashCustomerJob) job, false);
-			} else if ( job.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
-				addVendorJob((GnucashVendorJob) job, false);
-			}
-		}
-
-		LOGGER.debug("addGenerJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("addGenerJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("addGenerJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("addGenerJob: Numbers of entries in three map objects are not consistent");
-		}
-
-		LOGGER.debug("Removed (generic) jop from cache: " + job.getID());
-	}
-
 	public void removeGenerJob(GnucashGenerJob job) {
-		removeGenerJob(job, true);
-	}
-
-	private void removeGenerJob(GnucashGenerJob job, boolean withSpec) {
 		jobMap.remove(job.getID());
 
-		if ( withSpec ) {
-			if ( job.getOwnerType() == GnucashGenerJob.TYPE_CUSTOMER ) {
-				addCustomerJob((GnucashCustomerJob) job, false);
-			} else if ( job.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
-				addVendorJob((GnucashVendorJob) job, false);
-			}
-		}
-
 		LOGGER.debug("removeGenerJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("removeGenerJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("removeGenerJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("removeGenerJob: Numbers of entries in three map objects are not consistent");
-		}
-	}
-
-	// ----------------------------
-
-	public void addCustomerJob(GnucashCustomerJob job) {
-		addCustomerJob(job, true);
-	}
-
-	private void addCustomerJob(GnucashCustomerJob job, boolean withGener) {
-		custJobMap.put(job.getID(), job);
-
-		if ( withGener ) {
-			addGenerJob(job, false);
-		}
-
-		LOGGER.debug("addCustomerJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("addCustomerJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("addCustomerJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("addCustomerJob: Numbers of entries in three map objects are not consistent");
-		}
-	}
-
-	public void removeCustomerJob(GnucashCustomerJob job) {
-		removeCustomerJob(job, true);
-	}
-
-	private void removeCustomerJob(GnucashCustomerJob job, boolean withGener) {
-		custJobMap.remove(job.getID());
-
-		if ( withGener ) {
-			removeGenerJob(job, false);
-		}
-
-		LOGGER.debug("removeCustomerJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("removeCustomerJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("removeCustomerJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("removeCustomerJob: Numbers of entries in three map objects are not consistent");
-		}
-	}
-
-	// ----------------------------
-
-	public void addVendorJob(GnucashVendorJob job) {
-		addVendorJob(job, true);
-	}
-
-	public void addVendorJob(GnucashVendorJob job, boolean withGener) {
-		vendJobMap.put(job.getID(), job);
-
-		if ( withGener ) {
-			addGenerJob(job, false);
-		}
-
-		LOGGER.debug("addVendorJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("addVendorJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("addVendorJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("addVendorJob: Numbers of entries in three map objects are not consistent");
-		}
-	}
-
-	public void removeVendorJob(GnucashVendorJob job) {
-		removeVendorJob(job, true);
-	}
-
-	public void removeVendorJob(GnucashVendorJob job, boolean withGener) {
-		vendJobMap.remove(job.getID());
-
-		if ( withGener ) {
-			removeGenerJob(job, false);
-		}
-
-		LOGGER.debug("removeVendorJob: No. of generic jobs: " + jobMap.size());
-		LOGGER.debug("removeVendorJob: No. of customer jobs: " + custJobMap.size());
-		LOGGER.debug("removeVendorJob: No. of vendor jobs: " + vendJobMap.size());
-
-		if ( jobMap.size() != custJobMap.size() + vendJobMap.size() ) {
-			LOGGER.error("removeVendorJob: Numbers of entries in three map objects are not consistent");
-		}
 	}
 
 	// ---------------------------------------------------------------
@@ -321,39 +168,39 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnucashCustomerJob getCustomerJobByID(final GCshID id) {
-		if ( custJobMap == null ) {
+	public GnucashCustomerJob getCustomerJobByID(final GCshID id) throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashCustomerJob retval = custJobMap.get(id);
-		if ( retval == null ) {
-			LOGGER.warn("getCustomerJobByID: No customer Job with ID '" + id + "'. We know " + custJobMap.size()
+		GnucashGenerJob job = jobMap.get(id);
+		if ( job == null ) {
+			LOGGER.warn("getCustomerJobByID: No customer Job with ID '" + id + "'. We know " + jobMap.size()
 					+ " jobs.");
 		}
 
-		return retval;
+		return new GnucashCustomerJobImpl(job);
 	}
 
-	public List<GnucashCustomerJob> getCustomerJobsByName(String name) {
+	public List<GnucashCustomerJob> getCustomerJobsByName(String name) throws WrongJobTypeException {
 		return getCustomerJobsByName(name, true);
 	}
 
-	public List<GnucashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
-		if ( custJobMap == null ) {
+	public List<GnucashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
 		List<GnucashCustomerJob> result = new ArrayList<GnucashCustomerJob>();
 
-		for ( GnucashCustomerJob job : custJobMap.values() ) {
+		for ( GnucashGenerJob job : jobMap.values() ) {
 			if ( relaxed ) {
 				if ( job.getName().trim().toLowerCase().contains(expr.trim().toLowerCase()) ) {
-					result.add(job);
+					result.add(new GnucashCustomerJobImpl(job));
 				}
 			} else {
 				if ( job.getName().equals(expr) ) {
-					result.add(job);
+					result.add(new GnucashCustomerJobImpl(job));
 				}
 			}
 		}
@@ -362,7 +209,7 @@ public class FileJobManager {
 	}
 
 	public GnucashCustomerJob getCustomerJobByNameUniq(final String name)
-			throws NoEntryFoundException, TooManyEntriesFoundException {
+			throws NoEntryFoundException, TooManyEntriesFoundException, WrongJobTypeException {
 		List<GnucashCustomerJob> jobList = getCustomerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -372,48 +219,58 @@ public class FileJobManager {
 			return jobList.iterator().next();
 	}
 
-	public Collection<GnucashCustomerJob> getCustomerJobs() {
-		if ( custJobMap == null ) {
+	public Collection<GnucashCustomerJob> getCustomerJobs() throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
-		return custJobMap.values();
+		
+		List<GnucashCustomerJob> result = new ArrayList<GnucashCustomerJob>();
+		for ( GnucashGenerJob job : jobMap.values() ) {
+			if ( job.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
+				GnucashCustomerJob custJob = new GnucashCustomerJobImpl(job);
+				result.add(custJob);
+			}
+		}
+		
+		return result;
 	}
+	
 
 	// ----------------------------
 
-	public GnucashVendorJob getVendorJobByID(final GCshID id) {
-		if ( vendJobMap == null ) {
+	public GnucashVendorJob getVendorJobByID(final GCshID id) throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashVendorJob retval = vendJobMap.get(id);
-		if ( retval == null ) {
+		GnucashGenerJob job = jobMap.get(id);
+		if ( job == null ) {
 			LOGGER.warn(
-					"getVendorJobByID: No vendor Job with ID '" + id + "'. We know " + vendJobMap.size() + " jobs.");
+					"getVendorJobByID: No vendor Job with ID '" + id + "'. We know " + jobMap.size() + " jobs.");
 		}
 
-		return retval;
+		return new GnucashVendorJobImpl(job);
 	}
 
-	public List<GnucashVendorJob> getVendorJobsByName(String name) {
+	public List<GnucashVendorJob> getVendorJobsByName(String name) throws WrongJobTypeException {
 		return getVendorJobsByName(name, true);
 	}
 
-	public List<GnucashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
-		if ( vendJobMap == null ) {
+	public List<GnucashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
 		List<GnucashVendorJob> result = new ArrayList<GnucashVendorJob>();
 
-		for ( GnucashVendorJob job : vendJobMap.values() ) {
+		for ( GnucashGenerJob job : jobMap.values() ) {
 			if ( relaxed ) {
 				if ( job.getName().trim().toLowerCase().contains(expr.trim().toLowerCase()) ) {
-					result.add(job);
+					result.add(new GnucashVendorJobImpl(job));
 				}
 			} else {
 				if ( job.getName().equals(expr) ) {
-					result.add(job);
+					result.add(new GnucashVendorJobImpl(job));
 				}
 			}
 		}
@@ -422,7 +279,7 @@ public class FileJobManager {
 	}
 
 	public GnucashVendorJob getVendorJobByNameUniq(final String name)
-			throws NoEntryFoundException, TooManyEntriesFoundException {
+			throws NoEntryFoundException, TooManyEntriesFoundException, WrongJobTypeException {
 		List<GnucashVendorJob> jobList = getVendorJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -433,61 +290,47 @@ public class FileJobManager {
 	}
 
 	/**
+	 * @throws WrongJobTypeException 
 	 * @see GnucashFile#getGenerJobs()
 	 */
-	public Collection<GnucashVendorJob> getVendorJobs() {
-		if ( vendJobMap == null ) {
+	public Collection<GnucashVendorJob> getVendorJobs() throws WrongJobTypeException {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
-		return vendJobMap.values();
+		
+		List<GnucashVendorJob> result = new ArrayList<GnucashVendorJob>();
+		for ( GnucashGenerJob job : jobMap.values() ) {
+			if ( job.getOwnerType() == GnucashGenerJob.TYPE_VENDOR ) {
+				GnucashVendorJob custJob = new GnucashVendorJobImpl(job);
+				result.add(custJob);
+			}
+		}
+		
+		return result;
 	}
 
 	// ---------------------------------------------------------------
 
 	public List<GnucashCustomerJob> getJobsByCustomer(final GnucashCustomer cust) {
-		if ( custJobMap == null ) {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
-
-		for ( GnucashCustomerJob custJob : custJobMap.values() ) {
-			if ( custJob.getOwnerID().equals(cust.getID()) ) {
-				retval.add(custJob);
-			}
-		}
-
-		return retval;
+		return FileJobManager_Customer.getJobsByCustomer(this, cust);
 	}
 
 	public List<GnucashVendorJob> getJobsByVendor(final GnucashVendor vend) {
-		if ( vendJobMap == null ) {
+		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
-
-		for ( GnucashVendorJob vendJob : vendJobMap.values() ) {
-			if ( vendJob.getOwnerID().equals(vend.getID()) ) {
-				retval.add(vendJob);
-			}
-		}
-
-		return retval;
+		return FileJobManager_Vendor.getJobsByVendor(this, vend);
 	}
 
 	// ---------------------------------------------------------------
 
 	public int getNofEntriesGenerJobMap() {
 		return jobMap.size();
-	}
-
-	public int getNofEntriesCustomerJobMap() {
-		return custJobMap.size();
-	}
-
-	public int getNofEntriesVendorJobMap() {
-		return vendJobMap.size();
 	}
 
 }

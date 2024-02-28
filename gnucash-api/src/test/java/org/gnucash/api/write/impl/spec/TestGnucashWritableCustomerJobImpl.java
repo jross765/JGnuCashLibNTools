@@ -108,7 +108,7 @@ public class TestGnucashWritableCustomerJobImpl {
 	GnucashWritableCustomerJob jobSpec = (GnucashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
 	assertNotEquals(null, jobSpec);
 
-	assertTrue(jobSpec instanceof GnucashCustomerJob);
+	assertTrue(jobSpec instanceof GnucashWritableCustomerJob);
 	assertEquals(JOB_1_ID, jobSpec.getID());
 	assertEquals("000001", jobSpec.getNumber());
 	assertEquals("Do more for others", jobSpec.getName());
@@ -120,15 +120,15 @@ public class TestGnucashWritableCustomerJobImpl {
 	assertNotEquals(null, jobSpec);
 
 	assertEquals(1, jobSpec.getNofOpenInvoices());
-	assertEquals(((GnucashCustomerJob) jobSpec).getNofOpenInvoices(), jobSpec.getNofOpenInvoices());
+	assertEquals(jobSpec.getNofOpenInvoices(), jobSpec.getNofOpenInvoices());
 
 	assertEquals(0, jobSpec.getPaidInvoices().size());
-	assertEquals(jobSpec.getPaidInvoices().size(), ((GnucashCustomerJob) jobSpec).getPaidInvoices().size());
+	assertEquals(jobSpec.getPaidInvoices().size(), jobSpec.getPaidInvoices().size());
 	assertEquals(jobSpec.getPaidInvoices().size(),
 		((GnucashWritableCustomerJobImpl) jobSpec).getPaidWritableInvoices().size());
 
 	assertEquals(1, jobSpec.getUnpaidInvoices().size());
-	assertEquals(jobSpec.getUnpaidInvoices().size(), ((GnucashCustomerJob) jobSpec).getUnpaidInvoices().size());
+	assertEquals(jobSpec.getUnpaidInvoices().size(), jobSpec.getUnpaidInvoices().size());
 	assertEquals(jobSpec.getUnpaidInvoices().size(),
 		((GnucashWritableCustomerJobImpl) jobSpec).getUnpaidWritableInvoices().size());
     }

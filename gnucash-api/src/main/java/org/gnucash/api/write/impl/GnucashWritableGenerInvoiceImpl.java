@@ -95,18 +95,6 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
     // ---------------------------------------------------------------
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    @Override
-    public GnucashWritableFile getFile() {
-	return (GnucashWritableFile) super.getGnucashFile();
-    }
-    
-    // ---------------------------------------------------------------
-
-    /**
      * Create an editable invoice facading an existing JWSDP-peer.
      *
      * @param jwsdpPeer the JWSDP-object we are facading.
@@ -254,7 +242,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    return createCustInvcEntry(acct,
                                        singleUnitPrice, quantity);
 	} else {
-	    GCshTaxTable taxTab = getFile().getTaxTableByName(taxTabName);
+	    GCshTaxTable taxTab = getGnucashFile().getTaxTableByName(taxTabName);
 	    LOGGER.debug("createCustInvcEntry: Found tax table with name '" + taxTabName + "': '" + taxTab.getID() + "'");
 	    return createCustInvcEntry(acct,
 		                       singleUnitPrice, quantity, 
@@ -350,7 +338,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    return createVendBllEntry(acct,
                                        singleUnitPrice, quantity);
 	} else {
-	    GCshTaxTable taxTab = getFile().getTaxTableByName(taxTabName);
+	    GCshTaxTable taxTab = getGnucashFile().getTaxTableByName(taxTabName);
 	    LOGGER.debug("createVendBillEntry: Found tax table with name '" + taxTabName + "': '" + taxTab.getID() + "'");
 	    return createVendBllEntry(acct,
 		                       singleUnitPrice, quantity, 
@@ -446,7 +434,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    return createEmplVchEntry(acct,
                                       singleUnitPrice, quantity);
 	} else {
-	    GCshTaxTable taxTab = getFile().getTaxTableByName(taxTabName);
+	    GCshTaxTable taxTab = getGnucashFile().getTaxTableByName(taxTabName);
 	    LOGGER.debug("createEmplVchEntry: Found tax table with name '" + taxTabName + "': '" + taxTab.getID() + "'");
 	    return createEmplVchEntry(acct,
 		                      singleUnitPrice, quantity, 
@@ -544,7 +532,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    return createJobInvcEntry(acct,
                                       singleUnitPrice, quantity);
 	} else {
-	    GCshTaxTable taxTab = getFile().getTaxTableByName(taxTabName);
+	    GCshTaxTable taxTab = getGnucashFile().getTaxTableByName(taxTabName);
 	    LOGGER.debug("createJobInvcEntry: Found tax table with name '" + taxTabName + "': '" + taxTab.getID() + "'");
 	    return createJobInvcEntry(acct,
 		                      singleUnitPrice, quantity, 
@@ -1793,7 +1781,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		}
 
 		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-		getFile().setModified(true);
+		getGnucashFile().setModified(true);
 	    } catch ( TaxTableNotFoundException exc ) {
 		// throw new IllegalArgumentException("The given customer invoice entry has no i-tax-table (entry ID: " + generInvcEntr.getID() + "')");
 		LOGGER.error("addInvcEntry: The given customer invoice entry has no i-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
@@ -1842,7 +1830,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		}
 
 		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-		getFile().setModified(true);
+		getGnucashFile().setModified(true);
 	    } catch ( TaxTableNotFoundException exc ) {
 		// throw new IllegalArgumentException("The given vendor bill entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + "')");
 		LOGGER.error("addBillEntry: The given vendor bill entry has no b-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
@@ -1890,7 +1878,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		}
 
 		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-		getFile().setModified(true);
+		getGnucashFile().setModified(true);
 	    } catch ( TaxTableNotFoundException exc ) {
 		// throw new IllegalArgumentException("The given employee voucher entry has no b-tax-table (entry ID: " + generInvcEntr.getID() + ")";
 		LOGGER.error("addVoucherEntry: The given employee voucher entry has no b-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
@@ -1938,7 +1926,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 		}
 		
 		updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-		getFile().setModified(true);
+		getGnucashFile().setModified(true);
 	    } catch ( TaxTableNotFoundException exc ) {
 		// throw new IllegalArgumentException("The given job invoice entry has no b/i-tax-table (entry ID: " + generInvcEntr.getID() + ")");
 		LOGGER.error("addJobEntry: The given job invoice entry has no b/i-tax-table (entry ID: " + generInvcEntr.getID()  + ")");
@@ -1976,7 +1964,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     protected void subtractBillEntry(final GnucashGenerInvoiceEntryImpl entry)
@@ -2007,7 +1995,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     protected void subtractVoucherEntry(final GnucashGenerInvoiceEntryImpl entry)
@@ -2038,7 +2026,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     protected void subtractJobEntry(final GnucashGenerInvoiceEntryImpl entry)
@@ -2075,7 +2063,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	updateEntry(taxTab, isTaxable, sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     // ---------------------------------------------------------------
@@ -2170,7 +2158,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 
 	updateNonTaxableEntry(sumExclTaxes, sumInclTaxes, postAcctID);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     private void updateEntry_taxStuff(
@@ -2285,7 +2273,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	if (!postTransactionSumUpdated) {
 	    GnucashWritableTransactionSplitImpl split = 
 		    (GnucashWritableTransactionSplitImpl) postTransaction
-		    	.createWritableSplit(getFile().getAccountByID(accountToTransferMoneyTo));
+		    	.createWritableSplit(getGnucashFile().getAccountByID(accountToTransferMoneyTo));
 	    split.setQuantity(sumInclTaxes);
 	    split.setValue(sumInclTaxes);
 	    split.setAction(GnucashTransactionSplit.Action.INVOICE);
@@ -2294,7 +2282,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    // as has the transaction-split of the whole sum in the
 	    // transaction when the invoice is Paid
 	    GncTransaction.TrnSplits.TrnSplit.SplitLot lotref = 
-		    ((GnucashFileImpl) getFile()).getObjectFactory()
+		    ((GnucashFileImpl) getGnucashFile()).getObjectFactory()
 		    	.createGncTransactionTrnSplitsTrnSplitSplitLot();
 	    lotref.setType(getJwsdpPeer().getInvoicePostlot().getType());
 	    lotref.setValue(getJwsdpPeer().getInvoicePostlot().getValue());
@@ -2326,13 +2314,13 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    GnucashWritableTransactionSplitImpl split = 
 		    new GnucashWritableTransactionSplitImpl(
 			    postTransaction,
-			    getFile().getAccountByID(accountToTransferMoneyFrom));
+			    getGnucashFile().getAccountByID(accountToTransferMoneyFrom));
 	    split.setQuantity(((FixedPointNumber) sumExclTaxes.clone()).negate());
 	    split.setValue(((FixedPointNumber) sumExclTaxes.clone()).negate());
 	}
 
 	assert postTransaction.isBalanced();
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     /**
@@ -2380,7 +2368,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     /**
@@ -2392,7 +2380,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(vend.getID().toString());
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     /**
@@ -2405,7 +2393,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     // -----------------------------------------------------------
@@ -2422,7 +2410,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	dateOpened = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
 	String dateOpenedStr = dateOpened.format(DATE_OPENED_FORMAT_BOOK);
 	getJwsdpPeer().getInvoiceOpened().setTsDate(dateOpenedStr);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     /**
@@ -2439,7 +2427,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	setDateOpened(LocalDate.parse(d, DATE_OPENED_FORMAT));
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     /**
@@ -2453,7 +2441,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	attemptChange();
 	datePosted = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
 	getJwsdpPeer().getInvoicePosted().setTsDate(DATE_OPENED_FORMAT.format(d));
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
 
 	// change the date of the transaction too
 	GnucashWritableTransaction postTr = getWritablePostTransaction();
@@ -2490,7 +2478,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	getJwsdpPeer().setInvoiceId(number);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     public void setDescription(final String descr) {
@@ -2505,7 +2493,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 
 	attemptChange();
 	getJwsdpPeer().setInvoiceNotes(descr);
-	getFile().setModified(true);
+	getGnucashFile().setModified(true);
     }
 
     // ---------------------------------------------------------------
@@ -2538,7 +2526,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	}
 	
 	GCshID invcPostTrxID = new GCshID( invoicePosttxn.getValue() );
-	return getFile().getWritableTransactionByID(invcPostTrxID);
+	return getGnucashFile().getWritableTransactionByID(invcPostTrxID);
     }
 
     /**
@@ -2574,7 +2562,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    post.remove();
 	}
 
-	((GnucashWritableFileImpl) getFile()).removeGenerInvoice(this);
+	((GnucashWritableFileImpl) getGnucashFile()).removeGenerInvoice(this);
 
     }
 

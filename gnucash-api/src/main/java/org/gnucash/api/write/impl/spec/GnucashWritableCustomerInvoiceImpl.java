@@ -1,6 +1,5 @@
 package org.gnucash.api.write.impl.spec;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -87,7 +86,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	 */
 	public GnucashWritableCustomerInvoiceImpl(final GnucashWritableGenerInvoiceImpl invc)
 			throws WrongInvoiceTypeException, TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
-		super(invc.getJwsdpPeer(), invc.getFile());
+		super(invc.getJwsdpPeer(), invc.getGnucashFile());
 
 		// No, we cannot check that first, because the super() method
 		// always has to be called first.
@@ -322,7 +321,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	 * @return 
 	 */
 	public GnucashCustomer getCustomer() {
-		return getFile().getCustomerByID(getCustomerID());
+		return getGnucashFile().getCustomerByID(getCustomerID());
 	}
 
 	// ---------------------------------------------------------------
@@ -331,13 +330,13 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 	public void post(final GnucashAccount incomeAcct, final GnucashAccount receivableAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongInvoiceTypeException, WrongOwnerTypeException,
 			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
-		postCustomerInvoice(getFile(), this, getCustomer(), incomeAcct, receivableAcct, postDate, dueDate);
+		postCustomerInvoice(getGnucashFile(), this, getCustomer(), incomeAcct, receivableAcct, postDate, dueDate);
 	}
 
 	// ---------------------------------------------------------------
 
 	public static GnucashCustomerInvoiceImpl toReadable(GnucashWritableCustomerInvoiceImpl invc) {
-		GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getFile());
+		GnucashCustomerInvoiceImpl result = new GnucashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getGnucashFile());
 		return result;
 	}
 
