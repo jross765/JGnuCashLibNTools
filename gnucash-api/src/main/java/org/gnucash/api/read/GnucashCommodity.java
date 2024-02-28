@@ -2,6 +2,7 @@ package org.gnucash.api.read;
 
 import java.util.List;
 
+import org.gnucash.api.read.hlp.GnucashObject;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
@@ -17,7 +18,9 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
  * <br>
  * Cf. <a href="https://code.gnucash.org/website/docs/v1.6/C/t1784.html">GnuCash manual</a>
  */
-public interface GnucashCommodity extends HasUserDefinedAttributes {
+public interface GnucashCommodity extends GnucashObject,
+										  HasUserDefinedAttributes 
+{
 
     /**
      * @return the combination of getNameSpace() and getID(), 

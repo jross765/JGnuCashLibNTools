@@ -134,100 +134,6 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 		} // for trx
 	}
 
-    // ---------------------------------------------------------------
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    @Override
-    public GnucashWritableFileImpl getWritableGnucashFile() {
-	return (GnucashWritableFileImpl) super.getGnucashFile();
-    }
-
-    /**
-     * The gnucash-file is the top-level class to contain everything.
-     *
-     * @return the file we are associated with
-     */
-    @Override
-    public GnucashWritableFileImpl getGnucashFile() {
-	return (GnucashWritableFileImpl) super.getGnucashFile();
-    }
-
-    // ---------------------------------------------------------------
-
-	/**
-	 * support for firing PropertyChangeEvents. (gets initialized only if we really
-	 * have listeners)
-	 */
-	private volatile PropertyChangeSupport myPropertyChange = null;
-
-	/**
-	 * Returned value may be null if we never had listeners.
-	 *
-	 * @return Our support for firing PropertyChangeEvents
-	 */
-	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPropertyChange;
-	}
-
-	/**
-	 * Add a PropertyChangeListener to the listener list. The listener is registered
-	 * for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Add a PropertyChangeListener for a specific property. The listener will be
-	 * invoked only when a call on firePropertyChange names that specific property.
-	 *
-	 * @param propertyName The name of the property to listen on.
-	 * @param listener     The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 *
-	 * @param propertyName The name of the property that was listened on.
-	 * @param listener     The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(propertyName, listener);
-		}
-	}
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list. This removes a
-	 * PropertyChangeListener that was registered for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(listener);
-		}
-	}
-
 	// ---------------------------------------------------------------
 
 	/**
@@ -244,7 +150,7 @@ public class GnucashWritableCustomerInvoiceImpl extends GnucashWritableGenerInvo
 		getWritableGnucashFile().setModified(true);
 
 		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {
 			propertyChangeFirer.firePropertyChange("customer", oldCust, cust);
 		}

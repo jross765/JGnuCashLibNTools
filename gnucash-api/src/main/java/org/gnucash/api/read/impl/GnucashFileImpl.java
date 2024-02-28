@@ -1332,7 +1332,7 @@ public class GnucashFileImpl implements GnucashFile,
      * {@inheritDoc}
      */
     @Override
-    public GnucashFile getGnucashFile() {
+    public GnucashFileImpl getGnucashFile() {
 	return this;
     }
 

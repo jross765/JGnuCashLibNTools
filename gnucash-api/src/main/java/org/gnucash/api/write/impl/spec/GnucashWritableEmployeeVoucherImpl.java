@@ -6,9 +6,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashEmployee;
@@ -29,11 +26,13 @@ import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherEntryImpl;
 import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
 import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,87 +139,6 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	/**
-	 * The gnucash-file is the top-level class to contain everything.
-	 *
-	 * @return the file we are associated with
-	 */
-	protected GnucashWritableFileImpl getWritableFile() {
-		return (GnucashWritableFileImpl) getFile();
-	}
-
-	/**
-	 * support for firing PropertyChangeEvents. (gets initialized only if we really
-	 * have listeners)
-	 */
-	private volatile PropertyChangeSupport myPropertyChange = null;
-
-	/**
-	 * Returned value may be null if we never had listeners.
-	 *
-	 * @return Our support for firing PropertyChangeEvents
-	 */
-	protected PropertyChangeSupport getPropertyChangeSupport() {
-		return myPropertyChange;
-	}
-
-	/**
-	 * Add a PropertyChangeListener to the listener list. The listener is registered
-	 * for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(listener);
-	}
-
-	/**
-	 * Add a PropertyChangeListener for a specific property. The listener will be
-	 * invoked only when a call on firePropertyChange names that specific property.
-	 *
-	 * @param propertyName The name of the property to listen on.
-	 * @param listener     The PropertyChangeListener to be added
-	 */
-	@SuppressWarnings("exports")
-	public final void addPropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange == null ) {
-			myPropertyChange = new PropertyChangeSupport(this);
-		}
-		myPropertyChange.addPropertyChangeListener(propertyName, listener);
-	}
-
-	/**
-	 * Remove a PropertyChangeListener for a specific property.
-	 *
-	 * @param propertyName The name of the property that was listened on.
-	 * @param listener     The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public final void removePropertyChangeListener(final String propertyName, final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(propertyName, listener);
-		}
-	}
-
-	/**
-	 * Remove a PropertyChangeListener from the listener list. This removes a
-	 * PropertyChangeListener that was registered for all properties.
-	 *
-	 * @param listener The PropertyChangeListener to be removed
-	 */
-	@SuppressWarnings("exports")
-	public synchronized void removePropertyChangeListener(final PropertyChangeListener listener) {
-		if ( myPropertyChange != null ) {
-			myPropertyChange.removePropertyChangeListener(listener);
-		}
-	}
-
-	// ---------------------------------------------------------------
-
-	/**
 	 * {@inheritDoc}
 	 */
 	public void setEmployee(GnucashEmployee empl) throws WrongInvoiceTypeException {
@@ -231,10 +149,10 @@ public class GnucashWritableEmployeeVoucherImpl extends GnucashWritableGenerInvo
 		}
 
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(empl.getID().toString());
-		getWritableFile().setModified(true);
+		getWritableGnucashFile().setModified(true);
 
 		// <<insert code to react further to this change here
-		PropertyChangeSupport propertyChangeFirer = getPropertyChangeSupport();
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {
 			propertyChangeFirer.firePropertyChange("employee", oldEmpl, empl);
 		}

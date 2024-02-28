@@ -28,7 +28,16 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 		return getUserDefinedAttributeCore(slots.getSlot(), name);
 	}
 	
-	public static String getUserDefinedAttributeCore(final List<Slot> slotList, final String name) {
+	public static List<String> getUserDefinedAttributeKeysCore(final SlotsType slots) {
+		if ( slots == null )
+			return null;
+		
+		return getUserDefinedAttributeKeysCore(slots.getSlot());
+	}
+    
+	// ---------------------------------------------------------------
+
+	private static String getUserDefinedAttributeCore(final List<Slot> slotList, final String name) {
 		if ( slotList == null )
 			return null;
 
@@ -65,38 +74,43 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 					List<Object> objList = slot.getSlotValue().getContent();
 					if ( objList == null || objList.size() == 0 )
 						return null;
-					Object value = objList.get(0);
-					if ( value == null )
+					Object valElt = objList.get(0);
+					if ( valElt == null )
 						return null;
 					LOGGER.debug("User-defined attribute for key '" + nameFirst + "' may not be a String."
-							+ " It is of type [" + value.getClass().getName() + "]");
-					if ( value instanceof String ) {
-						return (String) value;
-					} else if ( value instanceof JAXBElement ) {
-						JAXBElement elt = (JAXBElement) value;
+							+ " It is of type [" + valElt.getClass().getName() + "]");
+					if ( valElt instanceof String ) {
+						return (String) valElt;
+					} else if ( valElt instanceof JAXBElement ) {
+						JAXBElement elt = (JAXBElement) valElt;
 						return elt.getValue().toString();
 					} else {
 						LOGGER.error("User-defined attribute for key '" + nameFirst + "' may not be a String."
-								+ " It is of UNKNOWN type [" + value.getClass().getName() + "]");
+								+ " It is of UNKNOWN type [" + valElt.getClass().getName() + "]");
 						return "ERROR";
 					}
 				} else if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GDATE) ) {
 					List<Object> objList = slot.getSlotValue().getContent();
 					if ( objList == null || objList.size() == 0 )
 						return null;
-					Object value = objList.get(1); // ::MAGIC
-					if ( value == null )
+					Object valElt = null;
+					for ( Object obj : objList ) {
+						if ( obj.getClass().getName().contains("JAXBElement") ) {
+							valElt = obj;
+						}
+					}
+					if ( valElt == null )
 						return null;
 					LOGGER.debug("User-defined attribute for key '" + nameFirst + "' may not be a String."
-							+ " It is of type [" + value.getClass().getName() + "]");
-					if ( value instanceof String ) {
-						return (String) value;
-					} else if ( value instanceof JAXBElement ) {
-						JAXBElement elt = (JAXBElement) value;
+							+ " It is of type [" + valElt.getClass().getName() + "]");
+					if ( valElt instanceof String ) {
+						return (String) valElt;
+					} else if ( valElt instanceof JAXBElement ) {
+						JAXBElement elt = (JAXBElement) valElt;
 						return elt.getValue().toString();
 					} else {
 						LOGGER.error("User-defined attribute for key '" + nameFirst + "' may not be a String."
-								+ " It is of UNKNOWN type [" + value.getClass().getName() + "]");
+								+ " It is of UNKNOWN type [" + valElt.getClass().getName() + "]");
 						return "ERROR";
 					}
 				} else if ( slot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_FRAME) ) {
@@ -121,16 +135,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 		return null;
 	}
 
-	// -----------------------------------------------------------------
-
-	public static List<String> getUserDefinedAttributeKeysCore(final SlotsType slots) {
-		if ( slots == null )
-			return null;
-		
-		return getUserDefinedAttributeKeysCore(slots.getSlot());
-	}
-    
-    public static List<String> getUserDefinedAttributeKeysCore(final List<Slot> slotList) {
+    protected static List<String> getUserDefinedAttributeKeysCore(final List<Slot> slotList) {
 		if ( slotList == null )
 			return null;
 		
@@ -143,7 +148,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 		return retval;
 	}
     
-	// -----------------------------------------------------------------
+	// ---------------------------------------------------------------
 
 	// Return slots without the ones with dummy content
 	public static List<Slot> getSlotsListClean(final List<Slot> slotList) {

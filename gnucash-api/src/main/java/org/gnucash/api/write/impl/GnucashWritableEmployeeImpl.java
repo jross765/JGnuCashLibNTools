@@ -7,11 +7,13 @@ import java.util.List;
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnucashEmployee;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnucashEmployeeImpl;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -293,24 +295,6 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
         return getWritableAddress();
     }
 
-    // ---------------------------------------------------------------
-
-    /**
-     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
-    @Override
-	public void setUserDefinedAttribute(final String name, final String value) {
-		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots().getSlot(),
-									 	 getWritableGnucashFile(),
-									 	 name, value);
-	}
-
-	public void clean() {
-		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getEmployeeSlots());
-	}
-
     // -----------------------------------------------------------------
     // The methods in this part are overridden methods from
     // GnucashEmployeeImpl.
@@ -379,6 +363,50 @@ public class GnucashWritableEmployeeImpl extends GnucashEmployeeImpl
 	return getWritableGnucashFile().getUnpaidWritableVouchersForEmployee(this);
     }
     
+    // ---------------------------------------------------------------
+
+    @Override
+	public void addUserDefinedAttribute(final String type, final String name, final String value) {
+		if ( jwsdpPeer.getEmployeeSlots() == null ) {
+			ObjectFactory fact = getGnucashFile().getObjectFactory();
+			SlotsType newSlotsType = fact.createSlotsType();
+			jwsdpPeer.setEmployeeSlots(newSlotsType);
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.addUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots(),
+									 	 getWritableGnucashFile(),
+									 	 type, name, value);
+	}
+
+    @Override
+	public void removeUserDefinedAttribute(final String name) {
+		if ( jwsdpPeer.getEmployeeSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.removeUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots(),
+									 	 	getWritableGnucashFile(),
+									 	 	name);
+	}
+
+    @Override
+	public void setUserDefinedAttribute(final String name, final String value) {
+		if ( jwsdpPeer.getEmployeeSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getEmployeeSlots(),
+									 	 getWritableGnucashFile(),
+									 	 name, value);
+	}
+
+	public void clean() {
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getEmployeeSlots());
+	}
+
     // -----------------------------------------------------------------
 
     @Override

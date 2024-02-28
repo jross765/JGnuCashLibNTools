@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashFile;
 import org.gnucash.api.read.GnucashTransactionSplit;
@@ -231,22 +230,13 @@ public class GnucashAccountImpl extends SimpleAccount
 
     // -----------------------------------------------------------------
 
-    /**
-     * Examples: The user-defined-attribute "hidden"="true"/"false" was introduced
-     * in gnucash2.0 to hide accounts.
-     *
-     * @param name the name of the user-defined attribute
-     * @return the value or null if not set
-     */
+    @Override
     public String getUserDefinedAttribute(final String name) {
     	return HasUserDefinedAttributesImpl
     			.getUserDefinedAttributeCore(jwsdpPeer.getActSlots(), name);
     }
 
-    /**
-     * @return all keys that can be used with
-     *         ${@link #getUserDefinedAttribute(String)}}.
-     */
+    @Override
     public List<String> getUserDefinedAttributeKeys() {
     	return HasUserDefinedAttributesImpl
     			.getUserDefinedAttributeKeysCore(jwsdpPeer.getActSlots());

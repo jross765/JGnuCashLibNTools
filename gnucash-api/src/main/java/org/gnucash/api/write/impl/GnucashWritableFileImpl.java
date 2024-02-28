@@ -35,7 +35,9 @@ import org.gnucash.api.generated.GncSchedxaction;
 import org.gnucash.api.generated.GncTemplateTransactions;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Price;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.GnucashCustomer;
@@ -69,6 +71,7 @@ import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
 import org.gnucash.api.read.spec.GnucashCustomerJob;
@@ -203,14 +206,43 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 	public GnucashWritableFile getWritableGnucashFile() {
 		return this;
 	}
+	
+	// ---------------------------------------------------------------
 
-	/**
-	 * {@inheritDoc}
-	 */
+	@Override
+	public void addUserDefinedAttribute(final String type, final String aName, final String aValue) {
+		if ( getRootElement().getGncBook().getBookSlots() == null ) {
+			ObjectFactory fact = getObjectFactory();
+			SlotsType newSlotsType = fact.createSlotsType();
+			getRootElement().getGncBook().setBookSlots(newSlotsType);
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.addUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots(), 
+										 getWritableGnucashFile(), 
+										 type, aName, aValue);
+	}
+
+	@Override
+	public void removeUserDefinedAttribute(final String aName) {
+		if ( getRootElement().getGncBook().getBookSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.removeUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots(), 
+										 	getWritableGnucashFile(), 
+										 	aName);
+	}
+
 	@Override
 	public void setUserDefinedAttribute(final String aName, final String aValue) {
+		if ( getRootElement().getGncBook().getBookSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
 		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots().getSlot(), 
+			.setUserDefinedAttributeCore(getRootElement().getGncBook().getBookSlots(), 
 										 getWritableGnucashFile(), 
 										 aName, aValue);
 	}

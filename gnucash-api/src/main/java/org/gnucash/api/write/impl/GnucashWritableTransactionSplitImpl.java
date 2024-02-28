@@ -165,23 +165,6 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
 
     // ---------------------------------------------------------------
 
-	/**
-     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
-	public void setUserDefinedAttribute(final String name, final String value) {
-		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getSplitSlots().getSlot(),
-										 getWritableGnucashFile(),
-										 name, value);
-	}
-
-	public void clean() {
-		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getSplitSlots());
-	}
-
-    // ---------------------------------------------------------------
-
     /**
      * @see GnucashTransactionSplitImpl#getTransaction()
      */
@@ -485,6 +468,23 @@ public class GnucashWritableTransactionSplitImpl extends GnucashTransactionSplit
     public GnucashWritableFileImpl getGnucashFile() {
 	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
+
+    // ---------------------------------------------------------------
+
+	/**
+     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
+     *      java.lang.String)
+     */
+	public void setUserDefinedAttribute(final String name, final String value) {
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getSplitSlots(),
+										 getWritableGnucashFile(),
+										 name, value);
+	}
+
+	public void clean() {
+		HasWritableUserDefinedAttributesImpl.cleanSlots(getJwsdpPeer().getSplitSlots());
+	}
 
     // ---------------------------------------------------------------
 

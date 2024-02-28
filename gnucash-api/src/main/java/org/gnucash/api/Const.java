@@ -47,6 +47,8 @@ public class Const {
 
   public static final String STANDARD_DATE_FORMAT_BOOK = "yyyy-MM-dd HH:mm:ss";
 
+  public static final String REDUCED_DATE_FORMAT_BOOK = "yyyy-MM-dd";
+
   // -----------------------------------------------------------------
 
   public static final String DEFAULT_CURRENCY = "EUR";

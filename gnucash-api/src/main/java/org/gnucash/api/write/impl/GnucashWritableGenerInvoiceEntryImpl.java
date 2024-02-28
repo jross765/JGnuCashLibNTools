@@ -13,6 +13,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoice;
 import org.gnucash.api.read.GnucashGenerInvoice.ReadVariant;
@@ -24,6 +25,7 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableGenerInvoice;
@@ -463,12 +465,40 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
 
     // -----------------------------------------------------------
 
-    /**
-     * {@inheritDoc}
-     */
-	public void setUserDefinedAttribute(final String name, final String value) {
+    @Override
+	public void addUserDefinedAttribute(final String type, final String name, final String value) {
+		if ( jwsdpPeer.getEntrySlots() == null ) {
+			ObjectFactory fact = getGnucashFile().getObjectFactory();
+			SlotsType newSlotsType = fact.createSlotsType();
+			jwsdpPeer.setEntrySlots(newSlotsType);
+		}
+		
 		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(),
+			.addUserDefinedAttributeCore(jwsdpPeer.getEntrySlots(),
+										 getWritableGnucashFile(),
+										 type, name, value);
+	}
+
+    @Override
+	public void removeUserDefinedAttribute(final String name) {
+		if ( jwsdpPeer.getEntrySlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.removeUserDefinedAttributeCore(jwsdpPeer.getEntrySlots(),
+										 	getWritableGnucashFile(),
+										 	name);
+	}
+
+    @Override
+	public void setUserDefinedAttribute(final String name, final String value) {
+		if ( jwsdpPeer.getEntrySlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots(),
 										 getWritableGnucashFile(),
 										 name, value);
 	}
@@ -1157,16 +1187,16 @@ public class GnucashWritableGenerInvoiceEntryImpl extends GnucashGenerInvoiceEnt
     /**
      * {@inheritDoc}
      */
-    public GnucashWritableFile getWritableGnucashFile() {
-	return (GnucashWritableFile) super.getGnucashFile();
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public GnucashWritableFile getGnucashFile() {
-	return (GnucashWritableFile) super.getGnucashFile();
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
     }
     
     // ---------------------------------------------------------------

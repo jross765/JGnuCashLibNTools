@@ -76,25 +76,6 @@ public class GnucashWritableVendorBillEntryImpl extends GnucashWritableGenerInvo
 		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getGnucashFile());
 	}
 
-	// ---------------------------------------------------------------
-
-	/**
-	 * @see #getGnucashFile()
-	 */
-	@Override
-	public GnucashWritableFile getWritableGnucashFile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setUserDefinedAttribute(String name, String value) {
-		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(), 
-										 getWritableGnucashFile(), 
-										 name, value);
-	}
-
 	// -----------------------------------------------------------
 
 	@Override

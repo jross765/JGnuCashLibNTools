@@ -2,7 +2,10 @@ package org.gnucash.api.write.impl;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.impl.GnucashCommodityImpl;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnucashWritableCommodity;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
@@ -195,16 +198,42 @@ public class GnucashWritableCommodityImpl extends GnucashCommodityImpl
 
     // ---------------------------------------------------------------
 
-    /**
-     * @see GnucashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
+    @Override
+    public void addUserDefinedAttribute(final String type, final String name, final String value) {
+		if ( jwsdpPeer.getCmdtySlots() == null ) {
+			ObjectFactory fact = getGnucashFile().getObjectFactory();
+			SlotsType newSlotsType = fact.createSlotsType();
+			jwsdpPeer.setCmdtySlots(newSlotsType);
+		}
+		
+    	HasWritableUserDefinedAttributesImpl
+    		.addUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots(), 
+    									 getGnucashFile(), 
+    									 type, name, value);
+    }
+
+    @Override
+    public void removeUserDefinedAttribute(final String name) {
+		if ( jwsdpPeer.getCmdtySlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+    	HasWritableUserDefinedAttributesImpl
+    		.removeUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots(), 
+    										getGnucashFile(),
+    										name);
+    }
+
     @Override
     public void setUserDefinedAttribute(final String name, final String value) {
+		if ( jwsdpPeer.getCmdtySlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
     	HasWritableUserDefinedAttributesImpl
-    		.setUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots().getSlot(), 
-    									 getGnucashFile(), 
-    									 name, value);
+    		.setUserDefinedAttributeCore(jwsdpPeer.getCmdtySlots(), 
+    								 	 getGnucashFile(), 
+    								 	 name, value);
     }
 
     public void clean() {

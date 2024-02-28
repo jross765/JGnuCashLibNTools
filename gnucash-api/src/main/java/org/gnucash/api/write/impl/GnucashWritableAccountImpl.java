@@ -22,6 +22,7 @@ import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnucashAccountImpl;
 import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnucashWritableAccount;
 import org.gnucash.api.write.GnucashWritableFile;
 import org.gnucash.api.write.GnucashWritableTransactionSplit;
@@ -572,9 +573,39 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
     // ---------------------------------------------------------------
 
 	@Override
-	public void setUserDefinedAttribute(String name, String value) {
+	public void addUserDefinedAttribute(final String type, final String name, final String value) {
+		if ( jwsdpPeer.getActSlots() == null ) {
+			ObjectFactory fact = getGnucashFile().getObjectFactory();
+			SlotsType newSlotsType = fact.createSlotsType();
+			jwsdpPeer.setActSlots(newSlotsType);
+		}
+		
 		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getActSlots().getSlot(), 
+			.addUserDefinedAttributeCore(jwsdpPeer.getActSlots(), 
+										 getWritableGnucashFile(), 
+										 type, name, value);	
+	}
+
+	@Override
+	public void removeUserDefinedAttribute(final String name) {
+		if ( jwsdpPeer.getActSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.removeUserDefinedAttributeCore(jwsdpPeer.getActSlots(), 
+										 	getWritableGnucashFile(), 
+										 	name);	
+	}
+
+	@Override
+	public void setUserDefinedAttribute(final String name, final String value) {
+		if ( jwsdpPeer.getActSlots() == null ) {
+			throw new SlotListDoesNotContainKeyException();
+		}
+		
+		HasWritableUserDefinedAttributesImpl
+			.setUserDefinedAttributeCore(jwsdpPeer.getActSlots(), 
 										 getWritableGnucashFile(), 
 										 name, value);	
 	}

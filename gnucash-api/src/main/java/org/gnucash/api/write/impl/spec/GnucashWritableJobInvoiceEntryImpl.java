@@ -3,6 +3,8 @@ package org.gnucash.api.write.impl.spec;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.ObjectFactory;
+import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -10,6 +12,7 @@ import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashGenerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnucashWritableFile;
@@ -77,24 +80,27 @@ public class GnucashWritableJobInvoiceEntryImpl extends GnucashWritableGenerInvo
 		super(entry.getJwsdpPeer(), (GnucashWritableFileImpl) entry.getGenerInvoice().getGnucashFile());
 	}
 
-	// ---------------------------------------------------------------
+    // ---------------------------------------------------------------
 
-	/**
-	 * @see #getGnucashFile()
-	 */
-	@Override
-	public GnucashWritableFile getWritableGnucashFile() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getWritableGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
 
-	@Override
-	public void setUserDefinedAttribute(String name, String value) {
-		HasWritableUserDefinedAttributesImpl
-			.setUserDefinedAttributeCore(jwsdpPeer.getEntrySlots().getSlot(), 
-										 getWritableGnucashFile(), 
-										 name, value);
-	}
+    /**
+     * The gnucash-file is the top-level class to contain everything.
+     *
+     * @return the file we are associated with
+     */
+    @Override
+    public GnucashWritableFileImpl getGnucashFile() {
+	return (GnucashWritableFileImpl) super.getGnucashFile();
+    }
 
 	// -----------------------------------------------------------
 
