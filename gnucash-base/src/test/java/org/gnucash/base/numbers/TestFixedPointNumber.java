@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
 
-import org.gnucash.ConstTest;
+import org.gnucash.base.ConstTest;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package org.gnucash;
+package org.gnucash.base;
 
 public class ConstTest {
 
