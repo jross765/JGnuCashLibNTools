@@ -37,12 +37,18 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
     
 	// ---------------------------------------------------------------
 
-	private static String getUserDefinedAttributeCore(final List<Slot> slotList, final String name) {
+	private static String getUserDefinedAttributeCore(final List<Slot> slotList,
+													  final String name) {
 		if ( slotList == null )
 			return null;
 
 		if ( name.equals("") )
 			return null;
+
+		// NO:
+//		if ( ! getUserDefinedAttributeKeysCore(slotList).contains(name) ) {
+//			throw new SlotListDoesNotContainKeyException();
+//		}
 		
 		// ---
 
