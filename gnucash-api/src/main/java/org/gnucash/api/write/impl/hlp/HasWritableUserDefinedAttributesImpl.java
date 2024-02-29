@@ -30,7 +30,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 
 	// ---------------------------------------------------------------
 
-	public static void addUserDefinedAttributeCore(final SlotsType slots,
+	public static void addUserDefinedAttributeCore(SlotsType slots,
 												   final GnucashWritableFile gcshFile,
 												   final String type, final String name, final String value) {
 		if ( slots == null )
@@ -66,7 +66,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 					                type, name, value);
 	}
 	
-	public static void removeUserDefinedAttributeCore(final SlotsType slots, 
+	public static void removeUserDefinedAttributeCore(SlotsType slots, 
 													  final GnucashWritableFile gcshFile,
 													  final String name) {
 		if ( slots == null )
@@ -88,7 +88,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 		removeUserDefinedAttributeCore(slots.getSlot(), gcshFile, name);
 	}
 
-	public static void setUserDefinedAttributeCore(final SlotsType slots,
+	public static void setUserDefinedAttributeCore(SlotsType slots,
             									   final GnucashWritableFile gcshFile,
             									   final String name, final String value) {
 		if ( slots == null )
@@ -103,7 +103,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	
 	// ---------------------------------------------------------------
 
-	private static void addUserDefinedAttributeCore(final List<Slot> slotList,
+	private static void addUserDefinedAttributeCore(List<Slot> slotList,
 			                                        final GnucashWritableFile gcshFile,
 			                                        final String type, final String name, 
 			                                        final String value) {
@@ -149,7 +149,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 		gcshFile.setModified(true);
 	}
 
-	private static void removeUserDefinedAttributeCore(final List<Slot> slotList,
+	private static void removeUserDefinedAttributeCore(List<Slot> slotList,
             										   final GnucashWritableFile gcshFile,
             										   final String name) {
 		if ( slotList == null )
@@ -180,12 +180,27 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 		}
 	}
 
-	private static void setUserDefinedAttributeCore(final List<Slot> slotList,
+	private static void setUserDefinedAttributeCore(List<Slot> slotList,
             									    final GnucashWritableFile gcshFile,
             									    final String name, final String value) {
 		if ( slotList == null )
 			throw new IllegalArgumentException("null slot list given");
 
+		if ( gcshFile == null )
+			throw new IllegalArgumentException("null GnuCash file given");
+
+		if ( name == null )
+			throw new IllegalArgumentException("null name given");
+		
+		if ( name.isEmpty() )
+			throw new IllegalArgumentException("empty name given");
+
+		if ( value == null )
+			throw new IllegalArgumentException("null value given");
+		
+		// CAUTION: Yes, that's valid
+//		if ( value.isEmpty() )
+//			throw new IllegalArgumentException("empty value given");
 		if ( ! getUserDefinedAttributeKeysCore(slotList).contains(name) )
 			throw new SlotListDoesNotContainKeyException();
 
