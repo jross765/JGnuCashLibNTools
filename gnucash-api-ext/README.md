@@ -21,6 +21,8 @@ Created module.
 
 * New sub-module for management of commodities and currencies.
 
+* New sub-module for management of customer jobs and invoices.
+
 # Known Issues
 (None)
 
