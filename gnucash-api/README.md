@@ -1,11 +1,13 @@
+Notes on the Module "API"
+=========================
+
+This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
+
 # Major Changes 
 ## V. 1.3 &rarr; 1.4
-* Changed project structure: 
-  * Introduced new module "Base", moved some basic packages from module "API" into it.
+* Extracted some basic packagesto new module "Base".
 
-    This was necessary because the author is using the new module in other, external projects (not published).
-
-  * Introduced new module "API Extensions", which contains one class: `DepotTransactionManager`, which provides a simplified, high-level interface for generating buy- and dividend transactions in an investment account.
+* Clean-up work, most of it under the hood.
 
 * Improved test coverage.
 

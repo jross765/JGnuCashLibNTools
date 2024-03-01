@@ -1,5 +1,19 @@
-`JGnuCashLib` is a Java library for reading and writing the XML file format of the 
-GnuCash open source accounting software.
+Project JGnuCashLib
+===================
+
+`JGnuCashLib` is a free and open-source Java library for reading and writing the XML file format of the GnuCash open source accounting software (`gnucash.org`).
+
+It is not directly affiliated with / sponsored or coordinated by the developers of the GnuCash project.
+
+# Modules and Further Details
+
+* [Base](https://github.com/jross765/jgnucashlib/tree/master/gnucash-base/README.md)
+
+* [API](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api/README.md)
+
+* [API Extensions](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-ext/README.md)
+
+* [Example Programs](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-examples/README.md)
 
 # Compatibility
 ## System Compatibility
@@ -26,22 +40,29 @@ with locale de_DE (for details, cf. the API module documentation).
 | 1.1     | no               | Major changes in interfaces    |
 | 1.0.1   | yes              |                                |
 
-# Modules and Further Details
+# Major Changes
+Here, only the top-level changes are mentioned. For more Details, cf. the README files of the resp. modules (links below).
 
-* [Base](https://github.com/jross765/jgnucashlib/tree/master/gnucash-base/README.md)
+## V. 1.3 &rarr; 1.4
+Changed project structure:
 
-* [API](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api/README.md)
+* Introduced new module "Base" (spun off from "API").
 
-* [API Extensions](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-ext/README.md)
+	This was necessary because the author is using the new module in other, external projects (not published).
 
-* [Example Programs](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-examples/README.md)
+* Introduced new module "API Extensions".
+
+	Currently, it contains just one class. That will (hopefully) grow.
+
+## V. 1.2 &rarr; 1.3 and Before
+Cf. the README file of modules "API" and "Example programs" (links below).
 
 # Sister Project
 This project has a sister project: 
 
 [`JKMyMoneyLib`](https://github.com/jross765/jkmymoneylib)
 
-Both projects do not have the same level of maturity, `JGnuCashLib` is currently more 
+Both projects do not have the same level of maturity, `JGnuCashLib` is currently a little more 
 advanced than `JKMyMoneyLib`. Obviously, the author strives to keep both projects symmetrical 
 and to eventually have them both on a comparable level of maturity.
 
