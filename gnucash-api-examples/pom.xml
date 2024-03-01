@@ -46,6 +46,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- GnuCash API Extensions -->
+		<dependency>
+			<groupId>org.gnucash</groupId>
+			<artifactId>gnucash-api-ext</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 

@@ -1,23 +1,23 @@
-package org.example.gnucashapi.write;
+package org.example.gnucashapi.write.gen.simple;
 
 import java.io.File;
 
-import org.gnucash.api.read.impl.GnucashCustomerImpl;
-import org.gnucash.api.write.GnucashWritableCustomer;
+import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.write.GnucashWritableVendor;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 
-public class GenCust {
+public class GenVend {
     // BEGIN Example data -- adapt to your needs
     private static String gcshInFileName  = "example_in.gnucash";
     private static String gcshOutFileName = "example_out.gnucash";
-    private static String name            = "Customatrix jr.";
+    private static String name            = "Vendorix the Great";
     // END Example data
 
     // -----------------------------------------------------------------
 
     public static void main(String[] args) {
 	try {
-	    GenCust tool = new GenCust();
+	    GenVend tool = new GenVend();
 	    tool.kernel();
 	} catch (Exception exc) {
 	    System.err.println("Execution exception. Aborting.");
@@ -29,11 +29,11 @@ public class GenCust {
     protected void kernel() throws Exception {
 	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
 
-	GnucashWritableCustomer cust = gcshFile.createWritableCustomer();
-	cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
-	cust.setName(name);
-	
-	System.out.println("Customer to write: " + cust.toString());
+	GnucashWritableVendor vend = gcshFile.createWritableVendor();
+	vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
+	vend.setName(name);
+
+	System.out.println("Vendor to write: " + vend.toString());
 	gcshFile.writeFile(new File(gcshOutFileName));
 	System.out.println("OK");
     }
