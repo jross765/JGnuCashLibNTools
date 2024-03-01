@@ -422,10 +422,7 @@ public class GnucashWritableFileImpl extends GnucashFileImpl
 			throw new IllegalArgumentException("empty type given");
 		}
 		
-		List<GncCountData> l = getRootElement().getGncBook().getGncCountData();
-		for ( Iterator<GncCountData> iter = l.iterator(); iter.hasNext(); ) {
-			GncCountData gncCountData = (GncCountData) iter.next();
-
+		for ( GncCountData gncCountData : getRootElement().getGncBook().getGncCountData() ) {
 			if ( type.equals(gncCountData.getCdType()) ) {
 				gncCountData.setValue(gncCountData.getValue() + val);
 				setModified(true);

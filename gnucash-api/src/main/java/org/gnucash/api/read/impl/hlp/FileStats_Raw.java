@@ -1,8 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncGncBillTerm;
@@ -40,8 +37,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesAccounts() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncAccount ) {
 				result++;
 			}
@@ -54,8 +50,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesTransactions() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncTransaction ) {
 				result++;
 			}
@@ -68,8 +63,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesTransactionSplits() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncTransaction ) {
 				GncTransaction trx = (GncTransaction) bookElement;
 				for ( TrnSplit splt : trx.getTrnSplits().getTrnSplit() ) {
@@ -87,8 +81,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesGenerInvoices() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncInvoice ) {
 				result++;
 			}
@@ -101,8 +94,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesGenerInvoiceEntries() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncEntry ) {
 				result++;
 			}
@@ -117,8 +109,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesCustomers() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncCustomer ) {
 				result++;
 			}
@@ -131,8 +122,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesVendors() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncVendor ) {
 				result++;
 			}
@@ -145,8 +135,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesEmployees() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncEmployee ) {
 				result++;
 			}
@@ -159,8 +148,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesGenerJobs() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncJob ) {
 				result++;
 			}
@@ -175,8 +163,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesCommodities() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncCommodity ) {
 				result++;
 			}
@@ -196,8 +183,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesTaxTables() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncTaxTable ) {
 				result++;
 			}
@@ -210,8 +196,7 @@ public class FileStats_Raw implements FileStats {
 	public int getNofEntriesBillTerms() {
 		int result = 0;
 
-		for ( Iterator<Object> iter = gcshFile.getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncGncBillTerm ) {
 				result++;
 			}
@@ -223,8 +208,7 @@ public class FileStats_Raw implements FileStats {
 	// ---------------------------------------------------------------
 
 	private GncPricedb getPriceDB() {
-		List<Object> bookElements = gcshFile.getRootElement().getGncBook().getBookElements();
-		for ( Object bookElement : bookElements ) {
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncPricedb ) {
 				return (GncPricedb) bookElement;
 			}

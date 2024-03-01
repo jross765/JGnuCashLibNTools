@@ -91,7 +91,7 @@ public class GnucashWritableAccountImpl extends GnucashAccountImpl
 
 	if (addSplits) {
 	    for ( GnucashTransactionSplit splt : ((GnucashFileImpl) acct.getGnucashFile()).getTransactionSplits_readAfresh() ) {
-		if ( acct.getType() != Type.ROOT && 
+		if ( ! acct.isRootAccount() && 
 			 splt.getAccountID().equals(acct.getID()) ) {
 		    super.addTransactionSplit(splt);
 		    // NO:

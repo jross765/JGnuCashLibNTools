@@ -494,7 +494,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return new FixedPointNumber("0");
 	}
 
-	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().iterator().next();
+	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
 	// ::TODO ::CHECK
 	// Overly specific code / pseudo-improvement
 	// Reasons: 
@@ -563,7 +563,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return new FixedPointNumber("0");
 	}
 
-	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().iterator().next();
+	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
 	// ::TODO ::CHECK
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO
@@ -621,7 +621,7 @@ public class GnucashGenerInvoiceEntryImpl extends GnucashObjectImpl
 	    return new FixedPointNumber("0");
 	}
 
-	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().iterator().next();
+	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
 	// ::TODO ::CHECK
 	// Cf. getInvcApplicableTaxPercent()
 	// ::TODO

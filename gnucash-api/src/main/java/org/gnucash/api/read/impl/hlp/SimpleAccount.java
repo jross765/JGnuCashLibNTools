@@ -113,8 +113,12 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 		return getGnucashFile().getAccountByID(parentID);
 	}
 
-	public Collection<GnucashAccount> getSubAccounts() {
-		return getChildren();
+	@Override
+	public boolean isRootAccount() {
+		if ( getType() == Type.ROOT )
+			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -347,8 +351,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			}
 		}
 
-		for ( Iterator<GnucashAccount> iter = getSubAccounts().iterator(); iter.hasNext(); ) {
-			GnucashAccount account = (GnucashAccount) iter.next();
+		for ( GnucashAccount account : getChildren() ) {
 			GnucashTransactionSplit split = account.getLastSplitBeforeRecursive(date);
 			if ( split != null && 
 				 split.getTransaction() != null ) {

@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnucashTransaction;
@@ -17,6 +15,7 @@ import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.GnucashTransactionImpl;
 import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -220,8 +219,7 @@ public class FileTransactionManager {
 
 		List<GncTransaction> result = new ArrayList<GncTransaction>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncTransaction) ) {
 				continue;
 			}

@@ -1,7 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import java.util.Iterator;
-
 import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.slf4j.Logger;
@@ -159,9 +157,7 @@ public class FileStats_Counters implements FileStats {
 	// ---------------------------------------------------------------
 
 	private GncCountData findCountDataByType(final String type) {
-		for ( Iterator<GncCountData> iter = gcshFile.getRootElement().getGncBook().getGncCountData().iterator(); iter
-				.hasNext(); ) {
-			GncCountData count = (GncCountData) iter.next();
+		for ( GncCountData count : gcshFile.getRootElement().getGncBook().getGncCountData() ) {
 			if ( count.getCdType().equals(type) ) {
 				return count;
 			}

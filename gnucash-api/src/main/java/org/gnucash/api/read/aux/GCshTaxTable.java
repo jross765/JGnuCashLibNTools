@@ -1,10 +1,10 @@
 package org.gnucash.api.read.aux;
 
-import java.util.Collection;
+import java.util.List;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.spec.GnucashCustomerInvoice;
 import org.gnucash.api.read.spec.GnucashVendorBill;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 
 /**
@@ -50,6 +50,6 @@ public interface GCshTaxTable {
     /**
      * @return the entries in this tax-table
      */
-    Collection<GCshTaxTableEntry> getEntries();
+    List<GCshTaxTableEntry> getEntries();
 
 }

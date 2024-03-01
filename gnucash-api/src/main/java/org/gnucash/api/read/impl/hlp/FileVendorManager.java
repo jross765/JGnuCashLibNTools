@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +40,7 @@ public class FileVendorManager {
 	private void init(final GncV2 pRootElement) {
 		vendMap = new HashMap<GCshID, GnucashVendor>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncVendor) ) {
 				continue;
 			}
@@ -120,13 +118,13 @@ public class FileVendorManager {
 
 	public GnucashVendor getVendorByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashVendor> vendList = getVendorsByName(name);
+		List<GnucashVendor> vendList = getVendorsByName(name);
 		if ( vendList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( vendList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return vendList.iterator().next();
+			return vendList.get(0);
 	}
 
 	public Collection<GnucashVendor> getVendors() {

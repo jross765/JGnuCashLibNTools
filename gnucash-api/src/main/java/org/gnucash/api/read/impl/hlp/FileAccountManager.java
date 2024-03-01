@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -47,8 +48,7 @@ public class FileAccountManager {
 	private void init(final GncV2 pRootElement) {
 		acctMap = new HashMap<GCshID, GnucashAccount>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncAccount) ) {
 				continue;
 			}
@@ -127,17 +127,17 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	public Collection<GnucashAccount> getAccountsByName(final String name) {
+	public List<GnucashAccount> getAccountsByName(final String name) {
 		return getAccountsByName(name, true, true);
 	}
 
-	public Collection<GnucashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
+	public List<GnucashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
 
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+		List<GnucashAccount> result = new ArrayList<GnucashAccount>();
 
 		for ( GnucashAccount acct : acctMap.values() ) {
 			if ( relaxed ) {
@@ -168,13 +168,13 @@ public class FileAccountManager {
 
 	public GnucashAccount getAccountByNameUniq(final String name, final boolean qualif)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashAccount> acctList = getAccountsByName(name, qualif, false);
+		List<GnucashAccount> acctList = getAccountsByName(name, qualif, false);
 		if ( acctList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( acctList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return acctList.iterator().next();
+			return acctList.get(0);
 	}
 
 	/*
@@ -233,9 +233,9 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	public Collection<GnucashAccount> getAccountsByType(Type type)
+	public List<GnucashAccount> getAccountsByType(Type type)
 			throws UnknownAccountTypeException {
-		Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+		List<GnucashAccount> result = new ArrayList<GnucashAccount>();
 
 		for ( GnucashAccount acct : getAccounts() ) {
 			if ( acct.getType() == type ) {
@@ -246,9 +246,9 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public Collection<GnucashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed)
+	public List<GnucashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed)
 			throws UnknownAccountTypeException {
-		Collection<GnucashAccount> result = new ArrayList<GnucashAccount>();
+		List<GnucashAccount> result = new ArrayList<GnucashAccount>();
 
 		for ( GnucashAccount acct : getAccountsByName(expr, qualif, relaxed) ) {
 			if ( acct.getType() == type ) {

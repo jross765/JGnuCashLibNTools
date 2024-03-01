@@ -313,8 +313,7 @@ public class GnucashFileImpl implements GnucashFile,
 	    return Const.DEFAULT_CURRENCY;
 	}
 	
-	for (Iterator<Object> iter = getRootElement().getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
+	for ( Object bookElement : getRootElement().getGncBook().getBookElements() ) {
 	    if (!(bookElement instanceof GncAccount)) {
 		continue;
 	    }
@@ -1186,9 +1185,7 @@ public class GnucashFileImpl implements GnucashFile,
         // ---
 	
 	// check for unknown book-elements
-	for (Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext();) {
-	    Object bookElement = iter.next();
-	    
+	for ( Object bookElement : getRootElement().getGncBook().getBookElements() ) {
 	    if (bookElement instanceof GncTransaction) {
 		continue;
 	    } else if (bookElement instanceof GncSchedxaction) {

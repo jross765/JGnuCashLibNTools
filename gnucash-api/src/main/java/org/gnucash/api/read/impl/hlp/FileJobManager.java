@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -49,8 +48,7 @@ public class FileJobManager {
 	private void init(final GncV2 pRootElement) {
 		jobMap = new HashMap<GCshID, GnucashGenerJob>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncJob) ) {
 				continue;
 			}
@@ -155,7 +153,7 @@ public class FileJobManager {
 		else if ( jobList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return jobList.iterator().next();
+			return jobList.get(0);
 	}
 
 	public Collection<GnucashGenerJob> getGenerJobs() {
@@ -216,7 +214,7 @@ public class FileJobManager {
 		else if ( jobList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return jobList.iterator().next();
+			return jobList.get(0);
 	}
 
 	public Collection<GnucashCustomerJob> getCustomerJobs() throws WrongJobTypeException {
@@ -286,7 +284,7 @@ public class FileJobManager {
 		else if ( jobList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return jobList.iterator().next();
+			return jobList.get(0);
 	}
 
 	/**

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,8 +49,7 @@ public class FileCommodityManager {
 	private void initMap1(final GncV2 pRootElement) {
 		cmdtyMap = new HashMap<String, GnucashCommodity>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncCommodity) ) {
 				continue;
 			}
@@ -229,13 +227,13 @@ public class FileCommodityManager {
 
 	public GnucashCommodity getCommodityByNameUniq(final String expr)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		Collection<GnucashCommodity> cmdtyList = getCommoditiesByName(expr, false);
+		List<GnucashCommodity> cmdtyList = getCommoditiesByName(expr, false);
 		if ( cmdtyList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( cmdtyList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return cmdtyList.iterator().next();
+			return cmdtyList.get(0);
 	}
 
 	public Collection<GnucashCommodity> getCommodities() {

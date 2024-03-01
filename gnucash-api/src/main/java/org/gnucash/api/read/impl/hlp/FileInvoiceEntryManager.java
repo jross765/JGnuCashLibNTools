@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +38,7 @@ public class FileInvoiceEntryManager {
 	private void init(final GncV2 pRootElement) {
 		invcEntrMap = new HashMap<GCshID, GnucashGenerInvoiceEntry>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncEntry) ) {
 				continue;
 			}

@@ -119,20 +119,14 @@ public interface GnucashAccount extends Comparable<GnucashAccount>,
      * @return null if the account is below the root
      */
     GCshID getParentAccountID();
-
+    
     /**
      * @return the parent-account we are a child of or null if we are a top-level
      *         account
      */
     GnucashAccount getParentAccount();
 
-    /**
-     * The returned collection is never null and is sorted by Account-Name.
-     *
-     * @return all child-accounts
-     * @see #getChildren()
-     */
-    Collection<GnucashAccount> getSubAccounts();
+    boolean isRootAccount();
 
     /**
      * The returned collection is never null and is sorted by Account-Name.

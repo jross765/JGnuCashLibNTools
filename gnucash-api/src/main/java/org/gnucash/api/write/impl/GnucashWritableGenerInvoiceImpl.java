@@ -275,7 +275,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 								acct, quantity, singleUnitPrice);
 	
 	if ( taxTab.getEntries().isEmpty() || 
-	     taxTab.getEntries().iterator().next().getAmount().equals(new FixedPointNumber()) ) {
+	     taxTab.getEntries().get(0).getAmount().equals(new FixedPointNumber()) ) {
 	    // no taxes
 	    entry.setCustInvcTaxable(false);
 	} else {
@@ -371,7 +371,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 								acct, quantity, singleUnitPrice);
 	
 	if ( taxTab.getEntries().isEmpty() || 
-	     taxTab.getEntries().iterator().next().getAmount().equals(new FixedPointNumber()) ) {
+	     taxTab.getEntries().get(0).getAmount().equals(new FixedPointNumber()) ) {
 	    // no taxes
 	    entry.setVendBllTaxable(false);
 	} else {
@@ -467,7 +467,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 								acct, quantity, singleUnitPrice);
 	
 	if ( taxTab.getEntries().isEmpty() || 
-	     taxTab.getEntries().iterator().next().getAmount().equals(new FixedPointNumber()) ) {
+	     taxTab.getEntries().get(0).getAmount().equals(new FixedPointNumber()) ) {
 	    // no taxes
 	    entry.setEmplVchTaxable(false);
 	} else {
@@ -566,7 +566,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 								acct, quantity, singleUnitPrice);
 
 	if ( taxTab.getEntries().isEmpty() || 
-	     taxTab.getEntries().iterator().next().getAmount().equals(new FixedPointNumber()) ) {
+	     taxTab.getEntries().get(0).getAmount().equals(new FixedPointNumber()) ) {
 	    // no taxes
 	    entry.setJobInvcTaxable(false);
 	} else {
@@ -2168,7 +2168,7 @@ public class GnucashWritableGenerInvoiceImpl extends GnucashGenerInvoiceImpl
 	    final GCshID postAcctID, 
 	    GnucashWritableTransactionImpl postTrx) throws InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
 	// get the first account of the taxTable
-	GCshTaxTableEntry taxTableEntry = taxtable.getEntries().iterator().next();
+	GCshTaxTableEntry taxTableEntry = taxtable.getEntries().get(0);
 	GnucashAccount taxAcct = taxTableEntry.getAccount();
 	FixedPointNumber entryTaxAmount = ((FixedPointNumber) sumInclTaxes.clone()).subtract(sumExclTaxes);
 

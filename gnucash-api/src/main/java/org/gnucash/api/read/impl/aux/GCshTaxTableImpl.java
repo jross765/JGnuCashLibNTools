@@ -3,6 +3,7 @@ package org.gnucash.api.read.impl.aux;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -39,7 +40,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * @see #getEntries()
      */
-    protected Collection<GCshTaxTableEntry> entries = null;
+    protected List<GCshTaxTableEntry> entries = null;
 
     // ---------------------------------------------------------------
 
@@ -133,22 +134,18 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @return all entries to this tax-table
      */
     @Override
-    public Collection<GCshTaxTableEntry> getEntries() {
-	if (entries == null) {
-	    GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();
-	    entries = new ArrayList<>(jwsdpEntries.getGncGncTaxTableEntry().size());
-	    for (Iterator<GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry> iter = jwsdpEntries
-		    .getGncGncTaxTableEntry().iterator(); iter.hasNext();) {
-		GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element = iter.next();
+	public List<GCshTaxTableEntry> getEntries() {
+		if ( entries == null ) {
+			GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();
+			entries = new ArrayList<>(jwsdpEntries.getGncGncTaxTableEntry().size());
+			for ( GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element : jwsdpEntries.getGncGncTaxTableEntry() ) {
+				entries.add(new GCshTaxTableEntryImpl(element, myFile));
+			}
 
-		entries.add(new GCshTaxTableEntryImpl(element, myFile));
-	    }
+		}
 
+		return entries;
 	}
-
-	return entries;
-
-    }
 
     // ---------------------------------------------------------------
 

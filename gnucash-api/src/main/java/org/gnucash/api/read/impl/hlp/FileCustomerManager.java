@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +40,7 @@ public class FileCustomerManager {
 	private void init(final GncV2 pRootElement) {
 		custMap = new HashMap<GCshID, GnucashCustomer>();
 
-		for ( Iterator<Object> iter = pRootElement.getGncBook().getBookElements().iterator(); iter.hasNext(); ) {
-			Object bookElement = iter.next();
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncCustomer) ) {
 				continue;
 			}
@@ -127,7 +125,7 @@ public class FileCustomerManager {
 		else if ( custList.size() > 1 )
 			throw new TooManyEntriesFoundException();
 		else
-			return custList.iterator().next();
+			return custList.get(0);
 	}
 
 	// ::CHECK
