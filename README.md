@@ -17,8 +17,11 @@ It is not directly affiliated with / sponsored or coordinated by the developers 
 
 # Compatibility
 ## System Compatibility
-Version 1.4 of the library has been tested with 5.4 on Linux (locale de_DE) and 
+Version 1.4 of the library has been tested with 
+GnuCash 5.5 on Linux (locale de_DE) and 
 OpenJDK 17.0.
+
+Java 11 or earlier won't work.
 
 ## Locale/Language Compatibility
 **Caution:** Will only work on systems with the following locale languages:
