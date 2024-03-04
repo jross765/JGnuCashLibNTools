@@ -195,16 +195,19 @@ public class TestSecuritiesAccountTransactionManager {
 		assertEquals(GnucashTransactionSplit.Action.BUY.getLocaleString(), splt1.getActionStr());
 		assertEquals(NOF_STOCKS.doubleValue(), splt1.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(amtNet.doubleValue(), splt1.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt1.getDescription());
 
 		assertEquals(OFFSET_ACCT_ID, splt2.getAccountID());
 		assertEquals(null, splt2.getAction());
 		assertEquals(amtGross.negate().doubleValue(), splt2.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(amtGross.negate().doubleValue(), splt2.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt2.getDescription());
 
 		assertEquals(STOCK_BUY_EXP_ACCT_1_ID, splt3.getAccountID());
 		assertEquals(null, splt3.getAction());
 		assertEquals(STOCK_BUY_EXP_1.doubleValue(), splt3.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(STOCK_BUY_EXP_1.doubleValue(), splt3.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt3.getDescription());
 	}
 
 	@Test
@@ -312,26 +315,31 @@ public class TestSecuritiesAccountTransactionManager {
 		assertEquals(GnucashTransactionSplit.Action.DIVIDEND.getLocaleString(), splt1.getActionStr());
 		assertEquals(0.0, splt1.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(0.0, splt1.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt1.getDescription());
 
 		assertEquals(OFFSET_ACCT_ID, splt2.getAccountID());
 		assertEquals(null, splt2.getAction());
 		assertEquals(divNet.doubleValue(), splt2.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(divNet.doubleValue(), splt2.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt2.getDescription());
 
 		assertEquals(INCOME_ACCT_ID, splt3.getAccountID());
 		assertEquals(null, splt3.getAction());
 		assertEquals(DIV_GROSS.negate().doubleValue(), splt3.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(DIV_GROSS.negate().doubleValue(), splt3.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt3.getDescription());
 
 		assertEquals(DIVIDEND_EXP_ACCT_1_ID, splt4.getAccountID());
 		assertEquals(null, splt4.getAction());
 		assertEquals(DIVIDEND_EXP_1.doubleValue(), splt4.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(DIVIDEND_EXP_1.doubleValue(), splt4.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt4.getDescription());
 
 		assertEquals(DIVIDEND_EXP_ACCT_2_ID, splt5.getAccountID());
 		assertEquals(null, splt5.getAction());
 		assertEquals(DIVIDEND_EXP_2.doubleValue(), splt5.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(DIVIDEND_EXP_2.doubleValue(), splt5.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals("", splt5.getDescription());
 	}
 
 	// ---------------------------------------------------------------
