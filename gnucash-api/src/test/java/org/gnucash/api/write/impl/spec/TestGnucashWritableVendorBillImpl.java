@@ -128,7 +128,7 @@ public class TestGnucashWritableVendorBillImpl {
 			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
-	// test01_2();
+	test01_2_check_1_valid(outFile);
 	test01_3(outFile, newInvcID);
 	test01_4(outFile, newInvcID);
 
@@ -142,12 +142,25 @@ public class TestGnucashWritableVendorBillImpl {
 	test01_5(outFile, newInvcID);
     }
 
-    private void test01_2(File outFile, String newInvcID)
-	    throws ParserConfigurationException, SAXException, IOException {
-	// ::TODO
-	// Check if generated XML file is valid
-    }
+	// Sort of "soft" variant of validity check
+	// CAUTION: Not platform-independent!
+	// Tool "xmllint" must be installed and in path
+	private void test01_2_check_1_valid(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
+		// Check if generated document is valid
+ 		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath() );
+ 		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
+		Process prc = bld.start();
+		
+		if ( prc.waitFor() == 0 ) {
+			assertEquals(0, 0);
+		} else {
+			assertEquals(0, 1);
+		}
+	}
+	
     private void test01_3(File outFile, GCshID newInvcID)
 	    throws ParserConfigurationException, SAXException, IOException {
 	// assertNotEquals(null, outFileGlob);
