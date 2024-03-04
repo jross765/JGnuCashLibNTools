@@ -1,12 +1,11 @@
-Notes on the Module "Examples"
-=============================
+# Notes on the Module "Examples"
 
 Guess what: This module contains example pograms (no, really?).
 
-# What the Programs are
+## What the Programs are
 Theses programs are simple *example* programs demonstrating the correct / suggested use of the GnuCash API library, partially replacing a user documentation that does not exist in the current version.
 
-# What the Programs are Not
+## What the Programs are Not
 * They are *not* general-purpose tools. 
 
   They could / might one day be the base for tools (and the author holds that they are a good base), but there would still be some work to be done (not only technical work, but also what in the business world would be called specification work: What exactly is needed, what are the *use cases* (for the older guys like the author of this document) or the *user stories* (for the younger ones) resp.
@@ -17,7 +16,7 @@ Theses programs are simple *example* programs demonstrating the correct / sugges
 
   Test cases are where they belong to: in the GnuCash API library module, under the directory `test`.
 
-# How To Use Them
+## How To Use Them
 Each of these programs contains a section for test data. It has to be adapted to your needs, especially to the GnuCash file that you are going to use it with.
 
 [ Part of the test data (e.g., the account IDs) refers to the data in the test data GnuCash file, but that does not mean that they actually have to / should be used with this file. Instead, the references are only used to clarify the meaning of the parameter / variable, if appropriate. ]
@@ -32,5 +31,5 @@ Thus, the suggested workflow is:
 4. Do a test run and see whether it actually does what you expect.
 5. Adapt the code to your needs / integrate it into your project.
 
-# More Example Files
+## More Example Files
 https://www.gnucash.org/docs/examples/

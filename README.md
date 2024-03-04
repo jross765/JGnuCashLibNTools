@@ -1,11 +1,10 @@
-Project JGnuCashLib
-===================
+# Project JGnuCashLib
 
 `JGnuCashLib` is a free and open-source Java library for reading and writing the XML file format of the GnuCash open source accounting software (`gnucash.org`).
 
 It is not directly affiliated with / sponsored or coordinated by the developers of the GnuCash project.
 
-# Modules and Further Details
+## Modules and Further Details
 
 * [Base](https://github.com/jross765/jgnucashlib/tree/master/gnucash-base/README.md)
 
@@ -15,15 +14,15 @@ It is not directly affiliated with / sponsored or coordinated by the developers 
 
 * [Example Programs](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-examples/README.md)
 
-# Compatibility
-## System Compatibility
+## Compatibility
+### System Compatibility
 Version 1.4 of the library has been tested with 
 GnuCash 5.5 on Linux (locale de_DE) and 
 OpenJDK 17.0.
 
 Java 11 or earlier won't work.
 
-## Locale/Language Compatibility
+### Locale/Language Compatibility
 **Caution:** Will only work on systems with the following locale languages:
 
 * English
@@ -34,7 +33,7 @@ Java 11 or earlier won't work.
 However, it has **not** been thoroughly tested with all of them, but just on a system 
 with locale de_DE (for details, cf. the API module documentation).
 
-## Version Compatibility
+### Version Compatibility
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
 | 1.4     | (w.i.p.)         |                                |
@@ -43,10 +42,10 @@ with locale de_DE (for details, cf. the API module documentation).
 | 1.1     | no               | Major changes in interfaces    |
 | 1.0.1   | yes              |                                |
 
-# Major Changes
+## Major Changes
 Here, only the top-level changes are mentioned. For more Details, cf. the README files of the resp. modules (links below).
 
-## V. 1.3 &rarr; 1.4
+### V. 1.3 &rarr; 1.4
 Changed project structure:
 
 * Introduced new module "Base" (spun off from "API").
@@ -57,12 +56,10 @@ Changed project structure:
 
 	Currently, it contains just one class. That will (hopefully) grow.
 
-* Improved symmetry with sister project.
-
-## V. 1.2 &rarr; 1.3 and Before
+### V. 1.2 &rarr; 1.3 and Before
 Cf. the README file of modules "API" and "Example programs" (links below).
 
-# Sister Project
+## Sister Project
 This project has a sister project: 
 
 [`JKMyMoneyLib`](https://github.com/jross765/jkmymoneylib)
@@ -83,7 +80,7 @@ similar on a source code level -- so much so that you partially can use `diff`. 
 however, also see some exceptions here and there where that "low-level-symmetry" is not 
 maintainable.
 
-# Acknowledgements
+## Acknowledgements
 
 Special thanks to:
 

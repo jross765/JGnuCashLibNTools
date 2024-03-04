@@ -1,17 +1,16 @@
-Notes on the Module "API"
-=========================
+# Notes on the Module "API"
 
 This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
 
-# Major Changes 
-## V. 1.3 &rarr; 1.4
+## Major Changes 
+### V. 1.3 &rarr; 1.4
 * Extracted some basic packages to new module "Base".
 
 * Clean-up work, most of it under the hood.
 
 * Improved test coverage.
 
-## V. 1.2 &rarr; 1.3
+### V. 1.2 &rarr; 1.3
 * Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that are no "employee jobs" that one might expect):
   * `Gnucash(Writable)Employee(Impl)` 
   * `Gnucash(Writable)EmployeeVoucher(Impl)` 
@@ -43,7 +42,7 @@ This is the core module of the project, providing all low-level read-/write acce
 
 * Last not least: From this version on, the author tries to keep the project as symmetrical as possible with its sister project, `JKMyMoneyLib`.
 
-## V. 1.1 &rarr; 1.2
+### V. 1.1 &rarr; 1.2
 * Introduced interfaces/classes `Gnucash(Writable)Commodity(Impl)` for reading and writing "commodities", in GnuCash lingo an umbrella term for 
   * Currencies
   * (Real) Securities (shares, bonds, funds, etc.)
@@ -93,7 +92,7 @@ Further improvements:
 
 * Some minor bug-fixing here and there.
 
-## V. 1.0 &rarr; 1.1
+### V. 1.0 &rarr; 1.1
 * Reading and writing of (technical/generic) invoices: Not just customer invoices, but also vendor bills now. According to the internal XML structure and the part of the code that is generated from it (i.e., the XSD file), both derive from a common class that represents a "generic" invoice. In addition to that, there is also a third type: job invoice (cf. next item).
     
     ==> Introduced specialized interfaces/classes: `GnucashCustomerInvoice(Impl)`, `GnucashVendorBill(Impl)` and `GnucashJobInvoice(Impl)`, which all derive from `GnucashGenerInvoice(Impl)`. Consequently, we have the same for their entries: `GnucashGenerInvoiceEntry(Impl)`, etc.
@@ -139,7 +138,7 @@ Further improvements:
 
 * Provided an extensive set of example programs (not generally-usable tools!) in a module of its own. Moved the one single example program that was there before into this module.
 
-# Planned
+## Planned
 It should go without saying, but the following points are of course subject to change and by no means a promise that they will actually be implemented soon:
 
 * Methods for buying/selling securities ("commodities") in investment accounts.
