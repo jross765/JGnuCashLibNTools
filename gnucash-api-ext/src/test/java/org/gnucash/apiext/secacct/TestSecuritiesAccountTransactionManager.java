@@ -1,4 +1,4 @@
-package org.gnucash.apiext.depot;
+package org.gnucash.apiext.secacct;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -17,7 +17,6 @@ import java.util.List;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.GnucashTransactionSplit;
 import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.gnucash.apiext.ConstTest;
@@ -31,7 +30,7 @@ import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
 
-public class TestDepotTransactionManager {
+public class TestSecuritiesAccountTransactionManager {
 
 	private static GCshID STOCK_ACCT_ID  = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111");
 	private static GCshID INCOME_ACCT_ID = new GCshID("d7c384bfc136464490965f3f254313b1"); // only for dividend, not for
@@ -81,7 +80,7 @@ public class TestDepotTransactionManager {
 
 	@SuppressWarnings("exports")
 	public static junit.framework.Test suite() {
-		return new JUnit4TestAdapter(TestDepotTransactionManager.class);
+		return new JUnit4TestAdapter(TestSecuritiesAccountTransactionManager.class);
 	}
 
 	@Before
@@ -114,7 +113,7 @@ public class TestDepotTransactionManager {
 		test01_initExpAccts();
 
 		GnucashWritableTransaction trx = 
-				DepotTransactionManager
+				SecuritiesAccountTransactionManager
 					.genBuyStockTrx(gcshInFile, 
 									STOCK_ACCT_ID, EXPENSES_ACCT_AMT_LIST, OFFSET_ACCT_ID,
 									NOF_STOCKS, STOCK_PRC, 
@@ -213,7 +212,7 @@ public class TestDepotTransactionManager {
 		test02_initExpAccts();
 
 		GnucashWritableTransaction trx = 
-				DepotTransactionManager
+				SecuritiesAccountTransactionManager
 					.genDivivendTrx(gcshInFile, 
 									STOCK_ACCT_ID, INCOME_ACCT_ID, EXPENSES_ACCT_AMT_LIST, OFFSET_ACCT_ID,
 									DIV_GROSS, 

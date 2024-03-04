@@ -5,5 +5,5 @@ module gnucash.apiext {
 	requires gnucash.base;
 	requires gnucash.api;
 
-	exports org.gnucash.apiext.depot;
+	exports org.gnucash.apiext.secacct;
 }

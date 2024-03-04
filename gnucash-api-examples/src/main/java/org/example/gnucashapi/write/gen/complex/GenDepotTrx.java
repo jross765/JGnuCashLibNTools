@@ -8,8 +8,8 @@ import java.util.List;
 import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.write.GnucashWritableTransaction;
 import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.apiext.depot.DepotTransactionManager;
-import org.gnucash.apiext.depot.DepotTransactionManager.Type;
+import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
+import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager.Type;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.base.tuples.AcctIDAmountPair;
@@ -19,7 +19,7 @@ public class GenDepotTrx {
     private static String gcshInFileName  = "example_in.gnucash";
     private static String gcshOutFileName = "example_out.gnucash";
 
-	private static DepotTransactionManager.Type type = Type.DIVIDEND;
+	private static SecuritiesAccountTransactionManager.Type type = Type.DIVIDEND;
 
 	private static GCshID stockAcctID  = new GCshID( "b3741e92e3b9475b9d5a2dc8254a8111" );
 	private static GCshID incomeAcctID = new GCshID( "d7c384bfc136464490965f3f254313b1" ); // only for dividend, not for buy/sell
@@ -88,14 +88,14 @@ public class GenDepotTrx {
 
 		GnucashWritableTransaction trx = null;
 		initExpAccts();
-		if ( type == DepotTransactionManager.Type.BUY_STOCK ) {
-			trx = DepotTransactionManager
+		if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ) {
+			trx = SecuritiesAccountTransactionManager
 					.genBuyStockTrx(gcshFile, 
 									stockAcctID, expensesAcctAmtList, offsetAcctID,
 									nofStocks, stockPrc, 
 									datPst, descr);
-		} else if ( type == DepotTransactionManager.Type.DIVIDEND ) {
-			trx = DepotTransactionManager
+		} else if ( type == SecuritiesAccountTransactionManager.Type.DIVIDEND ) {
+			trx = SecuritiesAccountTransactionManager
 					.genDivivendTrx(gcshFile, 
 									stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID, 
 									divGross, datPst, 

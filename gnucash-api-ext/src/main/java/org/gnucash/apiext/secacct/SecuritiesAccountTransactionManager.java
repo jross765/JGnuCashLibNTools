@@ -1,4 +1,4 @@
-package org.gnucash.apiext.depot;
+package org.gnucash.apiext.secacct;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,7 +17,14 @@ import org.gnucash.api.write.impl.GnucashWritableFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DepotTransactionManager {
+/**
+ * Collection of simplified, high-level access functions to a GnuCash file for
+ * managing securities accounts (brokerage accounts).
+ * <br>
+ * These methods are sort of "macros" for the low-level access functions
+ * in the "API" module.
+ */
+public class SecuritiesAccountTransactionManager {
     
     public enum Type {
 	BUY_STOCK,
@@ -27,7 +34,7 @@ public class DepotTransactionManager {
     // ---------------------------------------------------------------
     
     // Logger
-    private static final Logger LOGGER = LoggerFactory.getLogger(DepotTransactionManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecuritiesAccountTransactionManager.class);
 
     // ---------------------------------------------------------------
     
