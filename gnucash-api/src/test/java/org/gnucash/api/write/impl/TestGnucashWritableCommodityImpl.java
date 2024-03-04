@@ -11,16 +11,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.api.read.GnucashCommodity;
 import org.gnucash.api.read.impl.GnucashFileImpl;
 import org.gnucash.api.read.impl.TestGnucashCommodityImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnucashWritableCommodity;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -253,6 +253,7 @@ public class TestGnucashWritableCommodityImpl {
 			          // and the GnuCash file writer does not like that.
 	gcshInFile.writeFile(outFile);
 
+	test03_2_1_check_1_valid(outFile);
 	test03_2_1_check(outFile);
     }
 
@@ -285,7 +286,26 @@ public class TestGnucashWritableCommodityImpl {
 //      // assertEquals(validResult);
 //  }
 
-    private void test03_2_1_check(File outFile) throws Exception {
+	// Sort of "soft" variant of above function
+	// CAUTION: Not platform-independent!
+	// Tool "xmllint" must be installed and in path
+	private void test03_2_1_check_1_valid(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
+
+		// Check if generated document is valid
+		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath());
+ 		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
+		Process prc = bld.start();
+		
+		if ( prc.waitFor() == 0 ) {
+			assertEquals(0, 0);
+		} else {
+			assertEquals(0, 1);
+		}
+	}
+
+	private void test03_2_1_check(File outFile) throws Exception {
 	assertNotEquals(null, outFile);
 	assertEquals(true, outFile.exists());
 
