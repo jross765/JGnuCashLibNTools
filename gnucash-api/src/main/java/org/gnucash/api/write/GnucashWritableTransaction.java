@@ -8,6 +8,7 @@ import org.gnucash.api.read.GnucashAccount;
 import org.gnucash.api.read.GnucashTransaction;
 import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -21,6 +22,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
  */
 public interface GnucashWritableTransaction extends GnucashTransaction,
 													GnucashWritableObject,
+													HasWritableAttachment,
 													HasWritableUserDefinedAttributes
 {
 

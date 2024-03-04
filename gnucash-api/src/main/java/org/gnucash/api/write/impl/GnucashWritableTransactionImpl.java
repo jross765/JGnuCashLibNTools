@@ -431,6 +431,17 @@ public class GnucashWritableTransactionImpl extends GnucashTransactionImpl
     // ---------------------------------------------------------------
 
     @Override
+    public void setURL(final String url) {
+    	try {
+    		setUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI, url);
+    	} catch (SlotListDoesNotContainKeyException exc ) {
+    		addUserDefinedAttribute(Const.XML_DATA_TYPE_STRING, Const.SLOT_KEY_ASSOC_URI, url);
+    	}
+    }
+
+    // ---------------------------------------------------------------
+
+    @Override
 	public void addUserDefinedAttribute(final String type, final String name, final String value) {
 		if ( jwsdpPeer.getTrnSlots() == null ) {
 			ObjectFactory fact = getGnucashFile().getObjectFactory();

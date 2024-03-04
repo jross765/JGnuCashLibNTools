@@ -132,6 +132,13 @@ public class GnucashGenerInvoiceImpl extends GnucashObjectImpl
 //		return helper;
 //	}
 //
+	// -----------------------------------------------------------
+
+	@Override
+	public String getURL() {
+		return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
+	}
+
 	// -----------------------------------------------------------------
 
 	@Override
@@ -1301,13 +1308,6 @@ public class GnucashGenerInvoiceImpl extends GnucashObjectImpl
 
 		GnucashGenerJob job = getGnucashFile().getGenerJobByID(getOwnerID());
 		return job.getOwnerType();
-	}
-
-	// -----------------------------------------------------------
-
-	@Override
-	public String getURL() {
-		return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
 	}
 
 	// -----------------------------------------------------------

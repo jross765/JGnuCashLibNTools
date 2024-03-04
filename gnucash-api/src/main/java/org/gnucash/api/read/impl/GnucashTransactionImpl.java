@@ -507,6 +507,8 @@ public class GnucashTransactionImpl extends GnucashObjectImpl
     	return getUserDefinedAttribute(Const.SLOT_KEY_ASSOC_URI);
     }
 
+	// -----------------------------------------------------------
+    
 	@Override
 	public String getUserDefinedAttribute(String name) {
 		return HasUserDefinedAttributesImpl

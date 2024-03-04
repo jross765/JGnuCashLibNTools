@@ -18,6 +18,7 @@ import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Empl;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Job;
 import org.gnucash.api.write.hlp.GnucashWritableGenerInvoice_Vend;
 import org.gnucash.api.write.hlp.GnucashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
 /**
@@ -34,6 +35,7 @@ public interface GnucashWritableGenerInvoice extends GnucashGenerInvoice,
                                                      GnucashWritableGenerInvoice_Empl,
                                                      GnucashWritableGenerInvoice_Job,
                                                      GnucashWritableObject,
+                                                     HasWritableAttachment,
                                                      HasWritableUserDefinedAttributes
 {
 
