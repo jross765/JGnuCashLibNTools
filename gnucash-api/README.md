@@ -6,7 +6,15 @@ This is the core module of the project, providing all low-level read-/write acce
 ### V. 1.3 &rarr; 1.4
 * Extracted some basic packages to new module "Base".
 
-* Clean-up work, most of it under the hood.
+* Non-trivial clean-up work, most of it under the hood. Among other things: 
+  * Changed the semantics of `GnuCashObject(Impl)` (taken from sister project): Handling of slots now has moved to `Has(Writable)UserDefinedAttributes(Impl)`. Simulaneously, got rid of some code redundancies.
+  * Introduced class `GnuCashGenerJobImpl` and changed implementation of 
+its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical to the implementation of `GnuCashGenerInvoiceImpl` and its derivatives `GnuCashCustomerInvoiceImpl` etc.
+  * Changed interfaces: Used `List` instead of `Collection` where appropriate (not everywhere).
+
+* Bug-fixing.
+
+* Changed all interface and class names from `GnucashXYZ` to `GnuCashXYZ`, following the usual spelling convention.
 
 * Improved test coverage.
 
