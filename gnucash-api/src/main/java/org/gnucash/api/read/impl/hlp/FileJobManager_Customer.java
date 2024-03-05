@@ -3,10 +3,10 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashGenerJob;
-import org.gnucash.api.read.impl.spec.GnucashCustomerJobImpl;
-import org.gnucash.api.read.spec.GnucashCustomerJob;
+import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
+import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +17,15 @@ public abstract class FileJobManager_Customer {
     
 	// ---------------------------------------------------------------
 
-	public static List<GnucashCustomerJob> getJobsByCustomer(final FileJobManager jobMgr, final GnucashCustomer cust) {
-		List<GnucashCustomerJob> retval = new ArrayList<GnucashCustomerJob>();
+	public static List<GnuCashCustomerJob> getJobsByCustomer(final FileJobManager jobMgr, final GnuCashCustomer cust) {
+		List<GnuCashCustomerJob> retval = new ArrayList<GnuCashCustomerJob>();
 
-		for ( GnucashGenerJob job : jobMgr.getGenerJobs() ) {
+		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
 			if ( job.getOwnerID().equals(cust.getID()) ) {
 				try {
-					retval.add(new GnucashCustomerJobImpl(job));
+					retval.add(new GnuCashCustomerJobImpl(job));
 				} catch (WrongJobTypeException e) {
-					LOGGER.error("getJobsByCustomer: Cannot instantiate GnucashCustomerJobImpl");
+					LOGGER.error("getJobsByCustomer: Cannot instantiate GnuCashCustomerJobImpl");
 				}
 			}
 		}

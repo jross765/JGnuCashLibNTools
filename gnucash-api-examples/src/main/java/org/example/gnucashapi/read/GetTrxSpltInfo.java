@@ -3,8 +3,8 @@ package org.example.gnucashapi.read;
 import java.io.File;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetTrxSpltInfo {
     // BEGIN Example data -- adapt to your needs
@@ -26,12 +26,12 @@ public class GetTrxSpltInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
 	// You normally would get the transaction-split-ID by first choosing
 	// a specific transaction (cf. GetTrxInfo), getting its list of splits
 	// and then choosing from them.
-	GnucashTransactionSplit splt = gcshFile.getTransactionSplitByID(spltID);
+	GnuCashTransactionSplit splt = gcshFile.getTransactionSplitByID(spltID);
 	
 	// ------------------------
 

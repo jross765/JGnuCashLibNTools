@@ -2,9 +2,9 @@ package org.example.gnucashapi.write.gen.simple;
 
 import java.io.File;
 
-import org.gnucash.api.read.impl.GnucashVendorImpl;
-import org.gnucash.api.write.GnucashWritableVendor;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.impl.GnuCashVendorImpl;
+import org.gnucash.api.write.GnuCashWritableVendor;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
 public class GenVend {
     // BEGIN Example data -- adapt to your needs
@@ -27,10 +27,10 @@ public class GenVend {
     }
 
     protected void kernel() throws Exception {
-	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnucashWritableVendor vend = gcshFile.createWritableVendor();
-	vend.setNumber(GnucashVendorImpl.getNewNumber(vend));
+	GnuCashWritableVendor vend = gcshFile.createWritableVendor();
+	vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
 	vend.setName(name);
 
 	System.out.println("Vendor to write: " + vend.toString());

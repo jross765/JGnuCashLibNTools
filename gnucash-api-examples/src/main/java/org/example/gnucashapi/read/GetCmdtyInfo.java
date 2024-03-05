@@ -5,10 +5,10 @@ import java.util.Collection;
 
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.api.read.GnucashPrice;
-import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetCmdtyInfo {
 
@@ -43,9 +43,9 @@ public class GetCmdtyInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	GnucashCommodity cmdty = null;
+	GnuCashCommodity cmdty = null;
 	if ( mode == Mode.ISIN ) {
 	    cmdty = gcshFile.getCommodityByXCode(isin);
 	    if (cmdty == null) {
@@ -59,7 +59,7 @@ public class GetCmdtyInfo {
 		throw new NoEntryFoundException();
 	    }
 	} else if ( mode == Mode.NAME ) {
-	    Collection<GnucashCommodity> cmdtyList = gcshFile.getCommoditiesByName(searchName);
+	    Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName(searchName);
 	    if (cmdtyList.size() == 0) {
 		System.err.println("Could not find commodities matching this name.");
 		throw new NoEntryFoundException();
@@ -104,7 +104,7 @@ public class GetCmdtyInfo {
 
     // -----------------------------------------------------------------
 
-    private void showQuotes(GnucashCommodity cmdty) throws InvalidCmdtyCurrTypeException {
+    private void showQuotes(GnuCashCommodity cmdty) throws InvalidCmdtyCurrTypeException {
 	System.out.println("");
 	System.out.println("Quotes:");
 
@@ -112,7 +112,7 @@ public class GetCmdtyInfo {
 	System.out.println("Number of quotes: " + cmdty.getQuotes().size());
 
 	System.out.println("");
-	for (GnucashPrice prc : cmdty.getQuotes()) {
+	for (GnuCashPrice prc : cmdty.getQuotes()) {
 	    System.out.println(" - " + prc.toString());
 	}
 

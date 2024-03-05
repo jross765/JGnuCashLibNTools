@@ -14,11 +14,11 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.write.GnucashWritableTransaction;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.write.GnuCashWritableTransaction;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.ConstTest;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
@@ -62,8 +62,8 @@ public class TestSecuritiesAccountTransactionManager {
 	
 	// -----------------------------------------------------------------
 
-	private GnucashWritableFileImpl gcshInFile = null;
-	private GnucashFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile = null;
+	private GnuCashFileImpl gcshOutFile = null;
 
 	private GCshID newTrxID = null;
 
@@ -97,7 +97,7 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 
 		try {
-			gcshInFile = new GnucashWritableFileImpl(gcshInFileStream);
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash in-file");
 			exc.printStackTrace();
@@ -112,7 +112,7 @@ public class TestSecuritiesAccountTransactionManager {
 	public void test01() throws Exception {
 		test01_initExpAccts();
 
-		GnucashWritableTransaction trx = 
+		GnuCashWritableTransaction trx = 
 				SecuritiesAccountTransactionManager
 					.genBuyStockTrx(gcshInFile, 
 									STOCK_ACCT_ID, EXPENSES_ACCT_AMT_LIST, OFFSET_ACCT_ID,
@@ -127,7 +127,7 @@ public class TestSecuritiesAccountTransactionManager {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 							// and the GnuCash file writer does not like that.
@@ -137,9 +137,9 @@ public class TestSecuritiesAccountTransactionManager {
 	}
 
 	private void test01_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashTransaction trx = gcshOutFile.getTransactionByID(newTrxID);
+		GnuCashTransaction trx = gcshOutFile.getTransactionByID(newTrxID);
 		assertNotEquals(null, trx);
 
 //		assertEquals(ZonedDateTime.of(LocalDateTime.of(DATE_POSTED, LocalTime.MIDNIGHT), ZoneId.systemDefault()), 
@@ -155,8 +155,8 @@ public class TestSecuritiesAccountTransactionManager {
 
 		// ---
 
-		GnucashTransactionSplit splt1 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt1 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(STOCK_ACCT_ID) ) {
 				splt1 = splt;
 				break;
@@ -164,8 +164,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt1);
 		
-		GnucashTransactionSplit splt2 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt2 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(OFFSET_ACCT_ID) ) {
 				splt2 = splt;
 				break;
@@ -173,8 +173,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt2);
 		
-		GnucashTransactionSplit splt3 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt3 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(STOCK_BUY_EXP_ACCT_1_ID) ) {
 				splt3 = splt;
 				break;
@@ -191,8 +191,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		
 		assertEquals(STOCK_ACCT_ID, splt1.getAccountID());
-		assertEquals(GnucashTransactionSplit.Action.BUY, splt1.getAction());
-		assertEquals(GnucashTransactionSplit.Action.BUY.getLocaleString(), splt1.getActionStr());
+		assertEquals(GnuCashTransactionSplit.Action.BUY, splt1.getAction());
+		assertEquals(GnuCashTransactionSplit.Action.BUY.getLocaleString(), splt1.getActionStr());
 		assertEquals(NOF_STOCKS.doubleValue(), splt1.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(amtNet.doubleValue(), splt1.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("", splt1.getDescription());
@@ -214,7 +214,7 @@ public class TestSecuritiesAccountTransactionManager {
 	public void test02() throws Exception {
 		test02_initExpAccts();
 
-		GnucashWritableTransaction trx = 
+		GnuCashWritableTransaction trx = 
 				SecuritiesAccountTransactionManager
 					.genDivivendTrx(gcshInFile, 
 									STOCK_ACCT_ID, INCOME_ACCT_ID, EXPENSES_ACCT_AMT_LIST, OFFSET_ACCT_ID,
@@ -229,7 +229,7 @@ public class TestSecuritiesAccountTransactionManager {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 							// and the GnuCash file writer does not like that.
@@ -239,9 +239,9 @@ public class TestSecuritiesAccountTransactionManager {
 	}
 
 	private void test02_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashTransaction trx = gcshOutFile.getTransactionByID(newTrxID);
+		GnuCashTransaction trx = gcshOutFile.getTransactionByID(newTrxID);
 		assertNotEquals(null, trx);
 
 //		assertEquals(ZonedDateTime.of(LocalDateTime.of(DATE_POSTED, LocalTime.MIDNIGHT), ZoneId.systemDefault()), 
@@ -257,8 +257,8 @@ public class TestSecuritiesAccountTransactionManager {
 
 		// ---
 
-		GnucashTransactionSplit splt1 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt1 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(STOCK_ACCT_ID) ) {
 				splt1 = splt;
 				break;
@@ -266,8 +266,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt1);
 		
-		GnucashTransactionSplit splt2 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt2 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(OFFSET_ACCT_ID) ) {
 				splt2 = splt;
 				break;
@@ -275,8 +275,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt2);
 		
-		GnucashTransactionSplit splt3 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt3 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(INCOME_ACCT_ID) ) {
 				splt3 = splt;
 				break;
@@ -284,8 +284,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt3);
 		
-		GnucashTransactionSplit splt4 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt4 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(DIVIDEND_EXP_ACCT_1_ID) ) {
 				splt4 = splt;
 				break;
@@ -293,8 +293,8 @@ public class TestSecuritiesAccountTransactionManager {
 		}
 		assertNotEquals(null, splt4);
 		
-		GnucashTransactionSplit splt5 = null;
-		for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+		GnuCashTransactionSplit splt5 = null;
+		for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 			if ( splt.getAccountID().equals(DIVIDEND_EXP_ACCT_2_ID) ) {
 				splt5 = splt;
 				break;
@@ -311,8 +311,8 @@ public class TestSecuritiesAccountTransactionManager {
     	FixedPointNumber divNet = DIV_GROSS.copy().subtract(expensesSum);
 		
 		assertEquals(STOCK_ACCT_ID, splt1.getAccountID());
-		assertEquals(GnucashTransactionSplit.Action.DIVIDEND, splt1.getAction());
-		assertEquals(GnucashTransactionSplit.Action.DIVIDEND.getLocaleString(), splt1.getActionStr());
+		assertEquals(GnuCashTransactionSplit.Action.DIVIDEND, splt1.getAction());
+		assertEquals(GnuCashTransactionSplit.Action.DIVIDEND.getLocaleString(), splt1.getActionStr());
 		assertEquals(0.0, splt1.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(0.0, splt1.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("", splt1.getDescription());

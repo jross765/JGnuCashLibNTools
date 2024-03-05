@@ -2,7 +2,7 @@ package org.gnucash.api.read.impl.aux;
 
 import java.io.IOException;
 
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.hlp.FileStats;
 import org.gnucash.api.read.impl.hlp.FileStats_Cache;
 import org.gnucash.api.read.impl.hlp.FileStats_Counters;
@@ -32,7 +32,7 @@ public class GCshFileStats {
 
     // ---------------------------------------------------------------
     
-    public GCshFileStats(GnucashFileImpl gcshFile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IOException {
+    public GCshFileStats(GnuCashFileImpl gcshFile) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IOException {
 	raw = new FileStats_Raw(gcshFile);
 	cnt = new FileStats_Counters(gcshFile);
 	che = new FileStats_Cache(gcshFile);

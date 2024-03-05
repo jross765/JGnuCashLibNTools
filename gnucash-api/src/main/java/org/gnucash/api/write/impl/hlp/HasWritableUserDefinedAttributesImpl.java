@@ -14,7 +14,7 @@ import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SlotListAlreadyContainsKeyException;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	// ---------------------------------------------------------------
 
 	public static void addUserDefinedAttributeCore(SlotsType slots,
-												   final GnucashWritableFile gcshFile,
+												   final GnuCashWritableFile gcshFile,
 												   final String type, final String name, final String value) {
 		if ( slots == null )
 			throw new IllegalArgumentException("null slot list given");
@@ -67,7 +67,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	}
 	
 	public static void removeUserDefinedAttributeCore(SlotsType slots, 
-													  final GnucashWritableFile gcshFile,
+													  final GnuCashWritableFile gcshFile,
 													  final String name) {
 		if ( slots == null )
 			throw new IllegalArgumentException("null slot list given");
@@ -89,7 +89,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	}
 
 	public static void setUserDefinedAttributeCore(SlotsType slots,
-            									   final GnucashWritableFile gcshFile,
+            									   final GnuCashWritableFile gcshFile,
             									   final String name, final String value) {
 		if ( slots == null )
 			throw new IllegalArgumentException("null slot list given");
@@ -104,7 +104,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	// ---------------------------------------------------------------
 
 	private static void addUserDefinedAttributeCore(List<Slot> slotList,
-			                                        final GnucashWritableFile gcshFile,
+			                                        final GnuCashWritableFile gcshFile,
 			                                        final String type, final String name, 
 			                                        final String value) {
 		if ( slotList == null )
@@ -150,7 +150,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	}
 
 	private static void removeUserDefinedAttributeCore(List<Slot> slotList,
-            										   final GnucashWritableFile gcshFile,
+            										   final GnuCashWritableFile gcshFile,
             										   final String name) {
 		if ( slotList == null )
 			throw new IllegalArgumentException("null slot list given");
@@ -181,7 +181,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 	}
 
 	private static void setUserDefinedAttributeCore(List<Slot> slotList,
-            									    final GnucashWritableFile gcshFile,
+            									    final GnuCashWritableFile gcshFile,
             									    final String name, final String value) {
 		if ( slotList == null )
 			throw new IllegalArgumentException("null slot list given");

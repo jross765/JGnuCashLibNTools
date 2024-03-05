@@ -3,22 +3,22 @@ package org.example.gnucashapi.read;
 import java.io.File;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerInvoiceEntry;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceEntryImpl;
-import org.gnucash.api.read.impl.spec.GnucashCustomerInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherEntryImpl;
-import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
-import org.gnucash.api.read.impl.spec.GnucashJobInvoiceEntryImpl;
-import org.gnucash.api.read.impl.spec.GnucashJobInvoiceImpl;
-import org.gnucash.api.read.impl.spec.GnucashVendorBillEntryImpl;
-import org.gnucash.api.read.impl.spec.GnucashVendorBillImpl;
-import org.gnucash.api.read.spec.GnucashCustomerInvoiceEntry;
-import org.gnucash.api.read.spec.GnucashEmployeeVoucherEntry;
-import org.gnucash.api.read.spec.GnucashJobInvoiceEntry;
-import org.gnucash.api.read.spec.GnucashVendorBillEntry;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashVendorBillEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
+import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
+import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 public class GetInvcInfo {
@@ -41,13 +41,13 @@ public class GetInvcInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
 	// You normally would get the invoice-ID by first getting
 	// the list of invoices/bills for a customer/vendor/job 
 	// (cf. GetCustInfo, GetVendInfo, GetJobInfo), getting its
 	// list of invoices and then choosing from them.
-	GnucashGenerInvoice invc = gcshFile.getGenerInvoiceByID(invcID);
+	GnuCashGenerInvoice invc = gcshFile.getGenerInvoiceByID(invcID);
 
 	// ------------------------
 
@@ -64,17 +64,17 @@ public class GetInvcInfo {
 	}
 
 	try {
-	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
-		GnucashCustomerInvoiceImpl spec = new GnucashCustomerInvoiceImpl(invc);
+	    if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
+		GnuCashCustomerInvoiceImpl spec = new GnuCashCustomerInvoiceImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
-		GnucashVendorBillImpl spec = new GnucashVendorBillImpl(invc);
+	    } else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
+		GnuCashVendorBillImpl spec = new GnuCashVendorBillImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
-		GnucashEmployeeVoucherImpl spec = new GnucashEmployeeVoucherImpl(invc);
+	    } else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
+		GnuCashEmployeeVoucherImpl spec = new GnuCashEmployeeVoucherImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
-	    } else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB ) {
-		GnucashJobInvoiceImpl spec = new GnucashJobInvoiceImpl(invc);
+	    } else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
+		GnuCashJobInvoiceImpl spec = new GnuCashJobInvoiceImpl(invc);
 		System.out.println("toString (spec):   " + spec.toString());
 	    }
 	} catch (Exception exc) {
@@ -83,20 +83,20 @@ public class GetInvcInfo {
 
 	System.out.println("");
 	try {
-	    System.out.println("Owner (dir.):      " + invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT));
+	    System.out.println("Owner (dir.):      " + invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT));
 	} catch (Exception exc) {
 	    System.out.println("Owner (dir.):      " + "ERROR");
 	}
 
 	try {
-	    System.out.println("Owner type:        " + invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT));
+	    System.out.println("Owner type:        " + invc.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT));
 	} catch (Exception exc) {
 	    System.out.println("Owner type:        " + "ERROR");
 	}
 
 	try {
-	    if (invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_JOB))
-		System.out.println("Owner (via job):   " + invc.getOwnerID(GnucashGenerInvoice.ReadVariant.VIA_JOB));
+	    if (invc.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(GnuCashGenerInvoice.TYPE_JOB))
+		System.out.println("Owner (via job):   " + invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.VIA_JOB));
 	    else
 		System.out.println("Owner (via job):   " + "n/a");
 	} catch (Exception exc) {
@@ -104,9 +104,9 @@ public class GetInvcInfo {
 	}
 
 	try {
-	    if (invc.getOwnerType(GnucashGenerInvoice.ReadVariant.DIRECT).equals(GnucashGenerInvoice.TYPE_JOB))
+	    if (invc.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(GnuCashGenerInvoice.TYPE_JOB))
 		System.out.println(
-			"Owning job's owner type: " + invc.getOwnerType(GnucashGenerInvoice.ReadVariant.VIA_JOB));
+			"Owning job's owner type: " + invc.getOwnerType(GnuCashGenerInvoice.ReadVariant.VIA_JOB));
 	    else
 		System.out.println("Owning job's owner type: " + "n/a");
 	} catch (Exception exc) {
@@ -140,65 +140,65 @@ public class GetInvcInfo {
 
 	System.out.println("");
 	try {
-	    if ( invc.getType() ==  GnucashGenerInvoice.TYPE_CUSTOMER )
+	    if ( invc.getType() ==  GnuCashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount w/o tax:       " + invc.getCustInvcAmountWithoutTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount w/o tax:       " + invc.getVendBllAmountWithoutTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE )
 		System.out.println("Amount w/o tax:       " + invc.getEmplVchAmountWithoutTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount w/o tax:       " + invc.getJobInvcAmountWithoutTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount w/o tax:       " + "ERROR");
 	}
 
 	try {
-	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
+	    if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount w/ tax:        " + invc.getCustInvcAmountWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount w/ tax:        " + invc.getVendBllAmountWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE )
 		System.out.println("Amount w/ tax:        " + invc.getEmplVchAmountWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount w/ tax:        " + invc.getJobInvcAmountWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount w/ tax:        " + "ERROR");
 	}
 
 	try {
-	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
+	    if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount paid w/ tax:   " + invc.getCustInvcAmountPaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount paid:          " + invc.getVendBllAmountPaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE )
 		System.out.println("Amount paid:          " + invc.getEmplVchAmountPaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount paid:          " + invc.getJobInvcAmountPaidWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount paid w/ tax:   " + "ERROR");
 	}
 
 	try {
-	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
+	    if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Amount Unpaid w/ tax: " + invc.getCustInvcAmountUnpaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Amount Unpaid:        " + invc.getVendBllAmountUnpaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE )
 		System.out.println("Amount Unpaid:        " + invc.getEmplVchAmountUnpaidWithTaxesFormatted());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB )
 		System.out.println("Amount Unpaid:        " + invc.getJobInvcAmountUnpaidWithTaxesFormatted());
 	} catch (Exception exc) {
 	    System.out.println("Amount Unpaid w/ tax: " + "ERROR");
 	}
 
 	try {
-	    if ( invc.getType() == GnucashGenerInvoice.TYPE_CUSTOMER )
+	    if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER )
 		System.out.println("Fully paid:           " + invc.isCustInvcFullyPaid());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_VENDOR )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR )
 		System.out.println("Fully paid:           " + invc.isVendBllFullyPaid());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE )
 		System.out.println("Fully paid:           " + invc.isEmplVchFullyPaid());
-	    else if ( invc.getType() == GnucashGenerInvoice.TYPE_JOB )
+	    else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB )
 		System.out.println("Fully paid:           " + invc.isJobInvcFullyPaid());
 	} catch (Exception exc) {
 	    System.out.println("Fully paid:           " + "ERROR");
@@ -212,41 +212,41 @@ public class GetInvcInfo {
 
     // -----------------------------------------------------------------
 
-    private void showEntries(GnucashGenerInvoice invc) {
+    private void showEntries(GnuCashGenerInvoice invc) {
 	System.out.println("");
 	System.out.println("Entries:");
 
-	for (GnucashGenerInvoiceEntry entry : invc.getGenerEntries()) {
+	for (GnuCashGenerInvoiceEntry entry : invc.getGenerEntries()) {
 	    showOneEntry(entry);
 	}
     }
 
-    private void showOneEntry(GnucashGenerInvoiceEntry entry) {
+    private void showOneEntry(GnuCashGenerInvoiceEntry entry) {
 	try {
-	    if ( entry.getType() == GnucashGenerInvoice.TYPE_CUSTOMER ) {
+	    if ( entry.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
 		try {
-		    GnucashCustomerInvoiceEntry entrySpec = new GnucashCustomerInvoiceEntryImpl(entry);
+		    GnuCashCustomerInvoiceEntry entrySpec = new GnuCashCustomerInvoiceEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
 		}
-	    } else if ( entry.getType() == GnucashGenerInvoice.TYPE_VENDOR ) {
+	    } else if ( entry.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
 		try {
-		    GnucashVendorBillEntry entrySpec = new GnucashVendorBillEntryImpl(entry);
+		    GnuCashVendorBillEntry entrySpec = new GnuCashVendorBillEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
 		}
-	    } else if ( entry.getType() == GnucashGenerInvoice.TYPE_EMPLOYEE ) {
+	    } else if ( entry.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
 		try {
-		    GnucashEmployeeVoucherEntry entrySpec = new GnucashEmployeeVoucherEntryImpl(entry);
+		    GnuCashEmployeeVoucherEntry entrySpec = new GnuCashEmployeeVoucherEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
 		}
-	    } else if ( entry.getType() == GnucashGenerInvoice.TYPE_JOB ) {
+	    } else if ( entry.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
 		try {
-		    GnucashJobInvoiceEntry entrySpec = new GnucashJobInvoiceEntryImpl(entry);
+		    GnuCashJobInvoiceEntry entrySpec = new GnuCashJobInvoiceEntryImpl(entry);
 		    System.out.println(" - " + entrySpec.toString());
 		} catch (Exception exc) {
 		    System.out.println(" - " + entry.toString());
@@ -257,7 +257,7 @@ public class GetInvcInfo {
 	}
     }
 
-    private void showTransactions(GnucashGenerInvoice invc) {
+    private void showTransactions(GnuCashGenerInvoice invc) {
 	System.out.println("");
 	System.out.println("Transactions:");
 
@@ -268,7 +268,7 @@ public class GetInvcInfo {
 	}
 
 	System.out.println("Paying transactions:");
-	for (GnucashTransaction trx : invc.getPayingTransactions()) {
+	for (GnuCashTransaction trx : invc.getPayingTransactions()) {
 	    try {
 		System.out.println(" - " + trx.toString());
 	    } catch (Exception exc) {

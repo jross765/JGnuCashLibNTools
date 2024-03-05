@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashCustomer;
+import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.impl.GnucashCustomerImpl;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashCustomerImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +24,13 @@ public class FileCustomerManager {
 
 	// ---------------------------------------------------------------
 
-	protected GnucashFileImpl gcshFile;
+	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GnucashCustomer> custMap;
+	private Map<GCshID, GnuCashCustomer> custMap;
 
 	// ---------------------------------------------------------------
 
-	public FileCustomerManager(GnucashFileImpl gcshFile) {
+	public FileCustomerManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}
@@ -38,7 +38,7 @@ public class FileCustomerManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		custMap = new HashMap<GCshID, GnucashCustomer>();
+		custMap = new HashMap<GCshID, GnuCashCustomer>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncCustomer) ) {
@@ -47,7 +47,7 @@ public class FileCustomerManager {
 			GncGncCustomer jwsdpCust = (GncGncCustomer) bookElement;
 
 			try {
-				GnucashCustomerImpl cust = createCustomer(jwsdpCust);
+				GnuCashCustomerImpl cust = createCustomer(jwsdpCust);
 				custMap.put(cust.getID(), cust);
 			} catch (RuntimeException e) {
 				LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
@@ -58,51 +58,51 @@ public class FileCustomerManager {
 		LOGGER.debug("init: No. of entries in customer map: " + custMap.size());
 	}
 
-	protected GnucashCustomerImpl createCustomer(final GncGncCustomer jwsdpCust) {
-		GnucashCustomerImpl cust = new GnucashCustomerImpl(jwsdpCust, gcshFile);
+	protected GnuCashCustomerImpl createCustomer(final GncGncCustomer jwsdpCust) {
+		GnuCashCustomerImpl cust = new GnuCashCustomerImpl(jwsdpCust, gcshFile);
 		LOGGER.debug("Generated new customer: " + cust.getID());
 		return cust;
 	}
 
 	// ---------------------------------------------------------------
 
-	public void addCustomer(GnucashCustomer cust) {
+	public void addCustomer(GnuCashCustomer cust) {
 		custMap.put(cust.getID(), cust);
 		LOGGER.debug("Added customer to cache: " + cust.getID());
 	}
 
-	public void removeCustomer(GnucashCustomer cust) {
+	public void removeCustomer(GnuCashCustomer cust) {
 		custMap.remove(cust.getID());
 		LOGGER.debug("Removed customer from cache: " + cust.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnucashCustomer getCustomerByID(final GCshID id) {
+	public GnuCashCustomer getCustomerByID(final GCshID id) {
 		if ( custMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashCustomer retval = custMap.get(id);
+		GnuCashCustomer retval = custMap.get(id);
 		if ( retval == null ) {
 			LOGGER.warn("getCustomerByID: No Customer with id '" + id + "'. We know " + custMap.size() + " customers.");
 		}
 		return retval;
 	}
 
-	public List<GnucashCustomer> getCustomersByName(final String name) {
+	public List<GnuCashCustomer> getCustomersByName(final String name) {
 		return getCustomersByName(name, true);
 	}
 
-	public List<GnucashCustomer> getCustomersByName(final String expr, boolean relaxed) {
+	public List<GnuCashCustomer> getCustomersByName(final String expr, boolean relaxed) {
 
 		if ( custMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashCustomer> result = new ArrayList<GnucashCustomer>();
+		List<GnuCashCustomer> result = new ArrayList<GnuCashCustomer>();
 
-		for ( GnucashCustomer cust : getCustomers() ) {
+		for ( GnuCashCustomer cust : getCustomers() ) {
 			if ( relaxed ) {
 				if ( cust.getName().trim().toLowerCase().contains(expr.trim().toLowerCase()) ) {
 					result.add(cust);
@@ -117,9 +117,9 @@ public class FileCustomerManager {
 		return result;
 	}
 
-	public GnucashCustomer getCustomerByNameUniq(final String name)
+	public GnuCashCustomer getCustomerByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		List<GnucashCustomer> custList = getCustomersByName(name);
+		List<GnuCashCustomer> custList = getCustomersByName(name);
 		if ( custList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( custList.size() > 1 )
@@ -130,7 +130,7 @@ public class FileCustomerManager {
 
 	// ::CHECK
 	// https://stackoverflow.com/questions/52620446/collectors-tounmodifiablelist-vs-collections-unmodifiablelist-in-java-10?rq=3
-	public Collection<GnucashCustomer> getCustomers() {
+	public Collection<GnuCashCustomer> getCustomers() {
 		return Collections.unmodifiableCollection(custMap.values());
 		// return custMap.values().stream().collect( Collectors.toUnmodifiableList() );
 	}

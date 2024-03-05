@@ -2,7 +2,7 @@ package org.gnucash.api.write.aux;
 
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 
 public interface GCshWritableTaxTableEntry extends GCshTaxTableEntry {
@@ -13,7 +13,7 @@ public interface GCshWritableTaxTableEntry extends GCshTaxTableEntry {
 
     void setAccountID(GCshID acctID);
 
-    void setAccount(GnucashAccount acct);
+    void setAccount(GnuCashAccount acct);
 
     void setAmount(FixedPointNumber amt);
 }

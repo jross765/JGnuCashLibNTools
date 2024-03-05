@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.Collection;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.spec.GnucashJobInvoice;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 public class GetJobInfo {
@@ -33,9 +33,9 @@ public class GetJobInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	GnucashGenerJob job = null;
+	GnuCashGenerJob job = null;
 	if ( mode == Helper.Mode.ID ) {
 	    job = gcshFile.getGenerJobByID(jobID);
 	    if (job == null) {
@@ -43,7 +43,7 @@ public class GetJobInfo {
 		throw new NoEntryFoundException();
 	    }
 	} else if ( mode == Helper.Mode.NAME ) {
-	    Collection<GnucashGenerJob> jobList = null;
+	    Collection<GnuCashGenerJob> jobList = null;
 	    jobList = gcshFile.getGenerJobsByName(jobName, true);
 	    if (jobList.size() == 0) {
 		System.err.println("Found no job with that name.");
@@ -107,19 +107,19 @@ public class GetJobInfo {
 
     // -----------------------------------------------------------------
 
-    private void showInvoices(GnucashGenerJob job) throws Exception {
+    private void showInvoices(GnuCashGenerJob job) throws Exception {
 	System.out.println("");
 	System.out.println("Invoices:");
 
 	System.out.println("");
 	System.out.println("Paid invoices:");
-	for (GnucashJobInvoice invc : job.getPaidInvoices()) {
+	for (GnuCashJobInvoice invc : job.getPaidInvoices()) {
 	    System.out.println(" - " + invc.toString());
 	}
 
 	System.out.println("");
 	System.out.println("Unpaid invoices:");
-	for (GnucashJobInvoice invc : job.getUnpaidInvoices()) {
+	for (GnuCashJobInvoice invc : job.getUnpaidInvoices()) {
 	    System.out.println(" - " + invc.toString());
 	}
     }

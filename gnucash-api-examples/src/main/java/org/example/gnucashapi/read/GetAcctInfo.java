@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.Collection;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashTransaction;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetAcctInfo {
     // BEGIN Example data -- adapt to your needs
@@ -32,9 +32,9 @@ public class GetAcctInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	GnucashAccount acct = null;
+	GnuCashAccount acct = null;
 	if ( mode == Helper.Mode.ID ) {
 	    acct = gcshFile.getAccountByID(acctID);
 	    if (acct == null) {
@@ -42,7 +42,7 @@ public class GetAcctInfo {
 		throw new NoEntryFoundException();
 	    }
 	} else if ( mode == Helper.Mode.NAME ) {
-	    Collection<GnucashAccount> acctList = null;
+	    Collection<GnuCashAccount> acctList = null;
 	    acctList = gcshFile.getAccountsByName(acctName, true, true);
 	    if (acctList.size() == 0) {
 		System.err.println("Found no account with that name.");
@@ -59,7 +59,7 @@ public class GetAcctInfo {
 	printAcctInfo(acct, 0);
     }
 
-    private void printAcctInfo(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void printAcctInfo(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
 	System.out.println("Depth:           " + depth);
 
 	try {
@@ -120,9 +120,9 @@ public class GetAcctInfo {
 
     // -----------------------------------------------------------------
 
-    private void showParents(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void showParents(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
 	if ( depth <= 0 && 
-	     acct.getType() != GnucashAccount.Type.ROOT ) {
+	     acct.getType() != GnuCashAccount.Type.ROOT ) {
 	    System.out.println("");
 	    System.out.println(">>> BEGIN Parent Account");
 	    printAcctInfo(acct.getParentAccount(), depth - 1);
@@ -130,24 +130,24 @@ public class GetAcctInfo {
 	}
     }
 
-    private void showChildren(GnucashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void showChildren(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
 	System.out.println("");
 	System.out.println("Children:");
 
 	if (depth >= 0) {
 	    System.out.println(">>> BEGIN Child Account");
-	    for (GnucashAccount childAcct : acct.getChildren()) {
+	    for (GnuCashAccount childAcct : acct.getChildren()) {
 		printAcctInfo(childAcct, depth + 1);
 	    }
 	    System.out.println("<<< END Child Account");
 	}
     }
 
-    private void showTransactions(GnucashAccount acct) {
+    private void showTransactions(GnuCashAccount acct) {
 	System.out.println("");
 	System.out.println("Transactions:");
 
-	for (GnucashTransaction trx : acct.getTransactions()) {
+	for (GnuCashTransaction trx : acct.getTransactions()) {
 	    System.out.println(" - " + trx.toString());
 	}
     }

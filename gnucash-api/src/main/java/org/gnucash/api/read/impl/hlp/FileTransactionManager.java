@@ -9,12 +9,12 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.GnucashTransactionImpl;
-import org.gnucash.api.read.impl.GnucashTransactionSplitImpl;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.GnuCashTransactionImpl;
+import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +25,14 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	protected GnucashFileImpl gcshFile;
+	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GnucashTransaction>      trxMap;
-	private Map<GCshID, GnucashTransactionSplit> trxSpltMap;
+	private Map<GCshID, GnuCashTransaction>      trxMap;
+	private Map<GCshID, GnuCashTransactionSplit> trxSpltMap;
 
 	// ---------------------------------------------------------------
 
-	public FileTransactionManager(GnucashFileImpl gcshFile) {
+	public FileTransactionManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}
@@ -45,9 +45,9 @@ public class FileTransactionManager {
 	}
 
 	private void init1(final GncV2 pRootElement) {
-		trxMap = new HashMap<GCshID, GnucashTransaction>();
+		trxMap = new HashMap<GCshID, GnuCashTransaction>();
 
-		for ( GnucashTransactionImpl trx : getTransactions_readAfresh() ) {
+		for ( GnuCashTransactionImpl trx : getTransactions_readAfresh() ) {
 			trxMap.put(trx.getID(), trx);
 		}
 
@@ -55,17 +55,17 @@ public class FileTransactionManager {
 	}
 
 	private void init2(final GncV2 pRootElement) {
-		trxSpltMap = new HashMap<GCshID, GnucashTransactionSplit>();
+		trxSpltMap = new HashMap<GCshID, GnuCashTransactionSplit>();
 
-		for ( GnucashTransaction trx : trxMap.values() ) {
+		for ( GnuCashTransaction trx : trxMap.values() ) {
 			try {
-				List<GnucashTransactionSplit> spltList = null;
-				if ( gcshFile instanceof GnucashWritableFileImpl ) {
-					spltList = ((GnucashTransactionImpl) trx).getSplits(false, true);
+				List<GnuCashTransactionSplit> spltList = null;
+				if ( gcshFile instanceof GnuCashWritableFileImpl ) {
+					spltList = ((GnuCashTransactionImpl) trx).getSplits(false, true);
 				} else {
-					spltList = ((GnucashTransactionImpl) trx).getSplits(true, true);
+					spltList = ((GnuCashTransactionImpl) trx).getSplits(true, true);
 				}
-				for ( GnucashTransactionSplit splt : spltList ) {
+				for ( GnuCashTransactionSplit splt : spltList ) {
 					trxSpltMap.put(splt.getID(), splt);
 				}
 			} catch (RuntimeException e) {
@@ -81,18 +81,18 @@ public class FileTransactionManager {
 
 	// ----------------------------
 
-	protected GnucashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
-		GnucashTransactionImpl trx = new GnucashTransactionImpl(jwsdpTrx, gcshFile.getGnucashFile(), true);
+	protected GnuCashTransactionImpl createTransaction(final GncTransaction jwsdpTrx) {
+		GnuCashTransactionImpl trx = new GnuCashTransactionImpl(jwsdpTrx, gcshFile.getGnuCashFile(), true);
 		LOGGER.debug("createTransaction: Generated new transaction: " + trx.getID());
 		return trx;
 	}
 
-	protected GnucashTransactionSplitImpl createTransactionSplit(
+	protected GnuCashTransactionSplitImpl createTransactionSplit(
 			final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
-			final GnucashTransaction trx, 
+			final GnuCashTransaction trx, 
 			final boolean addSpltToAcct, 
 			final boolean addSpltToInvc) {
-		GnucashTransactionSplitImpl splt = new GnucashTransactionSplitImpl(jwsdpTrxSplt, trx, 
+		GnuCashTransactionSplitImpl splt = new GnuCashTransactionSplitImpl(jwsdpTrxSplt, trx, 
 				                                                           addSpltToAcct, addSpltToInvc);
 		LOGGER.debug("createTransactionSplit: Generated new transaction split: " + splt.getID());
 		return splt;
@@ -100,15 +100,15 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public void addTransaction(GnucashTransaction trx) {
+	public void addTransaction(GnuCashTransaction trx) {
 		addTransaction(trx, true);
 	}
 
-	public void addTransaction(GnucashTransaction trx, boolean withSplt) {
+	public void addTransaction(GnuCashTransaction trx, boolean withSplt) {
 		trxMap.put(trx.getID(), trx);
 
 		if ( withSplt ) {
-			for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 				addTransactionSplit(splt, false);
 			}
 		}
@@ -116,13 +116,13 @@ public class FileTransactionManager {
 		LOGGER.debug("addTransaction: Added transaction to cache: " + trx.getID());
 	}
 
-	public void removeTransaction(GnucashTransaction trx) {
+	public void removeTransaction(GnuCashTransaction trx) {
 		removeTransaction(trx, true);
 	}
 
-	public void removeTransaction(GnucashTransaction trx, boolean withSplt) {
+	public void removeTransaction(GnuCashTransaction trx, boolean withSplt) {
 		if ( withSplt ) {
-			for ( GnucashTransactionSplit splt : trx.getSplits() ) {
+			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 				removeTransactionSplit(splt, false);
 			}
 		}
@@ -134,11 +134,11 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public void addTransactionSplit(GnucashTransactionSplit splt) {
+	public void addTransactionSplit(GnuCashTransactionSplit splt) {
 		addTransactionSplit(splt, true);
 	}
 
-	public void addTransactionSplit(GnucashTransactionSplit splt, boolean withTrx) {
+	public void addTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
 		trxSpltMap.put(splt.getID(), splt);
 
 		if ( withTrx ) {
@@ -146,11 +146,11 @@ public class FileTransactionManager {
 		}
 	}
 
-	public void removeTransactionSplit(GnucashTransactionSplit splt) {
+	public void removeTransactionSplit(GnuCashTransactionSplit splt) {
 		removeTransactionSplit(splt, true);
 	}
 
-	public void removeTransactionSplit(GnucashTransactionSplit splt, boolean withTrx) {
+	public void removeTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
 		if ( withTrx ) {
 			removeTransaction(splt.getTransaction(), false);
 		}
@@ -160,12 +160,12 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnucashTransaction getTransactionByID(final GCshID trxID) {
+	public GnuCashTransaction getTransactionByID(final GCshID trxID) {
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashTransaction retval = trxMap.get(trxID);
+		GnuCashTransaction retval = trxMap.get(trxID);
 		if ( retval == null ) {
 			LOGGER.warn("getTransactionByID: No Transaction with id '" + trxID + "'. We know " + trxMap.size() + " transactions.");
 		}
@@ -173,7 +173,7 @@ public class FileTransactionManager {
 		return retval;
 	}
 
-	public Collection<? extends GnucashTransaction> getTransactions() {
+	public Collection<? extends GnuCashTransaction> getTransactions() {
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -182,12 +182,12 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnucashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
 		if ( trxSpltMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashTransactionSplit retval = trxSpltMap.get(spltID);
+		GnuCashTransactionSplit retval = trxSpltMap.get(spltID);
 		if ( retval == null ) {
 			LOGGER.warn("getTransactionSplitByID: No Transaction-Split with id '" + spltID + "'. We know " + trxSpltMap.size() + " transaction splits.");
 		}
@@ -195,12 +195,12 @@ public class FileTransactionManager {
 		return retval;
 	}
 
-	public List<GnucashTransactionImpl> getTransactions_readAfresh() {
-		List<GnucashTransactionImpl> result = new ArrayList<GnucashTransactionImpl>();
+	public List<GnuCashTransactionImpl> getTransactions_readAfresh() {
+		List<GnuCashTransactionImpl> result = new ArrayList<GnuCashTransactionImpl>();
 
 		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
 			try {
-				GnucashTransactionImpl trx = createTransaction(jwsdpTrx);
+				GnuCashTransactionImpl trx = createTransaction(jwsdpTrx);
 				result.add(trx);
 			} catch (RuntimeException e) {
 				LOGGER.error("getTransactions_readAfresh: [RuntimeException] Problem in " + getClass().getName()
@@ -233,26 +233,26 @@ public class FileTransactionManager {
 
 	// ----------------------------
 
-	public List<GnucashTransactionSplit> getTransactionSplits() {
+	public List<GnuCashTransactionSplit> getTransactionSplits() {
 		if ( trxSpltMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 		
-		List<GnucashTransactionSplit> result = new ArrayList<GnucashTransactionSplit>();
-		for ( GnucashTransactionSplit elt : trxSpltMap.values() ) {
+		List<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
+		for ( GnuCashTransactionSplit elt : trxSpltMap.values() ) {
 			result.add(elt);
 		}
 		
 		return Collections.unmodifiableList(result);
 	}
 
-	public List<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh() {
-		List<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
+	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh() {
+		List<GnuCashTransactionSplitImpl> result = new ArrayList<GnuCashTransactionSplitImpl>();
 
-		for ( GnucashTransaction trx : getTransactions_readAfresh() ) {
+		for ( GnuCashTransaction trx : getTransactions_readAfresh() ) {
 			for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 				try {
-					GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx,
+					GnuCashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx,
 																			  false, false);
 					result.add(splt);
 				} catch (RuntimeException e) {
@@ -268,14 +268,14 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	public List<GnucashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
-		List<GnucashTransactionSplitImpl> result = new ArrayList<GnucashTransactionSplitImpl>();
+	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
+		List<GnuCashTransactionSplitImpl> result = new ArrayList<GnuCashTransactionSplitImpl>();
 
-		for ( GnucashTransaction trx : getTransactions_readAfresh() ) {
+		for ( GnuCashTransaction trx : getTransactions_readAfresh() ) {
 			if ( trx.getID().equals(trxID) ) {
 				for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 					try {
-						GnucashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, 
+						GnuCashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, 
 																				  true, true);
 						result.add(splt);
 					} catch (RuntimeException e) {

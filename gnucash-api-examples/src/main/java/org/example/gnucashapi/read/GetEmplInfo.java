@@ -4,11 +4,11 @@ import java.io.File;
 import java.util.Collection;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 public class GetEmplInfo {
@@ -33,9 +33,9 @@ public class GetEmplInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	GnucashEmployee empl = gcshFile.getEmployeeByID(emplID);
+	GnuCashEmployee empl = gcshFile.getEmployeeByID(emplID);
 	if ( mode == Helper.Mode.ID ) {
 	    empl = gcshFile.getEmployeeByID(emplID);
 	    if (empl == null) {
@@ -43,7 +43,7 @@ public class GetEmplInfo {
 		throw new NoEntryFoundException();
 	    }
 	} else if ( mode == Helper.Mode.NAME ) {
-	    Collection<GnucashEmployee> emplList = null;
+	    Collection<GnuCashEmployee> emplList = null;
 	    emplList = gcshFile.getEmployeesByUserName(emplName, true);
 	    if (emplList.size() == 0) {
 		System.err.println("Found no account with that name.");
@@ -105,7 +105,7 @@ public class GetEmplInfo {
 
     // -----------------------------------------------------------------
 
-    private void showVouchers(GnucashEmployee empl) throws Exception {
+    private void showVouchers(GnuCashEmployee empl) throws Exception {
 	System.out.println("");
 	System.out.println("Vouchers:");
 
@@ -113,13 +113,13 @@ public class GetEmplInfo {
 
 	System.out.println("");
 	System.out.println("Paid vouchers (direct):");
-	for (GnucashEmployeeVoucher vch : empl.getPaidVouchers()) {
+	for (GnuCashEmployeeVoucher vch : empl.getPaidVouchers()) {
 	    System.out.println(" - " + vch.toString());
 	}
 	
 	System.out.println("");
 	System.out.println("Unpaid vouchers (direct):");
-	for (GnucashEmployeeVoucher vch : empl.getUnpaidVouchers()) {
+	for (GnuCashEmployeeVoucher vch : empl.getUnpaidVouchers()) {
 	    System.out.println(" - " + vch.toString());
 	}
 	

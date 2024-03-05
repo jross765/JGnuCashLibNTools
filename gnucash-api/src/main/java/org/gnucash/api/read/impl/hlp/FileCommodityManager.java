@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashCommodity;
+import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.impl.GnucashCommodityImpl;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashCommodityImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
@@ -26,15 +26,15 @@ public class FileCommodityManager {
     
     // ---------------------------------------------------------------
     
-    protected GnucashFileImpl gcshFile;
+    protected GnuCashFileImpl gcshFile;
 
-    private Map<String, GnucashCommodity>  cmdtyMap; // Keys: Sic, String not CmdtyCurrID
+    private Map<String, GnuCashCommodity>  cmdtyMap; // Keys: Sic, String not CmdtyCurrID
     private Map<String, String>            xCodeMap; // X-Code -> Qualif. ID
                                                      // Values: Sic, String not CmdtyCurrID like above
 
     // ---------------------------------------------------------------
     
-    public FileCommodityManager(GnucashFileImpl gcshFile) {
+    public FileCommodityManager(GnuCashFileImpl gcshFile) {
     	this.gcshFile = gcshFile;
     	init(gcshFile.getRootElement());
     }
@@ -47,7 +47,7 @@ public class FileCommodityManager {
 	}
 
 	private void initMap1(final GncV2 pRootElement) {
-		cmdtyMap = new HashMap<String, GnucashCommodity>();
+		cmdtyMap = new HashMap<String, GnuCashCommodity>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncCommodity) ) {
@@ -65,7 +65,7 @@ public class FileCommodityManager {
 			}
 
 			try {
-				GnucashCommodityImpl cmdty = createCommodity(jwsdpCmdty);
+				GnuCashCommodityImpl cmdty = createCommodity(jwsdpCmdty);
 				try {
 					cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
 				} catch (InvalidCmdtyCurrTypeException e) {
@@ -84,7 +84,7 @@ public class FileCommodityManager {
 		xCodeMap = new HashMap<String, String>();
 
 		for ( String qualifID : cmdtyMap.keySet() ) {
-			GnucashCommodity cmdty = cmdtyMap.get(qualifID);
+			GnuCashCommodity cmdty = cmdtyMap.get(qualifID);
 			try {
 				xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
 			} catch (InvalidCmdtyCurrTypeException e) {
@@ -95,15 +95,15 @@ public class FileCommodityManager {
 		LOGGER.debug("initMap2: No. of entries in Commodity map (2): " + xCodeMap.size());
 	}
 
-	protected GnucashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
-		GnucashCommodityImpl cmdty = new GnucashCommodityImpl(jwsdpCmdty, gcshFile);
+	protected GnuCashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
+		GnuCashCommodityImpl cmdty = new GnuCashCommodityImpl(jwsdpCmdty, gcshFile);
 		LOGGER.debug("Generated new commodity: " + cmdty.getQualifID());
 		return cmdty;
 	}
 
 	// ---------------------------------------------------------------
 
-	public void addCommodity(GnucashCommodity cmdty) {
+	public void addCommodity(GnuCashCommodity cmdty) {
 		cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
 
 		if ( cmdty.getXCode() != null )
@@ -112,7 +112,7 @@ public class FileCommodityManager {
 		LOGGER.debug("Added commodity to cache: " + cmdty.getQualifID());
 	}
 
-	public void removeCommodity(GnucashCommodity cmdty) {
+	public void removeCommodity(GnuCashCommodity cmdty) {
 		cmdtyMap.remove(cmdty.getQualifID().toString());
 
 		for ( String xCode : xCodeMap.keySet() ) {
@@ -125,27 +125,27 @@ public class FileCommodityManager {
 
 	// ---------------------------------------------------------------
 
-	public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrID qualifID) {
+	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrID qualifID) {
 		return getCommodityByQualifID(qualifID.toString());
 	}
 
-	public GnucashCommodity getCommodityByQualifID(final String nameSpace, final String id) {
+	public GnuCashCommodity getCommodityByQualifID(final String nameSpace, final String id) {
 		return getCommodityByQualifID(nameSpace + GCshCmdtyCurrID.SEPARATOR + id);
 	}
 
-	public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.Exchange exchange, String id) {
+	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.Exchange exchange, String id) {
 		return getCommodityByQualifID(exchange.toString() + GCshCmdtyCurrID.SEPARATOR + id);
 	}
 
-	public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.MIC mic, String id) {
+	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.MIC mic, String id) {
 		return getCommodityByQualifID(mic.toString() + GCshCmdtyCurrID.SEPARATOR + id);
 	}
 
-	public GnucashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.SecIdType secIdType, String id) {
+	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.SecIdType secIdType, String id) {
 		return getCommodityByQualifID(secIdType.toString() + GCshCmdtyCurrID.SEPARATOR + id);
 	}
 
-	public GnucashCommodity getCommodityByQualifID(final String qualifID) {
+	public GnuCashCommodity getCommodityByQualifID(final String qualifID) {
 		if ( qualifID == null ) {
 			throw new IllegalStateException("null string given");
 		}
@@ -158,7 +158,7 @@ public class FileCommodityManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashCommodity retval = cmdtyMap.get(qualifID.trim());
+		GnuCashCommodity retval = cmdtyMap.get(qualifID.trim());
 		if ( retval == null ) {
 			LOGGER.warn("getCommodityByQualifID: No Commodity with qualified id '" + qualifID + "'. We know "
 					+ cmdtyMap.size() + " commodities.");
@@ -167,7 +167,7 @@ public class FileCommodityManager {
 		return retval;
 	}
 
-	public GnucashCommodity getCommodityByXCode(final String xCode) {
+	public GnuCashCommodity getCommodityByXCode(final String xCode) {
 		if ( cmdtyMap == null || xCodeMap == null ) {
 			throw new IllegalStateException("no root-element(s) loaded");
 		}
@@ -187,7 +187,7 @@ public class FileCommodityManager {
 					+ " commodities in map 2.");
 		}
 
-		GnucashCommodity retval = cmdtyMap.get(qualifIDStr);
+		GnuCashCommodity retval = cmdtyMap.get(qualifIDStr);
 		if ( retval == null ) {
 			LOGGER.warn("getCommodityByXCode: No Commodity with qualified ID '" + qualifIDStr + "'. We know "
 					+ cmdtyMap.size() + " commodities in map 1.");
@@ -196,18 +196,18 @@ public class FileCommodityManager {
 		return retval;
 	}
 
-	public List<GnucashCommodity> getCommoditiesByName(final String expr) {
+	public List<GnuCashCommodity> getCommoditiesByName(final String expr) {
 		return getCommoditiesByName(expr, true);
 	}
 
-	public List<GnucashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
+	public List<GnuCashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
 		if ( cmdtyMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashCommodity> result = new ArrayList<GnucashCommodity>();
+		List<GnuCashCommodity> result = new ArrayList<GnuCashCommodity>();
 
-		for ( GnucashCommodity cmdty : getCommodities() ) {
+		for ( GnuCashCommodity cmdty : getCommodities() ) {
 			if ( cmdty.getName() != null ) // yes, that can actually happen!
 			{
 				if ( relaxed ) {
@@ -225,9 +225,9 @@ public class FileCommodityManager {
 		return result;
 	}
 
-	public GnucashCommodity getCommodityByNameUniq(final String expr)
+	public GnuCashCommodity getCommodityByNameUniq(final String expr)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		List<GnucashCommodity> cmdtyList = getCommoditiesByName(expr, false);
+		List<GnuCashCommodity> cmdtyList = getCommoditiesByName(expr, false);
 		if ( cmdtyList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( cmdtyList.size() > 1 )
@@ -236,7 +236,7 @@ public class FileCommodityManager {
 			return cmdtyList.get(0);
 	}
 
-	public Collection<GnucashCommodity> getCommodities() {
+	public Collection<GnuCashCommodity> getCommodities() {
 		if ( cmdtyMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

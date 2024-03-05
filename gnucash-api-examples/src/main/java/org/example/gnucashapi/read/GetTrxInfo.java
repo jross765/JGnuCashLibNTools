@@ -3,9 +3,9 @@ package org.example.gnucashapi.read;
 import java.io.File;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetTrxInfo {
     // BEGIN Example data -- adapt to your needs
@@ -27,12 +27,12 @@ public class GetTrxInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
 	// You normally would get the transaction-ID by first choosing 
 	// a specific account (cf. GetAcctInfo), getting its list of 
 	// transactions and then choosing from them.
-	GnucashTransaction trx = gcshFile.getTransactionByID(trxID);
+	GnuCashTransaction trx = gcshFile.getTransactionByID(trxID);
 
 	// ------------------------
 
@@ -67,11 +67,11 @@ public class GetTrxInfo {
 
     // -----------------------------------------------------------------
 
-    private void showSplits(GnucashTransaction trx) {
+    private void showSplits(GnuCashTransaction trx) {
 	System.out.println("");
 	System.out.println("Splits:");
 
-	for (GnucashTransactionSplit splt : trx.getSplits()) {
+	for (GnuCashTransactionSplit splt : trx.getSplits()) {
 	    System.out.println(" - " + splt.toString());
 	}
     }

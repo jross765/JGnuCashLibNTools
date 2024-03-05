@@ -1,9 +1,9 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncGncVendor;
-import org.gnucash.api.read.impl.GnucashVendorImpl;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.impl.GnucashWritableVendorImpl;
+import org.gnucash.api.read.impl.GnuCashVendorImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.api.write.impl.GnuCashWritableVendorImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
 
 	// ---------------------------------------------------------------
 
-	public FileVendorManager(GnucashWritableFileImpl gcshFile) {
+	public FileVendorManager(GnuCashWritableFileImpl gcshFile) {
 		super(gcshFile);
 	}
 
@@ -23,8 +23,8 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
 	 * Creates the writable version of the returned object.
 	 */
 	@Override
-	protected GnucashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
-		GnucashWritableVendorImpl vend = new GnucashWritableVendorImpl(jwsdpVend, (GnucashWritableFileImpl) gcshFile);
+	protected GnuCashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
+		GnuCashWritableVendorImpl vend = new GnuCashWritableVendorImpl(jwsdpVend, (GnuCashWritableFileImpl) gcshFile);
 		LOGGER.debug("createVendor: Generated new writable vendor: " + vend.getID());
 		return vend;
 	}

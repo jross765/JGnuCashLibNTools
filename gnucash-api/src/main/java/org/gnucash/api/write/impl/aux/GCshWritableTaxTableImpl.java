@@ -6,7 +6,7 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     @SuppressWarnings("exports")
     public GCshWritableTaxTableImpl(
 	    final GncGncTaxTable jwsdpPeer, 
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableTaxTableImpl(final GCshTaxTableImpl taxTab) {
-	super(taxTab.getJwsdpPeer(), taxTab.getGnucashFile());
+	super(taxTab.getJwsdpPeer(), taxTab.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------

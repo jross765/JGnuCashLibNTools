@@ -3,10 +3,10 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashGenerJob;
-import org.gnucash.api.read.GnucashVendor;
-import org.gnucash.api.read.impl.spec.GnucashVendorJobImpl;
-import org.gnucash.api.read.spec.GnucashVendorJob;
+import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
+import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,15 +17,15 @@ public abstract class FileJobManager_Vendor {
     
 	// ---------------------------------------------------------------
 
-	public static List<GnucashVendorJob> getJobsByVendor(final FileJobManager jobMgr, final GnucashVendor vend) {
-		List<GnucashVendorJob> retval = new ArrayList<GnucashVendorJob>();
+	public static List<GnuCashVendorJob> getJobsByVendor(final FileJobManager jobMgr, final GnuCashVendor vend) {
+		List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();
 
-		for ( GnucashGenerJob job : jobMgr.getGenerJobs() ) {
+		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
 			if ( job.getOwnerID().equals(vend.getID()) ) {
 				try {
-					retval.add(new GnucashVendorJobImpl(job));
+					retval.add(new GnuCashVendorJobImpl(job));
 				} catch (WrongJobTypeException e) {
-					LOGGER.error("getJobsByVendor: Cannot instantiate GnucashVendorJobImpl");
+					LOGGER.error("getJobsByVendor: Cannot instantiate GnuCashVendorJobImpl");
 				}
 			}
 		}

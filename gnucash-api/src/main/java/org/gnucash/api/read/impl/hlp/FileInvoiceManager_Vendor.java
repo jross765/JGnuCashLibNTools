@@ -3,13 +3,13 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.impl.spec.GnucashVendorBillImpl;
-import org.gnucash.api.read.spec.GnucashJobInvoice;
-import org.gnucash.api.read.spec.GnucashVendorBill;
-import org.gnucash.api.read.spec.GnucashVendorJob;
+import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,16 +20,16 @@ public abstract class FileInvoiceManager_Vendor {
 
 	// ---------------------------------------------------------------
 
-	public static List<GnucashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
-			final GnucashVendor vend) throws WrongInvoiceTypeException {
-		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+	public static List<GnuCashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
+			final GnuCashVendor vend) throws WrongInvoiceTypeException {
+		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
-		for ( GnucashGenerInvoice invc : invMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invMgr.getGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
 				try {
-					retval.add(new GnucashVendorBillImpl(invc));
+					retval.add(new GnuCashVendorBillImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getBills_direct: Cannot instantiate GnucashVendorBillImpl");
+					LOGGER.error("getBills_direct: Cannot instantiate GnuCashVendorBillImpl");
 				}
 			}
 		}
@@ -37,12 +37,12 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static List<GnucashJobInvoice> getBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnuCashJobInvoice> getBills_viaAllJobs(final GnuCashVendor vend)
 			throws WrongInvoiceTypeException {
-		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
-		for ( GnucashVendorJob job : vend.getJobs() ) {
-			for ( GnucashJobInvoice jobInvc : job.getInvoices() ) {
+		for ( GnuCashVendorJob job : vend.getJobs() ) {
+			for ( GnuCashJobInvoice jobInvc : job.getInvoices() ) {
 				retval.add(jobInvc);
 			}
 		}
@@ -50,17 +50,17 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static List<GnucashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
-			final GnucashVendor vend)
+	public static List<GnuCashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
+			final GnuCashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
-		for ( GnucashGenerInvoice invc : invMgr.getPaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invMgr.getPaidGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
 				try {
-					retval.add(new GnucashVendorBillImpl(invc));
+					retval.add(new GnuCashVendorBillImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getPaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
+					LOGGER.error("getPaidBills_direct: Cannot instantiate GnuCashVendorBillImpl");
 				}
 			}
 		}
@@ -68,12 +68,12 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static List<GnucashJobInvoice> getPaidBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnuCashJobInvoice> getPaidBills_viaAllJobs(final GnuCashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
-		for ( GnucashVendorJob job : vend.getJobs() ) {
-			for ( GnucashJobInvoice jobInvc : job.getPaidInvoices() ) {
+		for ( GnuCashVendorJob job : vend.getJobs() ) {
+			for ( GnuCashJobInvoice jobInvc : job.getPaidInvoices() ) {
 				retval.add(jobInvc);
 			}
 		}
@@ -81,17 +81,17 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static List<GnucashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
-			final GnucashVendor vend)
+	public static List<GnuCashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
+			final GnuCashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashVendorBill> retval = new ArrayList<GnucashVendorBill>();
+		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
-		for ( GnucashGenerInvoice invc : invMgr.getUnpaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invMgr.getUnpaidGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
 				try {
-					retval.add(new GnucashVendorBillImpl(invc));
+					retval.add(new GnuCashVendorBillImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getUnpaidBills_direct: Cannot instantiate GnucashVendorBillImpl");
+					LOGGER.error("getUnpaidBills_direct: Cannot instantiate GnuCashVendorBillImpl");
 				}
 			}
 		}
@@ -99,12 +99,12 @@ public abstract class FileInvoiceManager_Vendor {
 		return retval;
 	}
 
-	public static List<GnucashJobInvoice> getUnpaidBills_viaAllJobs(final GnucashVendor vend)
+	public static List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs(final GnuCashVendor vend)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashJobInvoice> retval = new ArrayList<GnucashJobInvoice>();
+		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
-		for ( GnucashVendorJob job : vend.getJobs() ) {
-			for ( GnucashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
+		for ( GnuCashVendorJob job : vend.getJobs() ) {
+			for ( GnuCashJobInvoice jobInvc : job.getUnpaidInvoices() ) {
 				retval.add(jobInvc);
 			}
 		}

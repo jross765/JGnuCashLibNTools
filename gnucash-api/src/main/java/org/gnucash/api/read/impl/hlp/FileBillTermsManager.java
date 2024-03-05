@@ -9,7 +9,7 @@ import java.util.Map;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -21,13 +21,13 @@ public class FileBillTermsManager {
 
 	// ---------------------------------------------------------------
 
-	private GnucashFileImpl gcshFile;
+	private GnuCashFileImpl gcshFile;
 
 	private Map<GCshID, GCshBillTerms> bllTrmMap = null;
 
 	// ---------------------------------------------------------------
 
-	public FileBillTermsManager(GnucashFileImpl gcshFile) {
+	public FileBillTermsManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}

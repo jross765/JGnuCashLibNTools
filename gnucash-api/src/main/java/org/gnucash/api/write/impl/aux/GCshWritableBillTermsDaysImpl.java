@@ -2,7 +2,7 @@ package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.read.impl.aux.GCshBillTermsDaysImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableBillTermsDays;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -22,12 +22,12 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsDaysImpl(
 	    final GncGncBillTerm.BilltermDays jwsdpPeer, 
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableBillTermsDaysImpl(final GCshBillTermsDaysImpl bllTrm) {
-	super(bllTrm.getJwsdpPeer(), bllTrm.getGnucashFile());
+	super(bllTrm.getJwsdpPeer(), bllTrm.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -68,7 +68,7 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
 	    throw new IllegalArgumentException("discount <= 0 given!");
 	}
 
-	jwsdpPeer.setBtDaysDiscount(dscnt.toGnucashString());
+	jwsdpPeer.setBtDaysDiscount(dscnt.toGnuCashString());
     }
 
     // ---------------------------------------------------------------

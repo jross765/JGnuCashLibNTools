@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.aux;
 
 import org.gnucash.api.generated.GncGncBillTerm;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
     /**
      * the file we belong to.
      */
-    protected final GnucashFile myFile;
+    protected final GnuCashFile myFile;
     
     // ---------------------------------------------------------------
 
@@ -30,7 +30,7 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
     @SuppressWarnings("exports")
     public GCshBillTermsDaysImpl(
 	    final GncGncBillTerm.BilltermDays peer, 
-	    final GnucashFile gcshFile) {
+	    final GnuCashFile gcshFile) {
 	super();
 
 	this.jwsdpPeer = peer;
@@ -48,7 +48,7 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
 	return jwsdpPeer;
     }
 
-    public GnucashFile getGnucashFile() {
+    public GnuCashFile getGnuCashFile() {
 	return myFile;
     }
 

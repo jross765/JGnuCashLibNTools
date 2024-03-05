@@ -15,7 +15,7 @@ public interface GCshOwner {
     }
 
     // For the following enum, cf.:
-    // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gncOwner.h
+    // https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gncOwner.h
 
     public enum Type {
 	

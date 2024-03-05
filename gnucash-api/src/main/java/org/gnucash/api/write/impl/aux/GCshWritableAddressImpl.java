@@ -1,7 +1,7 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +20,12 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     @SuppressWarnings("exports")
     public GCshWritableAddressImpl(
 	    final org.gnucash.api.generated.Address jwsdpPeer,
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableAddressImpl(final GCshAddressImpl addr) {
-	super(addr.getJwsdpPeer(), addr.getGnucashFile());
+	super(addr.getJwsdpPeer(), addr.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------

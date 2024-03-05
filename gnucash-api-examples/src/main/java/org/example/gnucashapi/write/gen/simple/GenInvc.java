@@ -9,13 +9,13 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.AccountNotFoundException;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashGenerInvoiceEntry;
-import org.gnucash.api.read.GnucashGenerJob;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashEmployee;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.OwnerNotFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -23,15 +23,15 @@ import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.WrongAccountTypeException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.spec.GnucashWritableCustomerInvoice;
-import org.gnucash.api.write.spec.GnucashWritableCustomerInvoiceEntry;
-import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
-import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucherEntry;
-import org.gnucash.api.write.spec.GnucashWritableJobInvoice;
-import org.gnucash.api.write.spec.GnucashWritableJobInvoiceEntry;
-import org.gnucash.api.write.spec.GnucashWritableVendorBill;
-import org.gnucash.api.write.spec.GnucashWritableVendorBillEntry;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
+import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
+import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucherEntry;
+import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
+import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
+import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 
 public class GenInvc {
     
@@ -66,10 +66,10 @@ public class GenInvc {
 
     // -----------------------------------------------------------------
 
-    private static GnucashAccount incAcct    = null;
-    private static GnucashAccount expAcct    = null;
-    private static GnucashAccount recvblAcct = null;
-    private static GnucashAccount payblAcct  = null;
+    private static GnuCashAccount incAcct    = null;
+    private static GnuCashAccount expAcct    = null;
+    private static GnuCashAccount recvblAcct = null;
+    private static GnuCashAccount payblAcct  = null;
 
     // -----------------------------------------------------------------
 
@@ -85,14 +85,14 @@ public class GenInvc {
     }
 
     protected void kernel() throws Exception {
-	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
 	try {
 	    incAcct = gcshFile.getAccountByID(incAcctID);
 	    System.err.println("Income account:     " + "Code: " + incAcct.getCode() + ", " + "Type: "
 		    + incAcct.getType() + ", " + "Name: '" + incAcct.getQualifiedName() + "'");
 
-	    if ( ! incAcct.getType().equals(GnucashAccount.Type.INCOME) ) {
+	    if ( ! incAcct.getType().equals(GnuCashAccount.Type.INCOME) ) {
 		System.err.println("Error: Account is not an income account");
 		throw new WrongAccountTypeException();
 	    }
@@ -106,7 +106,7 @@ public class GenInvc {
 	    System.err.println("Expenses account:     " + "Code: " + expAcct.getCode() + ", " + "Type: "
 		    + expAcct.getType() + ", " + "Name: '" + expAcct.getQualifiedName() + "'");
 
-	    if ( ! expAcct.getType().equals(GnucashAccount.Type.EXPENSE) ) {
+	    if ( ! expAcct.getType().equals(GnuCashAccount.Type.EXPENSE) ) {
 		System.err.println("Error: Account is not an expenses account");
 		throw new WrongAccountTypeException();
 	    }
@@ -120,7 +120,7 @@ public class GenInvc {
 	    System.err.println("Accounts-receivable account: " + "Code: " + recvblAcct.getCode() + ", " + "Type: "
 		    + recvblAcct.getType() + ", " + "Name: '" + recvblAcct.getQualifiedName() + "'");
 
-	    if ( ! recvblAcct.getType().equals(GnucashAccount.Type.RECEIVABLE) ) {
+	    if ( ! recvblAcct.getType().equals(GnuCashAccount.Type.RECEIVABLE) ) {
 		System.err.println("Error: Account is not an accounts-receivable account");
 		throw new WrongAccountTypeException();
 	    }
@@ -134,7 +134,7 @@ public class GenInvc {
 	    System.err.println("Accounts-payable account: " + "Code: " + payblAcct.getCode() + ", " + "Type: "
 		    + payblAcct.getType() + ", " + "Name: '" + payblAcct.getQualifiedName() + "'");
 
-	    if ( ! payblAcct.getType().equals(GnucashAccount.Type.PAYABLE) ) {
+	    if ( ! payblAcct.getType().equals(GnuCashAccount.Type.PAYABLE) ) {
 		System.err.println("Error: Account is not an accounts-payable account");
 		throw new WrongAccountTypeException();
 	    }
@@ -143,8 +143,8 @@ public class GenInvc {
 	    throw new AccountNotFoundException();
 	}
 
-	GnucashGenerInvoice invc1 = null;
-	GnucashGenerInvoice invc2 = null;
+	GnuCashGenerInvoice invc1 = null;
+	GnuCashGenerInvoice invc2 = null;
 	
 	if ( type == InvoiceType.CUSTOMER ) {
 	    invc1 = doCustomer(gcshFile);
@@ -172,8 +172,8 @@ public class GenInvc {
 
     // -----------------------------------------------------------------
 
-    private GnucashWritableCustomerInvoice doCustomer(GnucashWritableFileImpl gcshFile) throws Exception {
-	GnucashCustomer cust = null;
+    private GnuCashWritableCustomerInvoice doCustomer(GnuCashWritableFileImpl gcshFile) throws Exception {
+	GnuCashCustomer cust = null;
 	try {
 	    cust = gcshFile.getWritableCustomerByID(custID);
 	    System.err.println("Customer: " + cust.getNumber() + " (" + cust.getName() + ")");
@@ -182,31 +182,31 @@ public class GenInvc {
 	    throw new OwnerNotFoundException();
 	}
 
-	GnucashWritableCustomerInvoice invc = gcshFile.createWritableCustomerInvoice(number, cust, 
+	GnuCashWritableCustomerInvoice invc = gcshFile.createWritableCustomerInvoice(number, cust, 
 								incAcct, recvblAcct, 
 								dateOpen, datePost, dateDue);
 	invc.setDescription("Generated by GenInvc " + LocalDateTime.now().toString());
 
-	GnucashWritableCustomerInvoiceEntry entry1 = invc.createEntry(incAcct, 
+	GnuCashWritableCustomerInvoiceEntry entry1 = invc.createEntry(incAcct, 
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
+	entry1.setAction(GnuCashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
-	GnucashWritableCustomerInvoiceEntry entry2 = invc.createEntry(incAcct, 
+	GnuCashWritableCustomerInvoiceEntry entry2 = invc.createEntry(incAcct, 
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1), 
 		                                                      "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
+	entry2.setAction(GnuCashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
-	GnucashWritableCustomerInvoiceEntry entry3 = invc.createEntry(incAcct, 
+	GnuCashWritableCustomerInvoiceEntry entry3 = invc.createEntry(incAcct, 
 		                                                      new FixedPointNumber(amount),
 		                                                      new FixedPointNumber(1), 
 		                                                      gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
+	entry3.setAction(GnuCashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -218,8 +218,8 @@ public class GenInvc {
 	return invc;
     }
 
-    private GnucashWritableVendorBill doVendor(GnucashWritableFileImpl gcshFile) throws Exception {
-	GnucashVendor vend = null;
+    private GnuCashWritableVendorBill doVendor(GnuCashWritableFileImpl gcshFile) throws Exception {
+	GnuCashVendor vend = null;
 	try {
 	    vend = gcshFile.getVendorByID(vendID);
 	    System.err.println("Vendor: " + vend.getNumber() + " (" + vend.getName() + ")");
@@ -228,31 +228,31 @@ public class GenInvc {
 	    throw new OwnerNotFoundException();
 	}
 
-	GnucashWritableVendorBill bll = gcshFile.createWritableVendorBill(number, vend, 
+	GnuCashWritableVendorBill bll = gcshFile.createWritableVendorBill(number, vend, 
 							expAcct, payblAcct,
 							dateOpen, datePost, dateDue);
 	bll.setDescription("Generated by GenInvc " + LocalDateTime.now().toString());
 
-	GnucashWritableVendorBillEntry entry1 = bll.createEntry(expAcct, 
+	GnuCashWritableVendorBillEntry entry1 = bll.createEntry(expAcct, 
 		                                                new FixedPointNumber(amount),
 		                                                new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
+	entry1.setAction(GnuCashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
-	GnucashWritableVendorBillEntry entry2 = bll.createEntry(expAcct, 
+	GnuCashWritableVendorBillEntry entry2 = bll.createEntry(expAcct, 
 		                                                new FixedPointNumber(amount),
 		                                                new FixedPointNumber(1), 
 		                                                "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
+	entry2.setAction(GnuCashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
-	GnucashWritableVendorBillEntry entry3 = bll.createEntry(expAcct, 
+	GnuCashWritableVendorBillEntry entry3 = bll.createEntry(expAcct, 
                                                                 new FixedPointNumber(amount),
                                                                 new FixedPointNumber(1), 
                                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
+	entry3.setAction(GnuCashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -264,8 +264,8 @@ public class GenInvc {
 	return bll;
     }
 
-    private GnucashWritableEmployeeVoucher doEmployee(GnucashWritableFileImpl gcshFile) throws Exception {
-	GnucashEmployee empl = null;
+    private GnuCashWritableEmployeeVoucher doEmployee(GnuCashWritableFileImpl gcshFile) throws Exception {
+	GnuCashEmployee empl = null;
 	try {
 	    empl = gcshFile.getEmployeeByID(emplID);
 	    System.err.println("Employee: " + empl.getNumber() + " (" + empl.getUserName() + ")");
@@ -274,31 +274,31 @@ public class GenInvc {
 	    throw new OwnerNotFoundException();
 	}
 
-	GnucashWritableEmployeeVoucher vch = gcshFile.createWritableEmployeeVoucher(number, empl, 
+	GnuCashWritableEmployeeVoucher vch = gcshFile.createWritableEmployeeVoucher(number, empl, 
 							expAcct, payblAcct,
 							dateOpen, datePost, dateDue);
 	vch.setDescription("Generated by GenInvc " + LocalDateTime.now().toString());
 
-	GnucashWritableEmployeeVoucherEntry entry1 = vch.createEntry(expAcct, 
+	GnuCashWritableEmployeeVoucherEntry entry1 = vch.createEntry(expAcct, 
 		                                                     new FixedPointNumber(amount),
 		                                                     new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
+	entry1.setAction(GnuCashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
-	GnucashWritableEmployeeVoucherEntry entry2 = vch.createEntry(expAcct, 
+	GnuCashWritableEmployeeVoucherEntry entry2 = vch.createEntry(expAcct, 
 								     new FixedPointNumber(amount),
 								     new FixedPointNumber(1),
 								     "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
+	entry2.setAction(GnuCashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
-	GnucashWritableEmployeeVoucherEntry entry3 = vch.createEntry(expAcct,
+	GnuCashWritableEmployeeVoucherEntry entry3 = vch.createEntry(expAcct,
 							    	     new FixedPointNumber(amount),
 							    	     new FixedPointNumber(1), 
 							    	     gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
+	entry3.setAction(GnuCashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -310,8 +310,8 @@ public class GenInvc {
 	return vch;
     }
 
-    private GnucashWritableJobInvoice doJob_cust(GnucashWritableFileImpl gcshFile) throws Exception {
-	GnucashGenerJob job = null;
+    private GnuCashWritableJobInvoice doJob_cust(GnuCashWritableFileImpl gcshFile) throws Exception {
+	GnuCashGenerJob job = null;
 	try {
 	    job = gcshFile.getGenerJobByID(job1ID);
 	    System.err.println("(Gener.) job: " + job.getNumber() + " (" + job.getName() + ")");
@@ -320,31 +320,31 @@ public class GenInvc {
 	    throw new OwnerNotFoundException();
 	}
 
-	GnucashWritableJobInvoice invc = gcshFile.createWritableJobInvoice(number, job, 
+	GnuCashWritableJobInvoice invc = gcshFile.createWritableJobInvoice(number, job, 
 							incAcct, recvblAcct,
 							dateOpen, datePost, dateDue);
 	invc.setDescription("Generated by GenInvc " + LocalDateTime.now().toString());
 
-	GnucashWritableJobInvoiceEntry entry1 = invc.createEntry(incAcct, 
+	GnuCashWritableJobInvoiceEntry entry1 = invc.createEntry(incAcct, 
                                                                  new FixedPointNumber(amount),
                                                                  new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
+	entry1.setAction(GnuCashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
-	GnucashWritableJobInvoiceEntry entry2 = invc.createEntry(incAcct, 
+	GnuCashWritableJobInvoiceEntry entry2 = invc.createEntry(incAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
+	entry2.setAction(GnuCashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
-	GnucashWritableJobInvoiceEntry entry3 = invc.createEntry(incAcct, 
+	GnuCashWritableJobInvoiceEntry entry3 = invc.createEntry(incAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
+	entry3.setAction(GnuCashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 
@@ -356,8 +356,8 @@ public class GenInvc {
 	return invc;
     }
 
-    private GnucashWritableJobInvoice doJob_vend(GnucashWritableFileImpl gcshFile) throws Exception {
-	GnucashGenerJob job = null;
+    private GnuCashWritableJobInvoice doJob_vend(GnuCashWritableFileImpl gcshFile) throws Exception {
+	GnuCashGenerJob job = null;
 	try {
 	    job = gcshFile.getGenerJobByID(job2ID);
 	    System.err.println("(Gener.) job: " + job.getNumber() + " (" + job.getName() + ")");
@@ -366,31 +366,31 @@ public class GenInvc {
 	    throw new OwnerNotFoundException();
 	}
 
-	GnucashWritableJobInvoice invc = gcshFile.createWritableJobInvoice(number, job, 
+	GnuCashWritableJobInvoice invc = gcshFile.createWritableJobInvoice(number, job, 
 							incAcct, payblAcct,
 							dateOpen, datePost, dateDue);
 	invc.setDescription("Generated by GenInvc " + LocalDateTime.now().toString());
 
-	GnucashWritableJobInvoiceEntry entry1 = invc.createEntry(expAcct, 
+	GnuCashWritableJobInvoiceEntry entry1 = invc.createEntry(expAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1));
-	entry1.setAction(GnucashGenerInvoiceEntry.Action.JOB);
+	entry1.setAction(GnuCashGenerInvoiceEntry.Action.JOB);
 	entry1.setDescription("Entry no. 1");
 	entry1.setDate(dateOpen.minus(1, ChronoUnit.DAYS));
 
-	GnucashWritableJobInvoiceEntry entry2 = invc.createEntry(expAcct, 
+	GnuCashWritableJobInvoiceEntry entry2 = invc.createEntry(expAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 "DE_USt_Std");
-	entry2.setAction(GnucashGenerInvoiceEntry.Action.HOURS);
+	entry2.setAction(GnuCashGenerInvoiceEntry.Action.HOURS);
 	entry2.setDescription("Entry no. 2");
 	entry2.setDate(dateOpen);
 
-	GnucashWritableJobInvoiceEntry entry3 = invc.createEntry(expAcct, 
+	GnuCashWritableJobInvoiceEntry entry3 = invc.createEntry(expAcct, 
 		                                                 new FixedPointNumber(amount),
 		                                                 new FixedPointNumber(1), 
 		                                                 gcshFile.getTaxTableByName("FR_TVA_Std"));
-	entry3.setAction(GnucashGenerInvoiceEntry.Action.MATERIAL);
+	entry3.setAction(GnuCashGenerInvoiceEntry.Action.MATERIAL);
 	entry3.setDescription("Entry no. 3");
 	entry3.setDate(dateOpen.plus(1, ChronoUnit.DAYS));
 

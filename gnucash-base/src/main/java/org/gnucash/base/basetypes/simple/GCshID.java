@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A technical entry ID for all GnuCash entities except GnucashCommodity.
+ * A technical entry ID for all GnuCash entities except GnuCashCommodity.
  * (essentially a wrapper for a GUID-string, primarily defined for type safety).
  */
 public class GCshID {

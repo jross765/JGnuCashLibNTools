@@ -4,9 +4,9 @@ import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncTaxTable;
-import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @SuppressWarnings("exports")
     public GCshWritableTaxTableEntryImpl(
 	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry jwsdpPeer,
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableTaxTableEntryImpl(final GCshTaxTableEntryImpl entr) {
-	super(entr.getJwsdpPeer(), entr.getGnucashFile());
+	super(entr.getJwsdpPeer(), entr.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -77,7 +77,7 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
      * @link #myAccount
      */
     @Override
-    public void setAccount(final GnucashAccount acct) {
+    public void setAccount(final GnuCashAccount acct) {
 	if ( acct == null ) {
 	    throw new IllegalArgumentException("null account given!");
 	}
@@ -89,7 +89,7 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
 
     @Override
     public void setAmount(final FixedPointNumber amt) {
-	getJwsdpPeer().setTteAmount(amt.toGnucashString());
+	getJwsdpPeer().setTteAmount(amt.toGnuCashString());
     }
 
     // ---------------------------------------------------------------

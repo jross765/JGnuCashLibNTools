@@ -2,9 +2,9 @@ package org.example.gnucashapi.write.gen.simple;
 
 import java.io.File;
 
-import org.gnucash.api.read.impl.GnucashCustomerImpl;
-import org.gnucash.api.write.GnucashWritableCustomer;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.impl.GnuCashCustomerImpl;
+import org.gnucash.api.write.GnuCashWritableCustomer;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
 public class GenCust {
     // BEGIN Example data -- adapt to your needs
@@ -27,10 +27,10 @@ public class GenCust {
     }
 
     protected void kernel() throws Exception {
-	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnucashWritableCustomer cust = gcshFile.createWritableCustomer();
-	cust.setNumber(GnucashCustomerImpl.getNewNumber(cust));
+	GnuCashWritableCustomer cust = gcshFile.createWritableCustomer();
+	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
 	cust.setName(name);
 	
 	System.out.println("Customer to write: " + cust.toString());

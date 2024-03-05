@@ -2,11 +2,11 @@ package org.gnucash.api.write.impl.hlp;
 
 import java.util.List;
 
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashVendor;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
-import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
-import org.gnucash.api.write.spec.GnucashWritableVendorJob;
+import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
+import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 
 	// ---------------------------------------------------------------
 
-	public FileJobManager(GnucashWritableFileImpl gcshFile) {
+	public FileJobManager(GnuCashWritableFileImpl gcshFile) {
 		super(gcshFile);
 	}
 
@@ -27,31 +27,31 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 	 */
 	// ::TODO
 //    @Override
-//    protected GnucashCustomerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
+//    protected GnuCashCustomerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
 //	// ::TODO: CUSTOMER job?
-//	GnucashWritableGenerJobImpl job = new GnucashWritableGenerJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
+//	GnuCashWritableGenerJobImpl job = new GnuCashWritableGenerJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
 //	LOGGER.debug("Generated new generic job: " + job.getID());
 //	return job;
 //    }
 
 	// ::TODO
 //	@Override
-//	protected GnucashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
-//		GnucashWritableCustomerJobImpl job = new GnucashWritableCustomerJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
+//	protected GnuCashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
+//		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
 //		LOGGER.debug("createCustomerJob: Generated new writable customer job: " + job.getID());
 //		return job;
 //	}
 //
 //	@Override
-//	protected GnucashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
-//		GnucashWritableVendorJobImpl job = new GnucashWritableVendorJobImpl(jwsdpJob, (GnucashWritableFileImpl) gcshFile);
+//	protected GnuCashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
+//		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
 //		LOGGER.debug("createVendorJob: Generated new writable vendor job: " + job.getID());
 //		return job;
 //	}
 
 	// ---------------------------------------------------------------
 	
-	public List<GnucashWritableCustomerJob> getWritableJobsByCustomer(final GnucashCustomer cust) {
+	public List<GnuCashWritableCustomerJob> getWritableJobsByCustomer(final GnuCashCustomer cust) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -59,7 +59,7 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 		return FileJobManager_Customer.getJobsByCustomer(this, cust);
 	}
 
-	public List<GnucashWritableVendorJob> getWritableJobsByVendor(final GnucashVendor vend) {
+	public List<GnuCashWritableVendorJob> getWritableJobsByVendor(final GnuCashVendor vend) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

@@ -6,12 +6,12 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
@@ -37,7 +37,7 @@ public class TestHasUserDefinedAttributesImpl {
 
 	// -----------------------------------------------------------------
 
-    private GnucashFile gcshFile = null;
+    private GnuCashFile gcshFile = null;
 
     // -----------------------------------------------------------------
 
@@ -63,7 +63,7 @@ public class TestHasUserDefinedAttributesImpl {
 		}
 
 		try {
-			gcshFile = new GnucashFileImpl(gcshFileStream);
+			gcshFile = new GnuCashFileImpl(gcshFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash file");
 			exc.printStackTrace();
@@ -139,7 +139,7 @@ public class TestHasUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_acct_01() throws Exception {
-    	GnucashAccount acct = gcshFile.getAccountByID(ACCT_1_ID);
+    	GnuCashAccount acct = gcshFile.getAccountByID(ACCT_1_ID);
     	assertNotEquals(null, acct);
     	
     	assertEquals(null, acct.getUserDefinedAttributeKeys());
@@ -148,7 +148,7 @@ public class TestHasUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_acct_02() throws Exception {
-    	GnucashAccount acct = gcshFile.getAccountByID(ACCT_2_ID);
+    	GnuCashAccount acct = gcshFile.getAccountByID(ACCT_2_ID);
     	assertNotEquals(null, acct);
     	
     	assertNotEquals(null, acct.getUserDefinedAttributeKeys());
@@ -167,7 +167,7 @@ public class TestHasUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_trx_01() throws Exception {
-    	GnucashTransaction trx = gcshFile.getTransactionByID(TRX_1_ID);
+    	GnuCashTransaction trx = gcshFile.getTransactionByID(TRX_1_ID);
     	assertNotEquals(null, trx);
     	
     	assertEquals(null, trx.getUserDefinedAttributeKeys());
@@ -176,7 +176,7 @@ public class TestHasUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_trx_02() throws Exception {
-    	GnucashTransaction trx = gcshFile.getTransactionByID(TRX_2_ID);
+    	GnuCashTransaction trx = gcshFile.getTransactionByID(TRX_2_ID);
     	assertNotEquals(null, trx);
     	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -188,7 +188,7 @@ public class TestHasUserDefinedAttributesImpl {
     // Several slots
     @Test
     public void test_trx_03() throws Exception {
-    	GnucashTransaction trx = gcshFile.getTransactionByID(TRX_3_ID);
+    	GnuCashTransaction trx = gcshFile.getTransactionByID(TRX_3_ID);
     	assertNotEquals(null, trx);
     	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -216,7 +216,7 @@ public class TestHasUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_invc_02() throws Exception {
-    	GnucashGenerInvoice invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
+    	GnuCashGenerInvoice invc = gcshFile.getGenerInvoiceByID(INVC_2_ID);
     	assertNotEquals(null, invc);
   	
     	assertNotEquals(null, invc.getUserDefinedAttributeKeys());
@@ -228,7 +228,7 @@ public class TestHasUserDefinedAttributesImpl {
     // Several slots
     @Test
     public void test_invc_03() throws Exception {
-    	GnucashGenerInvoice trx = gcshFile.getGenerInvoiceByID(INVC_3_ID);
+    	GnuCashGenerInvoice trx = gcshFile.getGenerInvoiceByID(INVC_3_ID);
     	assertNotEquals(null, trx);
   	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -253,7 +253,7 @@ public class TestHasUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_cmdty_01() throws Exception {
-    	GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_1_ID);
+    	GnuCashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_1_ID);
     	assertNotEquals(null, cmdty);
     	
     	assertEquals(null, cmdty.getUserDefinedAttributeKeys());
@@ -262,7 +262,7 @@ public class TestHasUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_cmdty_02() throws Exception {
-    	GnucashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_2_ID);
+    	GnuCashCommodity cmdty = gcshFile.getCommodityByQualifID(CMDTY_2_ID);
     	assertNotEquals(null, cmdty);
   	
     	assertNotEquals(null, cmdty.getUserDefinedAttributeKeys());
@@ -301,7 +301,7 @@ public class TestHasUserDefinedAttributesImpl {
     
 //    @Test
 //    public void test_meta() throws Exception {
-//    	for ( GnucashTransactionSplit elt : gcshFile.getTransactionSplits() ) {
+//    	for ( GnuCashTransactionSplit elt : gcshFile.getTransactionSplits() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy splt: " + elt.getID() );
@@ -309,7 +309,7 @@ public class TestHasUserDefinedAttributesImpl {
 //    		}
 //    	}
 //
-//    	for ( GnucashGenerInvoiceEntry elt : gcshFile.getGenerInvoiceEntries() ) {
+//    	for ( GnuCashGenerInvoiceEntry elt : gcshFile.getGenerInvoiceEntries() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy invc-entr: " + elt.getID() );
@@ -317,7 +317,7 @@ public class TestHasUserDefinedAttributesImpl {
 //    		}
 //    	}
 //
-//    	for ( GnucashCommodity elt : gcshFile.getCommodities() ) {
+//    	for ( GnuCashCommodity elt : gcshFile.getCommodities() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy cmdty: " + elt.getQualifID() );
@@ -325,7 +325,7 @@ public class TestHasUserDefinedAttributesImpl {
 //    		}
 //    	}
 //
-//    	for ( GnucashCustomer elt : gcshFile.getCustomers() ) {
+//    	for ( GnuCashCustomer elt : gcshFile.getCustomers() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy cust: " + elt.getID() );
@@ -333,7 +333,7 @@ public class TestHasUserDefinedAttributesImpl {
 //    		}
 //    	}
 //
-//    	for ( GnucashVendor elt : gcshFile.getVendors() ) {
+//    	for ( GnuCashVendor elt : gcshFile.getVendors() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy vend: " + elt.getID() );
@@ -341,7 +341,7 @@ public class TestHasUserDefinedAttributesImpl {
 //    		}
 //    	}
 //
-//    	for ( GnucashEmployee elt : gcshFile.getEmployees() ) {
+//    	for ( GnuCashEmployee elt : gcshFile.getEmployees() ) {
 //    		if ( elt.getUserDefinedAttributeKeys() != null ) {
 //    			if ( elt.getUserDefinedAttributeKeys().size() == 1 ) {
 //    				System.err.println("yyy empl: " + elt.getID() );

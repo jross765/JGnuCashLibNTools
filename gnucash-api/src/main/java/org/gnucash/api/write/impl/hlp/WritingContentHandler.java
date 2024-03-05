@@ -14,7 +14,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
 /**
- * Helper lass needed for writing Gnucash-Files that are binary-identical to
+ * Helper lass needed for writing GnuCash-Files that are binary-identical to
  * what GnuCash itself writes.
  */
 public class WritingContentHandler implements ContentHandler {

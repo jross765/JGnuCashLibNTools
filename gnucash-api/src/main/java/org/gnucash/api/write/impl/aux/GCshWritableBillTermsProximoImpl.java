@@ -2,7 +2,7 @@ package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.read.impl.aux.GCshBillTermsProximoImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableBillTermsProximo;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -22,12 +22,12 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsProximoImpl(
 	    final GncGncBillTerm.BilltermProximo jwsdpPeer, 
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableBillTermsProximoImpl(final GCshBillTermsProximoImpl bllTrm) {
-	super(bllTrm.getJwsdpPeer(), bllTrm.getGnucashFile());
+	super(bllTrm.getJwsdpPeer(), bllTrm.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -68,7 +68,7 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
 	    throw new IllegalArgumentException("discount <= 0 given!");
 	}
 
-	jwsdpPeer.setBtProxDiscount(dscnt.toGnucashString());
+	jwsdpPeer.setBtProxDiscount(dscnt.toGnuCashString());
     }
 
     // ---------------------------------------------------------------

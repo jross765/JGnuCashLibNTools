@@ -4,16 +4,16 @@ import java.io.File;
 import java.util.Collection;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.spec.GnucashJobInvoice;
-import org.gnucash.api.read.spec.GnucashVendorBill;
-import org.gnucash.api.read.spec.GnucashVendorJob;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 
 public class GetVendInfo {
@@ -38,9 +38,9 @@ public class GetVendInfo {
     }
 
     protected void kernel() throws Exception {
-	GnucashFileImpl gcshFile = new GnucashFileImpl(new File(gcshFileName));
+	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	GnucashVendor vend = gcshFile.getVendorByID(vendID);
+	GnuCashVendor vend = gcshFile.getVendorByID(vendID);
 	if ( mode == Helper.Mode.ID ) {
 	    vend = gcshFile.getVendorByID(vendID);
 	    if (vend == null) {
@@ -48,7 +48,7 @@ public class GetVendInfo {
 		throw new NoEntryFoundException();
 	    }
 	} else if ( mode == Helper.Mode.NAME ) {
-	    Collection<GnucashVendor> vendList = null;
+	    Collection<GnuCashVendor> vendList = null;
 	    vendList = gcshFile.getVendorsByName(vendName, true);
 	    if (vendList.size() == 0) {
 		System.err.println("Found no vendor with that name.");
@@ -124,14 +124,14 @@ public class GetVendInfo {
 	System.out.println("Expenses generated:");
 	try {
 	    System.out.println(
-		    " - direct: " + vend.getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant.DIRECT));
+		    " - direct: " + vend.getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant.DIRECT));
 	} catch (Exception exc) {
 	    System.out.println(" - direct: " + "ERROR");
 	}
 
 	try {
 	    System.out.println(
-		    " - via all jobs: " + vend.getExpensesGeneratedFormatted(GnucashGenerInvoice.ReadVariant.VIA_JOB));
+		    " - via all jobs: " + vend.getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant.VIA_JOB));
 	} catch (Exception exc) {
 	    System.out.println(" - via all jobs: " + "ERROR");
 	}
@@ -139,14 +139,14 @@ public class GetVendInfo {
 	System.out.println("Outstanding value:");
 	try {
 	    System.out
-		    .println(" - direct: " + vend.getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant.DIRECT));
+		    .println(" - direct: " + vend.getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant.DIRECT));
 	} catch (Exception exc) {
 	    System.out.println(" - direct: " + "ERROR");
 	}
 
 	try {
 	    System.out.println(
-		    " - via all jobs: " + vend.getOutstandingValueFormatted(GnucashGenerInvoice.ReadVariant.VIA_JOB));
+		    " - via all jobs: " + vend.getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant.VIA_JOB));
 	} catch (Exception exc) {
 	    System.out.println(" - via all jobs: " + "ERROR");
 	}
@@ -159,15 +159,15 @@ public class GetVendInfo {
 
     // -----------------------------------------------------------------
 
-    private void showJobs(GnucashVendor vend) throws WrongInvoiceTypeException {
+    private void showJobs(GnuCashVendor vend) throws WrongInvoiceTypeException {
 	System.out.println("");
 	System.out.println("Jobs:");
-	for (GnucashVendorJob job : vend.getJobs()) {
+	for (GnuCashVendorJob job : vend.getJobs()) {
 	    System.out.println(" - " + job.toString());
 	}
     }
 
-    private void showBills(GnucashVendor vend) throws Exception {
+    private void showBills(GnuCashVendor vend) throws Exception {
 	System.out.println("");
 	System.out.println("Bills:");
 
@@ -175,25 +175,25 @@ public class GetVendInfo {
 
 	System.out.println("");
 	System.out.println("Paid bills (direct):");
-	for (GnucashVendorBill bll : vend.getPaidBills_direct()) {
+	for (GnuCashVendorBill bll : vend.getPaidBills_direct()) {
 	    System.out.println(" - " + bll.toString());
 	}
 
 	System.out.println("");
 	System.out.println("Paid bills (via all jobs):");
-	for (GnucashJobInvoice bll : vend.getPaidBills_viaAllJobs()) {
+	for (GnuCashJobInvoice bll : vend.getPaidBills_viaAllJobs()) {
 	    System.out.println(" - " + bll.toString());
 	}
 
 	System.out.println("");
 	System.out.println("Unpaid bills (direct):");
-	for (GnucashVendorBill bll : vend.getUnpaidBills_direct()) {
+	for (GnuCashVendorBill bll : vend.getUnpaidBills_direct()) {
 	    System.out.println(" - " + bll.toString());
 	}
 
 	System.out.println("");
 	System.out.println("Unpaid bills (via all jobs):");
-	for (GnucashJobInvoice bll : vend.getUnpaidBills_viaAllJobs()) {
+	for (GnuCashJobInvoice bll : vend.getUnpaidBills_viaAllJobs()) {
 	    System.out.println(" - " + bll.toString());
 	}
     }

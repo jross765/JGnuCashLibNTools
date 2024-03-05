@@ -7,19 +7,19 @@ import java.io.File;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashCommodity;
-import org.gnucash.api.read.GnucashGenerInvoice;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.hlp.TestHasUserDefinedAttributesImpl;
-import org.gnucash.api.write.GnucashWritableAccount;
-import org.gnucash.api.write.GnucashWritableCommodity;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
-import org.gnucash.api.write.GnucashWritableTransaction;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.GnuCashWritableAccount;
+import org.gnucash.api.write.GnuCashWritableCommodity;
+import org.gnucash.api.write.GnuCashWritableGenerInvoice;
+import org.gnucash.api.write.GnuCashWritableTransaction;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -46,8 +46,8 @@ public class TestHasWritableUserDefinedAttributesImpl {
 
     // ---------------------------------------------------------------
 
-    private GnucashWritableFileImpl gcshInFile = null;
-    private GnucashFileImpl gcshOutFile = null;
+    private GnuCashWritableFileImpl gcshInFile = null;
+    private GnuCashFileImpl gcshOutFile = null;
 
     // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
     @SuppressWarnings("exports")
@@ -78,7 +78,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 		}
 
 		try {
-			gcshInFile = new GnucashWritableFileImpl(gcshInFileStream);
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash in-file");
 			exc.printStackTrace();
@@ -166,7 +166,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_01_acct_01() throws Exception {
-    	GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
+    	GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
     	assertNotEquals(null, acct);
     	
     	assertEquals(null, acct.getUserDefinedAttributeKeys());
@@ -175,7 +175,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_acct_02() throws Exception {
-    	GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_2_ID);
+    	GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_2_ID);
     	assertNotEquals(null, acct);
     	
     	assertNotEquals(null, acct.getUserDefinedAttributeKeys());
@@ -194,7 +194,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_01_trx_01() throws Exception {
-    	GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
+    	GnuCashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
     	assertNotEquals(null, trx);
     	
     	assertEquals(null, trx.getUserDefinedAttributeKeys());
@@ -203,7 +203,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_01_trx_02() throws Exception {
-    	GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_2_ID);
+    	GnuCashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_2_ID);
     	assertNotEquals(null, trx);
     	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -215,7 +215,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // Several slots
     @Test
     public void test_01_trx_03() throws Exception {
-    	GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_3_ID);
+    	GnuCashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_3_ID);
     	assertNotEquals(null, trx);
     	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -243,7 +243,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_01_invc_02() throws Exception {
-    	GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
+    	GnuCashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     	assertNotEquals(null, invc);
   	
     	assertNotEquals(null, invc.getUserDefinedAttributeKeys());
@@ -255,7 +255,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // Several slots
     @Test
     public void test_01_invc_03() throws Exception {
-    	GnucashWritableGenerInvoice trx = gcshInFile.getWritableGenerInvoiceByID(INVC_3_ID);
+    	GnuCashWritableGenerInvoice trx = gcshInFile.getWritableGenerInvoiceByID(INVC_3_ID);
     	assertNotEquals(null, trx);
   	
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys());
@@ -280,7 +280,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // No slots
     @Test
     public void test_01_cmdty_01() throws Exception {
-    	GnucashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_ID);
+    	GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_ID);
     	assertNotEquals(null, cmdty);
     	
     	assertEquals(null, cmdty.getUserDefinedAttributeKeys());
@@ -289,7 +289,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     // One slot
     @Test
     public void test_01_cmdty_02() throws Exception {
-    	GnucashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_2_ID);
+    	GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_2_ID);
     	assertNotEquals(null, cmdty);
   	
     	assertNotEquals(null, cmdty.getUserDefinedAttributeKeys());
@@ -400,7 +400,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     
     @Test
     public void test_02_acct_01() throws Exception {
-    	GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
+    	GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
     	assertNotEquals(null, acct);
 
     	assertEquals(ACCT_1_ID, acct.getID());
@@ -427,7 +427,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -436,7 +436,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_acct_01_check_persisted(outFile);
     }
 
-    private void test_02_acct_01_check_memory(GnucashWritableAccount acct) throws Exception {
+    private void test_02_acct_01_check_memory(GnuCashWritableAccount acct) throws Exception {
     	assertEquals(ACCT_1_ID, acct.getID()); // unchanged
     	assertNotEquals(null, acct.getUserDefinedAttributeKeys()); // changed
     	assertEquals(1, acct.getUserDefinedAttributeKeys().size()); // changed
@@ -444,9 +444,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_acct_01_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
+		GnuCashAccount acct = gcshOutFile.getAccountByID(ACCT_1_ID);
 		assertNotEquals(null, acct);
 
 		assertEquals(ACCT_1_ID, acct.getID()); // unchanged
@@ -460,7 +460,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 
     @Test
     public void test_02_acct_02() throws Exception {
-    	GnucashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_2_ID);
+    	GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_2_ID);
     	assertNotEquals(null, acct);
 
     	assertEquals(ACCT_2_ID, acct.getID());
@@ -487,7 +487,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -496,7 +496,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_acct_02_check_persisted(outFile);
     }
     
-    private void test_02_acct_02_check_memory(GnucashWritableAccount acct) throws Exception {
+    private void test_02_acct_02_check_memory(GnuCashWritableAccount acct) throws Exception {
     	assertEquals(ACCT_2_ID, acct.getID()); // unchanged
     	assertNotEquals(null, acct.getUserDefinedAttributeKeys()); // unchanged
     	assertEquals(1, acct.getUserDefinedAttributeKeys().size()); // unchanged
@@ -504,9 +504,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_acct_02_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashAccount acct = gcshOutFile.getAccountByID(ACCT_2_ID);
+		GnuCashAccount acct = gcshOutFile.getAccountByID(ACCT_2_ID);
 		assertNotEquals(null, acct);
 
     	assertEquals(ACCT_2_ID, acct.getID()); // unchanged
@@ -524,7 +524,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     
     @Test
     public void test_02_trx_01() throws Exception {
-    	GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
+    	GnuCashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_1_ID);
     	assertNotEquals(null, trx);
 
     	assertEquals(TRX_1_ID, trx.getID());
@@ -551,7 +551,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -560,7 +560,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_trx_01_check_persisted(outFile);
     }
 
-    private void test_02_trx_01_check_memory(GnucashWritableTransaction trx) throws Exception {
+    private void test_02_trx_01_check_memory(GnuCashWritableTransaction trx) throws Exception {
     	assertEquals(TRX_1_ID, trx.getID()); // unchanged
     	assertNotEquals(null, trx.getUserDefinedAttributeKeys()); // changed
     	assertEquals(1, trx.getUserDefinedAttributeKeys().size()); // changed
@@ -568,9 +568,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_trx_01_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashTransaction trx = gcshOutFile.getTransactionByID(TRX_1_ID);
+		GnuCashTransaction trx = gcshOutFile.getTransactionByID(TRX_1_ID);
 		assertNotEquals(null, trx);
 
 		assertEquals(TRX_1_ID, trx.getID()); // unchanged
@@ -586,7 +586,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 	
 //    @Test
 //    public void test_02_trx_02() throws Exception {
-//    	GnucashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_2_ID);
+//    	GnuCashWritableTransaction trx = gcshInFile.getWritableTransactionByID(TRX_2_ID);
 //    	assertNotEquals(null, trx);
 //
 //    	assertEquals(TRX_2_ID, trx.getID());
@@ -613,7 +613,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 //    	// we expect it is.
 //
 //    	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-//    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+//    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 //    	// + outFile.getPath() + "'");
 //    	outFile.delete(); // sic, the temp. file is already generated (empty),
 //    			          // and the GnuCash file writer does not like that.
@@ -622,7 +622,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 //    	test_02_trx_02_check_persisted(outFile);
 //    }
 //    
-//    private void test_02_trx_02_check_memory(GnucashWritableTransaction trx) throws Exception {
+//    private void test_02_trx_02_check_memory(GnuCashWritableTransaction trx) throws Exception {
 //    	assertEquals(TRX_2_ID, trx.getID()); // unchanged
 //    	assertNotEquals(null, trx.getUserDefinedAttributeKeys()); // unchanged
 //    	assertEquals(1, trx.getUserDefinedAttributeKeys().size()); // unchanged
@@ -630,9 +630,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
 //    }
 //
 //	private void test_02_trx_02_check_persisted(File outFile) throws Exception {
-//		gcshOutFile = new GnucashFileImpl(outFile);
+//		gcshOutFile = new GnuCashFileImpl(outFile);
 //
-//		GnucashTransaction trx = gcshOutFile.getTransactionByID(TRX_2_ID);
+//		GnuCashTransaction trx = gcshOutFile.getTransactionByID(TRX_2_ID);
 //		assertNotEquals(null, trx);
 //
 //    	assertEquals(TRX_2_ID, trx.getID()); // unchanged
@@ -663,7 +663,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 
     @Test
     public void test_02_invc_02() throws Exception {
-		GnucashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
+		GnuCashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(INVC_2_ID);
     	assertNotEquals(null, invc);
 
     	assertEquals(INVC_2_ID, invc.getID());
@@ -690,7 +690,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -699,7 +699,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_invc_02_check_persisted(outFile);
     }
     
-    private void test_02_invc_02_check_memory(GnucashWritableGenerInvoice invc) throws Exception {
+    private void test_02_invc_02_check_memory(GnuCashWritableGenerInvoice invc) throws Exception {
     	assertEquals(INVC_2_ID, invc.getID()); // unchanged
     	assertNotEquals(null, invc.getUserDefinedAttributeKeys()); // unchanged
     	assertEquals(1, invc.getUserDefinedAttributeKeys().size()); // unchanged
@@ -707,9 +707,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_invc_02_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashGenerInvoice invc = gcshOutFile.getGenerInvoiceByID(INVC_2_ID);
+		GnuCashGenerInvoice invc = gcshOutFile.getGenerInvoiceByID(INVC_2_ID);
 		assertNotEquals(null, invc);
 
     	assertEquals(INVC_2_ID, invc.getID()); // unchanged
@@ -734,7 +734,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     
     @Test
     public void test_02_cmdty_01() throws Exception {
-    	GnucashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_ID);
+    	GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_ID);
     	assertNotEquals(null, cmdty);
 
     	assertEquals(CMDTY_1_ID.toString(), cmdty.getQualifID().toString());
@@ -761,7 +761,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -770,7 +770,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_cmdty_01_check_persisted(outFile);
     }
 
-    private void test_02_cmdty_01_check_memory(GnucashWritableCommodity cmdty) throws Exception {
+    private void test_02_cmdty_01_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
     	assertEquals(CMDTY_1_ID.toString(), cmdty.getQualifID().toString()); // unchanged
     	assertNotEquals(null, cmdty.getUserDefinedAttributeKeys()); // changed
     	assertEquals(1, cmdty.getUserDefinedAttributeKeys().size()); // changed
@@ -778,9 +778,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_cmdty_01_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashCommodity cmdty = gcshOutFile.getCommodityByQualifID(CMDTY_1_ID);
+		GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(CMDTY_1_ID);
 		assertNotEquals(null, cmdty);
 
 		assertEquals(CMDTY_1_ID.toString(), cmdty.getQualifID().toString()); // unchanged
@@ -794,7 +794,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 
     @Test
     public void test_02_cmdty_02() throws Exception {
-    	GnucashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_2_ID);
+    	GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_2_ID);
     	assertNotEquals(null, cmdty);
 
     	assertEquals(CMDTY_2_ID.toString(), cmdty.getQualifID().toString());
@@ -821,7 +821,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	// we expect it is.
 
     	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-    	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+    	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
     	// + outFile.getPath() + "'");
     	outFile.delete(); // sic, the temp. file is already generated (empty),
     			          // and the GnuCash file writer does not like that.
@@ -830,7 +830,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
     	test_02_cmdty_02_check_persisted(outFile);
     }
     
-    private void test_02_cmdty_02_check_memory(GnucashWritableCommodity cmdty) throws Exception {
+    private void test_02_cmdty_02_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
     	assertEquals(CMDTY_2_ID.toString(), cmdty.getQualifID().toString()); // unchanged
     	assertNotEquals(null, cmdty.getUserDefinedAttributeKeys()); // unchanged
     	assertEquals(1, cmdty.getUserDefinedAttributeKeys().size()); // unchanged
@@ -838,9 +838,9 @@ public class TestHasWritableUserDefinedAttributesImpl {
     }
 
 	private void test_02_cmdty_02_check_persisted(File outFile) throws Exception {
-		gcshOutFile = new GnucashFileImpl(outFile);
+		gcshOutFile = new GnuCashFileImpl(outFile);
 
-		GnucashCommodity cmdty = gcshOutFile.getCommodityByQualifID(CMDTY_2_ID);
+		GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(CMDTY_2_ID);
 		assertNotEquals(null, cmdty);
 
     	assertEquals(CMDTY_2_ID.toString(), cmdty.getQualifID().toString()); // unchanged

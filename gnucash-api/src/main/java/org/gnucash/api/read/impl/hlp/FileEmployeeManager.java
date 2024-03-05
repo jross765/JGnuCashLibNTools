@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashEmployee;
+import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.impl.GnucashEmployeeImpl;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +24,13 @@ public class FileEmployeeManager {
     
     // ---------------------------------------------------------------
     
-    protected GnucashFileImpl gcshFile;
+    protected GnuCashFileImpl gcshFile;
 
-    private Map<GCshID, GnucashEmployee> emplMap;
+    private Map<GCshID, GnuCashEmployee> emplMap;
 
     // ---------------------------------------------------------------
     
-	public FileEmployeeManager(GnucashFileImpl gcshFile) {
+	public FileEmployeeManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}
@@ -38,7 +38,7 @@ public class FileEmployeeManager {
     // ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		emplMap = new HashMap<GCshID, GnucashEmployee>();
+		emplMap = new HashMap<GCshID, GnuCashEmployee>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncEmployee) ) {
@@ -47,7 +47,7 @@ public class FileEmployeeManager {
 			GncGncEmployee jwsdpEmpl = (GncGncEmployee) bookElement;
 
 			try {
-				GnucashEmployeeImpl empl = createEmployee(jwsdpEmpl);
+				GnuCashEmployeeImpl empl = createEmployee(jwsdpEmpl);
 				emplMap.put(empl.getID(), empl);
 			} catch (RuntimeException e) {
 				LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
@@ -58,51 +58,51 @@ public class FileEmployeeManager {
 		LOGGER.debug("init: No. of entries in vendor map: " + emplMap.size());
 	}
 
-	protected GnucashEmployeeImpl createEmployee(final GncGncEmployee jwsdpEmpl) {
-		GnucashEmployeeImpl empl = new GnucashEmployeeImpl(jwsdpEmpl, gcshFile);
+	protected GnuCashEmployeeImpl createEmployee(final GncGncEmployee jwsdpEmpl) {
+		GnuCashEmployeeImpl empl = new GnuCashEmployeeImpl(jwsdpEmpl, gcshFile);
 		LOGGER.debug("Generated new employee: " + empl.getID());
 		return empl;
 	}
 
 	// ---------------------------------------------------------------
 
-	public void addEmployee(GnucashEmployee empl) {
+	public void addEmployee(GnuCashEmployee empl) {
 		emplMap.put(empl.getID(), empl);
 		LOGGER.debug("Added employee to cache: " + empl.getID());
 	}
 
-	public void removeEmployee(GnucashEmployee empl) {
+	public void removeEmployee(GnuCashEmployee empl) {
 		emplMap.remove(empl.getID());
 		LOGGER.debug("Removed employee from cache: " + empl.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnucashEmployee getEmployeeByID(final GCshID id) {
+	public GnuCashEmployee getEmployeeByID(final GCshID id) {
 		if ( emplMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashEmployee retval = emplMap.get(id);
+		GnuCashEmployee retval = emplMap.get(id);
 		if ( retval == null ) {
 			LOGGER.warn("getEmployeeByID: No Employee with id '" + id + "'. We know " + emplMap.size() + " employees.");
 		}
 		return retval;
 	}
 
-	public List<GnucashEmployee> getEmployeesByUserName(final String userName) {
+	public List<GnuCashEmployee> getEmployeesByUserName(final String userName) {
 		return getEmployeesByUserName(userName, true);
 	}
 
-	public List<GnucashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
+	public List<GnuCashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
 
 		if ( emplMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashEmployee> result = new ArrayList<GnucashEmployee>();
+		List<GnuCashEmployee> result = new ArrayList<GnuCashEmployee>();
 
-		for ( GnucashEmployee empl : getEmployees() ) {
+		for ( GnuCashEmployee empl : getEmployees() ) {
 			if ( relaxed ) {
 				if ( empl.getUserName().trim().toLowerCase().contains(expr.trim().toLowerCase()) ) {
 					result.add(empl);
@@ -117,9 +117,9 @@ public class FileEmployeeManager {
 		return result;
 	}
 
-	public GnucashEmployee getEmployeeByUserNameUniq(final String userName)
+	public GnuCashEmployee getEmployeeByUserNameUniq(final String userName)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		List<GnucashEmployee> emplList = getEmployeesByUserName(userName);
+		List<GnuCashEmployee> emplList = getEmployeesByUserName(userName);
 		if ( emplList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( emplList.size() > 1 )
@@ -128,7 +128,7 @@ public class FileEmployeeManager {
 			return emplList.get(0);
 	}
 
-	public Collection<GnucashEmployee> getEmployees() {
+	public Collection<GnuCashEmployee> getEmployees() {
 		return Collections.unmodifiableCollection(emplMap.values());
 	}
 

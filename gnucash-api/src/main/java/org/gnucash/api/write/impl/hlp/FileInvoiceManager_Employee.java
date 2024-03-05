@@ -3,15 +3,15 @@ package org.gnucash.api.write.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashGenerInvoice;
+import org.gnucash.api.read.GnuCashEmployee;
+import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.api.write.GnucashWritableGenerInvoice;
-import org.gnucash.api.write.impl.GnucashWritableGenerInvoiceImpl;
-import org.gnucash.api.write.impl.spec.GnucashWritableEmployeeVoucherImpl;
-import org.gnucash.api.write.spec.GnucashWritableEmployeeVoucher;
+import org.gnucash.api.write.GnuCashWritableGenerInvoice;
+import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
+import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +22,18 @@ public abstract class FileInvoiceManager_Employee {
 
 	// ---------------------------------------------------------------
 
-	public static List<GnucashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl) throws WrongInvoiceTypeException, IllegalArgumentException,
+	public static List<GnuCashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
-		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
+					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
+					LOGGER.error("getVouchers: Cannot instantiate GnuCashWritableEmployeeVoucherImpl");
 				}
 			}
 		}
@@ -41,18 +41,18 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static List<GnucashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+	public static List<GnuCashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
-		for ( GnucashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
+					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getPaidVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
+					LOGGER.error("getPaidVouchers: Cannot instantiate GnuCashWritableEmployeeVoucherImpl");
 				}
 			}
 		}
@@ -60,18 +60,18 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static List<GnucashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+	public static List<GnuCashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
-		List<GnucashWritableEmployeeVoucher> retval = new ArrayList<GnucashWritableEmployeeVoucher>();
+		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
-		for ( GnucashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					GnucashWritableEmployeeVoucherImpl wrtblVch = new GnucashWritableEmployeeVoucherImpl((GnucashWritableGenerInvoiceImpl) invc);
+					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getUnpaidVouchers: Cannot instantiate GnucashWritableEmployeeVoucherImpl");
+					LOGGER.error("getUnpaidVouchers: Cannot instantiate GnuCashWritableEmployeeVoucherImpl");
 				}
 			}
 		}

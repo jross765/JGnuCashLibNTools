@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.write.GnucashWritableTransaction;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.write.GnuCashWritableTransaction;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager.Type;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -48,13 +48,13 @@ public class GenDepotTrx {
 	}
 
 	protected void kernel() throws Exception {
-		GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+		GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-		GnucashAccount stockAcct = gcshFile.getAccountByID(stockAcctID);
+		GnuCashAccount stockAcct = gcshFile.getAccountByID(stockAcctID);
 		if ( stockAcct == null )
 			System.err.println("Error: Cannot get account with ID '" + stockAcctID + "'");
 
-		GnucashAccount incomeAcct = null;
+		GnuCashAccount incomeAcct = null;
 		if ( incomeAcctID != null ) {
 			incomeAcct = gcshFile.getAccountByID(incomeAcctID);
 			if ( incomeAcct == null )
@@ -62,12 +62,12 @@ public class GenDepotTrx {
 		}
 
 		for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-			GnucashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
+			GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
 			if ( expensesAcct == null )
 				System.err.println("Error: Cannot get account with ID '" + elt.accountID() + "'");
 		}
 
-		GnucashAccount offsetAcct = gcshFile.getAccountByID(offsetAcctID);
+		GnuCashAccount offsetAcct = gcshFile.getAccountByID(offsetAcctID);
 		if ( offsetAcct == null )
 			System.err.println("Error: Cannot get account with ID '" + offsetAcctID + "'");
 
@@ -77,7 +77,7 @@ public class GenDepotTrx {
 
 		int counter = 1;
 		for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-			GnucashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
+			GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
 			System.err.println("Account 3." + counter + " name (expenses): '" + expensesAcct.getQualifiedName() + "'");
 			counter++;
 		}
@@ -86,7 +86,7 @@ public class GenDepotTrx {
 
 		// ---
 
-		GnucashWritableTransaction trx = null;
+		GnuCashWritableTransaction trx = null;
 		initExpAccts();
 		if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ) {
 			trx = SecuritiesAccountTransactionManager

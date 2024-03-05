@@ -9,7 +9,7 @@ import java.util.Map;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -21,13 +21,13 @@ public class FileTaxTableManager {
 
 	// ---------------------------------------------------------------
 
-	private GnucashFileImpl gcshFile;
+	private GnuCashFileImpl gcshFile;
 
 	private Map<GCshID, GCshTaxTable> taxTabMap;
 
 	// ---------------------------------------------------------------
 
-	public FileTaxTableManager(GnucashFileImpl gcshFile) {
+	public FileTaxTableManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}

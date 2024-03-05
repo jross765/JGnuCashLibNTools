@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.hlp;
 
 import org.gnucash.api.generated.GncCountData;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +11,11 @@ public class FileStats_Counters implements FileStats {
 
 	// ---------------------------------------------------------------
 
-	private GnucashFileImpl gcshFile = null;
+	private GnuCashFileImpl gcshFile = null;
 
 	// ---------------------------------------------------------------
 
-	public FileStats_Counters(GnucashFileImpl gcshFile) {
+	public FileStats_Counters(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 	}
 

@@ -1,9 +1,9 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.read.impl.GnucashAccountImpl;
-import org.gnucash.api.write.impl.GnucashWritableAccountImpl;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.impl.GnuCashAccountImpl;
+import org.gnucash.api.write.impl.GnuCashWritableAccountImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +13,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 	// ---------------------------------------------------------------
 
-	public FileAccountManager(GnucashWritableFileImpl gcshFile) {
+	public FileAccountManager(GnuCashWritableFileImpl gcshFile) {
 		super(gcshFile);
 	}
 
@@ -23,8 +23,8 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 	 * Creates the writable version of the returned object.
 	 */
 	@Override
-	protected GnucashAccountImpl createAccount(final GncAccount jwsdpAcct) {
-		GnucashWritableAccountImpl acct = new GnucashWritableAccountImpl(jwsdpAcct, (GnucashWritableFileImpl) gcshFile);
+	protected GnuCashAccountImpl createAccount(final GncAccount jwsdpAcct) {
+		GnuCashWritableAccountImpl acct = new GnuCashWritableAccountImpl(jwsdpAcct, (GnuCashWritableFileImpl) gcshFile);
 		LOGGER.debug("createAccount: Generated new writable account: " + acct.getID());
 		return acct;
 	}

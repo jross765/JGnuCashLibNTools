@@ -2,8 +2,8 @@ package org.gnucash.api.read.aux;
 
 import java.util.List;
 
-import org.gnucash.api.read.spec.GnucashCustomerInvoice;
-import org.gnucash.api.read.spec.GnucashVendorBill;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 
@@ -13,8 +13,8 @@ import org.gnucash.base.basetypes.simple.GCshID;
  * Cf. <a href="https://cvs.gnucash.org/docs/C/gnucash-guide/bus-setuptaxtables.html">GnuCash manual</a>
  * Cf. <a href="https://gnucash.org/docs/v5/C/gnucash-manual/busnss-ar-setup1.html#busnss-ar-setuptaxtables">GnuCash manual</a>
  * 
- * @see GnucashCustomerInvoice
- * @see GnucashVendorBill
+ * @see GnuCashCustomerInvoice
+ * @see GnuCashVendorBill
  */
 public interface GCshTaxTable {
 

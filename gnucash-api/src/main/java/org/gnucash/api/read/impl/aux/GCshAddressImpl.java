@@ -1,7 +1,7 @@
 package org.gnucash.api.read.impl.aux;
 
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshAddress;
 
 public class GCshAddressImpl implements GCshAddress {
@@ -14,7 +14,7 @@ public class GCshAddressImpl implements GCshAddress {
     /**
      * the file we belong to.
      */
-    protected final GnucashFile myFile;
+    protected final GnuCashFile myFile;
     
     // -----------------------------------------------------------
 
@@ -24,7 +24,7 @@ public class GCshAddressImpl implements GCshAddress {
     @SuppressWarnings("exports")
     public GCshAddressImpl(
 	    final org.gnucash.api.generated.Address newPeer,
-	    final GnucashFile gcshFile) {
+	    final GnuCashFile gcshFile) {
 	super();
 
 	this.jwsdpPeer = newPeer;
@@ -41,14 +41,14 @@ public class GCshAddressImpl implements GCshAddress {
 	return jwsdpPeer;
     }
 
-    public GnucashFile getGnucashFile() {
+    public GnuCashFile getGnuCashFile() {
 	return myFile;
     }
 
     // -----------------------------------------------------------
 
     /**
-     * @see GnucashVendor.GCshAddress#getAddressName()
+     * @see GnuCashVendor.GCshAddress#getAddressName()
      */
     public String getAddressName() {
 	if (jwsdpPeer.getAddrName() == null) {
@@ -58,7 +58,7 @@ public class GCshAddressImpl implements GCshAddress {
     }
 
     /**
-     * @see GnucashVendor.GCshAddress#getAddressLine1()
+     * @see GnuCashVendor.GCshAddress#getAddressLine1()
      */
     public String getAddressLine1() {
 	if (jwsdpPeer.getAddrAddr1() == null) {
@@ -68,7 +68,7 @@ public class GCshAddressImpl implements GCshAddress {
     }
 
     /**
-     * @see GnucashVendor.GCshAddress#getAddressLine2()
+     * @see GnuCashVendor.GCshAddress#getAddressLine2()
      */
     public String getAddressLine2() {
 	if (jwsdpPeer.getAddrAddr2() == null) {

@@ -8,14 +8,14 @@ import java.util.List;
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Implementation of GnucashTaxTable that uses JWSDP.
+ * Implementation of GnuCashTaxTable that uses JWSDP.
  * 
  * @see GCshTaxTable
  */
@@ -33,7 +33,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     /**
      * the file we belong to.
      */
-    protected final GnucashFile myFile;
+    protected final GnuCashFile myFile;
     
     // ----------------------------
 
@@ -51,7 +51,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     @SuppressWarnings("exports")
     public GCshTaxTableImpl(
 	    final GncGncTaxTable peer, 
-	    final GnucashFile gcshFile) {
+	    final GnuCashFile gcshFile) {
 	super();
 	
 	this.jwsdpPeer = peer;
@@ -69,7 +69,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 	return jwsdpPeer;
     }
 
-    public GnucashFile getGnucashFile() {
+    public GnuCashFile getGnuCashFile() {
 	return myFile;
     }
 

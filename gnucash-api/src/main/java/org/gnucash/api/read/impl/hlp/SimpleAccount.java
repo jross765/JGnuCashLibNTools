@@ -7,15 +7,14 @@ import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Currency;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.currency.ComplexPriceTable;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.GnucashTransaction;
-import org.gnucash.api.read.GnucashTransactionSplit;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
@@ -26,11 +25,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /*
- * This is a base-class that helps implementing the GnucashAccount
+ * This is a base-class that helps implementing the GnuCashAccount
  * interface with its extensive number of convenience-methods.<br/>
  */
-public abstract class SimpleAccount extends GnucashObjectImpl 
-									implements GnucashAccount 
+public abstract class SimpleAccount extends GnuCashObjectImpl 
+									implements GnuCashAccount 
 {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleAccount.class);
 
@@ -42,7 +41,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 
 	// ---------------------------------------------------------------
 
-	public SimpleAccount(final GnucashFile gcshFile) {
+	public SimpleAccount(final GnuCashFile gcshFile) {
 		super(gcshFile);
 	}
 
@@ -51,25 +50,25 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 	/*
 	 * The returned list is sorted by the natural order of the Transaction-Splits.
 	 */
-	public List<GnucashTransaction> getTransactions() {
-		List<? extends GnucashTransactionSplit> splits = getTransactionSplits();
-		List<GnucashTransaction> retval = new ArrayList<GnucashTransaction>(splits.size());
+	public List<GnuCashTransaction> getTransactions() {
+		List<? extends GnuCashTransactionSplit> splits = getTransactionSplits();
+		List<GnuCashTransaction> retval = new ArrayList<GnuCashTransaction>(splits.size());
 
 		for ( Object element : splits ) {
-			GnucashTransactionSplit split = (GnucashTransactionSplit) element;
+			GnuCashTransactionSplit split = (GnuCashTransactionSplit) element;
 			retval.add(split.getTransaction());
 		}
 
 		return retval;
 	}
 
-	public boolean isChildAccountRecursive(final GnucashAccount account) {
+	public boolean isChildAccountRecursive(final GnuCashAccount account) {
 
 		if ( this == account ) {
 			return true;
 		}
 
-		for ( GnucashAccount child : getChildren() ) {
+		for ( GnuCashAccount child : getChildren() ) {
 			if ( this == child ) {
 				return true;
 			}
@@ -89,7 +88,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 	 * Get name including the name of the parent accounts.
 	 */
 	public String getQualifiedName() {
-		GnucashAccount acc = getParentAccount();
+		GnuCashAccount acc = getParentAccount();
 
 		if ( acc == null || 
 			 acc.getID() == getID() ) {
@@ -104,13 +103,13 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 		return acc.getQualifiedName() + SEPARATOR + getName();
 	}
 
-	public GnucashAccount getParentAccount() {
+	public GnuCashAccount getParentAccount() {
 		GCshID parentID = getParentAccountID();
 		if ( parentID == null ) {
 			return null;
 		}
 
-		return getGnucashFile().getAccountByID(parentID);
+		return getGnuCashFile().getAccountByID(parentID);
 	}
 
 	@Override
@@ -128,18 +127,18 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 
 	@Override
 	public FixedPointNumber getBalance(final LocalDate date) {
-		return getBalance(date, (List<GnucashTransactionSplit>) null);
+		return getBalance(date, (List<GnuCashTransactionSplit>) null);
 	}
 
 	/**
 	 * The currency will be the one of this account.
 	 */
 	@Override
-	public FixedPointNumber getBalance(final LocalDate date, List<GnucashTransactionSplit> after) {
+	public FixedPointNumber getBalance(final LocalDate date, List<GnuCashTransactionSplit> after) {
 	
 		FixedPointNumber balance = new FixedPointNumber();
 	
-		for ( GnucashTransactionSplit splt : getTransactionSplits() ) {
+		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
 			if ( date != null && 
 				 after != null ) {
 				if ( splt.getTransaction().getDatePosted().isAfter(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
@@ -170,7 +169,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			return retval;
 		}
 	
-		ComplexPriceTable priceTab = getGnucashFile().getCurrencyTable();
+		ComplexPriceTable priceTab = getGnuCashFile().getCurrencyTable();
 	
 		if ( priceTab == null ) {
 			LOGGER.error("getBalance: Cannot transfer "
@@ -179,11 +178,11 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 		}
 	
 		if ( ! priceTab.convertToBaseCurrency(retval, cmdtyCurrID) ) {
-			Collection<String> currList = getGnucashFile().getCurrencyTable()
+			Collection<String> currList = getGnuCashFile().getCurrencyTable()
 					.getCurrencies(getCmdtyCurrID().getNameSpace());
 			LOGGER.error("getBalance: Cannot transfer " + "from our currency '"
 					+ getCmdtyCurrID().toString() + "' to the base-currency!" + " \n(we know "
-					+ getGnucashFile().getCurrencyTable().getNameSpaces().size() + " currency-namespaces and "
+					+ getGnuCashFile().getCurrencyTable().getNameSpaces().size() + " currency-namespaces and "
 					+ (currList == null ? "no" : "" + currList.size()) + " currencies in our namespace)");
 			return null;
 		}
@@ -220,7 +219,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			}
 		}
 
-		ComplexPriceTable priceTab = getGnucashFile().getCurrencyTable();
+		ComplexPriceTable priceTab = getGnuCashFile().getCurrencyTable();
 
 		if ( priceTab == null ) {
 			LOGGER.warn("getBalance: Cannot transfer "
@@ -244,11 +243,11 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 	}
 
 	@Override
-	public FixedPointNumber getBalance(final GnucashTransactionSplit lastIncludesSplit) {
+	public FixedPointNumber getBalance(final GnuCashTransactionSplit lastIncludesSplit) {
 	
 		FixedPointNumber balance = new FixedPointNumber();
 	
-		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
+		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
 			balance.add(split.getQuantity());
 	
 			if ( split == lastIncludesSplit ) {
@@ -290,7 +289,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 //			retval = new FixedPointNumber();
 //		    }
 //	
-//		    for ( GnucashAccount child : getChildren() ) {
+//		    for ( GnuCashAccount child : getChildren() ) {
 //			retval.add(child.getBalanceRecursive(date, cmdtyCurrID));
 //		    }
 //	
@@ -315,7 +314,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			retval = new FixedPointNumber();
 		}
 
-		for ( GnucashAccount child : getChildren() ) {
+		for ( GnuCashAccount child : getChildren() ) {
 			retval.add(child.getBalanceRecursive(date, curr));
 		}
 
@@ -335,11 +334,11 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 	}
 
 	@Override
-	public GnucashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date) {
+	public GnuCashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date) {
 
-		GnucashTransactionSplit lastSplit = null;
+		GnuCashTransactionSplit lastSplit = null;
 
-		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
+		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
 			if ( date == null || 
 				 split.getTransaction().getDatePosted()
 				 	.isBefore(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
@@ -351,8 +350,8 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			}
 		}
 
-		for ( GnucashAccount account : getChildren() ) {
-			GnucashTransactionSplit split = account.getLastSplitBeforeRecursive(date);
+		for ( GnuCashAccount account : getChildren() ) {
+			GnuCashTransactionSplit split = account.getLastSplitBeforeRecursive(date);
 			if ( split != null && 
 				 split.getTransaction() != null ) {
 				if ( lastSplit == null ||
@@ -377,7 +376,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			return true;
 		}
 
-		for ( GnucashAccount child : getChildren() ) {
+		for ( GnuCashAccount child : getChildren() ) {
 			if ( child.hasTransactionsRecursive() ) {
 				return true;
 			}
@@ -415,7 +414,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 		return currencyFormat;
 	}
 
-	public GnucashTransactionSplit getTransactionSplitByID(final GCshID id) {
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");
 		} 
@@ -424,7 +423,7 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 			throw new IllegalArgumentException("ID not set");
 		}
 
-		for ( GnucashTransactionSplit split : getTransactionSplits() ) {
+		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
 			if ( id.equals(split.getID()) ) {
 				return split;
 			}
@@ -446,14 +445,14 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 	 * ${@link java.lang.String} is done.
 	 */
 	@Override
-	public int compareTo(final GnucashAccount otherAcc) {
+	public int compareTo(final GnuCashAccount otherAcc) {
 
 		int i = compareNamesTo(otherAcc);
 		if ( i != 0 ) {
 			return i;
 		}
 
-		GnucashAccount other = otherAcc;
+		GnuCashAccount other = otherAcc;
 		i = other.getID().toString().compareTo(getID().toString());
 		if ( i != 0 ) {
 			return i;
@@ -483,12 +482,12 @@ public abstract class SimpleAccount extends GnucashObjectImpl
 		// for numbers is used within our parent-
 		// account too and not just in the top-
 		// level accounts
-		if ( o instanceof GnucashAccount && 
-				((GnucashAccount) o).getParentAccountID() != null && 
+		if ( o instanceof GnuCashAccount && 
+				((GnuCashAccount) o).getParentAccountID() != null && 
 				getParentAccountID() != null && 
-				((GnucashAccount) o).getParentAccountID().toString()
+				((GnuCashAccount) o).getParentAccountID().toString()
 						.equalsIgnoreCase(getParentAccountID().toString()) ) {
-			other = ((GnucashAccount) o).getName();
+			other = ((GnuCashAccount) o).getName();
 			me = getName();
 		}
 

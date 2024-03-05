@@ -8,11 +8,11 @@ import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +25,7 @@ public class TestGCshBillTermsImpl {
 
     // -----------------------------------------------------------------
 
-    private GnucashFile gcshFile = null;
+    private GnuCashFile gcshFile = null;
     private GCshBillTerms bllTrm = null;
 
     // -----------------------------------------------------------------
@@ -53,7 +53,7 @@ public class TestGCshBillTermsImpl {
 	}
 
 	try {
-	    gcshFile = new GnucashFileImpl(gcshFileStream);
+	    gcshFile = new GnuCashFileImpl(gcshFileStream);
 	} catch (Exception exc) {
 	    System.err.println("Cannot parse GnuCash file");
 	    exc.printStackTrace();

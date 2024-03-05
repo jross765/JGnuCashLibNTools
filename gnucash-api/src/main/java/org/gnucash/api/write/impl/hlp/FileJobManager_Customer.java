@@ -3,12 +3,12 @@ package org.gnucash.api.write.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashCustomer;
-import org.gnucash.api.read.GnucashGenerJob;
+import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
-import org.gnucash.api.write.impl.GnucashWritableGenerJobImpl;
-import org.gnucash.api.write.impl.spec.GnucashWritableCustomerJobImpl;
-import org.gnucash.api.write.spec.GnucashWritableCustomerJob;
+import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,16 +18,16 @@ public abstract class FileJobManager_Customer {
     
 	// ---------------------------------------------------------------
 
-	public static List<GnucashWritableCustomerJob> getJobsByCustomer(final FileJobManager jobMgr, final GnucashCustomer cust) {
-		List<GnucashWritableCustomerJob> retval = new ArrayList<GnucashWritableCustomerJob>();
+	public static List<GnuCashWritableCustomerJob> getJobsByCustomer(final FileJobManager jobMgr, final GnuCashCustomer cust) {
+		List<GnuCashWritableCustomerJob> retval = new ArrayList<GnuCashWritableCustomerJob>();
 
-		for ( GnucashGenerJob job : jobMgr.getGenerJobs() ) {
+		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
 			if ( job.getOwnerID().equals(cust.getID()) ) {
 				try {
-					GnucashWritableCustomerJobImpl wrtblJob = new GnucashWritableCustomerJobImpl((GnucashWritableGenerJobImpl) job);
+					GnuCashWritableCustomerJobImpl wrtblJob = new GnuCashWritableCustomerJobImpl((GnuCashWritableGenerJobImpl) job);
 					retval.add(wrtblJob);
 				} catch (WrongJobTypeException e) {
-					LOGGER.error("getJobsByCustomer: Cannot instantiate GnucashWritableCustomerJobImpl");
+					LOGGER.error("getJobsByCustomer: Cannot instantiate GnuCashWritableCustomerJobImpl");
 				}
 			}
 		}

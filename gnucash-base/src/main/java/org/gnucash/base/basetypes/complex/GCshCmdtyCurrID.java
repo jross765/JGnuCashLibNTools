@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GCshCmdtyCurrID {
     
-    // https://github.com/Gnucash/gnucash/blob/stable/libgnucash/engine/gnc-commodity.h#L108
+    // https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gnc-commodity.h#L108
     // We do not use the GnuCash-internally used "NONCURRENCY"
     public enum Type {
     	CURRENCY,

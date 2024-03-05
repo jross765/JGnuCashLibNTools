@@ -24,9 +24,9 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.Price;
 import org.gnucash.api.generated.Price.PriceCommodity;
 import org.gnucash.api.generated.Price.PriceCurrency;
-import org.gnucash.api.read.GnucashPrice;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.GnucashPriceImpl;
+import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.GnuCashPriceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,14 +40,14 @@ public class FilePriceManager {
 
     // ---------------------------------------------------------------
     
-    protected GnucashFileImpl gcshFile;
+    protected GnuCashFileImpl gcshFile;
 
     private GncPricedb                priceDB = null;
-    private Map<GCshID, GnucashPrice> prcMap  = null;
+    private Map<GCshID, GnuCashPrice> prcMap  = null;
 
     // ---------------------------------------------------------------
     
-	public FilePriceManager(GnucashFileImpl gcshFile) {
+	public FilePriceManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}
@@ -55,12 +55,12 @@ public class FilePriceManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		prcMap = new HashMap<GCshID, GnucashPrice>();
+		prcMap = new HashMap<GCshID, GnuCashPrice>();
 
 		initPriceDB(pRootElement);
 		List<Price> prices = priceDB.getPrice();
 		for ( Price jwsdpPrc : prices ) {
-			GnucashPriceImpl price = createPrice(jwsdpPrc);
+			GnuCashPriceImpl price = createPrice(jwsdpPrc);
 			prcMap.put(price.getID(), price);
 		}
 
@@ -77,20 +77,20 @@ public class FilePriceManager {
 		}
 	}
 
-	protected GnucashPriceImpl createPrice(final Price jwsdpPrc) {
-		GnucashPriceImpl prc = new GnucashPriceImpl(jwsdpPrc, gcshFile);
+	protected GnuCashPriceImpl createPrice(final Price jwsdpPrc) {
+		GnuCashPriceImpl prc = new GnuCashPriceImpl(jwsdpPrc, gcshFile);
 		LOGGER.debug("Generated new price: " + prc.getID());
 		return prc;
 	}
 
 	// ---------------------------------------------------------------
 
-	public void addPrice(GnucashPrice prc) {
+	public void addPrice(GnuCashPrice prc) {
 		prcMap.put(prc.getID(), prc);
 		LOGGER.debug("Added price to cache: " + prc.getID());
 	}
 
-	public void removePrice(GnucashPrice prc) {
+	public void removePrice(GnuCashPrice prc) {
 		prcMap.remove(prc.getID());
 		LOGGER.debug("Removed price from cache: " + prc.getID());
 	}
@@ -101,7 +101,7 @@ public class FilePriceManager {
 		return priceDB;
 	}
 
-	public GnucashPrice getPriceByID(GCshID prcID) {
+	public GnuCashPrice getPriceByID(GCshID prcID) {
 		if ( prcMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -109,7 +109,7 @@ public class FilePriceManager {
 		return prcMap.get(prcID);
 	}
 
-	public Collection<GnucashPrice> getPrices() {
+	public Collection<GnuCashPrice> getPrices() {
 		if ( prcMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

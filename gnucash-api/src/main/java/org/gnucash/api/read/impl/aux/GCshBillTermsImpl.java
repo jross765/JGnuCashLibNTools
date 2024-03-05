@@ -6,7 +6,7 @@ import java.util.List;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncGncBillTerm.BilltermChild;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -26,7 +26,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     /**
      * the file we belong to.
      */
-    protected final GnucashFile myFile;
+    protected final GnuCashFile myFile;
     
     // ---------------------------------------------------------------
 
@@ -37,7 +37,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     @SuppressWarnings("exports")
     public GCshBillTermsImpl(
 	    final GncGncBillTerm peer, 
-	    final GnucashFile gcshFile) {
+	    final GnuCashFile gcshFile) {
 	super();
 
 	this.jwsdpPeer = peer;
@@ -55,7 +55,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 	return jwsdpPeer;
     }
 
-    public GnucashFile getGnucashFile() {
+    public GnuCashFile getGnuCashFile() {
 	return myFile;
     }
 

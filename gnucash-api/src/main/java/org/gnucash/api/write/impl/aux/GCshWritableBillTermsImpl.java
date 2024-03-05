@@ -9,11 +9,11 @@ import org.gnucash.api.read.aux.GCshBillTermsProximo;
 import org.gnucash.api.read.impl.aux.GCshBillTermsDaysImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsProximoImpl;
-import org.gnucash.api.write.GnucashWritableFile;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableBillTermsDays;
 import org.gnucash.api.write.aux.GCshWritableBillTermsProximo;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +35,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     @SuppressWarnings("exports")
     public GCshWritableBillTermsImpl(
 	    final GncGncBillTerm jwsdpPeer, 
-	    final GnucashWritableFile gcshFile) {
+	    final GnuCashWritableFile gcshFile) {
 	super(jwsdpPeer, gcshFile);
 	
 	try {
@@ -46,7 +46,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     }
 
     public GCshWritableBillTermsImpl(final GCshBillTermsImpl bllTrm) {
-	super(bllTrm.getJwsdpPeer(), bllTrm.getGnucashFile());
+	super(bllTrm.getJwsdpPeer(), bllTrm.getGnuCashFile());
 
 	try {
 	    this.type = super.getType();
@@ -163,7 +163,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 	    throw new IllegalArgumentException("unset parent ID given!");
 	}
 
-	GncGncBillTerm.BilltermParent intVal = ((GnucashWritableFileImpl) myFile).createGncGncBillTermParentType();
+	GncGncBillTerm.BilltermParent intVal = ((GnuCashWritableFileImpl) myFile).createGncGncBillTermParentType();
 	intVal.setType(Const.XML_DATA_TYPE_GUID);
 	intVal.setValue(prntID.toString());
 	

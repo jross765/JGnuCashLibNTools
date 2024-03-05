@@ -2,9 +2,9 @@ package org.example.gnucashapi.write.gen.simple;
 
 import java.io.File;
 
-import org.gnucash.api.read.impl.GnucashEmployeeImpl;
-import org.gnucash.api.write.GnucashWritableEmployee;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
+import org.gnucash.api.write.GnuCashWritableEmployee;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
 public class GenEmpl {
     // BEGIN Example data -- adapt to your needs
@@ -28,10 +28,10 @@ public class GenEmpl {
     }
 
     protected void kernel() throws Exception {
-	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnucashWritableEmployee empl = gcshFile.createWritableEmployee();
-	empl.setNumber(GnucashEmployeeImpl.getNewNumber(empl));
+	GnuCashWritableEmployee empl = gcshFile.createWritableEmployee();
+	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
 	empl.setUserName(userName);
 	empl.getAddress().setAddressName(name);
 

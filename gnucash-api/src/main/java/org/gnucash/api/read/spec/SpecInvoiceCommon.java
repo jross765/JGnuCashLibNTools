@@ -6,10 +6,10 @@ import org.gnucash.base.numbers.FixedPointNumber;
 /**
  * Methods common to all specialized variants of invoices (and only those).
  *
- * @see GnucashCustomerInvoice
- * @see GnucashEmployeeVoucher
- * @see GnucashVendorBill
- * @see GnucashJobInvoice
+ * @see GnuCashCustomerInvoice
+ * @see GnuCashEmployeeVoucher
+ * @see GnuCashVendorBill
+ * @see GnuCashJobInvoice
  */
 public interface SpecInvoiceCommon {
 

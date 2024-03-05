@@ -5,8 +5,8 @@ import java.io.File;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
-import org.gnucash.api.write.GnucashWritableCommodity;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.GnuCashWritableCommodity;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
 public class GenCmdty {
     // BEGIN Example data -- adapt to your needs
@@ -37,15 +37,15 @@ public class GenCmdty {
     }
 
     protected void kernel() throws Exception {
-	GnucashWritableFileImpl gcshFile = new GnucashWritableFileImpl(new File(gcshInFileName));
+	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnucashWritableCommodity cmdty1 = gcshFile.createWritableCommodity();
+	GnuCashWritableCommodity cmdty1 = gcshFile.createWritableCommodity();
 	cmdty1.setQualifID(new GCshCmdtyID_Exchange(cmdty1_exchange, cmdty1_ticker));
 	cmdty1.setXCode(cmdty1_isin);
 	cmdty1.setName(cmdty1_name);
 	System.out.println("Commodity no. 1 to write: " + cmdty1.toString());
 
-	GnucashWritableCommodity cmdty2 = gcshFile.createWritableCommodity();
+	GnuCashWritableCommodity cmdty2 = gcshFile.createWritableCommodity();
 	cmdty2.setQualifID(new GCshCmdtyID_SecIdType(cmdty2_secIdType, cmdty2_isin));
 	cmdty2.setXCode(cmdty2_isin);
 	cmdty2.setName(cmdty2_name);

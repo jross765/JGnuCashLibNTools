@@ -8,15 +8,15 @@ import java.io.InputStream;
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestSimpleCommodityQuoteTable {
-    private GnucashFile gcshFile = null;
+    private GnuCashFile gcshFile = null;
     private ComplexPriceTable complPriceTab = null;
     private SimplePriceTable simplPriceTab = null;
 
@@ -45,7 +45,7 @@ public class TestSimpleCommodityQuoteTable {
 	}
 
 	try {
-	    gcshFile = new GnucashFileImpl(kmmFileStream);
+	    gcshFile = new GnuCashFileImpl(kmmFileStream);
 	} catch (Exception exc) {
 	    System.err.println("Cannot parse GnuCash file");
 	    exc.printStackTrace();

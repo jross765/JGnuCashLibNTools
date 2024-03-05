@@ -13,7 +13,7 @@ import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +23,11 @@ public class FileStats_Raw implements FileStats {
 
 	// ---------------------------------------------------------------
 
-	private GnucashFileImpl gcshFile = null;
+	private GnuCashFileImpl gcshFile = null;
 
 	// ---------------------------------------------------------------
 
-	public FileStats_Raw(GnucashFileImpl gcshFile) {
+	public FileStats_Raw(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 	}
 

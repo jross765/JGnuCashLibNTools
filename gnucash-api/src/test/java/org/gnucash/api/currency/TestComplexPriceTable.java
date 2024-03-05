@@ -10,15 +10,15 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashFile;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestComplexPriceTable {
-    private GnucashFile gcshFile = null;
+    private GnuCashFile gcshFile = null;
     private ComplexPriceTable complPriceTab = null;
 
     // -----------------------------------------------------------------
@@ -46,7 +46,7 @@ public class TestComplexPriceTable {
 	}
 
 	try {
-	    gcshFile = new GnucashFileImpl(gcshFileStream);
+	    gcshFile = new GnuCashFileImpl(gcshFileStream);
 	} catch (Exception exc) {
 	    System.err.println("Cannot parse GnuCash file");
 	    exc.printStackTrace();

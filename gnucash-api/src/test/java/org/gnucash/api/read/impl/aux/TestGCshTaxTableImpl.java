@@ -7,10 +7,10 @@ import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ public class TestGCshTaxTableImpl {
 
     // -----------------------------------------------------------------
 
-    private GnucashFile gcshFile = null;
+    private GnuCashFile gcshFile = null;
     private GCshTaxTable taxTab = null;
 
     // -----------------------------------------------------------------
@@ -66,7 +66,7 @@ public class TestGCshTaxTableImpl {
 	}
 
 	try {
-	    gcshFile = new GnucashFileImpl(gcshFileStream);
+	    gcshFile = new GnuCashFileImpl(gcshFileStream);
 	} catch (Exception exc) {
 	    System.err.println("Cannot parse GnuCash file");
 	    exc.printStackTrace();

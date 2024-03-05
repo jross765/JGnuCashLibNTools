@@ -5,8 +5,8 @@ import java.util.Objects;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncTaxTable;
-import org.gnucash.api.read.GnucashAccount;
-import org.gnucash.api.read.GnucashFile;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,12 +25,12 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     /**
      * the file we belong to.
      */
-    protected final GnucashFile myFile;
+    protected final GnuCashFile myFile;
     
     // ----------------------------
     
     protected GCshID myAccountID;
-    protected GnucashAccount myAccount;
+    protected GnuCashAccount myAccount;
 
     // ---------------------------------------------------------------
 
@@ -41,7 +41,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     @SuppressWarnings("exports")
     public GCshTaxTableEntryImpl(
 	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element,
-	    final GnucashFile gcshFile) {
+	    final GnuCashFile gcshFile) {
 	super();
 	
 	this.jwsdpPeer = element;
@@ -58,7 +58,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 	return jwsdpPeer;
     }
 
-    public GnucashFile getGnucashFile() {
+    public GnuCashFile getGnuCashFile() {
 	return myFile;
     }
 
@@ -92,7 +92,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @link #myAccount
      */
     @Override
-    public GnucashAccount getAccount() {
+    public GnuCashAccount getAccount() {
 	if (myAccount == null) {
 	    myAccount = myFile.getAccountByID(getAccountID());
 	}

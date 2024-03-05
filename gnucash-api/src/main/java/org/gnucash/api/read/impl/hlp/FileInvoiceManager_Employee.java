@@ -3,11 +3,11 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.read.GnucashEmployee;
-import org.gnucash.api.read.GnucashGenerInvoice;
+import org.gnucash.api.read.GnuCashEmployee;
+import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.impl.spec.GnucashEmployeeVoucherImpl;
-import org.gnucash.api.read.spec.GnucashEmployeeVoucher;
+import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherImpl;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +18,16 @@ public abstract class FileInvoiceManager_Employee {
 
 	// ---------------------------------------------------------------
 
-	public static List<GnucashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl) throws WrongInvoiceTypeException {
-		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+	public static List<GnuCashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException {
+		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
-		for ( GnucashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					retval.add(new GnucashEmployeeVoucherImpl(invc));
+					retval.add(new GnuCashEmployeeVoucherImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
+					LOGGER.error("getVouchers: Cannot instantiate GnuCashEmployeeVoucherImpl");
 				}
 			}
 		}
@@ -35,17 +35,17 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static List<GnucashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl)
+	public static List<GnuCashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
-		for ( GnucashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					retval.add(new GnucashEmployeeVoucherImpl(invc));
+					retval.add(new GnuCashEmployeeVoucherImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getPaidVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
+					LOGGER.error("getPaidVouchers: Cannot instantiate GnuCashEmployeeVoucherImpl");
 				}
 			}
 		}
@@ -53,17 +53,17 @@ public abstract class FileInvoiceManager_Employee {
 		return retval;
 	}
 
-	public static List<GnucashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
-			final GnucashEmployee empl)
+	public static List<GnuCashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
+			final GnuCashEmployee empl)
 			throws WrongInvoiceTypeException, UnknownAccountTypeException {
-		List<GnucashEmployeeVoucher> retval = new ArrayList<GnucashEmployeeVoucher>();
+		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
-		for ( GnucashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnucashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
 				try {
-					retval.add(new GnucashEmployeeVoucherImpl(invc));
+					retval.add(new GnuCashEmployeeVoucherImpl(invc));
 				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getUnpaidVouchers: Cannot instantiate GnucashEmployeeVoucherImpl");
+					LOGGER.error("getUnpaidVouchers: Cannot instantiate GnuCashEmployeeVoucherImpl");
 				}
 			}
 		}

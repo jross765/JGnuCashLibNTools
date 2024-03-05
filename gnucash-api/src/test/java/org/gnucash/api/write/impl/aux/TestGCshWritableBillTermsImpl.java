@@ -14,11 +14,11 @@ import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.api.read.impl.GnucashFileImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
-import org.gnucash.api.write.impl.GnucashWritableFileImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,8 +33,8 @@ public class TestGCshWritableBillTermsImpl {
     
     // -----------------------------------------------------------------
 
-    private GnucashWritableFileImpl gcshInFile = null;
-    private GnucashFileImpl gcshOutFile = null;
+    private GnuCashWritableFileImpl gcshInFile = null;
+    private GnuCashFileImpl gcshOutFile = null;
 
     private GCshFileStats gcshInFileStats = null;
     private GCshFileStats gcshOutFileStats = null;
@@ -69,7 +69,7 @@ public class TestGCshWritableBillTermsImpl {
 	}
 
 	try {
-	    gcshInFile = new GnucashWritableFileImpl(gcshInFileStream);
+	    gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
 	} catch (Exception exc) {
 	    System.err.println("Cannot parse GnuCash in-file");
 	    exc.printStackTrace();
@@ -84,8 +84,8 @@ public class TestGCshWritableBillTermsImpl {
     // Cf. TestGCshBillTermsImpl.testxyz
     //
     // Check whether the GCshWritableBillTerms objects returned by
-    // GnucashWritableFileImpl.getWritableTaxTableByID() are actually
-    // complete (as complete as returned be GnucashFileImpl.getBillTermsByID().
+    // GnuCashWritableFileImpl.getWritableTaxTableByID() are actually
+    // complete (as complete as returned be GnuCashFileImpl.getBillTermsByID().
     
     @Test
     public void test01_1() throws Exception {
@@ -273,7 +273,7 @@ public class TestGCshWritableBillTermsImpl {
 	// we expect it is.
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
 			          // and the GnuCash file writer does not like that.
@@ -316,7 +316,7 @@ public class TestGCshWritableBillTermsImpl {
 	// we expect it is.
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnucashWritableCustomerImpl.test01_1: '"
+	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 	// + outFile.getPath() + "'");
 	outFile.delete(); // sic, the temp. file is already generated (empty),
 			          // and the GnuCash file writer does not like that.
@@ -349,7 +349,7 @@ public class TestGCshWritableBillTermsImpl {
     }
 
     private void test02_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnucashFileImpl(outFile);
+	gcshOutFile = new GnuCashFileImpl(outFile);
 	gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
 	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
@@ -399,7 +399,7 @@ public class TestGCshWritableBillTermsImpl {
     }
 
     private void test02_2_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnucashFileImpl(outFile);
+	gcshOutFile = new GnuCashFileImpl(outFile);
 	gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
 	assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));

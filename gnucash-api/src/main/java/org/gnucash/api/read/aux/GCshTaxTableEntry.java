@@ -2,7 +2,7 @@ package org.gnucash.api.read.aux;
 
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnucashAccount;
+import org.gnucash.api.read.GnuCashAccount;
 
 public interface GCshTaxTableEntry {
 
@@ -32,7 +32,7 @@ public interface GCshTaxTableEntry {
      * @return Returns the account.
      * @see ${@link #myAccount}
      */
-    GnucashAccount getAccount();
+    GnuCashAccount getAccount();
     
     /**
      * @return the amount the tax is ("16" for "16%")

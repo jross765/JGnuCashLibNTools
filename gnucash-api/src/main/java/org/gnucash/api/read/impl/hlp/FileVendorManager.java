@@ -9,11 +9,11 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnucashVendor;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.impl.GnucashFileImpl;
-import org.gnucash.api.read.impl.GnucashVendorImpl;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.GnuCashVendorImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,13 +24,13 @@ public class FileVendorManager {
     
     // ---------------------------------------------------------------
     
-    protected GnucashFileImpl gcshFile;
+    protected GnuCashFileImpl gcshFile;
 
-    private Map<GCshID, GnucashVendor> vendMap;
+    private Map<GCshID, GnuCashVendor> vendMap;
 
     // ---------------------------------------------------------------
     
-	public FileVendorManager(GnucashFileImpl gcshFile) {
+	public FileVendorManager(GnuCashFileImpl gcshFile) {
 		this.gcshFile = gcshFile;
 		init(gcshFile.getRootElement());
 	}
@@ -38,7 +38,7 @@ public class FileVendorManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		vendMap = new HashMap<GCshID, GnucashVendor>();
+		vendMap = new HashMap<GCshID, GnuCashVendor>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncVendor) ) {
@@ -47,7 +47,7 @@ public class FileVendorManager {
 			GncGncVendor jwsdpVend = (GncGncVendor) bookElement;
 
 			try {
-				GnucashVendorImpl vend = createVendor(jwsdpVend);
+				GnuCashVendorImpl vend = createVendor(jwsdpVend);
 				vendMap.put(vend.getID(), vend);
 			} catch (RuntimeException e) {
 				LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
@@ -58,50 +58,50 @@ public class FileVendorManager {
 		LOGGER.debug("init: No. of entries in vendor map: " + vendMap.size());
 	}
 
-	protected GnucashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
-		GnucashVendorImpl vend = new GnucashVendorImpl(jwsdpVend, gcshFile);
+	protected GnuCashVendorImpl createVendor(final GncGncVendor jwsdpVend) {
+		GnuCashVendorImpl vend = new GnuCashVendorImpl(jwsdpVend, gcshFile);
 		LOGGER.debug("Generated new vendor: " + vend.getID());
 		return vend;
 	}
 
 	// ---------------------------------------------------------------
 
-	public void addVendor(GnucashVendor vend) {
+	public void addVendor(GnuCashVendor vend) {
 		vendMap.put(vend.getID(), vend);
 		LOGGER.debug("Added vendor to cache: " + vend.getID());
 	}
 
-	public void removeVendor(GnucashVendor vend) {
+	public void removeVendor(GnuCashVendor vend) {
 		vendMap.remove(vend.getID());
 		LOGGER.debug("Removed vendor to cache: " + vend.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnucashVendor getVendorByID(GCshID id) {
+	public GnuCashVendor getVendorByID(GCshID id) {
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnucashVendor retval = vendMap.get(id);
+		GnuCashVendor retval = vendMap.get(id);
 		if ( retval == null ) {
 			LOGGER.warn("getVendorByID: No Vendor with id '" + id + "'. We know " + vendMap.size() + " vendors.");
 		}
 		return retval;
 	}
 
-	public List<GnucashVendor> getVendorsByName(final String name) {
+	public List<GnuCashVendor> getVendorsByName(final String name) {
 		return getVendorsByName(name, true);
 	}
 
-	public List<GnucashVendor> getVendorsByName(final String expr, final boolean relaxed) {
+	public List<GnuCashVendor> getVendorsByName(final String expr, final boolean relaxed) {
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		List<GnucashVendor> result = new ArrayList<GnucashVendor>();
+		List<GnuCashVendor> result = new ArrayList<GnuCashVendor>();
 
-		for ( GnucashVendor vend : getVendors() ) {
+		for ( GnuCashVendor vend : getVendors() ) {
 			if ( relaxed ) {
 				if ( vend.getName().trim().toLowerCase().contains(expr.trim().toLowerCase()) ) {
 					result.add(vend);
@@ -116,9 +116,9 @@ public class FileVendorManager {
 		return result;
 	}
 
-	public GnucashVendor getVendorByNameUniq(final String name)
+	public GnuCashVendor getVendorByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		List<GnucashVendor> vendList = getVendorsByName(name);
+		List<GnuCashVendor> vendList = getVendorsByName(name);
 		if ( vendList.size() == 0 )
 			throw new NoEntryFoundException();
 		else if ( vendList.size() > 1 )
@@ -127,7 +127,7 @@ public class FileVendorManager {
 			return vendList.get(0);
 	}
 
-	public Collection<GnucashVendor> getVendors() {
+	public Collection<GnuCashVendor> getVendors() {
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
