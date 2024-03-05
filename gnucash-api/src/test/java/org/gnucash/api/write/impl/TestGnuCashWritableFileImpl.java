@@ -213,10 +213,10 @@ public class TestGnuCashWritableFileImpl {
 	@Test
 	public void test04_1() throws Exception {
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestKMyMoneyWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
-                          // and the KMyMoney file writer does not like that.
+                          // and the GnuCash file writer does not like that.
 		gcshInFile.writeFile(outFile);
 
 		gcshOutFile = new GnuCashWritableFileImpl(outFile);

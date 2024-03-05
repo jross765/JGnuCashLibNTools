@@ -245,7 +245,7 @@ public class SecuritiesAccountTransactionManager {
     	    final String descr) throws UnknownAccountTypeException {
     	
     	if ( gcshFile == null ) {
-    	    throw new IllegalArgumentException("null KMyMoney file given");
+    	    throw new IllegalArgumentException("null GnuCash file given");
     	}
     		
     	if ( stockAcctID == null  ||

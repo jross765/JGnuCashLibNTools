@@ -62,7 +62,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
     // ---------------------------------------------------------------
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
@@ -72,7 +72,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
     }
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */

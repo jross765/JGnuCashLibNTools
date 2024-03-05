@@ -1,8 +1,11 @@
 # Project JGnuCashLib
 
-`JGnuCashLib` is a free and open-source Java library for reading and writing the XML file format of the GnuCash open source accounting software ([gnucash.org](https://gnucash.org)).
+`JGnuCashLib` is a free and open-source Java library for reading and writing the XML file 
+format of the GnuCash open source accounting software 
+([gnucash.org](https://gnucash.org)).
 
-It is not directly affiliated with / sponsored or coordinated by the developers of the GnuCash project.
+It is not directly affiliated with / sponsored or coordinated by the developers of the 
+GnuCash project.
 
 ## Modules and Further Details
 
@@ -49,7 +52,8 @@ with locale de_DE (for details, cf. the API module documentation).
 +---------+------------------+--------------------------------+
 
 ## Major Changes
-Here, only the top-level changes are mentioned. For more Details, cf. the README files of the resp. modules (links below).
+Here, only the top-level changes on module-level are mentioned. For more Details, 
+cf. the README files of the resp. modules (links above).
 
 ### V. 1.3 &rarr; 1.4
 Changed project structure:
@@ -58,26 +62,41 @@ Changed project structure:
 
 	This was necessary because the author is using the new module in other, external projects (not published).
 
-* Introduced new module "API Extensions".
+* Introduced new module "API Extensions"
 
-	Currently, it contains just one class. That will (hopefully) grow.
+	Currently, this module it is very small. It will (hopefully) grow.
 
 ### V. 1.2 &rarr; 1.3 and Before
 Cf. the README file of modules "API" and "Example programs" (links below).
 
+## Level of Maturity
+This software is still in its beta stage.
+
+Although the author, at this stage, feels more or less comfortable with using this
+library for write-access (given all the test cases he has contributed), he still 
+recommends not just taking it and "wildly" changing things in your valuable GnuCash
+files that you may have been building for years or possibly even decades. Although 
+he is using it for his own needs, he reckons that it still contains non-trivial bugs,
+and it definitely has not been sufficiently exposed to real-world data yet to blindly 
+rely on it working correctly in all conceivable edge and corner cases.
+
+In other words: **Make backups before you use this lib!** Take your time and check
+the generated/changed files thoroughly before moving on.
+
 ## Sister Project
 This project has a sister project: 
-
 [`JKMyMoneyLib`](https://github.com/jross765/jkmymoneylib)
 
-Both projects do not have the same level of maturity, `JGnuCashLib` is currently a little more 
-advanced than `JKMyMoneyLib`. Obviously, the author strives to keep both projects symmetrical 
-and to eventually have them both on a comparable level of maturity.
+Both projects have roughly the same level of maturity, `JGnuCashLib` currently being a little 
+more advanced than `JKMyMoneyLib`. Obviously, the author strives to keep both projects 
+symmetrical and to eventually have them both on a comparable level of maturity.
 
-What is meant by "symmetry" is this context? It means that `JKMyMoneyLib` has literally evolved / 
-is literally evolving from a source-code copy of its sister, this project (i.e., copy the code, 
-then adapt it). Given that KMyMoney and GnuCash are two finance applications with quite a few 
-similarities (both in business logic and file format), this approach makes sense. 
+What is meant by "symmetry" is this context? It means that `JKMyMoneyLib` has, in the early
+stages, literally evolved from a source-code copy of its sister, this project). 
+Meanwhile, changes and adaptations are going in both directions.
+Given that KMyMoney and GnuCash are two finance applications with quite a few 
+similarities (both in business logic and file format), this approach makes sense
+and has been working well so far.
 
 Of course, this is a "10.000-metre bird's-eye view". As always in life, things are a little more
 complicated once you go into the details. Still, looking at the big picture and at least 

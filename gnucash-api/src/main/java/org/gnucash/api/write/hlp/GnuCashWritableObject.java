@@ -3,7 +3,7 @@ package org.gnucash.api.write.hlp;
 import org.gnucash.api.write.GnuCashWritableFile;
 
 /**
- * Interface that all interfaces for writable gnucash-entities shall implement
+ * Interface that all interfaces for writable GnuCash entities shall implement
  */
 public interface GnuCashWritableObject {
 

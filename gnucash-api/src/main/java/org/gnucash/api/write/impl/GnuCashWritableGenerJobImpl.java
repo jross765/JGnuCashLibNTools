@@ -64,7 +64,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     // ---------------------------------------------------------------
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
@@ -74,7 +74,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     }
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */

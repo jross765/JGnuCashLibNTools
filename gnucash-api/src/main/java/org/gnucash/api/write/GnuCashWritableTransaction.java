@@ -34,7 +34,7 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
     void setCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      * 
      * @return the file we are associated with
      */

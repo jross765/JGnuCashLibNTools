@@ -1549,7 +1549,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 				return;
 			}
 		}
-		throw new IllegalStateException("No priceDB in Book in GnuCash-file");
+		throw new IllegalStateException("No priceDB in Book in GnuCash file");
 	}
 
 	// ---------------------------------------------------------------

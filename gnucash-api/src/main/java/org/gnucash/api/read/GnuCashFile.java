@@ -43,7 +43,7 @@ public interface GnuCashFile extends GnuCashObject,
 
     /**
      * The Currency-Table gets initialized with the latest prices found in the
-     * gnucash-file.
+     * GnuCash file.
      * 
      * @return Returns the currencyTable.
      */
@@ -934,7 +934,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param cmdtyCurrID 
      * @param pCmdtySpace the name space for pCmdtyId
      * @param pCmdtyId    the currency-name
-     * @return the latest price-quote in the gnucash-file in EURO
+     * @return the latest price-quote in the GnuCash file in EURO
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */

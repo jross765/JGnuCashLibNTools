@@ -3,13 +3,11 @@ package org.example.gnucashapi.read;
 import java.io.File;
 import java.util.Collection;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 public class GetEmplInfo {
     // BEGIN Example data -- adapt to your needs

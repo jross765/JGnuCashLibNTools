@@ -45,7 +45,7 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     /**
      * The splits of this transaction. May not be fully initialized during loading
-     * of the gnucash-file.
+     * of the GnuCash file.
      *
      * @see #mySplitsNeedSorting
      */

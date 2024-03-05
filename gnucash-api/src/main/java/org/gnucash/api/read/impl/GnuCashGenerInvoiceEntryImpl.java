@@ -65,7 +65,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     protected ZonedDateTime date;
 
     /**
-     * The tax table in the GnuCash xml-file. It defines what sales-tax-rates are
+     * The tax table in the GnuCash XML file. It defines what sales-tax-rates are
      * known.
      */
     private GCshTaxTable myInvcTaxtable;

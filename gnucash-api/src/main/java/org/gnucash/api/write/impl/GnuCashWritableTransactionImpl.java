@@ -103,7 +103,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     // ---------------------------------------------------------------
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
@@ -113,7 +113,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
@@ -125,7 +125,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     // -----------------------------------------------------------
 
     /**
-     * The gnucash-file is the top-level class to contain everything.
+     * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with
      */
@@ -134,7 +134,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * Creates a new Transaction and add's it to the given gnucash-file Don't modify
+     * Creates a new Transaction and add's it to the given GnuCash file Don't modify
      * the ID of the new transaction!
      */
     protected static GncTransaction createTransaction_int(

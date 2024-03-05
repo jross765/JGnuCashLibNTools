@@ -1228,7 +1228,7 @@ public class GnuCashFileImpl implements GnuCashFile,
     // ---------------------------------------------------------------
 
     /**
-     * @param pRootElement the root-element of the GnuCash-file
+     * @param pRootElement the root-element of the GnuCash file
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */

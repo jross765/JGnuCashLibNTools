@@ -186,7 +186,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
 
     /**
      * This may be null if an account-id is specified in
-     * the gnucash-file that does not belong to an account.
+     * the GnuCash file that does not belong to an account.
      * @return the account of the account we transfer from/to.
      */
     GnuCashAccount getAccount();
