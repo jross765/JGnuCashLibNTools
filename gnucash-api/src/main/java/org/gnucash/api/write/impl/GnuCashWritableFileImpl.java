@@ -11,7 +11,6 @@ import java.io.Writer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
@@ -112,6 +111,8 @@ import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -1105,8 +1106,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritableCustomer createWritableCustomer() {
+	public GnuCashWritableCustomer createWritableCustomer(final String name) {
 		GnuCashWritableCustomerImpl cust = new GnuCashWritableCustomerImpl(this);
+		cust.setName(name);
 		super.custMgr.addCustomer(cust);
 		return cust;
 	}
@@ -1158,8 +1160,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritableVendor createWritableVendor() {
+	public GnuCashWritableVendor createWritableVendor(final String name) {
 		GnuCashWritableVendorImpl vend = new GnuCashWritableVendorImpl(this);
+		vend.setName(name);
 		super.vendMgr.addVendor(vend);
 		return vend;
 	}
@@ -1211,8 +1214,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritableEmployee createWritableEmployee() {
+	public GnuCashWritableEmployee createWritableEmployee(final String userName) {
 		GnuCashWritableEmployeeImpl empl = new GnuCashWritableEmployeeImpl(this);
+		empl.setUserName(userName);
 		super.emplMgr.addEmployee(empl);
 		return empl;
 	}
@@ -1296,7 +1300,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritableCustomerJob createWritableCustomerJob(final GnuCashCustomer cust, final String number,
+	public GnuCashWritableCustomerJob createWritableCustomerJob(
+			final GnuCashCustomer cust, 
+			final String number,
 			final String name) {
 		if ( cust == null ) {
 			throw new IllegalArgumentException("null customer given");
@@ -1308,7 +1314,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	@Override
-	public GnuCashWritableVendorJob createWritableVendorJob(final GnuCashVendor vend, final String number,
+	public GnuCashWritableVendorJob createWritableVendorJob(
+			final GnuCashVendor vend, 
+			final String number,
 			final String name) {
 		if ( vend == null ) {
 			throw new IllegalArgumentException("null vendor given");
@@ -1450,8 +1458,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritableCommodity createWritableCommodity() {
+	public GnuCashWritableCommodity createWritableCommodity(
+			final GCshCmdtyID qualifID, 
+			final String name) {
 		GnuCashWritableCommodityImpl cmdty = new GnuCashWritableCommodityImpl(this);
+		cmdty.setQualifID(qualifID);
+		cmdty.setName(name);
 		super.cmdtyMgr.addCommodity(cmdty);
 		return cmdty;
 	}
@@ -1599,8 +1611,14 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
-	public GnuCashWritablePrice createWritablePrice() {
+	public GnuCashWritablePrice createWritablePrice(
+			final GCshCmdtyCurrID fromCmdtyCurrID,
+			final GCshCurrID toCurrID,
+			final LocalDate date) {
 		GnuCashWritablePrice prc = new GnuCashWritablePriceImpl(this);
+	    prc.setFromCmdtyCurrQualifID(fromCmdtyCurrID);
+	    prc.setToCurrencyQualifID(toCurrID);
+		prc.setDate(date);
 		super.prcMgr.addPrice(prc);
 		return prc;
 	}

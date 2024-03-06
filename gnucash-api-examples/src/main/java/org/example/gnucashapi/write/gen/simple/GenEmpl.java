@@ -30,9 +30,8 @@ public class GenEmpl {
     protected void kernel() throws Exception {
 	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableEmployee empl = gcshFile.createWritableEmployee();
+	GnuCashWritableEmployee empl = gcshFile.createWritableEmployee(userName);
 	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
-	empl.setUserName(userName);
 	empl.getAddress().setAddressName(name);
 
 	System.out.println("Employee to write: " + empl.toString());

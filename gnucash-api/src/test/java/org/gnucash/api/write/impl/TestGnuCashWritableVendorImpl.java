@@ -266,9 +266,8 @@ public class TestGnuCashWritableVendorImpl {
 	assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
 	assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
 
-	GnuCashWritableVendor vend = gcshInFile.createWritableVendor();
+	GnuCashWritableVendor vend = gcshInFile.createWritableVendor("Norma Jean Baker");
 	vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
-	vend.setName("Norma Jean Baker");
 
 	// ----------------------------
 	// Check whether the object can has actually be created
@@ -321,9 +320,8 @@ public class TestGnuCashWritableVendorImpl {
 
     @Test
     public void test03_2_1() throws Exception {
-	GnuCashWritableVendor vend = gcshInFile.createWritableVendor();
+	GnuCashWritableVendor vend = gcshInFile.createWritableVendor("Norma Jean Baker");
 	vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
-	vend.setName("Norma Jean Baker");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 	// System.err.println("Outfile for TestGnuCashWritableVendorImpl.test01_1: '" +
@@ -413,17 +411,14 @@ public class TestGnuCashWritableVendorImpl {
 
     @Test
     public void test03_2_4() throws Exception {
-	GnuCashWritableVendor vend1 = gcshInFile.createWritableVendor();
+	GnuCashWritableVendor vend1 = gcshInFile.createWritableVendor("Norma Jean Baker");
 	vend1.setNumber(GnuCashVendorImpl.getNewNumber(vend1));
-	vend1.setName("Norma Jean Baker");
 
-	GnuCashWritableVendor vend2 = gcshInFile.createWritableVendor();
+	GnuCashWritableVendor vend2 = gcshInFile.createWritableVendor("Madonna Louise Ciccone");
 	vend2.setNumber(GnuCashVendorImpl.getNewNumber(vend2));
-	vend2.setName("Madonna Louise Ciccone");
 
-	GnuCashWritableVendor vend3 = gcshInFile.createWritableVendor();
+	GnuCashWritableVendor vend3 = gcshInFile.createWritableVendor("Rowan Atkinson");
 	vend3.setNumber(GnuCashVendorImpl.getNewNumber(vend3));
-	vend3.setName("Rowan Atkinson");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnuCashWritableVendorImpl.test02_1: '" + outFile.getPath() + "'");

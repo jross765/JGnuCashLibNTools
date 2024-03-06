@@ -39,16 +39,14 @@ public class GenCmdty {
     protected void kernel() throws Exception {
 	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableCommodity cmdty1 = gcshFile.createWritableCommodity();
-	cmdty1.setQualifID(new GCshCmdtyID_Exchange(cmdty1_exchange, cmdty1_ticker));
+	GCshCmdtyID_Exchange qualifID1 = new GCshCmdtyID_Exchange(cmdty1_exchange, cmdty1_ticker);
+	GnuCashWritableCommodity cmdty1 = gcshFile.createWritableCommodity(qualifID1, cmdty1_name);
 	cmdty1.setXCode(cmdty1_isin);
-	cmdty1.setName(cmdty1_name);
 	System.out.println("Commodity no. 1 to write: " + cmdty1.toString());
 
-	GnuCashWritableCommodity cmdty2 = gcshFile.createWritableCommodity();
-	cmdty2.setQualifID(new GCshCmdtyID_SecIdType(cmdty2_secIdType, cmdty2_isin));
+	GCshCmdtyID_SecIdType qualifID2 = new GCshCmdtyID_SecIdType(cmdty2_secIdType, cmdty2_isin);
+	GnuCashWritableCommodity cmdty2 = gcshFile.createWritableCommodity(qualifID2, cmdty2_name);
 	cmdty2.setXCode(cmdty2_isin);
-	cmdty2.setName(cmdty2_name);
 	System.out.println("Commodity no. 2 to write: " + cmdty2.toString());
 
 	gcshFile.writeFile(new File(gcshOutFileName));

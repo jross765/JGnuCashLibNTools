@@ -6,12 +6,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
@@ -38,6 +32,14 @@ import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Extension of GnuCashFile that allows writing.
@@ -331,7 +333,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ----------------------------
 
-    GnuCashWritableCustomer createWritableCustomer();
+    GnuCashWritableCustomer createWritableCustomer(String name);
 
     void removeCustomer(GnuCashWritableCustomer cust);
 
@@ -343,7 +345,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ----------------------------
 
-    GnuCashWritableVendor createWritableVendor();
+    GnuCashWritableVendor createWritableVendor(String name);
 
     void removeVendor(GnuCashWritableVendor vend);
 
@@ -355,7 +357,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ----------------------------
 
-    GnuCashWritableEmployee createWritableEmployee();
+    GnuCashWritableEmployee createWritableEmployee(String userName);
 
     void removeEmployee(GnuCashWritableEmployee empl);
 
@@ -438,7 +440,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
     /**
      * @return a new commodity with no values that is already added to this file
      */
-    GnuCashWritableCommodity createWritableCommodity();
+    GnuCashWritableCommodity createWritableCommodity(GCshCmdtyID qualifID, String name);
 
     /**
      * @param cmdty the commodity to remove
@@ -475,7 +477,8 @@ public interface GnuCashWritableFile extends GnuCashFile,
     /**
      * @return a new price object with no values that is already added to this file
      */
-    GnuCashWritablePrice createWritablePrice();
+    GnuCashWritablePrice createWritablePrice(GCshCmdtyCurrID fromCmdtyCurrID, GCshCurrID toCurrID,
+											 LocalDate date);
 
     /**
      * @param prc the price to remove

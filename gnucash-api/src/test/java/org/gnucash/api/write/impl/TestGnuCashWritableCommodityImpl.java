@@ -18,6 +18,7 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableCommodity;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
@@ -53,7 +54,7 @@ public class TestGnuCashWritableCommodityImpl {
     private GCshFileStats gcshInFileStats = null;
     private GCshFileStats gcshOutFileStats = null;
 
-    private GCshCmdtyCurrID newID = new GCshCmdtyCurrID("POOPOO", "BEST");
+    private GCshCmdtyID newID = new GCshCmdtyID("POOPOO", "BEST");
 
     private GCshCmdtyCurrID cmdtyCurrID1 = null;
 //    private GCshCmdtyCurrID cmdtyCurrID2 = null;
@@ -187,9 +188,7 @@ public class TestGnuCashWritableCommodityImpl {
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
 	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
-	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
-	cmdty.setQualifID(newID);
-	cmdty.setName("Best Corp Ever");
+	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(newID, "Best Corp Ever");
 
 	// ----------------------------
 	// Check whether the object can has actually be created
@@ -243,9 +242,9 @@ public class TestGnuCashWritableCommodityImpl {
 
     @Test
     public void test03_2_1() throws Exception {
-	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity();
-	cmdty.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
-	cmdty.setName("Scam and Screw Corp.");
+	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(
+			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+			"Scam and Screw Corp.");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test01_1: '" + outFile.getPath() + "'");
@@ -337,24 +336,24 @@ public class TestGnuCashWritableCommodityImpl {
 
     @Test
     public void test03_2_2() throws Exception {
-	GnuCashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity();
-	cmdty1.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"));
-	cmdty1.setName("Scam and Screw Corp.");
+	GnuCashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity(
+			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+			"Scam and Screw Corp.");
 	cmdty1.setXCode("US0123456789");
 
-	GnuCashWritableCommodity cmdty2 = gcshInFile.createWritableCommodity();
-	cmdty2.setQualifID(new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"));
-	cmdty2.setName("Chocolaterie de la Grande Place");
+	GnuCashWritableCommodity cmdty2 = gcshInFile.createWritableCommodity(
+			new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"),
+			"Chocolaterie de la Grande Place");
 	cmdty2.setXCode("BE0123456789");
 
-	GnuCashWritableCommodity cmdty3 = gcshInFile.createWritableCommodity();
-	cmdty3.setQualifID(new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"));
-	cmdty3.setName("Ils sont fous ces dingos!");
+	GnuCashWritableCommodity cmdty3 = gcshInFile.createWritableCommodity(
+			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"),
+			"Ils sont fous ces dingos!");
 	cmdty3.setXCode("FR0123456789");
 
-	GnuCashWritableCommodity cmdty4 = gcshInFile.createWritableCommodity();
-	cmdty4.setQualifID(new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"));
-	cmdty4.setName("Ye Ole National British Trade Company Ltd.");
+	GnuCashWritableCommodity cmdty4 = gcshInFile.createWritableCommodity(
+			new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"),
+			"Ye Ole National British Trade Company Ltd.");
 	cmdty4.setXCode("GB10000A2222"); // sic, has to be set redundantly
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);

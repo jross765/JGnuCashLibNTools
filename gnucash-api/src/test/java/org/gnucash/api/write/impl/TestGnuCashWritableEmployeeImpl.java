@@ -232,9 +232,8 @@ public class TestGnuCashWritableEmployeeImpl {
 	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
 	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee();
+	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
 	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
-	empl.setUserName("Émilie Chauchoin");
 
 	// ----------------------------
 	// Check whether the object can has actually be created
@@ -287,9 +286,8 @@ public class TestGnuCashWritableEmployeeImpl {
 
     @Test
     public void test03_2_1() throws Exception {
-	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee();
+	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
 	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
-	empl.setUserName("Émilie Chauchoin");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 	// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
@@ -379,17 +377,14 @@ public class TestGnuCashWritableEmployeeImpl {
 
     @Test
     public void test03_2_4() throws Exception {
-	GnuCashWritableEmployee empl1 = gcshInFile.createWritableEmployee();
+	GnuCashWritableEmployee empl1 = gcshInFile.createWritableEmployee("Émilie Chauchoin");
 	empl1.setNumber(GnuCashEmployeeImpl.getNewNumber(empl1));
-	empl1.setUserName("Émilie Chauchoin");
 
-	GnuCashWritableEmployee empl2 = gcshInFile.createWritableEmployee();
+	GnuCashWritableEmployee empl2 = gcshInFile.createWritableEmployee("Shirley Beaty");
 	empl2.setNumber(GnuCashEmployeeImpl.getNewNumber(empl2));
-	empl2.setUserName("Shirley Beaty");
 
-	GnuCashWritableEmployee empl3 = gcshInFile.createWritableEmployee();
+	GnuCashWritableEmployee empl3 = gcshInFile.createWritableEmployee("Stefani Germanotta");
 	empl3.setNumber(GnuCashEmployeeImpl.getNewNumber(empl3));
-	empl3.setUserName("Stefani Germanotta");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test02_1: '" + outFile.getPath() + "'");

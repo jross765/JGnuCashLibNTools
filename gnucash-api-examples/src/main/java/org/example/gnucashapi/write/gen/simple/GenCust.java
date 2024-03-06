@@ -29,9 +29,8 @@ public class GenCust {
     protected void kernel() throws Exception {
 	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableCustomer cust = gcshFile.createWritableCustomer();
+	GnuCashWritableCustomer cust = gcshFile.createWritableCustomer(name);
 	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
-	cust.setName(name);
 	
 	System.out.println("Customer to write: " + cust.toString());
 	gcshFile.writeFile(new File(gcshOutFileName));

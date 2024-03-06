@@ -201,9 +201,9 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      */
     @Override
     protected GnuCashTransactionSplitImpl createSplit(
-	    final GncTransaction.TrnSplits.TrnSplit splt,
-	    final boolean addToAcct,
-	    final boolean addToInvc) throws IllegalArgumentException {
+    		final GncTransaction.TrnSplits.TrnSplit splt,
+    		final boolean addToAcct,
+    		final boolean addToInvc) throws IllegalArgumentException {
 	GnuCashWritableTransactionSplitImpl gcshTrxSplt = 
 		new GnuCashWritableTransactionSplitImpl(splt, this,
 			                                    addToAcct, addToInvc);

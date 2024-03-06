@@ -29,9 +29,8 @@ public class GenVend {
     protected void kernel() throws Exception {
 	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableVendor vend = gcshFile.createWritableVendor();
+	GnuCashWritableVendor vend = gcshFile.createWritableVendor(name);
 	vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
-	vend.setName(name);
 
 	System.out.println("Vendor to write: " + vend.toString());
 	gcshFile.writeFile(new File(gcshOutFileName));

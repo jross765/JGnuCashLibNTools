@@ -393,10 +393,7 @@ public class TestGnuCashWritablePriceImpl {
 	assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 	assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
-	GnuCashWritablePrice prc = gcshInFile.createWritablePrice();
-	prc.setDate(LocalDate.of(1910, 5, 1));
-	prc.setFromCmdtyCurrQualifID(cmdtyID11);
-	prc.setToCurrencyQualifID(currID1);
+	GnuCashWritablePrice prc = gcshInFile.createWritablePrice(cmdtyID11, currID1, LocalDate.of(1910, 5, 1));
 
 	// ----------------------------
 	// Check whether the object can has actually be created

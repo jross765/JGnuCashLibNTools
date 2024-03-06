@@ -5,8 +5,6 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,8 +12,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
@@ -26,6 +22,8 @@ import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -277,9 +275,8 @@ public class TestGnuCashWritableCustomerImpl {
 	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
 	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer();
+	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
 	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
-	cust.setName("Frederic Austerlitz");
 
 	// ----------------------------
 	// Check whether the object can has actually be created
@@ -332,9 +329,8 @@ public class TestGnuCashWritableCustomerImpl {
 
     @Test
     public void test03_2_1() throws Exception {
-	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer();
+	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
 	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
-	cust.setName("Frederic Austerlitz");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
@@ -423,18 +419,15 @@ public class TestGnuCashWritableCustomerImpl {
 
     @Test
     public void test03_2_4() throws Exception {
-	GnuCashWritableCustomer cust1 = gcshInFile.createWritableCustomer();
+	GnuCashWritableCustomer cust1 = gcshInFile.createWritableCustomer("Frederic Austerlitz");
 	cust1.setNumber(GnuCashCustomerImpl.getNewNumber(cust1));
-	cust1.setName("Frederic Austerlitz");
 
-	GnuCashWritableCustomer cust2 = gcshInFile.createWritableCustomer();
+	GnuCashWritableCustomer cust2 = gcshInFile.createWritableCustomer("Doris Kappelhoff");
 	cust2.setNumber(GnuCashCustomerImpl.getNewNumber(cust2));
-	cust2.setName("Doris Kappelhoff");
 
-	GnuCashWritableCustomer cust3 = gcshInFile.createWritableCustomer();
+	GnuCashWritableCustomer cust3 = gcshInFile.createWritableCustomer("Georgios Panayiotou");
 	cust3.setNumber(GnuCashCustomerImpl.getNewNumber(cust3));
-	cust3.setName("Georgios Panayiotou");
-
+	
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test02_1: '"
 	// + outFile.getPath() + "'");

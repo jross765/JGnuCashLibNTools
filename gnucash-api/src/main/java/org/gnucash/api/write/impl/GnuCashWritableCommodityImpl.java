@@ -92,8 +92,8 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
     protected static GncCommodity createCommodity_int(
-	    final GnuCashWritableFileImpl file,
-	    final GCshID newID) {
+    		final GnuCashWritableFileImpl file,
+    		final GCshID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("null ID given");
 		}

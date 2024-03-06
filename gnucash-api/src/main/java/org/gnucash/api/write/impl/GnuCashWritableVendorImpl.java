@@ -91,8 +91,8 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
     protected static GncGncVendor createVendor_int(
-	    final GnuCashWritableFileImpl file, 
-	    final GCshID vendID) {
+    		final GnuCashWritableFileImpl file, 
+    		final GCshID vendID) {
 	if ( ! vendID.isSet() ) {
 	    throw new IllegalArgumentException("GUID not set!");
 	}

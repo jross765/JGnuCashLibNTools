@@ -90,7 +90,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      * @return a new jwsdp-peer already entered into the jwsdp-peer of the file
      */
     protected static GncGncEmployee createEmployee_int(
-	    final GnuCashWritableFileImpl file,
+    		final GnuCashWritableFileImpl file,
             final GCshID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("null ID given");

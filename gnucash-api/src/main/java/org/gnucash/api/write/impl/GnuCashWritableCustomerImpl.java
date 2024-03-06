@@ -91,7 +91,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @return a new jwsdp-peer already entered into th jwsdp-peer of the file
      */
     protected static GncGncCustomer createCustomer_int(
-	    final GnuCashWritableFileImpl file,
+    		final GnuCashWritableFileImpl file,
             final GCshID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("null ID given");
