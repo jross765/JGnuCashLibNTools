@@ -71,7 +71,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param prntAcctID if null, gives all account that have no parent
      * @return all accounts with that parent in no particular order
      */
-    Collection<GnuCashAccount> getAccountsByParentID(GCshID prntAcctID);
+    List<GnuCashAccount> getAccountsByParentID(GCshID prntAcctID);
 
     /**
      * warning: this function has to traverse all accounts. If it much faster to try
@@ -851,14 +851,14 @@ public interface GnuCashFile extends GnuCashObject,
      * @return null if not found
      * @see #getCommodityByID(GCshID)
      */
-    Collection<GnuCashCommodity> getCommoditiesByName(String expr);
+    List<GnuCashCommodity> getCommoditiesByName(String expr);
 
     /**
      * @param expr search expression
      * @param relaxed
      * @return
      */
-    Collection<GnuCashCommodity> getCommoditiesByName(String expr, boolean relaxed);
+    List<GnuCashCommodity> getCommoditiesByName(String expr, boolean relaxed);
 
     /**
      * @param expr search expression

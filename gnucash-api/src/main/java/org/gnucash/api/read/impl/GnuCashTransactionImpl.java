@@ -262,7 +262,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      */
     public List<GnuCashGenerInvoice> getInvoices() {
     	List<GCshID> invoiceIDs = getInvoiceIDs();
-	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>(invoiceIDs.size());
+	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
 	for (GCshID invoiceID : invoiceIDs) {
 

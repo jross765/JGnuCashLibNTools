@@ -3,11 +3,10 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -101,12 +100,12 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	public Collection<GnuCashAccount> getAccountsByParentID(final GCshID acctID) {
+	public List<GnuCashAccount> getAccountsByParentID(final GCshID acctID) {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		SortedSet<GnuCashAccount> retval = new TreeSet<GnuCashAccount>();
+		List<GnuCashAccount> retval = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : acctMap.values() ) {
 			GCshID prntID = acct.getParentAccountID();
@@ -122,6 +121,8 @@ public class FileAccountManager {
 				}
 			}
 		}
+
+		retval.sort(Comparator.naturalOrder()); 
 
 		return retval;
 	}
@@ -161,6 +162,8 @@ public class FileAccountManager {
 				}
 			}
 		}
+
+		result.sort(Comparator.naturalOrder()); 
 
 		return result;
 	}
@@ -242,6 +245,8 @@ public class FileAccountManager {
 			}
 		}
 
+		result.sort(Comparator.naturalOrder()); 
+
 		return result;
 	}
 
@@ -254,6 +259,8 @@ public class FileAccountManager {
 				result.add(acct);
 			}
 		}
+
+		result.sort(Comparator.naturalOrder()); 
 
 		return result;
 	}
@@ -279,9 +286,9 @@ public class FileAccountManager {
 		return null; // Compiler happy
 	}
 
-	public Collection<? extends GnuCashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
+	public List<? extends GnuCashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
 		try {
-			Collection<GnuCashAccount> retval = new TreeSet<GnuCashAccount>();
+			List<GnuCashAccount> retval = new ArrayList<GnuCashAccount>();
 
 			for ( GnuCashAccount acct : getAccounts() ) {
 				if ( acct.getParentAccountID() == null ) {
@@ -289,6 +296,8 @@ public class FileAccountManager {
 				}
 
 			}
+
+			retval.sort(Comparator.naturalOrder()); 
 
 			return retval;
 		} catch (RuntimeException e) {
@@ -300,8 +309,8 @@ public class FileAccountManager {
 		}
 	}
 
-	public Collection<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
-		Collection<GCshID> result = new ArrayList<GCshID>();
+	public List<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
+		List<GCshID> result = new ArrayList<GCshID>();
 
 		GCshID rootAcctID = getRootAccount().getID();
 		for ( GnuCashAccount acct : getAccounts() ) {
@@ -320,13 +329,15 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public Collection<GnuCashAccount> getTopAccounts() throws UnknownAccountTypeException {
-		Collection<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
+	public List<GnuCashAccount> getTopAccounts() throws UnknownAccountTypeException {
+		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GCshID acctID : getTopAccountIDs() ) {
 			GnuCashAccount acct = getAccountByID(acctID);
 			result.add(acct);
 		}
+
+		result.sort(Comparator.naturalOrder()); 
 
 		return result;
 	}

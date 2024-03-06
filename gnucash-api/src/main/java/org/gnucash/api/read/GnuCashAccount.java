@@ -1,19 +1,18 @@
 package org.gnucash.api.read;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 
 /**
  * A GnuCash account satisfies the "normal" definition of the term in 
@@ -133,7 +132,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      *
      * @return all child-accounts
      */
-    Collection<GnuCashAccount> getChildren();
+    List<GnuCashAccount> getChildren();
 
     /**
      * @param account the account to test

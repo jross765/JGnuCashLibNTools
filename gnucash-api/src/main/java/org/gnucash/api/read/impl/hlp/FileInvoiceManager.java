@@ -122,6 +122,9 @@ public class FileInvoiceManager {
 	}
 
 	public List<GnuCashGenerInvoice> getGenerInvoices() {
+		if ( invcMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
 
 		Collection<GnuCashGenerInvoice> c = invcMap.values();
 

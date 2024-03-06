@@ -164,6 +164,35 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 
     // -----------------------------------------------------------------
 
+	@Override
+	public int compareTo(final GnuCashCommodity otherCmdty) {
+		int i = compareToByName(otherCmdty);
+		if ( i != 0 ) {
+			return i;
+		}
+
+		i = compareToByQualifID(otherCmdty);
+		if ( i != 0 ) {
+			return i;
+		}
+
+		return ("" + hashCode()).compareTo("" + otherCmdty.hashCode());
+	}
+	
+//	private int compareToByID(final GnuCashCommodity otherCmdty) {
+//		return getID().toString().compareTo(otherCmdty.getID().toString());
+//	}
+
+	private int compareToByQualifID(final GnuCashCommodity otherCmdty) {
+		return getQualifID().toString().compareTo(otherCmdty.getQualifID().toString());
+	}
+
+	private int compareToByName(final GnuCashCommodity otherCmdty) {
+		return getName().compareTo(otherCmdty.getName());
+	}
+
+    // -----------------------------------------------------------------
+
     @Override
     public String toString() {
 	

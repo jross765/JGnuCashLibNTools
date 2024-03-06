@@ -137,7 +137,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 	public List<GCshTaxTableEntry> getEntries() {
 		if ( entries == null ) {
 			GncGncTaxTable.TaxtableEntries jwsdpEntries = getJwsdpPeer().getTaxtableEntries();
-			entries = new ArrayList<>(jwsdpEntries.getGncGncTaxTableEntry().size());
+			entries = new ArrayList<GCshTaxTableEntry>();
 			for ( GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element : jwsdpEntries.getGncGncTaxTableEntry() ) {
 				entries.add(new GCshTaxTableEntryImpl(element, myFile));
 			}

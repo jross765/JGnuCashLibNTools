@@ -129,6 +129,10 @@ public class FileEmployeeManager {
 	}
 
 	public Collection<GnuCashEmployee> getEmployees() {
+		if ( emplMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
 		return Collections.unmodifiableCollection(emplMap.values());
 	}
 

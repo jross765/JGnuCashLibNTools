@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -110,7 +109,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getChildren()
      */
-    public Collection<GnuCashAccount> getChildren() {
+    public List<GnuCashAccount> getChildren() {
     	return getGnuCashFile().getAccountsByParentID(getID());
     }
 

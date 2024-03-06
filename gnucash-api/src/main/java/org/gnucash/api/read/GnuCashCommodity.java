@@ -18,7 +18,8 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
  * <br>
  * Cf. <a href="https://code.gnucash.org/website/docs/v1.6/C/t1784.html">GnuCash manual</a>
  */
-public interface GnuCashCommodity extends GnuCashObject,
+public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
+										  GnuCashObject,
 										  HasUserDefinedAttributes 
 {
 

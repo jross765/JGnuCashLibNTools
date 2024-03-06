@@ -177,6 +177,7 @@ public class FileTransactionManager {
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
+		
 		return Collections.unmodifiableCollection(trxMap.values());
 	}
 

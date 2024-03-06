@@ -1,6 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import java.beans.PropertyChangeSupport;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.chrono.ChronoZonedDateTime;
@@ -37,8 +36,6 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 	private static NumberFormat currencyFormat = null;
 
-	private volatile PropertyChangeSupport myPtyChg = null;
-
 	// ---------------------------------------------------------------
 
 	public SimpleAccount(final GnuCashFile gcshFile) {
@@ -51,14 +48,14 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	 * The returned list is sorted by the natural order of the Transaction-Splits.
 	 */
 	public List<GnuCashTransaction> getTransactions() {
-		List<? extends GnuCashTransactionSplit> splits = getTransactionSplits();
-		List<GnuCashTransaction> retval = new ArrayList<GnuCashTransaction>(splits.size());
+		List<GnuCashTransaction> retval = new ArrayList<GnuCashTransaction>();
 
-		for ( Object element : splits ) {
-			GnuCashTransactionSplit split = (GnuCashTransactionSplit) element;
-			retval.add(split.getTransaction());
+		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
+			retval.add(splt.getTransaction());
 		}
 
+		// retval.sort(Comparator.reverseOrder()); // not necessary 
+		
 		return retval;
 	}
 
@@ -264,7 +261,6 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException {
-	
 		NumberFormat cf = NumberFormat.getCurrencyInstance(lcl);
 		cf.setCurrency(getCurrency());
 		return cf.format(getBalance());
@@ -417,7 +413,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");
-		} 
+		}
 
 		if ( ! id.isSet() ) {
 			throw new IllegalArgumentException("ID not set");
@@ -433,82 +429,40 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return null;
 	}
 
-	/*
-	 * This is an extension to ${@link #compareNamesTo(Object)} that makes sure that
-	 * NEVER 2 accounts with different IDs compare to 0. Compares our name to
-	 * o.toString() .<br/> 
-	 * If both starts with some digits the resulting ${@link
-	 * java.lang.Integer} are compared.<br/> 
-	 * If one starts with a number and the other does not, the one starting with a
-	 * number is "bigger"<br/>
-	 * else and if both integers are equals a normals comparison of the
-	 * ${@link java.lang.String} is done.
-	 */
+    // -----------------------------------------------------------------
+
 	@Override
-	public int compareTo(final GnuCashAccount otherAcc) {
-
-		int i = compareNamesTo(otherAcc);
+	public int compareTo(final GnuCashAccount otherAcct) {
+		int i = compareToByQualifiedName(otherAcct);
 		if ( i != 0 ) {
 			return i;
 		}
 
-		GnuCashAccount other = otherAcc;
-		i = other.getID().toString().compareTo(getID().toString());
+		i = compareToByID(otherAcct);
 		if ( i != 0 ) {
 			return i;
 		}
 
-		return ("" + hashCode()).compareTo("" + otherAcc.hashCode());
-
+		return ("" + hashCode()).compareTo("" + otherAcct.hashCode());
 	}
 
-	/*
-	 * Compares our name to o.toString() .<br/>
-	 * If both starts with some digits the resulting ${@link java.lang.Integer} are
-	 * compared.<br/>
-	 * If one starts with a number and the other does not, the one starting with a
-	 * number is "bigger"<br/>
-	 * else and if both integers are equals a normals comparison of the
-	 */
-	public int compareNamesTo(final Object o) throws ClassCastException {
-
-		// usually compare the qualified name
-		String other = o.toString();
-		String me = getQualifiedName();
-
-		// if we have the same parent,
-		// compare the unqualified name.
-		// This enshures that the exception
-		// for numbers is used within our parent-
-		// account too and not just in the top-
-		// level accounts
-		if ( o instanceof GnuCashAccount && 
-				((GnuCashAccount) o).getParentAccountID() != null && 
-				getParentAccountID() != null && 
-				((GnuCashAccount) o).getParentAccountID().toString()
-						.equalsIgnoreCase(getParentAccountID().toString()) ) {
-			other = ((GnuCashAccount) o).getName();
-			me = getName();
-		}
-
-		// compare
-
-		Long i0 = startsWithNumber(other);
-		Long i1 = startsWithNumber(me);
-		if ( i0 == null && i1 != null ) {
-			return 1;
-		} else if ( i1 == null && i0 != null ) {
-			return -1;
-		} else if ( i0 == null ) {
-			return me.compareTo(other);
-		} else if ( i1 == null ) {
-			return me.compareTo(other);
-		} else if ( i1.equals(i0) ) {
-			return me.compareTo(other);
-		}
-
-		return i1.compareTo(i0);
+	private int compareToByID(final GnuCashAccount otherAcct) {
+		return getID().toString().compareTo(otherAcct.getID().toString());
 	}
+
+	private int compareToByCode(final GnuCashAccount otherAcct) {
+		return getCode().toString().compareTo(otherAcct.getCode().toString());
+	}
+
+	private int compareToByName(final GnuCashAccount otherAcct) {
+		return getName().compareTo(otherAcct.getName());
+	}
+
+	private int compareToByQualifiedName(final GnuCashAccount otherAcct) {
+		return getQualifiedName().compareTo(otherAcct.getQualifiedName());
+	}
+
+    // -----------------------------------------------------------------
 
 	/*
 	 * Helper used in ${@link #compareTo(Object)} to compare names starting with a

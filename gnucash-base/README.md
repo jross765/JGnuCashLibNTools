@@ -10,8 +10,20 @@ This might seem overly complicated, but in fact, it was necessary, because the a
 
 * Better test coverage
 
-# Planned
-Nothing.
+## Planned
+* Get rid of inconsistencies in class `FixedPointNumber` (cf. below).
 
-# Known Issues
-None.
+* Same class: Support for more data types in constructors and operation methods.
+
+* Possibly spin off package `numbers` in yet another, package outside of this
+  project (as it is completely redundant to the according package in the sister project).
+  
+* Alternatively to the above-mentioned points: 
+  Research and re-evaluate whether we actually need this package or if 
+  there is not an equivalent one from a widely used library (such as Apache Commons)
+  that we can migrate to.
+
+## Known Issues
+* Inconsistencies in class `FixedPointNumber`: Every operation method changes
+  the value of the instance (`add()`, `subtract()`, `multiply()`), except
+  `divide()`.

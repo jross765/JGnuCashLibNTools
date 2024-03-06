@@ -11,6 +11,7 @@ import java.io.Writer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
@@ -1404,8 +1405,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	@Override
-	public Collection<GnuCashWritableCommodity> getWritableCommoditiesByName(final String expr) {
-		Collection<GnuCashWritableCommodity> result = new ArrayList<GnuCashWritableCommodity>();
+	public List<GnuCashWritableCommodity> getWritableCommoditiesByName(final String expr) {
+		List<GnuCashWritableCommodity> result = new ArrayList<GnuCashWritableCommodity>();
 
 		for ( GnuCashCommodity cmdty : super.getCommoditiesByName(expr) ) {
 			GnuCashWritableCommodity newCmdty = new GnuCashWritableCommodityImpl((GnuCashCommodityImpl) cmdty);
@@ -1416,8 +1417,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	@Override
-	public Collection<GnuCashWritableCommodity> getWritableCommoditiesByName(final String expr, final boolean relaxed) {
-		Collection<GnuCashWritableCommodity> result = new ArrayList<GnuCashWritableCommodity>();
+	public List<GnuCashWritableCommodity> getWritableCommoditiesByName(final String expr, final boolean relaxed) {
+		List<GnuCashWritableCommodity> result = new ArrayList<GnuCashWritableCommodity>();
 
 		for ( GnuCashCommodity cmdty : super.getCommoditiesByName(expr, relaxed) ) {
 			GnuCashWritableCommodity newCmdty = new GnuCashWritableCommodityImpl((GnuCashCommodityImpl) cmdty);

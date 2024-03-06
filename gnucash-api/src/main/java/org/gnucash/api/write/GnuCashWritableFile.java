@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -424,9 +425,9 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     GnuCashWritableCommodity getWritableCommodityByXCode(String xCode);
 
-    Collection<GnuCashWritableCommodity> getWritableCommoditiesByName(String expr);
+    List<GnuCashWritableCommodity> getWritableCommoditiesByName(String expr);
 
-    Collection<GnuCashWritableCommodity> getWritableCommoditiesByName(String expr, boolean relaxed);
+    List<GnuCashWritableCommodity> getWritableCommoditiesByName(String expr, boolean relaxed);
     
     GnuCashWritableCommodity getWritableCommodityByNameUniq(String expr) throws NoEntryFoundException, TooManyEntriesFoundException;
     

@@ -4,7 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -139,37 +143,37 @@ public class TestGnuCashCommodityImpl {
 
     @Test
     public void test01_4() throws Exception {
-	Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName("mercedes");
+    	List<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName("mercedes");
 	assertNotEquals(null, cmdtyList);
 	assertEquals(1, cmdtyList.size());
 
-	assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+	assertEquals(cmdtyCurrID1.toString(), cmdtyList.get(0).getQualifID().toString());
 	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+	assertNotEquals(cmdtyCurrID1, cmdtyList.get(0).getQualifID());
 	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
 //    assertEquals(cmdtyCurrID1, 
 //	        ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
-	assertEquals(CMDTY_1_ISIN, ((GnuCashCommodity) cmdtyList.toArray()[0]).getXCode());
+	assertEquals(CMDTY_1_ISIN, cmdtyList.get(0).getXCode());
 	assertEquals("Mercedes-Benz Group AG", ((GnuCashCommodity) cmdtyList.toArray()[0]).getName());
 
 	cmdtyList = gcshFile.getCommoditiesByName("BENZ");
 	assertNotEquals(null, cmdtyList);
 	assertEquals(1, cmdtyList.size());
 	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+	assertNotEquals(cmdtyCurrID1, cmdtyList.get(0).getQualifID());
 	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
 //    assertEquals(cmdtyCurrID1, 
-//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+//	         cmdtyList.get(0).getQualifID());
 
 	cmdtyList = gcshFile.getCommoditiesByName(" MeRceDeS-bEnZ  ");
 	assertNotEquals(null, cmdtyList);
 	assertEquals(1, cmdtyList.size());
-	assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+	assertEquals(cmdtyCurrID1.toString(), cmdtyList.get(0).getQualifID().toString());
 	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+	assertNotEquals(cmdtyCurrID1, cmdtyList.get(0).getQualifID());
 	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
 //    assertEquals(cmdtyCurrID1, 
-//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
+//	         cmdtyList.get(0).getQualifID()); // not trivial!
     }
 
     // ------------------------------
@@ -218,7 +222,7 @@ public class TestGnuCashCommodityImpl {
 
     @Test
     public void test02_4() throws Exception {
-	Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName("astra");
+	List<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName("astra");
 	assertNotEquals(null, cmdtyList);
 	assertEquals(1, cmdtyList.size());
 

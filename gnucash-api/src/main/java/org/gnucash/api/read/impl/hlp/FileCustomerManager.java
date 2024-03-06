@@ -131,6 +131,10 @@ public class FileCustomerManager {
 	// ::CHECK
 	// https://stackoverflow.com/questions/52620446/collectors-tounmodifiablelist-vs-collections-unmodifiablelist-in-java-10?rq=3
 	public Collection<GnuCashCustomer> getCustomers() {
+		if ( custMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
 		return Collections.unmodifiableCollection(custMap.values());
 		// return custMap.values().stream().collect( Collectors.toUnmodifiableList() );
 	}

@@ -4,11 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,13 +83,15 @@ public class TestGnuCashAccountImpl {
 	assertEquals(7778.31, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	assertEquals(7778.31, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(9, acct.getTransactions().size());
-	assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
-	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
-	assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
-	assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(3).getID().toString());
-	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(4).getID().toString());
-	assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(5).getID().toString());
+	List<GnuCashTransaction> trxList = acct.getTransactions();
+	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
+	assertEquals(9, trxList.size());
+	assertEquals("568864bfb0954897ab8578db4d27372f", trxList.get(0).getID().toString());
+	assertEquals("cc9fe6a245df45ba9b494660732a7755", trxList.get(1).getID().toString());
+	assertEquals("4307689faade47d8aab4db87c8ce3aaf", trxList.get(2).getID().toString());
+	assertEquals("29557cfdf4594eb68b1a1b710722f991", trxList.get(3).getID().toString());
+	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", trxList.get(4).getID().toString());
+	assertEquals("18a45dfc8a6868c470438e27d6fe10b2", trxList.get(5).getID().toString());
     }
 
     @Test
@@ -127,6 +131,12 @@ public class TestGnuCashAccountImpl {
 	assertEquals("CURRENCY:EUR", acct.getCmdtyCurrID().toString());
 
 	assertEquals(ROOT_ACCT_ID, acct.getParentAccountID());
+
+	List<GnuCashAccount> acctList = acct.getChildren();
+	assertEquals(3, acctList.size());
+	assertEquals("e5523198bef94e2c89f0a42fa1e27e42", acctList.get(0).getID().toString());
+	assertEquals("a6d76c8d72764905adecd78d955d25c0", acctList.get(1).getID().toString());
+	assertEquals("1a5b06dada56466197edbd15e64fd425", acctList.get(2).getID().toString());
 
 	assertEquals(0.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	// ::CHECK: Should'nt the value in the following assert be positive
