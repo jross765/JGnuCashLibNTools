@@ -38,7 +38,6 @@ public class SecuritiesAccountTransactionManager {
 
     // ---------------------------------------------------------------
     
-    @SuppressWarnings("exports")
     public static GnuCashWritableTransaction genBuyStockTrx(
 	    final GnuCashWritableFileImpl gcshFile,
 	    final GCshID stockAcctID,
@@ -60,7 +59,6 @@ public class SecuritiesAccountTransactionManager {
     			      postDate, descr);	
     }
     
-    @SuppressWarnings("exports")
     public static GnuCashWritableTransaction genBuyStockTrx(
 	    final GnuCashWritableFileImpl gcshFile,
 	    final GCshID stockAcctID,
@@ -211,7 +209,6 @@ public class SecuritiesAccountTransactionManager {
     
     // ---------------------------------------------------------------
     
-    @SuppressWarnings("exports")
     public static GnuCashWritableTransaction genDivivendTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,
@@ -233,7 +230,6 @@ public class SecuritiesAccountTransactionManager {
     			      postDate, descr);
     }
     
-    @SuppressWarnings("exports")
     public static GnuCashWritableTransaction genDivivendTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,

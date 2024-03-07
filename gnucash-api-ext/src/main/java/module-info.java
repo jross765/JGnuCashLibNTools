@@ -2,8 +2,8 @@ module gnucash.apiext {
 	requires static org.slf4j;
 	// requires java.desktop;
 	
-	requires gnucash.base;
-	requires gnucash.api;
+	requires transitive gnucash.base;
+	requires transitive gnucash.api;
 
 	exports org.gnucash.apiext.secacct;
 }
