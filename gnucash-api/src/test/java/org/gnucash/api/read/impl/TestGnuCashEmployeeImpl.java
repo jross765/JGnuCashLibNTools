@@ -6,13 +6,12 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 

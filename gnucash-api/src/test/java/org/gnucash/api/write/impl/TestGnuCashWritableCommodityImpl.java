@@ -242,9 +242,10 @@ public class TestGnuCashWritableCommodityImpl {
 
     @Test
     public void test03_2_1() throws Exception {
-	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(
-			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
-			"Scam and Screw Corp.");
+	GnuCashWritableCommodity cmdty = 
+			gcshInFile.createWritableCommodity(
+					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+					"Scam and Screw Corp.");
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 //      System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test01_1: '" + outFile.getPath() + "'");
@@ -324,7 +325,7 @@ public class TestGnuCashWritableCommodityImpl {
 
 	// Last (new) node
 	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(lastNode.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
 	Element elt = (Element) lastNode;
 	assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
 	assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
@@ -336,24 +337,28 @@ public class TestGnuCashWritableCommodityImpl {
 
     @Test
     public void test03_2_2() throws Exception {
-	GnuCashWritableCommodity cmdty1 = gcshInFile.createWritableCommodity(
-			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
-			"Scam and Screw Corp.");
+	GnuCashWritableCommodity cmdty1 = 
+			gcshInFile.createWritableCommodity(
+					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+					"Scam and Screw Corp.");
 	cmdty1.setXCode("US0123456789");
 
-	GnuCashWritableCommodity cmdty2 = gcshInFile.createWritableCommodity(
-			new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"),
-			"Chocolaterie de la Grande Place");
+	GnuCashWritableCommodity cmdty2 = 
+			gcshInFile.createWritableCommodity(
+					new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"),
+					"Chocolaterie de la Grande Place");
 	cmdty2.setXCode("BE0123456789");
 
-	GnuCashWritableCommodity cmdty3 = gcshInFile.createWritableCommodity(
-			new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"),
-			"Ils sont fous ces dingos!");
+	GnuCashWritableCommodity cmdty3 = 
+			gcshInFile.createWritableCommodity(
+					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"),
+					"Ils sont fous ces dingos!");
 	cmdty3.setXCode("FR0123456789");
 
-	GnuCashWritableCommodity cmdty4 = gcshInFile.createWritableCommodity(
-			new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"),
-			"Ye Ole National British Trade Company Ltd.");
+	GnuCashWritableCommodity cmdty4 = 
+			gcshInFile.createWritableCommodity(
+					new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"),
+					"Ye Ole National British Trade Company Ltd.");
 	cmdty4.setXCode("GB10000A2222"); // sic, has to be set redundantly
 
 	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
@@ -386,7 +391,7 @@ public class TestGnuCashWritableCommodityImpl {
 
 	// Last three nodes (the new ones)
 	Node node = nList.item(nList.getLength() - 4);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	Element elt = (Element) node;
 	assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
 	assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
@@ -395,7 +400,7 @@ public class TestGnuCashWritableCommodityImpl {
 	assertEquals("US0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
 	node = nList.item(nList.getLength() - 3);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	elt = (Element) node;
 	assertEquals("Chocolaterie de la Grande Place",
 		elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
@@ -405,7 +410,7 @@ public class TestGnuCashWritableCommodityImpl {
 	assertEquals("BE0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
 	node = nList.item(nList.getLength() - 2);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	elt = (Element) node;
 	assertEquals("Ils sont fous ces dingos!", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
 	assertEquals(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(),
@@ -414,7 +419,7 @@ public class TestGnuCashWritableCommodityImpl {
 	assertEquals("FR0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
 	node = nList.item(nList.getLength() - 1);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	elt = (Element) node;
 	assertEquals("Ye Ole National British Trade Company Ltd.",
 		elt.getElementsByTagName("cmdty:name").item(0).getTextContent());

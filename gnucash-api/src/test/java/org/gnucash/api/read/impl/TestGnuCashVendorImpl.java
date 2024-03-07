@@ -6,16 +6,15 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 

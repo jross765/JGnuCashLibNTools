@@ -229,7 +229,7 @@ public class TestGnuCashWritableVendorJobImpl {
 
 	// Last (new) node
 	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(lastNode.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
 
 	Element elt = (Element) lastNode;
 	assertEquals("J456", elt.getElementsByTagName("job:id").item(0).getTextContent());

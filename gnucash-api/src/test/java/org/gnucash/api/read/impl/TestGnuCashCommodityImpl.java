@@ -4,19 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
-import org.gnucash.api.read.GnuCashCommodity;
-import org.gnucash.api.read.GnuCashFile;
 import org.junit.Before;
 import org.junit.Test;
 

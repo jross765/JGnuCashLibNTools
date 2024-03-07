@@ -409,7 +409,7 @@ public class TestGnuCashWritableCustomerImpl {
 
 	// Last (new) node
 	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(lastNode.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
 	Element elt = (Element) lastNode;
 	assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
 	assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
@@ -457,19 +457,19 @@ public class TestGnuCashWritableCustomerImpl {
 
 	// Last three nodes (the new ones)
 	Node node = nList.item(nList.getLength() - 3);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	Element elt = (Element) node;
 	assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
 	assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
 
 	node = nList.item(nList.getLength() - 2);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	elt = (Element) node;
 	assertEquals("Doris Kappelhoff", elt.getElementsByTagName("cust:name").item(0).getTextContent());
 	assertEquals("000005", elt.getElementsByTagName("cust:id").item(0).getTextContent());
 
 	node = nList.item(nList.getLength() - 1);
-	assertEquals(node.getNodeType(), Node.ELEMENT_NODE);
+	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 	elt = (Element) node;
 	assertEquals("Georgios Panayiotou", elt.getElementsByTagName("cust:name").item(0).getTextContent());
 	assertEquals("000006", elt.getElementsByTagName("cust:id").item(0).getTextContent());
