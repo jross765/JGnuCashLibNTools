@@ -6,7 +6,10 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -115,16 +118,15 @@ public class TestGnuCashWritablePriceImpl {
 
     @Test
     public void test01() throws Exception {
-	Collection<GnuCashPrice> priceList = gcshInFile.getPrices();
-
-	assertEquals(9, priceList.size());
-
-	// ::TODO: Sort array for predictability
-//      Object[] priceArr = priceList.toArray();
-//      
-//      assertEquals(PRICE_1_ID, ((GCshPrice) priceArr[0]).getID());
-//      assertEquals(PRICE_2_ID, ((GCshPrice) priceArr[1]).getID());
-//      assertEquals(PRICE_3_ID, ((GCshPrice) priceArr[2]).getID());
+	Collection<GnuCashWritablePrice> prcColl = gcshInFile.getWritablePrices();
+	List<GnuCashWritablePrice> prcList = new ArrayList<GnuCashWritablePrice>(prcColl);
+	prcList.sort(Comparator.naturalOrder());
+	
+	assertEquals(9, prcList.size());
+	assertEquals(PRC_4_ID, prcList.get(0).getID());
+	assertEquals(PRC_1_ID, prcList.get(1).getID());
+	assertEquals(PRC_3_ID, prcList.get(5).getID()); // <-- CAUTION index!
+	assertEquals(PRC_2_ID, prcList.get(6).getID()); // <-- CAUTION index!
     }
 
     @Test

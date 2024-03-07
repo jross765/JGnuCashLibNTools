@@ -2,6 +2,7 @@ package org.gnucash.api.read;
 
 import java.time.LocalDate;
 
+import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
@@ -9,7 +10,6 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.hlp.GnuCashObject;
 
 /**
  * According to GnuCash's definition of a {@link GnuCashCommodity},
@@ -20,7 +20,10 @@ import org.gnucash.api.read.hlp.GnuCashObject;
  *   <li>A pseudo-security's price</li> 
  * </ul>
  */
-public interface GnuCashPrice extends GnuCashObject {
+public interface GnuCashPrice extends Comparable<GnuCashPrice>,
+									  GnuCashObject 
+{
+	
 
     // For the following enums, cf.:
     // https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gnc-pricedb.h
@@ -132,7 +135,11 @@ public interface GnuCashPrice extends GnuCashObject {
 
     Source getSource();
 
+    // String getSourceStr();
+
     Type getType();
+
+    // String getTypeStr();
 
     FixedPointNumber getValue();
     

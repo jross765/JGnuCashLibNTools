@@ -7,6 +7,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Currency;
 
 import org.gnucash.api.Const;
+import org.gnucash.api.generated.Price;
+import org.gnucash.api.generated.Price.PriceCommodity;
+import org.gnucash.api.generated.Price.PriceCurrency;
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashFile;
+import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
@@ -15,13 +22,6 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.generated.Price;
-import org.gnucash.api.generated.Price.PriceCommodity;
-import org.gnucash.api.generated.Price.PriceCurrency;
-import org.gnucash.api.read.GnuCashCommodity;
-import org.gnucash.api.read.GnuCashFile;
-import org.gnucash.api.read.GnuCashPrice;
-import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -246,7 +246,29 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 		return getCurrencyFormat().format(getValue());
 	}
 
-	// ---------------------------------------------------------------
+    // -----------------------------------------------------------------
+
+    @Override
+	public int compareTo(final GnuCashPrice otherPrc) {
+		int i = getFromCmdtyCurrQualifID().toString().compareTo(otherPrc.getFromCmdtyCurrQualifID().toString());
+		if ( i != 0 ) {
+			return i;
+		}
+
+		i = getDate().compareTo(otherPrc.getDate());
+		if ( i != 0 ) {
+			return i;
+		}
+
+		i = getSource().toString().compareTo(otherPrc.getSource().toString()); // sic, not getSourceStr()
+		if ( i != 0 ) {
+			return i;
+		}
+		
+		return ("" + hashCode()).compareTo("" + otherPrc.hashCode());
+	}
+	
+    // -----------------------------------------------------------------
 
 	@Override
 	public String toString() {
