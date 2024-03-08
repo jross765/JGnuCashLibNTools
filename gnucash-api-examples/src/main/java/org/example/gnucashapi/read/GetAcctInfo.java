@@ -59,7 +59,7 @@ public class GetAcctInfo {
 	printAcctInfo(acct, 0);
     }
 
-    private void printAcctInfo(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void printAcctInfo(GnuCashAccount acct, int depth) {
 	System.out.println("Depth:           " + depth);
 
 	try {
@@ -120,7 +120,7 @@ public class GetAcctInfo {
 
     // -----------------------------------------------------------------
 
-    private void showParents(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void showParents(GnuCashAccount acct, int depth) {
 	if ( depth <= 0 && 
 	     acct.getType() != GnuCashAccount.Type.ROOT ) {
 	    System.out.println("");
@@ -130,7 +130,7 @@ public class GetAcctInfo {
 	}
     }
 
-    private void showChildren(GnuCashAccount acct, int depth) throws UnknownAccountTypeException {
+    private void showChildren(GnuCashAccount acct, int depth) {
 	System.out.println("");
 	System.out.println("Children:");
 

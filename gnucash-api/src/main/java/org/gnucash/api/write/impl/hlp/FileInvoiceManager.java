@@ -59,8 +59,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	// that how it is.)
 	// Cf. comments in GnuCashWritableCustomerImpl.
 
-	public Collection<GnuCashWritableGenerInvoice> getPaidWritableGenerInvoices()
-			throws UnknownAccountTypeException {
+	public Collection<GnuCashWritableGenerInvoice> getPaidWritableGenerInvoices() {
 		Collection<GnuCashWritableGenerInvoice> retval = new ArrayList<GnuCashWritableGenerInvoice>();
 
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
@@ -109,8 +108,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		return retval;
 	}
 
-	public Collection<GnuCashWritableGenerInvoice> getUnpaidWritableGenerInvoices()
-			throws UnknownAccountTypeException {
+	public Collection<GnuCashWritableGenerInvoice> getUnpaidWritableGenerInvoices() {
 		Collection<GnuCashWritableGenerInvoice> retval = new ArrayList<GnuCashWritableGenerInvoice>();
 
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
@@ -173,26 +171,26 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Customer.getPaidInvoices_direct(this, cust);
 	}
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoicesForCustomer_viaAllJobs(
 			final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getPaidInvoices_viaAllJobs(cust);
 	}
 
 	public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Customer.getUnpaidInvoices_direct(this, cust);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoicesForCustomer_viaAllJobs(
 			final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getUnpaidInvoices_viaAllJobs(cust);
 	}
 
@@ -210,24 +208,24 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public List<GnuCashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Vendor.getPaidBills_direct(this, vend);
 	}
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getPaidBills_viaAllJobs(vend);
 	}
 
 	public List<GnuCashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Vendor.getUnpaidBills_direct(this, vend);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getUnpaidBills_viaAllJobs(vend);
 	}
 
@@ -240,13 +238,13 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Employee.getPaidVouchers(this, empl);
 	}
 
 	public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Employee.getUnpaidVouchers(this, empl);
 	}
@@ -260,13 +258,13 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	}
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Job.getPaidInvoices(this, job);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return FileInvoiceManager_Job.getUnpaidInvoices(this, job);
 	}

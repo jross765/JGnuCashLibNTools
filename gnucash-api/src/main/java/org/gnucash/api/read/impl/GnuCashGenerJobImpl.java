@@ -139,21 +139,16 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	 * {@inheritDoc}
 	 * 
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
 	@Override
-	public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	public int getNofOpenInvoices() throws WrongInvoiceTypeException {
 		return getGnuCashFile().getUnpaidInvoicesForJob(this).size();
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException {
+	public FixedPointNumber getIncomeGenerated() {
 		FixedPointNumber retval = new FixedPointNumber();
 
 		try {
@@ -175,31 +170,22 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public String getIncomeGeneratedFormatted() throws UnknownAccountTypeException {
+	public String getIncomeGeneratedFormatted() {
 		return getCurrencyFormat().format(getIncomeGenerated());
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException {
+	public String getIncomeGeneratedFormatted(Locale lcl) {
 		return NumberFormat.getCurrencyInstance(lcl).format(getIncomeGenerated());
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException {
+	public FixedPointNumber getOutstandingValue() {
 		FixedPointNumber retval = new FixedPointNumber();
 
 		try {
@@ -221,21 +207,15 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public String getOutstandingValueFormatted() throws UnknownAccountTypeException {
+	public String getOutstandingValueFormatted() {
 		return getCurrencyFormat().format(getOutstandingValue());
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws UnknownAccountTypeException
-	 * 
 	 */
-	public String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException {
+	public String getOutstandingValueFormatted(Locale lcl) {
 		return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
 	}
 
@@ -248,13 +228,13 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 
 	@Override
 	public List<GnuCashJobInvoice> getPaidInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return getGnuCashFile().getPaidInvoicesForJob(this);
 	}
 
 	@Override
 	public List<GnuCashJobInvoice> getUnpaidInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return getGnuCashFile().getUnpaidInvoicesForJob(this);
 	}
 

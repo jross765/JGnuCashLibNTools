@@ -116,7 +116,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
 	  return code;
       }
 	
-      public String getLocaleString() throws IllegalArgumentException {
+      public String getLocaleString() {
 	  return getLocaleString(Locale.getDefault());
       }
 

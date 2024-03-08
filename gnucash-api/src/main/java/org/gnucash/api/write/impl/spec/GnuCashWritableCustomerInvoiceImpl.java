@@ -66,7 +66,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @param file the file we are associated with.
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws IllegalArgumentException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
@@ -216,8 +215,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
-	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
@@ -235,8 +232,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws
-	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableCustomerInvoiceEntryImpl entry) throws WrongInvoiceTypeException,

@@ -214,7 +214,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @see GnuCashTransaction#getNegatedBalance()
      */
-    public FixedPointNumber getNegatedBalance() throws IllegalArgumentException {
+    public FixedPointNumber getNegatedBalance() {
 	return getBalance().multiply(new FixedPointNumber("-100/100"));
     }
 

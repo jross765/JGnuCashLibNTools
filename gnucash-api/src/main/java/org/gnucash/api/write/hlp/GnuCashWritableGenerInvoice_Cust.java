@@ -29,8 +29,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(
     		GnuCashAccount acct,
@@ -53,8 +51,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(
     		GnuCashAccount acct,
@@ -77,8 +73,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(
     		GnuCashAccount acct,

@@ -313,7 +313,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 
     /**
      * @throws WrongInvoiceTypeException 
-     * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      * @see {@link #GnuCashWritableInvoiceEntryImpl(GnuCashWritableGenerInvoiceImpl, GnuCashAccount, FixedPointNumber, FixedPointNumber)}
      */
@@ -344,7 +343,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     private static GncGncEntry createGenerInvoiceEntryCommon(
 	    final GnuCashWritableGenerInvoiceImpl invc,
 	    final GnuCashWritableFileImpl gcshWrtblFile,
-	    final ObjectFactory factory) throws IllegalArgumentException {
+	    final ObjectFactory factory) {
 
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
@@ -939,7 +938,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
@@ -980,7 +978,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
@@ -994,7 +991,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
@@ -1036,7 +1032,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
@@ -1062,7 +1057,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException 
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
@@ -1092,10 +1086,8 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     // -----------------------------------------------------------
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      */
-    public void setAction(final Action act) throws IllegalArgumentException {
+    public void setAction(final Action act) {
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
@@ -1114,7 +1106,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setQuantity(FixedPointNumber)
      */
@@ -1128,7 +1119,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setQuantityFormatted(String)
      */
@@ -1142,7 +1132,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setQuantity(FixedPointNumber)
      */
@@ -1169,7 +1158,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashWritableGenerInvoiceEntry#remove()
      */

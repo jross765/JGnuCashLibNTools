@@ -168,7 +168,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	// Cf. comments in FileInvoiceManager (write-version).
 
 	@Override
-	public int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+	public int getNofOpenInvoices() throws WrongInvoiceTypeException {
 		try {
 			return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this).size();
 		} catch (TaxTableNotFoundException e) {
@@ -193,7 +193,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 
 	@Override
 	public List<GnuCashJobInvoice> getPaidInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashJobInvoice> result = new ArrayList<GnuCashJobInvoice>();
 
 		try {
@@ -211,7 +211,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 
 	@Override
 	public List<GnuCashJobInvoice> getUnpaidInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashJobInvoice> result = new ArrayList<GnuCashJobInvoice>();
 
 		try {
@@ -244,13 +244,13 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 //    }
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableGnuCashFile().getPaidWritableInvoicesForJob(this);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoices()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException,
+			throws WrongInvoiceTypeException, IllegalArgumentException,
 			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this);
 	}

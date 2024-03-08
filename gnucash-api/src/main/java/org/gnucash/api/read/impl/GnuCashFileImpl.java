@@ -426,13 +426,13 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getAccountsByType(Type type) throws UnknownAccountTypeException {
+	public Collection<GnuCashAccount> getAccountsByType(Type type) {
 		return acctMgr.getAccountsByType(type);
 	}
 
 	@Override
 	public Collection<GnuCashAccount> getAccountsByTypeAndName(Type type, String acctName, boolean qualif,
-			boolean relaxed) throws UnknownAccountTypeException {
+			boolean relaxed) {
 		return acctMgr.getAccountsByTypeAndName(type, acctName, qualif, relaxed);
 	}
 
@@ -447,10 +447,9 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	/**
 	 * @return a read-only collection of all accounts that have no parent (the
 	 *         result is sorted)
-	 * @throws UnknownAccountTypeException
 	 */
 	@Override
-	public GnuCashAccount getRootAccount() throws UnknownAccountTypeException {
+	public GnuCashAccount getRootAccount() {
 		return acctMgr.getRootAccount();
 	}
 
@@ -459,17 +458,17 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 *         result is sorted)
 	 */
 	@Override
-	public Collection<? extends GnuCashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
+	public Collection<? extends GnuCashAccount> getParentlessAccounts() {
 		return acctMgr.getParentlessAccounts();
 	}
 
 	@Override
-	public Collection<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
+	public Collection<GCshID> getTopAccountIDs() {
 		return acctMgr.getTopAccountIDs();
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getTopAccounts() throws UnknownAccountTypeException {
+	public Collection<GnuCashAccount> getTopAccounts() {
 		return acctMgr.getTopAccounts();
 	}
 
@@ -529,22 +528,18 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ----------------------------
 
 	/**
-	 * @throws UnknownAccountTypeException
-	 * 
 	 * @see #getUnpaidGenerInvoices()
 	 */
 	@Override
-	public List<GnuCashGenerInvoice> getPaidGenerInvoices() throws UnknownAccountTypeException {
+	public List<GnuCashGenerInvoice> getPaidGenerInvoices() {
 		return invcMgr.getPaidGenerInvoices();
 	}
 
 	/**
-	 * @throws UnknownAccountTypeException
-	 * 
 	 * @see #getPaidGenerInvoices()
 	 */
 	@Override
-	public List<GnuCashGenerInvoice> getUnpaidGenerInvoices() throws UnknownAccountTypeException {
+	public List<GnuCashGenerInvoice> getUnpaidGenerInvoices() {
 		return invcMgr.getUnpaidGenerInvoices();
 	}
 
@@ -574,49 +569,45 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidInvoicesForCustomer_direct(cust);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidInvoicesForCustomer_viaAllJobs(cust);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidInvoicesForCustomer_direct(cust);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidInvoicesForCustomer_viaAllJobs(cust);
 	}
 
@@ -649,49 +640,45 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor)
 	 */
 	@Override
 	public List<GnuCashVendorBill> getPaidBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidBillsForVendor_direct(vend);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getPaidBillsForVendor_direct(GnuCashVendor)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidBillsForVendor_viaAllJobs(vend);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getPaidBillsForVendor_viaAllJobs(GnuCashVendor)
 	 */
 	@Override
 	public List<GnuCashVendorBill> getUnpaidBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidBillsForVendor_direct(vend);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getPaidBillsForVendor_direct(GnuCashVendor)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidBillsForVendor_viaAllJobs(vend);
 	}
 
@@ -711,25 +698,23 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getUnpaidVouchersForEmployee(GnuCashEmployee)
 	 */
 	@Override
 	public List<GnuCashEmployeeVoucher> getPaidVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidVouchersForEmployee(empl);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getPaidVouchersForEmployee(GnuCashEmployee)
 	 */
 	@Override
 	public List<GnuCashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidVouchersForEmployee(empl);
 	}
 
@@ -747,25 +732,23 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getPaidInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getPaidInvoicesForJob(job);
 	}
 
 	/**
 	 * @throws WrongInvoiceTypeException
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see GnuCashFile#getUnpaidInvoicesForCustomer_direct(GnuCashCustomer)
 	 */
 	@Override
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return invcMgr.getUnpaidInvoicesForJob(job);
 	}
 

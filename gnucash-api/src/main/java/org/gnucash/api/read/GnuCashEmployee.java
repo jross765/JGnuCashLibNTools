@@ -32,19 +32,18 @@ public interface GnuCashEmployee extends GnuCashObject,
     GCshID getID();
 
     /**
-     *
-     * @return the user-assigned number of this employee (may contain non-digits)
+     * @return Returns the user-assigned number of this employee (may contain non-digits)
      */
     String getNumber();
 
     /**
-     *
-     * @return the user name of the employee
+     * @return Returns the user name of the employee
      */
     String getUserName();
 
     /**
-     * @return the address including the name
+     * @return Returns the address of this employee including his/her name
+     *         (as opposed to the user name)
      */
     GCshAddress getAddress();
 
@@ -60,144 +59,102 @@ public interface GnuCashEmployee extends GnuCashObject,
 
     // ------------------------------------------------------------
 
-//    /**
-//     * The id of the default tax table to use with this employee (may be null).
-//     * 
-//     * @see {@link #getTaxTable()}
-//     */
-//    String getTaxTableID();
-//
-//    /**
-//     * The default tax table to use with this employee (may be null).
-//     * 
-//     * @see {@link #getTaxTableID()}
-//     */
-//    GCshTaxTable getTaxTable();
-
-    // ------------------------------------------------------------
-
-//    /**
-//     * The id of the default terms to use with this customer (may be null).
-//     * 
-//     * @see {@link #getTaxTable()}
-//     */
-//    String getTermsID();
-//
-//    /**
-//     * The default terms to use with this customer (may be null).
-//     * 
-//     * @see {@link #getTaxTableID()}
-//     */
-//    GCshBillTerms getTerms();
-
-    // ------------------------------------------------------------
-
     /**
-     * Date is not checked so invoiced that have entered payments in the future are
-     * considered Paid.
      * 
-     * @return the current number of Unpaid invoices
+     * 
+     * @return Returns the current number of Unpaid vouchers from this employee.
+     *         The date is not checked so invoiced that have entered payments in the future are
+     *         considered Paid.
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    int getNofOpenVouchers() throws WrongInvoiceTypeException;
 
     // -------------------------------------
 
     /**
      * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    FixedPointNumber getExpensesGenerated() throws UnknownAccountTypeException;
+    FixedPointNumber getExpensesGenerated();
 
     /**
      * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException;
+    FixedPointNumber getExpensesGenerated_direct();
 
     /**
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
-     * @see #getIncomeGenerated() Formatted according to the current locale's
+     * @see #getExpensesGenerated() Formatted according to the current locale's
      *      currency-format
      */
-    String getExpensesGeneratedFormatted() throws UnknownAccountTypeException;
+    String getExpensesGeneratedFormatted();
 
     /**
      * @param lcl 
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
-     * @see #getIncomeGenerated() Formatted according to the given locale's
+     * @see #getExpensesGenerated() Formatted according to the given locale's
      *      currency-format
      */
-    String getExpensesGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException;
+    String getExpensesGeneratedFormatted(Locale lcl);
 
     // -------------------------------------
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      *  
      */
-    FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException, WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException;
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      *  
      */
-    FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException, WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException;
 
     /**
      * @return 
-     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted() throws UnknownAccountTypeException, WrongInvoiceTypeException;
+    String getOutstandingValueFormatted() throws WrongInvoiceTypeException;
 
     /**
      *
      * @param lcl 
      * @return 
-     * @throws UnknownAccountTypeException 
      * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException, WrongInvoiceTypeException;
+    String getOutstandingValueFormatted(Locale lcl) throws WrongInvoiceTypeException;
 
     // ------------------------------------------------------------
 
     /**
-     * @return
+     * @return Returns all vouchers sent to this employee, 
+     *         both paid and unpaid.
+     *         
      * @throws WrongInvoiceTypeException
      */
     List<GnuCashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all paid vouchers sent from this employee.
+
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all unpaid vouchers sent from this employee.
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException;
 
 }

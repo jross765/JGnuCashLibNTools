@@ -111,7 +111,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @return null if not found
      *  
      */
-    GnuCashTransactionSplit getSplitByID(GCshID id) throws IllegalArgumentException;
+    GnuCashTransactionSplit getSplitByID(GCshID id);
 
     /**
      *
@@ -158,7 +158,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @return true if the sum of all splits adds up to zero.
      *  
      */
-    boolean isBalanced() throws IllegalArgumentException;
+    boolean isBalanced();
 
     GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
 
@@ -169,7 +169,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      *  
      * @see #isBalanced()
      */
-    FixedPointNumber getBalance() throws IllegalArgumentException;
+    FixedPointNumber getBalance();
     /**
      * The result is in the currency of the transaction.
      * @return 
@@ -197,7 +197,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      *  
      * @see #isBalanced()
      */
-    FixedPointNumber getNegatedBalance() throws IllegalArgumentException;
+    FixedPointNumber getNegatedBalance();
     
     /**
      * The result is in the currency of the transaction.

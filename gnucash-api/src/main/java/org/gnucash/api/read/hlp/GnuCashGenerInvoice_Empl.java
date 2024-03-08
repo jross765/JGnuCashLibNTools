@@ -9,20 +9,16 @@ public interface GnuCashGenerInvoice_Empl {
     /**
      * @return what the employee is yet to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getEmplVchAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the employee has already received (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getEmplVchAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the employee has already received (incl. taxes)
@@ -49,20 +45,16 @@ public interface GnuCashGenerInvoice_Empl {
      * 
      * @return what the employee is still to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getEmplVchAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the employee already has received (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getEmplVchAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the employee already has received (incl. taxes)
@@ -99,17 +91,15 @@ public interface GnuCashGenerInvoice_Empl {
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
     boolean isEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
     boolean isNotEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
 }

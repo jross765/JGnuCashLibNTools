@@ -183,11 +183,9 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     *  
      */
     @Override
-    public int getNofOpenBills() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public int getNofOpenBills() throws WrongInvoiceTypeException {
 	return getGnuCashFile().getUnpaidBillsForVendor_direct(this).size();
     }
 
@@ -195,10 +193,8 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the net sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    public FixedPointNumber getExpensesGenerated(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
+    public FixedPointNumber getExpensesGenerated(GnuCashGenerInvoice.ReadVariant readVar) {
 	if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT )
 	    return getExpensesGenerated_direct();
 	else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB )
@@ -209,10 +205,8 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the net sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    public FixedPointNumber getExpensesGenerated_direct() throws UnknownAccountTypeException {
+    public FixedPointNumber getExpensesGenerated_direct() {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -234,10 +228,8 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the net sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    public FixedPointNumber getExpensesGenerated_viaAllJobs() throws UnknownAccountTypeException {
+    public FixedPointNumber getExpensesGenerated_viaAllJobs() {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -259,11 +251,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return formatted according to the current locale's currency-format
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getExpensesGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException {
+    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
 	return getCurrencyFormat().format(getExpensesGenerated(readVar));
 
     }
@@ -271,11 +262,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @param lcl the locale to format for
      * @return formatted according to the given locale's currency-format
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getExpensesGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) throws UnknownAccountTypeException {
+    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
 	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated(readVar));
     }
 
@@ -284,12 +274,11 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
      * 
      * @see #getOutstandingValue_direct()
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException {
 	if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT )
 	    return getOutstandingValue_direct();
 	else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB )
@@ -301,11 +290,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -328,11 +316,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @return the sum of left to pay Unpaid invoiced
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue_direct()
      */
-    public FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -354,21 +341,19 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return Formatted according to the current locale's currency-format
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException {
 	return getCurrencyFormat().format(getOutstandingValue(readVar));
     }
 
     /**
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) throws WrongInvoiceTypeException {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
     }
 
@@ -412,22 +397,22 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     }
 
     @Override
-    public List<GnuCashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnuCashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException {
 	return getGnuCashFile().getPaidBillsForVendor_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice> getPaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnuCashJobInvoice> getPaidBills_viaAllJobs() throws WrongInvoiceTypeException {
 	return getGnuCashFile().getPaidBillsForVendor_viaAllJobs(this);
     }
 
     @Override
-    public List<GnuCashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnuCashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException {
 	return getGnuCashFile().getUnpaidBillsForVendor_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException {
 	return getGnuCashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
 

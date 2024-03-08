@@ -42,7 +42,7 @@ public abstract class FileInvoiceManager_Job {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getPaidInvoices(final FileInvoiceManager invcMgr,
-			final GnuCashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashGenerJob job) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
@@ -63,7 +63,7 @@ public abstract class FileInvoiceManager_Job {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getUnpaidInvoices(final FileInvoiceManager invcMgr,
-			final GnuCashGenerJob job) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashGenerJob job) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 

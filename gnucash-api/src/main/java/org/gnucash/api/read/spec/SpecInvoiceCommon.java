@@ -13,9 +13,9 @@ import org.gnucash.base.numbers.FixedPointNumber;
  */
 public interface SpecInvoiceCommon {
 
-    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
 
-    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException;
 
     public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
 
@@ -25,9 +25,9 @@ public interface SpecInvoiceCommon {
 
     // ----------------------------
 
-    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
 
-    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
 
     public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
 
@@ -37,8 +37,8 @@ public interface SpecInvoiceCommon {
 
     // ---------------------------------------------------------------
 
-    public boolean isFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public boolean isFullyPaid() throws WrongInvoiceTypeException;
 
-    public boolean isNotFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    public boolean isNotFullyPaid() throws WrongInvoiceTypeException;
 
 }

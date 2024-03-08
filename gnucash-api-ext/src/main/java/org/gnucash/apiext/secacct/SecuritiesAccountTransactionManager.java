@@ -47,7 +47,7 @@ public class SecuritiesAccountTransactionManager {
 	    final FixedPointNumber stockPrc,
 	    final FixedPointNumber taxesFees,
 	    final LocalDate postDate,
-	    final String descr) throws UnknownAccountTypeException {
+	    final String descr) {
     	Collection<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
     	
     	AcctIDAmountPair newPair = new AcctIDAmountPair(taxFeeAcctID, taxesFees);
@@ -67,7 +67,7 @@ public class SecuritiesAccountTransactionManager {
 	    final FixedPointNumber nofStocks,
 	    final FixedPointNumber stockPrc,
 	    final LocalDate postDate,
-	    final String descr) throws UnknownAccountTypeException {
+	    final String descr) {
 	
 	if ( gcshFile == null ) {
 	    throw new IllegalArgumentException("null GnuCash file given");
@@ -218,7 +218,7 @@ public class SecuritiesAccountTransactionManager {
     	    final FixedPointNumber divGross,
     	    final FixedPointNumber taxesFees,
     	    final LocalDate postDate,
-    	    final String descr) throws UnknownAccountTypeException {
+    	    final String descr) {
     	Collection<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
     	
     	AcctIDAmountPair newPair = new AcctIDAmountPair(taxFeeAcctID, taxesFees);
@@ -238,7 +238,7 @@ public class SecuritiesAccountTransactionManager {
     	    final GCshID offsetAcctID,
     	    final FixedPointNumber divGross,
     	    final LocalDate postDate,
-    	    final String descr) throws UnknownAccountTypeException {
+    	    final String descr) {
     	
     	if ( gcshFile == null ) {
     	    throw new IllegalArgumentException("null GnuCash file given");

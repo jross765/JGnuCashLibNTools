@@ -30,8 +30,6 @@ public interface GnuCashWritableGenerInvoiceEntry_Cust {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     void setCustInvcTaxable(boolean val)
 	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
@@ -40,7 +38,6 @@ public interface GnuCashWritableGenerInvoiceEntry_Cust {
     /**
      * @param tax the new tax table to use. Null sets isTaxable to false.
      * @throws InvalidCmdtyCurrTypeException
-     * @throws IllegalArgumentException
      * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      */

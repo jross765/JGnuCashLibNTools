@@ -90,70 +90,61 @@ public interface GnuCashGenerJob extends GnuCashObject {
      * 
      * @return the current number of Unpaid invoices
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
      *  
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    int getNofOpenInvoices() throws WrongInvoiceTypeException;
 
     /**
      * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    FixedPointNumber getIncomeGenerated() throws UnknownAccountTypeException;
+    FixedPointNumber getIncomeGenerated();
 
     /**
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getIncomeGenerated() Formatted according to the current locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted() throws UnknownAccountTypeException;
+    String getIncomeGeneratedFormatted();
 
     /**
      * @param lcl 
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getIncomeGenerated() Formatted according to the given locale's
      *      currency-format
      */
-    String getIncomeGeneratedFormatted(Locale lcl) throws UnknownAccountTypeException;
+    String getIncomeGeneratedFormatted(Locale lcl);
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    FixedPointNumber getOutstandingValue() throws UnknownAccountTypeException;
+    FixedPointNumber getOutstandingValue();
 
     /**
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted() throws UnknownAccountTypeException;
+    String getOutstandingValueFormatted();
 
     /**
      *
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(Locale lcl) throws UnknownAccountTypeException;
+    String getOutstandingValueFormatted(Locale lcl);
 
     // ---------------------------------------------------------------
 
     List<GnuCashJobInvoice> getInvoices() throws WrongInvoiceTypeException;
 
-    List<GnuCashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException;
 
-    List<GnuCashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException;
 
     // ---------------------------------------------------------------
 

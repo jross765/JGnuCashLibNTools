@@ -235,8 +235,7 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	public List<GnuCashAccount> getAccountsByType(Type type)
-			throws UnknownAccountTypeException {
+	public List<GnuCashAccount> getAccountsByType(Type type) {
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : getAccounts() ) {
@@ -250,8 +249,7 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public List<GnuCashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed)
-			throws UnknownAccountTypeException {
+	public List<GnuCashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed) {
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : getAccountsByName(expr, qualif, relaxed) ) {
@@ -275,7 +273,7 @@ public class FileAccountManager {
 		return Collections.unmodifiableCollection(acctMap.values());
 	}
 
-	public GnuCashAccount getRootAccount() throws UnknownAccountTypeException {
+	public GnuCashAccount getRootAccount()  {
 		for ( GnuCashAccount acct : getAccounts() ) {
 			if ( acct.getParentAccountID() == null && 
 				 acct.getType() == GnuCashAccount.Type.ROOT ) {
@@ -286,7 +284,7 @@ public class FileAccountManager {
 		return null; // Compiler happy
 	}
 
-	public List<? extends GnuCashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
+	public List<? extends GnuCashAccount> getParentlessAccounts() {
 		try {
 			List<GnuCashAccount> retval = new ArrayList<GnuCashAccount>();
 
@@ -309,7 +307,7 @@ public class FileAccountManager {
 		}
 	}
 
-	public List<GCshID> getTopAccountIDs() throws UnknownAccountTypeException {
+	public List<GCshID> getTopAccountIDs() {
 		List<GCshID> result = new ArrayList<GCshID>();
 
 		GCshID rootAcctID = getRootAccount().getID();
@@ -329,7 +327,7 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public List<GnuCashAccount> getTopAccounts() throws UnknownAccountTypeException {
+	public List<GnuCashAccount> getTopAccounts() {
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GCshID acctID : getTopAccountIDs() ) {

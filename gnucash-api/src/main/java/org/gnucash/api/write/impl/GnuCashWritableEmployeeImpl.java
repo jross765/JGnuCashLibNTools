@@ -307,7 +307,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // Cf. comments in FileInvoiceManager (write-version).
 
     @Override
-    public int getNofOpenVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException {
+    public int getNofOpenVouchers() throws WrongInvoiceTypeException {
 	try {
 	    return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this).size();
 	} catch (TaxTableNotFoundException e) {
@@ -318,7 +318,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // ----------------------------
 
     @Override
-    public List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    public List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
     	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
 	
 	try {
@@ -334,7 +334,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     }
 
     @Override
-    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
     	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
 	
 	try {
@@ -354,11 +354,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // The methods in this part are the "writable"-variants of 
     // the according ones in the super class GnuCashEmployeeImpl.
 
-    public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchers() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnuCashFile().getPaidWritableVouchersForEmployee(this);
     }
 
-    public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this);
     }
     

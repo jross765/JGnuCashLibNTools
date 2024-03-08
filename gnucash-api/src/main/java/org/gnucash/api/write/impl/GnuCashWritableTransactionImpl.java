@@ -81,15 +81,13 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * Create a new Transaction and add it to the file.
      *
      * @param file the file we belong to
-     * @throws IllegalArgumentException 
-     *  
      */
-    public GnuCashWritableTransactionImpl(final GnuCashWritableFileImpl file) throws IllegalArgumentException {
+    public GnuCashWritableTransactionImpl(final GnuCashWritableFileImpl file) {
 	super(createTransaction_int(file, GCshID.getNew()), file, true);
 	file.addTransaction(this);
     }
 
-    public GnuCashWritableTransactionImpl(final GnuCashTransaction trx) throws IllegalArgumentException {
+    public GnuCashWritableTransactionImpl(final GnuCashTransaction trx) {
 	super(trx.getJwsdpPeer(), trx.getGnuCashFile(), false);
 
 	// ::TODO
@@ -196,14 +194,13 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      *
      * @param splt the jaxb-data
      * @return the new split-instance
-     * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      */
     @Override
     protected GnuCashTransactionSplitImpl createSplit(
     		final GncTransaction.TrnSplits.TrnSplit splt,
     		final boolean addToAcct,
-    		final boolean addToInvc) throws IllegalArgumentException {
+    		final boolean addToInvc) {
 	GnuCashWritableTransactionSplitImpl gcshTrxSplt = 
 		new GnuCashWritableTransactionSplitImpl(splt, this,
 			                                    addToAcct, addToInvc);
@@ -215,11 +212,9 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see GnuCashWritableTransaction#createWritableSplit(GnuCashAccount)
      */
-    public GnuCashWritableTransactionSplit createWritableSplit(final GnuCashAccount acct) throws IllegalArgumentException {
+    public GnuCashWritableTransactionSplit createWritableSplit(final GnuCashAccount acct) {
 	GnuCashWritableTransactionSplitImpl splt = new GnuCashWritableTransactionSplitImpl(this, acct);
 	addSplit(splt);
 	if (helper.getPropertyChangeSupport() != null) {
@@ -230,10 +225,8 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
     /**
      * @param impl the split to remove from this transaction
-     * @throws IllegalArgumentException 
-     *  
      */
-    public void remove(final GnuCashWritableTransactionSplit impl) throws IllegalArgumentException {
+    public void remove(final GnuCashWritableTransactionSplit impl) {
 	getJwsdpPeer().getTrnSplits().getTrnSplit().remove(((GnuCashWritableTransactionSplitImpl) impl).getJwsdpPeer());
 	getWritableFile().setModified(true);
 	if (mySplits != null) {
@@ -254,8 +247,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
     /**
      * @throws SplitNotFoundException 
-     * @throws IllegalArgumentException 
-     *  
+
      * @see GnuCashWritableTransaction#getWritableFirstSplit()
      */
     @Override
@@ -264,8 +256,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see GnuCashWritableTransaction#getWritableFirstSplit()
      */
     public GnuCashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException {
@@ -273,8 +263,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see GnuCashWritableTransaction#getWritableSecondSplit()
      */
     @Override
@@ -283,8 +271,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see GnuCashWritableTransaction#getWritableSecondSplit()
      */
     public GnuCashWritableTransactionSplit getWritableSecondSplit()  throws SplitNotFoundException {
@@ -292,20 +278,16 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see {@link #getSplitByID(GCshID)}
      */
-    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshID id) throws IllegalArgumentException {
+    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshID id) {
 	return (GnuCashWritableTransactionSplit) super.getSplitByID(id);
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see #getSplits()
      */
-    public List<GnuCashWritableTransactionSplit> getWritableSplits() throws IllegalArgumentException {
+    public List<GnuCashWritableTransactionSplit> getWritableSplits() {
 	List<GnuCashWritableTransactionSplit> result = new ArrayList<GnuCashWritableTransactionSplit>();
 	
 	for ( GnuCashTransactionSplit split : super.getSplits() ) {
@@ -318,20 +300,17 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
     /**
      * @param impl the split to add to mySplits
-     * @throws IllegalArgumentException 
      * @throws ClassNotFoundException 
      */
-    protected void addSplit(final GnuCashWritableTransactionSplitImpl impl) throws IllegalArgumentException {
+    protected void addSplit(final GnuCashWritableTransactionSplitImpl impl) {
 	super.addSplit(impl);
 	// ((GnuCashFileImpl) getGnuCashFile()).getTransactionManager().addTransactionSplit(impl, false);
     }
 
     /**
-     * @throws IllegalArgumentException 
-     *  
      * @see GnuCashWritableTransaction#remove()
      */
-    public void remove() throws IllegalArgumentException {
+    public void remove() {
 	getWritableFile().removeTransaction(this);
 	Collection<GnuCashWritableTransactionSplit> c = new ArrayList<GnuCashWritableTransactionSplit>();
 	c.addAll(getWritableSplits());

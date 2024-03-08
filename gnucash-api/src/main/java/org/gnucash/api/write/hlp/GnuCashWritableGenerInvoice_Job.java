@@ -31,8 +31,6 @@ public interface GnuCashWritableGenerInvoice_Job {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
     		GnuCashAccount acct,
@@ -56,8 +54,6 @@ public interface GnuCashWritableGenerInvoice_Job {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
     		GnuCashAccount acct,
@@ -81,8 +77,6 @@ public interface GnuCashWritableGenerInvoice_Job {
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * @throws IllegalArgumentException
-     * 
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
     		GnuCashAccount acct,

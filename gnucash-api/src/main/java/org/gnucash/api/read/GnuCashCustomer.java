@@ -37,24 +37,22 @@ public interface GnuCashCustomer extends GnuCashObject,
     GCshID getID();
 
     /**
-     *
-     * @return the user-assigned number of this customer (may contain non-digits)
+     * @return Returns the user-assigned number of this customer (may contain non-digits)
      */
     String getNumber();
 
     /**
-     *
-     * @return the name of the customer
+     * @return Returns the name of the customer
      */
     String getName();
 
     /**
-     * @return the address including the name
+     * @return Returns the address of this customer including its name
      */
     GCshAddress getAddress();
 
     /**
-     * @return the shipping-address including the name
+     * @return Returns the shipping-address of this customer including the name
      */
     GCshAddress getShippingAddress();
 
@@ -78,144 +76,136 @@ public interface GnuCashCustomer extends GnuCashObject,
     // ------------------------------------------------------------
 
     /**
-     * The id of the default tax table to use with this customer (may be null).
      * @return 
+     * @returns Returns the ID of the default tax table to use with this customer (may be null). 
      * 
-     * @see {@link #getTaxTable()}
+     * @see #getTaxTable()
      */
     GCshID getTaxTableID();
 
     /**
-     * The default tax table to use with this customer (may be null).
-     * @return 
+     * @returns Returns The default tax table to use with this customer (may be null). 
      * 
-     * @see {@link #getTaxTableID()}
+     * @see #getTaxTableID()
      */
-    GCshTaxTable getTaxTable();
+    @SuppressWarnings("javadoc")
+	GCshTaxTable getTaxTable();
 
     // ------------------------------------------------------------
 
     /**
-     * The id of the default terms to use with this customer (may be null).
-     * @return 
+     * @return Returns the id of the default terms to use with this customer (may be null). 
      * 
-     * @see {@link #getTaxTable()}
+     * @see #getTaxTable()
      */
     GCshID getTermsID();
 
     /**
-     * The default terms to use with this customer (may be null).
-     * @return 
+     * @return Returns the default terms to use with this customer (may be null). 
      * 
-     * @see {@link #getTaxTableID()}
+     * @see #getTaxTableID()
      */
     GCshBillTerms getTerms();
 
     // ------------------------------------------------------------
 
     /**
-     * Date is not checked so invoiced that have entered payments in the future are
-     * considered Paid.
-     * 
-     * @return the current number of Unpaid invoices
+     * @return Returns the current number of Unpaid invoices.
+     *         The date is not checked so invoices that have entered payments in the future are
+     *         considered paid.
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException 
-     *  
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    int getNofOpenInvoices() throws WrongInvoiceTypeException;
 
     // -------------------------------------
 
     /**
      * @param readVar 
-     * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
+     * @return Returns the sum of payments for invoices to this customer
+     * 
+     * @see #getIncomeGenerated_direct()
+     * @see #getIncomeGenerated_viaAllJobs()
      *  
      */
-    FixedPointNumber getIncomeGenerated(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
+    FixedPointNumber getIncomeGenerated(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
-     * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
+     * @return Returns the sum of payments for invoices to this customer
      *  
+     * @see #getIncomeGenerated_viaAllJobs()
+     * @see #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    FixedPointNumber getIncomeGenerated_direct() throws UnknownAccountTypeException;
+    FixedPointNumber getIncomeGenerated_direct();
 
     /**
-     * @return the sum of payments for invoices to this client
-     * @throws UnknownAccountTypeException 
+     * @return Returns the sum of payments for invoices to this customer
      *  
+     * @see #getIncomeGenerated_direct()
+     * @see #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    FixedPointNumber getIncomeGenerated_viaAllJobs() throws UnknownAccountTypeException;
+    FixedPointNumber getIncomeGenerated_viaAllJobs();
 
     /**
      * @param readVar 
-     * @return 
-     * @throws UnknownAccountTypeException 
+     * @return  
      *  
-     * @see {@link #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)}
+     * @see #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    String getIncomeGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
+    String getIncomeGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
      * @param readVar 
      * @param lcl 
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
-     * @see {@link #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)}
+     * @see #getIncomeGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    String getIncomeGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
+    String getIncomeGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl);
 
     // -------------------------------------
 
     /**
      * @param readVar 
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
      *  
      */
-    FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
+    FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
      *  
      */
-    FixedPointNumber getOutstandingValue_direct() throws UnknownAccountTypeException;
+    FixedPointNumber getOutstandingValue_direct();
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws UnknownAccountTypeException 
      *  
      */
-    FixedPointNumber getOutstandingValue_viaAllJobs() throws UnknownAccountTypeException;
+    FixedPointNumber getOutstandingValue_viaAllJobs();
 
     /**
      * @param readVar 
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
-     * @see {@link #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)}
+     * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws UnknownAccountTypeException;
+    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
      *
      * @param readVar 
      * @param lcl 
      * @return 
-     * @throws UnknownAccountTypeException 
      *  
-     * @see {@link #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)}
+     * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl) throws UnknownAccountTypeException;
+    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl);
 
     // ------------------------------------------------------------
 
     /**
-     * @return the UNMODIFIABLE collection of jobs that have this customer associated 
-     *         with them.
+     * @return Returns the <strong>unmodifiable</strong> collection of jobs that have this 
+     *         customer associated with them.
      * @throws WrongInvoiceTypeException
      */
     List<GnuCashCustomerJob> getJobs() throws WrongInvoiceTypeException;
@@ -223,37 +213,62 @@ public interface GnuCashCustomer extends GnuCashObject,
     // ------------------------------------------------------------
 
     /**
-     * @return
+     * @return Returns all invoices sent to this customer, both with
+     *         and without job, both paid and unpaid.
      * @throws WrongInvoiceTypeException
+     * 
+     * @see #getPaidInvoices_direct()
+     * @see #getPaidInvoices_viaAllJobs()
      */
     List<GnuCashGenerInvoice>    getInvoices() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all paid invoices sent to this customer (only those
+     *         that were assigned to a job).
+
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
+     * 
+     * @see #getUnpaidInvoices_direct()
+     * @see #getPaidInvoices_viaAllJobs()
+     * @see #getInvoices()
      */
-    List<GnuCashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all paid invoices sent to this customer (only those
+     *         that were assigned directly to that customer, not to a job).
+     *         
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
+     * 
+     * @see #getUnpaidInvoices_viaAllJobs()
+     * @see #getPaidInvoices_direct()
+     * @see #getInvoices()
      */
-    List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all unpaid invoices sent to this customer (only those
+     *         that were assigned to a job).
+     *         
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
+     * 
+     * @see #getPaidInvoices_direct()
+     * @see #getUnpaidInvoices_viaAllJobs()
+     * @see #getInvoices()
      */
-    List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException;
 
     /**
-     * @return
+     * @return Returns all unpaid invoices sent to this customer (only those
+     *         that were assigned directly to that customer, not to a job).
+     *         
+     * @throws 
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
+     * 
+     * @see #getPaidInvoices_viaAllJobs()
+     * @see #getUnpaidInvoices_direct()
+     * @see #getInvoices()
      */
-    List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
 
 }

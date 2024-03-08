@@ -37,7 +37,7 @@ public abstract class FileInvoiceManager_Employee {
 
 	public static List<GnuCashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
 			final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
@@ -55,7 +55,7 @@ public abstract class FileInvoiceManager_Employee {
 
 	public static List<GnuCashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
 			final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {

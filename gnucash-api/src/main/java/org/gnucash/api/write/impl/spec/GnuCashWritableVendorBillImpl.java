@@ -235,7 +235,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
@@ -254,7 +253,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws WrongInvoiceTypeException
 	 * @throws TaxTableNotFoundException
 	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableVendorBillEntryImpl entry)

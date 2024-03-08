@@ -136,8 +136,7 @@ public class FileInvoiceManager {
 
 	// ----------------------------
 
-	public List<GnuCashGenerInvoice> getPaidGenerInvoices()
-			throws UnknownAccountTypeException {
+	public List<GnuCashGenerInvoice> getPaidGenerInvoices() {
 		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
@@ -182,8 +181,7 @@ public class FileInvoiceManager {
 		return retval;
 	}
 
-	public List<GnuCashGenerInvoice> getUnpaidGenerInvoices()
-			throws UnknownAccountTypeException {
+	public List<GnuCashGenerInvoice> getUnpaidGenerInvoices() {
 		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
@@ -241,22 +239,22 @@ public class FileInvoiceManager {
 	}
 
 	public List<GnuCashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getPaidInvoices_direct(this, cust);
 	}
 
 	public List<GnuCashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getPaidInvoices_viaAllJobs(cust);
 	}
 
 	public List<GnuCashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getUnpaidInvoices_direct(this, cust);
 	}
 
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Customer.getUnpaidInvoices_viaAllJobs(cust);
 	}
 
@@ -273,22 +271,22 @@ public class FileInvoiceManager {
 	}
 
 	public List<GnuCashVendorBill> getPaidBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getPaidBills_direct(this, vend);
 	}
 
 	public List<GnuCashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getPaidBills_viaAllJobs(vend);
 	}
 
 	public List<GnuCashVendorBill> getUnpaidBillsForVendor_direct(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getUnpaidBills_direct(this, vend);
 	}
 
 	public List<GnuCashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnuCashVendor vend)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Vendor.getUnpaidBills_viaAllJobs(vend);
 	}
 
@@ -300,12 +298,12 @@ public class FileInvoiceManager {
 	}
 
 	public List<GnuCashEmployeeVoucher> getPaidVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Employee.getPaidVouchers(this, empl);
 	}
 
 	public List<GnuCashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Employee.getUnpaidVouchers(this, empl);
 	}
 
@@ -317,12 +315,12 @@ public class FileInvoiceManager {
 	}
 
 	public List<GnuCashJobInvoice> getPaidInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Job.getPaidInvoices(this, job);
 	}
 
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForJob(final GnuCashGenerJob job)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		return FileInvoiceManager_Job.getUnpaidInvoices(this, job);
 	}
 

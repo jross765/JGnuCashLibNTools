@@ -9,20 +9,16 @@ public interface GnuCashGenerInvoice_Vend {
     /**
      * @return what the vendor is yet to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getVendBllAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the vendor has already received (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getVendBllAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the vendor has already received (incl. taxes)
@@ -49,20 +45,16 @@ public interface GnuCashGenerInvoice_Vend {
      * 
      * @return what the vendor is still to receive (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getVendBllAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the vendor already has received (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getVendBllAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the vendor already has received (incl. taxes)
@@ -99,16 +91,14 @@ public interface GnuCashGenerInvoice_Vend {
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    boolean isVendBllFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    boolean isVendBllFullyPaid() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
     boolean isNotVendBllFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
 }

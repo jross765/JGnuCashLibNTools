@@ -119,13 +119,13 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
 
 	@Override
 	public FixedPointNumber getAmountUnpaidWithTaxes()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return getEmplVchAmountUnpaidWithTaxes();
 	}
 
 	@Override
 	public FixedPointNumber getAmountPaidWithTaxes()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return getEmplVchAmountPaidWithTaxes();
 	}
 
@@ -146,13 +146,13 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
 
 	@Override
 	public String getAmountUnpaidWithTaxesFormatted()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return getEmplVchAmountUnpaidWithTaxesFormatted();
 	}
 
 	@Override
 	public String getAmountPaidWithTaxesFormatted()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return getEmplVchAmountPaidWithTaxesFormatted();
 	}
 
@@ -175,13 +175,13 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
 
 	@Override
 	public boolean isFullyPaid()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return isEmplVchFullyPaid();
 	}
 
 	@Override
 	public boolean isNotFullyPaid()
-			throws WrongInvoiceTypeException, UnknownAccountTypeException, IllegalArgumentException {
+			throws WrongInvoiceTypeException, IllegalArgumentException {
 		return isNotEmplVchFullyPaid();
 	}
 

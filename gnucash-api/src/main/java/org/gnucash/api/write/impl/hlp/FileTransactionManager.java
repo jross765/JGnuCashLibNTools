@@ -35,7 +35,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 //	    final GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt,
 //	    final GnuCashTransaction trx,
 //	    final boolean addSpltToAcct,
-//	    final boolean addSpltToInvc)  throws IllegalArgumentException {
+//	    final boolean addSpltToInvc) {
 //	GnuCashWritableTransactionSplitImpl splt = new GnuCashWritableTransactionSplitImpl(jwsdpTrxSplt, trx, 
 //                								           addSpltToAcct, addSpltToInvc);
 //	LOGGER.debug("createTransactionSplit: Generated new writable transaction split: " + splt.getID());

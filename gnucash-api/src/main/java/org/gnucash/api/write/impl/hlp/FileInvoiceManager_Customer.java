@@ -58,7 +58,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableCustomerInvoice> retval = new ArrayList<GnuCashWritableCustomerInvoice>();
 
@@ -77,7 +77,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getPaidInvoices_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashCustomerJob job : cust.getJobs() ) {
@@ -90,7 +90,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableCustomerInvoice> retval = new ArrayList<GnuCashWritableCustomerInvoice>();
 
@@ -109,7 +109,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getUnpaidInvoices_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException, UnknownAccountTypeException {
+			throws WrongInvoiceTypeException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashCustomerJob job : cust.getJobs() ) {

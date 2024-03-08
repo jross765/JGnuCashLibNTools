@@ -46,16 +46,13 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
      * @param trx the transaction we belong to
      * @param addSpltToAcct 
      * @param addSpltToInvc 
-     * @throws IllegalArgumentException
-     * 
      */
     @SuppressWarnings("exports")
     public GnuCashWritableTransactionSplitImpl(
     		final GncTransaction.TrnSplits.TrnSplit jwsdpPeer,
     		final GnuCashWritableTransaction trx, 
     		final boolean addSpltToAcct, 
-    		final boolean addSpltToInvc)
-	    throws IllegalArgumentException {
+    		final boolean addSpltToInvc) {
     	super(jwsdpPeer, trx, 
     		  addSpltToAcct, addSpltToInvc);
     }
@@ -65,13 +62,10 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
      *
      * @param trx  transaction the transaction we will belong to
      * @param acct the account we take money (or other things) from or give it to
-     * @throws IllegalArgumentException
-     * 
      */
     public GnuCashWritableTransactionSplitImpl(
     		final GnuCashWritableTransactionImpl trx, 
-    		final GnuCashAccount acct)
-	    throws IllegalArgumentException {
+    		final GnuCashAccount acct) {
 	super(createTransactionSplit_int(trx, acct,
 									 GCshID.getNew()), 
 		  trx, 
@@ -90,7 +84,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	trx.addSplit(this);
     }
 
-    public GnuCashWritableTransactionSplitImpl(final GnuCashTransactionSplit split) throws IllegalArgumentException {
+    public GnuCashWritableTransactionSplitImpl(final GnuCashTransactionSplit split) {
     	super(split.getJwsdpPeer(), split.getTransaction(), 
     		  true, true);
     }
@@ -102,14 +96,12 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	 * the ID of the new transaction!
 	 * 
 	 * @throws
-	 * @throws IllegalArgumentException
 	 * @throws ClassNotFoundException
 	 */
 	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
 	    final GnuCashWritableTransactionImpl trx, 
 	    final GnuCashAccount acct, 
-	    final GCshID newID)
-	    throws IllegalArgumentException {
+	    final GCshID newID) {
 	if ( trx == null ) {
 	    throw new IllegalArgumentException("null transaction given");
 	}
@@ -175,11 +167,8 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 
     /**
      * remove this split from it's transaction.
-     * 
-     * @throws IllegalArgumentException
-     * 
      */
-    public void remove() throws IllegalArgumentException {
+    public void remove() {
 	getTransaction().remove(this);
     }
 
@@ -363,7 +352,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
      * @param act null, or one of the defined ACTION_xyz values
      * @throws IllegalTransactionSplitActionException
      */
-    public void setAction(final Action act) throws IllegalArgumentException {
+    public void setAction(final Action act) {
 	setActionStr(act.getLocaleString());
     }
 

@@ -9,20 +9,16 @@ public interface GnuCashGenerInvoice_Cust {
     /**
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getCustInvcAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getCustInvcAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -49,20 +45,16 @@ public interface GnuCashGenerInvoice_Cust {
      * 
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getCustInvcAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getCustInvcAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -99,16 +91,14 @@ public interface GnuCashGenerInvoice_Cust {
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    boolean isCustInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    boolean isCustInvcFullyPaid() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
     boolean isNotCustInvcFullyPaid()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
 }

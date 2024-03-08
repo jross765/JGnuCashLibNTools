@@ -9,20 +9,16 @@ public interface GnuCashGenerInvoice_Job {
     /**
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getJobInvcAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     FixedPointNumber getJobInvcAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -52,20 +48,16 @@ public interface GnuCashGenerInvoice_Job {
      * 
      * @return what the customer must still pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getJobInvcAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
-     * 
      */
     String getJobInvcAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException, UnknownAccountTypeException;
+	    throws WrongInvoiceTypeException;
 
     /**
      * @return what the customer has already pay (incl. taxes)
@@ -95,15 +87,13 @@ public interface GnuCashGenerInvoice_Job {
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    boolean isJobInvcFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    boolean isJobInvcFullyPaid() throws WrongInvoiceTypeException;
 
     /**
      * @return
      * @throws WrongInvoiceTypeException
-     * @throws UnknownAccountTypeException
      */
-    boolean isNotInvcJobFullyPaid() throws WrongInvoiceTypeException, UnknownAccountTypeException;
+    boolean isNotInvcJobFullyPaid() throws WrongInvoiceTypeException;
 
 }

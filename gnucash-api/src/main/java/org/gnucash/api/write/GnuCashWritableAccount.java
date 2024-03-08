@@ -63,10 +63,9 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      * Set the type of the account (income, ...).
      *
      * @param type the new type.
-     * @throws UnknownAccountTypeException 
      * @see {@link GnuCashAccount#getType()}
      */
-    void setType(Type type) throws UnknownAccountTypeException;
+    void setType(Type type);
 
     /**
      * @param id the new currency

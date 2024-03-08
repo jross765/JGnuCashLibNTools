@@ -136,15 +136,14 @@ public class GnuCashAccountImpl extends SimpleAccount
     	return jwsdpPeer.getActCode();
     }
 
-    private String getTypeStr() throws UnknownAccountTypeException {
+    private String getTypeStr() {
     	return jwsdpPeer.getActType();
     }
 
     /**
-     * @throws UnknownAccountTypeException 
      * @see GnuCashAccount#getType()
      */
-    public Type getType() throws UnknownAccountTypeException {
+    public Type getType() {
 	try {
 	    Type result = Type.valueOf( getTypeStr() );
 	    return result;

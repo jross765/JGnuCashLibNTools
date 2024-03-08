@@ -99,17 +99,14 @@ public interface GnuCashWritableFile extends GnuCashFile,
     /**
      * @param type the type to look for
      * @return A changeable version of all accounts of that type.
-     * @throws UnknownAccountTypeException
      */
-    Collection<GnuCashWritableAccount> getWritableAccountsByType(GnuCashAccount.Type type)
-	    throws UnknownAccountTypeException;
+    Collection<GnuCashWritableAccount> getWritableAccountsByType(GnuCashAccount.Type type);
 
     /**
      *
      * @return a read-only collection of all accounts that have no parent
-     * @throws UnknownAccountTypeException
      */
-    Collection<? extends GnuCashWritableAccount> getWritableParentlessAccounts() throws UnknownAccountTypeException;
+    Collection<? extends GnuCashWritableAccount> getWritableParentlessAccounts();
 
     /**
      *

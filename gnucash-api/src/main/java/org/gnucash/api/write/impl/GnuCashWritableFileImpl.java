@@ -555,13 +555,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * @param type the type to look for
 	 * @return A changeable version of all accounts of that type.
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see {@link #getAccountsByTypeAndName(org.gnucash.api.read.GnuCashAccount.Type, String, boolean, boolean)}
 	 */
 	@Override
-	public Collection<GnuCashWritableAccount> getWritableAccountsByType(final GnuCashAccount.Type type)
-			throws UnknownAccountTypeException {
+	public Collection<GnuCashWritableAccount> getWritableAccountsByType(final GnuCashAccount.Type type) {
 		Collection<GnuCashWritableAccount> retval = new ArrayList<GnuCashWritableAccount>();
 		for ( GnuCashWritableAccount acct : getWritableAccounts() ) {
 
@@ -635,13 +633,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @return a read-only collection of all accounts that have no parent
-	 * @throws UnknownAccountTypeException
 	 * 
 	 * @see #getWritableParentlessAccounts()
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public Collection<? extends GnuCashWritableAccount> getWritableParentlessAccounts() throws UnknownAccountTypeException {
+	public Collection<? extends GnuCashWritableAccount> getWritableParentlessAccounts() {
 		return (Collection<? extends GnuCashWritableAccount>) getParentlessAccounts();
 	}
 
@@ -651,7 +648,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see org.gnucash.write.jwsdpimpl.GnuCashFileImpl#getRootAccounts()
 	 */
 	@Override
-	public Collection<? extends GnuCashAccount> getParentlessAccounts() throws UnknownAccountTypeException {
+	public Collection<? extends GnuCashAccount> getParentlessAccounts() {
 		// TODO Auto-generated method stub
 		Collection<? extends GnuCashAccount> rootAcctList = super.getParentlessAccounts();
 		if ( rootAcctList.size() > 1 ) {
@@ -1016,11 +1013,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param invc an invoice to remove
-	 * @throws IllegalArgumentException
-	 * 
 	 */
 	@Override
-	public void removeGenerInvoice(final GnuCashWritableGenerInvoice invc) throws IllegalArgumentException {
+	public void removeGenerInvoice(final GnuCashWritableGenerInvoice invc) {
 
 		if ( invc.getPayingTransactions().size() > 0 ) {
 			throw new IllegalArgumentException("cannot remove this invoice! It has payments!");
@@ -1717,14 +1712,14 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
 			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+			WrongInvoiceTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getPaidWritableInvoicesForCustomer_direct(cust);
 	}
 
 	public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
 			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			WrongInvoiceTypeException, UnknownAccountTypeException, TaxTableNotFoundException {
+			WrongInvoiceTypeException, TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableInvoicesForCustomer_direct(cust);
 	}
@@ -1733,13 +1728,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	public List<GnuCashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnuCashVendor vend)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableBillsForVendor_direct(vend);
 	}
 
 	public List<GnuCashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnuCashVendor vend)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableBillsForVendor_direct(vend);
 	}
@@ -1748,13 +1743,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnuCashEmployee empl)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableVouchersForEmployee(empl);
 	}
 
 	public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnuCashEmployee empl)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableVouchersForEmployee(empl);
 	}
 
@@ -1762,13 +1757,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnuCashGenerJob job)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableInvoicesForJob(job);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnuCashGenerJob job)
 			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
-			UnknownAccountTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForJob(job);
 	}
 

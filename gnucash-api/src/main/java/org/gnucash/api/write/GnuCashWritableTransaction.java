@@ -58,6 +58,7 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
     void setNumber(String string);
 
     /**
+     * @return 
      * @throws SplitNotFoundException 
      *  
      * @see GnuCashTransaction#getFirstSplit()
@@ -65,8 +66,8 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
     GnuCashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException;
 
     /**
+     * @return 
      * @throws SplitNotFoundException 
-     * @throws IllegalArgumentException 
      *  
      * @see GnuCashTransaction#getSecondSplit()
      */
@@ -74,6 +75,7 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
 
     /**
      *  
+     * @return 
      * @see GnuCashTransaction#getSplitByID(GCshID)
      */
     GnuCashWritableTransactionSplit getWritableSplitByID(GCshID id);

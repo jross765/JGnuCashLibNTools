@@ -85,8 +85,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	super(createAccount_int(file, GCshID.getNew()), file);
     }
 
-    public GnuCashWritableAccountImpl(final GnuCashAccountImpl acct, final boolean addSplits)
-	    throws UnknownAccountTypeException {
+    public GnuCashWritableAccountImpl(final GnuCashAccountImpl acct, final boolean addSplits) {
 	super(acct.getJwsdpPeer(), acct.getGnuCashFile());
 
 	if (addSplits) {
@@ -397,10 +396,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	}
     }
 
-    /**
-     * @throws UnknownAccountTypeException
-     */
-    public void setType(final Type type) throws UnknownAccountTypeException {
+    public void setType(final Type type) {
 	Type oldType = getType();
 	if (oldType == type) {
 	    return; // nothing has changed

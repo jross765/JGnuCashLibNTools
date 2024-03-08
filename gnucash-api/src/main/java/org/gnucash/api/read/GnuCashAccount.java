@@ -142,7 +142,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
 
     // ----------------------------
 
-    Type getType() throws UnknownAccountTypeException;
+    Type getType();
 
     GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
 

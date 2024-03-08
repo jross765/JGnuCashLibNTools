@@ -42,7 +42,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
@@ -61,7 +61,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws WrongInvoiceTypeException, UnknownAccountTypeException,
+			final GnuCashEmployee empl) throws WrongInvoiceTypeException,
 			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
