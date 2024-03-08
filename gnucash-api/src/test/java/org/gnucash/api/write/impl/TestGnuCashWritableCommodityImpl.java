@@ -34,257 +34,257 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableCommodityImpl {
-    public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_1_EXCH = TestGnuCashCommodityImpl.CMDTY_1_EXCH;
-    public static final String CMDTY_1_ID = TestGnuCashCommodityImpl.CMDTY_1_ID;
-    public static final String CMDTY_1_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
+	public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_1_EXCH = TestGnuCashCommodityImpl.CMDTY_1_EXCH;
+	public static final String CMDTY_1_ID = TestGnuCashCommodityImpl.CMDTY_1_ID;
+	public static final String CMDTY_1_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
 
-    public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = TestGnuCashCommodityImpl.CMDTY_2_EXCH;
-    public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
-    public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
+	public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = TestGnuCashCommodityImpl.CMDTY_2_EXCH;
+	public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
+	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
 
-    public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
-    public static final String CMDTY_3_ID = TestGnuCashCommodityImpl.CMDTY_3_ID;
-    public static final String CMDTY_3_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
+	public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
+	public static final String CMDTY_3_ID = TestGnuCashCommodityImpl.CMDTY_3_ID;
+	public static final String CMDTY_3_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
 
-    // ---------------------------------------------------------------
+	// ---------------------------------------------------------------
 
-    private GnuCashWritableFileImpl gcshInFile = null;
-    private GnuCashFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile = null;
+	private GnuCashFileImpl gcshOutFile = null;
 
-    private GCshFileStats gcshInFileStats = null;
-    private GCshFileStats gcshOutFileStats = null;
+	private GCshFileStats gcshInFileStats = null;
+	private GCshFileStats gcshOutFileStats = null;
 
-    private GCshCmdtyID newID = new GCshCmdtyID("POOPOO", "BEST");
+	private GCshCmdtyID newID = new GCshCmdtyID("POOPOO", "BEST");
 
-    private GCshCmdtyCurrID cmdtyCurrID1 = null;
-//    private GCshCmdtyCurrID cmdtyCurrID2 = null;
-//    private GCshCmdtyCurrID cmdtyCurrID3 = null;
+	private GCshCmdtyCurrID cmdtyCurrID1 = null;
+	//    private GCshCmdtyCurrID cmdtyCurrID2 = null;
+	//    private GCshCmdtyCurrID cmdtyCurrID3 = null;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+	@SuppressWarnings("exports")
+	@Rule
+	public TemporaryFolder folder = new TemporaryFolder();
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    public static void main(String[] args) throws Exception {
-	junit.textui.TestRunner.run(suite());
-    }
-
-    @SuppressWarnings("exports")
-    public static junit.framework.Test suite() {
-	return new JUnit4TestAdapter(TestGnuCashWritableCommodityImpl.class);
-    }
-
-    @Before
-    public void initialize() throws Exception {
-	ClassLoader classLoader = getClass().getClassLoader();
-	// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-	// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-	InputStream gcshInFileStream = null;
-	try {
-	    gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
-	} catch (Exception exc) {
-	    System.err.println("Cannot generate input stream from resource");
-	    return;
+	public static void main(String[] args) throws Exception {
+		junit.textui.TestRunner.run(suite());
 	}
 
-	try {
-	    gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
-	} catch (Exception exc) {
-	    System.err.println("Cannot parse GnuCash in-file");
-	    exc.printStackTrace();
+	@SuppressWarnings("exports")
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(TestGnuCashWritableCommodityImpl.class);
 	}
 
-	// ---
+	@Before
+	public void initialize() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+		// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+		InputStream gcshInFileStream = null;
+		try {
+			gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
+		} catch (Exception exc) {
+			System.err.println("Cannot generate input stream from resource");
+			return;
+		}
 
-	cmdtyCurrID1 = new GCshCmdtyID_Exchange(CMDTY_1_EXCH, CMDTY_1_ID);
-//    cmdtyCurrID2 = new GCshCmdtyID_Exchange(CMDTY_2_EXCH, CMDTY_2_ID);
-//    cmdtyCurrID3 = new GCshCmdtyID_SecIdType(CMDTY_3_SECIDTYPE, CMDTY_3_ID);
-    }
+		try {
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
+		} catch (Exception exc) {
+			System.err.println("Cannot parse GnuCash in-file");
+			exc.printStackTrace();
+		}
 
-    // -----------------------------------------------------------------
-    // PART 1: Read existing objects as modifiable ones
-    // (and see whether they are fully symmetrical to their read-only
-    // counterparts)
-    // -----------------------------------------------------------------
-    // Cf. TestGnuCashCommodityImpl.test01_1/01_4
-    //
-    // Check whether the GnuCashWritableCustomer objects returned by
-    // GnuCashWritableFileImpl.getWritableCommodityByID() are actually
-    // complete (as complete as returned be GnuCashFileImpl.getCommodityByID().
+		// ---
 
-    @Test
-    public void test01_1() throws Exception {
-	GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_EXCH, CMDTY_1_ID);
-	assertNotEquals(null, cmdty);
+		cmdtyCurrID1 = new GCshCmdtyID_Exchange(CMDTY_1_EXCH, CMDTY_1_ID);
+		//    cmdtyCurrID2 = new GCshCmdtyID_Exchange(CMDTY_2_EXCH, CMDTY_2_ID);
+		//    cmdtyCurrID3 = new GCshCmdtyID_SecIdType(CMDTY_3_SECIDTYPE, CMDTY_3_ID);
+	}
 
-	assertEquals(cmdtyCurrID1.toString(), cmdty.getQualifID().toString());
-	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, cmdty.getQualifID());
-	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
-//    assertEquals(cmdtyCurrID1, cmdty.getQualifID()); // not trivial!
-	assertEquals(CMDTY_1_ISIN, cmdty.getXCode());
-	assertEquals("Mercedes-Benz Group AG", cmdty.getName());
-    }
+	// -----------------------------------------------------------------
+	// PART 1: Read existing objects as modifiable ones
+	// (and see whether they are fully symmetrical to their read-only
+	// counterparts)
+	// -----------------------------------------------------------------
+	// Cf. TestGnuCashCommodityImpl.test01_1/01_4
+	//
+	// Check whether the GnuCashWritableCustomer objects returned by
+	// GnuCashWritableFileImpl.getWritableCommodityByID() are actually
+	// complete (as complete as returned be GnuCashFileImpl.getCommodityByID().
 
-    @Test
-    public void test01_2() throws Exception {
-	Collection<GnuCashWritableCommodity> cmdtyList = gcshInFile.getWritableCommoditiesByName("mercedes");
-	assertNotEquals(null, cmdtyList);
-	assertEquals(1, cmdtyList.size());
+	@Test
+	public void test01_1() throws Exception {
+		GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_EXCH, CMDTY_1_ID);
+		assertNotEquals(null, cmdty);
 
-	assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
-	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
-	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
-//    assertEquals(cmdtyCurrID1, 
-//	        ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
-	assertEquals(CMDTY_1_ISIN, ((GnuCashCommodity) cmdtyList.toArray()[0]).getXCode());
-	assertEquals("Mercedes-Benz Group AG", ((GnuCashCommodity) cmdtyList.toArray()[0]).getName());
+		assertEquals(cmdtyCurrID1.toString(), cmdty.getQualifID().toString());
+		// *Not* equal because of class
+		assertNotEquals(cmdtyCurrID1, cmdty.getQualifID());
+		// ::TODO: Convert to CommodityID_Exchange, then it should be equal
+		//    assertEquals(cmdtyCurrID1, cmdty.getQualifID()); // not trivial!
+		assertEquals(CMDTY_1_ISIN, cmdty.getXCode());
+		assertEquals("Mercedes-Benz Group AG", cmdty.getName());
+	}
 
-	cmdtyList = gcshInFile.getWritableCommoditiesByName("BENZ");
-	assertNotEquals(null, cmdtyList);
-	assertEquals(1, cmdtyList.size());
-	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
-	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
-//    assertEquals(cmdtyCurrID1, 
-//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+	@Test
+	public void test01_2() throws Exception {
+		Collection<GnuCashWritableCommodity> cmdtyList = gcshInFile.getWritableCommoditiesByName("mercedes");
+		assertNotEquals(null, cmdtyList);
+		assertEquals(1, cmdtyList.size());
 
-	cmdtyList = gcshInFile.getWritableCommoditiesByName(" MeRceDeS-bEnZ  ");
-	assertNotEquals(null, cmdtyList);
-	assertEquals(1, cmdtyList.size());
-	assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
-	// *Not* equal because of class
-	assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
-	// ::TODO: Convert to CommodityID_Exchange, then it should be equal
-//    assertEquals(cmdtyCurrID1, 
-//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
-    }
+		assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+		// *Not* equal because of class
+		assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+		// ::TODO: Convert to CommodityID_Exchange, then it should be equal
+		//    assertEquals(cmdtyCurrID1, 
+		//	        ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
+		assertEquals(CMDTY_1_ISIN, ((GnuCashCommodity) cmdtyList.toArray()[0]).getXCode());
+		assertEquals("Mercedes-Benz Group AG", ((GnuCashCommodity) cmdtyList.toArray()[0]).getName());
 
-    // -----------------------------------------------------------------
-    // PART 2: Modify existing objects
-    // -----------------------------------------------------------------
-    // Check whether the GnuCashWritableCommodity objects returned by
-    // can actually be modified -- both in memory and persisted in file.
+		cmdtyList = gcshInFile.getWritableCommoditiesByName("BENZ");
+		assertNotEquals(null, cmdtyList);
+		assertEquals(1, cmdtyList.size());
+		// *Not* equal because of class
+		assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+		// ::TODO: Convert to CommodityID_Exchange, then it should be equal
+		//    assertEquals(cmdtyCurrID1, 
+		//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
 
-    // ::TODO
+		cmdtyList = gcshInFile.getWritableCommoditiesByName(" MeRceDeS-bEnZ  ");
+		assertNotEquals(null, cmdtyList);
+		assertEquals(1, cmdtyList.size());
+		assertEquals(cmdtyCurrID1.toString(), ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID().toString());
+		// *Not* equal because of class
+		assertNotEquals(cmdtyCurrID1, ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID());
+		// ::TODO: Convert to CommodityID_Exchange, then it should be equal
+		//    assertEquals(cmdtyCurrID1, 
+		//	         ((GnuCashCommodity) cmdtyList.toArray()[0]).getQualifID()); // not trivial!
+	}
 
-    // -----------------------------------------------------------------
-    // PART 3: Create new objects
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// PART 2: Modify existing objects
+	// -----------------------------------------------------------------
+	// Check whether the GnuCashWritableCommodity objects returned by
+	// can actually be modified -- both in memory and persisted in file.
 
-    // ------------------------------
-    // PART 3.1: High-Level
-    // ------------------------------
+	// ::TODO
 
-    @Test
-    public void test03_1_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+	// -----------------------------------------------------------------
+	// PART 3: Create new objects
+	// -----------------------------------------------------------------
 
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
-	// ::CHECK ???
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+	// ------------------------------
+	// PART 3.1: High-Level
+	// ------------------------------
 
-	GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(newID, "Best Corp Ever");
+	@Test
+	public void test03_1_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	// ----------------------------
-	// Check whether the object can has actually be created
-	// (in memory, not in the file yet).
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+		// ::CHECK ???
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
-	test03_1_1_check_memory(cmdty);
+		GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(newID, "Best Corp Ever");
 
-	// ----------------------------
-	// Now, check whether the created object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be created
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test03_1_1_check_memory(cmdty);
 
-	test03_1_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the created object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    private void test03_1_1_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
-	// ::CHECK ???
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	assertEquals(newID.toString(), cmdty.getQualifID().toString());
-	assertEquals("Best Corp Ever", cmdty.getName());
-    }
+		test03_1_1_check_persisted(outFile);
+	}
 
-    private void test03_1_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+	private void test03_1_1_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+		// ::CHECK ???
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+		assertEquals(newID.toString(), cmdty.getQualifID().toString());
+		assertEquals("Best Corp Ever", cmdty.getName());
+	}
 
-	GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(newID);
-	assertNotEquals(null, cmdty);
+	private void test03_1_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-	assertEquals(newID.toString(), cmdty.getQualifID().toString());
-	assertEquals("Best Corp Ever", cmdty.getName());
-    }
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
-    // ------------------------------
-    // PART 3.2: Low-Level
-    // ------------------------------
+		GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(newID);
+		assertNotEquals(null, cmdty);
 
-    @Test
-    public void test03_2_1() throws Exception {
-	GnuCashWritableCommodity cmdty = 
-			gcshInFile.createWritableCommodity(
-					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
-					"Scam and Screw Corp.");
+		assertEquals(newID.toString(), cmdty.getQualifID().toString());
+		assertEquals("Best Corp Ever", cmdty.getName());
+	}
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-//      System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test01_1: '" + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+	// ------------------------------
+	// PART 3.2: Low-Level
+	// ------------------------------
 
-	test03_2_1_check_1_valid(outFile);
-	test03_2_1_check(outFile);
-    }
+	@Test
+	public void test03_2_1() throws Exception {
+		GnuCashWritableCommodity cmdty = 
+				gcshInFile.createWritableCommodity(
+						new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+						"Scam and Screw Corp.");
 
-    // -----------------------------------------------------------------
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		//      System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test01_1: '" + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-//  @Test
-//  public void test03_2_2() throws Exception
-//  {
-//      assertNotEquals(null, outFileGlob);
-//      assertEquals(true, outFileGlob.exists());
-//
-//      // Check if generated document is valid
-//      // ::TODO: in fact, not even the input document is.
-//      // Build document
-//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//      DocumentBuilder builder = factory.newDocumentBuilder(); 
-//      Document document = builder.parse(outFileGlob);
-//      System.err.println("xxxx XML parsed");
-//
-//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
-//      Schema schema = null;
-//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
-//      schema = factory1.newSchema(outFileGlob);
-//
-//      Validator validator = schema.newValidator();
-//      DOMResult validResult = null; 
-//      validator.validate(new DOMSource(document), validResult);
-//      System.out.println("yyy: " + validResult);
-//      // assertEquals(validResult);
-//  }
+		test03_2_1_check_1_valid(outFile);
+		test03_2_1_check(outFile);
+	}
+
+	// -----------------------------------------------------------------
+
+	//  @Test
+	//  public void test03_2_2() throws Exception
+	//  {
+	//      assertNotEquals(null, outFileGlob);
+	//      assertEquals(true, outFileGlob.exists());
+	//
+	//      // Check if generated document is valid
+	//      // ::TODO: in fact, not even the input document is.
+	//      // Build document
+	//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	//      DocumentBuilder builder = factory.newDocumentBuilder(); 
+	//      Document document = builder.parse(outFileGlob);
+	//      System.err.println("xxxx XML parsed");
+	//
+	//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
+	//      Schema schema = null;
+	//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+	//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
+	//      schema = factory1.newSchema(outFileGlob);
+	//
+	//      Validator validator = schema.newValidator();
+	//      DOMResult validResult = null; 
+	//      validator.validate(new DOMSource(document), validResult);
+	//      System.out.println("yyy: " + validResult);
+	//      // assertEquals(validResult);
+	//  }
 
 	// Sort of "soft" variant of above function
 	// CAUTION: Not platform-independent!
@@ -295,9 +295,9 @@ public class TestGnuCashWritableCommodityImpl {
 
 		// Check if generated document is valid
 		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath());
- 		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
+		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
 		Process prc = bld.start();
-		
+
 		if ( prc.waitFor() == 0 ) {
 			assertEquals(0, 0);
 		} else {
@@ -306,127 +306,127 @@ public class TestGnuCashWritableCommodityImpl {
 	}
 
 	private void test03_2_1_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	NodeList nList = document.getElementsByTagName("gnc:commodity");
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, nList.getLength()); // <-- CAUTION: includes
-										// "template:template"
+		NodeList nList = document.getElementsByTagName("gnc:commodity");
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, nList.getLength()); // <-- CAUTION: includes
+		// "template:template"
 
-	// Last (new) node
-	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
-	Element elt = (Element) lastNode;
-	assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
-	assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
-		elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
-	assertEquals("SCAM", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
-    }
+		// Last (new) node
+		Node lastNode = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
+		Element elt = (Element) lastNode;
+		assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
+		assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
+				elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
+		assertEquals("SCAM", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
+	}
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    @Test
-    public void test03_2_2() throws Exception {
-	GnuCashWritableCommodity cmdty1 = 
-			gcshInFile.createWritableCommodity(
-					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
-					"Scam and Screw Corp.");
-	cmdty1.setXCode("US0123456789");
+	@Test
+	public void test03_2_2() throws Exception {
+		GnuCashWritableCommodity cmdty1 = 
+				gcshInFile.createWritableCommodity(
+						new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.NASDAQ, "SCAM"),
+						"Scam and Screw Corp.");
+		cmdty1.setXCode("US0123456789");
 
-	GnuCashWritableCommodity cmdty2 = 
-			gcshInFile.createWritableCommodity(
-					new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"),
-					"Chocolaterie de la Grande Place");
-	cmdty2.setXCode("BE0123456789");
+		GnuCashWritableCommodity cmdty2 = 
+				gcshInFile.createWritableCommodity(
+						new GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC.XBRU, "CHOC"),
+						"Chocolaterie de la Grande Place");
+		cmdty2.setXCode("BE0123456789");
 
-	GnuCashWritableCommodity cmdty3 = 
-			gcshInFile.createWritableCommodity(
-					new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"),
-					"Ils sont fous ces dingos!");
-	cmdty3.setXCode("FR0123456789");
+		GnuCashWritableCommodity cmdty3 = 
+				gcshInFile.createWritableCommodity(
+						new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "FOUS"),
+						"Ils sont fous ces dingos!");
+		cmdty3.setXCode("FR0123456789");
 
-	GnuCashWritableCommodity cmdty4 = 
-			gcshInFile.createWritableCommodity(
-					new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"),
-					"Ye Ole National British Trade Company Ltd.");
-	cmdty4.setXCode("GB10000A2222"); // sic, has to be set redundantly
+		GnuCashWritableCommodity cmdty4 = 
+				gcshInFile.createWritableCommodity(
+						new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "GB10000A2222"),
+						"Ye Ole National British Trade Company Ltd.");
+		cmdty4.setXCode("GB10000A2222"); // sic, has to be set redundantly
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test02_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test02_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	test03_2_2_check(outFile);
-    }
+		test03_2_2_check(outFile);
+	}
 
-    private void test03_2_2_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
+	private void test03_2_2_check(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	NodeList nList = document.getElementsByTagName("gnc:commodity");
-	assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 4, nList.getLength()); // <-- CAUTION: includes
-										// "template:template"
+		NodeList nList = document.getElementsByTagName("gnc:commodity");
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 4, nList.getLength()); // <-- CAUTION: includes
+		// "template:template"
 
-	// Last three nodes (the new ones)
-	Node node = nList.item(nList.getLength() - 4);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	Element elt = (Element) node;
-	assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
-	assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
-		elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
-	assertEquals("SCAM", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
-	assertEquals("US0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
+		// Last three nodes (the new ones)
+		Node node = nList.item(nList.getLength() - 4);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		Element elt = (Element) node;
+		assertEquals("Scam and Screw Corp.", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
+		assertEquals(GCshCmdtyCurrNameSpace.Exchange.NASDAQ.toString(),
+				elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
+		assertEquals("SCAM", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
+		assertEquals("US0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
-	node = nList.item(nList.getLength() - 3);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Chocolaterie de la Grande Place",
-		elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
-	assertEquals(GCshCmdtyCurrNameSpace.MIC.XBRU.toString(),
-		elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
-	assertEquals("CHOC", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
-	assertEquals("BE0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
+		node = nList.item(nList.getLength() - 3);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Chocolaterie de la Grande Place",
+				elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
+		assertEquals(GCshCmdtyCurrNameSpace.MIC.XBRU.toString(),
+				elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
+		assertEquals("CHOC", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
+		assertEquals("BE0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
-	node = nList.item(nList.getLength() - 2);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Ils sont fous ces dingos!", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
-	assertEquals(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(),
-		elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
-	assertEquals("FOUS", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
-	assertEquals("FR0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
+		node = nList.item(nList.getLength() - 2);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Ils sont fous ces dingos!", elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
+		assertEquals(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(),
+				elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
+		assertEquals("FOUS", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
+		assertEquals("FR0123456789", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 
-	node = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Ye Ole National British Trade Company Ltd.",
-		elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
-	assertEquals(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(),
-		elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
-	assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
-	assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
-    }
+		node = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Ye Ole National British Trade Company Ltd.",
+				elt.getElementsByTagName("cmdty:name").item(0).getTextContent());
+		assertEquals(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(),
+				elt.getElementsByTagName("cmdty:space").item(0).getTextContent());
+		assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
+		assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
+	}
 
 }

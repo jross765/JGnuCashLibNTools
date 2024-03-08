@@ -36,340 +36,340 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableCustomerImpl {
-    private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
-//    private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
+	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
+	//    private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
 
-//    private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-    private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+	//    private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    private GnuCashWritableFileImpl gcshInFile = null;
-    private GnuCashFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile = null;
+	private GnuCashFileImpl gcshOutFile = null;
 
-    private GCshFileStats gcshInFileStats = null;
-    private GCshFileStats gcshOutFileStats = null;
+	private GCshFileStats gcshInFileStats = null;
+	private GCshFileStats gcshOutFileStats = null;
 
-    private GCshID newID = null;
+	private GCshID newID = null;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+	@SuppressWarnings("exports")
+	@Rule
+	public TemporaryFolder folder = new TemporaryFolder();
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    public static void main(String[] args) throws Exception {
-	junit.textui.TestRunner.run(suite());
-    }
-
-    @SuppressWarnings("exports")
-    public static junit.framework.Test suite() {
-	return new JUnit4TestAdapter(TestGnuCashWritableCustomerImpl.class);
-    }
-
-    @Before
-    public void initialize() throws Exception {
-	ClassLoader classLoader = getClass().getClassLoader();
-	// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-	// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-	InputStream gcshInFileStream = null;
-	try {
-	    gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
-	} catch (Exception exc) {
-	    System.err.println("Cannot generate input stream from resource");
-	    return;
+	public static void main(String[] args) throws Exception {
+		junit.textui.TestRunner.run(suite());
 	}
 
-	try {
-	    gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
-	} catch (Exception exc) {
-	    System.err.println("Cannot parse GnuCash in-file");
-	    exc.printStackTrace();
+	@SuppressWarnings("exports")
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(TestGnuCashWritableCustomerImpl.class);
 	}
-    }
 
-    // -----------------------------------------------------------------
-    // PART 1: Read existing objects as modifiable ones
-    // (and see whether they are fully symmetrical to their read-only
-    // counterparts)
-    // -----------------------------------------------------------------
-    // Cf. TestGnuCashCustomerImpl.test01_1/02_1
-    //
-    // Check whether the GnuCashWritableCustomer objects returned by
-    // GnuCashWritableFileImpl.getWritableCustomerByID() are actually
-    // complete (as complete as returned be GnuCashFileImpl.getCustomerByID().
+	@Before
+	public void initialize() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+		// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+		InputStream gcshInFileStream = null;
+		try {
+			gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
+		} catch (Exception exc) {
+			System.err.println("Cannot generate input stream from resource");
+			return;
+		}
 
-    @Test
-    public void test01_1_1() throws Exception {
-	GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
-	assertNotEquals(null, cust);
+		try {
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
+		} catch (Exception exc) {
+			System.err.println("Cannot parse GnuCash in-file");
+			exc.printStackTrace();
+		}
+	}
 
-	assertEquals(CUST_1_ID, cust.getID());
-	assertEquals("000001", cust.getNumber());
-	assertEquals("Unfug und Quatsch GmbH", cust.getName());
+	// -----------------------------------------------------------------
+	// PART 1: Read existing objects as modifiable ones
+	// (and see whether they are fully symmetrical to their read-only
+	// counterparts)
+	// -----------------------------------------------------------------
+	// Cf. TestGnuCashCustomerImpl.test01_1/02_1
+	//
+	// Check whether the GnuCashWritableCustomer objects returned by
+	// GnuCashWritableFileImpl.getWritableCustomerByID() are actually
+	// complete (as complete as returned be GnuCashFileImpl.getCustomerByID().
 
-	assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
-	assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	@Test
+	public void test01_1_1() throws Exception {
+		GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+		assertNotEquals(null, cust);
 
-	assertEquals(null, cust.getNotes());
+		assertEquals(CUST_1_ID, cust.getID());
+		assertEquals("000001", cust.getNumber());
+		assertEquals("Unfug und Quatsch GmbH", cust.getName());
 
-	assertEquals(null, cust.getTaxTableID());
+		assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-	assertEquals(BLLTRM_2_ID, cust.getTermsID());
-	assertEquals("30-10-3", cust.getTerms().getName());
-	assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType());
-	// etc., cf. class TestGCshBillTermsImpl
-    }
+		assertEquals(null, cust.getNotes());
 
-    @Test
-    public void test01_1_2() throws Exception {
-	GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
-	assertNotEquals(null, cust);
+		assertEquals(null, cust.getTaxTableID());
 
-	assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getNofOpenInvoices());
-	assertEquals(cust.getNofOpenInvoices(), ((GnuCashWritableCustomerImpl) cust).getNofOpenInvoices()); // not
-													    // trivial
+		assertEquals(BLLTRM_2_ID, cust.getTermsID());
+		assertEquals("30-10-3", cust.getTerms().getName());
+		assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType());
+		// etc., cf. class TestGCshBillTermsImpl
+	}
 
-	assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size());
-	assertEquals(cust.getPaidInvoices_direct().size(),
-		((GnuCashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
+	@Test
+	public void test01_1_2() throws Exception {
+		GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+		assertNotEquals(null, cust);
 
-	List<GnuCashCustomerInvoice> invcList1 = cust.getPaidInvoices_direct();
-	Collections.sort(invcList1);
-	assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
-		((GnuCashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
-	List<GnuCashWritableCustomerInvoice> invcList2 = ((GnuCashWritableCustomerImpl) cust)
-		.getPaidWritableInvoices_direct();
-	Collections.sort(invcList2);
-	assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
-		((GnuCashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
+		assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getNofOpenInvoices());
+		assertEquals(cust.getNofOpenInvoices(), ((GnuCashWritableCustomerImpl) cust).getNofOpenInvoices()); // not
+		// trivial
 
-	invcList1 = cust.getUnpaidInvoices_direct();
-	Collections.sort(invcList1);
-	assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
-	assertEquals(cust.getUnpaidInvoices_direct().size(),
-		((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial
-	assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
-		((GnuCashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
-	invcList2 = ((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct();
-	Collections.sort(invcList2);
-	assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
-		((GnuCashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
-    }
+		assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size());
+		assertEquals(cust.getPaidInvoices_direct().size(),
+				((GnuCashWritableCustomerImpl) cust).getPaidWritableInvoices_direct().size()); // not trivial!
 
-    // -----------------------------------------------------------------
-    // PART 2: Modify existing objects
-    // -----------------------------------------------------------------
-    // Check whether the GnuCashWritableCustomer objects returned by
-    // can actually be modified -- both in memory and persisted in file.
+		List<GnuCashCustomerInvoice> invcList1 = cust.getPaidInvoices_direct();
+		Collections.sort(invcList1);
+		assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
+				((GnuCashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
+		List<GnuCashWritableCustomerInvoice> invcList2 = ((GnuCashWritableCustomerImpl) cust)
+				.getPaidWritableInvoices_direct();
+		Collections.sort(invcList2);
+		assertEquals("d9967c10fdf1465e9394a3e4b1e7bd79",
+				((GnuCashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
 
-    @Test
-    public void test02_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+		invcList1 = cust.getUnpaidInvoices_direct();
+		Collections.sort(invcList1);
+		assertEquals(1, ((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size());
+		assertEquals(cust.getUnpaidInvoices_direct().size(),
+				((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct().size()); // not trivial
+		assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
+				((GnuCashCustomerInvoice) invcList1.toArray()[0]).getID().toString());
+		invcList2 = ((GnuCashWritableCustomerImpl) cust).getUnpaidWritableInvoices_direct();
+		Collections.sort(invcList2);
+		assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07",
+				((GnuCashWritableCustomerInvoice) invcList2.toArray()[0]).getID().toString());
+	}
 
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+	// -----------------------------------------------------------------
+	// PART 2: Modify existing objects
+	// -----------------------------------------------------------------
+	// Check whether the GnuCashWritableCustomer objects returned by
+	// can actually be modified -- both in memory and persisted in file.
 
-	GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
-	assertNotEquals(null, cust);
+	@Test
+	public void test02_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	assertEquals(CUST_1_ID, cust.getID());
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	// ----------------------------
-	// Modify the object
+		GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+		assertNotEquals(null, cust);
 
-	cust.setNumber("LUCKLUK01");
-	cust.setName("Lucky Luke");
-	cust.setCredit(new FixedPointNumber(10600.55));
-	cust.setNotes("He draws quicker than his shadow does");
+		assertEquals(CUST_1_ID, cust.getID());
 
-	// ----------------------------
-	// Check whether the object can has actually be modified
-	// (in memory, not in the file yet).
+		// ----------------------------
+		// Modify the object
 
-	test02_1_check_memory(cust);
+		cust.setNumber("LUCKLUK01");
+		cust.setName("Lucky Luke");
+		cust.setCredit(new FixedPointNumber(10600.55));
+		cust.setNotes("He draws quicker than his shadow does");
 
-	// ----------------------------
-	// Now, check whether the modified object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test02_1_check_memory(cust);
 
-	test02_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    @Test
-    public void test02_2() throws Exception {
-	// ::TODO
-    }
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-    private void test02_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		test02_1_check_persisted(outFile);
+	}
 
-	assertEquals(CUST_1_ID, cust.getID()); // unchanged
-	assertEquals("LUCKLUK01", cust.getNumber()); // changed
-	assertEquals("Lucky Luke", cust.getName()); // changed
+	@Test
+	public void test02_2() throws Exception {
+		// ::TODO
+	}
 
-	assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
-	assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+	private void test02_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
+		assertEquals(CUST_1_ID, cust.getID()); // unchanged
+		assertEquals("LUCKLUK01", cust.getNumber()); // changed
+		assertEquals("Lucky Luke", cust.getName()); // changed
 
-	assertEquals(null, cust.getTaxTableID()); // unchanged
+		assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
 
-	assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
-	assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
-	assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
-    }
+		assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
 
-    private void test02_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+		assertEquals(null, cust.getTaxTableID()); // unchanged
 
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
+		assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
+		assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
+	}
 
-	GnuCashCustomer cust = gcshOutFile.getCustomerByID(CUST_1_ID);
-	assertNotEquals(null, cust);
+	private void test02_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-	assertEquals(CUST_1_ID, cust.getID()); // unchanged
-	assertEquals("LUCKLUK01", cust.getNumber()); // changed
-	assertEquals("Lucky Luke", cust.getName()); // changed
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
-	assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
+		GnuCashCustomer cust = gcshOutFile.getCustomerByID(CUST_1_ID);
+		assertNotEquals(null, cust);
 
-	assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
+		assertEquals(CUST_1_ID, cust.getID()); // unchanged
+		assertEquals("LUCKLUK01", cust.getNumber()); // changed
+		assertEquals("Lucky Luke", cust.getName()); // changed
 
-	assertEquals(null, cust.getTaxTableID()); // unchanged
+		assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals(10600.55, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
 
-	assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
-	assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
-	assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
-    }
+		assertEquals("He draws quicker than his shadow does", cust.getNotes()); // changed
 
-    // -----------------------------------------------------------------
-    // PART 3: Create new objects
-    // -----------------------------------------------------------------
+		assertEquals(null, cust.getTaxTableID()); // unchanged
 
-    // ------------------------------
-    // PART 3.1: High-Level
-    // ------------------------------
+		assertEquals(BLLTRM_2_ID, cust.getTermsID()); // unchanged
+		assertEquals("30-10-3", cust.getTerms().getName()); // unchanged
+		assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType()); // unchanged
+	}
 
-    @Test
-    public void test03_1_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+	// -----------------------------------------------------------------
+	// PART 3: Create new objects
+	// -----------------------------------------------------------------
 
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+	// ------------------------------
+	// PART 3.1: High-Level
+	// ------------------------------
 
-	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
-	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
+	@Test
+	public void test03_1_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	// ----------------------------
-	// Check whether the object can has actually be created
-	// (in memory, not in the file yet).
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	test03_1_1_check_memory(cust);
+		GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
+		cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
 
-	// ----------------------------
-	// Now, check whether the created object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be created
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test03_1_1_check_memory(cust);
 
-	test03_1_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the created object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    private void test03_1_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	newID = cust.getID();
-	assertEquals("Frederic Austerlitz", cust.getName());
-    }
+		test03_1_1_check_persisted(outFile);
+	}
 
-    private void test03_1_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+	private void test03_1_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		newID = cust.getID();
+		assertEquals("Frederic Austerlitz", cust.getName());
+	}
 
-	GnuCashCustomer cust = gcshOutFile.getCustomerByID(newID);
-	assertNotEquals(null, cust);
+	private void test03_1_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-	assertEquals(newID, cust.getID());
-	assertEquals("Frederic Austerlitz", cust.getName());
-    }
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-    // ------------------------------
-    // PART 3.2: Low-Level
-    // ------------------------------
+		GnuCashCustomer cust = gcshOutFile.getCustomerByID(newID);
+		assertNotEquals(null, cust);
 
-    @Test
-    public void test03_2_1() throws Exception {
-	GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
-	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
+		assertEquals(newID, cust.getID());
+		assertEquals("Frederic Austerlitz", cust.getName());
+	}
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-//      System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+	// ------------------------------
+	// PART 3.2: Low-Level
+	// ------------------------------
 
-	test03_2_1_check_1_valid(outFile);
-	test03_2_1_check(outFile);
-    }
+	@Test
+	public void test03_2_1() throws Exception {
+		GnuCashWritableCustomer cust = gcshInFile.createWritableCustomer("Frederic Austerlitz");
+		cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
 
-    // -----------------------------------------------------------------
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		//      System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '" + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-//  @Test
-//  public void test03_2_2() throws Exception
-//  {
-//      assertNotEquals(null, outFileGlob);
-//      assertEquals(true, outFileGlob.exists());
-//
-//      // Check if generated document is valid
-//      // ::TODO: in fact, not even the input document is.
-//      // Build document
-//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//      DocumentBuilder builder = factory.newDocumentBuilder(); 
-//      Document document = builder.parse(outFileGlob);
-//      System.err.println("xxxx XML parsed");
-//
-//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
-//      Schema schema = null;
-//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
-//      schema = factory1.newSchema(outFileGlob);
-//
-//      Validator validator = schema.newValidator();
-//      DOMResult validResult = null; 
-//      validator.validate(new DOMSource(document), validResult);
-//      System.out.println("yyy: " + validResult);
-//      // assertEquals(validResult);
-//  }
+		test03_2_1_check_1_valid(outFile);
+		test03_2_1_check(outFile);
+	}
+
+	// -----------------------------------------------------------------
+
+	//  @Test
+	//  public void test03_2_2() throws Exception
+	//  {
+	//      assertNotEquals(null, outFileGlob);
+	//      assertEquals(true, outFileGlob.exists());
+	//
+	//      // Check if generated document is valid
+	//      // ::TODO: in fact, not even the input document is.
+	//      // Build document
+	//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	//      DocumentBuilder builder = factory.newDocumentBuilder(); 
+	//      Document document = builder.parse(outFileGlob);
+	//      System.err.println("xxxx XML parsed");
+	//
+	//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
+	//      Schema schema = null;
+	//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+	//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
+	//      schema = factory1.newSchema(outFileGlob);
+	//
+	//      Validator validator = schema.newValidator();
+	//      DOMResult validResult = null; 
+	//      validator.validate(new DOMSource(document), validResult);
+	//      System.out.println("yyy: " + validResult);
+	//      // assertEquals(validResult);
+	//  }
 
 	// Sort of "soft" variant of above function
 	// CAUTION: Not platform-independent!
@@ -379,100 +379,100 @@ public class TestGnuCashWritableCustomerImpl {
 		assertEquals(true, outFile.exists());
 
 		// Check if generated document is valid
- 		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath() );
- 		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
+		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath() );
+		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
 		Process prc = bld.start();
-		
+
 		if ( prc.waitFor() == 0 ) {
 			assertEquals(0, 0);
 		} else {
 			assertEquals(0, 1);
 		}
 	}
-	
-    private void test03_2_1_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+	private void test03_2_1_check(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	NodeList nList = document.getElementsByTagName("gnc:GncCustomer");
-	assertEquals(ConstTest.Stats.NOF_CUST + 1, nList.getLength());
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	// Last (new) node
-	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
-	Element elt = (Element) lastNode;
-	assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
-	assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
-    }
+		NodeList nList = document.getElementsByTagName("gnc:GncCustomer");
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, nList.getLength());
 
-    // -----------------------------------------------------------------
+		// Last (new) node
+		Node lastNode = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
+		Element elt = (Element) lastNode;
+		assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
+		assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+	}
 
-    @Test
-    public void test03_2_4() throws Exception {
-	GnuCashWritableCustomer cust1 = gcshInFile.createWritableCustomer("Frederic Austerlitz");
-	cust1.setNumber(GnuCashCustomerImpl.getNewNumber(cust1));
+	// -----------------------------------------------------------------
 
-	GnuCashWritableCustomer cust2 = gcshInFile.createWritableCustomer("Doris Kappelhoff");
-	cust2.setNumber(GnuCashCustomerImpl.getNewNumber(cust2));
+	@Test
+	public void test03_2_4() throws Exception {
+		GnuCashWritableCustomer cust1 = gcshInFile.createWritableCustomer("Frederic Austerlitz");
+		cust1.setNumber(GnuCashCustomerImpl.getNewNumber(cust1));
 
-	GnuCashWritableCustomer cust3 = gcshInFile.createWritableCustomer("Georgios Panayiotou");
-	cust3.setNumber(GnuCashCustomerImpl.getNewNumber(cust3));
-	
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test02_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		GnuCashWritableCustomer cust2 = gcshInFile.createWritableCustomer("Doris Kappelhoff");
+		cust2.setNumber(GnuCashCustomerImpl.getNewNumber(cust2));
 
-	test03_2_4_check(outFile);
-    }
+		GnuCashWritableCustomer cust3 = gcshInFile.createWritableCustomer("Georgios Panayiotou");
+		cust3.setNumber(GnuCashCustomerImpl.getNewNumber(cust3));
 
-    private void test03_2_4_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test02_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+		test03_2_4_check(outFile);
+	}
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+	private void test03_2_4_check(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	NodeList nList = document.getElementsByTagName("gnc:GncCustomer");
-	assertEquals(ConstTest.Stats.NOF_CUST + 3, nList.getLength());
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	// Last three nodes (the new ones)
-	Node node = nList.item(nList.getLength() - 3);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	Element elt = (Element) node;
-	assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
-	assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	node = nList.item(nList.getLength() - 2);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Doris Kappelhoff", elt.getElementsByTagName("cust:name").item(0).getTextContent());
-	assertEquals("000005", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+		NodeList nList = document.getElementsByTagName("gnc:GncCustomer");
+		assertEquals(ConstTest.Stats.NOF_CUST + 3, nList.getLength());
 
-	node = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Georgios Panayiotou", elt.getElementsByTagName("cust:name").item(0).getTextContent());
-	assertEquals("000006", elt.getElementsByTagName("cust:id").item(0).getTextContent());
-    }
+		// Last three nodes (the new ones)
+		Node node = nList.item(nList.getLength() - 3);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		Element elt = (Element) node;
+		assertEquals("Frederic Austerlitz", elt.getElementsByTagName("cust:name").item(0).getTextContent());
+		assertEquals("000004", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+
+		node = nList.item(nList.getLength() - 2);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Doris Kappelhoff", elt.getElementsByTagName("cust:name").item(0).getTextContent());
+		assertEquals("000005", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+
+		node = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Georgios Panayiotou", elt.getElementsByTagName("cust:name").item(0).getTextContent());
+		assertEquals("000006", elt.getElementsByTagName("cust:id").item(0).getTextContent());
+	}
 
 }

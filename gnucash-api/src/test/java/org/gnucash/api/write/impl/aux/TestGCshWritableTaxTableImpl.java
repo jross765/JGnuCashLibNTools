@@ -24,344 +24,344 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshWritableTaxTableImpl {
-    private static final GCshID TAXTABLE_DE_1_1_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_1_ID;
-    private static final GCshID TAXTABLE_DE_1_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_2_ID;
-    private static final GCshID TAXTABLE_DE_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_2_ID;
+	private static final GCshID TAXTABLE_DE_1_1_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_1_ID;
+	private static final GCshID TAXTABLE_DE_1_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_2_ID;
+	private static final GCshID TAXTABLE_DE_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_2_ID;
 
-    public static final GCshID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
-    private static final GCshID TAXTABLE_FR_2_ID = TestGCshTaxTableImpl.TAXTABLE_FR_2_ID;
+	public static final GCshID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
+	private static final GCshID TAXTABLE_FR_2_ID = TestGCshTaxTableImpl.TAXTABLE_FR_2_ID;
 
-    public static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
-    private static final GCshID TAXTABLE_UK_2_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+	public static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+	private static final GCshID TAXTABLE_UK_2_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
-    private static final GCshID TAX_ACCT_ID = TestGCshTaxTableImpl.TAX_ACCT_ID;
+	private static final GCshID TAX_ACCT_ID = TestGCshTaxTableImpl.TAX_ACCT_ID;
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    private GnuCashWritableFileImpl gcshInFile = null;
-    private GnuCashFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile = null;
+	private GnuCashFileImpl gcshOutFile = null;
 
-    private GCshFileStats gcshInFileStats = null;
-    private GCshFileStats gcshOutFileStats = null;
+	private GCshFileStats gcshInFileStats = null;
+	private GCshFileStats gcshOutFileStats = null;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+	@SuppressWarnings("exports")
+	@Rule
+	public TemporaryFolder folder = new TemporaryFolder();
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    public static void main(String[] args) throws Exception {
-	junit.textui.TestRunner.run(suite());
-    }
-
-    @SuppressWarnings("exports")
-    public static junit.framework.Test suite() {
-	return new JUnit4TestAdapter(TestGCshWritableTaxTableImpl.class);
-    }
-
-    @Before
-    public void initialize() throws Exception {
-	ClassLoader classLoader = getClass().getClassLoader();
-	// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-	// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-	InputStream gcshInFileStream = null;
-	try {
-	    gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
-	} catch (Exception exc) {
-	    System.err.println("Cannot generate input stream from resource");
-	    return;
+	public static void main(String[] args) throws Exception {
+		junit.textui.TestRunner.run(suite());
 	}
 
-	try {
-	    gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
-	} catch (Exception exc) {
-	    System.err.println("Cannot parse GnuCash in-file");
-	    exc.printStackTrace();
+	@SuppressWarnings("exports")
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(TestGCshWritableTaxTableImpl.class);
 	}
-    }
 
-    // -----------------------------------------------------------------
-    // PART 1: Read existing objects as modifiable ones
-    // (and see whether they are fully symmetrical to their read-only
-    // counterparts)
-    // -----------------------------------------------------------------
-    // Cf. TestGCshTaxTableImpl.testxyz
-    //
-    // Check whether the GCshWritableTaxTable objects returned by
-    // GnuCashWritableFileImpl.getWritableTaxTableByID() are actually
-    // complete (as complete as returned be GnuCashFileImpl.getTaxTableByID().
+	@Before
+	public void initialize() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+		// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+		InputStream gcshInFileStream = null;
+		try {
+			gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
+		} catch (Exception exc) {
+			System.err.println("Cannot generate input stream from resource");
+			return;
+		}
 
-    @Test
-    public void test01_1() throws Exception {
-	Collection<GCshWritableTaxTable> taxTableList = gcshInFile.getWritableTaxTables();
+		try {
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
+		} catch (Exception exc) {
+			System.err.println("Cannot parse GnuCash in-file");
+			exc.printStackTrace();
+		}
+	}
 
-	assertEquals(7, taxTableList.size());
+	// -----------------------------------------------------------------
+	// PART 1: Read existing objects as modifiable ones
+	// (and see whether they are fully symmetrical to their read-only
+	// counterparts)
+	// -----------------------------------------------------------------
+	// Cf. TestGCshTaxTableImpl.testxyz
+	//
+	// Check whether the GCshWritableTaxTable objects returned by
+	// GnuCashWritableFileImpl.getWritableTaxTableByID() are actually
+	// complete (as complete as returned be GnuCashFileImpl.getTaxTableByID().
 
-	// ::TODO: Sort array for predictability
-//      Object[] taxTableArr = taxTableList.toArray();
-//      
-//      assertEquals(TAXTABLE_UK_2_ID,   ((GCshWritableTaxTable) taxTableArr[0]).getID());
-//      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshWritableTaxTable) taxTableArr[1]).getID());
-//      assertEquals(TAXTABLE_UK_1_ID,   ((GCshWritableTaxTable) taxTableArr[2]).getID());
-//      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshWritableTaxTable) taxTableArr[3]).getID());
-//      assertEquals(TAXTABLE_DE_2_ID,   ((GCshWritableTaxTable) taxTableArr[4]).getID());
-//      assertEquals(TAXTABLE_FR_1_ID,   ((GCshWritableTaxTable) taxTableArr[5]).getID());
-//      assertEquals(TAXTABLE_FR_2_ID,   ((GCshWritableTaxTable) taxTableArr[6]).getID());
-    }
+	@Test
+	public void test01_1() throws Exception {
+		Collection<GCshWritableTaxTable> taxTableList = gcshInFile.getWritableTaxTables();
 
-    @Test
-    public void test01_2_1_1() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_1_1_ID);
+		assertEquals(7, taxTableList.size());
 
-	assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
-	assertEquals("DE_USt_Std", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		// ::TODO: Sort array for predictability
+		//      Object[] taxTableArr = taxTableList.toArray();
+		//      
+		//      assertEquals(TAXTABLE_UK_2_ID,   ((GCshWritableTaxTable) taxTableArr[0]).getID());
+		//      assertEquals(TAXTABLE_DE_1_2_ID, ((GCshWritableTaxTable) taxTableArr[1]).getID());
+		//      assertEquals(TAXTABLE_UK_1_ID,   ((GCshWritableTaxTable) taxTableArr[2]).getID());
+		//      assertEquals(TAXTABLE_DE_1_1_ID, ((GCshWritableTaxTable) taxTableArr[3]).getID());
+		//      assertEquals(TAXTABLE_DE_2_ID,   ((GCshWritableTaxTable) taxTableArr[4]).getID());
+		//      assertEquals(TAXTABLE_FR_1_ID,   ((GCshWritableTaxTable) taxTableArr[5]).getID());
+		//      assertEquals(TAXTABLE_FR_2_ID,   ((GCshWritableTaxTable) taxTableArr[6]).getID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_2_1_1() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_1_1_ID);
 
-    @Test
-    public void test01_2_1_2() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("DE_USt_Std");
+		assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
+		assertEquals("DE_USt_Std", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
-	assertEquals("DE_USt_Std", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_2_1_2() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("DE_USt_Std");
 
-    @Test
-    public void test01_2_2_1() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_1_2_ID);
+		assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getID());
+		assertEquals("DE_USt_Std", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
-	assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
-	assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_2_2_1() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_1_2_ID);
 
-    @Test
-    public void test01_2_2_2() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("USt_Std");
+		assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
+		assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
+		assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
-	assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
-	assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_2_2_2() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("USt_Std");
 
-    @Test
-    public void test01_3_1() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_2_ID);
+		assertEquals(TAXTABLE_DE_1_2_ID, taxTab.getID());
+		assertEquals("USt_Std", taxTab.getName()); // sic, old name w/o prefix "DE_"
+		assertEquals(TAXTABLE_DE_1_1_ID, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
-	assertEquals("DE_USt_red", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(19.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_3_1() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_DE_2_ID);
 
-    @Test
-    public void test01_3_2() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("DE_USt_red");
+		assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
+		assertEquals("DE_USt_red", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
-	assertEquals("DE_USt_red", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_3_2() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("DE_USt_red");
 
-    @Test
-    public void test01_4_1() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_1_ID);
+		assertEquals(TAXTABLE_DE_2_ID, taxTab.getID());
+		assertEquals("DE_USt_red", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
-	assertEquals("FR_TVA_Std", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(7.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_4_1() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_1_ID);
 
-    @Test
-    public void test01_4_2() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("FR_TVA_Std");
+		assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
+		assertEquals("FR_TVA_Std", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
-	assertEquals("FR_TVA_Std", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_4_2() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("FR_TVA_Std");
 
-    @Test
-    public void test01_5_1() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_2_ID);
+		assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
+		assertEquals("FR_TVA_Std", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
-	assertEquals("FR_TVA_red", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_5_1() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_2_ID);
 
-    @Test
-    public void test01_5_2() throws Exception {
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("FR_TVA_red");
+		assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
+		assertEquals("FR_TVA_red", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-	assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
-	assertEquals("FR_TVA_red", taxTab.getName());
-	assertEquals(null, taxTab.getParentID());
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(1, taxTab.getEntries().size());
-	assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE);
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
-    }
+	@Test
+	public void test01_5_2() throws Exception {
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByName("FR_TVA_red");
 
-    // -----------------------------------------------------------------
-    // PART 2: Modify existing objects
-    // -----------------------------------------------------------------
-    // Check whether the GCshWritableTaxTable objects returned by
-    // can actually be modified -- both in memory and persisted in file.
+		assertEquals(TAXTABLE_FR_2_ID, taxTab.getID());
+		assertEquals("FR_TVA_red", taxTab.getName());
+		assertEquals(null, taxTab.getParentID());
 
-    @Test
-    public void test02_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+		assertEquals(1, taxTab.getEntries().size());
+		assertEquals(10.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE);
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType());
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID());
+	}
 
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+	// -----------------------------------------------------------------
+	// PART 2: Modify existing objects
+	// -----------------------------------------------------------------
+	// Check whether the GCshWritableTaxTable objects returned by
+	// can actually be modified -- both in memory and persisted in file.
 
-	GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_1_ID);
-	assertNotEquals(null, taxTab);
+	@Test
+	public void test02_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
 
-	// ----------------------------
-	// Modify the object
+		GCshWritableTaxTable taxTab = gcshInFile.getWritableTaxTableByID(TAXTABLE_FR_1_ID);
+		assertNotEquals(null, taxTab);
 
-	taxTab.setName("Humptey Dumptey");
+		assertEquals(TAXTABLE_FR_1_ID, taxTab.getID());
 
-	// ----------------------------
-	// Check whether the object can has actually be modified
-	// (in memory, not in the file yet).
+		// ----------------------------
+		// Modify the object
 
-	test02_1_check_memory(taxTab);
+		taxTab.setName("Humptey Dumptey");
 
-	// ----------------------------
-	// Now, check whether the modified object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test02_1_check_memory(taxTab);
 
-	test02_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    @Test
-    public void test02_2() throws Exception {
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test02_1_check_persisted(outFile);
+	}
+
+	@Test
+	public void test02_2() throws Exception {
+		// ::TODO
+	}
+
+	private void test02_1_check_memory(GCshWritableTaxTable taxTab) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+
+		assertEquals(TAXTABLE_FR_1_ID, taxTab.getID()); // unchanged
+		assertEquals("Humptey Dumptey", taxTab.getName()); // changed
+		assertEquals(null, taxTab.getParentID()); // unchanged
+
+		assertEquals(1, taxTab.getEntries().size()); // unchanged
+		assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType()); // unchanged
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID()); // unchanged
+	}
+
+	private void test02_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+
+		GCshTaxTable taxTab = gcshOutFile.getTaxTableByID(TAXTABLE_FR_1_ID);
+		assertNotEquals(null, taxTab);
+
+		assertEquals(TAXTABLE_FR_1_ID, taxTab.getID()); // unchanged
+		assertEquals("Humptey Dumptey", taxTab.getName()); // changed
+		assertEquals(null, taxTab.getParentID()); // unchanged
+
+		assertEquals(1, taxTab.getEntries().size()); // unchanged
+		assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
+				ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType()); // unchanged
+		assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID()); // unchanged
+	}
+
+	// -----------------------------------------------------------------
+	// PART 3: Create new objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 3.1: High-Level
+	// ------------------------------
+
 	// ::TODO
-    }
 
-    private void test02_1_check_memory(GCshWritableTaxTable taxTab) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
+	// ------------------------------
+	// PART 3.2: Low-Level
+	// ------------------------------
 
-	assertEquals(TAXTABLE_FR_1_ID, taxTab.getID()); // unchanged
-	assertEquals("Humptey Dumptey", taxTab.getName()); // changed
-	assertEquals(null, taxTab.getParentID()); // unchanged
-
-	assertEquals(1, taxTab.getEntries().size()); // unchanged
-	assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE); // unchanged
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType()); // unchanged
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID()); // unchanged
-    }
-
-    private void test02_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
-
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
-
-	GCshTaxTable taxTab = gcshOutFile.getTaxTableByID(TAXTABLE_FR_1_ID);
-	assertNotEquals(null, taxTab);
-
-	assertEquals(TAXTABLE_FR_1_ID, taxTab.getID()); // unchanged
-	assertEquals("Humptey Dumptey", taxTab.getName()); // changed
-	assertEquals(null, taxTab.getParentID()); // unchanged
-
-	assertEquals(1, taxTab.getEntries().size()); // unchanged
-	assertEquals(20.0, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAmount().doubleValue(),
-		ConstTest.DIFF_TOLERANCE); // unchanged
-	assertEquals(GCshTaxTableEntry.Type.PERCENT, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getType()); // unchanged
-	assertEquals(TAX_ACCT_ID, ((GCshTaxTableEntry) taxTab.getEntries().toArray()[0]).getAccountID()); // unchanged
-    }
-
-    // -----------------------------------------------------------------
-    // PART 3: Create new objects
-    // -----------------------------------------------------------------
-
-    // ------------------------------
-    // PART 3.1: High-Level
-    // ------------------------------
-
-    // ::TODO
-
-    // ------------------------------
-    // PART 3.2: Low-Level
-    // ------------------------------
-
-    // ::TODO
+	// ::TODO
 
 }

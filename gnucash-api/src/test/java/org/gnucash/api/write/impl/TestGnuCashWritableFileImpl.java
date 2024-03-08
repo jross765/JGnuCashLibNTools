@@ -15,18 +15,18 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableFileImpl {
-    private GnuCashWritableFileImpl gcshInFile  = null;
-    private GnuCashWritableFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile  = null;
+	private GnuCashWritableFileImpl gcshOutFile = null;
 
-    private GCshFileStats gcshInFileStats  = null;
-    private GCshFileStats gcshOutFileStats = null;
+	private GCshFileStats gcshInFileStats  = null;
+	private GCshFileStats gcshOutFileStats = null;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+	@SuppressWarnings("exports")
+	@Rule
+	public TemporaryFolder folder = new TemporaryFolder();
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
 	public static void main(String[] args) throws Exception {
 		junit.textui.TestRunner.run(suite());
@@ -60,16 +60,16 @@ public class TestGnuCashWritableFileImpl {
 		gcshInFileStats = new GCshFileStats(gcshInFile);
 	}
 
-    // -----------------------------------------------------------------
-    // PART 1: Read existing objects as modifiable ones
-    // (and see whether they are fully symmetrical to their read-only
-    // counterparts)
-    // -----------------------------------------------------------------
-    // Cf. TestGnuCashFile.test01/02
-    //
-    // Check whether the GnuCashWritableFile objects returned by
-    // GnuCashWritableFileImpl.getWritableFileByID() are actually
-    // complete (as complete as returned be GnuCashFileImpl.getFileByID().
+	// -----------------------------------------------------------------
+	// PART 1: Read existing objects as modifiable ones
+	// (and see whether they are fully symmetrical to their read-only
+	// counterparts)
+	// -----------------------------------------------------------------
+	// Cf. TestGnuCashFile.test01/02
+	//
+	// Check whether the GnuCashWritableFile objects returned by
+	// GnuCashWritableFileImpl.getWritableFileByID() are actually
+	// complete (as complete as returned be GnuCashFileImpl.getFileByID().
 
 	@Test
 	public void test01() throws Exception {
@@ -181,22 +181,22 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
 	}
 
-    // -----------------------------------------------------------------
-    // PART 2: Modify existing objects
-    // -----------------------------------------------------------------
-    // Check whether the GnuCashWritableFile objects returned by
-    // can actually be modified -- both in memory and persisted in file.
+	// -----------------------------------------------------------------
+	// PART 2: Modify existing objects
+	// -----------------------------------------------------------------
+	// Check whether the GnuCashWritableFile objects returned by
+	// can actually be modified -- both in memory and persisted in file.
 
-    // ::TODO
+	// ::TODO
 
-    // -----------------------------------------------------------------
-    // PART 3: Create new objects
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// PART 3: Create new objects
+	// -----------------------------------------------------------------
 
-    // ::TODO
+	// ::TODO
 
-    // -----------------------------------------------------------------
-    // PART 4: Idempotency
+	// -----------------------------------------------------------------
+	// PART 4: Idempotency
 	// 
 	// Check that a GnuCash file which has been loaded by the lib and
 	// written into another file without having changed anything produces
@@ -208,20 +208,20 @@ public class TestGnuCashWritableFileImpl {
 	// have identical contents.
 	// 
 	// And no, this test is not trivial, absolutely not.
-    // -----------------------------------------------------------------
-	
+	// -----------------------------------------------------------------
+
 	@Test
 	public void test04_1() throws Exception {
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
 		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
-                          // and the GnuCash file writer does not like that.
+		// and the GnuCash file writer does not like that.
 		gcshInFile.writeFile(outFile);
 
 		gcshOutFile = new GnuCashWritableFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
-		
+
 		test_04_1_check_1();
 		test_04_1_check_2();
 	}

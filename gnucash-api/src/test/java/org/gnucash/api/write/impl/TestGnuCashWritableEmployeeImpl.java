@@ -33,301 +33,301 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableEmployeeImpl {
-    private static final GCshID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	private static final GCshID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    private GnuCashWritableFileImpl gcshInFile = null;
-    private GnuCashFileImpl gcshOutFile = null;
+	private GnuCashWritableFileImpl gcshInFile = null;
+	private GnuCashFileImpl gcshOutFile = null;
 
-    private GCshFileStats gcshInFileStats = null;
-    private GCshFileStats gcshOutFileStats = null;
+	private GCshFileStats gcshInFileStats = null;
+	private GCshFileStats gcshOutFileStats = null;
 
-    private GCshID newID;
+	private GCshID newID;
 
-    // https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
-    @SuppressWarnings("exports")
-    @Rule
-    public TemporaryFolder folder = new TemporaryFolder();
+	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
+	@SuppressWarnings("exports")
+	@Rule
+	public TemporaryFolder folder = new TemporaryFolder();
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    public static void main(String[] args) throws Exception {
-	junit.textui.TestRunner.run(suite());
-    }
-
-    @SuppressWarnings("exports")
-    public static junit.framework.Test suite() {
-	return new JUnit4TestAdapter(TestGnuCashWritableEmployeeImpl.class);
-    }
-
-    @Before
-    public void initialize() throws Exception {
-	ClassLoader classLoader = getClass().getClassLoader();
-	// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-	// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
-	InputStream gcshInFileStream = null;
-	try {
-	    gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
-	} catch (Exception exc) {
-	    System.err.println("Cannot generate input stream from resource");
-	    return;
+	public static void main(String[] args) throws Exception {
+		junit.textui.TestRunner.run(suite());
 	}
 
-	try {
-	    gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
-	} catch (Exception exc) {
-	    System.err.println("Cannot parse GnuCash in-file");
-	    exc.printStackTrace();
+	@SuppressWarnings("exports")
+	public static junit.framework.Test suite() {
+		return new JUnit4TestAdapter(TestGnuCashWritableEmployeeImpl.class);
 	}
-    }
 
-    // -----------------------------------------------------------------
-    // PART 1: Read existing objects as modifiable ones
-    // (and see whether they are fully symmetrical to their read-only
-    // counterparts)
-    // -----------------------------------------------------------------
-    // Cf. TestGnuCashEmployeeImpl.test01_1/02_2
-    //
-    // Check whether the GnuCashWritableEmployee objects returned by
-    // GnuCashWritableFileImpl.getWritableEmployeeByID() are actually
-    // complete (as complete as returned be GnuCashFileImpl.getEmployeeByID().
+	@Before
+	public void initialize() throws Exception {
+		ClassLoader classLoader = getClass().getClassLoader();
+		// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+		// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+		InputStream gcshInFileStream = null;
+		try {
+			gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
+		} catch (Exception exc) {
+			System.err.println("Cannot generate input stream from resource");
+			return;
+		}
 
-    @Test
-    public void test01_1_1() throws Exception {
-	GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
-	assertNotEquals(null, empl);
+		try {
+			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
+		} catch (Exception exc) {
+			System.err.println("Cannot parse GnuCash in-file");
+			exc.printStackTrace();
+		}
+	}
 
-	assertEquals(EMPL_1_ID, empl.getID());
-	assertEquals("000001", empl.getNumber());
-	assertEquals("otwist", empl.getUserName());
-	assertEquals("Oliver Twist", empl.getAddress().getAddressName());
-    }
+	// -----------------------------------------------------------------
+	// PART 1: Read existing objects as modifiable ones
+	// (and see whether they are fully symmetrical to their read-only
+	// counterparts)
+	// -----------------------------------------------------------------
+	// Cf. TestGnuCashEmployeeImpl.test01_1/02_2
+	//
+	// Check whether the GnuCashWritableEmployee objects returned by
+	// GnuCashWritableFileImpl.getWritableEmployeeByID() are actually
+	// complete (as complete as returned be GnuCashFileImpl.getEmployeeByID().
 
-    @Test
-    public void test01_1_2() throws Exception {
-	GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
-	assertNotEquals(null, empl);
+	@Test
+	public void test01_1_1() throws Exception {
+		GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+		assertNotEquals(null, empl);
 
-	assertEquals(1, ((GnuCashWritableEmployeeImpl) empl).getNofOpenVouchers());
-	assertEquals(empl.getNofOpenVouchers(), ((GnuCashWritableEmployeeImpl) empl).getNofOpenVouchers()); // not
-													    // trivial
+		assertEquals(EMPL_1_ID, empl.getID());
+		assertEquals("000001", empl.getNumber());
+		assertEquals("otwist", empl.getUserName());
+		assertEquals("Oliver Twist", empl.getAddress().getAddressName());
+	}
 
-	assertEquals(0, ((GnuCashWritableEmployeeImpl) empl).getPaidVouchers().size());
-	assertEquals(empl.getPaidVouchers().size(), ((GnuCashWritableEmployeeImpl) empl).getPaidVouchers().size()); // not
-														    // trivial
+	@Test
+	public void test01_1_2() throws Exception {
+		GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+		assertNotEquals(null, empl);
 
-//    vchList = (ArrayList<GnuCashEmployeeVoucher>) empl.getPaidVouchers_direct();
-//    Collections.sort(vchList);
-//    assertEquals("xxx", 
-//                 ((GnuCashVendorBill) vchList.toArray()[0]).getID() );
+		assertEquals(1, ((GnuCashWritableEmployeeImpl) empl).getNofOpenVouchers());
+		assertEquals(empl.getNofOpenVouchers(), ((GnuCashWritableEmployeeImpl) empl).getNofOpenVouchers()); // not
+		// trivial
 
-	assertEquals(1, ((GnuCashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
-	assertEquals(empl.getUnpaidVouchers().size(), ((GnuCashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
+		assertEquals(0, ((GnuCashWritableEmployeeImpl) empl).getPaidVouchers().size());
+		assertEquals(empl.getPaidVouchers().size(), ((GnuCashWritableEmployeeImpl) empl).getPaidVouchers().size()); // not
+		// trivial
 
-	List<GnuCashEmployeeVoucher> vchList1 = empl.getUnpaidVouchers();
-	Collections.sort(vchList1);
-	assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
-		((GnuCashEmployeeVoucher) vchList1.toArray()[0]).getID().toString());
-	List<GnuCashWritableEmployeeVoucher> vchList2 = ((GnuCashWritableEmployeeImpl) empl)
-		.getUnpaidWritableVouchers();
-	Collections.sort(vchList2);
-	assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
-		((GnuCashWritableEmployeeVoucher) vchList2.toArray()[0]).getID().toString());
-    }
+		//    vchList = (ArrayList<GnuCashEmployeeVoucher>) empl.getPaidVouchers_direct();
+		//    Collections.sort(vchList);
+		//    assertEquals("xxx", 
+		//                 ((GnuCashVendorBill) vchList.toArray()[0]).getID() );
 
-    // -----------------------------------------------------------------
-    // PART 2: Modify existing objects
-    // -----------------------------------------------------------------
-    // Check whether the GnuCashWritableEmployee objects returned by
-    // can actually be modified -- both in memory and persisted in file.
+		assertEquals(1, ((GnuCashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
+		assertEquals(empl.getUnpaidVouchers().size(), ((GnuCashWritableEmployeeImpl) empl).getUnpaidVouchers().size());
 
-    @Test
-    public void test02_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+		List<GnuCashEmployeeVoucher> vchList1 = empl.getUnpaidVouchers();
+		Collections.sort(vchList1);
+		assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
+				((GnuCashEmployeeVoucher) vchList1.toArray()[0]).getID().toString());
+		List<GnuCashWritableEmployeeVoucher> vchList2 = ((GnuCashWritableEmployeeImpl) empl)
+				.getUnpaidWritableVouchers();
+		Collections.sort(vchList2);
+		assertEquals("8de4467c17e04bb2895fb68cc07fc4df",
+				((GnuCashWritableEmployeeVoucher) vchList2.toArray()[0]).getID().toString());
+	}
 
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+	// -----------------------------------------------------------------
+	// PART 2: Modify existing objects
+	// -----------------------------------------------------------------
+	// Check whether the GnuCashWritableEmployee objects returned by
+	// can actually be modified -- both in memory and persisted in file.
 
-	GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
-	assertNotEquals(null, empl);
+	@Test
+	public void test02_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	assertEquals(EMPL_1_ID, empl.getID());
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-	// ----------------------------
-	// Modify the object
+		GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+		assertNotEquals(null, empl);
 
-	empl.setNumber("JOEDALTON01");
-	empl.setUserName("jdalton");
-	empl.getWritableAddress().setAddressName("Joe Dalon Sr.");
+		assertEquals(EMPL_1_ID, empl.getID());
 
-	// ----------------------------
-	// Check whether the object can has actually be modified
-	// (in memory, not in the file yet).
+		// ----------------------------
+		// Modify the object
 
-	test02_1_check_memory(empl);
+		empl.setNumber("JOEDALTON01");
+		empl.setUserName("jdalton");
+		empl.getWritableAddress().setAddressName("Joe Dalon Sr.");
 
-	// ----------------------------
-	// Now, check whether the modified object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test02_1_check_memory(empl);
 
-	test02_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    @Test
-    public void test02_2() throws Exception {
-	// ::TODO
-    }
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-    private void test02_1_check_memory(GnuCashWritableEmployee empl) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		test02_1_check_persisted(outFile);
+	}
 
-	assertEquals(EMPL_1_ID, empl.getID()); // unchanged
-	assertEquals("JOEDALTON01", empl.getNumber()); // changed
-	assertEquals("jdalton", empl.getUserName()); // changed
-	assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
-    }
+	@Test
+	public void test02_2() throws Exception {
+		// ::TODO
+	}
 
-    private void test02_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+	private void test02_1_check_memory(GnuCashWritableEmployee empl) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		assertEquals(EMPL_1_ID, empl.getID()); // unchanged
+		assertEquals("JOEDALTON01", empl.getNumber()); // changed
+		assertEquals("jdalton", empl.getUserName()); // changed
+		assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+	}
 
-	GnuCashEmployee empl = gcshOutFile.getEmployeeByID(EMPL_1_ID);
-	assertNotEquals(null, empl);
+	private void test02_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-	assertEquals(EMPL_1_ID, empl.getID()); // unchanged
-	assertEquals("JOEDALTON01", empl.getNumber()); // changed
-	assertEquals("jdalton", empl.getUserName()); // changed
-	assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
-    }
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-    // -----------------------------------------------------------------
-    // PART 3: Create new objects
-    // -----------------------------------------------------------------
+		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(EMPL_1_ID);
+		assertNotEquals(null, empl);
 
-    // ------------------------------
-    // PART 3.1: High-Level
-    // ------------------------------
+		assertEquals(EMPL_1_ID, empl.getID()); // unchanged
+		assertEquals("JOEDALTON01", empl.getNumber()); // changed
+		assertEquals("jdalton", empl.getUserName()); // changed
+		assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+	}
 
-    @Test
-    public void test03_1_1() throws Exception {
-	gcshInFileStats = new GCshFileStats(gcshInFile);
+	// -----------------------------------------------------------------
+	// PART 3: Create new objects
+	// -----------------------------------------------------------------
 
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+	// ------------------------------
+	// PART 3.1: High-Level
+	// ------------------------------
 
-	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
-	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
+	@Test
+	public void test03_1_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-	// ----------------------------
-	// Check whether the object can has actually be created
-	// (in memory, not in the file yet).
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-	test03_1_1_check_memory(empl);
+		GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
+		empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
 
-	// ----------------------------
-	// Now, check whether the created object can be written to the
-	// output file, then re-read from it, and whether is is what
-	// we expect it is.
+		// ----------------------------
+		// Check whether the object can has actually be created
+		// (in memory, not in the file yet).
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		test03_1_1_check_memory(empl);
 
-	test03_1_1_check_persisted(outFile);
-    }
+		// ----------------------------
+		// Now, check whether the created object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
 
-    private void test03_1_1_check_memory(GnuCashWritableEmployee empl) throws Exception {
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	newID = empl.getID();
-	assertEquals("Émilie Chauchoin", empl.getUserName());
-    }
+		test03_1_1_check_persisted(outFile);
+	}
 
-    private void test03_1_1_check_persisted(File outFile) throws Exception {
-	gcshOutFile = new GnuCashFileImpl(outFile);
-	gcshOutFileStats = new GCshFileStats(gcshOutFile);
+	private void test03_1_1_check_memory(GnuCashWritableEmployee empl) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		newID = empl.getID();
+		assertEquals("Émilie Chauchoin", empl.getUserName());
+	}
 
-	GnuCashEmployee empl = gcshOutFile.getEmployeeByID(newID);
-	assertNotEquals(null, empl);
+	private void test03_1_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-	assertEquals(newID, empl.getID());
-	assertEquals("Émilie Chauchoin", empl.getUserName());
-    }
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-    // ------------------------------
-    // PART 3.2: Low-Level
-    // ------------------------------
+		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(newID);
+		assertNotEquals(null, empl);
 
-    @Test
-    public void test03_2_1() throws Exception {
-	GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
-	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
+		assertEquals(newID, empl.getID());
+		assertEquals("Émilie Chauchoin", empl.getUserName());
+	}
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-	// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
-	// + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+	// ------------------------------
+	// PART 3.2: Low-Level
+	// ------------------------------
 
-	test03_2_1_check_1_valid(outFile);
-	test03_2_1_check(outFile);
-    }
+	@Test
+	public void test03_2_1() throws Exception {
+		GnuCashWritableEmployee empl = gcshInFile.createWritableEmployee("Émilie Chauchoin");
+		empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
 
-    // -----------------------------------------------------------------
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-//  @Test
-//  public void test03_2_2() throws Exception
-//  {
-//      assertNotEquals(null, outFileGlob);
-//      assertEquals(true, outFileGlob.exists());
-//
-//      // Check if generated document is valid
-//      // ::TODO: in fact, not even the input document is.
-//      // Build document
-//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-//      DocumentBuilder builder = factory.newDocumentBuilder(); 
-//      Document document = builder.parse(outFileGlob);
-//      System.err.println("xxxx XML parsed");
-//
-//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
-//      Schema schema = null;
-//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
-//      schema = factory1.newSchema(outFileGlob);
-//
-//      Validator validator = schema.newValidator();
-//      DOMResult validResult = null; 
-//      validator.validate(new DOMSource(document), validResult);
-//      System.out.println("yyy: " + validResult);
-//      // assertEquals(validResult);
-//  }
+		test03_2_1_check_1_valid(outFile);
+		test03_2_1_check(outFile);
+	}
+
+	// -----------------------------------------------------------------
+
+	//  @Test
+	//  public void test03_2_2() throws Exception
+	//  {
+	//      assertNotEquals(null, outFileGlob);
+	//      assertEquals(true, outFileGlob.exists());
+	//
+	//      // Check if generated document is valid
+	//      // ::TODO: in fact, not even the input document is.
+	//      // Build document
+	//      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	//      DocumentBuilder builder = factory.newDocumentBuilder(); 
+	//      Document document = builder.parse(outFileGlob);
+	//      System.err.println("xxxx XML parsed");
+	//
+	//      // https://howtodoinjava.com/java/xml/read-xml-dom-parser-example/
+	//      Schema schema = null;
+	//      String language = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+	//      SchemaFactory factory1 = SchemaFactory.newInstance(language);
+	//      schema = factory1.newSchema(outFileGlob);
+	//
+	//      Validator validator = schema.newValidator();
+	//      DOMResult validResult = null; 
+	//      validator.validate(new DOMSource(document), validResult);
+	//      System.out.println("yyy: " + validResult);
+	//      // assertEquals(validResult);
+	//  }
 
 	// Sort of "soft" variant of above function
 	// CAUTION: Not platform-independent!
@@ -337,10 +337,10 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(true, outFile.exists());
 
 		// Check if generated document is valid
- 		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath() );
- 		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
+		// ProcessBuilder bld = new ProcessBuilder("xmllint", outFile.getAbsolutePath() );
+		ProcessBuilder bld = new ProcessBuilder("xmlstarlet", "val", outFile.getAbsolutePath() );
 		Process prc = bld.start();
-		
+
 		if ( prc.waitFor() == 0 ) {
 			assertEquals(0, 0);
 		} else {
@@ -349,87 +349,87 @@ public class TestGnuCashWritableEmployeeImpl {
 	}
 
 	private void test03_2_1_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
-	assertEquals(ConstTest.Stats.NOF_EMPL + 1, nList.getLength());
+		NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, nList.getLength());
 
-	// Last (new) node
-	Node lastNode = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
-	Element elt = (Element) lastNode;
-	assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-	assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
-    }
+		// Last (new) node
+		Node lastNode = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
+		Element elt = (Element) lastNode;
+		assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+		assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+	}
 
-    // -----------------------------------------------------------------
+	// -----------------------------------------------------------------
 
-    @Test
-    public void test03_2_4() throws Exception {
-	GnuCashWritableEmployee empl1 = gcshInFile.createWritableEmployee("Émilie Chauchoin");
-	empl1.setNumber(GnuCashEmployeeImpl.getNewNumber(empl1));
+	@Test
+	public void test03_2_4() throws Exception {
+		GnuCashWritableEmployee empl1 = gcshInFile.createWritableEmployee("Émilie Chauchoin");
+		empl1.setNumber(GnuCashEmployeeImpl.getNewNumber(empl1));
 
-	GnuCashWritableEmployee empl2 = gcshInFile.createWritableEmployee("Shirley Beaty");
-	empl2.setNumber(GnuCashEmployeeImpl.getNewNumber(empl2));
+		GnuCashWritableEmployee empl2 = gcshInFile.createWritableEmployee("Shirley Beaty");
+		empl2.setNumber(GnuCashEmployeeImpl.getNewNumber(empl2));
 
-	GnuCashWritableEmployee empl3 = gcshInFile.createWritableEmployee("Stefani Germanotta");
-	empl3.setNumber(GnuCashEmployeeImpl.getNewNumber(empl3));
+		GnuCashWritableEmployee empl3 = gcshInFile.createWritableEmployee("Stefani Germanotta");
+		empl3.setNumber(GnuCashEmployeeImpl.getNewNumber(empl3));
 
-	File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-//      System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test02_1: '" + outFile.getPath() + "'");
-	outFile.delete(); // sic, the temp. file is already generated (empty),
-			          // and the GnuCash file writer does not like that.
-	gcshInFile.writeFile(outFile);
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		//      System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test02_1: '" + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
 
-	test03_2_4_check(outFile);
-    }
+		test03_2_4_check(outFile);
+	}
 
-    private void test03_2_4_check(File outFile) throws Exception {
-	assertNotEquals(null, outFile);
-	assertEquals(true, outFile.exists());
+	private void test03_2_4_check(File outFile) throws Exception {
+		assertNotEquals(null, outFile);
+		assertEquals(true, outFile.exists());
 
-	// Build document
-	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	DocumentBuilder builder = factory.newDocumentBuilder();
-	Document document = builder.parse(outFile);
-//      System.err.println("xxxx XML parsed");
+		// Build document
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(outFile);
+		//      System.err.println("xxxx XML parsed");
 
-	// Normalize the XML structure
-	document.getDocumentElement().normalize();
-//      System.err.println("xxxx XML normalized");
+		// Normalize the XML structure
+		document.getDocumentElement().normalize();
+		//      System.err.println("xxxx XML normalized");
 
-	NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
-	assertEquals(ConstTest.Stats.NOF_EMPL + 3, nList.getLength());
+		NodeList nList = document.getElementsByTagName("gnc:GncEmployee");
+		assertEquals(ConstTest.Stats.NOF_EMPL + 3, nList.getLength());
 
-	// Last three nodes (the new ones)
-	Node node = nList.item(nList.getLength() - 3);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	Element elt = (Element) node;
-	assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-	assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		// Last three nodes (the new ones)
+		Node node = nList.item(nList.getLength() - 3);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		Element elt = (Element) node;
+		assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+		assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
-	node = nList.item(nList.getLength() - 2);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Shirley Beaty", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-	assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		node = nList.item(nList.getLength() - 2);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Shirley Beaty", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+		assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
-	node = nList.item(nList.getLength() - 1);
-	assertEquals(Node.ELEMENT_NODE, node.getNodeType());
-	elt = (Element) node;
-	assertEquals("Stefani Germanotta", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-	assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
-    }
+		node = nList.item(nList.getLength() - 1);
+		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
+		elt = (Element) node;
+		assertEquals("Stefani Germanotta", elt.getElementsByTagName("employee:username").item(0).getTextContent());
+		assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+	}
 
 }
