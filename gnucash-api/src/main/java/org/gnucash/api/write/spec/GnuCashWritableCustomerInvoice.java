@@ -42,27 +42,27 @@ public interface GnuCashWritableCustomerInvoice extends GnuCashWritableGenerInvo
     GnuCashWritableCustomerInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
-	    FixedPointNumber quantity) throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    FixedPointNumber quantity) throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
 
     GnuCashWritableCustomerInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    String taxTabName)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
 
     GnuCashWritableCustomerInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    GCshTaxTable taxTab)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
 
     // ---------------------------------------------------------------
     
     void post(GnuCashAccount incomeAcct,
 	      GnuCashAccount receivableAcct,
 	      LocalDate postDate,
-	      LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+	      LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, IllegalTransactionSplitActionException;
 
 }

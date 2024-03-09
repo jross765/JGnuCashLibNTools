@@ -24,7 +24,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange exchange, String secCode)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(exchange.toString(), secCode);
 
@@ -33,7 +33,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_Exchange(String nameSpace, String code)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(nameSpace, code);
 
@@ -80,7 +80,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 	// ---------------------------------------------------------------
 
 	public static GCshCmdtyID_Exchange parse(String str)
-			throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+			throws InvalidCmdtyCurrIDException {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

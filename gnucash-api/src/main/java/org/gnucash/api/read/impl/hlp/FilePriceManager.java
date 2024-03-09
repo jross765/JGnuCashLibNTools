@@ -117,7 +117,7 @@ public class FilePriceManager {
 		return Collections.unmodifiableCollection(prcMap.values());
 	}
 
-//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException {
 //      try {
 //        // See if it's a currency
 //        GCshCurrID currID = new GCshCurrID(cmdtyCurrIDStr);
@@ -130,17 +130,17 @@ public class FilePriceManager {
 //    }
 
 	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return getLatestPrice(cmdtyCurrID, 0);
 	}
 
 	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
 	}
 
 	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		if ( cmdtyCurrID == null ) {
 			throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
 		}

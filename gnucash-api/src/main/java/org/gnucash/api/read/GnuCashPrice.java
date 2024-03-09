@@ -111,23 +111,23 @@ public interface GnuCashPrice extends Comparable<GnuCashPrice>,
 
     GCshCmdtyCurrID getFromCmdtyCurrQualifID() throws InvalidCmdtyCurrTypeException;
 
-    GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrIDException;
 
-    GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrIDException;
 
-    GnuCashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException;
+    GnuCashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException;
 
-    String getFromCurrencyCode() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getFromCurrencyCode() throws InvalidCmdtyCurrIDException;
 
-    GnuCashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException;
+    GnuCashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException;
     
     // ----------------------------
 
-    GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrIDException;
 
     String getToCurrencyCode() throws InvalidCmdtyCurrTypeException;
 
-    GnuCashCommodity getToCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException;
+    GnuCashCommodity getToCurrency() throws InvalidCmdtyCurrIDException;
 
     // ----------------------------
 
@@ -143,6 +143,6 @@ public interface GnuCashPrice extends Comparable<GnuCashPrice>,
 
     FixedPointNumber getValue();
     
-    String getValueFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getValueFormatted() throws InvalidCmdtyCurrIDException;
     
 }

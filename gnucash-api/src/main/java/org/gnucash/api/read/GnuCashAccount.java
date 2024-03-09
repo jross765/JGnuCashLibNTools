@@ -226,7 +226,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
 
 	FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException;
 	
-	FixedPointNumber getBalance(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+	FixedPointNumber getBalance(final LocalDate date, final Currency currency) throws InvalidCmdtyCurrIDException;
     /**
      * @param lastIncludesSplit last split to be included
      * @return the balance up to and including the given split
@@ -265,7 +265,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrIDException;
 
     /**
      * Gets the balance including all sub-accounts.
@@ -276,7 +276,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date) throws InvalidCmdtyCurrIDException;
 
     /**
      * Ignores accounts for which this conversion is not possible.
@@ -288,7 +288,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrIDException 
      * @see GnuCashAccount#getBalanceRecursive(LocalDate)
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr) throws InvalidCmdtyCurrIDException;
 
     /**
      * Ignores accounts for which this conversion is not possible.
@@ -300,7 +300,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrIDException 
      * @see GnuCashAccount#getBalanceRecursive(Date, Currency)
      */
-    FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID secCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID secCurrID) throws InvalidCmdtyCurrIDException;
 
     // ----------------------------
 
@@ -312,7 +312,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getBalanceRecursiveFormatted() throws InvalidCmdtyCurrIDException;
 
     /**
      * Gets the balance including all sub-accounts.
@@ -323,6 +323,6 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getBalanceRecursiveFormatted(final LocalDate date) throws InvalidCmdtyCurrIDException;
 
 }

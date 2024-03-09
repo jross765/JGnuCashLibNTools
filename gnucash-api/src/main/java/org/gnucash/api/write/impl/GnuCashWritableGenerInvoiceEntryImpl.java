@@ -571,7 +571,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @see GnuCashGenerInvoiceEntry#isCustInvcTaxable()
      */
     @Override
-    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException {
 
 	if ( getType() != GCshOwner.Type.CUSTOMER && 
 	     getType() != GCshOwner.Type.JOB )
@@ -603,7 +603,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      */
-    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.CUSTOMER && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -645,7 +645,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashGenerInvoiceEntry#isCustInvcTaxable()
      */
-    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException {
 
 	if ( getType() != GCshOwner.Type.VENDOR && 
 	     getType() != GCshOwner.Type.JOB )
@@ -677,7 +677,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      */
-    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.VENDOR && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -718,7 +718,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashGenerInvoiceEntry#isCustInvcTaxable()
      */
-    public void setEmplVchTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setEmplVchTaxable(final boolean val) throws TaxTableNotFoundException {
 
 	if ( getType() != GCshOwner.Type.EMPLOYEE && 
 	     getType() != GCshOwner.Type.JOB )
@@ -750,7 +750,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException 
      */
-    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.EMPLOYEE && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -794,7 +794,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashGenerInvoiceEntry#isCustInvcTaxable()
      */
-    public void setJobInvcTaxable(final boolean val) throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+    public void setJobInvcTaxable(final boolean val) throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -827,7 +827,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @throws InvalidCmdtyCurrTypeException 
      *  
      */
-    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -862,7 +862,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
     public void setCustInvcPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setCustInvcPrice(new FixedPointNumber(n));
     }
 
@@ -872,7 +872,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setCustInvcPrice(FixedPointNumber)
      */
-    public void setCustInvcPrice(final FixedPointNumber price) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setCustInvcPrice(final FixedPointNumber price) throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.CUSTOMER && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -897,7 +897,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     }
 
     public void setCustInvcPriceFormatted(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setCustInvcPrice(new FixedPointNumber(n));
     }
 
@@ -911,7 +911,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setVendBllPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setVendBllPrice(new FixedPointNumber(n));
     }
 
@@ -923,7 +923,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setVendBllPrice(final FixedPointNumber price)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.VENDOR && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -948,7 +948,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     }
 
     public void setVendBllPriceFormatted(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setVendBllPrice(new FixedPointNumber(n));
     }
 
@@ -962,7 +962,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setEmplVchPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setEmplVchPrice(new FixedPointNumber(n));
     }
 
@@ -974,7 +974,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setEmplVchPrice(final FixedPointNumber price)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.EMPLOYEE && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -999,7 +999,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     }
 
     public void setEmplVchPriceFormatted(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	this.setEmplVchPrice(new FixedPointNumber(n));
     }
 
@@ -1014,7 +1014,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setJobInvcPrice(final String n)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -1038,7 +1038,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     @Override
     public void setJobInvcPrice(final FixedPointNumber price)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -1055,7 +1055,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     }
 
     public void setJobInvcPriceFormatted(final String n)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 	this.setJobInvcPrice(new FixedPointNumber(n));
     }
 
@@ -1084,7 +1084,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setQuantity(FixedPointNumber)
      */
-    public void setQuantity(final String n) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setQuantity(final String n) throws TaxTableNotFoundException {
 	FixedPointNumber fp = new FixedPointNumber(n);
 	LOGGER.debug("setQuantity('" + n + "') - setting to " + fp.toGnuCashString());
 	this.setQuantity(fp);
@@ -1096,7 +1096,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashWritableGenerInvoiceEntry#setQuantityFormatted(String)
      */
-    public void setQuantityFormatted(final String n) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setQuantityFormatted(final String n) throws TaxTableNotFoundException {
 	FixedPointNumber fp = new FixedPointNumber(n);
 	LOGGER.debug("setQuantityFormatted('" + n + "') - setting to " + fp.toGnuCashString());
 	this.setQuantity(fp);
@@ -1109,7 +1109,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @see GnuCashWritableGenerInvoiceEntry#setQuantity(FixedPointNumber)
      */
     public void setQuantity(final FixedPointNumber qty)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}
@@ -1133,7 +1133,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      *  
      * @see GnuCashWritableGenerInvoiceEntry#remove()
      */
-    public void remove() throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void remove() throws TaxTableNotFoundException {
 	if (!this.getGenerInvoice().isModifiable()) {
 	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
 	}

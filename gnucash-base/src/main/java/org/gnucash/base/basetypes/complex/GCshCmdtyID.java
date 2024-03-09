@@ -28,7 +28,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 	}
 
 	public GCshCmdtyID(String nameSpaceFree, String code)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(nameSpaceFree, code);
 
@@ -38,7 +38,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 		setType(Type.SECURITY_GENERAL);
 	}
 
-	public GCshCmdtyID(GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public GCshCmdtyID(GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrIDException {
 
 		super(cmdtyCurrID.getNameSpace(), cmdtyCurrID.getCode());
 
@@ -60,7 +60,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID parse(String str) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+	public static GCshCmdtyID parse(String str) throws InvalidCmdtyCurrIDException {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

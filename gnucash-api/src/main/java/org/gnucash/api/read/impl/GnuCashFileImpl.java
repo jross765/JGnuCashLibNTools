@@ -145,7 +145,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see #loadFile(File)
 	 */
 	public GnuCashFileImpl(final File pFile)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException,  InvalidCmdtyCurrIDException {
 		super();
 		loadFile(pFile);
 	}
@@ -159,7 +159,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see #loadFile(File)
 	 */
 	public GnuCashFileImpl(final InputStream is)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException, InvalidCmdtyCurrIDException {
 		super();
 		loadInputStream(is);
 	}
@@ -200,7 +200,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see #setRootElement(GncV2)
 	 */
 	protected void loadFile(final File pFile)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException, InvalidCmdtyCurrIDException {
 
 		long start = System.currentTimeMillis();
 
@@ -239,7 +239,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException,
-			InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			InvalidCmdtyCurrIDException {
 		long start = System.currentTimeMillis();
 
 		NamespaceRemoverReader reader = new NamespaceRemoverReader(new InputStreamReader(in, "utf-8"));
@@ -1022,7 +1022,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return prcMgr.getPrices();
 	}
 
-//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException {
 //      return prcMgr.getLatestPrice(cmdtyCurrIDStr);
 //    }
 
@@ -1033,7 +1033,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return prcMgr.getLatestPrice(cmdtyCurrID);
 	}
 
@@ -1045,7 +1045,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 */
 	@Deprecated
 	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return prcMgr.getLatestPrice(pCmdtySpace, pCmdtyId);
 	}
 
@@ -1068,7 +1068,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @throws ClassNotFoundException
 	 */
 	protected void setRootElement(final GncV2 pRootElement)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		if ( pRootElement == null ) {
 			throw new IllegalArgumentException("null not allowed for field this.rootElement");
 		}
@@ -1175,7 +1175,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @throws InvalidCmdtyCurrIDException
 	 */
 	protected void loadPriceDatabase(final GncV2 pRootElement)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		boolean noPriceDB = true;
 
 		GncPricedb priceDB = prcMgr.getPriceDB();
@@ -1196,7 +1196,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	private void loadPriceDatabaseCore(GncPricedb priceDB)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 //	getCurrencyTable().clear();
 //	getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
 //		                               getDefaultCurrencyID(), 

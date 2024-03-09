@@ -145,7 +145,7 @@ public class GCshCmdtyCurrID {
     
     // ---------------------------------------------------------------
     
-    public static GCshCmdtyCurrID parse(String str) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+    public static GCshCmdtyCurrID parse(String str) throws InvalidCmdtyCurrIDException {
 	if ( str == null )
 	    throw new IllegalArgumentException("Argument string is null");
 

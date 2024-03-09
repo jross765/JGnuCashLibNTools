@@ -24,7 +24,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC mic, String secCode)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(mic.toString(), secCode);
 
@@ -33,7 +33,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_MIC(String nameSpace, String code)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(nameSpace, code);
 
@@ -79,7 +79,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID_MIC parse(String str) throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+	public static GCshCmdtyID_MIC parse(String str) throws InvalidCmdtyCurrIDException {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

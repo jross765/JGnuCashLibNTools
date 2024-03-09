@@ -9,14 +9,14 @@ public interface GnuCashWritableGenerInvoiceEntry_Empl {
 
     void setEmplVchPrice(String price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setEmplVchPrice(FixedPointNumber price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setEmplVchPriceFormatted(String price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
 }

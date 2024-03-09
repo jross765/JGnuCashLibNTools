@@ -25,7 +25,7 @@ public abstract class FileInvoiceManager_Vendor {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashWritableVendorBill> getBills_direct(final FileInvoiceManager invMgr,
-			final GnuCashVendor vend) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashVendor vend) throws TaxTableNotFoundException {
 		List<GnuCashWritableVendorBill> retval = new ArrayList<GnuCashWritableVendorBill>();
 
 		for ( GnuCashGenerInvoice invc : invMgr.getGenerInvoices() ) {
@@ -55,7 +55,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static List<GnuCashWritableVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
-			final GnuCashVendor vend) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashVendor vend) throws TaxTableNotFoundException {
 		List<GnuCashWritableVendorBill> retval = new ArrayList<GnuCashWritableVendorBill>();
 
 		for ( GnuCashWritableGenerInvoice invc : invMgr.getPaidWritableGenerInvoices() ) {
@@ -85,7 +85,7 @@ public abstract class FileInvoiceManager_Vendor {
 	}
 
 	public static List<GnuCashWritableVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
-			final GnuCashVendor vend) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashVendor vend) throws TaxTableNotFoundException {
 		List<GnuCashWritableVendorBill> retval = new ArrayList<GnuCashWritableVendorBill>();
 
 		for ( GnuCashWritableGenerInvoice invc : invMgr.getUnpaidWritableGenerInvoices() ) {

@@ -213,7 +213,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    String getValueFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getValueFormatted() throws InvalidCmdtyCurrIDException;
     /**
      * The value is in the currency of the transaction!
      * @param lcl the locale to use
@@ -221,14 +221,14 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    String getValueFormatted(Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getValueFormatted(Locale lcl) throws InvalidCmdtyCurrIDException;
     /**
      * The value is in the currency of the transaction!
      * @return the value-transfer this represents
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    String getValueFormattedForHTML() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getValueFormattedForHTML() throws InvalidCmdtyCurrIDException;
     /**
      * The value is in the currency of the transaction!
      * @param locale the locale to use
@@ -236,7 +236,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    String getValueFormattedForHTML(Locale locale) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getValueFormattedForHTML(Locale locale) throws InvalidCmdtyCurrIDException;
 
     /**
      * @return the balance of the account (in the account's currency)
@@ -271,7 +271,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getQuantityFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getQuantityFormatted() throws InvalidCmdtyCurrIDException;
 
     /**
      * The quantity is in the currency of the account!
@@ -280,7 +280,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getQuantityFormatted(Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getQuantityFormatted(Locale lcl) throws InvalidCmdtyCurrIDException;
 
     /**
      * The quantity is in the currency of the account!
@@ -288,7 +288,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getQuantityFormattedForHTML() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getQuantityFormattedForHTML() throws InvalidCmdtyCurrIDException;
 
     /**
      * The quantity is in the currency of the account!
@@ -297,7 +297,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    String getQuantityFormattedForHTML(Locale lcl) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    String getQuantityFormattedForHTML(Locale lcl) throws InvalidCmdtyCurrIDException;
 
     /**
      * @return the user-defined description for this object

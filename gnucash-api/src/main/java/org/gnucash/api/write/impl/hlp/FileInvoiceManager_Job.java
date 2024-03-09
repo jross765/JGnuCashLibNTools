@@ -22,7 +22,7 @@ public abstract class FileInvoiceManager_Job {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashWritableJobInvoice> getInvoices(final FileInvoiceManager invcMgr,
-			final GnuCashGenerJob job) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashGenerJob job) throws TaxTableNotFoundException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -40,7 +40,7 @@ public abstract class FileInvoiceManager_Job {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getPaidInvoices(final FileInvoiceManager invcMgr,
-			final GnuCashGenerJob job) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashGenerJob job) throws TaxTableNotFoundException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
@@ -60,7 +60,7 @@ public abstract class FileInvoiceManager_Job {
 	}
 
 	public static List<GnuCashWritableJobInvoice> getUnpaidInvoices(final FileInvoiceManager invcMgr,
-			final GnuCashGenerJob job) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashGenerJob job) throws TaxTableNotFoundException {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {

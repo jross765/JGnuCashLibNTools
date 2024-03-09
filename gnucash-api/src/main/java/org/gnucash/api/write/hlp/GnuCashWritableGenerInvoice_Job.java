@@ -58,7 +58,7 @@ public interface GnuCashWritableGenerInvoice_Job {
     		FixedPointNumber quantity,
 			String taxTabName) throws  TaxTableNotFoundException, 
     	UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     /**
      * create and add a new entry.<br/>
@@ -80,5 +80,5 @@ public interface GnuCashWritableGenerInvoice_Job {
     		FixedPointNumber quantity,
     		GCshTaxTable taxTab) throws  TaxTableNotFoundException, 
     	UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 }

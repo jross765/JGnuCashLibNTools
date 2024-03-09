@@ -352,11 +352,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // The methods in this part are the "writable"-variants of 
     // the according ones in the super class GnuCashEmployeeImpl.
 
-    public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchers() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchers() throws TaxTableNotFoundException {
 	return getWritableGnuCashFile().getPaidWritableVouchersForEmployee(this);
     }
 
-    public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws TaxTableNotFoundException {
 	return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this);
     }
     

@@ -156,7 +156,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableFileImpl(final File file)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException, InvalidCmdtyCurrIDException {
 		super(file);
 		setModified(false);
 
@@ -176,7 +176,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	public GnuCashWritableFileImpl(final InputStream is)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException, InvalidCmdtyCurrIDException {
 		super(is);
 
 		acctMgr = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
@@ -279,7 +279,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	protected void loadFile(final File pFile)
-			throws IOException, InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws IOException, InvalidCmdtyCurrIDException {
 		super.loadFile(pFile);
 		lastWriteTime = Math.max(pFile.lastModified(), System.currentTimeMillis());
 	}
@@ -542,7 +542,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	protected void setRootElement(final GncV2 rootElement)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		super.setRootElement(rootElement);
 	}
 
@@ -882,7 +882,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableCustomerInvoice createWritableCustomerInvoice(final String number, final GnuCashCustomer cust,
 			final GnuCashAccount incomeAcct, final GnuCashAccount receivableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( cust == null ) {
 			throw new IllegalArgumentException("null customer given");
@@ -916,7 +916,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableVendorBill createWritableVendorBill(final String number, final GnuCashVendor vend,
 			final GnuCashAccount expensesAcct, final GnuCashAccount payableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( vend == null ) {
 			throw new IllegalArgumentException("null vendor given");
@@ -950,7 +950,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableEmployeeVoucher createWritableEmployeeVoucher(final String number, final GnuCashEmployee empl,
 			final GnuCashAccount expensesAcct, final GnuCashAccount payableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( empl == null ) {
 			throw new IllegalArgumentException("null empl given");
@@ -984,7 +984,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableJobInvoice createWritableJobInvoice(final String number, final GnuCashGenerJob job,
 			final GnuCashAccount incExpAcct, final GnuCashAccount recvblPayblAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( job == null ) {
 			throw new IllegalArgumentException("null job given");
@@ -1459,7 +1459,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	@Override
 	public void removeCommodity(final GnuCashWritableCommodity cmdty)
-			throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException {
+			throws ObjectCascadeException, InvalidCmdtyCurrIDException {
 		if ( cmdty == null ) {
 			throw new IllegalArgumentException("null commodity given");
 		}
@@ -1583,7 +1583,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	private boolean existPriceObjects(GnuCashWritableCommodity cmdty)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		int counter = 0;
 		for ( GnuCashPrice price : getPrices() ) {
 			if ( price.getFromCommodity().getQualifID().equals(cmdty.getQualifID()) ) {

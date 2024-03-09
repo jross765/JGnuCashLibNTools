@@ -9,7 +9,7 @@ import org.gnucash.base.numbers.FixedPointNumber;
 public interface GnuCashWritableGenerInvoiceEntry_Job {
 
     void setJobInvcPrice(String price) throws NumberFormatException, TaxTableNotFoundException,
-	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException,
+	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    IllegalArgumentException;
 
     void setJobInvcPrice(FixedPointNumber price) throws TaxTableNotFoundException,

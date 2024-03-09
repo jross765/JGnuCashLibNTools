@@ -10,15 +10,15 @@ public interface GnuCashWritableGenerInvoiceEntry_Cust {
 
     void setCustInvcPrice(String price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setCustInvcPrice(FixedPointNumber price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setCustInvcPriceFormatted(String price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
 
@@ -31,7 +31,7 @@ public interface GnuCashWritableGenerInvoiceEntry_Cust {
      */
     void setCustInvcTaxable(boolean val)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     /**
      * @param tax the new tax table to use. Null sets isTaxable to false.

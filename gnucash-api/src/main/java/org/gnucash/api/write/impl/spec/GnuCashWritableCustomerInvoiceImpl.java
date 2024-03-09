@@ -71,7 +71,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
 			final GnuCashCustomer cust, final GnuCashAccountImpl incomeAcct, final GnuCashAccountImpl receivableAcct,
 			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createCustomerInvoice_int(file, number, cust, false, // <-- caution!
 				incomeAcct, receivableAcct, openedDate, postDate, dueDate), file);
 	}
@@ -83,7 +83,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -165,7 +165,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 			final GnuCashAccount acct,
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity);
 		return entry;
 	}
@@ -182,7 +182,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity, 
 			final String taxTabName)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity, taxTabName);
 		return entry;
 	}
@@ -199,7 +199,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity, 
 			final GCshTaxTable taxTab)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableCustomerInvoiceEntry entry = createCustInvcEntry(acct, singleUnitPrice, quantity, taxTab);
 		LOGGER.info("createEntry: Created customer invoice entry: " + entry.getID());
 		return entry;
@@ -214,7 +214,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableCustomerInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		removeInvcEntry(entry);
 		LOGGER.info("removeEntry: Removed customer invoice entry: " + entry.getID());
 	}
@@ -229,13 +229,13 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableCustomerInvoiceEntryImpl entry) 
-			throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		addInvcEntry(entry);
 		LOGGER.info("addEntry: Added customer invoice entry: " + entry.getID());
 	}
 
 	protected void subtractEntry(final GnuCashGenerInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		subtractInvcEntry(entry);
 		LOGGER.info("subtractEntry: Subtracted customer invoice entry: " + entry.getID());
 	}
@@ -316,7 +316,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	@Override
 	public void post(final GnuCashAccount incomeAcct, final GnuCashAccount receivableAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongOwnerTypeException,
-			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			IllegalTransactionSplitActionException {
 		postCustomerInvoice(getGnuCashFile(), this, getCustomer(), incomeAcct, receivableAcct, postDate, dueDate);
 	}
 

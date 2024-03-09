@@ -81,7 +81,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * @throws InvalidCmdtyCurrTypeException 
 	 * @throws NumberFormatException 
 	 */
-	void setQuantity(FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException;
+	void setQuantity(FixedPointNumber n) throws NumberFormatException;
 
 	/**
 	 * If the currencies of transaction and account match, this also does
@@ -105,7 +105,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * @throws InvalidCmdtyCurrTypeException 
 	 * @throws NumberFormatException 
 	 */
-	void setValue(FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException;
+	void setValue(FixedPointNumber n) throws NumberFormatException;
 
 	/**
 	 * Set the description-text.

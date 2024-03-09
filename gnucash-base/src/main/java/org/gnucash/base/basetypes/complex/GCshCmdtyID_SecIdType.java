@@ -24,7 +24,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType secIdType, String secCode)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(secIdType.toString(), secCode);
 
@@ -33,7 +33,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 	}
 
 	public GCshCmdtyID_SecIdType(String nameSpace, String code)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		super(nameSpace, code);
 
@@ -88,7 +88,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 	// ---------------------------------------------------------------
 
 	public static GCshCmdtyID_SecIdType parse(String str)
-			throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+			throws InvalidCmdtyCurrIDException {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

@@ -253,7 +253,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      * @throws ClassNotFoundException 
      */
     protected void setCustInvcTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
     	if ( getType() != GCshOwner.Type.CUSTOMER && 
       		 getType() != GCshOwner.Type.JOB )
        		    throw new WrongInvoiceTypeException();
@@ -270,7 +270,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      * @throws ClassNotFoundException 
      */
     protected void setVendBllTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
     	if ( getType() != GCshOwner.Type.VENDOR && 
    		     getType() != GCshOwner.Type.JOB )
     		    throw new WrongInvoiceTypeException();
@@ -287,7 +287,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      * @throws ClassNotFoundException 
      */
     protected void setEmplVchTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
     	if ( getType() != GCshOwner.Type.EMPLOYEE )
     		    throw new WrongInvoiceTypeException();
 
@@ -295,7 +295,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     }
 
     protected void setJobInvcTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException {
 	if ( getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 

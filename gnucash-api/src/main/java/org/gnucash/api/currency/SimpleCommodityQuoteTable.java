@@ -64,7 +64,7 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
     }
 
     public void setConversionFactor(final String nameSpace, final String code, 
-	                            final FixedPointNumber factor) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	                            final FixedPointNumber factor) throws InvalidCmdtyCurrIDException {
 	mCmdtyID2Factor.put(new GCshCmdtyID(nameSpace, code).toString(), factor);
     }
 

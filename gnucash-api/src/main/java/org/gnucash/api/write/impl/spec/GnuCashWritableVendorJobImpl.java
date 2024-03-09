@@ -260,12 +260,12 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 //    }
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoices()
-			throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return getWritableGnuCashFile().getPaidWritableInvoicesForJob(this);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoices()
-			throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this);
 	}
 

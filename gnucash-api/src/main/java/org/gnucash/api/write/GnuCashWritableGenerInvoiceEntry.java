@@ -48,15 +48,15 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
 
     void setQuantity(String quantity)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     void setQuantity(FixedPointNumber quantity)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     void setQuantityFormatted(String n)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     /**
 * 
@@ -67,6 +67,6 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
      * 
      */
     void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
 }

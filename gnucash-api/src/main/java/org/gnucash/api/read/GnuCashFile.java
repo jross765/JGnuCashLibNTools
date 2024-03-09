@@ -897,9 +897,9 @@ public interface GnuCashFile extends GnuCashObject,
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrIDException;
 
     @Deprecated
-    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException;
+    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrIDException;
 
 }

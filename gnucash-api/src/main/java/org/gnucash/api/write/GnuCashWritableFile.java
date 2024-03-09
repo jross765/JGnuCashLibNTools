@@ -204,7 +204,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    LocalDate postDate, 
 	    LocalDate dueDate)
 	    throws WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+	    IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -233,7 +233,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    LocalDate postDate, 
 	    LocalDate dueDate)
 	    throws WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+	    IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -262,7 +262,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    LocalDate postDate, 
 	    LocalDate dueDate)
 	    throws WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+	    IllegalTransactionSplitActionException;
 
     /**
      * FOR USE BY EXTENSIONS ONLY
@@ -291,7 +291,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    LocalDate postDate, 
 	    LocalDate dueDate)
 	    throws WrongOwnerTypeException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException;
+	    IllegalTransactionSplitActionException;
 
     void removeGenerInvoice(GnuCashWritableGenerInvoice impl);
 
@@ -444,7 +444,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @throws InvalidCmdtyCurrIDException
      */
     void removeCommodity(GnuCashWritableCommodity cmdty)
-	    throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException;
+	    throws ObjectCascadeException, InvalidCmdtyCurrIDException;
 
     // ----------------------------
 

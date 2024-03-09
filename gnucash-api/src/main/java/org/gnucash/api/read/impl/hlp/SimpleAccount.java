@@ -195,7 +195,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 	@Override
 	public FixedPointNumber getBalance(final LocalDate date, final Currency curr)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		FixedPointNumber retval = getBalance(date);
 
@@ -266,17 +266,17 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return cf.format(getBalance());
 	}
 
-	public FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrIDException {
 		return getBalanceRecursive(LocalDate.now());
 	}
 
 	public FixedPointNumber getBalanceRecursive(final LocalDate date)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return getBalanceRecursive(date, getCmdtyCurrID());
 	}
 
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
-				throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+				throws InvalidCmdtyCurrIDException {
 	
 			// BEGIN OLD IMPL
 //		    FixedPointNumber retval = getBalance(date, cmdtyCurrID);
@@ -302,7 +302,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 
 		FixedPointNumber retval = getBalance(date, curr);
 
@@ -319,13 +319,13 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 	@Override
 	public String getBalanceRecursiveFormatted()
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return getCurrencyFormat().format(getBalanceRecursive());
 	}
 
 	@Override
 	public String getBalanceRecursiveFormatted(final LocalDate date)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+			throws InvalidCmdtyCurrIDException {
 		return getCurrencyFormat().format(getBalanceRecursive(date));
 	}
 

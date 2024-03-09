@@ -77,13 +77,13 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 
 	@Override
 	public void setTaxable(boolean val)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		setCustInvcTaxable(val);
 	}
 
 	@Override
 	public void setTaxTable(GCshTaxTable taxTab)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		setCustInvcTaxTable(taxTab);
 	}
 
@@ -93,7 +93,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setEmplVchTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setEmplVchTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -101,7 +101,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -109,7 +109,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setJobInvcTaxable(final boolean val) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setJobInvcTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -119,7 +119,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -127,7 +127,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -135,7 +135,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -143,13 +143,13 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	
 	@Override
 	public void setPrice(String price)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		setCustInvcPrice(price);
 	}
 
 	@Override
 	public void setPrice(FixedPointNumber price)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		setCustInvcPrice(price);
 	}
 
@@ -158,7 +158,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 */
     @Override
     public void setEmplVchPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -167,7 +167,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 */
     @Override
     public void setVendBllPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -176,7 +176,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 */
     @Override
     public void setJobInvcPrice(final String n)
-	    throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 

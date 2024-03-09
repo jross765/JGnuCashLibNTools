@@ -79,7 +79,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	public GnuCashWritableVendorBillImpl(final GnuCashWritableFileImpl file, final String number,
 			final GnuCashVendor vend, final GnuCashAccountImpl expensesAcct, final GnuCashAccountImpl payableAcct,
 			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createVendorBill_int(file, number, vend, false, // <-- caution!
 				expensesAcct, payableAcct, openedDate, postDate, dueDate), file);
 	}
@@ -90,7 +90,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableVendorBillImpl(final GnuCashWritableGenerInvoiceImpl invc)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -185,7 +185,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 			final GnuCashAccount acct, 
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableVendorBillEntry entry = createVendBllEntry(acct, singleUnitPrice, quantity);
 		return entry;
 	}
@@ -202,7 +202,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity, 
 			final String taxTabName)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableVendorBillEntry entry = createVendBllEntry(acct, singleUnitPrice, quantity, taxTabName);
 		return entry;
 	}
@@ -219,7 +219,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity, 
 			final GCshTaxTable taxTab)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableVendorBillEntry entry = createVendBllEntry(acct, singleUnitPrice, quantity, taxTab);
 		LOGGER.info("createEntry: Created vendor bill entry: " + entry.getID());
 		return entry;
@@ -234,7 +234,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableVendorBillEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		removeBillEntry(entry);
 		LOGGER.info("removeEntry: Removed vendor bill entry: " + entry.getID());
@@ -250,14 +250,14 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableVendorBillEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		addBillEntry(entry);
 		LOGGER.info("addEntry: Added vendor bill entry: " + entry.getID());
 	}
 
 	protected void subtractEntry(final GnuCashGenerInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		subtractBillEntry(entry);
 		LOGGER.info("subtractEntry: Subtracted vendor bill entry: " + entry.getID());
 	}
@@ -338,7 +338,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	@Override
 	public void post(final GnuCashAccount expensesAcct, final GnuCashAccount payablAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongOwnerTypeException,
-			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			IllegalTransactionSplitActionException {
 		postVendorBill(getGnuCashFile(), this, getVendor(), expensesAcct, payablAcct, postDate, dueDate);
 	}
 

@@ -82,7 +82,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
 			final GnuCashGenerJob job, final GnuCashAccountImpl incExpAcct, final GnuCashAccountImpl recvblPayblAcct,
 			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createJobInvoice_int(file, number, job, false, // <-- caution!
 				incExpAcct, recvblPayblAcct, openedDate, postDate, dueDate), file);
 	}
@@ -94,7 +94,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -201,7 +201,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 			final GnuCashAccount acct, 
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity) throws TaxTableNotFoundException,
-			UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+			UnknownInvoiceTypeException {
 		GnuCashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity);
 		return entry;
 	}
@@ -219,7 +219,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity, 
 			final String taxTabName) throws TaxTableNotFoundException, 
-		UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+		UnknownInvoiceTypeException {
 		GnuCashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity, taxTabName);
 		return entry;
 	}
@@ -237,7 +237,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 			final FixedPointNumber singleUnitPrice,
 			final FixedPointNumber quantity, 
 			final GCshTaxTable taxTab) throws TaxTableNotFoundException, 
-		UnknownInvoiceTypeException, InvalidCmdtyCurrTypeException {
+		UnknownInvoiceTypeException {
 		GnuCashWritableJobInvoiceEntry entry = createJobInvcEntry(acct, singleUnitPrice, quantity, taxTab);
 		LOGGER.info("createEntry: Created job invoice entry: " + entry.getID());
 		return entry;
@@ -252,7 +252,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableJobInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		removeInvcEntry(entry);
 		LOGGER.info("removeEntry: Removed job invoice entry: " + entry.getID());
@@ -268,14 +268,14 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableJobInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		addJobEntry(entry);
 		LOGGER.info("addEntry: Added job invoice entry: " + entry.getID());
 	}
 
 	protected void subtractEntry(final GnuCashGenerInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		subtractInvcEntry(entry);
 		LOGGER.info("subtractEntry: Subtracted job invoice entry: " + entry.getID());
 	}
@@ -359,7 +359,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	@Override
 	public void post(final GnuCashAccount incExpAcct, final GnuCashAccount recvblPayablAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongOwnerTypeException,
-			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			IllegalTransactionSplitActionException {
 		postJobInvoice(getGnuCashFile(), this, getJob(), incExpAcct, recvblPayablAcct, postDate, dueDate);
 	}
 

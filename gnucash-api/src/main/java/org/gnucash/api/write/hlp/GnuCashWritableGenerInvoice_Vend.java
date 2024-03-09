@@ -33,7 +33,7 @@ public interface GnuCashWritableGenerInvoice_Vend {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     /**
      * create and add a new entry.<br/>
@@ -55,7 +55,7 @@ public interface GnuCashWritableGenerInvoice_Vend {
     		FixedPointNumber quantity,
     		String taxTabName)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
     /**
      * create and add a new entry.<br/>
@@ -76,6 +76,6 @@ public interface GnuCashWritableGenerInvoice_Vend {
     		FixedPointNumber quantity,
     		GCshTaxTable taxTab)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException, InvalidCmdtyCurrTypeException;
+	    NumberFormatException;
 
 }

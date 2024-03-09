@@ -92,31 +92,31 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public GCshCmdtyID getFromCommodityQualifID() throws InvalidCmdtyCurrIDException {
 		GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifID();
 		return new GCshCmdtyID(cmdtyCurrID);
 	}
 
 	@Override
-	public GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public GCshCurrID getFromCurrencyQualifID() throws InvalidCmdtyCurrIDException {
 		GCshCmdtyCurrID cmdtyCurrID = getFromCmdtyCurrQualifID();
 		return new GCshCurrID(cmdtyCurrID);
 	}
 
 	@Override
-	public GnuCashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+	public GnuCashCommodity getFromCommodity() throws InvalidCmdtyCurrIDException {
 		GCshCmdtyID cmdtyID = getFromCommodityQualifID();
 		GnuCashCommodity cmdty = getGnuCashFile().getCommodityByQualifID(cmdtyID);
 		return cmdty;
 	}
 
 	@Override
-	public String getFromCurrencyCode() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public String getFromCurrencyCode() throws InvalidCmdtyCurrIDException {
 		return getFromCurrencyQualifID().getCurrency().getCurrencyCode();
 	}
 
 	@Override
-	public GnuCashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+	public GnuCashCommodity getFromCurrency() throws InvalidCmdtyCurrIDException {
 		GCshCurrID currID = getFromCurrencyQualifID();
 		GnuCashCommodity cmdty = getGnuCashFile().getCommodityByQualifID(currID);
 		return cmdty;
@@ -125,7 +125,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	// ----------------------------
 
 	@Override
-	public GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public GCshCurrID getToCurrencyQualifID() throws InvalidCmdtyCurrIDException {
 		if ( jwsdpPeer.getPriceCurrency() == null )
 			return null;
 
@@ -154,7 +154,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GnuCashCommodity getToCurrency() throws InvalidCmdtyCurrIDException, InvalidCmdtyCurrTypeException {
+	public GnuCashCommodity getToCurrency() throws InvalidCmdtyCurrIDException {
 		if ( getToCurrencyQualifID() == null )
 			return null;
 
@@ -170,7 +170,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws InvalidCmdtyCurrIDException
 	 */
-	private NumberFormat getCurrencyFormat() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	private NumberFormat getCurrencyFormat() throws InvalidCmdtyCurrIDException {
 		if ( currencyFormat == null ) {
 			currencyFormat = NumberFormat.getCurrencyInstance();
 		}
@@ -242,7 +242,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	}
 
 	@Override
-	public String getValueFormatted() throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException {
+	public String getValueFormatted() throws InvalidCmdtyCurrIDException {
 		return getCurrencyFormat().format(getValue());
 	}
 

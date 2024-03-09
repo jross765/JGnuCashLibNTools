@@ -51,7 +51,7 @@ public class FileStats_Cache implements FileStats {
 	}
 
 	public FileStats_Cache(final GnuCashFileImpl gcshFile)
-			throws InvalidCmdtyCurrTypeException, InvalidCmdtyCurrIDException, IOException {
+			throws InvalidCmdtyCurrIDException, IOException {
 		this.acctMgr = gcshFile.getAcctMgr();
 		this.trxMgr = gcshFile.getTrxMgr();
 		this.invcMgr = gcshFile.getInvcMgr();

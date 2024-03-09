@@ -18,7 +18,7 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
                                                   HasWritableUserDefinedAttributes
 {
 
-    void remove() throws InvalidCmdtyCurrTypeException, ObjectCascadeException, InvalidCmdtyCurrIDException;
+    void remove() throws ObjectCascadeException, InvalidCmdtyCurrIDException;
     
     // ---------------------------------------------------------------
 

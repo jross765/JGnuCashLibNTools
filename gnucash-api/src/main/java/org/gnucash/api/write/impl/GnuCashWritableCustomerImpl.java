@@ -501,7 +501,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //	return retval;
 //    }
 
-    public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoices_direct() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoices_direct() throws TaxTableNotFoundException {
 	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_direct(this);
     }
 
@@ -510,7 +510,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
-    public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoices_direct() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoices_direct() throws TaxTableNotFoundException {
 	return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_direct(this);
     }
 

@@ -72,7 +72,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableFileImpl file, final String number,
 			final GnuCashEmployee empl, final GnuCashAccountImpl expensesAcct, final GnuCashAccountImpl payableAcct,
 			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
-			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createEmployeeVoucher_int(file, number, empl, false, // <-- caution!
 				expensesAcct, payableAcct, openedDate, postDate, dueDate), file);
 	}
@@ -84,7 +84,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableGenerInvoiceImpl invc)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -166,7 +166,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 			final GnuCashAccount acct,
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableEmployeeVoucherEntry entry = createEmplVchEntry(acct, singleUnitPrice, quantity);
 		return entry;
 	}
@@ -183,7 +183,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity, 
 			final String taxTabName)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableEmployeeVoucherEntry entry = createEmplVchEntry(acct, singleUnitPrice, quantity, taxTabName);
 		return entry;
 	}
@@ -200,7 +200,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 			final FixedPointNumber singleUnitPrice, 
 			final FixedPointNumber quantity, 
 			final GCshTaxTable taxTab)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		GnuCashWritableEmployeeVoucherEntry entry = createEmplVchEntry(acct, singleUnitPrice, quantity, taxTab);
 		LOGGER.info("createEntry: Created employee voucher entry: " + entry.getID());
 		return entry;
@@ -215,7 +215,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableEmployeeVoucherEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		removeVoucherEntry(entry);
 		LOGGER.info("removeEntry: Removed employee voucher entry: " + entry.getID());
@@ -232,14 +232,14 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableEmployeeVoucherEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 
 		addVoucherEntry(entry);
 		LOGGER.info("addEntry: Added employee voucher entry: " + entry.getID());
 	}
 
 	protected void subtractEntry(final GnuCashGenerInvoiceEntryImpl entry)
-			throws TaxTableNotFoundException, InvalidCmdtyCurrTypeException {
+			throws TaxTableNotFoundException {
 		subtractVoucherEntry(entry);
 		LOGGER.info("addEntry: Subtracted employee voucher entry: " + entry.getID());
 	}
@@ -321,7 +321,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	@Override
 	public void post(final GnuCashAccount expensesAcct, final GnuCashAccount payablAcct, final LocalDate postDate,
 			final LocalDate dueDate) throws WrongOwnerTypeException,
-			InvalidCmdtyCurrTypeException, IllegalTransactionSplitActionException {
+			IllegalTransactionSplitActionException {
 		postEmployeeVoucher(getGnuCashFile(), this, getEmployee(), expensesAcct, payablAcct, postDate, dueDate);
 	}
 

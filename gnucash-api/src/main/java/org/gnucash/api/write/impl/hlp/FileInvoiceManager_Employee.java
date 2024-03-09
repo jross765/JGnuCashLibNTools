@@ -22,7 +22,7 @@ public abstract class FileInvoiceManager_Employee {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashWritableEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashEmployee empl) throws TaxTableNotFoundException {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -40,7 +40,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashWritableEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashEmployee empl) throws TaxTableNotFoundException {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
@@ -58,7 +58,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashWritableEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashEmployee empl) throws TaxTableNotFoundException {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {

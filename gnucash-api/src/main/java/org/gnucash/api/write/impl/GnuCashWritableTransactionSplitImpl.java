@@ -245,7 +245,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
      * @throws NumberFormatException
      * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
      */
-    public void setQuantity(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
+    public void setQuantity(final FixedPointNumber n) throws NumberFormatException {
 	if (n == null) {
 	    throw new NullPointerException("null quantity given");
 	}
@@ -296,7 +296,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
      * @throws NumberFormatException
      * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
      */
-    public void setValue(final FixedPointNumber n) throws NumberFormatException, InvalidCmdtyCurrTypeException {
+    public void setValue(final FixedPointNumber n) throws NumberFormatException {
 	if (n == null) {
 	    throw new NullPointerException("null value given");
 	}

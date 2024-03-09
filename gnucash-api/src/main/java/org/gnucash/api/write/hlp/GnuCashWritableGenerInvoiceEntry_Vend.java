@@ -9,15 +9,15 @@ import org.gnucash.base.numbers.FixedPointNumber;
 public interface GnuCashWritableGenerInvoiceEntry_Vend {
 
     void setVendBllPrice(String price) throws NumberFormatException, TaxTableNotFoundException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setVendBllPrice(FixedPointNumber price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     void setVendBllPriceFormatted(String price)
 	    throws TaxTableNotFoundException, NumberFormatException,
-	    IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException;
+	    IllegalTransactionSplitActionException;
 
     // -----------------------------------------------------------
 
@@ -28,7 +28,7 @@ public interface GnuCashWritableGenerInvoiceEntry_Vend {
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
-    void setVendBllTaxable(boolean val) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException;
+    void setVendBllTaxable(boolean val) throws TaxTableNotFoundException;
 
     /**
      * @param tax the new tax table to use. Null sets isTaxable to false.
