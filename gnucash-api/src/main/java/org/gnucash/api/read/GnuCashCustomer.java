@@ -11,7 +11,6 @@ import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -113,9 +112,8 @@ public interface GnuCashCustomer extends GnuCashObject,
      * @return Returns the current number of Unpaid invoices.
      *         The date is not checked so invoices that have entered payments in the future are
      *         considered paid.
-     * @throws WrongInvoiceTypeException
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException;
+    int getNofOpenInvoices();
 
     // -------------------------------------
 
@@ -206,69 +204,58 @@ public interface GnuCashCustomer extends GnuCashObject,
     /**
      * @return Returns the <strong>unmodifiable</strong> collection of jobs that have this 
      *         customer associated with them.
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashCustomerJob> getJobs() throws WrongInvoiceTypeException;
+    List<GnuCashCustomerJob> getJobs();
 
     // ------------------------------------------------------------
 
     /**
      * @return Returns all invoices sent to this customer, both with
      *         and without job, both paid and unpaid.
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getPaidInvoices_direct()
      * @see #getPaidInvoices_viaAllJobs()
      */
-    List<GnuCashGenerInvoice>    getInvoices() throws WrongInvoiceTypeException;
+    List<GnuCashGenerInvoice>    getInvoices();
 
     /**
      * @return Returns all paid invoices sent to this customer (only those
      *         that were assigned to a job).
-
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getUnpaidInvoices_direct()
      * @see #getPaidInvoices_viaAllJobs()
      * @see #getInvoices()
      */
-    List<GnuCashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException;
+    List<GnuCashCustomerInvoice> getPaidInvoices_direct();
 
     /**
      * @return Returns all paid invoices sent to this customer (only those
      *         that were assigned directly to that customer, not to a job).
-     *         
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getUnpaidInvoices_viaAllJobs()
      * @see #getPaidInvoices_direct()
      * @see #getInvoices()
      */
-    List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs();
 
     /**
      * @return Returns all unpaid invoices sent to this customer (only those
      *         that were assigned to a job).
-     *         
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getPaidInvoices_direct()
      * @see #getUnpaidInvoices_viaAllJobs()
      * @see #getInvoices()
      */
-    List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException;
+    List<GnuCashCustomerInvoice> getUnpaidInvoices_direct();
 
     /**
      * @return Returns all unpaid invoices sent to this customer (only those
      *         that were assigned directly to that customer, not to a job).
-     *         
-     * @throws 
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getPaidInvoices_viaAllJobs()
      * @see #getUnpaidInvoices_direct()
      * @see #getInvoices()
      */
-    List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs();
 
 }

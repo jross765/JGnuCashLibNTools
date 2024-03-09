@@ -1,45 +1,33 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.read.UnknownAccountTypeException;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Job {
     
     /**
      * @return what the customer must still pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getJobInvcAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getJobInvcAmountUnpaidWithTaxes();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getJobInvcAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getJobInvcAmountPaidWithTaxes();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    FixedPointNumber getJobInvcAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getJobInvcAmountPaidWithoutTaxes();
 
     /**
      * @return what the customer needs to pay in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    FixedPointNumber getJobInvcAmountWithTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getJobInvcAmountWithTaxes();
 
     /**
      * @return what the customer needs to pay in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    FixedPointNumber getJobInvcAmountWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getJobInvcAmountWithoutTaxes();
 
     // ---------------------------------------------------------------
 
@@ -47,53 +35,41 @@ public interface GnuCashGenerInvoice_Job {
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the customer must still pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getJobInvcAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getJobInvcAmountUnpaidWithTaxesFormatted();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getJobInvcAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getJobInvcAmountPaidWithTaxesFormatted();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    String getJobInvcAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getJobInvcAmountPaidWithoutTaxesFormatted();
 
     /**
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the customer needs to pay in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    String getJobInvcAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+    String getJobInvcAmountWithTaxesFormatted();
 
     /**
      * @return what the customer needs to pay in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
-     * 
      */
-    String getJobInvcAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getJobInvcAmountWithoutTaxesFormatted();
 
     // ---------------------------------------------------------------
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isJobInvcFullyPaid() throws WrongInvoiceTypeException;
+    boolean isJobInvcFullyPaid();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isNotInvcJobFullyPaid() throws WrongInvoiceTypeException;
+    boolean isNotInvcJobFullyPaid();
 
 }

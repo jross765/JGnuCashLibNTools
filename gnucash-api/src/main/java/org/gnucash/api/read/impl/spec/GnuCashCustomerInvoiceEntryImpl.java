@@ -34,8 +34,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	}
 
 	@SuppressWarnings("exports")
-	public GnuCashCustomerInvoiceEntryImpl(final GnuCashGenerInvoice invoice, final GncGncEntry peer)
-			throws WrongInvoiceTypeException {
+	public GnuCashCustomerInvoiceEntryImpl(final GnuCashGenerInvoice invoice, final GncGncEntry peer) {
 		super(invoice, peer, true);
 
 		// No, we cannot check that first, because the super() method
@@ -49,7 +48,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 		super(peer, gcshFile, true);
 	}
 
-	public GnuCashCustomerInvoiceEntryImpl(final GnuCashGenerInvoiceEntry entry) throws WrongInvoiceTypeException {
+	public GnuCashCustomerInvoiceEntryImpl(final GnuCashGenerInvoiceEntry entry) {
 		super(entry.getGenerInvoice(), entry.getJwsdpPeer(), false);
 
 		// No, we cannot check that first, because the super() method
@@ -69,7 +68,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	}
 
 	@Override
-	public GnuCashCustomerInvoice getInvoice() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public GnuCashCustomerInvoice getInvoice() {
 		if ( myInvoice == null ) {
 			myInvoice = getGenerInvoice();
 			if ( myInvoice.getType() != GCshOwner.Type.CUSTOMER )
@@ -87,12 +86,12 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	// ---------------------------------------------------------------
 
 	@Override
-	public FixedPointNumber getPrice() throws WrongInvoiceTypeException {
+	public FixedPointNumber getPrice() {
 		return getCustInvcPrice();
 	}
 
 	@Override
-	public String getPriceFormatted() throws WrongInvoiceTypeException {
+	public String getPriceFormatted() {
 		return getCustInvcPriceFormatted();
 	}
 
@@ -102,7 +101,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public FixedPointNumber getEmplVchPrice() throws WrongInvoiceTypeException {
+	public FixedPointNumber getEmplVchPrice() {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -110,7 +109,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public String getEmplVchPriceFormatted() throws WrongInvoiceTypeException {
+	public String getEmplVchPriceFormatted() {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -120,7 +119,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException {
+	public FixedPointNumber getVendBllPrice() {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -128,7 +127,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public String getVendBllPriceFormatted() throws WrongInvoiceTypeException {
+	public String getVendBllPriceFormatted() {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -138,7 +137,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public FixedPointNumber getJobInvcPrice() throws WrongInvoiceTypeException {
+	public FixedPointNumber getJobInvcPrice() {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -146,7 +145,7 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	 * Do not use
 	 */
 	@Override
-	public String getJobInvcPriceFormatted() throws WrongInvoiceTypeException {
+	public String getJobInvcPriceFormatted() {
 		throw new WrongInvoiceTypeException();
 	}
 

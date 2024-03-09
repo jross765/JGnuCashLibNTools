@@ -2,9 +2,6 @@ package org.gnucash.api.write;
 
 import java.time.LocalDate;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashTransaction;
@@ -12,7 +9,6 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.WrongOwnerJITypeException;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Cust;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Empl;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Job;
@@ -20,6 +16,9 @@ import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Vend;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
  * Invoice that can be modified.</br>
@@ -87,7 +86,7 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
     /**
      * remove this invoice from the system.
      * 
-     * @throws WrongInvoiceTypeException
+* 
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
@@ -95,7 +94,7 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
      * 
      *
      */
-    void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     // -----------------------------------------------------------
@@ -108,12 +107,12 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
      * @param quantity 
      * @return 
      * 
-     * @throws WrongInvoiceTypeException
+* 
      * @throws TaxTableNotFoundException
      * 
      */
     GnuCashWritableGenerInvoiceEntry createGenerEntry(GnuCashAccount acct, FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException;
+	    throws TaxTableNotFoundException;
 
 }

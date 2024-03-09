@@ -16,12 +16,12 @@ public interface GnuCashEmployeeVoucherEntry extends GnuCashGenerInvoiceEntry
 {
   GCshID getVoucherID();
 
-  GnuCashEmployeeVoucher getVoucher() throws WrongInvoiceTypeException;
+  GnuCashEmployeeVoucher getVoucher();
   
   // -----------------------------------------------------------------
 
-  FixedPointNumber getPrice() throws WrongInvoiceTypeException;
+  FixedPointNumber getPrice();
 
-  String getPriceFormatted() throws WrongInvoiceTypeException;
+  String getPriceFormatted();
   
 }

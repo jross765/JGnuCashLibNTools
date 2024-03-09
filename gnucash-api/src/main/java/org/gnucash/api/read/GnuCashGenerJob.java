@@ -10,7 +10,6 @@ import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -89,10 +88,9 @@ public interface GnuCashGenerJob extends GnuCashObject {
      * considered Paid.
      * 
      * @return the current number of Unpaid invoices
-     * @throws WrongInvoiceTypeException
      *  
      */
-    int getNofOpenInvoices() throws WrongInvoiceTypeException;
+    int getNofOpenInvoices();
 
     /**
      * @return the sum of payments for invoices to this client
@@ -140,11 +138,11 @@ public interface GnuCashGenerJob extends GnuCashObject {
 
     // ---------------------------------------------------------------
 
-    List<GnuCashJobInvoice> getInvoices() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice> getInvoices();
 
-    List<GnuCashJobInvoice> getPaidInvoices() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice> getPaidInvoices();
 
-    List<GnuCashJobInvoice> getUnpaidInvoices() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice> getUnpaidInvoices();
 
     // ---------------------------------------------------------------
 

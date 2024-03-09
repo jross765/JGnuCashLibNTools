@@ -171,7 +171,7 @@ public class GetCustInfo {
 
     // -----------------------------------------------------------------
 
-    private void showJobs(GnuCashCustomer cust) throws WrongInvoiceTypeException {
+    private void showJobs(GnuCashCustomer cust) {
 	System.out.println("");
 	System.out.println("Jobs:");
 	for (GnuCashCustomerJob job : cust.getJobs()) {

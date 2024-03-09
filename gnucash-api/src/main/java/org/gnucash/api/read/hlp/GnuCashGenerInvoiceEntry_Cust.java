@@ -2,7 +2,6 @@ package org.gnucash.api.read.hlp;
 
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoiceEntry_Cust {
@@ -10,46 +9,40 @@ public interface GnuCashGenerInvoiceEntry_Cust {
     /**
      * @return For a customer invoice, return the price of one single of the
      *         ${@link #getQuantity()} items of type ${@link #getAction()}.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcPrice() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcPrice();
 
     /**
      * @return As ${@link #getCustInvcPrice()}, but formatted.
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcPriceFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcPriceFormatted();
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return true if any sales-tax applies at all to this item.
-     * @throws WrongInvoiceTypeException
      */
-    boolean isCustInvcTaxable() throws WrongInvoiceTypeException;
+    boolean isCustInvcTaxable();
 
     /**
      * @return
      * @throws TaxTableNotFoundException
-     * @throws WrongInvoiceTypeException
      */
-    public GCshTaxTable getCustInvcTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
+    public GCshTaxTable getCustInvcTaxTable() throws TaxTableNotFoundException;
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return e.g. "0.16" for "16%"
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcApplicableTaxPercent() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcApplicableTaxPercent();
 
     /**
      * @return never null, "0%" if no taxtable is there
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcApplicableTaxPercentFormatted();
 
     // ---------------------------------------------------------------
 
@@ -58,23 +51,20 @@ public interface GnuCashGenerInvoiceEntry_Cust {
      * to include or exclude taxes.
      * 
      * @return count*single-unit-price excluding or including taxes.
-     * @throws WrongInvoiceTypeException
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    FixedPointNumber getCustInvcSum() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcSum();
 
     /**
      * @return count*single-unit-price including taxes.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcSumInclTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcSumInclTaxes();
 
     /**
      * @return count*single-unit-price excluding taxes.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcSumExclTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcSumExclTaxes();
 
     // ----------------------------
 
@@ -82,26 +72,23 @@ public interface GnuCashGenerInvoiceEntry_Cust {
      * As ${@link #getCustInvcSum()}. but formatted.
      * 
      * @return count*single-unit-price excluding or including taxes.
-     * @throws WrongInvoiceTypeException
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    String getCustInvcSumFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcSumFormatted();
 
     /**
      * As ${@link #getCustInvcSumInclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price including taxes.
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcSumInclTaxesFormatted();
 
     /**
      * As ${@link #getCustInvcSumExclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price excluding taxes.
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcSumExclTaxesFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcSumExclTaxesFormatted();
 
 }

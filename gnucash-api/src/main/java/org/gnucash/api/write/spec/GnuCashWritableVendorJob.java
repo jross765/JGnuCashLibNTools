@@ -2,7 +2,6 @@ package org.gnucash.api.write.spec;
 
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
 
 /**
@@ -14,7 +13,7 @@ import org.gnucash.api.write.GnuCashWritableGenerJob;
  */
 public interface GnuCashWritableVendorJob extends GnuCashWritableGenerJob {
 
-    void remove() throws WrongInvoiceTypeException;
+    void remove();
 
     /**
      * Not used.
@@ -28,9 +27,9 @@ public interface GnuCashWritableVendorJob extends GnuCashWritableGenerJob {
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param newVendor the vendor who issued this job.
-     * @throws WrongInvoiceTypeException
+* 
      *  
      */
-    void setVendor(GnuCashVendor newVendor) throws WrongInvoiceTypeException;
+    void setVendor(GnuCashVendor newVendor);
 
 }

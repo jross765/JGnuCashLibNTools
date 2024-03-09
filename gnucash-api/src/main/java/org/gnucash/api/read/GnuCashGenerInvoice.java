@@ -17,7 +17,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
@@ -148,11 +147,10 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
      *
      * @param readvar
      * @return Invoice' owner ID
-     * @throws WrongInvoiceTypeException
      */
-    GCshID getOwnerID(ReadVariant readvar) throws WrongInvoiceTypeException;
+    GCshID getOwnerID(ReadVariant readvar);
 
-    GCshOwner.Type getOwnerType(ReadVariant readvar) throws WrongInvoiceTypeException;
+    GCshOwner.Type getOwnerType(ReadVariant readvar);
 
     // ---------------------------------------------------------------
 

@@ -30,7 +30,7 @@ public class GnuCashCustomerJobImpl extends GnuCashGenerJobImpl
 		super(peer, gcshFile);
 	}
 
-	public GnuCashCustomerJobImpl(final GnuCashGenerJob job) throws WrongJobTypeException {
+	public GnuCashCustomerJobImpl(final GnuCashGenerJob job) {
 		super(job.getJwsdpPeer(), job.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method

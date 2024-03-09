@@ -158,7 +158,7 @@ public class GetVendInfo {
 
     // -----------------------------------------------------------------
 
-    private void showJobs(GnuCashVendor vend) throws WrongInvoiceTypeException {
+    private void showJobs(GnuCashVendor vend) {
 	System.out.println("");
 	System.out.println("Jobs:");
 	for (GnuCashVendorJob job : vend.getJobs()) {

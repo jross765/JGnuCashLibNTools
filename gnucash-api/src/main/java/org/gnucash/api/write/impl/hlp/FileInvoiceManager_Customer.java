@@ -6,7 +6,6 @@ import java.util.List;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -26,8 +25,7 @@ public abstract class FileInvoiceManager_Customer {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashWritableCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException, IllegalArgumentException,
-			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableCustomerInvoice> retval = new ArrayList<GnuCashWritableCustomerInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -44,8 +42,7 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static List<GnuCashWritableJobInvoice> getInvoices_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException {
+	public static List<GnuCashWritableJobInvoice> getInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashCustomerJob job : cust.getJobs() ) {
@@ -58,8 +55,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
-			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableCustomerInvoice> retval = new ArrayList<GnuCashWritableCustomerInvoice>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
@@ -76,8 +72,7 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static List<GnuCashWritableJobInvoice> getPaidInvoices_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException {
+	public static List<GnuCashWritableJobInvoice> getPaidInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashCustomerJob job : cust.getJobs() ) {
@@ -90,8 +85,7 @@ public abstract class FileInvoiceManager_Customer {
 	}
 
 	public static List<GnuCashWritableCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
-			final GnuCashCustomer cust) throws WrongInvoiceTypeException,
-			IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		List<GnuCashWritableCustomerInvoice> retval = new ArrayList<GnuCashWritableCustomerInvoice>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
@@ -108,8 +102,7 @@ public abstract class FileInvoiceManager_Customer {
 		return retval;
 	}
 
-	public static List<GnuCashWritableJobInvoice> getUnpaidInvoices_viaAllJobs(final GnuCashCustomer cust)
-			throws WrongInvoiceTypeException {
+	public static List<GnuCashWritableJobInvoice> getUnpaidInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
 
 		for ( GnuCashCustomerJob job : cust.getJobs() ) {

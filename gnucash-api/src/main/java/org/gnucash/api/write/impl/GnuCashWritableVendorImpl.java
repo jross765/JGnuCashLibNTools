@@ -10,13 +10,11 @@ import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableVendor;
@@ -314,7 +312,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     // Cf. comments in FileInvoiceManager (write-version).
 
     @Override
-    public int getNofOpenBills() throws WrongInvoiceTypeException {
+    public int getNofOpenBills() {
 	try {
 	    return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this).size();
 	} catch (TaxTableNotFoundException e) {
@@ -326,7 +324,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnuCashGenerInvoice> getInvoices() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashGenerInvoice> getInvoices() {
 //	Collection<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 //
 //	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
@@ -341,7 +339,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 //    }
 //
     @Override
-    public List<GnuCashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    public List<GnuCashVendorBill> getPaidBills_direct() throws InvalidCmdtyCurrTypeException {
     	List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
 	
 	try {
@@ -357,12 +355,12 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnuCashWritableJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashWritableJobInvoice>      getPaidInvoices_viaAllJobs() {
 //	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
     @Override
-    public List<GnuCashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException {
+    public List<GnuCashVendorBill> getUnpaidBills_direct() throws InvalidCmdtyCurrTypeException {
     	List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
 	
 	try {
@@ -378,7 +376,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     }
 
     // ::TODO
-//    public Collection<GnuCashWritableJobInvoice>      getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashWritableJobInvoice>      getUnpaidBills_viaAllJobs() {
 //	return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_viaAllJobs(this);
 //    }
 
@@ -388,7 +386,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     // ::TODO
 //    @Override
-//    public List<GnuCashGenerInvoice> getWritableBills() throws WrongInvoiceTypeException {
+//    public List<GnuCashGenerInvoice> getWritableBills() {
 //	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 //
 //	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
@@ -402,21 +400,21 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 //	return retval;
 //    }
 
-    public List<GnuCashWritableVendorBill> getPaidWritableBills_direct() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableVendorBill> getPaidWritableBills_direct() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnuCashFile().getPaidWritableBillsForVendor_direct(this);
     }
 
     // ::TODO
-//    public Collection<GnuCashWritableJobInvoice>      getPaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashWritableJobInvoice>      getPaidWritableBills_viaAllJobs() {
 //	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
-    public List<GnuCashWritableVendorBill> getUnpaidWritableBills_direct() throws WrongInvoiceTypeException, IllegalArgumentException, InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+    public List<GnuCashWritableVendorBill> getUnpaidWritableBills_direct() throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 	return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this);
     }
 
     // ::TODO
-//    public Collection<GnuCashWritableJobInvoice>      getUnpaidWritableBills_viaAllJobs() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashWritableJobInvoice>      getUnpaidWritableBills_viaAllJobs() {
 //	return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 

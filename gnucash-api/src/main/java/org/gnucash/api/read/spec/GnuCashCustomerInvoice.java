@@ -31,15 +31,14 @@ public interface GnuCashCustomerInvoice extends GnuCashGenerInvoice {
 
     /**
      * @return Customer this invoice has been sent to.
-     * @throws WrongInvoiceTypeException 
      */
-    GnuCashCustomer getCustomer() throws WrongInvoiceTypeException;
+    GnuCashCustomer getCustomer();
 	
     // ---------------------------------------------------------------
 
-    GnuCashCustomerInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
+    GnuCashCustomerInvoiceEntry getEntryByID(GCshID id);
 
-    Collection<GnuCashCustomerInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
+    Collection<GnuCashCustomerInvoiceEntry> getEntries();
 
     void addEntry(GnuCashCustomerInvoiceEntry entry);
     

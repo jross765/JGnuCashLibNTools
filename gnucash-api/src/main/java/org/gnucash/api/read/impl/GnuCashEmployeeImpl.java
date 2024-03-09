@@ -9,7 +9,6 @@ import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
@@ -160,10 +159,9 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      * considered Paid.
      *
      * @return the current number of Unpaid invoices
-     * @throws WrongInvoiceTypeException
      */
     @Override
-    public int getNofOpenVouchers() throws WrongInvoiceTypeException {
+    public int getNofOpenVouchers() {
 	return getGnuCashFile().getUnpaidVouchersForEmployee(this).size();
     }
 
@@ -223,20 +221,17 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getOutstandingValue_direct()
      */
-    public FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException {
+    public FixedPointNumber getOutstandingValue() {
 	return getOutstandingValue_direct();
     }
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     *  
      */
-    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException {
+    public FixedPointNumber getOutstandingValue_direct() {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -261,24 +256,22 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue()
      */
-    public String getOutstandingValueFormatted() throws WrongInvoiceTypeException {
+    public String getOutstandingValueFormatted() {
 	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
-     * @throws WrongInvoiceTypeException
-     *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    public String getOutstandingValueFormatted(final Locale lcl) throws WrongInvoiceTypeException {
+    public String getOutstandingValueFormatted(final Locale lcl) {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
     // -----------------------------------------------------------------
 
     @Override
-    public List<GnuCashGenerInvoice> getVouchers() throws WrongInvoiceTypeException {
+    public List<GnuCashGenerInvoice> getVouchers() {
     	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
 	for ( GnuCashEmployeeVoucher invc : getGnuCashFile().getVouchersForEmployee(this) ) {
@@ -289,12 +282,12 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     }
 
     @Override
-    public List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException {
+    public List<GnuCashEmployeeVoucher> getPaidVouchers() {
 	return getGnuCashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
-    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException {
+    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() {
 	return getGnuCashFile().getUnpaidVouchersForEmployee(this);
     }
 

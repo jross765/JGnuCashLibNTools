@@ -15,7 +15,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -109,9 +108,8 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
   /**
    * @return the type of the customer/vendor invoice entry, i.e. the owner type of
    *         the entry's invoice
-   * @throws WrongInvoiceTypeException
    */
-  GCshOwner.Type getType() throws WrongInvoiceTypeException;
+  GCshOwner.Type getType();
 
   /**
    *

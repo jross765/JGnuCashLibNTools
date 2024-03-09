@@ -1,42 +1,33 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Vend {
     /**
      * @return what the vendor is yet to receive (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllAmountUnpaidWithTaxes();
 
     /**
      * @return what the vendor has already received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllAmountPaidWithTaxes();
 
     /**
      * @return what the vendor has already received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllAmountPaidWithoutTaxes();
 
     /**
      * @return what the vendor receives in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllAmountWithTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllAmountWithTaxes();
 
     /**
      * @return what the vendor receives in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllAmountWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllAmountWithoutTaxes();
 
     // ---------------------------------------------------------------
 
@@ -44,61 +35,50 @@ public interface GnuCashGenerInvoice_Vend {
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the vendor is still to receive (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getVendBllAmountUnpaidWithTaxesFormatted();
 
     /**
      * @return what the vendor already has received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getVendBllAmountPaidWithTaxesFormatted();
 
     /**
      * @return what the vendor already has received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getVendBllAmountPaidWithoutTaxesFormatted();
 
     /**
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the vendor will receive in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+    String getVendBllAmountWithTaxesFormatted();
 
     /**
      * @return what the vendor will receive in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getVendBllAmountWithoutTaxesFormatted();
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return For a vendor bill: How much sales-taxes are to pay.
-     * @throws WrongInvoiceTypeException
      * @see GCshTaxedSumImpl
      */
-    GCshTaxedSumImpl[] getVendBllTaxes() throws WrongInvoiceTypeException;
+    GCshTaxedSumImpl[] getVendBllTaxes();
 
     // ---------------------------------------------------------------
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isVendBllFullyPaid() throws WrongInvoiceTypeException;
+    boolean isVendBllFullyPaid();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isNotVendBllFullyPaid()
-	    throws WrongInvoiceTypeException;
+    boolean isNotVendBllFullyPaid();
 
 }

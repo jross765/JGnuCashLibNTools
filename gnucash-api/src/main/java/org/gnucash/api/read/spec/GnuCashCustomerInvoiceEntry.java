@@ -16,12 +16,12 @@ public interface GnuCashCustomerInvoiceEntry extends GnuCashGenerInvoiceEntry
 {
   GCshID getInvoiceID();
 
-  GnuCashCustomerInvoice getInvoice() throws WrongInvoiceTypeException;
+  GnuCashCustomerInvoice getInvoice();
   
   // -----------------------------------------------------------------
 
-  FixedPointNumber getPrice() throws WrongInvoiceTypeException;
+  FixedPointNumber getPrice();
 
-  String getPriceFormatted() throws WrongInvoiceTypeException;
+  String getPriceFormatted();
   
 }

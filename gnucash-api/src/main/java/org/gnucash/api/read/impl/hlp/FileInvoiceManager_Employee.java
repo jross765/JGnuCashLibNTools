@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashGenerInvoice;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
@@ -19,7 +18,7 @@ public abstract class FileInvoiceManager_Employee {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl) throws WrongInvoiceTypeException {
+			final GnuCashEmployee empl) {
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -36,8 +35,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException {
+			final GnuCashEmployee empl) {
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
@@ -54,8 +52,7 @@ public abstract class FileInvoiceManager_Employee {
 	}
 
 	public static List<GnuCashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
-			final GnuCashEmployee empl)
-			throws WrongInvoiceTypeException {
+			final GnuCashEmployee empl) {
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {

@@ -9,7 +9,6 @@ import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncGncJob.JobOwner;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
@@ -137,11 +136,9 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws WrongInvoiceTypeException
 	 */
 	@Override
-	public int getNofOpenInvoices() throws WrongInvoiceTypeException {
+	public int getNofOpenInvoices() {
 		return getGnuCashFile().getUnpaidInvoicesForJob(this).size();
 	}
 
@@ -222,19 +219,17 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	// -----------------------------------------------------------------
 
 	@Override
-	public List<GnuCashJobInvoice> getInvoices() throws WrongInvoiceTypeException {
+	public List<GnuCashJobInvoice> getInvoices() {
 		return getGnuCashFile().getInvoicesForJob(this);
 	}
 
 	@Override
-	public List<GnuCashJobInvoice> getPaidInvoices()
-			throws WrongInvoiceTypeException {
+	public List<GnuCashJobInvoice> getPaidInvoices() {
 		return getGnuCashFile().getPaidInvoicesForJob(this);
 	}
 
 	@Override
-	public List<GnuCashJobInvoice> getUnpaidInvoices()
-			throws WrongInvoiceTypeException {
+	public List<GnuCashJobInvoice> getUnpaidInvoices() {
 		return getGnuCashFile().getUnpaidInvoicesForJob(this);
 	}
 

@@ -2,7 +2,6 @@ package org.gnucash.api.read.hlp;
 
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoiceEntry_Vend {
@@ -10,46 +9,39 @@ public interface GnuCashGenerInvoiceEntry_Vend {
     /**
      * @return For a vendor bill, return the price of one single of the
      *         ${@link #getQuantity()} items of type ${@link #getAction()}.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllPrice() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllPrice();
 
     /**
      * @return As ${@link #getVendBllPrice()}, but formatted.
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllPriceFormatted() throws WrongInvoiceTypeException;
+    String getVendBllPriceFormatted();
 
     // ---------------------------------------------------------------
 
     /**
-     *
      * @return true if any sales-tax applies at all to this item.
-     * @throws WrongInvoiceTypeException
      */
-    boolean isVendBllTaxable() throws WrongInvoiceTypeException;
+    boolean isVendBllTaxable();
 
     /**
      * @return
      * @throws TaxTableNotFoundException
-     * @throws WrongInvoiceTypeException
      */
-    public GCshTaxTable getVendBllTaxTable() throws TaxTableNotFoundException, WrongInvoiceTypeException;
+    public GCshTaxTable getVendBllTaxTable() throws TaxTableNotFoundException;
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return e.g. "0.16" for "16%"
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllApplicableTaxPercent() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllApplicableTaxPercent();
 
     /**
      * @return never null, "0%" if no taxtable is there
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllApplicableTaxPercentFormatted() throws WrongInvoiceTypeException;
+    String getVendBllApplicableTaxPercentFormatted();
 
     // ---------------------------------------------------------------
 
@@ -58,23 +50,21 @@ public interface GnuCashGenerInvoiceEntry_Vend {
      * to include or exclude taxes.
      * 
      * @return count*single-unit-price excluding or including taxes.
-     * @throws WrongInvoiceTypeException
+     * 
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    FixedPointNumber getVendBllSum() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllSum();
 
     /**
      * @return count*single-unit-price including taxes.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllSumInclTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllSumInclTaxes();
 
     /**
      * @return count*single-unit-price excluding taxes.
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getVendBllSumExclTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getVendBllSumExclTaxes();
 
     // ----------------------------
 
@@ -82,26 +72,24 @@ public interface GnuCashGenerInvoiceEntry_Vend {
      * As ${@link #getCustInvcSum()}. but formatted.
      * 
      * @return count*single-unit-price excluding or including taxes.
-     * @throws WrongInvoiceTypeException
+     * 
      * @see #getCustInvcSumExclTaxes()
      * @see #getCustInvcSumInclTaxes()
      */
-    String getVendBllSumFormatted() throws WrongInvoiceTypeException;
+    String getVendBllSumFormatted();
 
     /**
      * As ${@link #getCustInvcSumInclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price including taxes.
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllSumInclTaxesFormatted() throws WrongInvoiceTypeException;
+    String getVendBllSumInclTaxesFormatted();
 
     /**
      * As ${@link #getCustInvcSumExclTaxes()}. but formatted.
      * 
      * @return count*single-unit-price excluding taxes.
-     * @throws WrongInvoiceTypeException
      */
-    String getVendBllSumExclTaxesFormatted() throws WrongInvoiceTypeException;
+    String getVendBllSumExclTaxesFormatted();
 
 }

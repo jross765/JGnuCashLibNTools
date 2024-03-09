@@ -44,12 +44,12 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice {
     /**
      * @return ID of customer this invoice has been sent to.
      */
-    GCshID getCustomerID() throws WrongInvoiceTypeException;
+    GCshID getCustomerID();
 
     /**
      * @return ID of vendor this bill has been sent from.
      */
-    GCshID getVendorID() throws WrongInvoiceTypeException;
+    GCshID getVendorID();
     
     // ----------------------------
 
@@ -60,35 +60,31 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice {
 	
     /**
      * @return Job of customer this invoice has been sent to.
-     * @throws WrongInvoiceTypeException 
      */
-    GnuCashCustomerJob getCustJob() throws WrongJobTypeException;
+    GnuCashCustomerJob getCustJob();
 	
     /**
      * @return Job of vendor this bill has been sent from.
-     * @throws WrongInvoiceTypeException 
      */
-    GnuCashVendorJob getVendJob() throws WrongJobTypeException;
+    GnuCashVendorJob getVendJob();
 	
     // ----------------------------
 
     /**
      * @return Customer this invoice has been sent to.
-     * @throws WrongInvoiceTypeException 
      */
-    GnuCashCustomer getCustomer() throws WrongInvoiceTypeException;
+    GnuCashCustomer getCustomer();
 	
     /**
      * @return Vendor this bill has been sent from.
-     * @throws WrongInvoiceTypeException 
      */
-    GnuCashVendor getVendor() throws WrongInvoiceTypeException;
+    GnuCashVendor getVendor();
 	
     // ---------------------------------------------------------------
 
-    GnuCashJobInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException;
+    GnuCashJobInvoiceEntry getEntryByID(GCshID id);
 
-    Collection<GnuCashJobInvoiceEntry> getEntries() throws WrongInvoiceTypeException;
+    Collection<GnuCashJobInvoiceEntry> getEntries();
 
     void addEntry(GnuCashJobInvoiceEntry entry);
     

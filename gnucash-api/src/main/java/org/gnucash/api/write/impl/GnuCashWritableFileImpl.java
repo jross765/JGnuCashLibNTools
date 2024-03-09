@@ -53,7 +53,6 @@ import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.TooManyEntriesFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
@@ -75,7 +74,6 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableCommodity;
 import org.gnucash.api.write.GnuCashWritableCustomer;
@@ -874,7 +872,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
-	 * @throws WrongInvoiceTypeException
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 * 
@@ -885,7 +882,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableCustomerInvoice createWritableCustomerInvoice(final String number, final GnuCashCustomer cust,
 			final GnuCashAccount incomeAcct, final GnuCashAccount receivableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
 			IllegalTransactionSplitActionException {
 		if ( cust == null ) {
 			throw new IllegalArgumentException("null customer given");
@@ -909,7 +906,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
-	 * @throws WrongInvoiceTypeException
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 * 
@@ -920,7 +916,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableVendorBill createWritableVendorBill(final String number, final GnuCashVendor vend,
 			final GnuCashAccount expensesAcct, final GnuCashAccount payableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
 			IllegalTransactionSplitActionException {
 		if ( vend == null ) {
 			throw new IllegalArgumentException("null vendor given");
@@ -944,7 +940,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
-	 * @throws WrongInvoiceTypeException
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 * 
@@ -955,7 +950,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableEmployeeVoucher createWritableEmployeeVoucher(final String number, final GnuCashEmployee empl,
 			final GnuCashAccount expensesAcct, final GnuCashAccount payableAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
 			IllegalTransactionSplitActionException {
 		if ( empl == null ) {
 			throw new IllegalArgumentException("null empl given");
@@ -979,7 +974,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
-	 * @throws WrongInvoiceTypeException
 	 * @throws WrongOwnerTypeException
 	 * @throws InvalidCmdtyCurrTypeException
 	 * 
@@ -990,7 +984,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableJobInvoice createWritableJobInvoice(final String number, final GnuCashGenerJob job,
 			final GnuCashAccount incExpAcct, final GnuCashAccount recvblPayblAcct, final LocalDate openedDate,
 			final LocalDate postDate, final LocalDate dueDate)
-			throws WrongInvoiceTypeException, WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
+			throws WrongOwnerTypeException, InvalidCmdtyCurrTypeException,
 			IllegalTransactionSplitActionException {
 		if ( job == null ) {
 			throw new IllegalArgumentException("null job given");
@@ -1712,14 +1706,14 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
 			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			WrongInvoiceTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getPaidWritableInvoicesForCustomer_direct(cust);
 	}
 
 	public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
 			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			WrongInvoiceTypeException, TaxTableNotFoundException {
+			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableInvoicesForCustomer_direct(cust);
 	}
@@ -1727,13 +1721,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	public List<GnuCashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableBillsForVendor_direct(vend);
 	}
 
 	public List<GnuCashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableBillsForVendor_direct(vend);
@@ -1742,13 +1736,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableVouchersForEmployee(empl);
 	}
 
 	public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableVouchersForEmployee(empl);
 	}
@@ -1756,13 +1750,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableInvoicesForJob(job);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws InvalidCmdtyCurrTypeException, WrongInvoiceTypeException,
+			throws InvalidCmdtyCurrTypeException,
 			TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForJob(job);
 	}

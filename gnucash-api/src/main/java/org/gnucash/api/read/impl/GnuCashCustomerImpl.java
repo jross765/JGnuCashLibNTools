@@ -10,7 +10,6 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -209,10 +208,9 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
      * considered Paid.
      *
      * @return the current number of Unpaid invoices
-     * @throws WrongInvoiceTypeException
      */
     @Override
-    public int getNofOpenInvoices() throws WrongInvoiceTypeException {
+    public int getNofOpenInvoices() {
 	return getGnuCashFile().getUnpaidInvoicesForCustomer_direct(this).size();
     }
 
@@ -388,9 +386,8 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
 
     /**
      * @return the jobs that have this customer associated with them.
-     * @throws WrongInvoiceTypeException
      */
-    public List<GnuCashCustomerJob> getJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashCustomerJob> getJobs() {
 
 	List<GnuCashCustomerJob> retval = new ArrayList<GnuCashCustomerJob>();
 
@@ -409,7 +406,7 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
-    public List<GnuCashGenerInvoice> getInvoices() throws WrongInvoiceTypeException {
+    public List<GnuCashGenerInvoice> getInvoices() {
     	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
 	for ( GnuCashCustomerInvoice invc : getGnuCashFile().getInvoicesForCustomer_direct(this) ) {
@@ -424,22 +421,22 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
     }
 
     @Override
-    public List<GnuCashCustomerInvoice> getPaidInvoices_direct() throws WrongInvoiceTypeException {
+    public List<GnuCashCustomerInvoice> getPaidInvoices_direct() {
 	return getGnuCashFile().getPaidInvoicesForCustomer_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashJobInvoice>      getPaidInvoices_viaAllJobs() {
 	return getGnuCashFile().getPaidInvoicesForCustomer_viaAllJobs(this);
     }
 
     @Override
-    public List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() throws WrongInvoiceTypeException {
+    public List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() {
 	return getGnuCashFile().getUnpaidInvoicesForCustomer_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashJobInvoice>      getUnpaidInvoices_viaAllJobs() {
 	return getGnuCashFile().getUnpaidInvoicesForCustomer_viaAllJobs(this);
     }
 

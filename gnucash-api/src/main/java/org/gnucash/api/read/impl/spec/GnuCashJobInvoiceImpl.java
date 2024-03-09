@@ -3,8 +3,6 @@ package org.gnucash.api.read.impl.spec;
 import java.util.Collection;
 import java.util.HashSet;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
@@ -14,7 +12,6 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
@@ -27,6 +24,8 @@ import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.WrongJobTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,8 +51,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 		super(peer, gcshFile);
 	}
 
-	public GnuCashJobInvoiceImpl(final GnuCashGenerInvoice invc)
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public GnuCashJobInvoiceImpl(final GnuCashGenerInvoice invc) {
 		super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -126,7 +124,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GCshID getCustomerID() throws WrongInvoiceTypeException {
+	public GCshID getCustomerID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
@@ -137,7 +135,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GCshID getVendorID() throws WrongInvoiceTypeException {
+	public GCshID getVendorID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
@@ -156,10 +154,9 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 
 	/**
 	 * {@inheritDoc}
-	 * @throws WrongJobTypeException 
 	 */
 	@Override
-	public GnuCashCustomerJob getCustJob() throws WrongJobTypeException {
+	public GnuCashCustomerJob getCustJob() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongJobTypeException();
 
@@ -170,7 +167,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GnuCashVendorJob getVendJob() throws WrongJobTypeException {
+	public GnuCashVendorJob getVendJob() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongJobTypeException();
 
@@ -183,7 +180,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GnuCashCustomer getCustomer() throws WrongInvoiceTypeException {
+	public GnuCashCustomer getCustomer() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
@@ -194,7 +191,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GnuCashVendor getVendor() throws WrongInvoiceTypeException {
+	public GnuCashVendor getVendor() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
@@ -204,12 +201,12 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshID id) throws WrongInvoiceTypeException {
+	public GnuCashJobInvoiceEntry getEntryByID(GCshID id) {
 		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(id));
 	}
 
 	@Override
-	public Collection<GnuCashJobInvoiceEntry> getEntries() throws WrongInvoiceTypeException {
+	public Collection<GnuCashJobInvoiceEntry> getEntries() {
 		Collection<GnuCashJobInvoiceEntry> castEntries = new HashSet<GnuCashJobInvoiceEntry>();
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
@@ -229,194 +226,126 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// -----------------------------------------------------------------
 
 	@Override
-	public FixedPointNumber getAmountUnpaidWithTaxes()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public FixedPointNumber getAmountUnpaidWithTaxes() {
 		return getJobInvcAmountUnpaidWithTaxes();
 	}
 
 	@Override
-	public FixedPointNumber getAmountPaidWithTaxes()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public FixedPointNumber getAmountPaidWithTaxes() {
 		return getJobInvcAmountPaidWithTaxes();
 	}
 
 	@Override
-	public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public FixedPointNumber getAmountPaidWithoutTaxes() {
 		return getJobInvcAmountPaidWithoutTaxes();
 	}
 
 	@Override
-	public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public FixedPointNumber getAmountWithTaxes() {
 		return getJobInvcAmountWithTaxes();
 	}
 
 	@Override
-	public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public FixedPointNumber getAmountWithoutTaxes() {
 		return getJobInvcAmountWithoutTaxes();
 	}
 
 	@Override
-	public String getAmountUnpaidWithTaxesFormatted()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public String getAmountUnpaidWithTaxesFormatted() {
 		return getJobInvcAmountUnpaidWithTaxesFormatted();
 	}
 
 	@Override
-	public String getAmountPaidWithTaxesFormatted()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public String getAmountPaidWithTaxesFormatted() {
 		return getJobInvcAmountPaidWithTaxesFormatted();
 	}
 
 	@Override
-	public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException {
+	public String getAmountPaidWithoutTaxesFormatted() {
 		// return getJobAmountPaidWithoutTaxesFormatted();
 		return null;
 	}
 
 	@Override
-	public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public String getAmountWithTaxesFormatted() {
 		return getJobInvcAmountWithTaxesFormatted();
 	}
 
 	@Override
-	public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException, IllegalArgumentException {
+	public String getAmountWithoutTaxesFormatted() {
 		return getJobInvcAmountWithoutTaxesFormatted();
 	}
 
 	// ------------------------------
 
 	@Override
-	public boolean isFullyPaid()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public boolean isFullyPaid() {
 		return isJobInvcFullyPaid();
 	}
 
 	@Override
-	public boolean isNotFullyPaid()
-			throws WrongInvoiceTypeException, IllegalArgumentException {
+	public boolean isNotFullyPaid() {
 		return isNotInvcJobFullyPaid();
 	}
 
 	// ------------------------------
 
 //  @Override
-//  public FixedPointNumber getInvcAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
+//  public FixedPointNumber getInvcAmountUnpaidWithTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public FixedPointNumber getInvcAmountPaidWithTaxes() throws WrongInvoiceTypeException 
+//  public FixedPointNumber getInvcAmountPaidWithTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public FixedPointNumber getInvcAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
+//  public FixedPointNumber getInvcAmountPaidWithoutTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public FixedPointNumber getInvcAmountWithTaxes() throws WrongInvoiceTypeException 
+//  public FixedPointNumber getInvcAmountWithTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //  
 //  @Override
-//  public FixedPointNumber getInvcAmountWithoutTaxes() throws WrongInvoiceTypeException 
+//  public FixedPointNumber getInvcAmountWithoutTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public String getInvcAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+//  public String getInvcAmountUnpaidWithTaxesFormatted() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public String getInvcAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
+//  public String getInvcAmountPaidWithTaxesFormatted() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public String getInvcAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
+//  public String getInvcAmountPaidWithoutTaxesFormatted() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public String getInvcAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
+//  public String getInvcAmountWithTaxesFormatted() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public String getInvcAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  // ------------------------------
-//
-//  @Override
-//  public FixedPointNumber getBillAmountUnpaidWithTaxes() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountPaidWithTaxes() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountPaidWithoutTaxes() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountWithTaxes() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  @Override
-//  public FixedPointNumber getBillAmountWithoutTaxes() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountWithTaxesFormatted() throws WrongInvoiceTypeException 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException
+//  public String getInvcAmountWithoutTaxesFormatted()
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
@@ -424,13 +353,61 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 //  // ------------------------------
 //
 //  @Override
-//  public boolean isInvcFullyPaid() throws WrongInvoiceTypeException
+//  public FixedPointNumber getBillAmountUnpaidWithTaxes() 
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public boolean isNotInvcFullyPaid() throws WrongInvoiceTypeException
+//  public FixedPointNumber getBillAmountPaidWithTaxes() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public FixedPointNumber getBillAmountPaidWithoutTaxes() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public FixedPointNumber getBillAmountWithTaxes() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//  
+//  @Override
+//  public FixedPointNumber getBillAmountWithoutTaxes() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public String getBillAmountUnpaidWithTaxesFormatted() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public String getBillAmountPaidWithTaxesFormatted() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public String getBillAmountPaidWithoutTaxesFormatted() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public String getBillAmountWithTaxesFormatted() 
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public String getBillAmountWithoutTaxesFormatted()
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
@@ -438,13 +415,27 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 //  // ------------------------------
 //
 //  @Override
-//  public boolean isBillFullyPaid() throws WrongInvoiceTypeException
+//  public boolean isInvcFullyPaid()
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }
 //
 //  @Override
-//  public boolean isNotBillFullyPaid() throws WrongInvoiceTypeException
+//  public boolean isNotInvcFullyPaid()
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//  
+//  // ------------------------------
+//
+//  @Override
+//  public boolean isBillFullyPaid()
+//  {
+//    throw new WrongInvoiceTypeException();
+//  }
+//
+//  @Override
+//  public boolean isNotBillFullyPaid()
 //  {
 //    throw new WrongInvoiceTypeException();
 //  }

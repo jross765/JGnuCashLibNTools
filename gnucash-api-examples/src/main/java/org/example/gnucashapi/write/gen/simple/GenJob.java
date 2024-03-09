@@ -79,7 +79,7 @@ public class GenJob {
     }
 
     private GnuCashWritableVendorJob doVendor(GnuCashWritableFileImpl gcshFile)
-	    throws OwnerNotFoundException, WrongInvoiceTypeException, TaxTableNotFoundException {
+	    throws OwnerNotFoundException, TaxTableNotFoundException {
 	GnuCashVendor vend = null;
 	try {
 	    vend = gcshFile.getVendorByID(vendID);

@@ -1,23 +1,22 @@
 package org.gnucash.api.write.hlp;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashWritableGenerInvoiceEntry_Job {
 
-    void setJobInvcPrice(String price) throws NumberFormatException, WrongInvoiceTypeException, TaxTableNotFoundException,
+    void setJobInvcPrice(String price) throws NumberFormatException, TaxTableNotFoundException,
 	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException, InvalidCmdtyCurrTypeException,
 	    IllegalArgumentException;
 
-    void setJobInvcPrice(FixedPointNumber price) throws WrongInvoiceTypeException, TaxTableNotFoundException,
+    void setJobInvcPrice(FixedPointNumber price) throws TaxTableNotFoundException,
 	    NumberFormatException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    InvalidCmdtyCurrTypeException;
 
-    void setJobInvcPriceFormatted(String price) throws NumberFormatException, WrongInvoiceTypeException,
+    void setJobInvcPriceFormatted(String price) throws NumberFormatException,
 	    TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
 	    InvalidCmdtyCurrTypeException;
 }

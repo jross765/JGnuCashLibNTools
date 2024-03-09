@@ -21,7 +21,6 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -166,7 +165,7 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashCustomerJob getCustomerJobByID(final GCshID id) throws WrongJobTypeException {
+	public GnuCashCustomerJob getCustomerJobByID(final GCshID id) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -180,11 +179,11 @@ public class FileJobManager {
 		return new GnuCashCustomerJobImpl(job);
 	}
 
-	public List<GnuCashCustomerJob> getCustomerJobsByName(String name) throws WrongJobTypeException {
+	public List<GnuCashCustomerJob> getCustomerJobsByName(String name) {
 		return getCustomerJobsByName(name, true);
 	}
 
-	public List<GnuCashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) throws WrongJobTypeException {
+	public List<GnuCashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -207,7 +206,7 @@ public class FileJobManager {
 	}
 
 	public GnuCashCustomerJob getCustomerJobByNameUniq(final String name)
-			throws NoEntryFoundException, TooManyEntriesFoundException, WrongJobTypeException {
+			throws NoEntryFoundException, TooManyEntriesFoundException {
 		List<GnuCashCustomerJob> jobList = getCustomerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -217,7 +216,7 @@ public class FileJobManager {
 			return jobList.get(0);
 	}
 
-	public Collection<GnuCashCustomerJob> getCustomerJobs() throws WrongJobTypeException {
+	public Collection<GnuCashCustomerJob> getCustomerJobs() {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -236,7 +235,7 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashVendorJob getVendorJobByID(final GCshID id) throws WrongJobTypeException {
+	public GnuCashVendorJob getVendorJobByID(final GCshID id) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -250,11 +249,11 @@ public class FileJobManager {
 		return new GnuCashVendorJobImpl(job);
 	}
 
-	public List<GnuCashVendorJob> getVendorJobsByName(String name) throws WrongJobTypeException {
+	public List<GnuCashVendorJob> getVendorJobsByName(String name) {
 		return getVendorJobsByName(name, true);
 	}
 
-	public List<GnuCashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) throws WrongJobTypeException {
+	public List<GnuCashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -277,7 +276,7 @@ public class FileJobManager {
 	}
 
 	public GnuCashVendorJob getVendorJobByNameUniq(final String name)
-			throws NoEntryFoundException, TooManyEntriesFoundException, WrongJobTypeException {
+			throws NoEntryFoundException, TooManyEntriesFoundException {
 		List<GnuCashVendorJob> jobList = getVendorJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -288,10 +287,9 @@ public class FileJobManager {
 	}
 
 	/**
-	 * @throws WrongJobTypeException 
 	 * @see GnuCashFile#getGenerJobs()
 	 */
-	public Collection<GnuCashVendorJob> getVendorJobs() throws WrongJobTypeException {
+	public Collection<GnuCashVendorJob> getVendorJobs() {
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

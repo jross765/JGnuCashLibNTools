@@ -11,7 +11,6 @@ import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -96,9 +95,8 @@ public interface GnuCashVendor extends GnuCashObject,
      * @return Returns the current number of Unpaid bills.
      *         The date is not checked, so bills that have entered payments in the future are
      *         considered paid.
-     * @throws WrongInvoiceTypeException
      */
-    int getNofOpenBills() throws WrongInvoiceTypeException;
+    int getNofOpenBills();
 
     // -------------------------------------
 
@@ -142,91 +140,76 @@ public interface GnuCashVendor extends GnuCashObject,
     /**
      * @param readVar 
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     *  
      */
-    FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
      *  
      */
-    FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue_direct();
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     *  
      */
-    FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue_viaAllJobs();
 
     /**
      * @param readVar 
      * @return 
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException;
+    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar);
 
     /**
      *
      * @param readVar 
      * @param lcl 
      * @return 
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl) throws WrongInvoiceTypeException;
+    String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, Locale lcl);
 
     // ------------------------------------------------------------
 
     /**
      * @return Returns the <strong>unmodifiable</strong> collection of jobs that have this 
      *         vendor associated with them.
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashVendorJob> getJobs() throws WrongInvoiceTypeException;
+    List<GnuCashVendorJob> getJobs();
 
     // ------------------------------------------------------------
 
     /**
      * @return Returns all bills sent to this vendor, both with
      *         and without job, both paid and unpaid.
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashGenerInvoice> getBills() throws WrongInvoiceTypeException;
+    List<GnuCashGenerInvoice> getBills();
 
     /**
      * @return Returns all paid bills sent from this vendor (only those
      *         that were assigned to a job).
-
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashVendorBill>   getPaidBills_direct() throws WrongInvoiceTypeException;
+    List<GnuCashVendorBill>   getPaidBills_direct();
 
     /**
      * @return Returns all paid bills sent from this vendor (only those
      *         that were assigned directly to that vendor, not to a job).
-     *         
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashJobInvoice>   getPaidBills_viaAllJobs() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice>   getPaidBills_viaAllJobs();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashVendorBill>   getUnpaidBills_direct() throws WrongInvoiceTypeException;
+    List<GnuCashVendorBill>   getUnpaidBills_direct();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashJobInvoice>   getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException;
+    List<GnuCashJobInvoice>   getUnpaidBills_viaAllJobs();
 
 }

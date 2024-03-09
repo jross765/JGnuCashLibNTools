@@ -15,7 +15,6 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.WrongOwnerJITypeException;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
@@ -251,9 +250,10 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     // ------------------------
 
 	/**
-	 * @throws WrongInvoiceTypeException
+	 * 
+	 * @param cust
 	 */
-	public void setCustomer(final GnuCashCustomer cust) throws WrongJobTypeException {
+	public void setCustomer(final GnuCashCustomer cust) {
 		if ( getOwnerType() != GCshOwner.Type.CUSTOMER )
 			throw new WrongJobTypeException();
 
@@ -263,9 +263,10 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 	}
 
 	/**
-	 * @throws WrongJobTypeException 
+	 * 
+	 * @param vend
 	 */
-	public void setVendor(final GnuCashVendor vend) throws WrongJobTypeException {
+	public void setVendor(final GnuCashVendor vend) {
 		if ( getOwnerType() != GCshOwner.Type.VENDOR )
 			throw new WrongJobTypeException();
 

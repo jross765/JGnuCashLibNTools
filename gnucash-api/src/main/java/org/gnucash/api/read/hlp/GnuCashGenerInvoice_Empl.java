@@ -1,42 +1,33 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Empl {
     /**
      * @return what the employee is yet to receive (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getEmplVchAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getEmplVchAmountUnpaidWithTaxes();
 
     /**
      * @return what the employee has already received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getEmplVchAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getEmplVchAmountPaidWithTaxes();
 
     /**
      * @return what the employee has already received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getEmplVchAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getEmplVchAmountPaidWithoutTaxes();
 
     /**
      * @return what the employee receives in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getEmplVchAmountWithTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getEmplVchAmountWithTaxes();
 
     /**
      * @return what the employee receives in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getEmplVchAmountWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getEmplVchAmountWithoutTaxes();
 
     // ---------------------------------------------------------------
 
@@ -44,62 +35,50 @@ public interface GnuCashGenerInvoice_Empl {
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the employee is still to receive (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getEmplVchAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getEmplVchAmountUnpaidWithTaxesFormatted();
 
     /**
      * @return what the employee already has received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getEmplVchAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getEmplVchAmountPaidWithTaxesFormatted();
 
     /**
      * @return what the employee already has received (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getEmplVchAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getEmplVchAmountPaidWithoutTaxesFormatted();
 
     /**
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the employee will receive in in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getEmplVchAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+    String getEmplVchAmountWithTaxesFormatted();
 
     /**
      * @return what the employee will receive in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getEmplVchAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getEmplVchAmountWithoutTaxesFormatted();
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return For a vendor bill: How much sales-taxes are to pay.
-     * @throws WrongInvoiceTypeException
      * @see GCshTaxedSumImpl
      */
-    GCshTaxedSumImpl[] getEmplVchTaxes() throws WrongInvoiceTypeException;
+    GCshTaxedSumImpl[] getEmplVchTaxes();
 
     // ---------------------------------------------------------------
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException;
+    boolean isEmplVchFullyPaid();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isNotEmplVchFullyPaid()
-	    throws WrongInvoiceTypeException;
+    boolean isNotEmplVchFullyPaid();
 
 }

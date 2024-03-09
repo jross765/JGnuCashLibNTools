@@ -8,13 +8,11 @@ import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
@@ -62,7 +60,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 		super(createCustomerJob_int(file, GCshID.getNew(), owner, number, name), file);
 	}
 
-	public GnuCashWritableCustomerJobImpl(GnuCashWritableGenerJobImpl job) throws WrongJobTypeException {
+	public GnuCashWritableCustomerJobImpl(GnuCashWritableGenerJobImpl job) {
 		super(job.getJwsdpPeer(), job.getGnuCashFile());
 
 		// No, we cannot check that first, because the super() method
@@ -78,10 +76,9 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	// ---------------------------------------------------------------
 
 	/**
-	 * @throws WrongInvoiceTypeException
 	 * @see GnuCashWritableCustomerJob#remove()
 	 */
-	public void remove() throws WrongInvoiceTypeException {
+	public void remove() {
 		if ( !getInvoices().isEmpty() ) {
 			throw new IllegalStateException("cannot remove a job that has invoices!");
 		}
@@ -130,10 +127,9 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 //    }
 
 	/**
-	 * @throws WrongJobTypeException
 	 * @see GnuCashWritableCustomerJob#setCustomer(GnuCashCustomer)
 	 */
-	public void setCustomer(final GnuCashCustomer cust) throws WrongJobTypeException {
+	public void setCustomer(final GnuCashCustomer cust) {
 		if ( ! getInvoices().isEmpty() ) {
 			throw new IllegalStateException("cannot change customer of a job that has invoices!");
 		}
@@ -168,7 +164,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	// Cf. comments in FileInvoiceManager (write-version).
 
 	@Override
-	public int getNofOpenInvoices() throws WrongInvoiceTypeException {
+	public int getNofOpenInvoices() {
 		try {
 			return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this).size();
 		} catch (TaxTableNotFoundException e) {
@@ -180,7 +176,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 
 	// ::TODO
 //    @Override
-//    public Collection<GnuCashGenerInvoice> getInvoices() throws WrongInvoiceTypeException {
+//    public Collection<GnuCashGenerInvoice> getInvoices() {
 //	Collection<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 //
 //	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForJob(this) ) {
@@ -192,8 +188,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 //
 
 	@Override
-	public List<GnuCashJobInvoice> getPaidInvoices()
-			throws WrongInvoiceTypeException {
+	public List<GnuCashJobInvoice> getPaidInvoices() {
 		List<GnuCashJobInvoice> result = new ArrayList<GnuCashJobInvoice>();
 
 		try {
@@ -210,8 +205,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	}
 
 	@Override
-	public List<GnuCashJobInvoice> getUnpaidInvoices()
-			throws WrongInvoiceTypeException {
+	public List<GnuCashJobInvoice> getUnpaidInvoices() {
 		List<GnuCashJobInvoice> result = new ArrayList<GnuCashJobInvoice>();
 
 		try {
@@ -233,7 +227,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 
 	// ::TODO
 //    @Override
-//    public List<GnuCashGenerInvoice> getWritableInvoices() throws WrongInvoiceTypeException {
+//    public List<GnuCashGenerInvoice> getWritableInvoices() {
 //	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 //
 //	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForJob(this) ) {
@@ -244,14 +238,12 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 //    }
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoices()
-			throws WrongInvoiceTypeException, IllegalArgumentException,
-			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableGnuCashFile().getPaidWritableInvoicesForJob(this);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoices()
-			throws WrongInvoiceTypeException, IllegalArgumentException,
-			InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
+			throws InvalidCmdtyCurrTypeException, TaxTableNotFoundException {
 		return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this);
 	}
 

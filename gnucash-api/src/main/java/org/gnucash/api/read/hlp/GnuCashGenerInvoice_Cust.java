@@ -1,42 +1,33 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Cust {
     /**
      * @return what the customer must still pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcAmountUnpaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcAmountUnpaidWithTaxes();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcAmountPaidWithTaxes()
-	    throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcAmountPaidWithTaxes();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcAmountPaidWithoutTaxes();
 
     /**
      * @return what the customer needs to pay in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcAmountWithTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcAmountWithTaxes();
 
     /**
      * @return what the customer needs to pay in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    FixedPointNumber getCustInvcAmountWithoutTaxes() throws WrongInvoiceTypeException;
+    FixedPointNumber getCustInvcAmountWithoutTaxes();
 
     // ---------------------------------------------------------------
 
@@ -44,61 +35,50 @@ public interface GnuCashGenerInvoice_Cust {
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the customer must still pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcAmountUnpaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getCustInvcAmountUnpaidWithTaxesFormatted();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcAmountPaidWithTaxesFormatted()
-	    throws WrongInvoiceTypeException;
+    String getCustInvcAmountPaidWithTaxesFormatted();
 
     /**
      * @return what the customer has already pay (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcAmountPaidWithoutTaxesFormatted();
 
     /**
      * Formating uses the default-locale's currency-format.
      * 
      * @return what the customer needs to pay in total (incl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcAmountWithTaxesFormatted();
 
     /**
      * @return what the customer needs to pay in total (excl. taxes)
-     * @throws WrongInvoiceTypeException
      */
-    String getCustInvcAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    String getCustInvcAmountWithoutTaxesFormatted();
 
     // ---------------------------------------------------------------
 
     /**
      *
      * @return For a customer invoice: How much sales-taxes are to pay.
-     * @throws WrongInvoiceTypeException
      * @see GCshTaxedSumImpl
      */
-    GCshTaxedSumImpl[] getCustInvcTaxes() throws WrongInvoiceTypeException;
+    GCshTaxedSumImpl[] getCustInvcTaxes();
 
     // ---------------------------------------------------------------
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isCustInvcFullyPaid() throws WrongInvoiceTypeException;
+    boolean isCustInvcFullyPaid();
 
     /**
      * @return
-     * @throws WrongInvoiceTypeException
      */
-    boolean isNotCustInvcFullyPaid()
-	    throws WrongInvoiceTypeException;
+    boolean isNotCustInvcFullyPaid();
 
 }

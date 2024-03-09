@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Cust;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Empl;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Job;
@@ -48,26 +47,26 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
     void setAction(Action act);
 
     void setQuantity(String quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     void setQuantity(FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     void setQuantityFormatted(String n)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
-     * @throws WrongInvoiceTypeException
+* 
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      * 
      */
-    void remove() throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
 }

@@ -10,7 +10,6 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
@@ -182,10 +181,9 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      * considered Paid.
      *
      * @return the current number of Unpaid invoices
-     * @throws WrongInvoiceTypeException
      */
     @Override
-    public int getNofOpenBills() throws WrongInvoiceTypeException {
+    public int getNofOpenBills() {
 	return getGnuCashFile().getUnpaidBillsForVendor_direct(this).size();
     }
 
@@ -273,12 +271,11 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
      * 
      * @see #getOutstandingValue_direct()
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException {
+    public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) {
 	if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT )
 	    return getOutstandingValue_direct();
 	else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB )
@@ -289,11 +286,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException {
+    public FixedPointNumber getOutstandingValue_direct() {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -315,11 +311,10 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue_direct()
      */
-    public FixedPointNumber getOutstandingValue_viaAllJobs() throws WrongInvoiceTypeException {
+    public FixedPointNumber getOutstandingValue_viaAllJobs() {
 	FixedPointNumber retval = new FixedPointNumber();
 
 	try {
@@ -344,16 +339,14 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) throws WrongInvoiceTypeException {
+    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
 	return getCurrencyFormat().format(getOutstandingValue(readVar));
     }
 
     /**
-     * @throws WrongInvoiceTypeException
-     *  
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) throws WrongInvoiceTypeException {
+    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
 	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
     }
 
@@ -361,9 +354,8 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 
     /**
      * @return the jobs that have this vendor associated with them.
-     * @throws WrongInvoiceTypeException 
      */
-    public List<GnuCashVendorJob> getJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashVendorJob> getJobs() {
 
 	List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();
 
@@ -382,7 +374,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
-    public List<GnuCashGenerInvoice> getBills() throws WrongInvoiceTypeException {
+    public List<GnuCashGenerInvoice> getBills() {
     	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
 	for ( GnuCashVendorBill invc : getGnuCashFile().getBillsForVendor_direct(this) ) {
@@ -397,22 +389,22 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     }
 
     @Override
-    public List<GnuCashVendorBill> getPaidBills_direct() throws WrongInvoiceTypeException {
+    public List<GnuCashVendorBill> getPaidBills_direct() {
 	return getGnuCashFile().getPaidBillsForVendor_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice> getPaidBills_viaAllJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashJobInvoice> getPaidBills_viaAllJobs() {
 	return getGnuCashFile().getPaidBillsForVendor_viaAllJobs(this);
     }
 
     @Override
-    public List<GnuCashVendorBill> getUnpaidBills_direct() throws WrongInvoiceTypeException {
+    public List<GnuCashVendorBill> getUnpaidBills_direct() {
 	return getGnuCashFile().getUnpaidBillsForVendor_direct(this);
     }
 
     @Override
-    public List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs() throws WrongInvoiceTypeException {
+    public List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs() {
 	return getGnuCashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
 

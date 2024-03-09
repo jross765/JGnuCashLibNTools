@@ -1,18 +1,17 @@
 package org.gnucash.api.write.hlp;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashWritableGenerInvoice_Cust {
 
-    void setCustomer(GnuCashCustomer cust) throws WrongInvoiceTypeException;
+    void setCustomer(GnuCashCustomer cust);
 
     // ---------------------------------------------------------------
 
@@ -24,7 +23,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @param quantity 
      * @return 
      * 
-     * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
@@ -34,7 +32,7 @@ public interface GnuCashWritableGenerInvoice_Cust {
     		GnuCashAccount acct,
     		FixedPointNumber singleUnitPrice, 
     		FixedPointNumber quantity)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
@@ -46,7 +44,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @param taxTabName 
      * @return 
      * 
-     * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
@@ -57,7 +54,7 @@ public interface GnuCashWritableGenerInvoice_Cust {
     		FixedPointNumber singleUnitPrice, 
     		FixedPointNumber quantity, 
     		String taxTabName)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 
     /**
@@ -68,7 +65,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @param taxTab 
      *
      * @return an entry using the given Tax-Table
-     * @throws WrongInvoiceTypeException
      * @throws TaxTableNotFoundException
      * @throws InvalidCmdtyCurrTypeException
      * @throws NumberFormatException
@@ -79,6 +75,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity,
     		GCshTaxTable taxTab)
-	    throws WrongInvoiceTypeException, TaxTableNotFoundException, IllegalTransactionSplitActionException,
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
 	    NumberFormatException, InvalidCmdtyCurrTypeException;
 }

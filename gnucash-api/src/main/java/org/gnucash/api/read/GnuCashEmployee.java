@@ -7,7 +7,6 @@ import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -65,9 +64,8 @@ public interface GnuCashEmployee extends GnuCashObject,
      * @return Returns the current number of Unpaid vouchers from this employee.
      *         The date is not checked so invoiced that have entered payments in the future are
      *         considered Paid.
-     * @throws WrongInvoiceTypeException
      */
-    int getNofOpenVouchers() throws WrongInvoiceTypeException;
+    int getNofOpenVouchers();
 
     // -------------------------------------
 
@@ -102,59 +100,48 @@ public interface GnuCashEmployee extends GnuCashObject,
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     *  
      */
-    FixedPointNumber getOutstandingValue() throws WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue();
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     * @throws WrongInvoiceTypeException
-     *  
      */
-    FixedPointNumber getOutstandingValue_direct() throws WrongInvoiceTypeException;
+    FixedPointNumber getOutstandingValue_direct();
 
     /**
      * @return 
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue() Formatted according to the current locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted() throws WrongInvoiceTypeException;
+    String getOutstandingValueFormatted();
 
     /**
      *
      * @param lcl 
      * @return 
-     * @throws WrongInvoiceTypeException
      *  
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    String getOutstandingValueFormatted(Locale lcl) throws WrongInvoiceTypeException;
+    String getOutstandingValueFormatted(Locale lcl);
 
     // ------------------------------------------------------------
 
     /**
      * @return Returns all vouchers sent to this employee, 
      *         both paid and unpaid.
-     *         
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashGenerInvoice>    getVouchers() throws WrongInvoiceTypeException;
+    List<GnuCashGenerInvoice>    getVouchers();
 
     /**
      * @return Returns all paid vouchers sent from this employee.
-
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashEmployeeVoucher> getPaidVouchers() throws WrongInvoiceTypeException;
+    List<GnuCashEmployeeVoucher> getPaidVouchers();
 
     /**
      * @return Returns all unpaid vouchers sent from this employee.
-     * @throws WrongInvoiceTypeException
      */
-    List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws WrongInvoiceTypeException;
+    List<GnuCashEmployeeVoucher> getUnpaidVouchers();
 
 }

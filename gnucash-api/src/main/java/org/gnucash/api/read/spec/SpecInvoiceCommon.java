@@ -13,32 +13,32 @@ import org.gnucash.base.numbers.FixedPointNumber;
  */
 public interface SpecInvoiceCommon {
 
-    public FixedPointNumber getAmountUnpaidWithTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountUnpaidWithTaxes();
 
-    public FixedPointNumber getAmountPaidWithTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountPaidWithTaxes();
 
-    public FixedPointNumber getAmountPaidWithoutTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountPaidWithoutTaxes();
 
-    public FixedPointNumber getAmountWithTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountWithTaxes();
     
-    public FixedPointNumber getAmountWithoutTaxes() throws WrongInvoiceTypeException;
+    public FixedPointNumber getAmountWithoutTaxes();
 
     // ----------------------------
 
-    public String getAmountUnpaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountUnpaidWithTaxesFormatted();
 
-    public String getAmountPaidWithTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountPaidWithTaxesFormatted();
 
-    public String getAmountPaidWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountPaidWithoutTaxesFormatted();
 
-    public String getAmountWithTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountWithTaxesFormatted();
 
-    public String getAmountWithoutTaxesFormatted() throws WrongInvoiceTypeException;
+    public String getAmountWithoutTaxesFormatted();
 
     // ---------------------------------------------------------------
 
-    public boolean isFullyPaid() throws WrongInvoiceTypeException;
+    public boolean isFullyPaid();
 
-    public boolean isNotFullyPaid() throws WrongInvoiceTypeException;
+    public boolean isNotFullyPaid();
 
 }
