@@ -52,7 +52,7 @@ public class GCshID {
 
     // -----------------------------------------------------------------
 
-    public void set(GCshID value) throws InvalidGCshIDException, GCshIDNotSetException {
+    public void set(GCshID value) throws GCshIDNotSetException {
 	set(value.get());
     }
 
