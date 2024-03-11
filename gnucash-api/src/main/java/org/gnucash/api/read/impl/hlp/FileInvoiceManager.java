@@ -21,7 +21,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -139,41 +138,21 @@ public class FileInvoiceManager {
 		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
-				try {
 					if ( invc.isCustInvcFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
-				try {
 					if ( invc.isVendBllFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
-				try {
 					if ( invc.isEmplVchFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-				try {
 					if ( invc.isJobInvcFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidGenerInvoices: Serious error");
-				}
 			}
 		}
 
@@ -184,41 +163,21 @@ public class FileInvoiceManager {
 		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			if ( invc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
-				try {
 					if ( invc.isNotCustInvcFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
-				try {
 					if ( invc.isNotVendBllFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
-				try {
 					if ( invc.isNotEmplVchFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidGenerInvoices: Serious error");
-				}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-				try {
 					if ( invc.isNotInvcJobFullyPaid() ) {
 						retval.add(invc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidGenerInvoices: Serious error");
-				}
 			}
 		}
 

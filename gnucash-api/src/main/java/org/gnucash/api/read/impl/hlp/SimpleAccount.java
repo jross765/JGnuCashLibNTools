@@ -266,7 +266,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return cf.format(getBalance());
 	}
 
-	public FixedPointNumber getBalanceRecursive() throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalanceRecursive() {
 		return getBalanceRecursive(LocalDate.now());
 	}
 

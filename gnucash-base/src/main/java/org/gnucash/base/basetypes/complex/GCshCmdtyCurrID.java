@@ -111,7 +111,7 @@ public class GCshCmdtyCurrID {
         return type;
     }
     
-    public void setType(Type type) throws InvalidCmdtyCurrIDException {
+    public void setType(Type type) {
         this.type = type;
     }
     
@@ -145,7 +145,7 @@ public class GCshCmdtyCurrID {
     
     // ---------------------------------------------------------------
     
-    public static GCshCmdtyCurrID parse(String str) throws InvalidCmdtyCurrIDException {
+    public static GCshCmdtyCurrID parse(String str) {
 	if ( str == null )
 	    throw new IllegalArgumentException("Argument string is null");
 

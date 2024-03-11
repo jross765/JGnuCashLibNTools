@@ -75,7 +75,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      *
      * @see GnuCashWritableCommodity#remove()
      */
-    public void remove() throws ObjectCascadeException, InvalidCmdtyCurrIDException {
+    public void remove() throws ObjectCascadeException {
 	GncCommodity peer = getJwsdpPeer();
 	(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
 	(getGnuCashFile()).removeCommodity(this);

@@ -44,7 +44,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 	// ---------------------------------------------------------------
 
 	@Override
-	public void setType(Type type) throws InvalidCmdtyCurrIDException {
+	public void setType(Type type) {
 //        if ( type != Type.SECURITY_MIC )
 //            throw new InvalidCmdtyCurrIDException();
 
@@ -79,7 +79,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID_MIC parse(String str) throws InvalidCmdtyCurrIDException {
+	public static GCshCmdtyID_MIC parse(String str) {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

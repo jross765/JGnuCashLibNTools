@@ -12,7 +12,6 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
@@ -20,7 +19,6 @@ import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,41 +64,21 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 			// Cf. comment above.
 			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc);
 			if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
-				try {
 					if ( wrtblInvc.isCustInvcFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
-				try {
 					if ( wrtblInvc.isVendBllFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
-				try {
 					if ( wrtblInvc.isEmplVchFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-				try {
 					if ( wrtblInvc.isJobInvcFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getPaidWritableGenerInvoices: Serious error");
-				}
 			}
 		}
 
@@ -115,41 +93,21 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 			// Cf. comments above.
 			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc);
 			if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
-				try {
 					if ( wrtblInvc.isNotCustInvcFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
-				try {
 					if ( wrtblInvc.isNotVendBllFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
-				try {
 					if ( wrtblInvc.isNotEmplVchFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidWritableGenerInvoices: Serious error");
-				}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-				try {
 					if ( wrtblInvc.isNotInvcJobFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
-				} catch (WrongInvoiceTypeException e) {
-					// This should not happen
-					LOGGER.error("getUnpaidWritableGenerInvoices: Serious error");
-				}
 			}
 		}
 

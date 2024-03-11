@@ -148,7 +148,6 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	public FixedPointNumber getIncomeGenerated() {
 		FixedPointNumber retval = new FixedPointNumber();
 
-		try {
 			for ( GnuCashJobInvoice invcSpec : getPaidInvoices() ) {
 //		if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_JOB) ) {
 //		    GnuCashJobInvoice invcSpec = new GnuCashJobInvoiceImpl(invcGen);
@@ -158,9 +157,6 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 				}
 //		} // if invc type
 			} // for
-		} catch (WrongInvoiceTypeException e) {
-			LOGGER.error("getIncomeGenerated: Serious error");
-		}
 
 		return retval;
 	}
@@ -185,7 +181,6 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	public FixedPointNumber getOutstandingValue() {
 		FixedPointNumber retval = new FixedPointNumber();
 
-		try {
 			for ( GnuCashJobInvoice invcSpec : getUnpaidInvoices() ) {
 //            if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_JOB) ) {
 //              GnuCashJobInvoice invcSpec = new GnuCashJobInvoiceImpl(invcGen); 
@@ -195,9 +190,6 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 				}
 //            } // if invc type
 			} // for
-		} catch (WrongInvoiceTypeException e) {
-			LOGGER.error("getOutstandingValue: Serious error");
-		}
 
 		return retval;
 	}

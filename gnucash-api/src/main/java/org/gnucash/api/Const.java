@@ -3,6 +3,8 @@ package org.gnucash.api;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
+import org.gnucash.api.read.MappingException;
+
 public class Const {
   
   public static final String XML_FORMAT_VERSION = "2.0.0";
@@ -75,7 +77,7 @@ public class Const {
 	  Field fld = cls.getDeclaredField(code);
 	  return (String) fld.get(null);
       } catch ( Exception exc ) {
-	  throw new RuntimeException("Could not map code '" + code + "' to locale-specific string");
+	  throw new MappingException("Could not map code '" + code + "' to locale-specific string");
       }
   }
 

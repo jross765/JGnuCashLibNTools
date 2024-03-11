@@ -117,7 +117,7 @@ public class FilePriceManager {
 		return Collections.unmodifiableCollection(prcMap.values());
 	}
 
-//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException {
+//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
 //      try {
 //        // See if it's a currency
 //        GCshCurrID currID = new GCshCurrID(cmdtyCurrIDStr);

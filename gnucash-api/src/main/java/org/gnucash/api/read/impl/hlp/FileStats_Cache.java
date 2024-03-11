@@ -50,8 +50,7 @@ public class FileStats_Cache implements FileStats {
 		this.bllTrmMgr = bllTrmMgr;
 	}
 
-	public FileStats_Cache(final GnuCashFileImpl gcshFile)
-			throws InvalidCmdtyCurrIDException, IOException {
+	public FileStats_Cache(final GnuCashFileImpl gcshFile) throws IOException {
 		this.acctMgr = gcshFile.getAcctMgr();
 		this.trxMgr = gcshFile.getTrxMgr();
 		this.invcMgr = gcshFile.getInvcMgr();

@@ -9,7 +9,6 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +24,7 @@ public abstract class FileInvoiceManager_Customer {
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
 			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
-				try {
 					retval.add(new GnuCashCustomerInvoiceImpl(invc));
-				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getInvoices_direct: Cannot instantiate GnuCashCustomerInvoiceImpl");
-				}
 			}
 		}
 
@@ -54,11 +49,7 @@ public abstract class FileInvoiceManager_Customer {
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
-				try {
 					retval.add(new GnuCashCustomerInvoiceImpl(invc));
-				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getPaidInvoices_direct: Cannot instantiate GnuCashCustomerInvoiceImpl");
-				}
 			}
 		}
 
@@ -83,11 +74,7 @@ public abstract class FileInvoiceManager_Customer {
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
 			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(cust.getID()) ) {
-				try {
 					retval.add(new GnuCashCustomerInvoiceImpl(invc));
-				} catch (WrongInvoiceTypeException e) {
-					LOGGER.error("getUnpaidInvoices_direct: Cannot instantiate GnuCashCustomerInvoiceImpl");
-				}
 			}
 		}
 

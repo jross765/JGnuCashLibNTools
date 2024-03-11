@@ -44,7 +44,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 	// ---------------------------------------------------------------
 
 	@Override
-	public void setType(Type type) throws InvalidCmdtyCurrIDException {
+	public void setType(Type type) {
 //        if ( type != Type.SECURITY_SECIDTYPE )
 //            throw new InvalidCmdtyCurrIDException();
 

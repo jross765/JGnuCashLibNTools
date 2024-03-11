@@ -443,8 +443,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @throws ObjectCascadeException
      * @throws InvalidCmdtyCurrIDException
      */
-    void removeCommodity(GnuCashWritableCommodity cmdty)
-	    throws ObjectCascadeException, InvalidCmdtyCurrIDException;
+    void removeCommodity(GnuCashWritableCommodity cmdty) throws ObjectCascadeException;
 
     // ----------------------------
 

@@ -155,8 +155,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @throws InvalidCmdtyCurrIDException
 	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public GnuCashWritableFileImpl(final File file)
-			throws IOException, InvalidCmdtyCurrIDException {
+	public GnuCashWritableFileImpl(final File file) throws IOException {
 		super(file);
 		setModified(false);
 
@@ -175,8 +174,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		prcMgr = new org.gnucash.api.write.impl.hlp.FilePriceManager(this);
 	}
 
-	public GnuCashWritableFileImpl(final InputStream is)
-			throws IOException, InvalidCmdtyCurrIDException {
+	public GnuCashWritableFileImpl(final InputStream is) throws IOException {
 		super(is);
 
 		acctMgr = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
@@ -278,8 +276,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see {@link GnuCashFileImpl#loadFile(java.io.File)}
 	 */
 	@Override
-	protected void loadFile(final File pFile)
-			throws IOException, InvalidCmdtyCurrIDException {
+	protected void loadFile(final File pFile) throws IOException {
 		super.loadFile(pFile);
 		lastWriteTime = Math.max(pFile.lastModified(), System.currentTimeMillis());
 	}
@@ -1458,8 +1455,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	@Override
-	public void removeCommodity(final GnuCashWritableCommodity cmdty)
-			throws ObjectCascadeException, InvalidCmdtyCurrIDException {
+	public void removeCommodity(final GnuCashWritableCommodity cmdty) throws ObjectCascadeException {
 		if ( cmdty == null ) {
 			throw new IllegalArgumentException("null commodity given");
 		}

@@ -184,7 +184,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @see GnuCashTransaction#getBalanceFormatted()
      */
-    public String getBalanceFormatted() throws InvalidCmdtyCurrIDException {
+    public String getBalanceFormatted() {
     	return getCurrencyFormat().format(getBalance());
     }
 
@@ -196,7 +196,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @see GnuCashTransaction#getBalanceFormatted(java.util.Locale)
      */
-    public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getBalanceFormatted(final Locale lcl) {
 
 	NumberFormat cf = NumberFormat.getInstance(lcl);
 	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
@@ -226,7 +226,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @see GnuCashTransaction#getNegatedBalanceFormatted()
      */
-    public String getNegatedBalanceFormatted() throws InvalidCmdtyCurrIDException {
+    public String getNegatedBalanceFormatted() {
 	return getCurrencyFormat().format(getNegatedBalance());
     }
 
@@ -238,7 +238,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @see GnuCashTransaction#getNegatedBalanceFormatted(java.util.Locale)
      */
-    public String getNegatedBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getNegatedBalanceFormatted(final Locale lcl) {
 	NumberFormat nf = NumberFormat.getInstance(lcl);
 	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    nf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
@@ -459,7 +459,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    protected NumberFormat getCurrencyFormat() throws InvalidCmdtyCurrIDException {
+    protected NumberFormat getCurrencyFormat() {
 	if (currencyFormat == null) {
 	    currencyFormat = NumberFormat.getCurrencyInstance();
 	    if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {

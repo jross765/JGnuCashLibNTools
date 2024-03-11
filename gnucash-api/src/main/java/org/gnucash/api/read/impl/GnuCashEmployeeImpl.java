@@ -180,7 +180,6 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     public FixedPointNumber getExpensesGenerated_direct() {
 	FixedPointNumber retval = new FixedPointNumber();
 
-	try {
 	    for (GnuCashEmployeeVoucher vchSpec : getPaidVouchers()) {
 //		    if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_EMPLOYEE) ) {
 //		      GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
@@ -190,9 +189,6 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 		}
 //            } // if vch type
 	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getExpensesGenerated_direct: Serious error");
-	}
 
 	return retval;
     }
@@ -234,7 +230,6 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     public FixedPointNumber getOutstandingValue_direct() {
 	FixedPointNumber retval = new FixedPointNumber();
 
-	try {
 	    for (GnuCashEmployeeVoucher vchSpec : getUnpaidVouchers()) {
 //            if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //              GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
@@ -244,9 +239,6 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 		}
 //            } // if invc type
 	    } // for
-	} catch (WrongInvoiceTypeException e) {
-	    LOGGER.error("getOutstandingValue_direct: Serious error");
-	}
 
 	return retval;
     }

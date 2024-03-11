@@ -1,12 +1,11 @@
 package org.gnucash.api.write;
 
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.api.write.impl.ObjectCascadeException;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 
 /**
  * Commodity that can be modified.
@@ -18,7 +17,7 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
                                                   HasWritableUserDefinedAttributes
 {
 
-    void remove() throws ObjectCascadeException, InvalidCmdtyCurrIDException;
+    void remove() throws ObjectCascadeException;
     
     // ---------------------------------------------------------------
 

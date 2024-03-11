@@ -216,16 +216,20 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 					slt.getSlotValue().getContent().add(value);
 				} else if ( slt.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GDATE)  ) {
 					List<Object> objList = slt.getSlotValue().getContent();
-					if ( objList == null || objList.size() == 0 )
-						throw new RuntimeException("setUserDefinedAttributeCore: Not found (2.1)");
+					if ( objList == null || objList.size() == 0 ) {
+						LOGGER.error("setUserDefinedAttributeCore: Not found (2.1)");
+						throw new SlotListAlreadyContainsKeyException();
+					}
 					Object valElt = null;
 					for ( Object obj : objList ) {
 						if ( obj.getClass().getName().contains("JAXBElement") ) {
 							valElt = obj;
 						}
 					}
-					if ( valElt == null )
-						throw new RuntimeException("setUserDefinedAttributeCore: Not found (2.2)");
+					if ( valElt == null ) {
+						LOGGER.error("setUserDefinedAttributeCore: Not found (2.2)");
+						throw new SlotListAlreadyContainsKeyException();
+					}
 					LOGGER.debug("User-defined attribute for key '" + name + "' may not be a String."
 							+ " It is of type [" + valElt.getClass().getName() + "]");
 					if ( valElt instanceof String ) {
@@ -249,7 +253,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 					} else {
 						LOGGER.error("User-defined attribute for key '" + name + "' may not be a String."
 								+ " It is of UNKNOWN type [" + valElt.getClass().getName() + "]");
-						throw new RuntimeException("setUserDefinedAttributeCore: Not found (2.3)");
+						throw new SlotListAlreadyContainsKeyException();
 					}
 				}
 

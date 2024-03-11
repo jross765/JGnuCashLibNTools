@@ -158,8 +158,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @throws InvalidCmdtyCurrTypeException
 	 * @see #loadFile(File)
 	 */
-	public GnuCashFileImpl(final InputStream is)
-			throws IOException, InvalidCmdtyCurrIDException {
+	public GnuCashFileImpl(final InputStream is) throws IOException {
 		super();
 		loadInputStream(is);
 	}
@@ -199,8 +198,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @throws ClassNotFoundException
 	 * @see #setRootElement(GncV2)
 	 */
-	protected void loadFile(final File pFile)
-			throws IOException, InvalidCmdtyCurrIDException {
+	protected void loadFile(final File pFile) throws IOException {
 
 		long start = System.currentTimeMillis();
 
@@ -1022,7 +1020,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return prcMgr.getPrices();
 	}
 
-//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) throws InvalidCmdtyCurrIDException {
+//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
 //      return prcMgr.getLatestPrice(cmdtyCurrIDStr);
 //    }
 

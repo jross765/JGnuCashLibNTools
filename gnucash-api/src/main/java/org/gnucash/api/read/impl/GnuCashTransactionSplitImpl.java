@@ -195,7 +195,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrIDException 
      * @throws InvalidCmdtyCurrTypeException 
      */
-    public NumberFormat getValueCurrencyFormat() throws InvalidCmdtyCurrIDException {
+    public NumberFormat getValueCurrencyFormat() {
     	return ((GnuCashTransactionImpl) getTransaction()).getCurrencyFormat();
     }
 
@@ -204,7 +204,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormatted()
      */
-    public String getValueFormatted() throws InvalidCmdtyCurrIDException {
+    public String getValueFormatted() {
     	NumberFormat nf = getValueCurrencyFormat();
     	if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
     		// redundant, but symmetry:
@@ -220,7 +220,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormatted(java.util.Locale)
      */
-    public String getValueFormatted(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getValueFormatted(final Locale lcl) {
 
 	NumberFormat nf = NumberFormat.getInstance(lcl);
 	if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
@@ -238,7 +238,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormattedForHTML()
      */
-    public String getValueFormattedForHTML() throws InvalidCmdtyCurrIDException {
+    public String getValueFormattedForHTML() {
 	return getValueFormatted().replaceFirst("€", "&euro;");
     }
 
@@ -247,7 +247,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormattedForHTML(java.util.Locale)
      */
-    public String getValueFormattedForHTML(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getValueFormattedForHTML(final Locale lcl) {
 	return getValueFormatted(lcl).replaceFirst("€", "&euro;");
     }
 
@@ -286,7 +286,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    public String getQuantityFormatted() throws InvalidCmdtyCurrIDException {
+    public String getQuantityFormatted() {
 	NumberFormat nf = getQuantityCurrencyFormat();
 	if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
@@ -305,7 +305,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    public String getQuantityFormatted(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getQuantityFormatted(final Locale lcl) {
 	NumberFormat nf = NumberFormat.getCurrencyInstance(lcl);
 	if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
@@ -321,7 +321,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    public String getQuantityFormattedForHTML() throws InvalidCmdtyCurrIDException {
+    public String getQuantityFormattedForHTML() {
 	return getQuantityFormatted().replaceFirst("€", "&euro;");
     }
 
@@ -330,7 +330,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @throws InvalidCmdtyCurrTypeException 
      * @throws InvalidCmdtyCurrIDException 
      */
-    public String getQuantityFormattedForHTML(final Locale lcl) throws InvalidCmdtyCurrIDException {
+    public String getQuantityFormattedForHTML(final Locale lcl) {
 	return getQuantityFormatted(lcl).replaceFirst("€", "&euro;");
     }
 

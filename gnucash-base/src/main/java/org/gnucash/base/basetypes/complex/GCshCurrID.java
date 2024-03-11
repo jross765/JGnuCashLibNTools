@@ -23,7 +23,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		type = Type.CURRENCY;
 	}
 
-	public GCshCurrID(Currency curr) throws InvalidCmdtyCurrIDException {
+	public GCshCurrID(Currency curr) {
 
 		super(GCshCmdtyCurrNameSpace.CURRENCY, curr.getCurrencyCode());
 
@@ -31,7 +31,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		setCurrency(curr);
 	}
 
-	public GCshCurrID(String currStr) throws InvalidCmdtyCurrIDException {
+	public GCshCurrID(String currStr) {
 
 		super(GCshCmdtyCurrNameSpace.CURRENCY, currStr);
 
@@ -51,7 +51,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		setCurrency(code);
 	}
 
-	public GCshCurrID(GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrIDException {
+	public GCshCurrID(GCshCmdtyCurrID cmdtyCurrID) {
 
 		super(cmdtyCurrID.getNameSpace(), cmdtyCurrID.getCode());
 
@@ -65,7 +65,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 	// ---------------------------------------------------------------
 
 	@Override
-	public void setType(Type type) throws InvalidCmdtyCurrIDException {
+	public void setType(Type type) {
 //        if ( type != Type.CURRENCY )
 //            throw new InvalidCmdtyCurrIDException();
 
@@ -100,7 +100,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCurrID parse(String str) throws InvalidCmdtyCurrIDException {
+	public static GCshCurrID parse(String str) {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

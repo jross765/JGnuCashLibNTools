@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
@@ -23,12 +22,8 @@ public abstract class FileJobManager_Customer {
 
 		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
 			if ( job.getOwnerID().equals(cust.getID()) ) {
-				try {
 					GnuCashWritableCustomerJobImpl wrtblJob = new GnuCashWritableCustomerJobImpl((GnuCashWritableGenerJobImpl) job);
 					retval.add(wrtblJob);
-				} catch (WrongJobTypeException e) {
-					LOGGER.error("getJobsByCustomer: Cannot instantiate GnuCashWritableCustomerJobImpl");
-				}
 			}
 		}
 

@@ -22,11 +22,7 @@ public abstract class FileJobManager_Vendor {
 
 		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
 			if ( job.getOwnerID().equals(vend.getID()) ) {
-				try {
 					retval.add(new GnuCashVendorJobImpl(job));
-				} catch (WrongJobTypeException e) {
-					LOGGER.error("getJobsByVendor: Cannot instantiate GnuCashVendorJobImpl");
-				}
 			}
 		}
 

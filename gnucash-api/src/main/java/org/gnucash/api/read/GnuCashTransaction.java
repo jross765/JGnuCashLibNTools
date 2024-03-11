@@ -208,7 +208,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      *  
      * @see GnuCashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted() throws NumberFormatException, InvalidCmdtyCurrIDException;
+    String getNegatedBalanceFormatted() throws NumberFormatException;
     
     /**
      * The result is in the currency of the transaction.
@@ -219,6 +219,6 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      *  
      * @see GnuCashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException, InvalidCmdtyCurrIDException;
+    String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException;
 
 }

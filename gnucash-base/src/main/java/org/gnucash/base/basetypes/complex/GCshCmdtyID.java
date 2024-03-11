@@ -38,7 +38,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 		setType(Type.SECURITY_GENERAL);
 	}
 
-	public GCshCmdtyID(GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID(GCshCmdtyCurrID cmdtyCurrID) {
 
 		super(cmdtyCurrID.getNameSpace(), cmdtyCurrID.getCode());
 
@@ -51,7 +51,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 	// ---------------------------------------------------------------
 
 	@Override
-	public void setType(Type type) throws InvalidCmdtyCurrIDException {
+	public void setType(Type type) {
 //        if ( type != Type.SECURITY_GENERAL )
 //            throw new InvalidCmdtyCurrIDException();
 
@@ -60,7 +60,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID parse(String str) throws InvalidCmdtyCurrIDException {
+	public static GCshCmdtyID parse(String str) {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 
