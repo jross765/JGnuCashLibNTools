@@ -23,8 +23,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 		exchange = GCshCmdtyCurrNameSpace.Exchange.UNSET;
 	}
 
-	public GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange exchange, String secCode)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange exchange, String secCode) {
 
 		super(exchange.toString(), secCode);
 
@@ -32,8 +31,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 		setExchange(exchange);
 	}
 
-	public GCshCmdtyID_Exchange(String nameSpace, String code)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_Exchange(String nameSpace, String code) {
 
 		super(nameSpace, code);
 
@@ -53,21 +51,21 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 
 	// ----------------------------
 
-	public GCshCmdtyCurrNameSpace.Exchange getExchange() throws InvalidCmdtyCurrTypeException {
+	public GCshCmdtyCurrNameSpace.Exchange getExchange() {
 		if ( type != Type.SECURITY_EXCHANGE )
 			throw new InvalidCmdtyCurrTypeException();
 
 		return exchange;
 	}
 
-	public void setExchange(GCshCmdtyCurrNameSpace.Exchange exchange) throws InvalidCmdtyCurrTypeException {
+	public void setExchange(GCshCmdtyCurrNameSpace.Exchange exchange) {
 		if ( type != Type.SECURITY_EXCHANGE )
 			throw new InvalidCmdtyCurrTypeException();
 
 		this.exchange = exchange;
 	}
 
-	public void setExchange(String exchangeStr) throws InvalidCmdtyCurrTypeException {
+	public void setExchange(String exchangeStr) {
 		if ( exchangeStr == null )
 			throw new IllegalArgumentException("Exchange string is null");
 
@@ -79,8 +77,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID_Exchange parse(String str)
-			throws InvalidCmdtyCurrIDException {
+	public static GCshCmdtyID_Exchange parse(String str) {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

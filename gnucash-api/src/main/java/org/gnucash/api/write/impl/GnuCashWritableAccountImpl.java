@@ -304,10 +304,9 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
     /**
      * @param currNameSpace the new namespace
-     * @throws InvalidCmdtyCurrTypeException
      * @see {@link GnuCashAccount#getCurrencyNameSpace()}
      */
-    private void setCmdtyCurrNameSpace(final String currNameSpace) throws InvalidCmdtyCurrTypeException {
+    private void setCmdtyCurrNameSpace(final String currNameSpace) {
 	if ( currNameSpace == null ) {
 	    throw new IllegalArgumentException("null currencyNameSpace given!");
 	}
@@ -329,18 +328,17 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	}
     }
 
-    public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrTypeException {
+    public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
 	setCmdtyCurrNameSpace(cmdtyCurrID.getNameSpace());
 	setCmdtyCurrCode(cmdtyCurrID.getCode());
     }
 
     /**
      * @param currID the new currency
-     * @throws InvalidCmdtyCurrTypeException
      * @see #setCurrencyNameSpace(String)
      * @see {@link GnuCashAccount#getCurrencyID()}
      */
-    private void setCmdtyCurrCode(final String currID) throws InvalidCmdtyCurrTypeException {
+    private void setCmdtyCurrCode(final String currID) {
 	if ( currID == null ) {
 	    throw new IllegalArgumentException("null currencyID given!");
 	}

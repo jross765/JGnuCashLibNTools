@@ -78,7 +78,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	// ----------------------------
 
 	@Override
-	public GCshCmdtyCurrID getFromCmdtyCurrQualifID() throws InvalidCmdtyCurrTypeException {
+	public GCshCmdtyCurrID getFromCmdtyCurrQualifID() {
 		if ( jwsdpPeer.getPriceCommodity() == null )
 			return null;
 
@@ -139,7 +139,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	}
 
 	@Override
-	public String getToCurrencyCode() throws InvalidCmdtyCurrTypeException {
+	public String getToCurrencyCode() {
 		if ( jwsdpPeer.getPriceCurrency() == null )
 			return null;
 
@@ -167,8 +167,6 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 
 	/**
 	 * @return The currency-format to use for formating.
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws InvalidCmdtyCurrIDException
 	 */
 	private NumberFormat getCurrencyFormat() {
 		if ( currencyFormat == null ) {

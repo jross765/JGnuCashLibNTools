@@ -184,24 +184,19 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 
     /**
      * @return The currencyFormat for the quantity to use when no locale is given.
-     * @throws InvalidCmdtyCurrTypeException 
      */
-    protected NumberFormat getQuantityCurrencyFormat() throws InvalidCmdtyCurrTypeException {
+    protected NumberFormat getQuantityCurrencyFormat() {
     	return ((GnuCashAccountImpl) getAccount()).getCurrencyFormat();
     }
 
     /**
      * @return the currency-format of the transaction
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      */
     public NumberFormat getValueCurrencyFormat() {
     	return ((GnuCashTransactionImpl) getTransaction()).getCurrencyFormat();
     }
 
     /**
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormatted()
      */
     public String getValueFormatted() {
@@ -216,8 +211,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormatted(java.util.Locale)
      */
     public String getValueFormatted(final Locale lcl) {
@@ -234,8 +227,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormattedForHTML()
      */
     public String getValueFormattedForHTML() {
@@ -243,8 +234,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getValueFormattedForHTML(java.util.Locale)
      */
     public String getValueFormattedForHTML(final Locale lcl) {
@@ -259,18 +248,16 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getAccountBalanceFormatted()
      */
-    public String getAccountBalanceFormatted() throws InvalidCmdtyCurrTypeException {
+    public String getAccountBalanceFormatted() {
 	return ((GnuCashAccountImpl) getAccount()).getCurrencyFormat().format(getAccountBalance());
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException 
      * @see GnuCashTransactionSplit#getAccountBalanceFormatted(java.util.Locale)
      */
-    public String getAccountBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException {
+    public String getAccountBalanceFormatted(final Locale lcl) {
 	return getAccount().getBalanceFormatted(lcl);
     }
 
@@ -283,8 +270,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 
     /**
      * The value is in the currency of the account!
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
      */
     public String getQuantityFormatted() {
 	NumberFormat nf = getQuantityCurrencyFormat();
@@ -302,8 +287,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      *
      * @param lcl the locale to format to
      * @return the formatted number
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
      */
     public String getQuantityFormatted(final Locale lcl) {
 	NumberFormat nf = NumberFormat.getCurrencyInstance(lcl);
@@ -318,8 +301,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 
     /**
      * The value is in the currency of the account!
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
      */
     public String getQuantityFormattedForHTML() {
 	return getQuantityFormatted().replaceFirst("€", "&euro;");
@@ -327,8 +308,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 
     /**
      * The value is in the currency of the account!
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
      */
     public String getQuantityFormattedForHTML(final Locale lcl) {
 	return getQuantityFormatted(lcl).replaceFirst("€", "&euro;");

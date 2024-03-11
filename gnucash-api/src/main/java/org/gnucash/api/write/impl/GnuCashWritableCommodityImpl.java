@@ -69,9 +69,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
 
     /**
      * Delete this commodity and remove it from the file.
-     * @throws InvalidCmdtyCurrIDException 
      * @throws ObjectCascadeException 
-     * @throws InvalidCmdtyCurrTypeException 
      *
      * @see GnuCashWritableCommodity#remove()
      */
@@ -122,7 +120,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     // ---------------------------------------------------------------
 
     @Override
-    public void setQualifID(GCshCmdtyCurrID qualifId) throws InvalidCmdtyCurrTypeException {
+    public void setQualifID(GCshCmdtyCurrID qualifId) {
 	if ( qualifId == null ) {
 	    throw new IllegalArgumentException("null qualif-ID given!");
 	}

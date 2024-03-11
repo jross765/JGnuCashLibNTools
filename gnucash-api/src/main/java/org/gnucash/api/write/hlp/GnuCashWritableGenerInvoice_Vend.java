@@ -24,16 +24,13 @@ public interface GnuCashWritableGenerInvoice_Vend {
      * @return 
      * 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableVendorBillEntry createVendBllEntry(
     		GnuCashAccount acct,
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -45,8 +42,6 @@ public interface GnuCashWritableGenerInvoice_Vend {
      * @return 
      * 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableVendorBillEntry createVendBllEntry(
@@ -54,8 +49,7 @@ public interface GnuCashWritableGenerInvoice_Vend {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity,
     		String taxTabName)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -66,8 +60,6 @@ public interface GnuCashWritableGenerInvoice_Vend {
      *
      * @return an entry using the given Tax-Table
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableVendorBillEntry createVendBllEntry(
@@ -75,7 +67,6 @@ public interface GnuCashWritableGenerInvoice_Vend {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity,
     		GCshTaxTable taxTab)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
 }

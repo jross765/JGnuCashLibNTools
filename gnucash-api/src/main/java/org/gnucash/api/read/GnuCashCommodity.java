@@ -27,9 +27,8 @@ public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
      * @return the combination of getNameSpace() and getID(), 
      *         separated by a colon. This is used to make the so-called ID
      *         a real ID (i.e., unique).
-     * @throws InvalidCmdtyCurrTypeException 
      */
-    GCshCmdtyCurrID getQualifID() throws InvalidCmdtyCurrTypeException;
+    GCshCmdtyCurrID getQualifID();
 
     /**
      * @return the "extended" code of a commodity
@@ -50,8 +49,8 @@ public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
 
     // ------------------------------------------------------------
 
-    List<GnuCashPrice> getQuotes() throws InvalidCmdtyCurrTypeException;
+    List<GnuCashPrice> getQuotes();
     
-    GnuCashPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException;
+    GnuCashPrice getYoungestQuote();
     
 }

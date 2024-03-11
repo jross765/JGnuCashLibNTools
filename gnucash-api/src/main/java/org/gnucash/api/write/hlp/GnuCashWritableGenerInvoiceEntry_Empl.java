@@ -8,15 +8,15 @@ import org.gnucash.base.numbers.FixedPointNumber;
 public interface GnuCashWritableGenerInvoiceEntry_Empl {
 
     void setEmplVchPrice(String price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
     void setEmplVchPrice(FixedPointNumber price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
     void setEmplVchPriceFormatted(String price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
 }

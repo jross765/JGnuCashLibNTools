@@ -23,14 +23,14 @@ public interface GnuCashWritableJobInvoiceEntry extends GnuCashWritableGenerInvo
                                                         GnuCashWritableObject 
 {
 
-    void setTaxable(boolean val) throws NumberFormatException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
+    void setTaxable(boolean val) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
-    void setTaxTable(GCshTaxTable taxTab) throws NumberFormatException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
+    void setTaxTable(GCshTaxTable taxTab) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
 
-    void setPrice(String price) throws NumberFormatException, TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
+    void setPrice(String price) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
-    void setPrice(FixedPointNumber price) throws TaxTableNotFoundException, NumberFormatException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
+    void setPrice(FixedPointNumber price) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
 }

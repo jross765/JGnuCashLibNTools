@@ -152,8 +152,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @param file the file to load
 	 * @throws IOException                   on bsic io-problems such as a
 	 *                                       FileNotFoundException
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableFileImpl(final File file) throws IOException {
 		super(file);
@@ -269,10 +267,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	/**
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
 	 * @see {@link GnuCashFileImpl#loadFile(java.io.File)}
 	 */
 	@Override
@@ -530,16 +524,10 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	/**
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 * 
 	 * @see #getRootElement()
 	 */
 	@Override
-	protected void setRootElement(final GncV2 rootElement)
-			throws InvalidCmdtyCurrIDException {
+	protected void setRootElement(final GncV2 rootElement) {
 		super.setRootElement(rootElement);
 	}
 
@@ -756,8 +744,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * Used by GnuCashTransactionImpl.createTransaction to add a new Transaction to
 	 * this file.
 	 * 
-	 * @throws
-	 * @throws ClassNotFoundException
 	 * @see GnuCashTransactionImpl#createSplit(GncTransaction.TrnSplits.TrnSplit)
 	 */
 	protected void addTransaction(final GnuCashTransactionImpl trx) {
@@ -870,8 +856,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * 
 	 * @throws IllegalTransactionSplitActionException
 	 * @see GnuCashWritableFile#createWritableTransaction()
 	 */
@@ -904,8 +888,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * 
 	 * @throws IllegalTransactionSplitActionException
 	 * @see GnuCashWritableFile#createWritableTransaction()
 	 */
@@ -938,8 +920,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * 
 	 * @throws IllegalTransactionSplitActionException
 	 * @see GnuCashWritableFile#createWritableTransaction()
 	 */
@@ -972,8 +952,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * FOR USE BY EXTENSIONS ONLY!
 	 * 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * 
 	 * @throws IllegalTransactionSplitActionException
 	 * @see GnuCashWritableFile#createWritableTransaction()
 	 */
@@ -1578,8 +1556,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		return result;
 	}
 
-	private boolean existPriceObjects(GnuCashWritableCommodity cmdty)
-			throws InvalidCmdtyCurrIDException {
+	private boolean existPriceObjects(GnuCashWritableCommodity cmdty) {
 		int counter = 0;
 		for ( GnuCashPrice price : getPrices() ) {
 			if ( price.getFromCommodity().getQualifID().equals(cmdty.getQualifID()) ) {
@@ -1701,15 +1678,13 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ---------------------------------------------------------------
 
 	public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoicesForCustomer_direct(
-			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			final GnuCashCustomer cust) throws  TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getPaidWritableInvoicesForCustomer_direct(cust);
 	}
 
 	public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoicesForCustomer_direct(
-			final GnuCashCustomer cust) throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			final GnuCashCustomer cust) throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableInvoicesForCustomer_direct(cust);
 	}
@@ -1717,14 +1692,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	public List<GnuCashWritableVendorBill> getPaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableBillsForVendor_direct(vend);
 	}
 
 	public List<GnuCashWritableVendorBill> getUnpaidWritableBillsForVendor_direct(final GnuCashVendor vend)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr)
 				.getUnpaidWritableBillsForVendor_direct(vend);
 	}
@@ -1732,28 +1705,24 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableVouchersForEmployee(empl);
 	}
 
 	public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchersForEmployee(final GnuCashEmployee empl)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableVouchersForEmployee(empl);
 	}
 
 	// ----------------------------
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getPaidWritableInvoicesForJob(job);
 	}
 
 	public List<GnuCashWritableJobInvoice> getUnpaidWritableInvoicesForJob(final GnuCashGenerJob job)
-			throws InvalidCmdtyCurrTypeException,
-			TaxTableNotFoundException {
+			throws TaxTableNotFoundException {
 		return ((org.gnucash.api.write.impl.hlp.FileInvoiceManager) invcMgr).getUnpaidWritableInvoicesForJob(job);
 	}
 

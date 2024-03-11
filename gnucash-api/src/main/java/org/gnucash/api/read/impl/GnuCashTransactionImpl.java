@@ -149,9 +149,8 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException 
      */
-    public GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException {
+    public GCshCmdtyCurrID getCmdtyCurrID() {
 
 	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getTrnCurrency().getCmdtySpace(), 
 		                             jwsdpPeer.getTrnCurrency().getCmdtyId());
@@ -178,9 +177,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 
     /**
      * The result is in the currency of the transaction.
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     *  
      *
      * @see GnuCashTransaction#getBalanceFormatted()
      */
@@ -190,9 +186,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 
     /**
      * The result is in the currency of the transaction.
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     *  
      *
      * @see GnuCashTransaction#getBalanceFormatted(java.util.Locale)
      */
@@ -220,9 +213,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 
     /**
      * The result is in the currency of the transaction.
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     *  
      *
      * @see GnuCashTransaction#getNegatedBalanceFormatted()
      */
@@ -232,9 +222,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 
     /**
      * The result is in the currency of the transaction.
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     *  
      *
      * @see GnuCashTransaction#getNegatedBalanceFormatted(java.util.Locale)
      */
@@ -337,7 +324,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 
     /**
      * @param impl the split to add to mySplits
-     * @throws ClassNotFoundException 
      */
     protected void addSplit(final GnuCashTransactionSplitImpl impl) {
 	if (!jwsdpPeer.getTrnSplits().getTrnSplit().contains(impl.getJwsdpPeer())) {
@@ -423,7 +409,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *
      * @param jwsdpSplt the jaxb-data
      * @return the new split-instance
-     * @throws ClassNotFoundException 
      */
     protected GnuCashTransactionSplitImpl createSplit(
 	    final GncTransaction.TrnSplits.TrnSplit jwsdpSplt,
@@ -456,8 +441,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * The Currency-Format to use if no locale is given.
      *
      * @return default currency-format with the transaction's currency set
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      */
     protected NumberFormat getCurrencyFormat() {
 	if (currencyFormat == null) {

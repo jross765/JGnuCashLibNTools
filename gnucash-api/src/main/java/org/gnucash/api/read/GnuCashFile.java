@@ -791,8 +791,6 @@ public interface GnuCashFile extends GnuCashObject,
     /**
      * @param qualifID the unique ID of the currency/security/commodity to look for
      * @return the currency/security/commodity or null if it's not found
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws InvalidCmdtyCurrIDException 
      */
     GnuCashCommodity getCommodityByQualifID(String qualifID);
 
@@ -894,12 +892,10 @@ public interface GnuCashFile extends GnuCashObject,
      * @param pCmdtySpace the name space for pCmdtyId
      * @param pCmdtyId    the currency-name
      * @return the latest price-quote in the GnuCash file in EURO
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      */
-    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) throws InvalidCmdtyCurrIDException;
+    FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID);
 
     @Deprecated
-    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) throws InvalidCmdtyCurrIDException;
+    FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId);
 
 }

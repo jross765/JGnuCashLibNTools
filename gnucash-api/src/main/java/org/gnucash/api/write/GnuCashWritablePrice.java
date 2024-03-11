@@ -35,13 +35,13 @@ public interface GnuCashWritablePrice extends GnuCashPrice,
     
     // ----------------------------
 
-    void setToCurrencyQualifID(GCshCmdtyCurrID qualifID) throws InvalidCmdtyCurrTypeException;
+    void setToCurrencyQualifID(GCshCmdtyCurrID qualifID);
 
     void setToCurrencyQualifID(GCshCurrID qualifID);
 
     void setToCurrencyCode(String code);
 
-    void setToCurrency(GnuCashCommodity curr) throws InvalidCmdtyCurrTypeException;
+    void setToCurrency(GnuCashCommodity curr);
 
     // ----------------------------
 

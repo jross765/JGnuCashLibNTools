@@ -66,7 +66,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	/**
 	 * @param file the file we are associated with.
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableFileImpl file, final String number,
@@ -81,7 +80,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @param invc 
 	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableGenerInvoiceImpl invc)
 			throws TaxTableNotFoundException {
@@ -160,7 +158,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * create and add a new entry.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableEmployeeVoucherEntry createEntry(
 			final GnuCashAccount acct,
@@ -176,7 +173,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * The entry will use the accounts of the SKR03.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableEmployeeVoucherEntry createEntry(
 			final GnuCashAccount acct,
@@ -193,7 +189,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 *
 	 * @return an entry using the given Tax-Table
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableEmployeeVoucherEntry createEntry(
 			final GnuCashAccount acct,
@@ -210,8 +205,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableEmployeeVoucherEntryImpl entry)
@@ -228,8 +221,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @param entry the entry to add to our internal list of
 	 *              employee-voucher-entries
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableEmployeeVoucherEntryImpl entry)
 			throws TaxTableNotFoundException {

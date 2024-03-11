@@ -24,16 +24,13 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @return 
      * 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(
     		GnuCashAccount acct,
     		FixedPointNumber singleUnitPrice, 
     		FixedPointNumber quantity)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -45,8 +42,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      * @return 
      * 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(
@@ -54,8 +49,7 @@ public interface GnuCashWritableGenerInvoice_Cust {
     		FixedPointNumber singleUnitPrice, 
     		FixedPointNumber quantity, 
     		String taxTabName)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -66,8 +60,6 @@ public interface GnuCashWritableGenerInvoice_Cust {
      *
      * @return an entry using the given Tax-Table
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableCustomerInvoiceEntry createCustInvcEntry(

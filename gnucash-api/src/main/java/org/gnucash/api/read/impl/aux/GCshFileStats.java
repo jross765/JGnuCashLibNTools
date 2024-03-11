@@ -7,8 +7,6 @@ import org.gnucash.api.read.impl.hlp.FileStats;
 import org.gnucash.api.read.impl.hlp.FileStats_Cache;
 import org.gnucash.api.read.impl.hlp.FileStats_Counters;
 import org.gnucash.api.read.impl.hlp.FileStats_Raw;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

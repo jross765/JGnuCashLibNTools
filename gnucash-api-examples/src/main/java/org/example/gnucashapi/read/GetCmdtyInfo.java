@@ -104,7 +104,7 @@ public class GetCmdtyInfo {
 
     // -----------------------------------------------------------------
 
-    private void showQuotes(GnuCashCommodity cmdty) throws InvalidCmdtyCurrTypeException {
+    private void showQuotes(GnuCashCommodity cmdty) {
 	System.out.println("");
 	System.out.println("Quotes:");
 

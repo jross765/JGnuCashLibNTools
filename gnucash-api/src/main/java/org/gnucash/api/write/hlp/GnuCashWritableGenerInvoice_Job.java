@@ -26,16 +26,13 @@ public interface GnuCashWritableGenerInvoice_Job {
      * 
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
     		GnuCashAccount acct,
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity) throws TaxTableNotFoundException,
-	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException,
-	    InvalidCmdtyCurrTypeException;
+	    UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -48,8 +45,6 @@ public interface GnuCashWritableGenerInvoice_Job {
      * 
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
@@ -57,8 +52,7 @@ public interface GnuCashWritableGenerInvoice_Job {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity,
 			String taxTabName) throws  TaxTableNotFoundException, 
-    	UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+    	UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     /**
      * create and add a new entry.<br/>
@@ -70,8 +64,6 @@ public interface GnuCashWritableGenerInvoice_Job {
      * @return an entry using the given Tax-Table
      * @throws TaxTableNotFoundException
      * @throws UnknownInvoiceTypeException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     GnuCashWritableJobInvoiceEntry createJobInvcEntry(
@@ -79,6 +71,5 @@ public interface GnuCashWritableGenerInvoice_Job {
     		FixedPointNumber singleUnitPrice,
     		FixedPointNumber quantity,
     		GCshTaxTable taxTab) throws  TaxTableNotFoundException, 
-    	UnknownInvoiceTypeException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+    	UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 }

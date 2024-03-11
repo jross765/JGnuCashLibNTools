@@ -42,27 +42,27 @@ public interface GnuCashWritableEmployeeVoucher extends GnuCashWritableGenerInvo
     GnuCashWritableEmployeeVoucherEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
-	    FixedPointNumber quantity) throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
+	    FixedPointNumber quantity) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     GnuCashWritableEmployeeVoucherEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    String taxTabName)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     GnuCashWritableEmployeeVoucherEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    GCshTaxTable taxTab)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
     
     void post(GnuCashAccount expensesAcct,
 	      GnuCashAccount payablAcct,
 	      LocalDate postDate,
-	      LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, IllegalTransactionSplitActionException;
+	      LocalDate dueDate) throws WrongOwnerTypeException, IllegalTransactionSplitActionException;
 
 }

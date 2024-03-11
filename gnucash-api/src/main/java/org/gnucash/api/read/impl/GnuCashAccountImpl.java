@@ -154,10 +154,9 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     /**
 	 * {@inheritDoc}
-	 * @throws InvalidCmdtyCurrTypeException 
 	 */
     @Override
-	public GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException {
+	public GCshCmdtyCurrID getCmdtyCurrID() {
 	if ( jwsdpPeer.getActCommodity() == null &&
 	     jwsdpPeer.getActType().equals(Type.ROOT.toString()) ) {
 	    return new GCshCurrID(); // default-currency because gnucash 2.2 has no currency on the root-account

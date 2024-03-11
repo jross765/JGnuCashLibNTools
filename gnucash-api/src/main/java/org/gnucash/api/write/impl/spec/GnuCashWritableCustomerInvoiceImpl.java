@@ -65,7 +65,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	/**
 	 * @param file the file we are associated with.
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
@@ -80,7 +79,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @param invc 
 	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
 			throws TaxTableNotFoundException {
@@ -159,7 +157,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * create and add a new entry.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableCustomerInvoiceEntry createEntry(
 			final GnuCashAccount acct,
@@ -175,7 +172,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * The entry will use the accounts of the SKR03.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableCustomerInvoiceEntry createEntry(
 			final GnuCashAccount acct,
@@ -192,7 +188,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 *
 	 * @return an entry using the given Tax-Table
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableCustomerInvoiceEntry createEntry(
 			final GnuCashAccount acct,
@@ -209,8 +204,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableCustomerInvoiceEntryImpl entry)
@@ -225,8 +218,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 *
 	 * @param entr the entry to add to our internal list of customer-invoice-entries
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableCustomerInvoiceEntryImpl entry) 
 			throws TaxTableNotFoundException {

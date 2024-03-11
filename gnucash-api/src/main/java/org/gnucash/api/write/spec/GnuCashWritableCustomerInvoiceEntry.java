@@ -22,14 +22,14 @@ public interface GnuCashWritableCustomerInvoiceEntry extends GnuCashWritableGene
                                                              GnuCashWritableObject 
 {
 
-    void setTaxable(boolean val) throws NumberFormatException, TaxTableNotFoundException, IllegalTransactionSplitActionException;
+    void setTaxable(boolean val) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
-    void setTaxTable(GCshTaxTable taxTab) throws NumberFormatException, TaxTableNotFoundException, IllegalTransactionSplitActionException;
+    void setTaxTable(GCshTaxTable taxTab) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
 
-    void setPrice(String price) throws NumberFormatException, TaxTableNotFoundException, IllegalTransactionSplitActionException;
+    void setPrice(String price) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
-    void setPrice(FixedPointNumber price) throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException;
+    void setPrice(FixedPointNumber price) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
 }

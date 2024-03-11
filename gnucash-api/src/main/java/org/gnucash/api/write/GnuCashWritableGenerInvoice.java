@@ -88,14 +88,9 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
      * 
 * 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * 
-     *
      */
-    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     // -----------------------------------------------------------
 

@@ -47,14 +47,12 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
 	/**
 	 * internally converts the double to a String.
-	 * 
-	 * @throws NumberFormatException
 	 *
 	 * @deprecated Try not to use floating-point numbers. This class is for EXACT
 	 *             computation!
 	 */
 	@Deprecated
-	public FixedPointNumber(final double d) throws NumberFormatException {
+	public FixedPointNumber(final double d) {
 		value = new BigDecimal(d);
 	}
 
@@ -73,9 +71,8 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 * "0.5" and "123". Also ignores currency-symbols like or &euro; .
 	 *
 	 * @param gcshStr the String to parse
-	 * @throws NumberFormatException if it cannot be parsed at all
 	 */
-	public FixedPointNumber(String gcshStr) throws NumberFormatException {
+	public FixedPointNumber(String gcshStr) {
 
 		int dividerIndex = gcshStr.indexOf('/');
 		if ( dividerIndex == -1 ) {

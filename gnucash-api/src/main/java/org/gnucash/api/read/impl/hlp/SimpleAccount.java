@@ -152,8 +152,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrTypeException {
+	public FixedPointNumber getBalance(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) {
 		FixedPointNumber retval = getBalance(date);
 
 		if ( retval == null ) {
@@ -194,8 +193,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public FixedPointNumber getBalance(final LocalDate date, final Currency curr)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalance(final LocalDate date, final Currency curr) {
 
 		FixedPointNumber retval = getBalance(date);
 
@@ -256,11 +254,11 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return balance;
 	}
 
-	public String getBalanceFormatted() throws InvalidCmdtyCurrTypeException {
+	public String getBalanceFormatted() {
 		return getCurrencyFormat().format(getBalance());
 	}
 
-	public String getBalanceFormatted(final Locale lcl) throws InvalidCmdtyCurrTypeException {
+	public String getBalanceFormatted(final Locale lcl) {
 		NumberFormat cf = NumberFormat.getCurrencyInstance(lcl);
 		cf.setCurrency(getCurrency());
 		return cf.format(getBalance());
@@ -270,13 +268,11 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return getBalanceRecursive(LocalDate.now());
 	}
 
-	public FixedPointNumber getBalanceRecursive(final LocalDate date)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalanceRecursive(final LocalDate date) {
 		return getBalanceRecursive(date, getCmdtyCurrID());
 	}
 
-	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID)
-				throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) {
 	
 			// BEGIN OLD IMPL
 //		    FixedPointNumber retval = getBalance(date, cmdtyCurrID);
@@ -301,8 +297,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 //		}
 	}
 
-	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr) {
 
 		FixedPointNumber retval = getBalance(date, curr);
 
@@ -318,14 +313,12 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public String getBalanceRecursiveFormatted()
-			throws InvalidCmdtyCurrIDException {
+	public String getBalanceRecursiveFormatted() {
 		return getCurrencyFormat().format(getBalanceRecursive());
 	}
 
 	@Override
-	public String getBalanceRecursiveFormatted(final LocalDate date)
-			throws InvalidCmdtyCurrIDException {
+	public String getBalanceRecursiveFormatted(final LocalDate date) {
 		return getCurrencyFormat().format(getBalanceRecursive(date));
 	}
 
@@ -383,9 +376,8 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 	/**
 	 * @return null if we are no currency but e.g. a fund
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public Currency getCurrency() throws InvalidCmdtyCurrTypeException {
+	public Currency getCurrency() {
 		if ( getCmdtyCurrID().getType() != GCshCmdtyCurrID.Type.CURRENCY ) {
 			return null;
 		}
@@ -394,7 +386,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return Currency.getInstance(gcshCurrID);
 	}
 
-	public NumberFormat getCurrencyFormat() throws InvalidCmdtyCurrTypeException {
+	public NumberFormat getCurrencyFormat() {
 		if ( currencyFormat == null ) {
 			currencyFormat = NumberFormat.getCurrencyInstance();
 		}

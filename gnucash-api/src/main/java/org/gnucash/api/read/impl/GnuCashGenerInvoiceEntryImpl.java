@@ -247,13 +247,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     /**
      * @param aTaxtable the tax table to set
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
-     * @throws ClassNotFoundException 
      */
     protected void setCustInvcTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException {
     	if ( getType() != GCshOwner.Type.CUSTOMER && 
       		 getType() != GCshOwner.Type.JOB )
        		    throw new WrongInvoiceTypeException();
@@ -264,13 +261,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     /**
      * @param aTaxtable the tax table to set
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
-     * @throws ClassNotFoundException 
      */
     protected void setVendBllTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException {
     	if ( getType() != GCshOwner.Type.VENDOR && 
    		     getType() != GCshOwner.Type.JOB )
     		    throw new WrongInvoiceTypeException();
@@ -281,13 +275,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     /**
      * @param aTaxtable the tax table to set
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
      * @throws IllegalTransactionSplitActionException 
-     * @throws ClassNotFoundException 
      */
     protected void setEmplVchTaxTable(final GCshTaxTable aTaxtable)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException, NumberFormatException {
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException {
     	if ( getType() != GCshOwner.Type.EMPLOYEE )
     		    throw new WrongInvoiceTypeException();
 

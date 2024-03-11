@@ -129,18 +129,15 @@ public class FilePriceManager {
 //      }
 //    }
 
-	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) {
 		return getLatestPrice(cmdtyCurrID, 0);
 	}
 
-	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
 		return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
 	}
 
-	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth)
-			throws InvalidCmdtyCurrIDException {
+	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) {
 		if ( cmdtyCurrID == null ) {
 			throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
 		}

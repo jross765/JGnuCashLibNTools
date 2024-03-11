@@ -936,7 +936,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 
 	/**
 	 * @return For a vendor bill: How much sales-taxes are to pay.
-	 * @throws ClassNotFoundException
+	 * 
 	 * @see GCshTaxedSumImpl
 	 */
 	GCshTaxedSumImpl[] getJobTaxes() {

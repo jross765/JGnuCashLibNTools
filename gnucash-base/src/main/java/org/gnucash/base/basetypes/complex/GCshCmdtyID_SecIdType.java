@@ -23,8 +23,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 		secIdType = GCshCmdtyCurrNameSpace.SecIdType.UNSET;
 	}
 
-	public GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType secIdType, String secCode)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType secIdType, String secCode) {
 
 		super(secIdType.toString(), secCode);
 
@@ -32,8 +31,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 		setSecIdType(secIdType);
 	}
 
-	public GCshCmdtyID_SecIdType(String nameSpace, String code)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_SecIdType(String nameSpace, String code) {
 
 		super(nameSpace, code);
 
@@ -53,21 +51,21 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 
 	// ----------------------------
 
-	public GCshCmdtyCurrNameSpace.SecIdType getSecIdType() throws InvalidCmdtyCurrTypeException {
+	public GCshCmdtyCurrNameSpace.SecIdType getSecIdType() {
 		if ( type != Type.SECURITY_SECIDTYPE )
 			throw new InvalidCmdtyCurrTypeException();
 
 		return secIdType;
 	}
 
-	public void setSecIdType(GCshCmdtyCurrNameSpace.SecIdType secIdType) throws InvalidCmdtyCurrTypeException {
+	public void setSecIdType(GCshCmdtyCurrNameSpace.SecIdType secIdType) {
 		if ( type != Type.SECURITY_SECIDTYPE )
 			throw new InvalidCmdtyCurrTypeException();
 
 		this.secIdType = secIdType;
 	}
 
-	public void setSecIdType(String secIdTypeStr) throws InvalidCmdtyCurrTypeException {
+	public void setSecIdType(String secIdTypeStr) {
 		if ( secIdTypeStr == null )
 			throw new IllegalArgumentException("Security ID type string is null");
 
@@ -87,8 +85,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 
 	// ---------------------------------------------------------------
 
-	public static GCshCmdtyID_SecIdType parse(String str)
-			throws InvalidCmdtyCurrIDException {
+	public static GCshCmdtyID_SecIdType parse(String str) {
 		if ( str == null )
 			throw new IllegalArgumentException("Argument string is null");
 

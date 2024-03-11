@@ -69,10 +69,9 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCmdtyCurrTypeException 
      */
     @Override
-    public GCshCmdtyCurrID getQualifID() throws InvalidCmdtyCurrTypeException {
+    public GCshCmdtyCurrID getQualifID() {
 	if ( getNameSpace() == null ||
 	     getID() == null )
 	    return null;
@@ -119,7 +118,7 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 
     // ::TODO sort the entries by date
     @Override
-    public List<GnuCashPrice> getQuotes() throws InvalidCmdtyCurrTypeException {
+    public List<GnuCashPrice> getQuotes() {
     	List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
 	
 	Collection<GnuCashPrice> prices = getGnuCashFile().getPrices();
@@ -133,7 +132,7 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
     }
 
     @Override
-    public GnuCashPrice getYoungestQuote() throws InvalidCmdtyCurrTypeException {
+    public GnuCashPrice getYoungestQuote() {
 	
 	GnuCashPrice result = null;
 

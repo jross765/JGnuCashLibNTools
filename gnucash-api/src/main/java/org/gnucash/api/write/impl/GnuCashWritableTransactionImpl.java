@@ -194,7 +194,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      *
      * @param splt the jaxb-data
      * @return the new split-instance
-     * @throws ClassNotFoundException 
      */
     @Override
     protected GnuCashTransactionSplitImpl createSplit(
@@ -300,7 +299,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
     /**
      * @param impl the split to add to mySplits
-     * @throws ClassNotFoundException 
      */
     protected void addSplit(final GnuCashWritableTransactionSplitImpl impl) {
 	super.addSplit(impl);

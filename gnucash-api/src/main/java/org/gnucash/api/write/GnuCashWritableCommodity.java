@@ -21,7 +21,7 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
     
     // ---------------------------------------------------------------
 
-    void setQualifID(GCshCmdtyCurrID qualifId) throws InvalidCmdtyCurrTypeException;
+    void setQualifID(GCshCmdtyCurrID qualifId);
 
     void setXCode(String xCode);
 

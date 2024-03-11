@@ -160,7 +160,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      */
     boolean isBalanced();
 
-    GCshCmdtyCurrID getCmdtyCurrID() throws InvalidCmdtyCurrTypeException;
+    GCshCmdtyCurrID getCmdtyCurrID();
 
     /**
      * The result is in the currency of the transaction.<br/>
@@ -173,22 +173,18 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     /**
      * The result is in the currency of the transaction.
      * @return 
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      *  
      * @see GnuCashTransaction#getBalance()
      */
-    String getBalanceFormatted() throws InvalidCmdtyCurrIDException;
+    String getBalanceFormatted();
     
     /**
      * The result is in the currency of the transaction.
      * @return 
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
      *  
      * @see GnuCashTransaction#getBalance()
      */
-    String getBalanceFormatted(Locale lcl) throws InvalidCmdtyCurrIDException;
+    String getBalanceFormatted(Locale lcl);
 
     /**
      * The result is in the currency of the transaction.<br/>
@@ -202,23 +198,17 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     /**
      * The result is in the currency of the transaction.
      * @return 
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
      *  
      * @see GnuCashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted() throws NumberFormatException;
+    String getNegatedBalanceFormatted();
     
     /**
      * The result is in the currency of the transaction.
      * @return 
-     * @throws InvalidCmdtyCurrIDException 
-     * @throws InvalidCmdtyCurrTypeException 
-     * @throws NumberFormatException 
      *  
      * @see GnuCashTransaction#getNegatedBalance()
      */
-    String getNegatedBalanceFormatted(Locale lcl) throws NumberFormatException;
+    String getNegatedBalanceFormatted(Locale lcl);
 
 }

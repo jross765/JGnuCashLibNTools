@@ -27,8 +27,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 		type = Type.SECURITY_GENERAL;
 	}
 
-	public GCshCmdtyID(String nameSpaceFree, String code)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID(String nameSpaceFree, String code) {
 
 		super(nameSpaceFree, code);
 

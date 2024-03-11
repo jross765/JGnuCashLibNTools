@@ -440,7 +440,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //    }
 //
     @Override
-    public List<GnuCashCustomerInvoice> getPaidInvoices_direct() throws InvalidCmdtyCurrTypeException {
+    public List<GnuCashCustomerInvoice> getPaidInvoices_direct() {
     	List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
 	
 	try {
@@ -461,7 +461,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //    }
 
     @Override
-    public List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() throws InvalidCmdtyCurrTypeException {
+    public List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() {
     	List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
 	
 	try {

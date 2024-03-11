@@ -73,7 +73,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @param postDate 
 	 * @param dueDate 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnuCashWritableVendorBillImpl(final GnuCashWritableFileImpl file, final String number,
@@ -87,7 +86,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	/**
 	 * @param invc 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableVendorBillImpl(final GnuCashWritableGenerInvoiceImpl invc)
 			throws TaxTableNotFoundException {
@@ -179,7 +177,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * create and add a new entry.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableVendorBillEntry createEntry(
 			final GnuCashAccount acct, 
@@ -195,7 +192,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * The entry will use the accounts of the SKR03.
 	 * 
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableVendorBillEntry createEntry(
 			final GnuCashAccount acct, 
@@ -212,7 +208,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 *
 	 * @return an entry using the given Tax-Table
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableVendorBillEntry createEntry(
 			final GnuCashAccount acct, 
@@ -229,8 +224,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 
 	/**
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableVendorBillEntryImpl entry)
@@ -246,8 +239,6 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 *
 	 * @param entry the entry to add to our internal list of vendor-bill-entries
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableVendorBillEntryImpl entry)
 			throws TaxTableNotFoundException {

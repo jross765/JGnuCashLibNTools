@@ -316,7 +316,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // ----------------------------
 
     @Override
-    public List<GnuCashEmployeeVoucher> getPaidVouchers() throws InvalidCmdtyCurrTypeException {
+    public List<GnuCashEmployeeVoucher> getPaidVouchers() {
     	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
 	
 	try {
@@ -332,7 +332,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     }
 
     @Override
-    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() throws InvalidCmdtyCurrTypeException {
+    public List<GnuCashEmployeeVoucher> getUnpaidVouchers() {
     	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
 	
 	try {

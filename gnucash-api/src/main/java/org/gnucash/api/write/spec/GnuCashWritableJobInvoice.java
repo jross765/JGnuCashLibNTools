@@ -61,27 +61,27 @@ public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice {
     GnuCashWritableJobInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
-	    FixedPointNumber quantity) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException;
+	    FixedPointNumber quantity) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     GnuCashWritableJobInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    String taxTabName)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException;
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     GnuCashWritableJobInvoiceEntry createEntry(
 	    GnuCashAccount acct, 
 	    FixedPointNumber singleUnitPrice,
 	    FixedPointNumber quantity, 
 	    GCshTaxTable taxTab)
-	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException, NumberFormatException;
+	    throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
     
     void post(GnuCashAccount incExpAcct,
 	      GnuCashAccount recvblPayablAcct,
 	      LocalDate postDate,
-	      LocalDate dueDate) throws WrongOwnerTypeException, NumberFormatException, IllegalTransactionSplitActionException;
+	      LocalDate dueDate) throws WrongOwnerTypeException, IllegalTransactionSplitActionException;
 
 }

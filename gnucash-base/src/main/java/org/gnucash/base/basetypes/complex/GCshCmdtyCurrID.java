@@ -51,7 +51,7 @@ public class GCshCmdtyCurrID {
 	this.type = Type.UNSET;
     }
 
-    public GCshCmdtyCurrID(String nameSpaceFree, String code) throws InvalidCmdtyCurrTypeException {
+    public GCshCmdtyCurrID(String nameSpaceFree, String code) {
 	
 	if ( nameSpaceFree == null )
 	    throw new IllegalArgumentException("Name space is null");
@@ -75,7 +75,7 @@ public class GCshCmdtyCurrID {
 	setCode(code.trim());
     }
 
-//    public CmdtyCurrID(String nameSpaceFree, String code) throws InvalidCmdtyCurrTypeException {
+//    public CmdtyCurrID(String nameSpaceFree, String code) {
 //	
 //	if ( nameSpaceFree == null )
 //	    throw new IllegalArgumentException("Name space is null");
@@ -119,7 +119,7 @@ public class GCshCmdtyCurrID {
         return nameSpace;
     }
     
-    public void setNameSpace(String nameSpace) throws InvalidCmdtyCurrTypeException {
+    public void setNameSpace(String nameSpace) {
 	if ( nameSpace == null )
 	    throw new IllegalArgumentException("Name space is null");
 
@@ -133,7 +133,7 @@ public class GCshCmdtyCurrID {
         return code;
     }
     
-    public void setCode(String secCode) throws InvalidCmdtyCurrTypeException {
+    public void setCode(String secCode) {
 	if ( secCode == null )
 	    throw new IllegalArgumentException("Security code is null");
 

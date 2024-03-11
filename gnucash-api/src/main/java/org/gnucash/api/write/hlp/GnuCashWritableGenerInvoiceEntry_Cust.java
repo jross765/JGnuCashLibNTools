@@ -9,15 +9,15 @@ import org.gnucash.base.numbers.FixedPointNumber;
 public interface GnuCashWritableGenerInvoiceEntry_Cust {
 
     void setCustInvcPrice(String price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
     void setCustInvcPrice(FixedPointNumber price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
     void setCustInvcPriceFormatted(String price)
-	    throws TaxTableNotFoundException, NumberFormatException,
+	    throws TaxTableNotFoundException,
 	    IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
@@ -25,20 +25,15 @@ public interface GnuCashWritableGenerInvoiceEntry_Cust {
     /**
      * @param val
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
      */
     void setCustInvcTaxable(boolean val)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
      * @param tax the new tax table to use. Null sets isTaxable to false.
-     * @throws InvalidCmdtyCurrTypeException
      * @throws TaxTableNotFoundException
      */
-    void setCustInvcTaxTable(GCshTaxTable tax) throws InvalidCmdtyCurrTypeException,
-	    TaxTableNotFoundException;
+    void setCustInvcTaxTable(GCshTaxTable tax) throws TaxTableNotFoundException;
 
 }

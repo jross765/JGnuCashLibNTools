@@ -23,8 +23,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 		mic = GCshCmdtyCurrNameSpace.MIC.UNSET;
 	}
 
-	public GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC mic, String secCode)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_MIC(GCshCmdtyCurrNameSpace.MIC mic, String secCode) {
 
 		super(mic.toString(), secCode);
 
@@ -32,8 +31,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 		setMIC(mic);
 	}
 
-	public GCshCmdtyID_MIC(String nameSpace, String code)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCmdtyID_MIC(String nameSpace, String code) {
 
 		super(nameSpace, code);
 
@@ -53,21 +51,21 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 
 	// ----------------------------
 
-	public GCshCmdtyCurrNameSpace.MIC getMIC() throws InvalidCmdtyCurrTypeException {
+	public GCshCmdtyCurrNameSpace.MIC getMIC() {
 		if ( type != Type.SECURITY_MIC )
 			throw new InvalidCmdtyCurrTypeException();
 
 		return mic;
 	}
 
-	public void setMIC(GCshCmdtyCurrNameSpace.MIC mic) throws InvalidCmdtyCurrTypeException {
+	public void setMIC(GCshCmdtyCurrNameSpace.MIC mic) {
 		if ( type != Type.SECURITY_MIC )
 			throw new InvalidCmdtyCurrTypeException();
 
 		this.mic = mic;
 	}
 
-	public void setMIC(String micStr) throws InvalidCmdtyCurrTypeException {
+	public void setMIC(String micStr) {
 		if ( micStr == null )
 			throw new IllegalArgumentException("MIC string is null");
 

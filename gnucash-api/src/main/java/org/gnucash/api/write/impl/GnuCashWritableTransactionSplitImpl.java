@@ -94,9 +94,6 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     /**
 	 * Creates a new Transaction and add's it to the given GnuCash file Don't modify
 	 * the ID of the new transaction!
-	 * 
-	 * @throws
-	 * @throws ClassNotFoundException
 	 */
 	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
 	    final GnuCashWritableTransactionImpl trx, 
@@ -200,10 +197,9 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
      * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
      */
-    public void setQuantity(final String n) throws InvalidCmdtyCurrTypeException {
+    public void setQuantity(final String n) {
 	try {
 	    this.setQuantity(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
 	} catch (NumberFormatException e) {
@@ -220,9 +216,8 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 
     /**
      * @return true if the currency of transaction and account match
-     * @throws InvalidCmdtyCurrTypeException
      */
-    private boolean isCurrencyMatching() throws InvalidCmdtyCurrTypeException {
+    private boolean isCurrencyMatching() {
 	GnuCashAccount acct = getAccount();
 	if (acct == null) {
 	    return false;
@@ -241,11 +236,9 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
      */
-    public void setQuantity(final FixedPointNumber n) throws NumberFormatException {
+    public void setQuantity(final FixedPointNumber n) {
 	if (n == null) {
 	    throw new NullPointerException("null quantity given");
 	}
@@ -271,10 +264,9 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
      * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
      */
-    public void setValue(final String n) throws InvalidCmdtyCurrTypeException {
+    public void setValue(final String n) {
 	try {
 	    this.setValue(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
 	} catch (NumberFormatException e) {
@@ -292,11 +284,9 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
      */
-    public void setValue(final FixedPointNumber n) throws NumberFormatException {
+    public void setValue(final FixedPointNumber n) {
 	if (n == null) {
 	    throw new NullPointerException("null value given");
 	}
@@ -421,18 +411,16 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     // --------------------- support for propertyChangeListeners ---------------
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
      * @see GnuCashWritableTransactionSplit#setQuantityFormattedForHTML(java.lang.String)
      */
-    public void setQuantityFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
+    public void setQuantityFormattedForHTML(final String n) {
 	this.setQuantity(n);
     }
 
     /**
-     * @throws InvalidCmdtyCurrTypeException
      * @see GnuCashWritableTransactionSplit#setValueFormattedForHTML(java.lang.String)
      */
-    public void setValueFormattedForHTML(final String n) throws InvalidCmdtyCurrTypeException {
+    public void setValueFormattedForHTML(final String n) {
 	this.setValue(n);
     }
 

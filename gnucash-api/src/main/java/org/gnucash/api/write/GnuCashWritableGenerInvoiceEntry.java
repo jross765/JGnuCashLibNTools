@@ -47,26 +47,18 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
     void setAction(Action act);
 
     void setQuantity(String quantity)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     void setQuantity(FixedPointNumber quantity)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     void setQuantityFormatted(String n)
-	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     /**
-* 
      * @throws TaxTableNotFoundException
-     * @throws InvalidCmdtyCurrTypeException
-     * @throws NumberFormatException
      * @throws IllegalTransactionSplitActionException
-     * 
      */
-    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException,
-	    NumberFormatException;
+    void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
 }

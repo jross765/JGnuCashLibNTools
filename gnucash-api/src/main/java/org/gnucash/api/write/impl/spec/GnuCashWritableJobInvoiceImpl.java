@@ -76,7 +76,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @param postDate 
 	 * @param dueDate 
 	 * @throws WrongOwnerTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
 	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
@@ -91,7 +90,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @param invc 
 	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
 			throws TaxTableNotFoundException {
@@ -195,7 +193,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * 
 	 * @throws TaxTableNotFoundException
 	 * @throws UnknownInvoiceTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableJobInvoiceEntry createEntry(
 			final GnuCashAccount acct, 
@@ -212,7 +209,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * 
 	 * @throws TaxTableNotFoundException
 	 * @throws UnknownInvoiceTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableJobInvoiceEntry createEntry(
 			final GnuCashAccount acct, 
@@ -230,7 +226,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @return an entry using the given Tax-Table
 	 * @throws TaxTableNotFoundException
 	 * @throws UnknownInvoiceTypeException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
 	public GnuCashWritableJobInvoiceEntry createEntry(
 			final GnuCashAccount acct, 
@@ -247,8 +242,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 
 	/**
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 * @see #addInvcEntry(GnuCashGenerInvoiceEntryImpl)
 	 */
 	protected void removeEntry(final GnuCashWritableJobInvoiceEntryImpl entry)
@@ -264,8 +257,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 *
 	 * @param entry the entry to add to our internal list of job-invoice-entries
 	 * @throws TaxTableNotFoundException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 */
 	protected void addEntry(final GnuCashWritableJobInvoiceEntryImpl entry)
 			throws TaxTableNotFoundException {
@@ -284,7 +275,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	
 	/**
 	 * @return the ID of the Account to transfer the money from
-	 * @throws ClassNotFoundException
 	 */
 	@SuppressWarnings("unused")
 	private GCshID getPostAccountID(final GnuCashJobInvoiceEntryImpl entry) {

@@ -39,8 +39,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		setCurrency(currStr);
 	}
 
-	public GCshCurrID(String nameSpaceFree, String code)
-			throws InvalidCmdtyCurrIDException {
+	public GCshCurrID(String nameSpaceFree, String code) {
 
 		super(nameSpaceFree, code);
 
@@ -74,14 +73,14 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 
 	// ----------------------------
 
-	public Currency getCurrency() throws InvalidCmdtyCurrTypeException {
+	public Currency getCurrency() {
 		if ( type != Type.CURRENCY )
 			throw new InvalidCmdtyCurrTypeException();
 
 		return currency;
 	}
 
-	public void setCurrency(Currency currency) throws InvalidCmdtyCurrTypeException {
+	public void setCurrency(Currency currency) {
 		if ( type != Type.CURRENCY )
 			throw new InvalidCmdtyCurrTypeException();
 
@@ -91,7 +90,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		this.currency = currency;
 	}
 
-	public void setCurrency(String iso4217CurrCode) throws InvalidCmdtyCurrTypeException {
+	public void setCurrency(String iso4217CurrCode) {
 		if ( iso4217CurrCode == null )
 			throw new IllegalArgumentException("Argument string is null");
 

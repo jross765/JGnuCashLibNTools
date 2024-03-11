@@ -139,13 +139,9 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @param pFile the file to load and initialize from
 	 * @throws IOException                   on low level reading-errors
 	 *                                       (FileNotFoundException if not found)
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws ClassNotFoundException
 	 * @see #loadFile(File)
 	 */
-	public GnuCashFileImpl(final File pFile)
-			throws IOException,  InvalidCmdtyCurrIDException {
+	public GnuCashFileImpl(final File pFile) throws IOException {
 		super();
 		loadFile(pFile);
 	}
@@ -154,8 +150,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @param pFile the file to load and initialize from
 	 * @throws IOException                   on low level reading-errors
 	 *                                       (FileNotFoundException if not found)
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
 	 * @see #loadFile(File)
 	 */
 	public GnuCashFileImpl(final InputStream is) throws IOException {
@@ -193,9 +187,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @param pFile the file to read
 	 * @throws IOException                   on low level reading-errors
 	 *                                       (FileNotFoundException if not found)
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws ClassNotFoundException
 	 * @see #setRootElement(GncV2)
 	 */
 	protected void loadFile(final File pFile) throws IOException {
@@ -1026,24 +1017,16 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws InvalidCmdtyCurrTypeException
 	 */
-	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) {
 		return prcMgr.getLatestPrice(cmdtyCurrID);
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * 
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws InvalidCmdtyCurrIDException
 	 */
 	@Deprecated
-	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId)
-			throws InvalidCmdtyCurrIDException {
+	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
 		return prcMgr.getLatestPrice(pCmdtySpace, pCmdtyId);
 	}
 
@@ -1061,12 +1044,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * Set the new root-element and load all accounts, transactions,... from it.
 	 *
 	 * @param pRootElement the new root-element
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws InvalidCmdtyCurrIDException
-	 * @throws ClassNotFoundException
 	 */
-	protected void setRootElement(final GncV2 pRootElement)
-			throws InvalidCmdtyCurrIDException {
+	protected void setRootElement(final GncV2 pRootElement) {
 		if ( pRootElement == null ) {
 			throw new IllegalArgumentException("null not allowed for field this.rootElement");
 		}
@@ -1169,11 +1148,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	/**
 	 * @param pRootElement the root-element of the GnuCash file
-	 * @throws InvalidCmdtyCurrTypeException
-	 * @throws InvalidCmdtyCurrIDException
 	 */
-	protected void loadPriceDatabase(final GncV2 pRootElement)
-			throws InvalidCmdtyCurrIDException {
+	protected void loadPriceDatabase(final GncV2 pRootElement) {
 		boolean noPriceDB = true;
 
 		GncPricedb priceDB = prcMgr.getPriceDB();
@@ -1193,8 +1169,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		}
 	}
 
-	private void loadPriceDatabaseCore(GncPricedb priceDB)
-			throws InvalidCmdtyCurrIDException {
+	private void loadPriceDatabaseCore(GncPricedb priceDB) {
 //	getCurrencyTable().clear();
 //	getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
 //		                               getDefaultCurrencyID(), 

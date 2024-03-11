@@ -63,49 +63,41 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setQuantity(FixedPointNumber)}.
 	 * @param n the new quantity (in the currency of the account)
-	 * @throws InvalidCmdtyCurrTypeException 
 	 */
-	void setQuantity(String n) throws InvalidCmdtyCurrTypeException;
+	void setQuantity(String n);
 
 	/**
 	 * Same as ${@link #setQuantity(String)}.
 	 * @param n the new quantity (in the currency of the account)
-	 * @throws InvalidCmdtyCurrTypeException 
 	 */
-	void setQuantityFormattedForHTML(String n) throws InvalidCmdtyCurrTypeException;
+	void setQuantityFormattedForHTML(String n);
 
 	/**
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setQuantity(FixedPointNumber)}.
 	 * @param n the new quantity (in the currency of the account)
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @throws NumberFormatException 
 	 */
-	void setQuantity(FixedPointNumber n) throws NumberFormatException;
+	void setQuantity(FixedPointNumber n);
 
 	/**
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setValue(FixedPointNumber)}.
 	 * @param n the new value (in the currency of the transaction)
-	 * @throws InvalidCmdtyCurrTypeException 
 	 */
-	void setValue(String n) throws InvalidCmdtyCurrTypeException;
+	void setValue(String n);
 
 	/**
 	 * Same as ${@link #setValue(String)}.
 	 * @param n the new value (in the currency of the transaction)
-	 * @throws InvalidCmdtyCurrTypeException 
 	 */
-	void setValueFormattedForHTML(String n) throws InvalidCmdtyCurrTypeException;
+	void setValueFormattedForHTML(String n);
 
 	/**
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setValue(FixedPointNumber)}.
 	 * @param n the new value (in the currency of the transaction)
-	 * @throws InvalidCmdtyCurrTypeException 
-	 * @throws NumberFormatException 
 	 */
-	void setValue(FixedPointNumber n) throws NumberFormatException;
+	void setValue(FixedPointNumber n);
 
 	/**
 	 * Set the description-text.
