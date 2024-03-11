@@ -16,6 +16,8 @@ its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical 
 
 * Changed all interface and class names from `GnucashXYZ` to `GnuCashXYZ`, following the usual spelling convention.
 
+* De-cluttered interfaces.
+
 * Improved test coverage.
 
 ### V. 1.2 &rarr; 1.3
