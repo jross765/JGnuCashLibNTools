@@ -2233,7 +2233,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 //	    getJwsdpPeer().setInvoiceOwner(new GCShOwner(xxx));
 //	}
 
-    public void setOwner(GCshOwner owner) throws WrongOwnerJITypeException {
+    public void setOwner(GCshOwner owner) {
 	if (owner.getJIType() != GCshOwner.JIType.INVOICE)
 	    throw new WrongOwnerJITypeException();
 

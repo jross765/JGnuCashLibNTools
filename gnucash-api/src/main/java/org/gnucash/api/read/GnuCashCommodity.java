@@ -5,7 +5,6 @@ import java.util.List;
 import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 
 /**
  * In GnuCash lingo, "commodity" is an umbrella term for

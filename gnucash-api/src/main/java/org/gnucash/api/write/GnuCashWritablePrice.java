@@ -3,14 +3,13 @@ package org.gnucash.api.write;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.api.read.GnuCashPrice;
-import org.gnucash.api.write.hlp.GnuCashWritableObject;
-import org.gnucash.api.read.GnuCashCommodity;
 
 /**
  * Price that can be modified.

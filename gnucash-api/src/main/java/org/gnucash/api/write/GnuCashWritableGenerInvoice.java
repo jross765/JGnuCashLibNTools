@@ -16,7 +16,6 @@ import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Vend;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -49,7 +48,7 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
     // ::TODO
     // void setOwnerID(String ownerID);
 
-    void setOwner(GCshOwner owner) throws WrongOwnerJITypeException;
+    void setOwner(GCshOwner owner);
 
     // -----------------------------------------------------------
 

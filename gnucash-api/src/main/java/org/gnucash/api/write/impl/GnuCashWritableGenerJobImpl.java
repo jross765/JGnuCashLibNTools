@@ -238,7 +238,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 //	    getJwsdpPeer().setInvoiceOwner(new GCShOwner(xxx));
 //	}
 
-	public void setOwner(GCshOwner owner) throws WrongOwnerJITypeException {
+	public void setOwner(GCshOwner owner) {
 		if ( owner.getJIType() != GCshOwner.JIType.JOB )
 			throw new WrongOwnerJITypeException();
 

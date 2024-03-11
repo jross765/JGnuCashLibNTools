@@ -3,11 +3,9 @@ package org.gnucash.api.write;
 import java.time.LocalDate;
 
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
