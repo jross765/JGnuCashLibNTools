@@ -1,7 +1,10 @@
 package org.gnucash.api.read.hlp;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoiceEntry_Job {
@@ -15,6 +18,10 @@ public interface GnuCashGenerInvoiceEntry_Job {
      * @return As ${@link #getJobInvcPrice()}, but formatted.
      */
     String getJobInvcPriceFormatted();
+
+    // ---------------------------------------------------------------
+    
+    GCshID getJobInvcAccountID() throws AccountNotFoundException;
 
     // ---------------------------------------------------------------
 

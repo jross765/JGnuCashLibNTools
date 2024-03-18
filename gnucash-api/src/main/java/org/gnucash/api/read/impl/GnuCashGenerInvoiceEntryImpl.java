@@ -7,10 +7,14 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.generated.GncGncEntry.EntryBAcct;
 import org.gnucash.api.generated.GncGncEntry.EntryBTaxtable;
 import org.gnucash.api.generated.GncGncEntry.EntryBill;
+import org.gnucash.api.generated.GncGncEntry.EntryIAcct;
 import org.gnucash.api.generated.GncGncEntry.EntryITaxtable;
 import org.gnucash.api.generated.GncGncEntry.EntryInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoice;
@@ -27,7 +31,6 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -64,12 +67,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     protected ZonedDateTime date;
 
+    private GCshID myInvcAcctID;
+    private GCshID myBllAcctID;
+
     /**
      * The tax table in the GnuCash XML file. It defines what sales-tax-rates are
      * known.
      */
-    private GCshTaxTable myInvcTaxtable;
-    private GCshTaxTable myBillTaxtable;
+    private GCshTaxTable myInvcTaxTable;
+    private GCshTaxTable myBillTaxTable;
 
     // ----------------------------
 
@@ -255,7 +261,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
       		 getType() != GCshOwner.Type.JOB )
        		    throw new WrongInvoiceTypeException();
 
-	myInvcTaxtable = aTaxtable;
+	myInvcTaxTable = aTaxtable;
     }
 
     /**
@@ -269,7 +275,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
    		     getType() != GCshOwner.Type.JOB )
     		    throw new WrongInvoiceTypeException();
 
-	myBillTaxtable = aTaxtable;
+	myBillTaxTable = aTaxtable;
     }
 
     /**
@@ -282,7 +288,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     	if ( getType() != GCshOwner.Type.EMPLOYEE )
     		    throw new WrongInvoiceTypeException();
 
-	myBillTaxtable = aTaxtable;
+	myBillTaxTable = aTaxtable;
     }
 
     protected void setJobInvcTaxTable(final GCshTaxTable aTaxtable)
@@ -308,7 +314,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (myInvcTaxtable == null) {
+	if (myInvcTaxTable == null) {
 	    EntryITaxtable taxTableEntry = jwsdpPeer.getEntryITaxtable();
 	    if (taxTableEntry == null) {
 		throw new TaxTableNotFoundException();
@@ -322,16 +328,16 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		return null;
 	    }
 	    GCshID taxTableId = new GCshID( taxTableIdStr );
-	    myInvcTaxtable = getGnuCashFile().getTaxTableByID(taxTableId);
+	    myInvcTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
-	    if (myInvcTaxtable == null) {
+	    if (myInvcTaxTable == null) {
 		LOGGER.error("getInvcTaxTable: Customer invoice with id '" + getID() + 
 			"' is i-taxable but has an unknown "
 			+ "i-taxtable-id '" + taxTableId + "'!");
 	    }
 	} // myInvcTaxtable == null
 
-	return myInvcTaxtable;
+	return myInvcTaxTable;
     }
 
     /**
@@ -345,7 +351,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (myBillTaxtable == null) {
+	if (myBillTaxTable == null) {
 	    EntryBTaxtable taxTableEntry = jwsdpPeer.getEntryBTaxtable();
 	    if (taxTableEntry == null) {
 		throw new TaxTableNotFoundException();
@@ -358,16 +364,16 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		return null;
 	    }
 	    GCshID taxTableId = new GCshID( taxTableIdStr );
-	    myBillTaxtable = getGnuCashFile().getTaxTableByID(taxTableId);
+	    myBillTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
-	    if (myBillTaxtable == null) {
+	    if (myBillTaxTable == null) {
 		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getID() + 
 			"' is b-taxable but has an unknown "
 			+ "b-taxtable-id '" + taxTableId + "'!");
 	    }
 	} // myBillTaxtable == null
 
-	return myBillTaxtable;
+	return myBillTaxTable;
     }
 
     /**
@@ -380,7 +386,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	if ( getType() != GCshOwner.Type.EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
-	if (myBillTaxtable == null) {
+	if (myBillTaxTable == null) {
 	    EntryBTaxtable taxTableEntry = jwsdpPeer.getEntryBTaxtable();
 	    if (taxTableEntry == null) {
 		throw new TaxTableNotFoundException();
@@ -393,16 +399,16 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		return null;
 	    }
 	    GCshID taxTableId = new GCshID( taxTableIdStr );
-	    myBillTaxtable = getGnuCashFile().getTaxTableByID(taxTableId);
+	    myBillTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
-	    if (myBillTaxtable == null) {
+	    if (myBillTaxTable == null) {
 		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getID() + 
 			"' is b-taxable but has an unknown "
 			+ "b-taxtable-id '" + taxTableId + "'!");
 	    }
 	} // myBillTaxtable == null
 
-	return myBillTaxtable;
+	return myBillTaxTable;
     }
 
     @Override
@@ -781,6 +787,81 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     public String getJobInvcPriceFormatted() {
 	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobInvcPrice());
     }
+
+    // ---------------------------------------------------------------
+    
+	@Override
+	public GCshID getCustInvcAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.CUSTOMER && 
+			 getType() != GCshOwner.Type.JOB )
+			throw new WrongInvoiceTypeException();
+
+		if ( myInvcAcctID == null ) {
+			EntryIAcct jwsdpAcctID = jwsdpPeer.getEntryIAcct();
+			if ( jwsdpAcctID == null ) {
+				throw new AccountNotFoundException();
+			}
+
+			String acctIdStr = jwsdpAcctID.getValue();
+			if ( acctIdStr == null ) {
+				LOGGER.error("getCustInvcAccountID: Customer invoice entry with id '" + getID()
+						+ "' has not i-account-id");
+				return null;
+			}
+			
+			myInvcAcctID = new GCshID(acctIdStr);
+		}
+
+		return myInvcAcctID;
+	}
+
+	@Override
+	public GCshID getVendBllAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.VENDOR && 
+			 getType() != GCshOwner.Type.EMPLOYEE && 
+			 getType() != GCshOwner.Type.JOB )
+			throw new WrongInvoiceTypeException();
+
+			if ( myBllAcctID == null ) {
+				EntryBAcct jwsdpAcctID = jwsdpPeer.getEntryBAcct();
+				if ( jwsdpAcctID == null ) {
+					throw new AccountNotFoundException();
+				}
+
+				String acctIdStr = jwsdpAcctID.getValue();
+				if ( acctIdStr == null ) {
+					LOGGER.error("getVendBllAccountID: Vendor bill entry with id '" + getID()
+							+ "' has no b-account-id");
+					return null;
+				}
+				
+				myBllAcctID = new GCshID(acctIdStr);
+			}
+
+			return myBllAcctID;
+	}
+
+	@Override
+	public GCshID getEmplVchAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.EMPLOYEE )
+		    throw new WrongInvoiceTypeException();
+
+		return getVendBllAccountID();
+	}
+
+	@Override
+	public GCshID getJobInvcAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.JOB )
+		    throw new WrongInvoiceTypeException();
+
+		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
+		    return getCustInvcAccountID();
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
+		    return getVendBllAccountID();
+
+		return null; // Compiler happy
+	}
 
     // ---------------------------------------------------------------
 
@@ -1312,23 +1393,37 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	} catch (Exception e) {
 	    buffer.append("ERROR" + "'");
 	}
+
+	buffer.append(", account-id=");
+	try {
+	    if ( getType() == GCshOwner.Type.CUSTOMER ) {
+	    	buffer.append(getCustInvcAccountID());
+	    } else if ( getType() == GCshOwner.Type.VENDOR ) {
+	    	buffer.append(getVendBllAccountID());
+	    } else if ( getType() == GCshOwner.Type.EMPLOYEE ) {
+	    	buffer.append(getEmplVchAccountID());
+	    } else if ( getType() == GCshOwner.Type.JOB ) {
+		    buffer.append(getJobInvcAccountID());
+	    } else {
+	    	buffer.append("ERROR");
+	    }
+	} catch (Exception e) {
+	    buffer.append("ERROR");
+	}
 	
 	buffer.append(", price=");
 	try {
 	    if ( getType() == GCshOwner.Type.CUSTOMER ) {
-		buffer.append(getCustInvcPrice());
+	    	buffer.append(getCustInvcPrice());
 	    } else if ( getType() == GCshOwner.Type.VENDOR ) {
-		buffer.append(getVendBllPrice());
+	    	buffer.append(getVendBllPrice());
 	    } else if ( getType() == GCshOwner.Type.EMPLOYEE ) {
-		buffer.append(getEmplVchPrice());
+	    	buffer.append(getEmplVchPrice());
 	    } else if ( getType() == GCshOwner.Type.JOB ) {
-		try {
 		    buffer.append(getJobInvcPrice());
-		} catch (Exception e2) {
-		    buffer.append("ERROR");
-		}
-	    } else
-		buffer.append("ERROR");
+	    } else {
+	    	buffer.append("ERROR");
+	    }
 	} catch (WrongInvoiceTypeException e) {
 	    buffer.append("ERROR");
 	}

@@ -2,6 +2,10 @@ package org.gnucash.api.read.spec;
 
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
+
+import javax.security.auth.login.AccountNotFoundException;
+
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 
 /**
@@ -17,6 +21,12 @@ public interface GnuCashJobInvoiceEntry extends GnuCashGenerInvoiceEntry
   GCshID getInvoiceID();
 
   GnuCashJobInvoice getInvoice();
+  
+  // -----------------------------------------------------------------
+
+  GCshID getAccountID() throws AccountNotFoundException;
+
+  GnuCashAccount getAccount() throws AccountNotFoundException;
   
   // -----------------------------------------------------------------
 

@@ -2,7 +2,11 @@ package org.gnucash.api.read.impl.spec;
 
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
+
+import javax.security.auth.login.AccountNotFoundException;
+
 import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -81,6 +85,18 @@ public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
 		}
 
 		return new GnuCashVendorBillImpl(myInvoice);
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GCshID getAccountID() throws AccountNotFoundException {
+		return getVendBllAccountID();
+	}
+
+	@Override
+	public GnuCashAccount getAccount() throws AccountNotFoundException {
+		return getGnuCashFile().getAccountByID(getAccountID());
 	}
 
 	// ---------------------------------------------------------------
@@ -178,6 +194,13 @@ public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
 			buffer.append("ERROR" + "'");
 		}
 
+		buffer.append(", account-id=");
+		try {
+			buffer.append(getAccountID());
+		} catch (Exception e) {
+		    buffer.append("ERROR");
+		}
+		
 		buffer.append(", price=");
 		try {
 			buffer.append(getPrice());
