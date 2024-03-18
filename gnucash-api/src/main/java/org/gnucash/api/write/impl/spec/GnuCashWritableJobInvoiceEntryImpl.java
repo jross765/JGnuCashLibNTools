@@ -1,19 +1,24 @@
 package org.gnucash.api.write.impl.spec;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -208,5 +213,98 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 //	    throws TaxTableNotFoundException {
 //		throw new WrongInvoiceTypeException();
 //    }
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GCshID getInvoiceID() {
+		return getGenerInvoiceID();
+	}
+
+	@Override
+	public GnuCashJobInvoice getInvoice() {
+		if ( myInvoice == null ) {
+			myInvoice = getGenerInvoice();
+			if ( myInvoice.getType() != GCshOwner.Type.JOB )
+				throw new WrongInvoiceTypeException();
+
+			if ( myInvoice == null ) {
+				throw new IllegalStateException(
+						"No job invoice with id '" + getInvoiceID() + "' for invoice entry with id '" + getID() + "'");
+			}
+		}
+
+		return new GnuCashJobInvoiceImpl(myInvoice);
+	}
+
+	@Override
+	public GCshID getAccountID() throws AccountNotFoundException {
+		return super.getJobInvcAccountID();
+	}
+
+	@Override
+	public GnuCashAccount getAccount() throws AccountNotFoundException {
+		return getGnuCashFile().getAccountByID(getAccountID());
+	}
+
+	@Override
+	public FixedPointNumber getPrice() {
+		return super.getJobInvcPrice();
+	}
+
+	@Override
+	public String getPriceFormatted() {
+		return super.getJobInvcPriceFormatted();
+	}
+
+	// ---------------------------------------------------------------
+
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashWritableJobInvoiceEntryImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", invoice-id=");
+		buffer.append(getInvoiceID());
+
+		buffer.append(", description='");
+		buffer.append(getDescription() + "'");
+
+		buffer.append(", date=");
+		try {
+			buffer.append(getDate().toLocalDate().format(DATE_FORMAT_PRINT));
+		} catch (Exception e) {
+			buffer.append(getDate().toLocalDate().toString());
+		}
+
+		buffer.append(", action='");
+		try {
+			buffer.append(getAction() + "'");
+		} catch (Exception e) {
+			buffer.append("ERROR" + "'");
+		}
+
+		buffer.append(", account-id=");
+		try {
+			buffer.append(getAccountID());
+		} catch (Exception e) {
+		    buffer.append("ERROR");
+		}
+		
+		buffer.append(", price=");
+		try {
+			buffer.append(getPrice());
+		} catch (Exception e) {
+			buffer.append("ERROR");
+		}
+
+		buffer.append(", quantity=");
+		buffer.append(getQuantity());
+
+		buffer.append("]");
+		return buffer.toString();
+	}
 
 }

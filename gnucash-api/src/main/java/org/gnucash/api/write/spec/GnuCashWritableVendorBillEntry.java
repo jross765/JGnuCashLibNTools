@@ -6,7 +6,6 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
@@ -18,7 +17,8 @@ import org.gnucash.base.numbers.FixedPointNumber;
  * @see GnuCashWritableEmployeeVoucherEntry
  * @see GnuCashWritableJobInvoiceEntry
  */
-public interface GnuCashWritableVendorBillEntry extends GnuCashWritableGenerInvoiceEntry, 
+public interface GnuCashWritableVendorBillEntry extends GnuCashWritableGenerInvoiceEntry,
+														GnuCashVendorBillEntry,
                                                         GnuCashWritableObject 
 {
 

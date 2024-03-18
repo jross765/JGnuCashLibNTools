@@ -1,18 +1,23 @@
 package org.gnucash.api.write.impl.spec;
 
+import javax.security.auth.login.AccountNotFoundException;
+
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
+import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -179,5 +184,98 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GCshID getBillID() {
+		return getGenerInvoiceID();
+	}
+
+	@Override
+	public GnuCashVendorBill getBill() {
+		if ( myInvoice == null ) {
+			myInvoice = getGenerInvoice();
+			if ( myInvoice.getType() != GCshOwner.Type.VENDOR )
+				throw new WrongInvoiceTypeException();
+
+			if ( myInvoice == null ) {
+				throw new IllegalStateException(
+						"No vendor bill with id '" + getBillID() + "' for bill entry with id '" + getID() + "'");
+			}
+		}
+
+		return new GnuCashVendorBillImpl(myInvoice);
+	}
+
+	@Override
+	public GCshID getAccountID() throws AccountNotFoundException {
+		return super.getVendBllAccountID();
+	}
+
+	@Override
+	public GnuCashAccount getAccount() throws AccountNotFoundException {
+		return getGnuCashFile().getAccountByID(getAccountID());
+	}
+
+	@Override
+	public FixedPointNumber getPrice() {
+		return super.getVendBllPrice();
+	}
+
+	@Override
+	public String getPriceFormatted() {
+		return super.getVendBllPriceFormatted();
+	}
+	
+	// ---------------------------------------------------------------
+
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashWritableVendorBillEntryImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", bill-id=");
+		buffer.append(getBillID());
+
+		buffer.append(", description='");
+		buffer.append(getDescription() + "'");
+
+		buffer.append(", date=");
+		try {
+			buffer.append(getDate().toLocalDate().format(DATE_FORMAT_PRINT));
+		} catch (Exception e) {
+			buffer.append(getDate().toLocalDate().toString());
+		}
+
+		buffer.append(", action='");
+		try {
+			buffer.append(getAction() + "'");
+		} catch (Exception e) {
+			buffer.append("ERROR" + "'");
+		}
+
+		buffer.append(", account-id=");
+		try {
+			buffer.append(getAccountID());
+		} catch (Exception e) {
+		    buffer.append("ERROR");
+		}
+		
+		buffer.append(", price=");
+		try {
+			buffer.append(getPrice());
+		} catch (WrongInvoiceTypeException e) {
+			buffer.append("ERROR");
+		}
+
+		buffer.append(", quantity=");
+		buffer.append(getQuantity());
+
+		buffer.append("]");
+		return buffer.toString();
+	}
 
 }
