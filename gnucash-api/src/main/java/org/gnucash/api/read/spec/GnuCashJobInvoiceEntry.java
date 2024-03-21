@@ -1,37 +1,23 @@
 package org.gnucash.api.read.spec;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
-
-import javax.security.auth.login.AccountNotFoundException;
-
-import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.api.read.spec.hlp.SpecInvoiceEntryCommon;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
  * One entry (line item) of a {@link GnuCashJobInvoice}
  * 
- *  @see GnuCashCustomerInvoiceEntry
- *  @see GnuCashEmployeeVoucherEntry
- *  @see GnuCashVendorBillEntry
- *  @see GnuCashGenerInvoiceEntry
+ * @see GnuCashCustomerInvoiceEntry
+ * @see GnuCashEmployeeVoucherEntry
+ * @see GnuCashVendorBillEntry
+ * @see GnuCashGenerInvoiceEntry
  */
-public interface GnuCashJobInvoiceEntry extends GnuCashGenerInvoiceEntry 
+public interface GnuCashJobInvoiceEntry extends GnuCashGenerInvoiceEntry,
+												SpecInvoiceEntryCommon
 {
-  GCshID getInvoiceID();
+	
+	GCshID getInvoiceID();
 
-  GnuCashJobInvoice getInvoice();
-  
-  // -----------------------------------------------------------------
+	GnuCashJobInvoice getInvoice();
 
-  GCshID getAccountID() throws AccountNotFoundException;
-
-  GnuCashAccount getAccount() throws AccountNotFoundException;
-  
-  // -----------------------------------------------------------------
-
-  FixedPointNumber getPrice();
-
-  String getPriceFormatted();
-  
 }

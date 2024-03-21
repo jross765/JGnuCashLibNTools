@@ -17,7 +17,6 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -119,7 +118,7 @@ public class TestGnuCashCustomerInvoiceImpl {
 		// found with this test)
 		assertEquals(1327.60, invcGen.getCustInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(1327.60, invcSpec.getCustInvcAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(1327.60, ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes().doubleValue(),
+		assertEquals(1327.60, invcSpec.getAmountWithoutTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 
 		// Note: That the following three return the same result
@@ -127,7 +126,7 @@ public class TestGnuCashCustomerInvoiceImpl {
 		// found with this test)
 		assertEquals(1327.60, invcGen.getCustInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(1327.60, invcSpec.getCustInvcAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(1327.60, ((SpecInvoiceCommon) invcSpec).getAmountWithTaxes().doubleValue(),
+		assertEquals(1327.60, invcSpec.getAmountWithTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 	}
 
@@ -160,7 +159,7 @@ public class TestGnuCashCustomerInvoiceImpl {
 		// found with this test)
 		assertEquals(true, invcGen.isCustInvcFullyPaid());
 		assertEquals(true, invcSpec.isCustInvcFullyPaid());
-		assertEquals(true, ((SpecInvoiceCommon) invcSpec).isFullyPaid());
+		assertEquals(true, invcSpec.isFullyPaid());
 	}
 
 	@Test

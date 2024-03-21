@@ -16,7 +16,6 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -117,7 +116,7 @@ public class TestGnuCashEmployeeVoucherImpl {
 		// found with this test)
 		assertEquals(230.0, invcGen.getEmplVchAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(230.0, vchSpec.getEmplVchAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(230.0, ((SpecInvoiceCommon) vchSpec).getAmountWithoutTaxes().doubleValue(),
+		assertEquals(230.0, vchSpec.getAmountWithoutTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 
 		// Note: That the following three return the same result
@@ -125,7 +124,7 @@ public class TestGnuCashEmployeeVoucherImpl {
 		// found with this test)
 		assertEquals(230.0, invcGen.getEmplVchAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(230.0, vchSpec.getEmplVchAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(230.0, ((SpecInvoiceCommon) vchSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(230.0, vchSpec.getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -160,11 +159,11 @@ public class TestGnuCashEmployeeVoucherImpl {
 		// found with this test)
 		assertEquals(false, invcGen.isEmplVchFullyPaid());
 		assertEquals(false, vchSpec.isEmplVchFullyPaid());
-		assertEquals(false, ((SpecInvoiceCommon) vchSpec).isFullyPaid());
+		assertEquals(false, vchSpec.isFullyPaid());
 
 		assertEquals(!invcGen.isEmplVchFullyPaid(), invcGen.isNotEmplVchFullyPaid());
 		assertEquals(!vchSpec.isEmplVchFullyPaid(), vchSpec.isNotEmplVchFullyPaid());
-		assertEquals(!((SpecInvoiceCommon) vchSpec).isFullyPaid(), ((SpecInvoiceCommon) vchSpec).isNotFullyPaid());
+		assertEquals(!vchSpec.isFullyPaid(), vchSpec.isNotFullyPaid());
 	}
 
 	//  @Test

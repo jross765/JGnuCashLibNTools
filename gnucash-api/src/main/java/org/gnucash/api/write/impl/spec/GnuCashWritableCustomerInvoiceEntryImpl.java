@@ -229,6 +229,58 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	}
 
 	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return super.isCustInvcTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return super.getCustInvcTaxTable();
+	}
+
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return super.getCustInvcApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return super.getCustInvcApplicableTaxPercentFormatted();
+	}
+
+	@Override
+	public FixedPointNumber getSum() {
+		return super.getCustInvcSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return super.getCustInvcSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return super.getCustInvcSumExclTaxes();
+	}
+
+	@Override
+	public String getSumFormatted() {
+		return super.getCustInvcSumExclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return super.getCustInvcSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return super.getCustInvcSumExclTaxesFormatted();
+	}
+
+	// ---------------------------------------------------------------
 
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();

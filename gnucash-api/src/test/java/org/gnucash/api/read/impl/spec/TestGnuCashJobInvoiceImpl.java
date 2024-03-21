@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.TreeSet;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -15,7 +14,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -119,7 +118,7 @@ public class TestGnuCashJobInvoiceImpl {
 		// ::TODO
 		//    assertEquals(1327.60, invcGen.getJobAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		//    assertEquals(1327.60, invcSpec.getJobAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(4125.0, ((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes().doubleValue(),
+		assertEquals(4125.0, invcSpec.getAmountWithoutTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 
 		// Note: That the following three return the same result
@@ -128,7 +127,7 @@ public class TestGnuCashJobInvoiceImpl {
 		// ::TODO
 		//    assertEquals(1327.60, invcGen.getJobAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		//    assertEquals(1327.60, invcSpec.getJobAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(4908.75, ((SpecInvoiceCommon) invcSpec).getAmountWithTaxes().doubleValue(),
+		assertEquals(4908.75, invcSpec.getAmountWithTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 	}
 
@@ -163,7 +162,7 @@ public class TestGnuCashJobInvoiceImpl {
 		// found with this test)
 		assertEquals(false, invcGen.isCustInvcFullyPaid());
 		assertEquals(false, invcSpec.isCustInvcFullyPaid());
-		assertEquals(false, ((SpecInvoiceCommon) invcSpec).isFullyPaid());
+		assertEquals(false, invcSpec.isFullyPaid());
 	}
 
 	@Test

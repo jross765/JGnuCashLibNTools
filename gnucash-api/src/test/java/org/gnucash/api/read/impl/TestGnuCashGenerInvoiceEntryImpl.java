@@ -17,14 +17,15 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashGenerInvoiceEntryImpl {
-	public static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa");
-	public static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec");
-	public static final GCshID INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6");
-
+	public static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa"); // vendor bill entry
+	public static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec"); // vendor bill entry
+	public static final GCshID INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6"); // customer invoice entry
+	public static final GCshID INVCENTR_4_ID = new GCshID("fa483972d10a4ce0abf2a7e1319706e7"); // job invoice entry
+	public static final GCshID INVCENTR_5_ID = new GCshID("b6e2313e32d44bb4a8a701c1063e03a7"); // employee voucher entry
+	
 	// -----------------------------------------------------------------
 
 	private GnuCashFileImpl gcshFile = null;
-	private GCshFileStats gcshFileStats = null;
 	private GnuCashGenerInvoiceEntry invcEntr = null;
 
 	// -----------------------------------------------------------------
@@ -87,7 +88,11 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(0.19, invcEntr.getVendBllApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(12.50, invcEntr.getVendBllPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(3, invcEntr.getQuantity().intValue());
+		assertEquals(37.50, invcEntr.getVendBllSum().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(37.50, invcEntr.getVendBllSumInclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(31.51260, invcEntr.getVendBllSumExclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
+	
 
 	@Test
 	public void test02_2() throws Exception {
@@ -107,6 +112,9 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(0.00, invcEntr.getVendBllApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(13.80, invcEntr.getVendBllPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(3, invcEntr.getQuantity().intValue());
+		assertEquals(41.40, invcEntr.getVendBllSum().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(41.40, invcEntr.getVendBllSumInclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(41.40, invcEntr.getVendBllSumExclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -124,6 +132,52 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(0.19, invcEntr.getCustInvcApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(120.00, invcEntr.getCustInvcPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(10, invcEntr.getQuantity().intValue());
+		// ::TODO: entry does not contain tax?
+		assertEquals(1200.00, invcEntr.getCustInvcSum().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1428.00, invcEntr.getCustInvcSumInclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1200.00, invcEntr.getCustInvcSumExclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	}
+
+	@Test
+	public void test02_4() throws Exception {
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_4_ID);
+		assertNotEquals(null, invcEntr);
+
+		assertEquals(INVCENTR_4_ID, invcEntr.getID());
+		assertEquals(GnuCashGenerInvoice.TYPE_JOB, invcEntr.getType());
+		assertEquals("b1e981f796b94ca0b17a9dccb91fedc0", invcEntr.getGenerInvoiceID().toString());
+		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB, invcEntr.getAction());
+		assertEquals("Item 1", invcEntr.getDescription());
+
+		assertEquals(true, invcEntr.isJobInvcTaxable());
+		assertEquals(0.19, invcEntr.getJobInvcApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(2450.00, invcEntr.getJobInvcPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1, invcEntr.getQuantity().intValue());
+		// ::TODO: entry does not contain tax?
+		assertEquals(2450.00, invcEntr.getJobInvcSum().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(2915.50, invcEntr.getJobInvcSumInclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(2450.00, invcEntr.getJobInvcSumExclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+	}
+
+
+	@Test
+	public void test02_5() throws Exception {
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_5_ID);
+		assertNotEquals(null, invcEntr);
+
+		assertEquals(INVCENTR_5_ID, invcEntr.getID());
+		assertEquals(GnuCashGenerInvoice.TYPE_EMPLOYEE, invcEntr.getType());
+		assertEquals("8de4467c17e04bb2895fb68cc07fc4df", invcEntr.getGenerInvoiceID().toString());
+		assertEquals(GnuCashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
+		assertEquals("Übernachtung", invcEntr.getDescription());
+
+		assertEquals(true, invcEntr.isEmplVchTaxable());
+		assertEquals(0.0, invcEntr.getEmplVchApplicableTaxPercent().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(145.00, invcEntr.getEmplVchPrice().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1, invcEntr.getQuantity().intValue());
+		assertEquals(145.00, invcEntr.getEmplVchSum().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(145.00, invcEntr.getEmplVchSumInclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(145.00, invcEntr.getEmplVchSumExclTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test

@@ -56,7 +56,7 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	 * @param vch      the employee voucher to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnuCashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getCustInvcPrice()}}
+	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getEmplVchPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableEmployeeVoucherEntryImpl(final GnuCashWritableEmployeeVoucherImpl vch,
@@ -98,7 +98,7 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException {
+    public void setEmplVchTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -124,7 +124,7 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
 	@Override
-    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
+    public void setEmplVchTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -162,7 +162,7 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	 * Do not use
 	 */
     @Override
-    public void setCustInvcPrice(final String n)
+    public void setEmplVchPrice(final String n)
 	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
@@ -226,6 +226,58 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	@Override
 	public String getPriceFormatted() {
 		return super.getEmplVchPriceFormatted();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return super.isEmplVchTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return super.getEmplVchTaxTable();
+	}
+
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return super.getEmplVchApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return super.getEmplVchApplicableTaxPercentFormatted();
+	}
+
+	@Override
+	public FixedPointNumber getSum() {
+		return super.getEmplVchSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return super.getEmplVchSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return super.getEmplVchSumExclTaxes();
+	}
+
+	@Override
+	public String getSumFormatted() {
+		return super.getEmplVchSumExclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return super.getEmplVchSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return super.getEmplVchSumExclTaxesFormatted();
 	}
 
 	// ---------------------------------------------------------------

@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 
 /**
  * A voucher that is sent from an employee so you know what to pay him/her.<br>
@@ -22,7 +23,9 @@ import org.gnucash.api.read.GnuCashGenerInvoice;
  * @see GnuCashJobInvoice
  * @see GnuCashGenerInvoice
  */
-public interface GnuCashEmployeeVoucher extends GnuCashGenerInvoice {
+public interface GnuCashEmployeeVoucher extends GnuCashGenerInvoice,
+												SpecInvoiceCommon
+{
 
     /**
      * @return ID of employee this invoice has been sent from 

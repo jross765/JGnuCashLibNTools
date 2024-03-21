@@ -9,7 +9,9 @@ import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
@@ -163,6 +165,64 @@ public class GnuCashCustomerInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImp
 	@Override
 	public String getJobInvcPriceFormatted() {
 		throw new WrongInvoiceTypeException();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return isCustInvcTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return getCustInvcTaxTable();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return getCustInvcApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return getCustInvcApplicableTaxPercentFormatted();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public FixedPointNumber getSum() {
+		return getCustInvcSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return getCustInvcSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return getCustInvcSumExclTaxes();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public String getSumFormatted() {
+		return getCustInvcSumFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return getCustInvcSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return getCustInvcSumExclTaxesFormatted();
 	}
 
 	// ---------------------------------------------------------------

@@ -12,8 +12,6 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -153,7 +151,7 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 //		    GnuCashJobInvoice invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 				GnuCashGenerJob job = invcSpec.getGenerJob();
 				if ( job.getID().equals(this.getID()) ) {
-					retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
+					retval.add(invcSpec.getAmountWithoutTaxes());
 				}
 //		} // if invc type
 			} // for
@@ -186,7 +184,7 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 //              GnuCashJobInvoice invcSpec = new GnuCashJobInvoiceImpl(invcGen); 
 				GnuCashGenerJob job = invcSpec.getGenerJob();
 				if ( job.getID().equals(this.getID()) ) {
-					retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
+					retval.add(invcSpec.getAmountUnpaidWithTaxes());
 				}
 //            } // if invc type
 			} // for

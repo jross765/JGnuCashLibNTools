@@ -20,8 +20,6 @@ import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -212,7 +210,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 //		      GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
 		GnuCashVendor vend = bllSpec.getVendor();
 		if (vend.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes());
+		    retval.add(bllSpec.getAmountWithoutTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -231,7 +229,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 //		      GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
 		GnuCashVendor vend = bllSpec.getVendor();
 		if (vend.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes());
+		    retval.add(bllSpec.getAmountWithoutTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -289,7 +287,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 //              GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
 		GnuCashVendor vend = bllSpec.getVendor();
 		if (vend.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) bllSpec).getAmountUnpaidWithTaxes());
+		    retval.add(bllSpec.getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -310,7 +308,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
 //              GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
 		GnuCashVendor vend = bllSpec.getVendor();
 		if (vend.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) bllSpec).getAmountUnpaidWithTaxes());
+		    retval.add(bllSpec.getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
 	    } // for

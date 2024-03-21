@@ -57,7 +57,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 	 * @param invc     the job invoice to add this split to
 	 * @param account  the income/expenses-account the money comes from
 	 * @param quantity see ${@link GnuCashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getCustInvcPrice()}}
+	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getJobInvcPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableJobInvoiceEntryImpl(final GnuCashWritableJobInvoiceImpl invc, final GnuCashAccount account,
@@ -122,7 +122,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 //	 * Do not use
 //	 */
 //	@Override
-//    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException {
+//    public void setJobInvcTaxable(final boolean val) throws TaxTableNotFoundException {
 //		throw new WrongInvoiceTypeException();
 //	}
 	
@@ -150,7 +150,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 //	 * Do not use
 //	 */
 //	@Override
-//    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
+//    public void setJobInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 //		throw new WrongInvoiceTypeException();
 //    }
 
@@ -190,7 +190,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 //	 * Do not use
 //	 */
 //    @Override
-//    public void setCustInvcPrice(final String n)
+//    public void setJobInvcPrice(final String n)
 //	    throws TaxTableNotFoundException {
 //		throw new WrongInvoiceTypeException();
 //    }
@@ -255,6 +255,58 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 	@Override
 	public String getPriceFormatted() {
 		return super.getJobInvcPriceFormatted();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return super.isJobInvcTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return super.getJobInvcTaxTable();
+	}
+
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return super.getJobInvcApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return super.getJobInvcApplicableTaxPercentFormatted();
+	}
+
+	@Override
+	public FixedPointNumber getSum() {
+		return super.getJobInvcSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return super.getJobInvcSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return super.getJobInvcSumExclTaxes();
+	}
+
+	@Override
+	public String getSumFormatted() {
+		return super.getJobInvcSumExclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return super.getJobInvcSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return super.getJobInvcSumExclTaxesFormatted();
 	}
 
 	// ---------------------------------------------------------------

@@ -56,7 +56,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * @param bll      the vendor bill to add this split to
 	 * @param account  the expenses-account the money comes from
 	 * @param quantity see ${@link GnuCashGenerInvoiceEntry#getQuantity()}
-	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getCustInvcPrice()}}
+	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getVendBllPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableVendorBillEntryImpl(final GnuCashWritableVendorBillImpl bll, final GnuCashAccount account,
@@ -98,7 +98,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException {
+    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -124,7 +124,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
+    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
@@ -162,7 +162,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
     @Override
-    public void setCustInvcPrice(final String n)
+    public void setVendBllPrice(final String n)
 	    throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
@@ -228,6 +228,58 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 		return super.getVendBllPriceFormatted();
 	}
 	
+	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return super.isVendBllTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return super.getVendBllTaxTable();
+	}
+
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return super.getVendBllApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return super.getVendBllApplicableTaxPercentFormatted();
+	}
+
+	@Override
+	public FixedPointNumber getSum() {
+		return super.getVendBllSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return super.getVendBllSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return super.getVendBllSumExclTaxes();
+	}
+
+	@Override
+	public String getSumFormatted() {
+		return super.getVendBllSumExclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return super.getVendBllSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return super.getVendBllSumExclTaxesFormatted();
+	}
+
 	// ---------------------------------------------------------------
 
 	public String toString() {

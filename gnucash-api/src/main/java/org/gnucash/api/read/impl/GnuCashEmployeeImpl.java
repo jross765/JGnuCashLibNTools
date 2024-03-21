@@ -14,8 +14,6 @@ import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -185,7 +183,7 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 //		      GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
 		GnuCashEmployee empl = vchSpec.getEmployee();
 		if (empl.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountWithoutTaxes());
+		    retval.add(vchSpec.getAmountWithoutTaxes());
 		}
 //            } // if vch type
 	    } // for
@@ -235,7 +233,7 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 //              GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
 		GnuCashEmployee empl = vchSpec.getEmployee();
 		if (empl.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) vchSpec).getAmountUnpaidWithTaxes());
+		    retval.add(vchSpec.getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
 	    } // for

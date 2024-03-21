@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 
 /**
  * A bill that is sent from a vendor so you know what to pay him/her.<br>
@@ -21,7 +22,9 @@ import org.gnucash.api.read.GnuCashVendor;
  * @see GnuCashEmployeeVoucher
  * @see GnuCashGenerInvoice
  */
-public interface GnuCashVendorBill extends GnuCashGenerInvoice {
+public interface GnuCashVendorBill extends GnuCashGenerInvoice,
+										   SpecInvoiceCommon
+{
 
     /**
      * @return ID of vendor this invoice has been sent from 

@@ -20,8 +20,6 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -244,7 +242,7 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
 //		      GnuCashCustomerInvoice invcSpec = new GnuCashCustomerInvoiceImpl(invcGen); 
 		GnuCashCustomer cust = invcSpec.getCustomer();
 		if (cust.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
+		    retval.add(invcSpec.getAmountWithoutTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -265,7 +263,7 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
 //		      GnuCashCustomerInvoice invcSpec = new GnuCashCustomerInvoiceImpl(invcGen); 
 		GnuCashCustomer cust = invcSpec.getCustomer();
 		if (cust.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountWithoutTaxes());
+		    retval.add(invcSpec.getAmountWithoutTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -321,7 +319,7 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
 //              GnuCashCustomerInvoice invcSpec = new GnuCashCustomerInvoiceImpl(invcGen); 
 		GnuCashCustomer cust = invcSpec.getCustomer();
 		if (cust.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
+		    retval.add(invcSpec.getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
 	    } // for
@@ -342,7 +340,7 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
 //              GnuCashCustomerInvoice invcSpec = new GnuCashCustomerInvoiceImpl(invcGen); 
 		GnuCashCustomer cust = invcSpec.getCustomer();
 		if (cust.getID().equals(this.getID())) {
-		    retval.add(((SpecInvoiceCommon) invcSpec).getAmountUnpaidWithTaxes());
+		    retval.add(invcSpec.getAmountUnpaidWithTaxes());
 		}
 //            } // if invc type
 	    } // for

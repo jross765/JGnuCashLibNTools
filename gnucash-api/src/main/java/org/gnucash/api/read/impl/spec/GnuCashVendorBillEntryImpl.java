@@ -9,7 +9,9 @@ import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
@@ -163,6 +165,64 @@ public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	@Override
 	public String getJobInvcPriceFormatted() {
 		throw new WrongInvoiceTypeException();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public boolean isTaxable() {
+		return isVendBllTaxable();
+	}
+
+	@Override
+	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
+		return getVendBllTaxTable();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public FixedPointNumber getApplicableTaxPercent() {
+		return getVendBllApplicableTaxPercent();
+	}
+
+	@Override
+	public String getApplicableTaxPercentFormatted() {
+		return getVendBllApplicableTaxPercentFormatted();
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public FixedPointNumber getSum() {
+		return getVendBllSum();
+	}
+
+	@Override
+	public FixedPointNumber getSumInclTaxes() {
+		return getVendBllSumInclTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getSumExclTaxes() {
+		return getVendBllSumExclTaxes();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public String getSumFormatted() {
+		return getVendBllSumFormatted();
+	}
+
+	@Override
+	public String getSumInclTaxesFormatted() {
+		return getVendBllSumInclTaxesFormatted();
+	}
+
+	@Override
+	public String getSumExclTaxesFormatted() {
+		return getVendBllSumExclTaxesFormatted();
 	}
 
 	// ---------------------------------------------------------------

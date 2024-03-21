@@ -17,7 +17,6 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
-import org.gnucash.api.read.spec.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -158,7 +157,7 @@ public class TestGnuCashVendorBillImpl {
 		// found with this test)
 		assertEquals(41.40, invcGen.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(41.40, bllSpec.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(41.40, ((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes().doubleValue(),
+		assertEquals(41.40, bllSpec.getAmountWithoutTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 
 		// Note: That the following three return the same result
@@ -168,7 +167,7 @@ public class TestGnuCashVendorBillImpl {
 		// of this bill is *not* 49.27 EUR, but 41.40 EUR (its net amount).
 		assertEquals(41.40, invcGen.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(41.40, bllSpec.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(41.40, ((SpecInvoiceCommon) bllSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(41.40, bllSpec.getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -183,7 +182,7 @@ public class TestGnuCashVendorBillImpl {
 		// found with this test)
 		assertEquals(79.11, invcGen.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(79.11, bllSpec.getVendBllAmountWithoutTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(79.11, ((SpecInvoiceCommon) bllSpec).getAmountWithoutTaxes().doubleValue(),
+		assertEquals(79.11, bllSpec.getAmountWithoutTaxes().doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 
 		// Note: That the following three return the same result
@@ -191,7 +190,7 @@ public class TestGnuCashVendorBillImpl {
 		// found with this test)
 		assertEquals(94.14, invcGen.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(94.14, bllSpec.getVendBllAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(94.14, ((SpecInvoiceCommon) bllSpec).getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(94.14, bllSpec.getAmountWithTaxes().doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -224,7 +223,7 @@ public class TestGnuCashVendorBillImpl {
 		// found with this test)
 		assertEquals(false, invcGen.isVendBllFullyPaid());
 		assertEquals(false, bllSpec.isVendBllFullyPaid());
-		assertEquals(false, ((SpecInvoiceCommon) bllSpec).isFullyPaid());
+		assertEquals(false, bllSpec.isFullyPaid());
 	}
 
 	@Test
@@ -256,11 +255,11 @@ public class TestGnuCashVendorBillImpl {
 		// found with this test)
 		assertEquals(true, invcGen.isVendBllFullyPaid());
 		assertEquals(true, bllSpec.isVendBllFullyPaid());
-		assertEquals(true, ((SpecInvoiceCommon) bllSpec).isFullyPaid());
+		assertEquals(true, bllSpec.isFullyPaid());
 
 		assertEquals(!invcGen.isVendBllFullyPaid(), invcGen.isNotVendBllFullyPaid());
 		assertEquals(!bllSpec.isVendBllFullyPaid(), bllSpec.isNotVendBllFullyPaid());
-		assertEquals(!((SpecInvoiceCommon) bllSpec).isFullyPaid(), ((SpecInvoiceCommon) bllSpec).isNotFullyPaid());
+		assertEquals(!bllSpec.isFullyPaid(), bllSpec.isNotFullyPaid());
 	}
 
 	@Test

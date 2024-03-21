@@ -7,6 +7,7 @@ import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
@@ -26,7 +27,9 @@ import org.gnucash.base.basetypes.simple.GCshID;
  * @see GnuCashCustomer
  * @see GnuCashVendor
  */
-public interface GnuCashJobInvoice extends GnuCashGenerInvoice {
+public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
+										   SpecInvoiceCommon
+{
 
     /**
      * @return ID of customer this invoice/bill has been sent to.

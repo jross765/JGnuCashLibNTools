@@ -1,6 +1,9 @@
-package org.gnucash.api.read.spec;
+package org.gnucash.api.read.spec.hlp;
 
-import org.gnucash.api.read.UnknownAccountTypeException;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.base.numbers.FixedPointNumber;
 
 /**
