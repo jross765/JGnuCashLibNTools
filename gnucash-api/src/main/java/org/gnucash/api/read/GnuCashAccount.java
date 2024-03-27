@@ -192,6 +192,8 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      */
     List<GnuCashTransaction> getTransactions();
 
+    List<GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
+
     // -----------------------------------------------------------------
 
     /**

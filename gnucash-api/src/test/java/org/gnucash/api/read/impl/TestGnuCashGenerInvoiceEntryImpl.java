@@ -59,7 +59,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 			exc.printStackTrace();
 		}
 
-		gcshFileStats = new GCshFileStats(gcshFile);
+		// gcshFileStats = new GCshFileStats(gcshFile);
 	}
 
 	// -----------------------------------------------------------------

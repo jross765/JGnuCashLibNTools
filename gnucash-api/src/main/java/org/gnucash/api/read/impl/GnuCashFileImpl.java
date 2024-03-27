@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -77,7 +80,6 @@ import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -471,6 +473,21 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	public Collection<GnuCashTransactionImpl> getTransactions_readAfresh() {
 		return trxMgr.getTransactions_readAfresh();
+	}
+
+	public Collection<? extends GnuCashTransaction> getTransactions(final LocalDate fromDate, final LocalDate toDate) {
+		ArrayList<GnuCashTransaction> result = new ArrayList<GnuCashTransaction>();
+		
+		for ( GnuCashTransaction trx : getTransactions() ) {
+			 if ( ( trx.getDatePosted().toLocalDate().isEqual( fromDate ) ||
+				    trx.getDatePosted().toLocalDate().isAfter( fromDate ) ) &&
+			      ( trx.getDatePosted().toLocalDate().isEqual( toDate ) ||
+					trx.getDatePosted().toLocalDate().isBefore( toDate ) ) ) {
+				 result.add(trx);
+			 }
+		}
+		
+		return Collections.unmodifiableCollection(result);
 	}
 
 	// ---------------------------------------------------------------

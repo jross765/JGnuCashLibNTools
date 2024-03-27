@@ -16,8 +16,6 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -47,6 +45,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	/*
 	 * The returned list is sorted by the natural order of the Transaction-Splits.
 	 */
+	@Override
 	public List<GnuCashTransaction> getTransactions() {
 		List<GnuCashTransaction> retval = new ArrayList<GnuCashTransaction>();
 
@@ -59,6 +58,25 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return retval;
 	}
 
+	@Override
+	public List<GnuCashTransaction> getTransactions(final LocalDate fromDate, final LocalDate toDate) {
+		List<GnuCashTransaction> retval = new ArrayList<GnuCashTransaction>();
+
+		for ( GnuCashTransaction trx : getTransactions() ) {
+			 if ( ( trx.getDatePosted().toLocalDate().isEqual( fromDate ) ||
+				    trx.getDatePosted().toLocalDate().isAfter( fromDate ) ) &&
+			      ( trx.getDatePosted().toLocalDate().isEqual( toDate ) ||
+					trx.getDatePosted().toLocalDate().isBefore( toDate ) ) ) {
+				 retval.add(trx);
+			 }
+		}
+
+		// retval.sort(Comparator.reverseOrder()); // not necessary 
+		
+		return retval;
+	}
+	
+	@Override
 	public boolean isChildAccountRecursive(final GnuCashAccount account) {
 
 		if ( this == account ) {
@@ -84,6 +102,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	/**
 	 * Get name including the name of the parent accounts.
 	 */
+	@Override
 	public String getQualifiedName() {
 		GnuCashAccount acc = getParentAccount();
 
@@ -100,6 +119,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return acc.getQualifiedName() + SEPARATOR + getName();
 	}
 
+	@Override
 	public GnuCashAccount getParentAccount() {
 		GCshID parentID = getParentAccountID();
 		if ( parentID == null ) {
@@ -254,24 +274,29 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return balance;
 	}
 
+	@Override
 	public String getBalanceFormatted() {
 		return getCurrencyFormat().format(getBalance());
 	}
 
+	@Override
 	public String getBalanceFormatted(final Locale lcl) {
 		NumberFormat cf = NumberFormat.getCurrencyInstance(lcl);
 		cf.setCurrency(getCurrency());
 		return cf.format(getBalance());
 	}
 
+	@Override
 	public FixedPointNumber getBalanceRecursive() {
 		return getBalanceRecursive(LocalDate.now());
 	}
 
+	@Override
 	public FixedPointNumber getBalanceRecursive(final LocalDate date) {
 		return getBalanceRecursive(date, getCmdtyCurrID());
 	}
 
+	@Override
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID cmdtyCurrID) {
 	
 			// BEGIN OLD IMPL
@@ -297,6 +322,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 //		}
 	}
 
+	@Override
 	public FixedPointNumber getBalanceRecursive(final LocalDate date, final Currency curr) {
 
 		FixedPointNumber retval = getBalance(date, curr);
@@ -402,6 +428,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return currencyFormat;
 	}
 
+	@Override
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");

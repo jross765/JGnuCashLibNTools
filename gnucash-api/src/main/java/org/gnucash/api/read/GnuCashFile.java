@@ -1,6 +1,7 @@
 package org.gnucash.api.read;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -199,6 +200,8 @@ public interface GnuCashFile extends GnuCashObject,
      *         the returned collection!
      */
     Collection<? extends GnuCashTransaction> getTransactions();
+
+    Collection<? extends GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
 
     // ---------------------------------------------------------------
 
