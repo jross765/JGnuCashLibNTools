@@ -6,6 +6,7 @@ import org.gnucash.base.numbers.FixedPointNumber;
 public record AcctIDAmountPair(GCshID accountID, FixedPointNumber amount) {
 
 	private final static double UNSET_VALUE = -999999;
+	private final static int    SCALE       = 2;
 	
 	// ---------------------------------------------------------------
 	
@@ -21,6 +22,14 @@ public record AcctIDAmountPair(GCshID accountID, FixedPointNumber amount) {
 
 	public boolean isSet() {
 		return accountID.isSet() && ( amount.doubleValue() != UNSET_VALUE );
+	}
+
+	// ---------------------------------------------------------------
+	
+	@Override
+	public String toString() {
+		return "AcctIDAmountPair [accountID=" + accountID + 
+								  ", amount=" + String.format("%." + SCALE + "f", amount.doubleValue() ) + "]";
 	}
 
 }
