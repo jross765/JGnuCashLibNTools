@@ -1,8 +1,9 @@
 package org.gnucash.api.currency;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
@@ -104,8 +105,8 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
      * @return all currency-names
      */
     @Override
-    public Collection<String> getCurrencies() {
-	return mCmdtyID2Factor.keySet();
+    public List<String> getCurrencies() {
+	return new ArrayList<String>(mCmdtyID2Factor.keySet());
     }
     
     /**

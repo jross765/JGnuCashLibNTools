@@ -1,6 +1,6 @@
 package org.gnucash.api.currency;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.gnucash.base.numbers.FixedPointNumber;
 
@@ -18,7 +18,7 @@ public interface SimplePriceTable {
 
     // ---------------------------------------------------------------
 
-    Collection<String> getCurrencies();
+    List<String> getCurrencies();
 
     void clear();
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -61,10 +62,10 @@ public class TestComplexPriceTable {
 
 		assertEquals(3, complPriceTab.getNameSpaces().size());
 
-		Object[] nameSpaceArr = complPriceTab.getNameSpaces().toArray();
-		assertEquals(GCshCmdtyCurrNameSpace.CURRENCY, (String) nameSpaceArr[0]);
-		assertEquals(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(), (String) nameSpaceArr[1]);
-		assertEquals(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(), (String) nameSpaceArr[2]);
+		List<String> nameSpaceArr = complPriceTab.getNameSpaces();
+		assertEquals(GCshCmdtyCurrNameSpace.CURRENCY, nameSpaceArr.get(0));
+		assertEquals(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(), nameSpaceArr.get(1));
+		assertEquals(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(), nameSpaceArr.get(2));
 	}
 
 	@Test

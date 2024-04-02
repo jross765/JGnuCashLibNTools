@@ -1,9 +1,10 @@
 package org.gnucash.api.currency;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import org.gnucash.base.numbers.FixedPointNumber;
@@ -103,8 +104,8 @@ public class SimpleCurrencyExchRateTable implements SimplePriceTable,
     /**
      * @return all currency-names
      */
-    public Collection<String> getCurrencies() {
-	return mIso4217CurrCodes2Factor.keySet();
+    public List<String> getCurrencies() {
+	return new ArrayList<String>(mIso4217CurrCodes2Factor.keySet());
     }
 
     // ---------------------------------------------------------------

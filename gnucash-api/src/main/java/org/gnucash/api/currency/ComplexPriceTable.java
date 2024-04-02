@@ -2,9 +2,8 @@ package org.gnucash.api.currency;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -254,8 +253,10 @@ public class ComplexPriceTable implements Serializable {
 
     // ---------------------------------------------------------------
     
-    public Collection<String> getNameSpaces() {
-	return namespace2CurrTab.keySet();
+    public List<String> getNameSpaces() {
+    	ArrayList<String> result = new ArrayList<String>(namespace2CurrTab.keySet());
+    	Collections.sort(result);
+    	return result;
     }
 
     /**
@@ -269,10 +270,10 @@ public class ComplexPriceTable implements Serializable {
     /**
      * @param nameSpace
      */
-    public Collection<String> getCurrencies(final String nameSpace) {
+    public List<String> getCurrencies(final String nameSpace) {
 	SimplePriceTable table = getByNamespace(nameSpace);
 	if (table == null) {
-	    return new HashSet<String>();
+	    return new ArrayList<String>();
 	}
 	return table.getCurrencies();
     }
