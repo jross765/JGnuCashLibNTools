@@ -476,7 +476,7 @@ public class GnuCashVendorBillImpl extends GnuCashGenerInvoiceImpl
 	 * Do not use
 	 */
 	@Override
-	public boolean isNotInvcJobFullyPaid() {
+	public boolean isNotJobInvcFullyPaid() {
 		throw new WrongInvoiceTypeException();
 	}
 

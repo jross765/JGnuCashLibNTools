@@ -160,8 +160,8 @@ public class TestGnuCashJobInvoiceImpl {
 		// Note: That the following three return the same result
 		// is *not* trivial (in fact, a serious implementation error was
 		// found with this test)
-		assertEquals(false, invcGen.isCustInvcFullyPaid());
-		assertEquals(false, invcSpec.isCustInvcFullyPaid());
+		assertEquals(false, invcGen.isJobInvcFullyPaid());
+		assertEquals(false, invcSpec.isJobInvcFullyPaid());
 		assertEquals(false, invcSpec.isFullyPaid());
 	}
 

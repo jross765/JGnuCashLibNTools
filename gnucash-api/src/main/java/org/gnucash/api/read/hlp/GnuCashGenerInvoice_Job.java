@@ -70,6 +70,6 @@ public interface GnuCashGenerInvoice_Job {
     /**
      * @return
      */
-    boolean isNotInvcJobFullyPaid();
+    boolean isNotJobInvcFullyPaid();
 
 }

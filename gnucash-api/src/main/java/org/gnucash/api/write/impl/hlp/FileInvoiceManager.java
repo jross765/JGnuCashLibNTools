@@ -105,7 +105,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 						retval.add(wrtblInvc);
 					}
 			} else if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-					if ( wrtblInvc.isNotInvcJobFullyPaid() ) {
+					if ( wrtblInvc.isNotJobInvcFullyPaid() ) {
 						retval.add(wrtblInvc);
 					}
 			}

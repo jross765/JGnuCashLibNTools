@@ -175,7 +175,7 @@ public class FileInvoiceManager {
 						retval.add(invc);
 					}
 			} else if ( invc.getType() == GnuCashGenerInvoice.TYPE_JOB ) {
-					if ( invc.isNotInvcJobFullyPaid() ) {
+					if ( invc.isNotJobInvcFullyPaid() ) {
 						retval.add(invc);
 					}
 			}

@@ -285,160 +285,236 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 
 	@Override
 	public boolean isNotFullyPaid() {
-		return isNotInvcJobFullyPaid();
+		return isNotJobInvcFullyPaid();
 	}
 
 	// ------------------------------
 
-//  @Override
-//  public FixedPointNumber getInvcAmountUnpaidWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getInvcAmountPaidWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getInvcAmountPaidWithoutTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getInvcAmountWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  @Override
-//  public FixedPointNumber getInvcAmountWithoutTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getInvcAmountUnpaidWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getInvcAmountPaidWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getInvcAmountPaidWithoutTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getInvcAmountWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getInvcAmountWithoutTaxesFormatted()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  // ------------------------------
-//
-//  @Override
-//  public FixedPointNumber getBillAmountUnpaidWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountPaidWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountPaidWithoutTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public FixedPointNumber getBillAmountWithTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  @Override
-//  public FixedPointNumber getBillAmountWithoutTaxes() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountUnpaidWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountPaidWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountPaidWithoutTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountWithTaxesFormatted() 
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public String getBillAmountWithoutTaxesFormatted()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  // ------------------------------
-//
-//  @Override
-//  public boolean isInvcFullyPaid()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public boolean isNotInvcFullyPaid()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//  
-//  // ------------------------------
-//
-//  @Override
-//  public boolean isBillFullyPaid()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
-//
-//  @Override
-//  public boolean isNotBillFullyPaid()
-//  {
-//    throw new WrongInvoiceTypeException();
-//  }
+  @Override
+  public FixedPointNumber getCustInvcAmountUnpaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getCustInvcAmountPaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getCustInvcAmountPaidWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getCustInvcAmountWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  @Override
+  public FixedPointNumber getCustInvcAmountWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getCustInvcAmountUnpaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getCustInvcAmountPaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getCustInvcAmountPaidWithoutTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getCustInvcAmountWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getCustInvcAmountWithoutTaxesFormatted()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public FixedPointNumber getVendBllAmountUnpaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getVendBllAmountPaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getVendBllAmountPaidWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getVendBllAmountWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  @Override
+  public FixedPointNumber getVendBllAmountWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getVendBllAmountUnpaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getVendBllAmountPaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getVendBllAmountPaidWithoutTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getVendBllAmountWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getVendBllAmountWithoutTaxesFormatted()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public FixedPointNumber getEmplVchAmountUnpaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getEmplVchAmountPaidWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getEmplVchAmountPaidWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public FixedPointNumber getEmplVchAmountWithTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  @Override
+  public FixedPointNumber getEmplVchAmountWithoutTaxes() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getEmplVchAmountUnpaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getEmplVchAmountPaidWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getEmplVchAmountPaidWithoutTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getEmplVchAmountWithTaxesFormatted() 
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public String getEmplVchAmountWithoutTaxesFormatted()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public boolean isCustInvcFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public boolean isNotCustInvcFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+  
+  // ------------------------------
+
+  @Override
+  public boolean isVendBllFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public boolean isNotVendBllFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  // ------------------------------
+
+  @Override
+  public boolean isEmplVchFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
+
+  @Override
+  public boolean isNotEmplVchFullyPaid()
+  {
+    throw new WrongInvoiceTypeException();
+  }
 
 	// -----------------------------------------------------------------
 
