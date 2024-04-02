@@ -473,7 +473,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getCustInvcAmountUnpaidWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getCustInvcAmountUnpaidWithTaxes());
+		return getCustInvcAmountUnpaidWithTaxesFormatted_int();
+	}
+	
+	private String getCustInvcAmountUnpaidWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getCustInvcAmountUnpaidWithTaxes_int());
 	}
 
 	/**
@@ -481,7 +485,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getCustInvcAmountPaidWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getCustInvcAmountPaidWithTaxes());
+		return getCustInvcAmountPaidWithTaxesFormatted_int();
+	}
+	
+	private String getCustInvcAmountPaidWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getCustInvcAmountPaidWithTaxes_int());
 	}
 
 	/**
@@ -489,7 +497,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getCustInvcAmountPaidWithoutTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getCustInvcAmountPaidWithoutTaxes());
+		return getCustInvcAmountPaidWithoutTaxesFormatted_int();
+	}
+	
+	private String getCustInvcAmountPaidWithoutTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getCustInvcAmountPaidWithoutTaxes_int());
 	}
 
 	/**
@@ -497,7 +509,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getCustInvcAmountWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getCustInvcAmountWithTaxes());
+		return getCustInvcAmountWithTaxesFormatted_int();
+	}
+	
+	private String getCustInvcAmountWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getCustInvcAmountWithTaxes_int());
 	}
 
 	/**
@@ -505,7 +521,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getCustInvcAmountWithoutTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getCustInvcAmountWithoutTaxes());
+		return getCustInvcAmountWithoutTaxesFormatted_int();
+	}
+	
+	private String getCustInvcAmountWithoutTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getCustInvcAmountWithoutTaxes_int());
 	}
 
 	// -----------------------------------------------------------------
@@ -524,7 +544,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		// + "getBillAmountUnpaid()="+getBillAmountWithoutTaxes()+"
 		// getBillAmountPaidWithTaxes()="+getAmountPaidWithTaxes() );
 
-		return ((FixedPointNumber) getVendBllAmountWithTaxes().clone()).subtract(getVendBllAmountPaidWithTaxes());
+		return ((FixedPointNumber) getVendBllAmountWithTaxes_int().clone()).subtract(getVendBllAmountPaidWithTaxes_int());
 	}
 
 	/**
@@ -623,7 +643,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getVendBllAmountUnpaidWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getVendBllAmountUnpaidWithTaxes());
+		return getVendBllAmountUnpaidWithTaxesFormatted_int();
+	}
+	
+	private String getVendBllAmountUnpaidWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getVendBllAmountUnpaidWithTaxes_int());
 	}
 
 	/**
@@ -631,7 +655,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getVendBllAmountPaidWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getVendBllAmountPaidWithTaxes());
+		return getVendBllAmountPaidWithTaxesFormatted_int();
+	}
+	
+	private String getVendBllAmountPaidWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getVendBllAmountPaidWithTaxes_int());
 	}
 
 	/**
@@ -639,7 +667,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getVendBllAmountPaidWithoutTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getVendBllAmountPaidWithoutTaxes());
+		return getVendBllAmountPaidWithoutTaxesFormatted_int();
+	}
+	
+	private String getVendBllAmountPaidWithoutTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getVendBllAmountPaidWithoutTaxes_int());
 	}
 
 	/**
@@ -647,7 +679,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getVendBllAmountWithTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getVendBllAmountWithTaxes());
+		return getVendBllAmountWithTaxesFormatted_int();
+	}
+	
+	private String getVendBllAmountWithTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getVendBllAmountWithTaxes_int());
 	}
 
 	/**
@@ -655,7 +691,11 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public String getVendBllAmountWithoutTaxesFormatted() {
-		return this.getCurrencyFormat().format(this.getVendBllAmountWithoutTaxes());
+		return getVendBllAmountWithoutTaxesFormatted_int();
+	}
+	
+	private String getVendBllAmountWithoutTaxesFormatted_int() {
+		return this.getCurrencyFormat().format(this.getVendBllAmountWithoutTaxes_int());
 	}
 
 	// -----------------------------------------------------------------
