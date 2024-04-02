@@ -1045,10 +1045,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public GCshTaxedSumImpl[] getEmplVchTaxes() {
-		return getEmplVchTaxes_int();
-	}
-	
-	private GCshTaxedSumImpl[] getEmplVchTaxes_int() {
 
 		if ( getType() != TYPE_EMPLOYEE && 
 			 getType() != TYPE_JOB )
@@ -1093,7 +1089,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		else if ( jobInvc.getJobType() == GCshOwner.Type.VENDOR )
 			return getVendBllTaxes_int();
 		else if ( jobInvc.getJobType() == GCshOwner.Type.EMPLOYEE )
-			return getEmplVchTaxes_int();
+			return getEmplVchTaxes();
 
 		return null; // Compiler happy
 	}

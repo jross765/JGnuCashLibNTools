@@ -789,6 +789,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcPriceFormatted() {
+    	return getCustInvcPriceFormatted_int();
+    }
+    
+    private String getCustInvcPriceFormatted_int() {
     	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcPrice_int());
     }
 
@@ -797,6 +801,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllPriceFormatted() {
+    	return getVendBllPriceFormatted_int();
+    }
+    
+    private String getVendBllPriceFormatted_int() {
     	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllPrice_int());
     }
 
@@ -958,7 +966,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcSumFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSum());
+    	return getCustInvcSumFormatted_int();
+    }
+    
+    private String getCustInvcSumFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSum_int());
     }
 
     /**
@@ -966,7 +978,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcSumInclTaxesFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSumInclTaxes());
+    	return getCustInvcSumInclTaxesFormatted_int();
+    }
+    
+    private String getCustInvcSumInclTaxesFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSumInclTaxes_int());
     }
 
     /**
@@ -974,7 +990,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcSumExclTaxesFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSumExclTaxes());
+    	return getCustInvcSumExclTaxesFormatted_int();
+    }
+    
+    public String getCustInvcSumExclTaxesFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcSumExclTaxes_int());
     }
 
     // ----------------------------
@@ -1035,7 +1055,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllSumFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSum());
+    	return getVendBllSumFormatted_int();
+    }
+    
+    private String getVendBllSumFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSum_int());
     }
 
     /**
@@ -1043,7 +1067,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllSumInclTaxesFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSumInclTaxes());
+    	return getVendBllSumInclTaxesFormatted_int();
+    }
+    
+    private String getVendBllSumInclTaxesFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSumInclTaxes_int());
     }
 
     /**
@@ -1051,7 +1079,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllSumExclTaxesFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSumExclTaxes());
+    	return getVendBllSumExclTaxesFormatted_int();
+    }
+    
+    private String getVendBllSumExclTaxesFormatted_int() {
+		return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllSumExclTaxes_int());
     }
 
     // ----------------------------
