@@ -111,8 +111,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
@@ -280,6 +278,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void writeFile(final File file) throws IOException {
+		writeFile(file, CompressMode.GUESS_FROM_FILENAME);
+	}
+
+	@Override
+	public void writeFile(final File file, CompressMode compMode) throws IOException {
 
 		if ( file == null ) {
 			throw new IllegalArgumentException("null not allowed for field this file");
@@ -296,8 +299,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		OutputStream out = new FileOutputStream(file);
 		out = new BufferedOutputStream(out);
-		if ( file.getName().endsWith(".gz") ) {
+		if ( compMode == CompressMode.COMPRESS ) {
 			out = new GZIPOutputStream(out);
+		} else if ( compMode == CompressMode.GUESS_FROM_FILENAME ) {
+			if ( file.getName().endsWith(".gz") ) {
+				out = new GZIPOutputStream(out);
+			}
 		}
 
 		Writer writer = new NamespaceAdderWriter(new OutputStreamWriter(out, CODEPAGE));

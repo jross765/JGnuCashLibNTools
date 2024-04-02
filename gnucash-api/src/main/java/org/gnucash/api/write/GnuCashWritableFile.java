@@ -46,7 +46,15 @@ public interface GnuCashWritableFile extends GnuCashFile,
                                              GnuCashWritableObject,
                                              HasWritableUserDefinedAttributes
 {
-    /**
+	public enum CompressMode {
+		COMPRESS,
+		DO_NOT_COMPRESS,
+		GUESS_FROM_FILENAME
+	}
+	
+	// ---------------------------------------------------------------
+
+	/**
      * @param pB true if this file has been modified.
      * @see {@link #isModified()}
      */
@@ -65,6 +73,8 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @throws IOException kn io-poblems
      */
     void writeFile(File file) throws IOException;
+
+    void writeFile(File file, CompressMode compMode) throws IOException;
 
     /**
      * The value is guaranteed not to be bigger then the maximum of the current
