@@ -115,21 +115,33 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 
 	// ---------------------------------------------------------------
 
-//	/**
-//	 * Do not use
-//	 */
-//	@Override
-//	public FixedPointNumber getCustInvcPrice() {
-//		throw new WrongInvoiceTypeException();
-//	}
-//
-//	/**
-//	 * Do not use
-//	 */
-//	@Override
-//	public String getCustInvcPriceFormatted() {
-//		throw new WrongInvoiceTypeException();
-//	}
+	@Override
+	public FixedPointNumber getCustInvcPrice() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public String getCustInvcPriceFormatted() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	// ------------------------------
+
+	/**
+	 * Do not use
+	 */
+	@Override
+	public FixedPointNumber getVendBllPrice() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	/**
+	 * Do not use
+	 */
+	@Override
+	public String getVendBllPriceFormatted() {
+		throw new WrongInvoiceTypeException();
+	}
 
 	// ------------------------------
 
@@ -149,24 +161,6 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 		throw new WrongInvoiceTypeException();
 	}
 
-	// ------------------------------
-
-//	/**
-//	 * Do not use
-//	 */
-//	@Override
-//	public FixedPointNumber getVendBllPrice() {
-//		throw new WrongInvoiceTypeException();
-//	}
-//
-//	/**
-//	 * Do not use
-//	 */
-//	@Override
-//	public String getVendBllPriceFormatted() {
-//		throw new WrongInvoiceTypeException();
-//	}
-
 	// ---------------------------------------------------------------
 	
 	@Override
@@ -177,6 +171,42 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	@Override
 	public GCshTaxTable getTaxTable() throws TaxTableNotFoundException {
 		return getJobInvcTaxTable();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public boolean isCustInvcTaxable() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public GCshTaxTable getCustInvcTaxTable() throws TaxTableNotFoundException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public boolean isVendBllTaxable() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public GCshTaxTable getVendBllTaxTable() throws TaxTableNotFoundException {
+		throw new WrongInvoiceTypeException();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public boolean isEmplVchTaxable() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public GCshTaxTable getEmplVchTaxTable() throws TaxTableNotFoundException {
+		throw new WrongInvoiceTypeException();
 	}
 
 	// ----------------------------
@@ -211,6 +241,23 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	// ----------------------------
 	
 	@Override
+	public FixedPointNumber getCustInvcSum() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public FixedPointNumber getVendBllSumInclTaxes() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public FixedPointNumber getEmplVchSumExclTaxes() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	// ----------------------------
+	
+	@Override
 	public String getSumFormatted() {
 		return getJobInvcSumFormatted();
 	}
@@ -223,6 +270,23 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	@Override
 	public String getSumExclTaxesFormatted() {
 		return getJobInvcSumExclTaxesFormatted();
+	}
+
+	// ----------------------------
+	
+	@Override
+	public String getCustInvcSumFormatted() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public String getVendBllSumInclTaxesFormatted() {
+		throw new WrongInvoiceTypeException();
+	}
+
+	@Override
+	public String getEmplVchSumExclTaxesFormatted() {
+		throw new WrongInvoiceTypeException();
 	}
 
 	// ---------------------------------------------------------------

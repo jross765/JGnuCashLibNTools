@@ -310,6 +310,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public GCshTaxTable getCustInvcTaxTable() throws TaxTableNotFoundException {
+    	return getCustInvcTaxTable_int();
+    }
+    
+    private GCshTaxTable getCustInvcTaxTable_int() throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.CUSTOMER && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -347,6 +351,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public GCshTaxTable getVendBllTaxTable() throws TaxTableNotFoundException {
+    	return getVendBllTaxTable_int();
+    }
+    
+    private GCshTaxTable getVendBllTaxTable_int() throws TaxTableNotFoundException {
 	if ( getType() != GCshOwner.Type.VENDOR && 
 	     getType() != GCshOwner.Type.JOB )
 	    throw new WrongInvoiceTypeException();
@@ -432,12 +440,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getCustInvcApplicableTaxPercent() {
-
+    	return getCustInvcApplicableTaxPercent_int();
+    }
+    
+    private FixedPointNumber getCustInvcApplicableTaxPercent_int() {
 	if ( getType() != GnuCashGenerInvoice.TYPE_CUSTOMER && 
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (!isCustInvcTaxable()) {
+	if (!isCustInvcTaxable_int()) {
 	    return new FixedPointNumber();
 	}
 
@@ -451,7 +462,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GCshTaxTable taxTab = null;
 	try {
-	    taxTab = getCustInvcTaxTable();
+	    taxTab = getCustInvcTaxTable_int();
 	} catch (TaxTableNotFoundException exc) {
 	    LOGGER.error("getCustInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 		    "' is taxable but JWSDP peer has no i-taxtable-entry! " + 
@@ -518,12 +529,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getVendBllApplicableTaxPercent() {
-
+    	return getVendBllApplicableTaxPercent_int();
+    }
+    
+    private FixedPointNumber getVendBllApplicableTaxPercent_int() {
 	if ( getType() != GnuCashGenerInvoice.TYPE_VENDOR && 
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
-	if (!isVendBllTaxable()) {
+	if (!isVendBllTaxable_int()) {
 	    return new FixedPointNumber();
 	}
 
@@ -536,7 +550,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GCshTaxTable taxTab = null;
 	try {
-	    taxTab = getVendBllTaxTable();
+	    taxTab = getVendBllTaxTable_int();
 	} catch (TaxTableNotFoundException exc) {
 	    LOGGER.error("getVendBllApplicableTaxPercent: Vendor bill entry with id '" + getID() +
 		    "' is taxable but JWSDP peer has no b-taxtable-entry! " + 
@@ -577,8 +591,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     @Override
     public FixedPointNumber getEmplVchApplicableTaxPercent() {
 
-	if ( getType() != GnuCashGenerInvoice.TYPE_EMPLOYEE && 
-	     getType() != GnuCashGenerInvoice.TYPE_JOB )
+	if ( getType() != GnuCashGenerInvoice.TYPE_EMPLOYEE )
 	    throw new WrongInvoiceTypeException();
 
 	if (!isEmplVchTaxable()) {
@@ -641,9 +654,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return getCustInvcApplicableTaxPercent();
+	    return getCustInvcApplicableTaxPercent_int();
 	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return getVendBllApplicableTaxPercent();
+	    return getVendBllApplicableTaxPercent_int();
 
 	return null; // Compiler happy
     }
@@ -655,7 +668,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcApplicableTaxPercentFormatted() {
-	FixedPointNumber applTaxPerc = getCustInvcApplicableTaxPercent();
+    	return getCustInvcApplicableTaxPercentFormatted_int();
+    }
+    
+    private String getCustInvcApplicableTaxPercentFormatted_int() {
+	FixedPointNumber applTaxPerc = getCustInvcApplicableTaxPercent_int();
 	if (applTaxPerc == null) {
 	    return this.getPercentFormat().format(0);
 	}
@@ -667,7 +684,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllApplicableTaxPercentFormatted() {
-	FixedPointNumber applTaxPerc = getVendBllApplicableTaxPercent();
+    	return getVendBllApplicableTaxPercentFormatted_int();
+    }
+    
+    private String getVendBllApplicableTaxPercentFormatted_int() {
+	FixedPointNumber applTaxPerc = getVendBllApplicableTaxPercent_int();
 	if (applTaxPerc == null) {
 	    return this.getPercentFormat().format(0);
 	}
@@ -705,11 +726,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getCustInvcPrice() {
-	if ( getType() != GCshOwner.Type.CUSTOMER && 
-	     getType() != GCshOwner.Type.JOB )
-	    throw new WrongInvoiceTypeException();
+    	return getCustInvcPrice_int();
+    }
+    
+    private FixedPointNumber getCustInvcPrice_int() {
+    	if ( getType() != GCshOwner.Type.CUSTOMER && 
+    		 getType() != GCshOwner.Type.JOB )
+    		throw new WrongInvoiceTypeException();
 
-	return new FixedPointNumber(jwsdpPeer.getEntryIPrice());
+    	return new FixedPointNumber(jwsdpPeer.getEntryIPrice());
     }
 
     /**
@@ -717,11 +742,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getVendBllPrice() {
-	if ( getType() != GCshOwner.Type.VENDOR && 
-	     getType() != GCshOwner.Type.JOB )
-	    throw new WrongInvoiceTypeException();
+    	return getVendBllPrice_int();
+    }
+    
+    private FixedPointNumber getVendBllPrice_int() {
+    	if ( getType() != GCshOwner.Type.VENDOR && 
+    		 getType() != GCshOwner.Type.JOB )
+    		throw new WrongInvoiceTypeException();
 
-	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
+    	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
     }
 
     /**
@@ -729,10 +758,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getEmplVchPrice() {
-	if ( getType() != GCshOwner.Type.EMPLOYEE )
-	    throw new WrongInvoiceTypeException();
+    	if ( getType() != GCshOwner.Type.EMPLOYEE )
+    		throw new WrongInvoiceTypeException();
 
-	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
+    	return new FixedPointNumber(jwsdpPeer.getEntryBPrice());
     }
 
     /**
@@ -741,16 +770,16 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getJobInvcPrice() {
-	if ( getType() != GCshOwner.Type.JOB )
-	    throw new WrongInvoiceTypeException();
+    	if ( getType() != GCshOwner.Type.JOB )
+    		throw new WrongInvoiceTypeException();
 
-	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
-	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return getCustInvcPrice();
-	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return getVendBllPrice();
+    	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
+    	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
+    		return getCustInvcPrice_int();
+    	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
+    		return getVendBllPrice_int();
 
-	return null; // Compiler happy
+    	return null; // Compiler happy
     }
 
     // ----------------------------
@@ -760,7 +789,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getCustInvcPriceFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcPrice());
+    	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getCustInvcPrice_int());
     }
 
     /**
@@ -768,7 +797,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getVendBllPriceFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllPrice());
+    	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getVendBllPrice_int());
     }
 
     /**
@@ -776,7 +805,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getEmplVchPriceFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getEmplVchPrice());
+    	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getEmplVchPrice());
     }
 
     /**
@@ -785,13 +814,17 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public String getJobInvcPriceFormatted() {
-	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobInvcPrice());
+    	return ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getCurrencyFormat().format(getJobInvcPrice());
     }
 
     // ---------------------------------------------------------------
     
 	@Override
 	public GCshID getCustInvcAccountID() throws AccountNotFoundException {
+		return getCustInvcAccountID_int();
+	}
+	
+	private GCshID getCustInvcAccountID_int() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.CUSTOMER && 
 			 getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
@@ -817,6 +850,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	@Override
 	public GCshID getVendBllAccountID() throws AccountNotFoundException {
+		return getVendBllAccountID_int();
+	}
+	
+	private GCshID getVendBllAccountID_int() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.VENDOR && 
 			 getType() != GCshOwner.Type.EMPLOYEE && 
 			 getType() != GCshOwner.Type.JOB )
@@ -856,9 +893,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-		    return getCustInvcAccountID();
+		    return getCustInvcAccountID_int();
 		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-		    return getVendBllAccountID();
+		    return getVendBllAccountID_int();
 
 		return null; // Compiler happy
 	}
@@ -870,7 +907,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getCustInvcSum() {
-	return getCustInvcPrice().multiply(getQuantity());
+    	return getCustInvcSum_int();
+    }
+    
+    private FixedPointNumber getCustInvcSum_int() {
+    	return getCustInvcPrice_int().multiply(getQuantity());
     }
 
     /**
@@ -878,11 +919,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getCustInvcSumInclTaxes() {
-	if (jwsdpPeer.getEntryITaxincluded() == 1) {
-	    return getCustInvcSum();
-	}
+    	return getCustInvcSumInclTaxes_int();
+    }
+    
+    private FixedPointNumber getCustInvcSumInclTaxes_int() {
+    	if (jwsdpPeer.getEntryITaxincluded() == 1) {
+    		return getCustInvcSum_int();
+    	}
 
-	return getCustInvcSum().multiply(getCustInvcApplicableTaxPercent().add(1));
+    	return getCustInvcSum_int().multiply(getCustInvcApplicableTaxPercent().add(1));
     }
 
     /**
@@ -890,16 +935,20 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getCustInvcSumExclTaxes() {
+    	return getCustInvcSumExclTaxes_int();
+    }
+    
+    private FixedPointNumber getCustInvcSumExclTaxes_int() {
 
-	// System.err.println("debug: GnuCashInvoiceEntryImpl.getSumExclTaxes():"
-	// taxIncluded="+jwsdpPeer.getEntryITaxincluded()+" getSum()="+getSum()+"
-	// getApplicableTaxPercent()="+getApplicableTaxPercent());
+    	// System.err.println("debug: GnuCashInvoiceEntryImpl.getSumExclTaxes():"
+    	// taxIncluded="+jwsdpPeer.getEntryITaxincluded()+" getSum()="+getSum()+"
+    	// getApplicableTaxPercent()="+getApplicableTaxPercent());
 
-	if (jwsdpPeer.getEntryITaxincluded() == 0) {
-	    return getCustInvcSum();
-	}
+    	if (jwsdpPeer.getEntryITaxincluded() == 0) {
+    		return getCustInvcSum_int();
+    	}
 
-	return getCustInvcSum().divideBy(getCustInvcApplicableTaxPercent().add(1));
+    	return getCustInvcSum_int().divideBy(getCustInvcApplicableTaxPercent().add(1));
     }
 
     // ----------------------------
@@ -935,7 +984,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getVendBllSum() {
-	return getVendBllPrice().multiply(getQuantity());
+    	return getVendBllSum_int();
+    }
+    
+    private FixedPointNumber getVendBllSum_int() {
+    	return getVendBllPrice().multiply(getQuantity());
     }
 
     /**
@@ -943,11 +996,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getVendBllSumInclTaxes() {
-	if (jwsdpPeer.getEntryBTaxincluded() == 1) {
-	    return getVendBllSum();
-	}
+    	return getVendBllSumInclTaxes_int();
+    }
+    
+    private FixedPointNumber getVendBllSumInclTaxes_int() {
+    	if (jwsdpPeer.getEntryBTaxincluded() == 1) {
+    		return getVendBllSum_int();
+    	}
 
-	return getVendBllSum().multiply(getVendBllApplicableTaxPercent().add(1));
+    	return getVendBllSum_int().multiply(getVendBllApplicableTaxPercent().add(1));
     }
 
     /**
@@ -955,16 +1012,20 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public FixedPointNumber getVendBllSumExclTaxes() {
+    	return getVendBllSumExclTaxes_int();
+    }
+    
+    private FixedPointNumber getVendBllSumExclTaxes_int() {
 
-	// System.err.println("debug: GnuCashInvoiceEntryImpl.getSumExclTaxes():"
-	// taxIncluded="+jwsdpPeer.getEntryITaxincluded()+" getSum()="+getSum()+"
-	// getApplicableTaxPercent()="+getApplicableTaxPercent());
+    	// System.err.println("debug: GnuCashInvoiceEntryImpl.getSumExclTaxes():"
+    	// taxIncluded="+jwsdpPeer.getEntryITaxincluded()+" getSum()="+getSum()+"
+    	// getApplicableTaxPercent()="+getApplicableTaxPercent());
 
-	if (jwsdpPeer.getEntryBTaxincluded() == 0) {
-	    return getVendBllSum();
-	}
+    	if (jwsdpPeer.getEntryBTaxincluded() == 0) {
+    		return getVendBllSum_int();
+    	}
 
-	return getVendBllSum().divideBy(getVendBllApplicableTaxPercent().add(1));
+    	return getVendBllSum_int().divideBy(getVendBllApplicableTaxPercent().add(1));
     }
 
     // ----------------------------
@@ -1071,9 +1132,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return getCustInvcSum();
+	    return getCustInvcSum_int();
 	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return getVendBllSum();
+	    return getVendBllSum_int();
 
 	return null; // Compiler happy
     }
@@ -1088,9 +1149,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return getCustInvcSumInclTaxes();
+	    return getCustInvcSumInclTaxes_int();
 	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return getVendBllSumInclTaxes();
+	    return getVendBllSumInclTaxes_int();
 
 	return null; // Compiler happy
     }
@@ -1105,9 +1166,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return getCustInvcSumExclTaxes();
+	    return getCustInvcSumExclTaxes_int();
 	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return getVendBllSumExclTaxes();
+	    return getVendBllSumExclTaxes_int();
 
 	return null; // Compiler happy
     }
@@ -1145,11 +1206,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public boolean isCustInvcTaxable() {
-	if ( getType() != GnuCashGenerInvoice.TYPE_CUSTOMER && 
-	     getType() != GnuCashGenerInvoice.TYPE_JOB )
-	    throw new WrongInvoiceTypeException();
+    	return isCustInvcTaxable_int();
+    }
+    
+    private boolean isCustInvcTaxable_int() {
+    	if ( getType() != GnuCashGenerInvoice.TYPE_CUSTOMER && 
+    		 getType() != GnuCashGenerInvoice.TYPE_JOB )
+    		throw new WrongInvoiceTypeException();
 
-	return (jwsdpPeer.getEntryITaxable() == 1);
+    	return (jwsdpPeer.getEntryITaxable() == 1);
     }
 
     /**
@@ -1157,11 +1222,15 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     @Override
     public boolean isVendBllTaxable() {
-	if ( getType() != GnuCashGenerInvoice.TYPE_VENDOR && 
-	     getType() != GnuCashGenerInvoice.TYPE_JOB )
-	    throw new WrongInvoiceTypeException();
+    	return isVendBllTaxable_int();
+    }
+    
+    private boolean isVendBllTaxable_int() {
+    	if ( getType() != GnuCashGenerInvoice.TYPE_VENDOR && 
+    		 getType() != GnuCashGenerInvoice.TYPE_JOB )
+    		throw new WrongInvoiceTypeException();
 
-	return (jwsdpPeer.getEntryBTaxable() == 1);
+    	return (jwsdpPeer.getEntryBTaxable() == 1);
     }
 
     /**
@@ -1186,9 +1255,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(getGenerInvoice());
 	if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
-	    return isCustInvcTaxable();
+	    return isCustInvcTaxable_int();
 	else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
-	    return isVendBllTaxable();
+	    return isVendBllTaxable_int();
 
 	return false; // Compiler happy
     }

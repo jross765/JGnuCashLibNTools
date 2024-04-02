@@ -518,7 +518,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		return getVendBllAmountUnpaidWithTaxes_int();
 	}
 	
-	public FixedPointNumber getVendBllAmountUnpaidWithTaxes_int() {
+	private FixedPointNumber getVendBllAmountUnpaidWithTaxes_int() {
 
 		// System.err.println("debug: GnuCashInvoiceImpl.getAmountUnpaid(): "
 		// + "getBillAmountUnpaid()="+getBillAmountWithoutTaxes()+"
@@ -603,7 +603,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		return getVendBllAmountWithoutTaxes_int();
 	}
 	
-	public FixedPointNumber getVendBllAmountWithoutTaxes_int() {
+	private FixedPointNumber getVendBllAmountWithoutTaxes_int() {
 
 		FixedPointNumber retval = new FixedPointNumber();
 
