@@ -1,5 +1,7 @@
 package org.gnucash.api.write;
 
+import java.util.List;
+
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
@@ -18,6 +20,10 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
 
     void remove() throws ObjectCascadeException;
     
+    // ------------------------------------------------------------
+    
+    List<GnuCashWritableAccount> getStockWritableAccounts();
+
     // ---------------------------------------------------------------
 
     void setQualifID(GCshCmdtyCurrID qualifId);

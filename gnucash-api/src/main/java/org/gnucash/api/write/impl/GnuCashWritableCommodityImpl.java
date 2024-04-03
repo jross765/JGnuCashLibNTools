@@ -1,18 +1,23 @@
 package org.gnucash.api.write.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashCommodityImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
+import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableCommodity;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -116,6 +121,20 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
         
 	return jwsdpCmdty;
     }
+
+    // ---------------------------------------------------------------
+
+	@Override
+	public List<GnuCashWritableAccount> getStockWritableAccounts() {
+		List<GnuCashWritableAccount> result = new ArrayList<GnuCashWritableAccount>();
+		
+		for ( GnuCashAccount acct : getStockAccounts() ) {
+			GnuCashWritableAccountImpl newAcct = new GnuCashWritableAccountImpl((GnuCashAccountImpl) acct, true);
+			result.add(newAcct);
+		}
+		
+		return result;
+	}
 
     // ---------------------------------------------------------------
 

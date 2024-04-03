@@ -47,6 +47,10 @@ public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
     Integer getFraction();
 
     // ------------------------------------------------------------
+    
+    List<GnuCashAccount> getStockAccounts();
+
+    // ------------------------------------------------------------
 
     List<GnuCashPrice> getQuotes();
     

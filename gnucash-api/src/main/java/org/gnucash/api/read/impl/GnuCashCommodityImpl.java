@@ -6,12 +6,14 @@ import java.util.Collection;
 import java.util.List;
 
 import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,6 +115,22 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 	
 	return jwsdpPeer.getCmdtyFraction();
     }
+
+    // ---------------------------------------------------------------
+
+	@Override
+	public List<GnuCashAccount> getStockAccounts() {
+		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
+		
+		for ( GnuCashAccount acct : getGnuCashFile().getAccountsByType(GnuCashAccount.Type.STOCK) ) {
+			GCshCmdtyCurrID cmdtyCurrID = acct.getCmdtyCurrID();
+			if ( this.getQualifID().equals(cmdtyCurrID) ) {
+				result.add(acct);
+			}
+		}
+		
+		return result;
+	}
 
     // -----------------------------------------------------------------
 
