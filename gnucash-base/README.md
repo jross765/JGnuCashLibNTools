@@ -8,7 +8,7 @@ This might seem overly complicated, but in fact, it was necessary, because the a
 ### V. 1.4 &rarr; 1.5
 * `FixedPointNumber`: Ironed out some inconsistencies: Some methods would change the (value of the) object itself, some others would not and instead generate a new one. Now, every calc-operation changes the (value of the) object itself. 
 
-  This admittedly leads to less-than-beautiful code in the other modules, because you now have to use the method `clone()` a lot of times, plus explicit casting, but we had to do that here and there before the changes anyway, and at least it's consistent now.
+  This admittedly leads to less-than-beautiful code in the other modules, because you now have to use the method `copy()` a lot of times, but we had to do that here and there before the changes anyway, and at least it's consistent now.
 
 * Better test coverage: Now, I feel much better about it.
 
