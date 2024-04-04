@@ -72,7 +72,7 @@ public class SimpleCurrencyExchRateTable implements SimplePriceTable,
         if (factor == null) {
             return false;
         }
-        value.divideBy(factor);
+        value.divide(factor);
         return true;
     }
 

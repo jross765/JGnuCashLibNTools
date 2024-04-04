@@ -125,7 +125,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     // ---------------------------------------------------------------
 
 	@Override
-	public List<GnuCashWritableAccount> getStockWritableAccounts() {
+	public List<GnuCashWritableAccount> getWritableStockAccounts() {
 		List<GnuCashWritableAccount> result = new ArrayList<GnuCashWritableAccount>();
 		
 		for ( GnuCashAccount acct : getStockAccounts() ) {

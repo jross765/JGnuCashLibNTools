@@ -22,7 +22,7 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
     
     // ------------------------------------------------------------
     
-    List<GnuCashWritableAccount> getStockWritableAccounts();
+    List<GnuCashWritableAccount> getWritableStockAccounts();
 
     // ---------------------------------------------------------------
 

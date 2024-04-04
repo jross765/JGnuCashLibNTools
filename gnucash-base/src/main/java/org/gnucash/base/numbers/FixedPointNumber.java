@@ -12,6 +12,8 @@ import java.math.RoundingMode;
 public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 
 	private static final long serialVersionUID = -881174269202431057L;
+	
+	private static final char DIV_SYMB = '/';
 
 	// ---------------------------------------------------------------
 
@@ -74,7 +76,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 */
 	public FixedPointNumber(String gcshStr) {
 
-		int dividerIndex = gcshStr.indexOf('/');
+		int dividerIndex = gcshStr.indexOf(DIV_SYMB);
 		if ( dividerIndex == -1 ) {
 
 			int commaIndex = gcshStr.indexOf(',');
@@ -170,6 +172,20 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	// ---------------------------------------------------------------
 
 	/**
+	 * @return the value as a BigDecimal.
+	 */
+	@Override
+	public BigDecimal getBigDecimal() {
+		return value;
+	}
+
+	/*
+	 * public double doubleValue() { return value.doubleValue(); } public float
+	 * floatValue() { return value.floatValue(); } public int intValue() { return
+	 * value.intValue(); } public long longValue() { return value.longValue(); }
+	 */
+	
+	/**
 	 * Our FixedPointNumber.java.
 	 * 
 	 * @see {@link BigDecimal}
@@ -190,50 +206,23 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 		return fp2;
 	}
 
+	// ---------------------------------------------------------------
+
 	/**
 	 * @return a new FixedPointNumber that has the value of this one times -1.
 	 */
 	@Override
 	public FixedPointNumber negate() {
-		return new FixedPointNumber(value.negate());
+		value = value.negate();
+		return this;
 	}
 
-	/*
-	 * public double doubleValue() { return value.doubleValue(); } public float
-	 * floatValue() { return value.floatValue(); } public int intValue() { return
-	 * value.intValue(); } public long longValue() { return value.longValue(); }
-	 */
-
-	/**
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(final Object o) {
-		if ( o instanceof FixedPointNumber ) {
-			FixedPointNumber n = (FixedPointNumber) o;
-			return equals(n.getBigDecimal());
-		}
-
-		if ( o instanceof BigDecimal ) {
-			/*
-			 * //vvvvv fix for an issue with BigDecimal.compareTo // "-0.0" compared to
-			 * "0.0" is NOT 0 if (this.value.abs().compareTo(MINUSZERO) == 0) this.value =
-			 * MINUSZERO;
-			 * 
-			 */
-			BigDecimal otherBigDecimal = (BigDecimal) o;/*
-														 * if (otherBigDecimal.abs().compareTo(MINUSZERO) == 0)
-														 * otherBigDecimal = MINUSZERO; //^^^^^^^^
-														 */
-			return (otherBigDecimal).compareTo(value) == 0;
-		}
-
-		if ( o instanceof Number ) {
-			return ((Number) o).doubleValue() == doubleValue();
-		}
-
-		return false;
+	public FixedPointNumber reciprocal() {
+		value = BigDecimal.ONE.divide(value, value.scale(), RoundingMode.HALF_UP);
+		return this;
 	}
+
+	// ---------------------------------------------------------------
 
 	/**
 	 * @return true if we are &gt;= 0
@@ -242,61 +231,128 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 		return value.signum() != -1;
 	}
 
-	public static FixedPointNumber max(final FixedPointNumber a, final FixedPointNumber b) {
-		if ( a.getBigDecimal().compareTo(b.getBigDecimal()) == -1 ) {
-			return b;
-		}
-		return a;
+	/**
+	 * @return true if we are &lt 0
+	 */
+	public boolean isNegative() {
+		return ! isPositive();
 	}
+
+	// ---------------------------------------------------------------
 
 	public static FixedPointNumber min(final FixedPointNumber a, final FixedPointNumber b) {
 		if ( a.getBigDecimal().compareTo(b.getBigDecimal()) == -1 ) {
 			return a;
+		} else {
+			return b;
 		}
-		return b;
+	}
+	
+	public static FixedPointNumber max(final FixedPointNumber a, final FixedPointNumber b) {
+		if ( a.getBigDecimal().compareTo(b.getBigDecimal()) == -1 ) {
+			return b;
+		} else {
+			return a;
+		}
+	}
+
+	// ---------------------------------------------------------------
+
+	/**
+	 * @param other the value to compare to
+	 * @return true if and only if this &gt; other
+	 */
+	public boolean isGreaterThan(final FixedPointNumber other) {
+		return isGreaterThan(other.getBigDecimal());
 	}
 
 	/**
-	 * @param n the value to subtract from this value
-	 * @return this (we are mutable) for easy operation-chaining
+	 * @param other     the value to compare to
+	 * @param tolerance
+	 * @return as ifGreaterThan, but with given tolerance allowed
 	 */
-	public FixedPointNumber subtract(final int n) {
-		value = value.subtract(new BigDecimal(n));
-		return this;
+	public boolean isGreaterThan(final FixedPointNumber other, double tolerance) {
+		return isGreaterThan(other.getBigDecimal(), tolerance);
 	}
 
 	/**
-	 * @param n the value to subtract from this value
-	 * @return this (we are mutable) for easy operation-chaining
+	 * @param other the value to compare to
+	 * @return true if and only if this &gt; other
 	 */
-	public FixedPointNumber subtract(final FixedPointNumber n) {
-		return subtract(n.getBigDecimal());
+	public boolean isGreaterThan(final BigDecimal other) {
+		return value.compareTo(other) > 0.0;
 	}
 
 	/**
-	 * @param n the value to subtract from this value
-	 * @return this (we are mutable) for easy operation-chaining
+	 * @param other     the value to compare to
+	 * @param tolerance
+	 * @return as ifGreaterThan, but with given tolerance allowed
 	 */
-	public FixedPointNumber subtract(final String n) {
-		return subtract(new FixedPointNumber(n));
+	public boolean isGreaterThan(final BigDecimal other, double tolerance) {
+		if ( tolerance <= 0.0 )
+			throw new IllegalArgumentException("Tolerance must be > 0.0");
+
+		BigDecimal diff = value.subtract(other);
+
+		if ( diff.doubleValue() > tolerance ) {
+			return true;
+		} else {
+			if ( Math.abs(diff.doubleValue()) <= tolerance ) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+	
+	// ----------------------------
+
+	/**
+	 * @param other the value to compare to
+	 * @return true if and only if this&lt;other
+	 */
+	public boolean isLessThan(final FixedPointNumber other) {
+		return isLessThan(other.getBigDecimal());
+	}
+
+	public boolean isLessThan(final FixedPointNumber other, double tolerance) {
+		return isLessThan(other.getBigDecimal(), tolerance);
 	}
 
 	/**
-	 * @param n the value to subtract from this value
-	 * @return this (we are mutable) for easy operation-chaining
+	 * @param other the value to compare to
+	 * @return true if and only if this&lt;other
 	 */
-	@Override
-	public FixedPointNumber subtract(final BigDecimal n) {
-		value = value.subtract(n);
-		return this;
+	public boolean isLessThan(final BigDecimal other) {
+		return value.compareTo(other) < 0.0;
 	}
+
+	public boolean isLessThan(final BigDecimal other, double tolerance) {
+		if ( tolerance <= 0.0 )
+			throw new IllegalArgumentException("Tolerance must be > 0.0");
+
+		BigDecimal diff = value.subtract(other);
+
+		if ( diff.doubleValue() < -tolerance ) {
+			return true;
+		} else {
+			if ( Math.abs(diff.doubleValue()) <= tolerance ) {
+				return false;
+			} else {
+				return true;
+			}
+		}
+	}
+	
+	// ---------------------------------------------------------------
 
 	/**
 	 * @param n the value to add
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	public FixedPointNumber add(final int n) {
-		value = value.add(new BigDecimal(n));
+	@Override
+	public FixedPointNumber add(final BigDecimal n) {
+		value = value.add(n);
 		return this;
 	}
 
@@ -312,36 +368,55 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 * @param n the value to add
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	public FixedPointNumber add(final String n) {
-		return add(new FixedPointNumber(n));
+	public FixedPointNumber add(final int n) {
+		return add(new BigDecimal(n));
 	}
 
 	/**
 	 * @param n the value to add
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
+	public FixedPointNumber add(final String n) {
+		return add(new FixedPointNumber(n));
+	}
+
+	// ----------------------------
+
+	/**
+	 * @param n the value to subtract from this value
+	 * @return this (we are mutable) for easy operation-chaining
+	 */
 	@Override
-	public FixedPointNumber add(final BigDecimal n) {
-		value = value.add(n);
+	public FixedPointNumber subtract(final BigDecimal n) {
+		value = value.subtract(n);
 		return this;
 	}
 
 	/**
-	 * @return the value as a BigDecimal.
+	 * @param n the value to subtract from this value
+	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	@Override
-	public BigDecimal getBigDecimal() {
-		return value;
+	public FixedPointNumber subtract(final FixedPointNumber n) {
+		return subtract(n.getBigDecimal());
 	}
 
 	/**
-	 * @param n the value to multiply this value with (this object will contain the
-	 *          new value)
+	 * @param n the value to subtract from this value
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	public FixedPointNumber multiply(final FixedPointNumber n) {
-		return multiply(n.getBigDecimal());
+	public FixedPointNumber subtract(final int n) {
+		return subtract(new BigDecimal(n));
 	}
+
+	/**
+	 * @param n the value to subtract from this value
+	 * @return this (we are mutable) for easy operation-chaining
+	 */
+	public FixedPointNumber subtract(final String n) {
+		return subtract(new FixedPointNumber(n));
+	}
+
+	// ----------------------------
 
 	/**
 	 * @param n the value to multiply this value with (this object will contain the
@@ -359,35 +434,41 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 *          new value)
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
+	public FixedPointNumber multiply(final FixedPointNumber n) {
+		return multiply(n.getBigDecimal());
+	}
+
+	/**
+	 * @param n the value to multiply this value with (this object will contain the
+	 *          new value)
+	 * @return this (we are mutable) for easy operation-chaining
+	 */
 	public FixedPointNumber multiply(final int n) {
-		value = value.multiply(new BigDecimal(n));
-		return this;
+		return multiply(new BigDecimal(n));
 	}
+
+	public FixedPointNumber multiply(final String n) {
+		return multiply(new FixedPointNumber(n));
+	}
+
+	// ----------------------------
 
 	/**
 	 * @param n the value to divide by
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	public FixedPointNumber divideBy(final FixedPointNumber n) {
-		return divideBy(n.getBigDecimal());
-	}
-
-	/**
-	 * @param n the value to divide by
-	 * @return this (we are mutable) for easy operation-chaining
-	 */
-	public FixedPointNumber divideBy(final BigDecimal n) {
+	public FixedPointNumber divide(final BigDecimal n) {
 		BigDecimal n2 = n;
-
-		value = value.setScale(value.scale() + n.precision()); // make sure we
-		// have enough
-		// digits after
-		// the comma
-
+	
+		// make sure we have enough digits 
+		// after the comma:
+		value = value.setScale(value.scale() + n.precision()); 
+	
 		// workaround for a bug in BigDecimal
 		if ( n.scale() < value.scale() ) {
 			n2 = n.setScale(value.scale());
 		}
+		
 		value = value.divide(n2, RoundingMode.HALF_UP);
 		return this;
 	}
@@ -396,10 +477,23 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 * @param n the value to divide by
 	 * @return this (we are mutable) for easy operation-chaining
 	 */
-	public FixedPointNumber divideBy(final int n) {
-		value = value.divide(new BigDecimal(n), RoundingMode.HALF_UP);
-		return this;
+	public FixedPointNumber divide(final FixedPointNumber n) {
+		return divide(n.getBigDecimal());
 	}
+
+	/**
+	 * @param n the value to divide by
+	 * @return this (we are mutable) for easy operation-chaining
+	 */
+	public FixedPointNumber divide(final int n) {
+		return divide(new BigDecimal(n));
+	}
+
+	public FixedPointNumber divide(final String n) {
+		return divide(new FixedPointNumber(n));
+	}
+
+	// ---------------------------------------------------------------
 
 	/**
 	 * @param input the string to remove the curency-symbol from (if it has one)
@@ -454,89 +548,7 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	 * NumberFormat.getNumberInstance().format(super.doubleValue()); }
 	 */
 
-	/**
-	 * @param other the value to compare to
-	 * @return true if and only if this &gt; other
-	 */
-	public boolean isGreaterThan(final FixedPointNumber other) {
-		return isGreaterThan(other.getBigDecimal());
-	}
-
-	/**
-	 * @param other     the value to compare to
-	 * @param tolerance
-	 * @return as ifGreaterThan, but with given tolerance allowed
-	 */
-	public boolean isGreaterThan(final FixedPointNumber other, double tolerance) {
-		return isGreaterThan(other.getBigDecimal(), tolerance);
-	}
-
-	/**
-	 * @param other the value to compare to
-	 * @return true if and only if this &gt; other
-	 */
-	public boolean isGreaterThan(final BigDecimal other) {
-		return value.compareTo(other) > 0.0;
-	}
-
-	/**
-	 * @param other     the value to compare to
-	 * @param tolerance
-	 * @return as ifGreaterThan, but with given tolerance allowed
-	 */
-	public boolean isGreaterThan(final BigDecimal other, double tolerance) {
-		if ( tolerance <= 0.0 )
-			throw new IllegalArgumentException("Tolerance must be > 0.0");
-
-		BigDecimal diff = value.subtract(other);
-
-		if ( diff.doubleValue() > tolerance ) {
-			return true;
-		} else {
-			if ( Math.abs(diff.doubleValue()) <= tolerance ) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
-
-	/**
-	 * @param other the value to compare to
-	 * @return true if and only if this&lt;other
-	 */
-	public boolean isLessThan(final FixedPointNumber other) {
-		return isLessThan(other.getBigDecimal());
-	}
-
-	public boolean isLessThan(final FixedPointNumber other, double tolerance) {
-		return isLessThan(other.getBigDecimal(), tolerance);
-	}
-
-	/**
-	 * @param other the value to compare to
-	 * @return true if and only if this&lt;other
-	 */
-	public boolean isLessThan(final BigDecimal other) {
-		return value.compareTo(other) < 0.0;
-	}
-
-	public boolean isLessThan(final BigDecimal other, double tolerance) {
-		if ( tolerance <= 0.0 )
-			throw new IllegalArgumentException("Tolerance must be > 0.0");
-
-		BigDecimal diff = value.subtract(other);
-
-		if ( diff.doubleValue() < -tolerance ) {
-			return true;
-		} else {
-			if ( Math.abs(diff.doubleValue()) <= tolerance ) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-	}
+	// ---------------------------------------------------------------
 
 	/**
 	 * @see java.lang.Object#hashCode()
@@ -545,4 +557,38 @@ public class FixedPointNumber extends BigDecimalWrapper implements Cloneable {
 	public int hashCode() {
 		return value.hashCode();
 	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(final Object o) {
+		if ( o instanceof FixedPointNumber ) {
+			FixedPointNumber n = (FixedPointNumber) o;
+			return equals(n.getBigDecimal());
+		}
+
+		if ( o instanceof BigDecimal ) {
+			/*
+			 * //vvvvv fix for an issue with BigDecimal.compareTo // "-0.0" compared to
+			 * "0.0" is NOT 0 if (this.value.abs().compareTo(MINUSZERO) == 0) this.value =
+			 * MINUSZERO;
+			 * 
+			 */
+			BigDecimal otherBigDecimal = (BigDecimal) o;/*
+														 * if (otherBigDecimal.abs().compareTo(MINUSZERO) == 0)
+														 * otherBigDecimal = MINUSZERO; //^^^^^^^^
+														 */
+			return (otherBigDecimal).compareTo(value) == 0;
+		}
+
+		if ( o instanceof Number ) {
+			return ((Number) o).doubleValue() == doubleValue();
+		}
+
+		return false;
+	}
+
+	// ---------------------------------------------------------------
+
 }

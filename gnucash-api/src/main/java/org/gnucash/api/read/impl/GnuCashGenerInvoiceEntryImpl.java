@@ -520,7 +520,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divideBy(new FixedPointNumber("100"));
+	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
 
     }
 
@@ -581,7 +581,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divideBy(new FixedPointNumber("100"));
+	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
 
     }
 
@@ -638,7 +638,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divideBy(new FixedPointNumber("100"));
+	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
 
     }
 
@@ -956,7 +956,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getCustInvcSum_int();
     	}
 
-    	return getCustInvcSum_int().divideBy(getCustInvcApplicableTaxPercent().add(1));
+    	return getCustInvcSum_int().divide(getCustInvcApplicableTaxPercent().add(1));
     }
 
     // ----------------------------
@@ -1045,7 +1045,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getVendBllSum_int();
     	}
 
-    	return getVendBllSum_int().divideBy(getVendBllApplicableTaxPercent().add(1));
+    	return getVendBllSum_int().divide(getVendBllApplicableTaxPercent().add(1));
     }
 
     // ----------------------------
@@ -1122,7 +1122,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	    return getEmplVchSum();
 	}
 
-	return getEmplVchSum().divideBy(getEmplVchApplicableTaxPercent().add(1));
+	return getEmplVchSum().divide(getEmplVchApplicableTaxPercent().add(1));
     }
 
     // ----------------------------

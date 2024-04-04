@@ -1319,8 +1319,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	postTrx.setDescription(descr);
 
 	GnuCashWritableTransactionSplit split1 = postTrx.createWritableSplit(fromAcct);
-	split1.setValue(amount.negate());
-	split1.setQuantity(quantity.negate());
+	split1.setValue(((FixedPointNumber) amount.clone()).negate());
+	split1.setQuantity(((FixedPointNumber) quantity.clone()).negate());
 	if ( invcOwnerType == GCshOwner.Type.CUSTOMER )
 	    split1.setAction(GnuCashTransactionSplit.Action.INVOICE);
 	else if ( invcOwnerType == GCshOwner.Type.VENDOR )
@@ -1848,8 +1848,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// that transfers the money from the tax-account
 
 	boolean isTaxable = entry.isCustInvcTaxable();
-	FixedPointNumber sumExclTaxes = entry.getCustInvcSumExclTaxes().negate();
-	FixedPointNumber sumInclTaxes = entry.getCustInvcSumInclTaxes().negate();
+	FixedPointNumber sumExclTaxes = ((FixedPointNumber) entry.getCustInvcSumExclTaxes().clone()).negate();
+	FixedPointNumber sumInclTaxes = ((FixedPointNumber) entry.getCustInvcSumInclTaxes().clone()).negate();
 	
 	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryIAcct().getValue());
 
@@ -1879,8 +1879,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// that transfer the money from the tax-account
 
 	boolean isTaxable = entry.isVendBllTaxable();
-	FixedPointNumber sumExclTaxes = entry.getVendBllSumExclTaxes().negate();
-	FixedPointNumber sumInclTaxes = entry.getVendBllSumInclTaxes().negate();
+	FixedPointNumber sumExclTaxes = ((FixedPointNumber) entry.getVendBllSumExclTaxes().clone()).negate();
+	FixedPointNumber sumInclTaxes = ((FixedPointNumber) entry.getVendBllSumInclTaxes().clone()).negate();
 	
 	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
 
@@ -1910,8 +1910,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// that transfer the money from the tax-account
 
 	boolean isTaxable = entry.isEmplVchTaxable();
-	FixedPointNumber sumExclTaxes = entry.getEmplVchSumExclTaxes().negate();
-	FixedPointNumber sumInclTaxes = entry.getEmplVchSumInclTaxes().negate();
+	FixedPointNumber sumExclTaxes = ((FixedPointNumber) entry.getEmplVchSumExclTaxes().clone()).negate();
+	FixedPointNumber sumInclTaxes = ((FixedPointNumber) entry.getEmplVchSumInclTaxes().clone()).negate();
 	
 	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
 
@@ -1940,8 +1940,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// that transfers the money from the tax-account
 
 	boolean isTaxable = entry.isJobInvcTaxable();
-	FixedPointNumber sumExclTaxes = entry.getJobInvcSumExclTaxes().negate();
-	FixedPointNumber sumInclTaxes = entry.getJobInvcSumInclTaxes().negate();
+	FixedPointNumber sumExclTaxes = ((FixedPointNumber) entry.getJobInvcSumExclTaxes().clone()).negate();
+	FixedPointNumber sumInclTaxes = ((FixedPointNumber) entry.getJobInvcSumInclTaxes().clone()).negate();
 	
 	GCshID postAcctID = new GCshID();
 	if ( entry.getGenerInvoice().getOwnerType(GnuCashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER )

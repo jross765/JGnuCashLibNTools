@@ -34,12 +34,12 @@ public class TestSecuritiesAccountTransactionManager {
 
 	private static GCshID STOCK_ACCT_ID  = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111");
 	private static GCshID INCOME_ACCT_ID = new GCshID("d7c384bfc136464490965f3f254313b1"); // only for dividend, not for
-																							// buy/sell
+																						   // buy/sell
 	private static List<AcctIDAmountPair> EXPENSES_ACCT_AMT_LIST = new ArrayList<AcctIDAmountPair>(); // only for dividend,
 																									// not for buy/sell
 	private static GCshID OFFSET_ACCT_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c");
 
-	private static FixedPointNumber NOF_STOCKS = new FixedPointNumber(15); // only for buy/sell, not for dividend
+	private static FixedPointNumber NOF_STOCKS = new FixedPointNumber(15);          // only for buy/sell, not for dividend
 	private static FixedPointNumber STOCK_PRC  = new FixedPointNumber("23080/100"); // only for buy/sell, not for dividend
 	private static FixedPointNumber DIV_GROSS  = new FixedPointNumber("11223/100"); // only for dividend, not for buy/sell
 
@@ -199,8 +199,8 @@ public class TestSecuritiesAccountTransactionManager {
 
 		assertEquals(OFFSET_ACCT_ID, splt2.getAccountID());
 		assertEquals(null, splt2.getAction());
-		assertEquals(amtGross.negate().doubleValue(), splt2.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(amtGross.negate().doubleValue(), splt2.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(((FixedPointNumber) amtGross.clone()).negate().doubleValue(), splt2.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(((FixedPointNumber) amtGross.clone()).negate().doubleValue(), splt2.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("", splt2.getDescription());
 
 		assertEquals(STOCK_BUY_EXP_ACCT_1_ID, splt3.getAccountID());
@@ -325,8 +325,8 @@ public class TestSecuritiesAccountTransactionManager {
 
 		assertEquals(INCOME_ACCT_ID, splt3.getAccountID());
 		assertEquals(null, splt3.getAction());
-		assertEquals(DIV_GROSS.negate().doubleValue(), splt3.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(DIV_GROSS.negate().doubleValue(), splt3.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(((FixedPointNumber) DIV_GROSS.clone()).negate().doubleValue(), splt3.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(((FixedPointNumber) DIV_GROSS.clone()).negate().doubleValue(), splt3.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("", splt3.getDescription());
 
 		assertEquals(DIVIDEND_EXP_ACCT_1_ID, splt4.getAccountID());

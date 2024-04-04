@@ -167,7 +167,6 @@ public class TestFixedPointNumber {
     	assertEquals(-0.1, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
 
-
     @Test
     public void test02_2() throws Exception {
     	FixedPointNumber num = new FixedPointNumber(12.1);
@@ -185,16 +184,82 @@ public class TestFixedPointNumber {
     	num.multiply(new FixedPointNumber("2/3"));
     	assertEquals(77.44, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
     	
-    	// ---
-    	// CAUTION: Things work a little differently with divide()
-    	// THIS IS NOT CONSISTENT, IT HAS TO CHANGE!
-
-    	BigDecimal newNum = num.divide(BigDecimal.valueOf(4));
-    	assertEquals(77.44, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
-    	assertEquals(19.36, newNum.doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	num.divide(BigDecimal.valueOf(4));
+    	assertEquals(19.36, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
     	
-    	newNum = num.divide(BigDecimal.TEN);
-    	assertEquals(77.44, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
-    	assertEquals(7.744, newNum.doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	num.divide(BigDecimal.TEN);
+    	assertEquals(1.936, num.doubleValue(), ConstTest.DIFF_TOLERANCE);
     }
+
+    // Compare with an alternative implementation
+    @Test
+    public void test03_1() throws Exception {
+    	FixedPointNumber fp = new FixedPointNumber("3/2");
+    	BigRational br = new BigRational(3, 2);
+    	
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	
+    	// ---
+
+    	fp.add("77/82");
+    	br = br.plus(new BigRational(77, 82));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp.add("783/11");
+    	br = br.plus(new BigRational(783, 11));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	
+    	// ---
+
+    	fp.subtract("812/749");
+    	br = br.minus(new BigRational(812, 749));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp.subtract("387/21");
+    	br = br.minus(new BigRational(387, 21));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	
+    	// ---
+
+    	fp.multiply("12/8");
+    	br = br.times(new BigRational(12, 8));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp.multiply("275/18");
+    	br = br.times(new BigRational(275, 18));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp.multiply("12/8");
+    	br = br.times(new BigRational(12, 8));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	// ---
+
+    	fp.divide("67/33");
+    	br = br.divides(new BigRational(67, 33));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp.divide("59/24");
+    	br = br.divides(new BigRational(59, 24));
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	// ---
+
+    	fp.negate();
+    	br = br.negate();
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+
+    	fp = fp.reciprocal();
+    	br = br.reciprocal();
+    	assertEquals(fp.getBigDecimal().doubleValue(), br.getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    }
+
+//    @Test
+//    public void test03_2() throws Exception {
+//    	FixedPointNumber fp = new FixedPointNumber("3/2");
+//    	BigRational br = new BigRational(3, 2);
+//
+//      // No, does not work like that:
+//    	assertEquals(fp.toGnuCashString(), br.toString());
+//    }
 }
