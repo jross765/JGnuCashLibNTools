@@ -90,8 +90,8 @@ public class GenTrx {
 	trx.setDescription(descr1);
 
 	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct1ID));
-	splt1.setValue(new FixedPointNumber(((FixedPointNumber) amt1.clone()).negate()));
-	splt1.setQuantity(new FixedPointNumber(((FixedPointNumber) qty1.clone()).negate()));
+	splt1.setValue(new FixedPointNumber(amt1.copy().negate()));
+	splt1.setQuantity(new FixedPointNumber(qty1.copy().negate()));
 
 	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct1ID));
 	splt2.setValue(new FixedPointNumber(amt1));
@@ -116,8 +116,8 @@ public class GenTrx {
 	// ---
 
 	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct2ID));
-	splt1.setValue(new FixedPointNumber(((FixedPointNumber) amt21.clone()).negate()));
-	splt1.setQuantity(new FixedPointNumber(((FixedPointNumber) qty21.clone()).negate()));
+	splt1.setValue(new FixedPointNumber(amt21.copy().negate()));
+	splt1.setQuantity(new FixedPointNumber(qty21.copy().negate()));
 	splt1.setDescription("Abrechnung");
 	System.out.println("Split 1 to write: " + splt1.toString());
 

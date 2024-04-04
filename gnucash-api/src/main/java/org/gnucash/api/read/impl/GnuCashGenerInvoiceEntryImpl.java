@@ -520,7 +520,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
+	return val.copy().divide(new FixedPointNumber("100"));
 
     }
 
@@ -581,7 +581,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
+	return val.copy().divide(new FixedPointNumber("100"));
 
     }
 
@@ -638,7 +638,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	FixedPointNumber val = taxTabEntr.getAmount();
 
 	// the file contains, say, 19 for 19%, we need to convert it to 0,19.
-	return ((FixedPointNumber) val.clone()).divide(new FixedPointNumber("100"));
+	return val.copy().divide(new FixedPointNumber("100"));
 
     }
 

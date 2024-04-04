@@ -172,8 +172,8 @@ public class SecuritiesAccountTransactionManager {
 	// ---
 	
 	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(offsetAcct);
-	splt1.setValue(new FixedPointNumber(((FixedPointNumber) amtGross.clone()).negate()));
-	splt1.setQuantity(new FixedPointNumber(((FixedPointNumber) amtGross.clone()).negate()));
+	splt1.setValue(new FixedPointNumber(amtGross.copy().negate()));
+	splt1.setQuantity(new FixedPointNumber(amtGross.copy().negate()));
 	LOGGER.debug("genBuyStockTrx: Split 1 to write: " + splt1.toString());
 
 	// ---
@@ -356,8 +356,8 @@ public class SecuritiesAccountTransactionManager {
     	// ---
 
     	GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(incomeAcct);
-    	splt3.setValue(new FixedPointNumber(((FixedPointNumber) divGross.clone()).negate()));
-    	splt3.setQuantity(new FixedPointNumber(((FixedPointNumber) divGross.clone()).negate()));
+    	splt3.setValue(new FixedPointNumber(divGross.copy().negate()));
+    	splt3.setQuantity(new FixedPointNumber(divGross.copy().negate()));
     	LOGGER.debug("genDivivendTrx: Split 3 to write: " + splt3.toString());
 
     	// ---

@@ -32,7 +32,7 @@ public class GCshTaxedSumImpl {
     public GCshTaxedSumImpl(final FixedPointNumber pTaxpercent, final FixedPointNumber pTaxsum) {
 	super();
 	myTaxpercent = pTaxpercent;
-	taxsum = (FixedPointNumber) pTaxsum.clone();
+	taxsum = pTaxsum.copy();
     }
 
     /**

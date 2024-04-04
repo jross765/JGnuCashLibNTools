@@ -359,7 +359,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		return ((FixedPointNumber) getCustInvcAmountWithTaxes_int().clone()).subtract(getCustInvcAmountPaidWithTaxes_int());
+		return getCustInvcAmountWithTaxes_int().copy().subtract(getCustInvcAmountPaidWithTaxes_int());
 	}
 
 	/**
@@ -544,7 +544,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		// + "getBillAmountUnpaid()="+getBillAmountWithoutTaxes()+"
 		// getBillAmountPaidWithTaxes()="+getAmountPaidWithTaxes() );
 
-		return ((FixedPointNumber) getVendBllAmountWithTaxes_int().clone()).subtract(getVendBllAmountPaidWithTaxes_int());
+		return getVendBllAmountWithTaxes_int().copy().subtract(getVendBllAmountPaidWithTaxes_int());
 	}
 
 	/**
@@ -710,7 +710,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		// + "getVoucherAmountUnpaid()="+getVoucherAmountWithoutTaxes()+"
 		// getVoucherAmountPaidWithTaxes()="+getAmountPaidWithTaxes() );
 
-		return ((FixedPointNumber) getEmplVchAmountWithTaxes().clone()).subtract(getEmplVchAmountPaidWithTaxes());
+		return getEmplVchAmountWithTaxes().copy().subtract(getEmplVchAmountPaidWithTaxes());
 	}
 
 	/**
