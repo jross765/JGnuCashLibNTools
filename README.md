@@ -17,6 +17,8 @@ GnuCash project.
 
 * [Example Programs](https://github.com/jross765/jgnucashlib/tree/master/gnucash-api-examples/README.md)
 
+* [Tools](https://github.com/jross765/jgnucashlib/tree/master/gnucash-tools/README.md)
+
 ## Compatibility
 ### System Compatibility
 Version 1.4 of the library has been tested with 
@@ -39,6 +41,7 @@ with locale de_DE (for details, cf. the API module documentation).
 ### Version Compatibility
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.5     | (WIP) almost?    | Only minor changes             |
 | 1.4     | no               | Some substantial changes       |
 | 1.3     | no               | "Medium" changes in interfaces |
 | 1.2     | no               | Minor changes in interfaces    |
@@ -48,6 +51,11 @@ with locale de_DE (for details, cf. the API module documentation).
 ## Major Changes
 Here, only the top-level changes on module-level are mentioned. For more Details, 
 cf. the README files of the resp. modules (links above).
+
+### V. 1.4 &rarr; 1.5
+* Added module "Tools".
+
+* New external dependency (outside of Maven central): [`SchnorxoLib`](https://github.com/jross765/schnorxolib), a small library that contains some auxiliary stuff that is used both in this and the sister project.
 
 ### V. 1.3 &rarr; 1.4
 Changed project structure:

@@ -1,0 +1,231 @@
+package org.gnucash.tools.xml.get.info;
+
+import java.io.File;
+import java.time.LocalDate;
+
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.NoEntryFoundException;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.gen.simple.GenCmdty;
+
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
+
+public class GetPrcInfo extends CommandLineTool
+{
+  // Logger
+  private static final Logger LOGGER = LoggerFactory.getLogger(GetPrcInfo.class);
+  
+  // private static PropertiesConfiguration cfg = null;
+  private static Options options;
+  
+  private static String     gcshFileName   = null;
+  private static GCshID     prcID         = null;
+  private static LocalDate  date          = null;
+  
+  private static boolean showQuotes = false;
+  
+  private static boolean scriptMode = false; // ::TODO
+
+  public static void main( String[] args )
+  {
+    try
+    {
+      GetPrcInfo tool = new GetPrcInfo ();
+      tool.execute(args);
+    }
+    catch (CouldNotExecuteException exc) 
+    {
+      System.err.println("Execution exception. Aborting.");
+      exc.printStackTrace();
+      System.exit(1);
+    }
+  }
+
+  @Override
+  protected void init() throws Exception
+  {
+    // acctID = UUID.randomUUID();
+
+//    cfg = new PropertiesConfiguration(System.getProperty("config"));
+//    getConfigSettings(cfg);
+
+    // Options
+    // The essential ones
+    Option optFile = OptionBuilder
+      .isRequired()
+      .hasArg()
+      .withArgName("file")
+      .withDescription("GnuCash file")
+      .withLongOpt("GnuCash file")
+      .create("if");
+      
+    Option optID = OptionBuilder
+      .isRequired()
+      .hasArg()
+      .withArgName("UUID")
+      .withDescription("Price-ID")
+      .withLongOpt("price-id")
+      .create("prc");
+    	          
+    // The convenient ones
+    // ::EMPTY
+            
+    options = new Options();
+    options.addOption(optFile);
+    options.addOption(optID);
+  }
+
+  @Override
+  protected void getConfigSettings(PropertiesConfiguration cs) throws Exception
+  {
+    // ::EMPTY
+  }
+  
+  @Override
+  protected void kernel() throws Exception
+  {
+    GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
+    
+    GnuCashPrice prc = null;
+    
+    prc = gcshFile.getPriceByID(prcID);
+    if ( prc == null )
+    {
+      System.err.println("Could not find a cmdtyurity with this ID.");
+      throw new NoEntryFoundException();
+    }
+    
+    // ----------------------------
+
+    try
+    {
+      System.out.println("toString:          " + prc.toString());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("toString:          " + "ERROR");
+    }
+    
+    try
+    {
+      System.out.println("From cmdty/curr:   " + prc.getFromCmdtyCurrQualifID());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("From cmdty/curr:   " + "ERROR");
+    }
+
+    try
+    {
+      System.out.println("To curr:           " + prc.getToCurrencyQualifID());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("To curr:           " + "ERROR");
+    }
+
+    try
+    {
+      System.out.println("Date:              " + prc.getDate());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("Date:              " + "ERROR");
+    }
+
+    try
+    {
+      System.out.println("Value:             " + prc.getValueFormatted());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("Value:             " + "ERROR");
+    }
+
+    try
+    {
+      System.out.println("Type:              " + prc.getType());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("Type:              " + "ERROR");
+    }
+
+    try
+    {
+      System.out.println("Source:            " + prc.getSource());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("Source:            " + "ERROR");
+    }
+  }
+
+  // -----------------------------------------------------------------
+
+  @Override
+  protected void parseCommandLineArgs(String[] args)
+      throws InvalidCommandLineArgsException
+  {
+    CommandLineParser parser = new GnuParser();
+    CommandLine cmdLine = null;
+    try
+    {
+      cmdLine = parser.parse(options, args);
+    }
+    catch (ParseException exc)
+    {
+      System.err.println("Parsing options failed. Reason: " + exc.getMessage());
+    }
+
+    // ---
+
+    // <GnuCash file>
+    try
+    {
+      gcshFileName = cmdLine.getOptionValue("GnuCash file");
+    }
+    catch (Exception exc)
+    {
+      System.err.println("Could not parse <GnuCash file>");
+      throw new InvalidCommandLineArgsException();
+    }
+
+    if (!scriptMode)
+      System.err.println("GnuCash file: '" + gcshFileName + "'");
+
+    // <price-id>
+    try
+    {
+      prcID = new GCshID( cmdLine.getOptionValue("price-id") ); 
+      System.err.println("price-ID: " + prcID);
+    }
+    catch ( Exception exc )
+    {
+      System.err.println("Could not parse <price-id>");
+      throw new InvalidCommandLineArgsException();
+    }
+    
+  }
+
+  @Override
+  protected void printUsage()
+  {
+    HelpFormatter formatter = new HelpFormatter();
+    formatter.printHelp("GetPrcInfo", options);
+  }
+}

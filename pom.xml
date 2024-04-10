@@ -22,6 +22,7 @@
 		<module>gnucash-api</module>
 		<module>gnucash-api-ext</module>
 		<module>gnucash-api-examples</module>
+		<module>gnucash-tools</module>
 
 	</modules>
 
