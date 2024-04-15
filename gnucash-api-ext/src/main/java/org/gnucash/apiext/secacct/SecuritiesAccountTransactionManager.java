@@ -141,13 +141,6 @@ public class SecuritiesAccountTransactionManager {
 	    }
 	}
 
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-		GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
-	    if ( expensesAcct.getType() != GnuCashAccount.Type.EXPENSE ) {
-		throw new IllegalArgumentException("Account with ID " + elt.accountID() + " is not of type " + GnuCashAccount.Type.EXPENSE);
-	    }
-	}
-
 	GnuCashAccount offsetAcct = gcshFile.getAccountByID(offsetAcctID);
 	if ( offsetAcct.getType() != GnuCashAccount.Type.BANK ) {
 	    throw new IllegalArgumentException("Account with ID " + offsetAcctID + " is not of type " + GnuCashAccount.Type.BANK);
@@ -172,15 +165,15 @@ public class SecuritiesAccountTransactionManager {
 	// ---
 	
 	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(offsetAcct);
-	splt1.setValue(new FixedPointNumber(amtGross.copy().negate()));
-	splt1.setQuantity(new FixedPointNumber(amtGross.copy().negate()));
+	splt1.setValue(amtGross.copy().negate());
+	splt1.setQuantity(amtGross.copy().negate());
 	LOGGER.debug("genBuyStockTrx: Split 1 to write: " + splt1.toString());
 
 	// ---
 	
 	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(stockAcct);
-	splt2.setValue(new FixedPointNumber(amtNet));
-	splt2.setQuantity(new FixedPointNumber(nofStocks));
+	splt2.setValue(amtNet);
+	splt2.setQuantity(nofStocks);
 	splt2.setAction(GnuCashTransactionSplit.Action.BUY);
 	LOGGER.debug("genBuyStockTrx: Split 2 to write: " + splt2.toString());
 
@@ -190,8 +183,8 @@ public class SecuritiesAccountTransactionManager {
 	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
 	    GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
 	    GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(expensesAcct);
-	    splt3.setValue(new FixedPointNumber(elt.amount()));
-	    splt3.setQuantity(new FixedPointNumber(elt.amount()));
+	    splt3.setValue(elt.amount());
+	    splt3.setQuantity(elt.amount());
 	    LOGGER.debug("genBuyStockTrx: Split 3." + counter + " to write: " + splt3.toString());
 	    counter++;
 	}
@@ -349,15 +342,15 @@ public class SecuritiesAccountTransactionManager {
     	// ---
 
     	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(offsetAcct);
-    	splt2.setValue(new FixedPointNumber(divNet));
-    	splt2.setQuantity(new FixedPointNumber(divNet));
+    	splt2.setValue(divNet);
+    	splt2.setQuantity(divNet);
     	LOGGER.debug("genDivivendTrx: Split 2 to write: " + splt2.toString());
 
     	// ---
 
     	GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(incomeAcct);
-    	splt3.setValue(new FixedPointNumber(divGross.copy().negate()));
-    	splt3.setQuantity(new FixedPointNumber(divGross.copy().negate()));
+    	splt3.setValue(divGross.copy().negate());
+    	splt3.setQuantity(divGross.copy().negate());
     	LOGGER.debug("genDivivendTrx: Split 3 to write: " + splt3.toString());
 
     	// ---
@@ -366,8 +359,8 @@ public class SecuritiesAccountTransactionManager {
     	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
     	    GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
     	    GnuCashWritableTransactionSplit splt4 = trx.createWritableSplit(expensesAcct);
-    	    splt4.setValue(new FixedPointNumber(elt.amount()));
-    	    splt4.setQuantity(new FixedPointNumber(elt.amount()));
+    	    splt4.setValue(elt.amount());
+    	    splt4.setQuantity(elt.amount());
     	    LOGGER.debug("genDivivendTrx: Split 4." + counter + " to write: " + splt4.toString());
     	    counter++;
     	}
