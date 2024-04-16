@@ -11,7 +11,8 @@ import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Job;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Vend;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Invoice-Entry that can be modified.

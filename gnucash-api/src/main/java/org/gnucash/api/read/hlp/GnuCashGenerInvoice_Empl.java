@@ -1,7 +1,8 @@
 package org.gnucash.api.read.hlp;
 
 import org.gnucash.api.read.impl.aux.GCshTaxedSumImpl;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Empl {
     /**

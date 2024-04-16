@@ -1,7 +1,8 @@
 package org.gnucash.api.write.aux;
 
 import org.gnucash.api.read.aux.GCshBillTermsDays;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GCshWritableBillTermsDays extends GCshBillTermsDays {
 

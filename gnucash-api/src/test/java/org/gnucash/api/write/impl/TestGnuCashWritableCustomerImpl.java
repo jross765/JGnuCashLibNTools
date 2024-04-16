@@ -23,7 +23,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,6 +33,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import junit.framework.JUnit4TestAdapter;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritableCustomerImpl {
 	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;

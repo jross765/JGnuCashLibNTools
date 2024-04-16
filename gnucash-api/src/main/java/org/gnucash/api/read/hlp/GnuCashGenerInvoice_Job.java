@@ -1,6 +1,6 @@
 package org.gnucash.api.read.hlp;
 
-import org.gnucash.base.numbers.FixedPointNumber;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GnuCashGenerInvoice_Job {
     

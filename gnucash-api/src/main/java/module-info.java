@@ -4,6 +4,8 @@ module gnucash.api {
 	requires jakarta.xml.bind;
 	requires java.xml;
 	
+	requires transitive schnorxoborx.schnorxolib;
+	
 	requires transitive gnucash.base;
 	
 	exports org.gnucash.api.currency;

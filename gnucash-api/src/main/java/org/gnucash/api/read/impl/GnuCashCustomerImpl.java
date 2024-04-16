@@ -21,9 +21,10 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GnuCashCustomerImpl extends GnuCashObjectImpl 
                                  implements GnuCashCustomer 

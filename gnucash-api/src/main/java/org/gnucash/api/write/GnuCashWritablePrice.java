@@ -9,7 +9,8 @@ import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Price that can be modified.

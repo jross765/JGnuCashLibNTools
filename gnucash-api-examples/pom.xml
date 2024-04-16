@@ -16,6 +16,7 @@
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<schnorxolib-base-systemPath>/home/xxx/.m2/repository/xyz/schnorxoborx/schnorxolib-base/0.1-SNAPSHOT/schnorxolib-base-0.1-SNAPSHOT.jar</schnorxolib-base-systemPath>
 
 	</properties>
 
@@ -29,6 +30,16 @@
 	</repositories>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>xyz.schnorxoborx</groupId>
+			<artifactId>schnorxolib-base</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${schnorxolib-base-systemPath}</systemPath>
+		</dependency>
+
+		<!-- *********************************************************  -->
 
 		<!-- GnuCash Base -->
 		<dependency>

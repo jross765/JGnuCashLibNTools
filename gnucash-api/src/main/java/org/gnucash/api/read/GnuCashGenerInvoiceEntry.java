@@ -16,7 +16,8 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Entry (line item) of a {@link GnuCashGenerInvoice}

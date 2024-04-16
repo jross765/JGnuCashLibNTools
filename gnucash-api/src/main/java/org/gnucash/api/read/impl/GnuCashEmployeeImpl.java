@@ -15,9 +15,10 @@ import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GnuCashEmployeeImpl extends GnuCashObjectImpl 
                                  implements GnuCashEmployee 

@@ -6,7 +6,8 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Employee voucher entry that can be modified.

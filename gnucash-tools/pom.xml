@@ -16,6 +16,7 @@
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<schnorxolib-base-systemPath>/home/xxx/.m2/repository/xyz/schnorxoborx/schnorxolib-base/0.1-SNAPSHOT/schnorxolib-base-0.1-SNAPSHOT.jar</schnorxolib-base-systemPath>
 
 	</properties>
 
@@ -31,7 +32,7 @@
     	    <id>local-maven-repo</id>
         	<url>${project.build.directory}</url>
     	</repository>
-    	-->
+		-->
     	
 	</repositories>
 
@@ -72,7 +73,7 @@
 			<artifactId>schnorxolib-base</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>system</scope>
-			<systemPath>/home/xxx/.m2/repository/xyz/schnorxoborx/schnorxolib-base/0.1-SNAPSHOT/schnorxolib-base-0.1-SNAPSHOT.jar</systemPath>
+			<systemPath>${schnorxolib-base-systemPath}</systemPath>
 		</dependency>
 
 		<!-- *********************************************************  -->

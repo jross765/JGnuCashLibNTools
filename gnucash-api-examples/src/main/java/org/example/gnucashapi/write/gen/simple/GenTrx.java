@@ -4,12 +4,13 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GenTrx {
     // BEGIN Example data -- adapt to your needs

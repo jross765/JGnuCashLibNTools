@@ -25,7 +25,8 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GenInvc {
     

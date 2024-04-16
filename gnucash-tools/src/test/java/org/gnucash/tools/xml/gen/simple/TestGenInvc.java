@@ -15,10 +15,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.gen.simple.GenInvc;
 import org.gnucash.api.read.AccountNotFoundException;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
@@ -39,12 +35,15 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGenInvc extends CommandLineTool
 {

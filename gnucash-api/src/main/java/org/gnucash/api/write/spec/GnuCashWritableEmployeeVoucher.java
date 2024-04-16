@@ -12,7 +12,8 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Employee voucher that can be modified if {@link #isModifiable()} returns true.

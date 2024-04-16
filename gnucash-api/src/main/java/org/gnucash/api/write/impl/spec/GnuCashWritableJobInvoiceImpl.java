@@ -33,9 +33,10 @@ import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Job invoice that can be modified {@link #isModifiable()} returns true.

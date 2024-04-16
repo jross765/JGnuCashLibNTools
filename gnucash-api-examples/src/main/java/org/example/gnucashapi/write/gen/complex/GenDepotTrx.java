@@ -11,8 +11,9 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager.Type;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.base.tuples.AcctIDAmountPair;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GenDepotTrx {
 	// BEGIN Example data -- adapt to your needs

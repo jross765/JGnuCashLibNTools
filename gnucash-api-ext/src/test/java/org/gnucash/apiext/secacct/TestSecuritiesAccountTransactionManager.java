@@ -21,7 +21,6 @@ import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.ConstTest;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,6 +28,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestSecuritiesAccountTransactionManager {
 

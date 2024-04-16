@@ -6,7 +6,8 @@ import java.util.Locale;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * A single addition or removal of a quantity of an account's accounted-for items 

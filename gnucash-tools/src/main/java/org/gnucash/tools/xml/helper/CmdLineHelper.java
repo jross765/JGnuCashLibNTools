@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.dateutils.DateHelpers;
 import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class CmdLineHelper
 {

@@ -12,7 +12,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * A customer that can issue jobs and receive invoices by us

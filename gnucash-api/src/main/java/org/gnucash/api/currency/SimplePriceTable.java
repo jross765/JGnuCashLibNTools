@@ -2,7 +2,7 @@ package org.gnucash.api.currency;
 
 import java.util.List;
 
-import org.gnucash.base.numbers.FixedPointNumber;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface SimplePriceTable {
 

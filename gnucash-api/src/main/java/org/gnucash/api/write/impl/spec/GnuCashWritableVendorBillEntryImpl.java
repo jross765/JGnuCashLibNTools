@@ -18,9 +18,10 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Vendor bill entry that can be modified.

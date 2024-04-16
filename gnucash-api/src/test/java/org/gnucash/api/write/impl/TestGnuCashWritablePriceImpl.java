@@ -17,7 +17,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashPrice.Type;
@@ -31,6 +30,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritablePriceImpl {
 	private static final GCshID PRC_1_ID = TestGnuCashPriceImpl.PRC_1_ID;

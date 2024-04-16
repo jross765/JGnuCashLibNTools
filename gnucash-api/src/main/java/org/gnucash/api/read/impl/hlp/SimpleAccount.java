@@ -17,9 +17,10 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /*
  * This is a base-class that helps implementing the GnuCashAccount

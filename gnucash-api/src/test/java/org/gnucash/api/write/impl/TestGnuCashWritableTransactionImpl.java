@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
@@ -28,6 +27,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import junit.framework.JUnit4TestAdapter;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritableTransactionImpl {
 	private static final GCshID TRX_1_ID = TestGnuCashTransactionImpl.TRX_1_ID;

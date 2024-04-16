@@ -5,7 +5,8 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Transaction-split that can be modified.<br/>

@@ -1,7 +1,9 @@
 package org.gnucash.api.write.aux;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
+
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 

@@ -5,7 +5,8 @@ import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Customer that can be modified.

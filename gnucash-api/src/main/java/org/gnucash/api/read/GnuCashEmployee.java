@@ -8,7 +8,8 @@ import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * An employee that can hand in expense vouchers and, obviously, receive

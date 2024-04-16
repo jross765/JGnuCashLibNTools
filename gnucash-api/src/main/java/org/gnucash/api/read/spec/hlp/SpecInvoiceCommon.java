@@ -4,7 +4,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Methods common to all specialized variants of invoices (and only those).

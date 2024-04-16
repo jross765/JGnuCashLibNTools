@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class SimpleCommodityQuoteTable implements SimplePriceTable,
                                                  Serializable 

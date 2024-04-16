@@ -2,7 +2,6 @@ package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
@@ -10,6 +9,8 @@ import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTableEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Extension of GCshTaxTableEntryImpl to allow read-write access instead of

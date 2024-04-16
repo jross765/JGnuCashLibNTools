@@ -14,6 +14,16 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.write.GnuCashWritableTransaction;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.tuples.AcctIDAmountPair;
+import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.helper.CmdLineHelper;
+import org.joda.money.BigMoney;
+import org.joda.money.CurrencyUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,20 +31,7 @@ import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.dateutils.DateHelpers;
 import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;
-
-import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.impl.GnuCashAccountImpl;
-import org.gnucash.api.write.GnuCashWritableTransaction;
-import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
-import org.gnucash.base.tuples.AcctIDAmountPair;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.helper.CmdLineHelper;
-import org.joda.money.BigMoney;
-import org.joda.money.CurrencyUnit;
-import org.slf4j.LoggerFactory;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GenDepotTrx extends CommandLineTool
 {

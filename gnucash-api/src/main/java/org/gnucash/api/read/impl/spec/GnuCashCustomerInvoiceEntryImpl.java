@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl.spec;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 
 import javax.security.auth.login.AccountNotFoundException;
 
@@ -19,6 +18,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * 

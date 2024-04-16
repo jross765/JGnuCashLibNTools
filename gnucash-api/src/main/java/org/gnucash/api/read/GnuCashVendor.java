@@ -12,7 +12,8 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * A vendor that can issue jobs and send bills paid by us

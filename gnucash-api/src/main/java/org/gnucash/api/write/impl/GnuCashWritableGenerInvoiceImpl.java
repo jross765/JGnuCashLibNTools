@@ -13,7 +13,6 @@ import org.gnucash.api.Const;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncTransaction;
@@ -75,6 +74,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jakarta.xml.bind.JAXBElement;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Extension of GnuCashGenerInvoiceImpl to allow read-write access instead of

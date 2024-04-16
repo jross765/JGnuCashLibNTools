@@ -3,9 +3,10 @@ package org.gnucash.api.read.impl.aux;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
 

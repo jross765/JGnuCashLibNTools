@@ -30,9 +30,10 @@ import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Customer invoice that can be modified if {@link #isModifiable()} returns true.

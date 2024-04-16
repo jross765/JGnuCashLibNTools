@@ -1,6 +1,6 @@
 package org.gnucash.api.read.impl.aux;
 
-import org.gnucash.base.numbers.FixedPointNumber;
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * This Class represents a sum of the taxes of

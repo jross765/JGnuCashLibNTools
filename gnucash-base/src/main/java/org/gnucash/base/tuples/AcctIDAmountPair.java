@@ -1,7 +1,8 @@
 package org.gnucash.base.tuples;
 
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public record AcctIDAmountPair(GCshID accountID, FixedPointNumber amount) {
 

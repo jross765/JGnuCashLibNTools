@@ -10,7 +10,8 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.numbers.FixedPointNumber;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * A GnuCash account satisfies the "normal" definition of the term in 
