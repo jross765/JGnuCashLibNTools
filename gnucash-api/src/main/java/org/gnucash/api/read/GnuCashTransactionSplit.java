@@ -7,6 +7,7 @@ import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.MappingException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

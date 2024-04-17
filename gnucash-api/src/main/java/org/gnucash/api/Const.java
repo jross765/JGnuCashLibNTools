@@ -3,7 +3,7 @@ package org.gnucash.api;
 import java.lang.reflect.Field;
 import java.util.Locale;
 
-import org.gnucash.api.read.MappingException;
+import xyz.schnorxoborx.base.beanbase.MappingException;
 
 public class Const {
   

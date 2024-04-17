@@ -17,6 +17,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.MappingException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
