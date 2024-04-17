@@ -48,7 +48,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class TestGenInvc extends CommandLineTool
 {
   // Logger
-  private static Logger logger = Logger.getLogger(GenInvc.class);
+  private static Logger logger = Logger.getLogger(TestGenInvc.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;

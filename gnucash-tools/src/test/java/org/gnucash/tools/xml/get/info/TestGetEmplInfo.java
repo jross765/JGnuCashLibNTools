@@ -32,7 +32,7 @@ import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 public class TestGetEmplInfo extends CommandLineTool
 {
   // Logger
-  private static Logger logger = Logger.getLogger(GetEmplInfo.class);
+  private static Logger logger = Logger.getLogger(TestGetEmplInfo.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;

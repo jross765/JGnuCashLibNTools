@@ -42,7 +42,7 @@ import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 public class TestGetGenerInvcInfo extends CommandLineTool
 {
   // Logger
-  private static Logger logger = Logger.getLogger(GetGenerInvcInfo.class);
+  private static Logger logger = Logger.getLogger(TestGetGenerInvcInfo.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;

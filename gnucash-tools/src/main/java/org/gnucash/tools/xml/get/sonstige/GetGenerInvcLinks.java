@@ -25,7 +25,7 @@ import org.gnucash.tools.xml.get.list.GetInvcList;
 public class GetGenerInvcLinks extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GetInvcList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerInvcLinks.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
