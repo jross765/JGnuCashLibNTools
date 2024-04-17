@@ -13,25 +13,23 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.helper.Helper;
-
-import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
-import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerInvoice;
-import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.impl.GnuCashWritableCustomerImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.helper.Helper;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class TestGetCustInfo extends CommandLineTool
 {

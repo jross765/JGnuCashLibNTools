@@ -10,13 +10,14 @@ import java.util.Map;
 import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 
 public class FileVendorManager {
 

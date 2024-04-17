@@ -50,9 +50,7 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
-import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
@@ -118,6 +116,8 @@ import org.slf4j.LoggerFactory;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

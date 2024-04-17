@@ -3,12 +3,12 @@ package org.example.gnucashapi.read;
 import java.io.File;
 import java.util.Collection;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
-import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
 public class GetAcctInfo {
     // BEGIN Example data -- adapt to your needs

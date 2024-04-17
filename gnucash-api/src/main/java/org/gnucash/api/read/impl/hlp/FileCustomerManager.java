@@ -10,13 +10,14 @@ import java.util.Map;
 import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashCustomer;
-import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 
 public class FileCustomerManager {
 

@@ -4,10 +4,11 @@ import java.io.File;
 import java.util.Collection;
 
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshID;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
 public class GetJobInfo {
     // BEGIN Example data -- adapt to your needs

@@ -11,8 +11,6 @@ import java.util.Map;
 import org.gnucash.api.generated.GncCommodity;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashCommodity;
-import org.gnucash.api.read.NoEntryFoundException;
-import org.gnucash.api.read.TooManyEntriesFoundException;
 import org.gnucash.api.read.impl.GnuCashCommodityImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -20,6 +18,9 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 
 public class FileCommodityManager {
 

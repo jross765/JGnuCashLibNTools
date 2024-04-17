@@ -11,7 +11,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.gnucash.api.read.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 // ::TODO
 // import org.gnucash.api.read.VendorNotFoundException;
 import org.gnucash.api.write.GnuCashWritableVendor;

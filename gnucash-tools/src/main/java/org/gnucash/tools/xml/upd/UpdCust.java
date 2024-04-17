@@ -11,19 +11,18 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
-import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.api.read.NoEntryFoundException;
 // ::TODO
 // import org.gnucash.api.read.CustomerNotFoundException;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class UpdCust extends CommandLineTool
 {

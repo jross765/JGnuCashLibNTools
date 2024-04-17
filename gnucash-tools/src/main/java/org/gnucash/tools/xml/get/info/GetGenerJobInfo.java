@@ -12,22 +12,21 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
-import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.helper.Helper;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.NoEntryFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.helper.Helper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class GetGenerJobInfo extends CommandLineTool
 {
