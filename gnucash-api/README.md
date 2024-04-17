@@ -3,6 +3,11 @@
 This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
 
 ## Major Changes 
+### V. 1.4 &rarr; 1.5 (WIP)
+* `GnuCash(Writable)Commodity(Impl)`: New methods `get(Writable)StockAccounts()`, which is a handy short-cut for specific use cases.
+
+* `GnuCash(Writable)File(Impl)`: Implemented empty skeleton methods that had been forgotten and previously just returned null, such as `getAccountsByName()`.
+
 ### V. 1.3 &rarr; 1.4
 * Extracted some basic packages to new module "Base".
 
@@ -173,6 +178,8 @@ It should go without saying, but the following points are of course subject to c
 * Last not least: Provide user documentation.
 
 ## Known Issues
+* Performance: When using the `Writtable`-classes (i.e., generating new objects or changing existing ones), the performance is less-than-overwhelming, especially when working on larger files.
+
 * As mentioned above: As of now, the lib only works well when your GnuCash files are generated on a handful of system locales.
 
 * When generating invoices, you cannot/should not call the `post()`-method immediately after composing the object. The post-method will work, but the amount of the post-transaction will be wrong (thus, the transaction will be useless as it cannot be corrected manually in GnuCash; post-transactions are read-only). Instead, you should first write the results to the output file using the `GnucashWritableFile.writeFile()`-method, then re-load/re-parse the invoice generated before and then use the `post()`-method. Then, the amount will be correct.
