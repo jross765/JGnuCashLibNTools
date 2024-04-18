@@ -104,15 +104,6 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
 	return jwsdpPeer.getEmployeeLanguage();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public String getNotes() {
-	// ::TODO ::CHECK
-	// return jwsdpPeer.getEmployeeNotes();
-	return "NOT IMPLEMENTED YET";
-    }
-
     // ---------------------------------------------------------------
 
     /**

@@ -52,11 +52,6 @@ public interface GnuCashEmployee extends GnuCashObject,
      */
     String getLanguage();
 
-    /**
-     * @return user-defined notes about the employee (may be null)
-     */
-    String getNotes();
-
     // ------------------------------------------------------------
 
     /**
