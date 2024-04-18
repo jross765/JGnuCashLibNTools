@@ -304,15 +304,15 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    throws WrongOwnerTypeException,
 	    IllegalTransactionSplitActionException;
 
-    void removeGenerInvoice(GnuCashWritableGenerInvoice invc);
+    void removeGenerInvoice(GnuCashWritableGenerInvoice invc, boolean withEntries);
 
-    void removeCustomerInvoice(GnuCashWritableCustomerInvoice invc);
+    void removeCustomerInvoice(GnuCashWritableCustomerInvoice invc, boolean withEntries);
 
-    void removeVendorBill(GnuCashWritableVendorBill bll);
+    void removeVendorBill(GnuCashWritableVendorBill bll, boolean withEntries);
 
-    void removeEmployeeVoucher(GnuCashWritableEmployeeVoucher vch);
+    void removeEmployeeVoucher(GnuCashWritableEmployeeVoucher vch, boolean withEntries);
 
-    void removeJobInvoice(GnuCashWritableJobInvoice invc);
+    void removeJobInvoice(GnuCashWritableJobInvoice invc, boolean withEntries);
 
     // ---------------------------------------------------------------
 
