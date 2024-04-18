@@ -93,17 +93,25 @@ import org.gnucash.api.write.impl.hlp.FilePriceManager;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.hlp.NamespaceAdderWriter;
 import org.gnucash.api.write.impl.hlp.WritingContentHandler;
+import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceEntryImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherEntryImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceEntryImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillEntryImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
+import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucherEntry;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
+import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -884,8 +892,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalArgumentException("null receivable account given");
 		}
 
-		GnuCashWritableCustomerInvoice retval = new GnuCashWritableCustomerInvoiceImpl(this, number, cust,
-				(GnuCashAccountImpl) incomeAcct, (GnuCashAccountImpl) receivableAcct, openedDate, postDate, dueDate);
+		GnuCashWritableCustomerInvoice retval = 
+				new GnuCashWritableCustomerInvoiceImpl(this,
+													   number, cust,
+													   (GnuCashAccountImpl) incomeAcct, 
+													   (GnuCashAccountImpl) receivableAcct, 
+													   openedDate, postDate, dueDate);
 
 		super.invcMgr.addGenerInvoice(retval);
 		return retval;
@@ -916,8 +928,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalArgumentException("null receivable account given");
 		}
 
-		GnuCashWritableVendorBill retval = new GnuCashWritableVendorBillImpl(this, number, vend,
-				(GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, openedDate, postDate, dueDate);
+		GnuCashWritableVendorBill retval = 
+				new GnuCashWritableVendorBillImpl(this,
+												  number, vend,
+												  (GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, 
+												  openedDate, postDate, dueDate);
 
 		super.invcMgr.addGenerInvoice(retval);
 		return retval;
@@ -948,8 +963,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalArgumentException("null receivable account given");
 		}
 
-		GnuCashWritableEmployeeVoucher retval = new GnuCashWritableEmployeeVoucherImpl(this, number, empl,
-				(GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, openedDate, postDate, dueDate);
+		GnuCashWritableEmployeeVoucher retval = 
+				new GnuCashWritableEmployeeVoucherImpl(this,
+													   number, empl,
+													   (GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, 
+													   openedDate, postDate, dueDate);
 
 		super.invcMgr.addGenerInvoice(retval);
 		return retval;
@@ -992,7 +1010,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeGenerInvoice(final GnuCashWritableGenerInvoice invc) {
-
 		if ( invc.getPayingTransactions().size() > 0 ) {
 			throw new IllegalArgumentException("cannot remove this invoice! It has payments!");
 		}
@@ -1038,6 +1055,117 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		return retval;
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GnuCashWritableCustomerInvoiceEntry createWritableCustomerInvoiceEntry(
+			final GnuCashWritableCustomerInvoiceImpl invc,
+			final GnuCashAccount account, 
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price) throws TaxTableNotFoundException {
+		if ( invc == null ) {
+			throw new IllegalArgumentException("null customer invoice given");
+		}
+
+		if ( account == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+
+		GnuCashWritableCustomerInvoiceEntry retval = 
+				new GnuCashWritableCustomerInvoiceEntryImpl(invc,
+															account,
+															quantity, price);
+
+		super.invcEntrMgr.addGenerInvcEntry(retval);
+		return retval;
+	}
+
+	@Override
+	public GnuCashWritableVendorBillEntry createWritableVendorBillEntry(
+			final GnuCashWritableVendorBillImpl bll, 
+			final GnuCashAccount account,
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price) throws TaxTableNotFoundException {
+		if ( bll == null ) {
+			throw new IllegalArgumentException("null vendor bill given");
+		}
+
+		if ( account == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+
+		GnuCashWritableVendorBillEntry retval = 
+				new GnuCashWritableVendorBillEntryImpl(bll,
+													   account,
+													   quantity, price);
+
+		super.invcEntrMgr.addGenerInvcEntry(retval);
+		return retval;
+	}
+
+	@Override
+	public GnuCashWritableEmployeeVoucherEntry createWritableEmployeeVoucher(
+			final GnuCashWritableEmployeeVoucherImpl vch,
+			final GnuCashAccount account, 
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price) throws TaxTableNotFoundException {
+		if ( vch == null ) {
+			throw new IllegalArgumentException("null vendor bill given");
+		}
+
+		if ( account == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+
+		GnuCashWritableEmployeeVoucherEntry retval = 
+				new GnuCashWritableEmployeeVoucherEntryImpl(vch,
+															account,
+															quantity, price);
+
+		super.invcEntrMgr.addGenerInvcEntry(retval);
+		return retval;
+	}
+
+	@Override
+	public GnuCashWritableJobInvoiceEntry createWritableJobInvoice(
+			final GnuCashWritableJobInvoiceImpl invc, 
+			final GnuCashAccount account,
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price) throws TaxTableNotFoundException {
+		if ( invc == null ) {
+			throw new IllegalArgumentException("null customer invoice given");
+		}
+
+		if ( account == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+
+		GnuCashWritableJobInvoiceEntry retval = 
+				new GnuCashWritableJobInvoiceEntryImpl(invc,
+													   account,
+													   quantity, price);
+
+		super.invcEntrMgr.addGenerInvcEntry(retval);
+		return retval;
+	}
+
+	@Override
+	public void removeGenerInvoiceEntry(GnuCashWritableGenerInvoiceEntry entr) {
+		if ( entr.getGenerInvoice().getPayingTransactions().size() > 0 ) {
+			throw new IllegalArgumentException("cannot remove this invoice entry! It belongs to an invoice that has payments!");
+		}
+
+		GnuCashTransaction postTransaction = entr.getGenerInvoice().getPostTransaction();
+		if ( postTransaction != null ) {
+			((GnuCashWritableTransaction) postTransaction).remove();
+		}
+
+		super.invcEntrMgr.removeGenerInvcEntry(entr);
+		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceEntryImpl) entr).getJwsdpPeer());
+		this.decrementCountDataFor("gnc:GncEntry");
+		setModified(true);
 	}
 
 	// ---------------------------------------------------------------

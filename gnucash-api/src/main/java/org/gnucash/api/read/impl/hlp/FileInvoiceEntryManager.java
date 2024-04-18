@@ -65,12 +65,12 @@ public class FileInvoiceEntryManager {
 
 	// ---------------------------------------------------------------
 
-	public void addInvcEntry(GnuCashGenerInvoiceEntry entr) {
+	public void addGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
 		invcEntrMap.put(entr.getID(), entr);
 		LOGGER.debug("Added (generic) invoice entry to cache: " + entr.getID());
 	}
 
-	public void removeInvcEntry(GnuCashGenerInvoiceEntry entr) {
+	public void removeGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
 		invcEntrMap.remove(entr.getID());
 		LOGGER.debug("Removed (generic) invoice entry from cache: " + entr.getID());
 	}

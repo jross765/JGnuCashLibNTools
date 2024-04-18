@@ -60,8 +60,11 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getEmplVchPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
-	public GnuCashWritableEmployeeVoucherEntryImpl(final GnuCashWritableEmployeeVoucherImpl vch,
-			final GnuCashAccount account, final FixedPointNumber quantity, final FixedPointNumber price)
+	public GnuCashWritableEmployeeVoucherEntryImpl(
+			final GnuCashWritableEmployeeVoucherImpl vch,
+			final GnuCashAccount account, 
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price)
 			throws TaxTableNotFoundException {
 		super(vch, createEmplVchEntry_int(vch, account, quantity, price));
 

@@ -67,9 +67,15 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
-	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
-			final GnuCashCustomer cust, final GnuCashAccountImpl incomeAcct, final GnuCashAccountImpl receivableAcct,
-			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
+	public GnuCashWritableCustomerInvoiceImpl(
+			final GnuCashWritableFileImpl file, 
+			final String number,
+			final GnuCashCustomer cust, 
+			final GnuCashAccountImpl incomeAcct, 
+			final GnuCashAccountImpl receivableAcct,
+			final LocalDate openedDate, 
+			final LocalDate postDate, 
+			final LocalDate dueDate)
 			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createCustomerInvoice_int(file, number, cust, false, // <-- caution!
 				incomeAcct, receivableAcct, openedDate, postDate, dueDate), file);

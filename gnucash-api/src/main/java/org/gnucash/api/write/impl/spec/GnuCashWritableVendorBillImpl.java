@@ -76,9 +76,15 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
-	public GnuCashWritableVendorBillImpl(final GnuCashWritableFileImpl file, final String number,
-			final GnuCashVendor vend, final GnuCashAccountImpl expensesAcct, final GnuCashAccountImpl payableAcct,
-			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
+	public GnuCashWritableVendorBillImpl(
+			final GnuCashWritableFileImpl file, 
+			final String number,
+			final GnuCashVendor vend, 
+			final GnuCashAccountImpl expensesAcct, 
+			final GnuCashAccountImpl payableAcct,
+			final LocalDate openedDate, 
+			final LocalDate postDate, 
+			final LocalDate dueDate)
 			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createVendorBill_int(file, number, vend, false, // <-- caution!
 				expensesAcct, payableAcct, openedDate, postDate, dueDate), file);

@@ -68,9 +68,15 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
-	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableFileImpl file, final String number,
-			final GnuCashEmployee empl, final GnuCashAccountImpl expensesAcct, final GnuCashAccountImpl payableAcct,
-			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
+	public GnuCashWritableEmployeeVoucherImpl(
+			final GnuCashWritableFileImpl file, 
+			final String number,
+			final GnuCashEmployee empl, 
+			final GnuCashAccountImpl expensesAcct, 
+			final GnuCashAccountImpl payableAcct,
+			final LocalDate openedDate, 
+			final LocalDate postDate, 
+			final LocalDate dueDate)
 			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createEmployeeVoucher_int(file, number, empl, false, // <-- caution!
 				expensesAcct, payableAcct, openedDate, postDate, dueDate), file);

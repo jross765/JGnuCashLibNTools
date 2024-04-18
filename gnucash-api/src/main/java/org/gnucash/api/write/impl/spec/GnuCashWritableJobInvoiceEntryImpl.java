@@ -61,8 +61,11 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getJobInvcPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
-	public GnuCashWritableJobInvoiceEntryImpl(final GnuCashWritableJobInvoiceImpl invc, final GnuCashAccount account,
-			final FixedPointNumber quantity, final FixedPointNumber price)
+	public GnuCashWritableJobInvoiceEntryImpl(
+			final GnuCashWritableJobInvoiceImpl invc, 
+			final GnuCashAccount account,
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price)
 			throws TaxTableNotFoundException {
 		super(invc, createJobInvoiceEntry_int(invc, account, quantity, price));
 

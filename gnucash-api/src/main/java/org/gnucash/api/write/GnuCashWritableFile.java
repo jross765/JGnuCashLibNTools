@@ -14,19 +14,28 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
+import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.api.write.impl.ObjectCascadeException;
+import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
+import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucherEntry;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
+import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
+import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -290,7 +299,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 	    throws WrongOwnerTypeException,
 	    IllegalTransactionSplitActionException;
 
-    void removeGenerInvoice(GnuCashWritableGenerInvoice impl);
+    void removeGenerInvoice(GnuCashWritableGenerInvoice invc);
 
     // ---------------------------------------------------------------
 
@@ -305,17 +314,32 @@ public interface GnuCashWritableFile extends GnuCashFile,
     Collection<GnuCashWritableGenerInvoiceEntry> getWritableGenerInvoiceEntries();
 
     // ----------------------------
-    // ::TODO
 
-//    GnuCashWritableCustomerInvoiceEntry createWritableCustomerInvoiceEntry();
-//
-//    GnuCashWritableVendorBillEntry createWritableVendorBillEntry();
-//
-//    GnuCashWritableEmployeeVoucherEntry createWritableEmployeeVoucher();
-//
-//    GnuCashWritableJobInvoiceEntry createWritableJobInvoice();
-//
-//    void removeGenerInvoiceEntry(GnuCashWritableGenerInvoiceEntry impl);
+    GnuCashWritableCustomerInvoiceEntry createWritableCustomerInvoiceEntry(
+			GnuCashWritableCustomerInvoiceImpl invc,
+			GnuCashAccount account, 
+			FixedPointNumber quantity, 
+			FixedPointNumber price) throws TaxTableNotFoundException;
+
+    GnuCashWritableVendorBillEntry createWritableVendorBillEntry(
+			GnuCashWritableVendorBillImpl bll, 
+			GnuCashAccount account,
+			FixedPointNumber quantity, 
+			FixedPointNumber price) throws TaxTableNotFoundException;
+
+    GnuCashWritableEmployeeVoucherEntry createWritableEmployeeVoucher(
+			GnuCashWritableEmployeeVoucherImpl vch,
+			GnuCashAccount account, 
+			FixedPointNumber quantity, 
+			FixedPointNumber price) throws TaxTableNotFoundException;
+
+    GnuCashWritableJobInvoiceEntry createWritableJobInvoice(
+			GnuCashWritableJobInvoiceImpl invc, 
+			GnuCashAccount account,
+			FixedPointNumber quantity, 
+			FixedPointNumber price) throws TaxTableNotFoundException;
+
+    void removeGenerInvoiceEntry(GnuCashWritableGenerInvoiceEntry entr);
 
     // ---------------------------------------------------------------
 

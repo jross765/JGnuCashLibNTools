@@ -60,8 +60,11 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getCustInvcPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
-	public GnuCashWritableCustomerInvoiceEntryImpl(final GnuCashWritableCustomerInvoiceImpl invc,
-			final GnuCashAccount account, final FixedPointNumber quantity, final FixedPointNumber price)
+	public GnuCashWritableCustomerInvoiceEntryImpl(
+			final GnuCashWritableCustomerInvoiceImpl invc,
+			final GnuCashAccount account, 
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price)
 			throws TaxTableNotFoundException {
 		super(invc, createCustInvoiceEntry_int(invc, account, quantity, price));
 

@@ -60,8 +60,11 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * @param price    see ${@link GnuCashGenerInvoiceEntry#getVendBllPrice()}}
 	 * @throws TaxTableNotFoundException
 	 */
-	public GnuCashWritableVendorBillEntryImpl(final GnuCashWritableVendorBillImpl bll, final GnuCashAccount account,
-			final FixedPointNumber quantity, final FixedPointNumber price)
+	public GnuCashWritableVendorBillEntryImpl(
+			final GnuCashWritableVendorBillImpl bll, 
+			final GnuCashAccount account,
+			final FixedPointNumber quantity, 
+			final FixedPointNumber price)
 			throws TaxTableNotFoundException {
 		super(bll, createVendBillEntry_int(bll, account, quantity, price));
 

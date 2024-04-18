@@ -78,9 +78,15 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
-	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableFileImpl file, final String number,
-			final GnuCashGenerJob job, final GnuCashAccountImpl incExpAcct, final GnuCashAccountImpl recvblPayblAcct,
-			final LocalDate openedDate, final LocalDate postDate, final LocalDate dueDate)
+	public GnuCashWritableJobInvoiceImpl(
+			final GnuCashWritableFileImpl file, 
+			final String number,
+			final GnuCashGenerJob job, 
+			final GnuCashAccountImpl incExpAcct, 
+			final GnuCashAccountImpl recvblPayblAcct,
+			final LocalDate openedDate, 
+			final LocalDate postDate, 
+			final LocalDate dueDate)
 			throws WrongOwnerTypeException, IllegalTransactionSplitActionException {
 		super(createJobInvoice_int(file, number, job, false, // <-- caution!
 				incExpAcct, recvblPayblAcct, openedDate, postDate, dueDate), file);
