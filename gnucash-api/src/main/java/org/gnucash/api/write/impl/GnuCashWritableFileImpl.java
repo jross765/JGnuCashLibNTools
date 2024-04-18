@@ -70,7 +70,11 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
+import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
+import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableCommodity;
@@ -1025,6 +1029,26 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		setModified(true);
 	}
 
+	@Override
+	public void removeCustomerInvoice(GnuCashWritableCustomerInvoice invc) {
+		removeGenerInvoice(invc);
+	}
+
+	@Override
+	public void removeVendorBill(GnuCashWritableVendorBill bll) {
+		removeGenerInvoice(bll);
+	}
+
+	@Override
+	public void removeEmployeeVoucher(GnuCashWritableEmployeeVoucher vch) {
+		removeGenerInvoice(vch);
+	}
+
+	@Override
+	public void removeJobInvoice(GnuCashWritableJobInvoice invc) {
+		removeGenerInvoice(invc);
+	}
+
 	// ---------------------------------------------------------------
 
 	@Override
@@ -1166,6 +1190,26 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceEntryImpl) entr).getJwsdpPeer());
 		this.decrementCountDataFor("gnc:GncEntry");
 		setModified(true);
+	}
+
+	@Override
+	public void removeCustomerInvoiceEntry(GnuCashWritableCustomerInvoiceEntry entr) {
+		removeGenerInvoiceEntry(entr);
+	}
+
+	@Override
+	public void removeVendorBillEntry(GnuCashWritableVendorBillEntry entr) {
+		removeGenerInvoiceEntry(entr);
+	}
+
+	@Override
+	public void removeEmployeeVoucherEntry(GnuCashWritableEmployeeVoucherEntry entr) {
+		removeGenerInvoiceEntry(entr);
+	}
+
+	@Override
+	public void removeJobInvoiceEntry(GnuCashWritableJobInvoiceEntry entr) {
+		removeGenerInvoiceEntry(entr);
 	}
 
 	// ---------------------------------------------------------------
@@ -1437,6 +1481,10 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		if ( job == null ) {
 			throw new IllegalArgumentException("null job given");
 		}
+		
+		if ( job.getInvoices().size() > 1 ) {
+			throw new IllegalStateException("Job cannot be deleted; there are still customer invoices/vendor bills attached to it");
+		}
 
 		super.jobMgr.removeGenerJob(job);
 		getRootElement().getGncBook().getBookElements().remove(job.getJwsdpPeer());
@@ -1445,16 +1493,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	@Override
 	public void removeCustomerJob(final GnuCashWritableCustomerJobImpl job) {
-		super.jobMgr.removeGenerJob(job);
-		getRootElement().getGncBook().getBookElements().remove(job.getJwsdpPeer());
-		setModified(true);
+		removeGenerJob(job);
 	}
 
 	@Override
 	public void removeVendorJob(final GnuCashWritableVendorJobImpl job) {
-		super.jobMgr.removeGenerJob(job);
-		getRootElement().getGncBook().getBookElements().remove(job.getJwsdpPeer());
-		setModified(true);
+		removeGenerJob(job);
 	}
 
 	// ---------------------------------------------------------------
