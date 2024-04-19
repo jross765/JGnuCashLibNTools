@@ -1014,11 +1014,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalStateException("cannot remove this invoice! It has payments!");
 		}
 
-		GnuCashTransaction postTransaction = invc.getPostTransaction();
-		if ( postTransaction != null ) {
-			((GnuCashWritableTransaction) postTransaction).remove();
-		}
-		
 		GCshID invcID = invc.getID();
 
 		if ( withEntries ) {
@@ -1034,6 +1029,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			}
 		}
 
+		GnuCashTransaction postTransaction = invc.getPostTransaction();
+		if ( postTransaction != null ) {
+			((GnuCashWritableTransaction) postTransaction).remove();
+		}
+		
 		super.invcMgr.removeGenerInvoice(invc);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceImpl) invc).getJwsdpPeer());
 		this.decrementCountDataFor("gnc:GncInvoice");

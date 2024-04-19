@@ -2243,40 +2243,72 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     // ------------------------
 
     /**
-* 
+     * 
      */
+    @Override
     public void setCustomer(final GnuCashCustomer cust) {
-	if ( getType() != GCshOwner.Type.CUSTOMER )
-	    throw new WrongInvoiceTypeException();
+    	if ( cust == null ) {
+    	    throw new IllegalArgumentException("null customer given!");
+    	}
+    	
+    	if ( getType() != GCshOwner.Type.CUSTOMER )
+    		throw new WrongInvoiceTypeException();
 
-	attemptChange();
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
-	getGnuCashFile().setModified(true);
+    	attemptChange();
+    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
+    	getGnuCashFile().setModified(true);
     }
 
     /**
-* 
+     * 
      */
+    @Override
     public void setVendor(final GnuCashVendor vend) {
-	if ( getType() != GCshOwner.Type.VENDOR )
-	    throw new WrongInvoiceTypeException();
+    	if ( vend == null ) {
+    	    throw new IllegalArgumentException("null vendor given!");
+    	}
+    	
+    	if ( getType() != GCshOwner.Type.VENDOR )
+    		throw new WrongInvoiceTypeException();
 
-	attemptChange();
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(vend.getID().toString());
-	getGnuCashFile().setModified(true);
+    	attemptChange();
+    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(vend.getID().toString());
+    	getGnuCashFile().setModified(true);
     }
-
+    
     /**
-* 
+     * 
+     */
+    @Override
+    public void setEmployee(GnuCashEmployee empl) {
+    	if ( empl == null ) {
+    	    throw new IllegalArgumentException("null employee given!");
+    	}
+    	
+    	if ( getType() != GCshOwner.Type.EMPLOYEE )
+    	    throw new WrongInvoiceTypeException();
+
+    	attemptChange();
+    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(empl.getID().toString());
+    	getGnuCashFile().setModified(true);
+    }
+    
+    /**
+     * 
      * @see GnuCashWritableGenerInvoice#setGenerJob(GnuCashGenerJob)
      */
+    @Override
     public void setGenerJob(final GnuCashGenerJob job) {
-	if ( getType() != GCshOwner.Type.JOB )
-	    throw new WrongInvoiceTypeException();
+    	if ( job == null ) {
+    	    throw new IllegalArgumentException("null job given!");
+    	}
+    	
+    	if ( getType() != GCshOwner.Type.JOB )
+    		throw new WrongInvoiceTypeException();
 
-	attemptChange();
-	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
-	getGnuCashFile().setModified(true);
+    	attemptChange();
+    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
+    	getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------
@@ -2430,28 +2462,10 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new IllegalStateException("Invoice has payments and cannot be deleted!");
 	}
 
-	// we copy the list because element.remove() modifies it
-	Collection<GnuCashGenerInvoiceEntry> entries2 = new ArrayList<GnuCashGenerInvoiceEntry>();
-	entries2.addAll(this.getGenerEntries());
-	for (GnuCashGenerInvoiceEntry element : entries2) {
-	    ((GnuCashWritableGenerInvoiceEntry) element).remove();
-	}
-
-	GnuCashWritableTransaction post = (GnuCashWritableTransaction) getPostTransaction();
-	if (post != null) {
-	    post.remove();
-	}
-
-	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this);
+	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this, true);
 
     }
 
-    @Override
-    public void setEmployee(GnuCashEmployee empl) {
-	// TODO Auto-generated method stub
-	
-    }
-    
     // ---------------------------------------------------------------
 
     @Override
