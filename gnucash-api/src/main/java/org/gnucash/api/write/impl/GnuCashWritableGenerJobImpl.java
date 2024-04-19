@@ -12,14 +12,15 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.aux.WrongOwnerJITypeException;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
+import org.gnucash.api.read.impl.aux.GCshOwnerImpl;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -232,47 +233,63 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 
     // -----------------------------------------------------------
 
-    // ::TODO
-//	void setOwnerID(String ownerID) {
-//	    GCshOwner owner = new GCshOwner(GCshOwner.JIType.INVOICE, ownerID);
-//	    getJwsdpPeer().setInvoiceOwner(new GCShOwner(xxx));
-//	}
+    @Override
+	public void setOwnerID(GCshID ownID) {
+    	if ( ownID == null ) {
+    	    throw new IllegalArgumentException("null owner ID given!");
+    	}
+    	
+    	if ( ! ownID.isSet() ) {
+    	    throw new IllegalArgumentException("unset owner ID given!");
+    	}
+    	
+		if ( ! getInvoices().isEmpty() ) {
+			throw new IllegalStateException("cannot change owner of a job that has invoices!");
+		}
 
-	public void setOwner(GCshOwner owner) {
-		if ( owner.getJIType() != GCshOwner.JIType.JOB )
-			throw new WrongOwnerJITypeException();
+		GCshOwner oldOwner = new GCshOwnerImpl(getOwnerID(), GCshOwner.JIType.JOB, getGnuCashFile());
+		GCshOwner newOwner = new GCshOwnerImpl(ownID, GCshOwner.JIType.JOB, getGnuCashFile());
+    	if ( oldOwner.getJobType() != newOwner.getJobType() )
+    		throw new IllegalStateException("Job owner type may not change");
 
-		attemptChange();
-		getJwsdpPeer().setJobOwner(owner.getJobOwner());
-		getGnuCashFile().setModified(true);
+		GCshID oldOwnID = getOwnerID();
+		if ( oldOwnID.equals(ownID) ) {
+			return; // nothing has changed
+		}
+		
+    	try {
+    		attemptChange();
+			getJwsdpPeer().getJobOwner().getOwnerId().setValue(ownID.get());
+	    	getGnuCashFile().setModified(true);
+		} catch (GCshIDNotSetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("ownerID", oldOwnID, ownID);
+		}
 	}
 
-    // ------------------------
+    @Override
+	public void setOwner(GCshOwner own) {
+    	if ( own == null ) {
+    	    throw new IllegalArgumentException("null owner given!");
+    	}
+    	
+    	if ( own.getJIType() != GCshOwner.JIType.JOB )
+    		throw new IllegalArgumentException("Wrong GCshOwner JI-type");
 
-	/**
-	 * 
-	 * @param cust
-	 */
-	public void setCustomer(final GnuCashCustomer cust) {
-		if ( getOwnerType() != GCshOwner.Type.CUSTOMER )
-			throw new WrongJobTypeException();
-
-		attemptChange();
-		getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getID().toString());
-		getGnuCashFile().setModified(true);
-	}
-
-	/**
-	 * 
-	 * @param vend
-	 */
-	public void setVendor(final GnuCashVendor vend) {
-		if ( getOwnerType() != GCshOwner.Type.VENDOR )
-			throw new WrongJobTypeException();
-
-		attemptChange();
-		getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getID().toString());
-		getGnuCashFile().setModified(true);
+    	if ( ! own.getID().isSet() ) {
+    	    throw new IllegalArgumentException("unset owner ID given!");
+    	}
+    	
+    	if ( getType() != own.getJobType() )
+    		throw new IllegalStateException("Invoice owner type may not change");
+    	
+        setOwnerID(own.getID());
 	}
 
     // ---------------------------------------------------------------

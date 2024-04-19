@@ -3,7 +3,6 @@ package org.gnucash.api.write.hlp;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 

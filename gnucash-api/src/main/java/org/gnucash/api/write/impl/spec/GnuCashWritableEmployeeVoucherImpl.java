@@ -142,12 +142,17 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * {@inheritDoc}
 	 */
 	public void setEmployee(GnuCashEmployee empl) {
-		// ::TODO
+    	if ( empl == null ) {
+    	    throw new IllegalArgumentException("null employee given!");
+    	}
+    	
 		GnuCashEmployee oldEmpl = getEmployee();
-		if ( oldEmpl == empl ) {
+		if ( oldEmpl == empl ||
+			 oldEmpl.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
 
+    	attemptChange();
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(empl.getID().toString());
 		getWritableGnuCashFile().setModified(true);
 

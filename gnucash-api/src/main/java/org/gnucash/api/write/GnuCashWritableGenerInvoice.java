@@ -8,7 +8,6 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.aux.WrongOwnerJITypeException;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Cust;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Empl;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Job;
@@ -46,10 +45,9 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
 
     // -----------------------------------------------------------
 
-    // ::TODO
-    // void setOwnerID(String ownerID);
+    void setOwnerID(GCshID ownID);
 
-    void setOwner(GCshOwner owner);
+    void setOwner(GCshOwner own);
 
     // -----------------------------------------------------------
 

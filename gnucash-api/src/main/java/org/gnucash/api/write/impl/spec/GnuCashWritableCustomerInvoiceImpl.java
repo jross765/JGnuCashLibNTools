@@ -141,12 +141,17 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * {@inheritDoc}
 	 */
 	public void setCustomer(GnuCashCustomer cust) {
-		// ::TODO
+    	if ( cust == null ) {
+    	    throw new IllegalArgumentException("null customer given!");
+    	}
+    	
 		GnuCashCustomer oldCust = getCustomer();
-		if ( oldCust == cust ) {
+		if ( oldCust == cust ||
+			 oldCust.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
 
+    	attemptChange();
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
 		getWritableGnuCashFile().setModified(true);
 

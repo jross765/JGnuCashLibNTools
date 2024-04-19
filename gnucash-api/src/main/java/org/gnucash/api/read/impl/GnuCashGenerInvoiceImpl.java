@@ -1108,7 +1108,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 * {@inheritDoc}
 	 */
 	public GCshOwner.Type getType() {
-		return GCshOwner.Type.valueOff(getJwsdpPeer().getInvoiceOwner().getOwnerType());
+		return GCshOwner.Type.valueOff(getTypeStr());
 	}
 
 	@Deprecated

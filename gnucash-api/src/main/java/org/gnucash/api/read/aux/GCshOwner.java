@@ -1,7 +1,12 @@
 package org.gnucash.api.read.aux;
 
-import org.gnucash.api.generated.GncGncInvoice;
-import org.gnucash.api.generated.GncGncJob;
+import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashEmployee;
+import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.spec.GnuCashCustomerJob;
+import org.gnucash.api.read.spec.GnuCashVendorJob;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 // ::TODO ::CHECK 
 // Really interface? Or shouldn't it just be a wrapper class
@@ -79,16 +84,25 @@ public interface GCshOwner {
   
     public JIType getJIType();
 
-    public Type getInvcType() throws WrongOwnerJITypeException;
+    public Type getInvcType();
     
-    public String getID() throws OwnerJITypeUnsetException;
+    public Type getJobType();
+    
+    public GCshID getID();
     
     // -----------------------------------------------------------------
     
-    @SuppressWarnings("exports")
-    GncGncInvoice.InvoiceOwner getInvcOwner() throws WrongOwnerJITypeException;
+    public GnuCashCustomer    getCustomer();
 
-    @SuppressWarnings("exports")
-    GncGncJob.JobOwner getJobOwner() throws WrongOwnerJITypeException;
-    
+    public GnuCashVendor      getVendor();
+
+    public GnuCashEmployee    getEmployee();
+
+    // ----------------------------
+
+    public GnuCashGenerJob    getGenerJob();
+
+    public GnuCashCustomerJob getCustomerJob();
+
+    public GnuCashVendorJob   getVendorJob();
 }

@@ -166,12 +166,17 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 */
 	@Override
 	public void setGenerJob(GnuCashGenerJob job) {
-		// ::TODO
+    	if ( job == null ) {
+    	    throw new IllegalArgumentException("null job given!");
+    	}
+    	
 		GnuCashGenerJob oldJob = getJob();
-		if ( oldJob == job ) {
+		if ( oldJob == job ||
+			 oldJob.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
 
+    	attemptChange();
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
 		getWritableFile().setModified(true);
 

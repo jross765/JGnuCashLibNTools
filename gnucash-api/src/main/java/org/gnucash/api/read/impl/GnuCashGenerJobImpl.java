@@ -78,6 +78,20 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	public GCshOwner.Type getType() {
+		return GCshOwner.Type.valueOff(getTypeStr());
+	}
+
+	@Deprecated
+	public String getTypeStr() {
+		return getJwsdpPeer().getJobOwner().getOwnerType();
+	}
+	
+	// ---------------------------------------------------------------
+
+	/**
 	 * @return true if the job is still active
 	 */
 	public boolean isActive() {

@@ -13,7 +13,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;

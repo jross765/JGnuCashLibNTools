@@ -1,5 +1,6 @@
 package org.gnucash.api.write.impl;
 
+import java.beans.PropertyChangeSupport;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,9 +11,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncTransaction;
@@ -37,11 +35,11 @@ import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.api.read.aux.WrongOwnerJITypeException;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
+import org.gnucash.api.read.impl.aux.GCshOwnerImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
@@ -70,6 +68,9 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -2227,88 +2228,57 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 
     // -----------------------------------------------------------
 
-    // ::TODO
-//	void setOwnerID(String ownerID) {
-//	    GCshOwner owner = new GCshOwner(GCshOwner.JIType.INVOICE, ownerID);
-//	    getJwsdpPeer().setInvoiceOwner(new GCShOwner(xxx));
-//	}
-
-    public void setOwner(GCshOwner owner) {
-	if (owner.getJIType() != GCshOwner.JIType.INVOICE)
-	    throw new WrongOwnerJITypeException();
-
-	getJwsdpPeer().setInvoiceOwner(owner.getInvcOwner());
-    }
-
-    // ------------------------
-
-    /**
-     * 
-     */
-    @Override
-    public void setCustomer(final GnuCashCustomer cust) {
-    	if ( cust == null ) {
-    	    throw new IllegalArgumentException("null customer given!");
+	public void setOwnerID(final GCshID ownID) {
+    	if ( ownID == null ) {
+    	    throw new IllegalArgumentException("null owner ID given!");
     	}
     	
-    	if ( getType() != GCshOwner.Type.CUSTOMER )
-    		throw new WrongInvoiceTypeException();
-
-    	attemptChange();
-    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(cust.getID().toString());
-    	getGnuCashFile().setModified(true);
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void setVendor(final GnuCashVendor vend) {
-    	if ( vend == null ) {
-    	    throw new IllegalArgumentException("null vendor given!");
+    	if ( ! ownID.isSet() ) {
+    	    throw new IllegalArgumentException("unset owner ID given!");
     	}
     	
-    	if ( getType() != GCshOwner.Type.VENDOR )
-    		throw new WrongInvoiceTypeException();
+		GCshOwner oldOwner = new GCshOwnerImpl(getOwnerID(), GCshOwner.JIType.INVOICE, getGnuCashFile());
+		GCshOwner newOwner = new GCshOwnerImpl(ownID, GCshOwner.JIType.INVOICE, getGnuCashFile());
+    	if ( oldOwner.getInvcType() != newOwner.getInvcType() )
+    		throw new IllegalStateException("Invoice owner type may not change");
 
-    	attemptChange();
-    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(vend.getID().toString());
-    	getGnuCashFile().setModified(true);
-    }
-    
-    /**
-     * 
-     */
-    @Override
-    public void setEmployee(GnuCashEmployee empl) {
-    	if ( empl == null ) {
-    	    throw new IllegalArgumentException("null employee given!");
+		GCshID oldOwnID = getOwnerID();
+		if ( oldOwnID.equals(ownID) ) {
+			return; // nothing has changed
+		}
+		
+    	try {
+        	attemptChange();
+			getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(ownID.get());
+	    	getGnuCashFile().setModified(true);
+		} catch (GCshIDNotSetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("ownerID", oldOwnID, ownID);
+		}
+	}
+
+    public void setOwner(GCshOwner own) {
+    	if ( own == null ) {
+    	    throw new IllegalArgumentException("null owner given!");
     	}
     	
-    	if ( getType() != GCshOwner.Type.EMPLOYEE )
-    	    throw new WrongInvoiceTypeException();
+    	if ( own.getJIType() != GCshOwner.JIType.INVOICE )
+    		throw new IllegalArgumentException("Wrong GCshOwner JI-type");
 
-    	attemptChange();
-    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(empl.getID().toString());
-    	getGnuCashFile().setModified(true);
-    }
-    
-    /**
-     * 
-     * @see GnuCashWritableGenerInvoice#setGenerJob(GnuCashGenerJob)
-     */
-    @Override
-    public void setGenerJob(final GnuCashGenerJob job) {
-    	if ( job == null ) {
-    	    throw new IllegalArgumentException("null job given!");
+    	if ( ! own.getID().isSet() ) {
+    	    throw new IllegalArgumentException("unset owner ID given!");
     	}
     	
-    	if ( getType() != GCshOwner.Type.JOB )
-    		throw new WrongInvoiceTypeException();
-
-    	attemptChange();
-    	getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(job.getID().toString());
-    	getGnuCashFile().setModified(true);
+    	if ( getType() != own.getInvcType() )
+    		throw new IllegalStateException("Invoice owner type may not change");
+    	
+        setOwnerID(own.getID());
     }
 
     // -----------------------------------------------------------

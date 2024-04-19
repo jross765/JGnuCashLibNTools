@@ -129,20 +129,24 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	 * @see GnuCashWritableCustomerJob#setCustomer(GnuCashCustomer)
 	 */
 	public void setCustomer(final GnuCashCustomer cust) {
-		if ( ! getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot change customer of a job that has invoices!");
-		}
-
 		if ( cust == null ) {
 			throw new IllegalArgumentException("null 'customer' given!");
 		}
 
+		if ( ! getInvoices().isEmpty() ) {
+			throw new IllegalStateException("cannot change customer of a job that has invoices!");
+		}
+
 		GnuCashCustomer oldCust = getCustomer();
-		if ( oldCust == cust ) {
+		if ( oldCust == cust ||
+			 oldCust.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
+
+		attemptChange();
 		getJwsdpPeer().getJobOwner().getOwnerId().setValue(cust.getID().toString());
 		getWritableGnuCashFile().setModified(true);
+		
 		// <<insert code to react further to this change here
 		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {

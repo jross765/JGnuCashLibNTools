@@ -49,6 +49,10 @@ public interface GnuCashGenerJob extends GnuCashObject {
      */
     GCshID getID();
 
+    GCshOwner.Type getType();
+    
+    // -----------------------------------------------------------------
+
     /**
      * @return true if the job is still active
      */

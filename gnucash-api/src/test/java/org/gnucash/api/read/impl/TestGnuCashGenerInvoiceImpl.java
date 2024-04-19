@@ -28,7 +28,9 @@ public class TestGnuCashGenerInvoiceImpl {
 	public static final GCshID INVC_5_ID = new GCshID("169331c9860642cf84b04f3e3151058a");
 	public static final GCshID INVC_6_ID = new GCshID("6588f1757b9e4e24b62ad5b37b8d8e07");
 	public static final GCshID INVC_7_ID = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
-
+	public static final GCshID INVC_8_ID = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
+	public static final GCshID INVC_9_ID = new GCshID("b1e981f796b94ca0b17a9dccb91fedc0");
+	
 	// -----------------------------------------------------------------
 
 	private GnuCashFileImpl gcshFile = null;

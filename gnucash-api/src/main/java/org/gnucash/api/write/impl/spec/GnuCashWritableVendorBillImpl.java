@@ -29,7 +29,6 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,12 +161,17 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * {@inheritDoc}
 	 */
 	public void setVendor(GnuCashVendor vend) {
-		// ::TODO
+    	if ( vend == null ) {
+    	    throw new IllegalArgumentException("null vendor given!");
+    	}
+    	
 		GnuCashVendor oldVend = getVendor();
-		if ( oldVend == vend ) {
+		if ( oldVend == vend ||
+			 oldVend.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
 
+    	attemptChange();
 		getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(vend.getID().toString());
 		getWritableFile().setModified(true);
 

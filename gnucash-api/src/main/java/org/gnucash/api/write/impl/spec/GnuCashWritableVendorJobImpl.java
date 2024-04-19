@@ -151,20 +151,24 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	 * @see GnuCashWritableVendorJob#setVendor(GnuCashVendor)
 	 */
 	public void setVendor(final GnuCashVendor vend) {
+		if ( vend == null ) {
+			throw new IllegalArgumentException("null vendor given!");
+		}
+
 		if ( ! getInvoices().isEmpty() ) {
 			throw new IllegalStateException("cannot change vendor of a job that has invoices!");
 		}
 
-		if ( vend == null ) {
-			throw new IllegalArgumentException("null 'vendor' given!");
-		}
-
 		GnuCashVendor oldVend = getVendor();
-		if ( oldVend == vend ) {
+		if ( oldVend == vend ||
+			 oldVend.getID().equals(getID()) ) {
 			return; // nothing has changed
 		}
+
+		attemptChange();
 		getJwsdpPeer().getJobOwner().getOwnerId().setValue(vend.getID().toString());
 		getWritableGnuCashFile().setModified(true);
+		
 		// <<insert code to react further to this change here
 		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {

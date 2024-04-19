@@ -1,20 +1,14 @@
 package org.gnucash.api.write.hlp;
 
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GnuCashWritableGenerInvoice_Cust {
-
-    void setCustomer(GnuCashCustomer cust);
-
-    // ---------------------------------------------------------------
 
     /**
      * create and add a new entry.<br/>
