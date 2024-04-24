@@ -88,6 +88,7 @@ public class FileCustomerManager {
 		if ( retval == null ) {
 			LOGGER.warn("getCustomerByID: No Customer with id '" + id + "'. We know " + custMap.size() + " customers.");
 		}
+		
 		return retval;
 	}
 

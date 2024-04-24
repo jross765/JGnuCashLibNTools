@@ -4,6 +4,7 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableAddress;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -15,6 +16,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  */
 public interface GnuCashWritableCustomer extends GnuCashCustomer, 
                                                  GnuCashWritableObject,
+                                                 HasWritableAddress,
                                                  HasWritableUserDefinedAttributes
 {
 
@@ -35,10 +37,6 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
 
     void setCredit(FixedPointNumber credit);
 
-    void setAddress(GCshAddress adr);
-
-    void setShippingAddress(GCshAddress adr);
-    
     /**
      * @param notes user-defined notes about the customer (may be null)
      */
@@ -46,12 +44,11 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
 
     // ---------------------------------------------------------------
 
-    GCshWritableAddress getWritableAddress();
-
     GCshWritableAddress getWritableShippingAddress();
-
-    GCshWritableAddress getAddress();
-
-    GCshWritableAddress getShippingAddress();
     
+    GCshWritableAddress createWritableShippingAddress();
+    
+	void removeShippingAddress(GCshWritableAddress impl);
+
+    void setShippingAddress(GCshAddress adr);
 }

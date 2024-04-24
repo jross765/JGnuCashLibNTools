@@ -226,36 +226,6 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 	}
     }
 
-    @Override
-    public void setAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
-	}
-
-	/*
-	 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-	 * getJwsdpPeer().setVendAddr(adrImpl.getJwsdpPeer()); } else
-	 */
-	
-	{
-
-	    if (getJwsdpPeer().getVendorAddr() == null) {
-		getJwsdpPeer().setVendorAddr(getGnuCashFile().getObjectFactory().createAddress());
-	    }
-
-	    getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getAddressLine1());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getAddressLine2());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getAddressLine3());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getAddressLine4());
-	    getJwsdpPeer().getVendorAddr().setAddrName(adr.getAddressName());
-	    getJwsdpPeer().getVendorAddr().setAddrEmail(adr.getEmail());
-	    getJwsdpPeer().getVendorAddr().setAddrFax(adr.getFax());
-	    getJwsdpPeer().getVendorAddr().setAddrPhone(adr.getTel());
-	}
-
-	getGnuCashFile().setModified(true);
-    }
-
     /**
      * @param notes user-defined notes about the customer (may be null)
      * @see GnuCashWritableCustomer#setNotes(String)
@@ -297,6 +267,50 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     @Override
     public GCshWritableAddress getAddress() {
 	return getWritableAddress();
+    }
+    
+    // ----------------------------
+
+	@Override
+	public GCshWritableAddress createWritableAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeAddress(GCshWritableAddress impl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    @Override
+    public void setAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
+	/*
+	 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+	 * getJwsdpPeer().setVendAddr(adrImpl.getJwsdpPeer()); } else
+	 */
+	
+	{
+
+	    if (getJwsdpPeer().getVendorAddr() == null) {
+		getJwsdpPeer().setVendorAddr(getGnuCashFile().getObjectFactory().createAddress());
+	    }
+
+	    getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getAddressLine1());
+	    getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getAddressLine2());
+	    getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getAddressLine3());
+	    getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getAddressLine4());
+	    getJwsdpPeer().getVendorAddr().setAddrName(adr.getAddressName());
+	    getJwsdpPeer().getVendorAddr().setAddrEmail(adr.getEmail());
+	    getJwsdpPeer().getVendorAddr().setAddrFax(adr.getFax());
+	    getJwsdpPeer().getVendorAddr().setAddrPhone(adr.getTel());
+	}
+
+	getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------------

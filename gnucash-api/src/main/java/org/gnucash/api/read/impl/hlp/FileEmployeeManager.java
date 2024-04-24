@@ -88,6 +88,7 @@ public class FileEmployeeManager {
 		if ( retval == null ) {
 			LOGGER.warn("getEmployeeByID: No Employee with id '" + id + "'. We know " + emplMap.size() + " employees.");
 		}
+		
 		return retval;
 	}
 

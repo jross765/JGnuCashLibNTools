@@ -5,6 +5,7 @@ import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableAddress;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
 /**
@@ -14,6 +15,7 @@ import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
  */
 public interface GnuCashWritableEmployee extends GnuCashEmployee, 
                                                  GnuCashWritableObject,
+                                                 HasWritableAddress,
                                                  HasWritableUserDefinedAttributes
 {
 
@@ -30,11 +32,11 @@ public interface GnuCashWritableEmployee extends GnuCashEmployee,
 
     void setUserName(String userName);
 
-    void setAddress(GCshAddress adr);
+//    void setAddress(GCshAddress adr);
 
     // ---------------------------------------------------------------
 
-    GCshWritableAddress getWritableAddress();
+//    GCshWritableAddress getWritableAddress();
 
     GCshWritableAddress getAddress();
 

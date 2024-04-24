@@ -1,9 +1,9 @@
 package org.gnucash.api.write;
 
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
+import org.gnucash.api.write.hlp.HasWritableAddress;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
 /**
@@ -13,6 +13,7 @@ import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
  */
 public interface GnuCashWritableVendor extends GnuCashVendor, 
                                                GnuCashWritableObject,
+                                               HasWritableAddress,
                                                HasWritableUserDefinedAttributes
 {
 
@@ -29,7 +30,7 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
 
     void setName(String name);
 
-    void setAddress(GCshAddress adr);
+//    void setAddress(GCshAddress adr);
 
     /**
      * @param notes user-defined notes about the customer (may be null)
@@ -38,7 +39,7 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
 
     // ---------------------------------------------------------------
 
-    GCshWritableAddress getWritableAddress();
+//    GCshWritableAddress getWritableAddress();
 
     GCshWritableAddress getAddress();
 

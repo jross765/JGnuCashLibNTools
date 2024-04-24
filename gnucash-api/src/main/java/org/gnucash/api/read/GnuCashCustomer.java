@@ -7,6 +7,7 @@ import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.hlp.GnuCashObject;
+import org.gnucash.api.read.hlp.HasAddress;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
@@ -28,7 +29,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * @see GnuCashVendor
  */
 public interface GnuCashCustomer extends GnuCashObject,
-                                         HasUserDefinedAttributes
+                                         HasUserDefinedAttributes,
+                                         HasAddress
 {
     /**
      * @return the unique-id to identify this object with across name- and
@@ -46,10 +48,10 @@ public interface GnuCashCustomer extends GnuCashObject,
      */
     String getName();
 
-    /**
-     * @return Returns the address of this customer including its name
-     */
-    GCshAddress getAddress();
+//    /**
+//     * @return Returns the address of this customer including its name
+//     */
+//    GCshAddress getAddress();
 
     /**
      * @return Returns the shipping-address of this customer including the name

@@ -79,15 +79,16 @@ public class FileVendorManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashVendor getVendorByID(GCshID id) {
+	public GnuCashVendor getVendorByID(GCshID vendID) {
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashVendor retval = vendMap.get(id);
+		GnuCashVendor retval = vendMap.get(vendID);
 		if ( retval == null ) {
-			LOGGER.warn("getVendorByID: No Vendor with id '" + id + "'. We know " + vendMap.size() + " vendors.");
+			LOGGER.warn("getVendorByID: No Vendor with id '" + vendID + "'. We know " + vendMap.size() + " vendors.");
 		}
+		
 		return retval;
 	}
 

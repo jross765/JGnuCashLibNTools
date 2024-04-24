@@ -244,6 +244,38 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 	}
     }
 
+    // ---------------------------------------------------------------
+
+    /**
+     * @see GnuCashWritableEmployee#getWritableAddress()
+     */
+    @Override
+    public GCshWritableAddress getWritableAddress() {
+        return new GCshWritableAddressImpl(getJwsdpPeer().getEmployeeAddr(), getGnuCashFile());
+    }
+
+    /**
+     * @see GnuCashEmployee#getAddress()
+     */
+    @Override
+    public GCshWritableAddress getAddress() {
+        return getWritableAddress();
+    }
+    
+    // ----------------------------
+
+	@Override
+	public GCshWritableAddress createWritableAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeAddress(GCshWritableAddress impl) {
+		// TODO Auto-generated method stub
+		
+	}
+
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {
@@ -272,24 +304,6 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
         }
     
         getGnuCashFile().setModified(true);
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
-     * @see GnuCashWritableEmployee#getWritableAddress()
-     */
-    @Override
-    public GCshWritableAddress getWritableAddress() {
-        return new GCshWritableAddressImpl(getJwsdpPeer().getEmployeeAddr(), getGnuCashFile());
-    }
-
-    /**
-     * @see GnuCashEmployee#getAddress()
-     */
-    @Override
-    public GCshWritableAddress getAddress() {
-        return getWritableAddress();
     }
 
     // -----------------------------------------------------------------

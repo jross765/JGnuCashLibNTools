@@ -70,12 +70,17 @@ public class FileBillTermsManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshBillTerms getBillTermsByID(final GCshID id) {
+	public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
 		if ( bllTrmMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return bllTrmMap.get(id);
+		GCshBillTerms retval = bllTrmMap.get(bllTrmID);
+		if ( retval == null ) {
+			LOGGER.error("getBillTermsByID: No bill term with ID '" + bllTrmID + "'. " + "We know " + bllTrmMap.size() + " bill terms.");
+		}
+		
+		return retval;
 	}
 
 	public GCshBillTerms getBillTermsByName(final String name) {

@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.hlp.GnuCashObject;
+import org.gnucash.api.read.hlp.HasAddress;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -23,7 +24,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * @see GnuCashVendor
  */
 public interface GnuCashEmployee extends GnuCashObject,
-										 HasUserDefinedAttributes
+										 HasUserDefinedAttributes,
+										 HasAddress
 {
     /**
      * @return the unique-id to identify this object with across name- and
@@ -41,11 +43,11 @@ public interface GnuCashEmployee extends GnuCashObject,
      */
     String getUserName();
 
-    /**
-     * @return Returns the address of this employee including his/her name
-     *         (as opposed to the user name)
-     */
-    GCshAddress getAddress();
+//    /**
+//     * @return Returns the address of this employee including his/her name
+//     *         (as opposed to the user name)
+//     */
+//    GCshAddress getAddress();
 
     /**
      * @return user-defined notes about the employee (may be null)

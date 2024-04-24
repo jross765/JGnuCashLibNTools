@@ -13,25 +13,25 @@ public class ConstTest extends Const {
     
     public class Stats {
     
-	public static final int NOF_ACCT       = 103;
-	public static final int NOF_TRX        = 14;
-	public static final int NOF_TRX_SPLT   = 36;
+    	public static final int NOF_ACCT       = 103;
+    	public static final int NOF_TRX        = 14;
+    	public static final int NOF_TRX_SPLT   = 36;
 	
-	public static final int NOF_INVC       = 7;
-	public static final int NOF_INVC_ENTR  = 14;
+    	public static final int NOF_INVC       = 7;
+    	public static final int NOF_INVC_ENTR  = 14;
 	
-	public static final int NOF_CUST       = 3;
-	public static final int NOF_VEND       = 3;
-	public static final int NOF_EMPL       = 1;
-	public static final int NOF_JOB        = 2;
+    	public static final int NOF_CUST       = 3;
+    	public static final int NOF_VEND       = 3;
+    	public static final int NOF_EMPL       = 1;
+    	public static final int NOF_JOB        = 2;
 	
-	public static final int NOF_CMDTY_SEC  = 6;
-	public static final int NOF_CMDTY_CURR = 2;
-	public static final int NOF_CMDTY_ALL  = NOF_CMDTY_SEC + NOF_CMDTY_CURR;
-	public static final int NOF_PRC        = 9;
+    	public static final int NOF_CMDTY_SEC  = 6;
+    	public static final int NOF_CMDTY_CURR = 2;
+    	public static final int NOF_CMDTY_ALL  = NOF_CMDTY_SEC + NOF_CMDTY_CURR;
+    	public static final int NOF_PRC        = 9;
 
-	public static final int NOF_TAXTAB     = 7;
-	public static final int NOF_BLLTRM     = 3;
+    	public static final int NOF_TAXTAB     = 7;
+    	public static final int NOF_BLLTRM     = 3;
     
     }
 

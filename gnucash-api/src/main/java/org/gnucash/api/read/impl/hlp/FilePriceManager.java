@@ -23,6 +23,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.Price;
 import org.gnucash.api.generated.Price.PriceCommodity;
 import org.gnucash.api.generated.Price.PriceCurrency;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashPriceImpl;
@@ -107,7 +108,12 @@ public class FilePriceManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return prcMap.get(prcID);
+		GnuCashPrice retval = prcMap.get(prcID);
+		if ( retval == null ) {
+			LOGGER.error("getPriceByID: No Price with ID '" + prcID + "'. " + "We know " + prcMap.size() + " prices.");
+		}
+		
+		return retval;
 	}
 
 	public Collection<GnuCashPrice> getPrices() {

@@ -278,71 +278,6 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     }
 
     /**
-     * @see #setShippingAddress(GCshAddress)
-     */
-    @Override
-    public void setAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
-	}
-
-        /*
-         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-         * getJwsdpPeer().setCustAddr(adrImpl.getJwsdpPeer()); } else
-         */
-	
-        {
-    
-            if (getJwsdpPeer().getCustAddr() == null) {
-        	getJwsdpPeer().setCustAddr(getGnuCashFile().getObjectFactory().createAddress());
-            }
-    
-            getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getAddressLine1());
-            getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getAddressLine2());
-            getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getAddressLine3());
-            getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getAddressLine4());
-            getJwsdpPeer().getCustAddr().setAddrName(adr.getAddressName());
-            getJwsdpPeer().getCustAddr().setAddrEmail(adr.getEmail());
-            getJwsdpPeer().getCustAddr().setAddrFax(adr.getFax());
-            getJwsdpPeer().getCustAddr().setAddrPhone(adr.getTel());
-        }
-    
-        getGnuCashFile().setModified(true);
-    }
-
-    /**
-     * @see #setAddress(GCshAddress)
-     */
-    @Override
-    public void setShippingAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
-	}
-
-        /*
-         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-         * getJwsdpPeer().setCustShipaddr(adrImpl.getJwsdpPeer()); } else
-         */
-	
-        {
-    
-            if (getJwsdpPeer().getCustShipaddr() == null) {
-        	getJwsdpPeer().setCustShipaddr(getGnuCashFile().getObjectFactory().createAddress());
-            }
-    
-            getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getAddressLine1());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getAddressLine2());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getAddressLine3());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getAddressLine4());
-            getJwsdpPeer().getCustShipaddr().setAddrName(adr.getAddressName());
-            getJwsdpPeer().getCustShipaddr().setAddrEmail(adr.getEmail());
-            getJwsdpPeer().getCustShipaddr().setAddrFax(adr.getFax());
-            getJwsdpPeer().getCustShipaddr().setAddrPhone(adr.getTel());
-        }
-        getGnuCashFile().setModified(true);
-    }
-
-    /**
      * @param notes user-defined notes about the customer (may be null)
      * @see GnuCashWritableCustomer#setNotes(String)
      */
@@ -378,6 +313,61 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     }
 
     /**
+     * @see GnuCashCustomer#getAddress()
+     */
+    @Override
+    public GCshWritableAddress getAddress() {
+        return getWritableAddress();
+    }
+
+	@Override
+	public GCshWritableAddress createWritableAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeAddress(GCshWritableAddress impl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    /**
+     * @see #setShippingAddress(GCshAddress)
+     */
+    @Override
+    public void setAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
+        /*
+         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+         * getJwsdpPeer().setCustAddr(adrImpl.getJwsdpPeer()); } else
+         */
+	
+        {
+    
+            if (getJwsdpPeer().getCustAddr() == null) {
+        	getJwsdpPeer().setCustAddr(getGnuCashFile().getObjectFactory().createAddress());
+            }
+    
+            getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getAddressLine1());
+            getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getAddressLine2());
+            getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getAddressLine3());
+            getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getAddressLine4());
+            getJwsdpPeer().getCustAddr().setAddrName(adr.getAddressName());
+            getJwsdpPeer().getCustAddr().setAddrEmail(adr.getEmail());
+            getJwsdpPeer().getCustAddr().setAddrFax(adr.getFax());
+            getJwsdpPeer().getCustAddr().setAddrPhone(adr.getTel());
+        }
+    
+        getGnuCashFile().setModified(true);
+    }
+    
+    // ----------------------------
+
+    /**
      * @see GnuCashWritableCustomer#getWritableShippingAddress()
      */
     @Override
@@ -386,19 +376,55 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     }
 
     /**
-     * @see GnuCashCustomer#getAddress()
-     */
-    @Override
-    public GCshWritableAddress getAddress() {
-        return getWritableAddress();
-    }
-
-    /**
      * @see GnuCashCustomer#getShippingAddress()
      */
     @Override
     public GCshWritableAddress getShippingAddress() {
-	return getWritableShippingAddress();
+    	return getWritableShippingAddress();
+    }
+
+	@Override
+	public GCshWritableAddress createWritableShippingAddress() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void removeShippingAddress(GCshWritableAddress impl) {
+		// TODO Auto-generated method stub
+		
+	}
+
+    /**
+     * @see #setAddress(GCshAddress)
+     */
+    @Override
+    public void setShippingAddress(final GCshAddress adr) {
+	if ( adr == null ) {
+	    throw new IllegalArgumentException("null address given!");
+	}
+
+        /*
+         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+         * getJwsdpPeer().setCustShipaddr(adrImpl.getJwsdpPeer()); } else
+         */
+	
+        {
+    
+            if (getJwsdpPeer().getCustShipaddr() == null) {
+        	getJwsdpPeer().setCustShipaddr(getGnuCashFile().getObjectFactory().createAddress());
+            }
+    
+            getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getAddressLine1());
+            getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getAddressLine2());
+            getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getAddressLine3());
+            getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getAddressLine4());
+            getJwsdpPeer().getCustShipaddr().setAddrName(adr.getAddressName());
+            getJwsdpPeer().getCustShipaddr().setAddrEmail(adr.getEmail());
+            getJwsdpPeer().getCustShipaddr().setAddrFax(adr.getFax());
+            getJwsdpPeer().getCustShipaddr().setAddrPhone(adr.getTel());
+        }
+        getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------------

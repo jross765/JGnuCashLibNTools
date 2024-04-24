@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
@@ -75,12 +76,17 @@ public class FileTaxTableManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshTaxTable getTaxTableByID(final GCshID id) {
+	public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
 		if ( taxTabMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return taxTabMap.get(id);
+		GCshTaxTable retval = taxTabMap.get(taxTabID);
+		if ( retval == null ) {
+			LOGGER.error("getBillTermsByID: No tax table with ID '" + taxTabID + "'. " + "We know " + taxTabMap.size() + " tax tables.");
+		}
+		
+		return retval;
 	}
 
 	public GCshTaxTable getTaxTableByName(final String name) {
