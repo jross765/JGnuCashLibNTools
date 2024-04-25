@@ -68,36 +68,67 @@ public class FileCustomerManager {
 	// ---------------------------------------------------------------
 
 	public void addCustomer(GnuCashCustomer cust) {
+		if ( cust == null ) {
+			throw new IllegalArgumentException("null customer given");
+		}
+		
 		custMap.put(cust.getID(), cust);
 		LOGGER.debug("Added customer to cache: " + cust.getID());
 	}
 
 	public void removeCustomer(GnuCashCustomer cust) {
+		if ( cust == null ) {
+			throw new IllegalArgumentException("null customer given");
+		}
+		
 		custMap.remove(cust.getID());
 		LOGGER.debug("Removed customer from cache: " + cust.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnuCashCustomer getCustomerByID(final GCshID id) {
+	public GnuCashCustomer getCustomerByID(final GCshID custID) {
+		if ( custID == null ) {
+			throw new IllegalArgumentException("null customer ID given");
+		}
+		
+		if ( ! custID.isSet() ) {
+			throw new IllegalArgumentException("unset customer ID given");
+		}
+		
 		if ( custMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashCustomer retval = custMap.get(id);
+		GnuCashCustomer retval = custMap.get(custID);
 		if ( retval == null ) {
-			LOGGER.warn("getCustomerByID: No Customer with id '" + id + "'. We know " + custMap.size() + " customers.");
+			LOGGER.warn("getCustomerByID: No Customer with id '" + custID + "'. We know " + custMap.size() + " customers.");
 		}
 		
 		return retval;
 	}
 
 	public List<GnuCashCustomer> getCustomersByName(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getCustomersByName(name, true);
 	}
 
 	public List<GnuCashCustomer> getCustomersByName(final String expr, boolean relaxed) {
-
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( custMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -121,6 +152,14 @@ public class FileCustomerManager {
 
 	public GnuCashCustomer getCustomerByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashCustomer> custList = getCustomersByName(name);
 		if ( custList.size() == 0 )
 			throw new NoEntryFoundException();

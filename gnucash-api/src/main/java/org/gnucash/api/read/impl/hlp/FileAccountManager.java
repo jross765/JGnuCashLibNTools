@@ -73,11 +73,19 @@ public class FileAccountManager {
 	// ---------------------------------------------------------------
 
 	public void addAccount(GnuCashAccount acct) {
+		if ( acct == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+		
 		acctMap.put(acct.getID(), acct);
 		LOGGER.debug("addAccount: Added account to cache: " + acct.getID());
 	}
 
 	public void removeAccount(GnuCashAccount acct) {
+		if ( acct == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+		
 		acctMap.remove(acct.getID());
 		LOGGER.debug("removeAccount: Removed account from cache: " + acct.getID());
 	}
@@ -88,6 +96,14 @@ public class FileAccountManager {
 	 * @see GnuCashFile#getAccountByID(java.lang.String)
 	 */
 	public GnuCashAccount getAccountByID(final GCshID acctID) {
+		if ( acctID == null ) {
+			throw new IllegalArgumentException("null account ID given");
+		}
+		
+		if ( ! acctID.isSet() ) {
+			throw new IllegalArgumentException("unset account ID given");
+		}
+		
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -101,6 +117,14 @@ public class FileAccountManager {
 	}
 
 	public List<GnuCashAccount> getAccountsByParentID(final GCshID acctID) {
+		if ( acctID == null ) {
+			throw new IllegalArgumentException("null account ID given");
+		}
+		
+		if ( ! acctID.isSet() ) {
+			throw new IllegalArgumentException("unset account ID given");
+		}
+		
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -128,11 +152,26 @@ public class FileAccountManager {
 	}
 
 	public List<GnuCashAccount> getAccountsByName(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getAccountsByName(name, true, true);
 	}
 
 	public List<GnuCashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
-
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -170,6 +209,14 @@ public class FileAccountManager {
 
 	public GnuCashAccount getAccountByNameUniq(final String name, final boolean qualif)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashAccount> acctList = getAccountsByName(name, qualif, false);
 		if ( acctList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -186,7 +233,14 @@ public class FileAccountManager {
 	 */
 	public GnuCashAccount getAccountByNameEx(final String nameRegEx)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-
+		if ( nameRegEx == null ) {
+			throw new IllegalArgumentException("null name/expression given");
+		}
+		
+		if ( nameRegEx.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name/expression given");
+		}
+		
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -211,9 +265,25 @@ public class FileAccountManager {
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
-	public GnuCashAccount getAccountByIDorName(final GCshID id, final String name)
+	public GnuCashAccount getAccountByIDorName(final GCshID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		GnuCashAccount retval = getAccountByID(id);
+		if ( acctID == null ) {
+			throw new IllegalArgumentException("null account ID given");
+		}
+		
+		if ( ! acctID.isSet() ) {
+			throw new IllegalArgumentException("unset account ID given");
+		}
+		
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
+		GnuCashAccount retval = getAccountByID(acctID);
 		if ( retval == null ) {
 			retval = getAccountByNameUniq(name, true);
 		}
@@ -225,9 +295,25 @@ public class FileAccountManager {
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
-	public GnuCashAccount getAccountByIDorNameEx(final GCshID id, final String name)
+	public GnuCashAccount getAccountByIDorNameEx(final GCshID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
-		GnuCashAccount retval = getAccountByID(id);
+		if ( acctID == null ) {
+			throw new IllegalArgumentException("null account ID given");
+		}
+		
+		if ( ! acctID.isSet() ) {
+			throw new IllegalArgumentException("unset account ID given");
+		}
+		
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
+		GnuCashAccount retval = getAccountByID(acctID);
 		if ( retval == null ) {
 			retval = getAccountByNameEx(name);
 		}
@@ -250,6 +336,14 @@ public class FileAccountManager {
 	}
 
 	public List<GnuCashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed) {
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : getAccountsByName(expr, qualif, relaxed) ) {

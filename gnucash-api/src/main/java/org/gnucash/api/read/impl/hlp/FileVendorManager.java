@@ -68,11 +68,19 @@ public class FileVendorManager {
 	// ---------------------------------------------------------------
 
 	public void addVendor(GnuCashVendor vend) {
+		if ( vend == null ) {
+			throw new IllegalArgumentException("null vendor given");
+		}
+		
 		vendMap.put(vend.getID(), vend);
 		LOGGER.debug("Added vendor to cache: " + vend.getID());
 	}
 
 	public void removeVendor(GnuCashVendor vend) {
+		if ( vend == null ) {
+			throw new IllegalArgumentException("null vendor given");
+		}
+		
 		vendMap.remove(vend.getID());
 		LOGGER.debug("Removed vendor to cache: " + vend.getID());
 	}
@@ -80,6 +88,14 @@ public class FileVendorManager {
 	// ---------------------------------------------------------------
 
 	public GnuCashVendor getVendorByID(GCshID vendID) {
+		if ( vendID == null ) {
+			throw new IllegalArgumentException("null vendor ID given");
+		}
+		
+		if ( ! vendID.isSet() ) {
+			throw new IllegalArgumentException("unset vendor ID given");
+		}
+		
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -93,10 +109,26 @@ public class FileVendorManager {
 	}
 
 	public List<GnuCashVendor> getVendorsByName(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getVendorsByName(name, true);
 	}
 
 	public List<GnuCashVendor> getVendorsByName(final String expr, final boolean relaxed) {
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( vendMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -120,6 +152,14 @@ public class FileVendorManager {
 
 	public GnuCashVendor getVendorByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashVendor> vendList = getVendorsByName(name);
 		if ( vendList.size() == 0 )
 			throw new NoEntryFoundException();

@@ -93,12 +93,20 @@ public class FileJobManager {
 	// ---------------------------------------------------------------
 
 	public void addGenerJob(GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
 		jobMap.put(job.getID(), job);
 
 		LOGGER.debug("Added (generic) jop to cache: " + job.getID());
 	}
 
 	public void removeGenerJob(GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
 		jobMap.remove(job.getID());
 
 		LOGGER.debug("removeGenerJob: No. of generic jobs: " + jobMap.size());
@@ -106,24 +114,48 @@ public class FileJobManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashGenerJob getGenerJobByID(final GCshID id) {
+	public GnuCashGenerJob getGenerJobByID(final GCshID jobID) {
+		if ( jobID == null ) {
+			throw new IllegalArgumentException("null job ID given");
+		}
+		
+		if ( ! jobID.isSet() ) {
+			throw new IllegalArgumentException("unset job ID given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashGenerJob retval = jobMap.get(id);
+		GnuCashGenerJob retval = jobMap.get(jobID);
 		if ( retval == null ) {
-			LOGGER.warn("getGenerJobByID: No generic Job with ID '" + id + "'. We know " + jobMap.size() + " jobs.");
+			LOGGER.warn("getGenerJobByID: No generic Job with ID '" + jobID + "'. We know " + jobMap.size() + " jobs.");
 		}
 
 		return retval;
 	}
 
 	public List<GnuCashGenerJob> getGenerJobsByName(String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getGenerJobsByName(name, true);
 	}
 
 	public List<GnuCashGenerJob> getGenerJobsByName(final String expr, final boolean relaxed) {
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -147,6 +179,14 @@ public class FileJobManager {
 
 	public GnuCashGenerJob getGenerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashGenerJob> jobList = getGenerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -166,14 +206,22 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashCustomerJob getCustomerJobByID(final GCshID id) {
+	public GnuCashCustomerJob getCustomerJobByID(final GCshID jobID) {
+		if ( jobID == null ) {
+			throw new IllegalArgumentException("null job ID given");
+		}
+		
+		if ( ! jobID.isSet() ) {
+			throw new IllegalArgumentException("unset job ID given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashGenerJob job = jobMap.get(id);
+		GnuCashGenerJob job = jobMap.get(jobID);
 		if ( job == null ) {
-			LOGGER.warn("getCustomerJobByID: No customer Job with ID '" + id + "'. We know " + jobMap.size()
+			LOGGER.warn("getCustomerJobByID: No customer Job with ID '" + jobID + "'. We know " + jobMap.size()
 					+ " jobs.");
 		}
 
@@ -181,10 +229,26 @@ public class FileJobManager {
 	}
 
 	public List<GnuCashCustomerJob> getCustomerJobsByName(String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getCustomerJobsByName(name, true);
 	}
 
 	public List<GnuCashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -208,6 +272,14 @@ public class FileJobManager {
 
 	public GnuCashCustomerJob getCustomerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashCustomerJob> jobList = getCustomerJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -236,25 +308,49 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashVendorJob getVendorJobByID(final GCshID id) {
+	public GnuCashVendorJob getVendorJobByID(final GCshID jobID) {
+		if ( jobID == null ) {
+			throw new IllegalArgumentException("null job ID given");
+		}
+		
+		if ( ! jobID.isSet() ) {
+			throw new IllegalArgumentException("unset job ID given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashGenerJob job = jobMap.get(id);
+		GnuCashGenerJob job = jobMap.get(jobID);
 		if ( job == null ) {
 			LOGGER.warn(
-					"getVendorJobByID: No vendor Job with ID '" + id + "'. We know " + jobMap.size() + " jobs.");
+					"getVendorJobByID: No vendor Job with ID '" + jobID + "'. We know " + jobMap.size() + " jobs.");
 		}
 
 		return new GnuCashVendorJobImpl(job);
 	}
 
 	public List<GnuCashVendorJob> getVendorJobsByName(String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		return getVendorJobsByName(name, true);
 	}
 
 	public List<GnuCashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -278,6 +374,14 @@ public class FileJobManager {
 
 	public GnuCashVendorJob getVendorJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		List<GnuCashVendorJob> jobList = getVendorJobsByName(name, false);
 		if ( jobList.size() == 0 )
 			throw new NoEntryFoundException();
@@ -309,6 +413,10 @@ public class FileJobManager {
 	// ---------------------------------------------------------------
 
 	public List<GnuCashCustomerJob> getJobsByCustomer(final GnuCashCustomer cust) {
+		if ( cust == null ) {
+			throw new IllegalArgumentException("null customer given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -317,6 +425,10 @@ public class FileJobManager {
 	}
 
 	public List<GnuCashVendorJob> getJobsByVendor(final GnuCashVendor vend) {
+		if ( vend == null ) {
+			throw new IllegalArgumentException("null vendor given");
+		}
+		
 		if ( jobMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

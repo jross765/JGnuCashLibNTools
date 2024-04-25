@@ -139,6 +139,10 @@ public class FileTransactionManager {
 	}
 
 	public void addTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
+		if ( splt == null ) {
+			throw new IllegalArgumentException("null split given");
+		}
+		
 		trxSpltMap.put(splt.getID(), splt);
 
 		if ( withTrx ) {
@@ -151,6 +155,10 @@ public class FileTransactionManager {
 	}
 
 	public void removeTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
+		if ( splt == null ) {
+			throw new IllegalArgumentException("null split given");
+		}
+		
 		if ( withTrx ) {
 			removeTransaction(splt.getTransaction(), false);
 		}
@@ -161,6 +169,14 @@ public class FileTransactionManager {
 	// ---------------------------------------------------------------
 
 	public GnuCashTransaction getTransactionByID(final GCshID trxID) {
+		if ( trxID == null ) {
+			throw new IllegalArgumentException("null transaction ID given");
+		}
+		
+		if ( ! trxID.isSet() ) {
+			throw new IllegalArgumentException("unset transaction ID given");
+		}
+		
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -184,6 +200,14 @@ public class FileTransactionManager {
 	// ---------------------------------------------------------------
 
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+		if ( spltID == null ) {
+			throw new IllegalArgumentException("null split ID given");
+		}
+		
+		if ( ! spltID.isSet() ) {
+			throw new IllegalArgumentException("unset split ID given");
+		}
+		
 		if ( trxSpltMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

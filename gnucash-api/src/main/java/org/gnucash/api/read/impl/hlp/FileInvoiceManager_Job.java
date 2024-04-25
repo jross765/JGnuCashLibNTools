@@ -17,6 +17,10 @@ public abstract class FileInvoiceManager_Job {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashJobInvoice> getInvoices(final FileInvoiceManager invcMgr, final GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
@@ -30,6 +34,10 @@ public abstract class FileInvoiceManager_Job {
 
 	public static List<GnuCashJobInvoice> getPaidInvoices(final FileInvoiceManager invcMgr,
 			final GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
@@ -43,6 +51,10 @@ public abstract class FileInvoiceManager_Job {
 
 	public static List<GnuCashJobInvoice> getUnpaidInvoices(final FileInvoiceManager invcMgr,
 			final GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {

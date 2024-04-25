@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
@@ -65,11 +64,19 @@ public class FileTaxTableManager {
 	// ---------------------------------------------------------------
 
 	public void addTaxTable(GCshTaxTable taxTab) {
+		if ( taxTab == null ) {
+			throw new IllegalArgumentException("null tax table given");
+		}
+		
 		taxTabMap.put(taxTab.getID(), taxTab);
 		LOGGER.debug("Added tax table to cache: " + taxTab.getID());
 	}
 
 	public void removeTaxTable(GCshTaxTable taxTab) {
+		if ( taxTab == null ) {
+			throw new IllegalArgumentException("null tax table given");
+		}
+		
 		taxTabMap.remove(taxTab.getID());
 		LOGGER.debug("Removed tax table from cache: " + taxTab.getID());
 	}
@@ -77,6 +84,14 @@ public class FileTaxTableManager {
 	// ---------------------------------------------------------------
 
 	public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
+		if ( taxTabID == null ) {
+			throw new IllegalArgumentException("null tax table ID given");
+		}
+		
+		if ( ! taxTabID.isSet() ) {
+			throw new IllegalArgumentException("unset tax table ID given");
+		}
+		
 		if ( taxTabMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -90,6 +105,14 @@ public class FileTaxTableManager {
 	}
 
 	public GCshTaxTable getTaxTableByName(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		if ( taxTabMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

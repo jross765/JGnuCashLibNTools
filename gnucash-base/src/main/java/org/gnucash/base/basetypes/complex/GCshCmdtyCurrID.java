@@ -100,6 +100,16 @@ public class GCshCmdtyCurrID {
 
     // ---------------------------------------------------------------
     
+    public boolean isSet() {
+    	if ( this.type == Type.UNSET )
+    		return false;
+    	
+    	if ( this.code.trim().equals("") )
+    		return false;
+    	
+    	return true;
+    }
+
     public void reset() {
     	this.type = Type.UNSET;
     	this.code = "";

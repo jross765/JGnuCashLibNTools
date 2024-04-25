@@ -11,22 +11,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.Price;
 import org.gnucash.api.generated.Price.PriceCommodity;
 import org.gnucash.api.generated.Price.PriceCurrency;
-import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashPriceImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -88,11 +85,19 @@ public class FilePriceManager {
 	// ---------------------------------------------------------------
 
 	public void addPrice(GnuCashPrice prc) {
+		if ( prc == null ) {
+			throw new IllegalArgumentException("null prc given");
+		}
+		
 		prcMap.put(prc.getID(), prc);
 		LOGGER.debug("Added price to cache: " + prc.getID());
 	}
 
 	public void removePrice(GnuCashPrice prc) {
+		if ( prc == null ) {
+			throw new IllegalArgumentException("null prc given");
+		}
+		
 		prcMap.remove(prc.getID());
 		LOGGER.debug("Removed price from cache: " + prc.getID());
 	}
@@ -104,6 +109,14 @@ public class FilePriceManager {
 	}
 
 	public GnuCashPrice getPriceByID(GCshID prcID) {
+		if ( prcID == null ) {
+			throw new IllegalArgumentException("null prive ID given");
+		}
+		
+		if ( ! prcID.isSet() ) {
+			throw new IllegalArgumentException("unset price ID given");
+		}
+		
 		if ( prcMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -137,17 +150,46 @@ public class FilePriceManager {
 //    }
 
 	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) {
+		if ( cmdtyCurrID == null ) {
+			throw new IllegalArgumentException("null commodity/currency ID given");
+		}
+		
+		if ( ! cmdtyCurrID.isSet() ) {
+			throw new IllegalArgumentException("unset commodity/currency ID given");
+		}
+
 		return getLatestPrice(cmdtyCurrID, 0);
 	}
 
 	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
+		if ( pCmdtySpace == null ) {
+			throw new IllegalArgumentException("null commodity space given");
+		}
+		
+		if ( pCmdtySpace.trim().equals("") ) {
+			throw new IllegalArgumentException("empty commodity space given");
+		}
+		
+		if ( pCmdtyId == null ) {
+			throw new IllegalArgumentException("null commodity ID given");
+		}
+		
+		if ( pCmdtyId.trim().equals("") ) {
+			throw new IllegalArgumentException("empty commodity ID given");
+		}
+		
 		return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
 	}
 
 	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null parameter 'cmdtyCurrID' given");
+			throw new IllegalArgumentException("null commodity/currency ID given");
 		}
+		
+		if ( ! cmdtyCurrID.isSet() ) {
+			throw new IllegalArgumentException("unset commodity/currency ID given");
+		}
+
 		// System.err.println("depth: " + depth);
 
 		Date latestDate = null;

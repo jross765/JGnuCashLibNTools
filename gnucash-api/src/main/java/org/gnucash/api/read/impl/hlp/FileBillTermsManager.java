@@ -59,11 +59,19 @@ public class FileBillTermsManager {
 	// ---------------------------------------------------------------
 
 	public void addBillTerms(GCshBillTerms bllTrm) {
+		if ( bllTrm == null ) {
+			throw new IllegalArgumentException("null bill terms given");
+		}
+		
 		bllTrmMap.put(bllTrm.getID(), bllTrm);
 		LOGGER.debug("Added bill terms to cache: " + bllTrm.getID());
 	}
 
 	public void removeBillTerms(GCshBillTerms bllTrm) {
+		if ( bllTrm == null ) {
+			throw new IllegalArgumentException("null bill terms given");
+		}
+		
 		bllTrmMap.remove(bllTrm.getID());
 		LOGGER.debug("Removed bill terms from cache: " + bllTrm.getID());
 	}
@@ -71,6 +79,14 @@ public class FileBillTermsManager {
 	// ---------------------------------------------------------------
 
 	public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
+		if ( bllTrmID == null ) {
+			throw new IllegalArgumentException("null bill terms ID given");
+		}
+		
+		if ( ! bllTrmID.isSet() ) {
+			throw new IllegalArgumentException("unset bill terms ID given");
+		}
+		
 		if ( bllTrmMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -84,6 +100,14 @@ public class FileBillTermsManager {
 	}
 
 	public GCshBillTerms getBillTermsByName(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.trim().equals("") ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+		
 		if ( bllTrmMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}

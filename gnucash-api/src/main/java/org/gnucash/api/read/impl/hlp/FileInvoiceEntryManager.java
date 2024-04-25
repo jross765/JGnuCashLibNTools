@@ -66,25 +66,41 @@ public class FileInvoiceEntryManager {
 	// ---------------------------------------------------------------
 
 	public void addGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
+		if ( entr == null ) {
+			throw new IllegalArgumentException("null invoice entry given");
+		}
+		
 		invcEntrMap.put(entr.getID(), entr);
 		LOGGER.debug("Added (generic) invoice entry to cache: " + entr.getID());
 	}
 
 	public void removeGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
+		if ( entr == null ) {
+			throw new IllegalArgumentException("null invoice entry given");
+		}
+		
 		invcEntrMap.remove(entr.getID());
 		LOGGER.debug("Removed (generic) invoice entry from cache: " + entr.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID id) {
+	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID entrID) {
+		if ( entrID == null ) {
+			throw new IllegalArgumentException("null invoice entry ID given");
+		}
+		
+		if ( ! entrID.isSet() ) {
+			throw new IllegalArgumentException("unset invoice entry ID given");
+		}
+		
 		if ( invcEntrMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashGenerInvoiceEntry retval = invcEntrMap.get(id);
+		GnuCashGenerInvoiceEntry retval = invcEntrMap.get(entrID);
 		if ( retval == null ) {
-			LOGGER.error("getGenerInvoiceEntryByID: No (generic) Invoice-Entry with id '" + id + "'. " + "We know "
+			LOGGER.error("getGenerInvoiceEntryByID: No (generic) Invoice-Entry with id '" + entrID + "'. " + "We know "
 					+ invcEntrMap.size() + " accounts.");
 		}
 

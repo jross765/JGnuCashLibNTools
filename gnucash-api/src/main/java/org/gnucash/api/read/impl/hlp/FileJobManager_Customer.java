@@ -17,6 +17,10 @@ public abstract class FileJobManager_Customer {
 	// ---------------------------------------------------------------
 
 	public static List<GnuCashCustomerJob> getJobsByCustomer(final FileJobManager jobMgr, final GnuCashCustomer cust) {
+		if ( cust == null ) {
+			throw new IllegalArgumentException("null customer given");
+		}
+		
 		List<GnuCashCustomerJob> retval = new ArrayList<GnuCashCustomerJob>();
 
 		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {

@@ -68,36 +68,67 @@ public class FileEmployeeManager {
 	// ---------------------------------------------------------------
 
 	public void addEmployee(GnuCashEmployee empl) {
+		if ( empl == null ) {
+			throw new IllegalArgumentException("null employee given");
+		}
+		
 		emplMap.put(empl.getID(), empl);
 		LOGGER.debug("Added employee to cache: " + empl.getID());
 	}
 
 	public void removeEmployee(GnuCashEmployee empl) {
+		if ( empl == null ) {
+			throw new IllegalArgumentException("null employee given");
+		}
+		
 		emplMap.remove(empl.getID());
 		LOGGER.debug("Removed employee from cache: " + empl.getID());
 	}
 
 	// ---------------------------------------------------------------
 
-	public GnuCashEmployee getEmployeeByID(final GCshID id) {
+	public GnuCashEmployee getEmployeeByID(final GCshID emplID) {
+		if ( emplID == null ) {
+			throw new IllegalArgumentException("null employee ID given");
+		}
+		
+		if ( ! emplID.isSet() ) {
+			throw new IllegalArgumentException("unset employee ID given");
+		}
+		
 		if ( emplMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashEmployee retval = emplMap.get(id);
+		GnuCashEmployee retval = emplMap.get(emplID);
 		if ( retval == null ) {
-			LOGGER.warn("getEmployeeByID: No Employee with id '" + id + "'. We know " + emplMap.size() + " employees.");
+			LOGGER.warn("getEmployeeByID: No Employee with id '" + emplID + "'. We know " + emplMap.size() + " employees.");
 		}
 		
 		return retval;
 	}
 
 	public List<GnuCashEmployee> getEmployeesByUserName(final String userName) {
+		if ( userName == null ) {
+			throw new IllegalArgumentException("null user name given");
+		}
+		
+		if ( userName.trim().equals("") ) {
+			throw new IllegalArgumentException("empty user name given");
+		}
+		
 		return getEmployeesByUserName(userName, true);
 	}
 
 	public List<GnuCashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
-
+		if ( expr == null ) {
+			throw new IllegalArgumentException("null expression given");
+		}
+		
+		if ( expr.trim().equals("") ) {
+			throw new IllegalArgumentException("empty expression given");
+		}
+		
 		if ( emplMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -121,6 +152,14 @@ public class FileEmployeeManager {
 
 	public GnuCashEmployee getEmployeeByUserNameUniq(final String userName)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
+		if ( userName == null ) {
+			throw new IllegalArgumentException("null user name given");
+		}
+		
+		if ( userName.trim().equals("") ) {
+			throw new IllegalArgumentException("empty user name given");
+		}
+		
 		List<GnuCashEmployee> emplList = getEmployeesByUserName(userName);
 		if ( emplList.size() == 0 )
 			throw new NoEntryFoundException();
