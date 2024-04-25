@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
-import org.gnucash.api.read.AccountNotFoundException;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashEmployee;
@@ -14,7 +13,6 @@ import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.OwnerNotFoundException;
-import org.gnucash.api.read.WrongAccountTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
@@ -26,6 +24,8 @@ import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.AccountNotFoundException;
+import xyz.schnorxoborx.base.beanbase.WrongAccountTypeException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GenInvc {

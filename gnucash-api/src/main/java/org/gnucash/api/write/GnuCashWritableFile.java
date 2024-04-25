@@ -14,7 +14,6 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
@@ -48,6 +47,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;

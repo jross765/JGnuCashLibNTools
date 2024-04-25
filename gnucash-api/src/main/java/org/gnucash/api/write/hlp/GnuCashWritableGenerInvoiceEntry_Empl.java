@@ -1,8 +1,8 @@
 package org.gnucash.api.write.hlp;
 
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GnuCashWritableGenerInvoiceEntry_Empl {

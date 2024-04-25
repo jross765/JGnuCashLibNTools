@@ -8,7 +8,6 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SimpleAccount;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -17,6 +16,8 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.UnknownAccountTypeException;
 
 /**
  * Implementation of GnuCashAccount that used a

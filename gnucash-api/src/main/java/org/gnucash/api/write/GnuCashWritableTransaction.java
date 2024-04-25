@@ -6,12 +6,13 @@ import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
-import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+
+import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 
 /**
  * Transaction that can be modified.<br/>
@@ -59,11 +60,11 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
 
     /**
      * @return 
-     * @throws SplitNotFoundException 
+     * @throws TransactionSplitNotFoundException 
      *  
      * @see GnuCashTransaction#getFirstSplit()
      */
-    GnuCashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException;
+    GnuCashWritableTransactionSplit getWritableFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return 
@@ -71,7 +72,7 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
      *  
      * @see GnuCashTransaction#getSecondSplit()
      */
-    GnuCashWritableTransactionSplit getWritableSecondSplit() throws SplitNotFoundException;
+    GnuCashWritableTransactionSplit getWritableSecondSplit() throws TransactionSplitNotFoundException;
 
     /**
      *  
@@ -84,12 +85,12 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
      *
      * @return the first split of this transaction or null.
      */
-    GnuCashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException;
+    GnuCashWritableTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
      */
-    GnuCashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException;
+    GnuCashWritableTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException;
 
     /**
      *  

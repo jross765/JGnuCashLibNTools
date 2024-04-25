@@ -1,12 +1,12 @@
 package org.gnucash.api.write.hlp;
 
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GnuCashWritableGenerInvoice_Job {

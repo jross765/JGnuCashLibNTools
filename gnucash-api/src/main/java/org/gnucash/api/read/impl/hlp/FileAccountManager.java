@@ -234,11 +234,11 @@ public class FileAccountManager {
 	public GnuCashAccount getAccountByNameEx(final String nameRegEx)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( nameRegEx == null ) {
-			throw new IllegalArgumentException("null name/expression given");
+			throw new IllegalArgumentException("null regular expression given");
 		}
 		
 		if ( nameRegEx.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name/expression given");
+			throw new IllegalArgumentException("empty regular expression given");
 		}
 		
 		if ( acctMap == null ) {

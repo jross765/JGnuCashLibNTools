@@ -19,7 +19,6 @@ import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
@@ -35,6 +34,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xyz.schnorxoborx.base.beanbase.UnknownAccountTypeException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

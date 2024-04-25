@@ -18,17 +18,15 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
@@ -361,9 +359,9 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *  
      * @see GnuCashTransaction#getFirstSplit()
      */
-    public GnuCashTransactionSplit getFirstSplit() throws SplitNotFoundException {
+    public GnuCashTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException {
 	if ( getSplits().size() == 0 )
-	    throw new SplitNotFoundException();
+	    throw new TransactionSplitNotFoundException();
 	
 	return getSplits().get(0);
     }
@@ -373,9 +371,9 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *  
      * @see GnuCashTransaction#getSecondSplit()
      */
-    public GnuCashTransactionSplit getSecondSplit() throws SplitNotFoundException {
+    public GnuCashTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException {
 	if ( getSplits().size() <= 1 )
-	    throw new SplitNotFoundException();
+	    throw new TransactionSplitNotFoundException();
 	
 	return getSplits().get(1);
     }

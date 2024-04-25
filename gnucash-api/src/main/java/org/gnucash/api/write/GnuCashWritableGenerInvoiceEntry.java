@@ -3,7 +3,6 @@ package org.gnucash.api.write;
 import java.time.LocalDate;
 
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Cust;
 import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Empl;
@@ -12,6 +11,7 @@ import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoiceEntry_Vend;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

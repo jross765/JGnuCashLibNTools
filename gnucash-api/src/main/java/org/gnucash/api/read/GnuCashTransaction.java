@@ -11,6 +11,7 @@ import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
@@ -118,14 +119,14 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @throws SplitNotFoundException 
      *  
      */
-    GnuCashTransactionSplit getFirstSplit() throws SplitNotFoundException;
+    GnuCashTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
      * @throws SplitNotFoundException 
      *  
      */
-    GnuCashTransactionSplit getSecondSplit() throws SplitNotFoundException;
+    GnuCashTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException;
 
     /**
      *

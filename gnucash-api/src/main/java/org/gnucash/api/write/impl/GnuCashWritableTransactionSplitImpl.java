@@ -7,7 +7,6 @@ import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableTransaction;
@@ -22,6 +21,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

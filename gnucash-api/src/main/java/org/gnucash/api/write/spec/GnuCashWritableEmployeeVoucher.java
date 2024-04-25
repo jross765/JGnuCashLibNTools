@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashEmployee;
-import org.gnucash.api.read.IllegalTransactionSplitActionException;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
@@ -12,6 +11,7 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**

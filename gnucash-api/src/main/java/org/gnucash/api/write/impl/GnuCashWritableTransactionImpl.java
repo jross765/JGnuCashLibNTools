@@ -16,7 +16,6 @@ import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.SplitNotFoundException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
@@ -30,6 +29,8 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 
 /**
  * Extension of GnuCashTransactionImpl to allow read-write access instead of
@@ -250,14 +251,14 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * @see GnuCashWritableTransaction#getWritableFirstSplit()
      */
     @Override
-    public GnuCashWritableTransactionSplit getFirstSplit() throws SplitNotFoundException {
+    public GnuCashWritableTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException {
 	return (GnuCashWritableTransactionSplit) super.getFirstSplit();
     }
 
     /**
      * @see GnuCashWritableTransaction#getWritableFirstSplit()
      */
-    public GnuCashWritableTransactionSplit getWritableFirstSplit() throws SplitNotFoundException {
+    public GnuCashWritableTransactionSplit getWritableFirstSplit() throws TransactionSplitNotFoundException {
 	return (GnuCashWritableTransactionSplit) super.getFirstSplit();
     }
 
@@ -265,14 +266,14 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * @see GnuCashWritableTransaction#getWritableSecondSplit()
      */
     @Override
-    public GnuCashWritableTransactionSplit getSecondSplit() throws SplitNotFoundException {
+    public GnuCashWritableTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException {
 	return (GnuCashWritableTransactionSplit) super.getSecondSplit();
     }
 
     /**
      * @see GnuCashWritableTransaction#getWritableSecondSplit()
      */
-    public GnuCashWritableTransactionSplit getWritableSecondSplit()  throws SplitNotFoundException {
+    public GnuCashWritableTransactionSplit getWritableSecondSplit()  throws TransactionSplitNotFoundException {
 	return (GnuCashWritableTransactionSplit) super.getSecondSplit();
     }
 

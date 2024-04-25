@@ -16,15 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
-import org.gnucash.api.read.AccountNotFoundException;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.InvoiceNotFoundException;
-import org.gnucash.api.read.WrongAccountTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
+import xyz.schnorxoborx.base.beanbase.AccountNotFoundException;
+import xyz.schnorxoborx.base.beanbase.WrongAccountTypeException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;

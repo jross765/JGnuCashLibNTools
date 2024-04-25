@@ -14,6 +14,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xyz.schnorxoborx.base.beanbase.UnknownAccountTypeException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
@@ -21,7 +22,6 @@ import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.tools.CommandLineTool;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.UnknownAccountTypeException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetFileInfo extends CommandLineTool
