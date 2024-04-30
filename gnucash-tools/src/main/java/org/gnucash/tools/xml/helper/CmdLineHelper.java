@@ -16,9 +16,6 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class CmdLineHelper
 {
-  // What-String
-  final static String __VERSION_STRING = "@(#) $Header: svn://gila_svn_priv/finanzen/GnuCashToolsXML/trunk/GnuCashToolsXML/src/main/java/de/riegelmuenchen/gnucash/tools/xml/helper/CmdLineHelper.java 9350 2024-04-16 08:37:25Z thilo $";
-
   // final static final String SEPARATOR = ";";
 
   // -----------------------------------------------------------------
