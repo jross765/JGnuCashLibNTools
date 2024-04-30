@@ -11,8 +11,6 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-// ::TODO
-// import org.gnucash.api.read.CustomerNotFoundException;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;

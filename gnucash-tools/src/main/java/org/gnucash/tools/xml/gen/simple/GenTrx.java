@@ -165,8 +165,8 @@ public class GenTrx extends CommandLineTool
     trx.setDescription(description);
 
     GnuCashWritableTransactionSplit split1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcctID));
-    split1.setValue(new FixedPointNumber(amount.negate()));
-    split1.setQuantity(new FixedPointNumber(quantity.negate()));
+    split1.setValue(new FixedPointNumber(amount.copy().negate()));
+    split1.setQuantity(new FixedPointNumber(quantity.copy().negate()));
     
     GnuCashWritableTransactionSplit split2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcctID));
     split2.setValue(new FixedPointNumber(amount));

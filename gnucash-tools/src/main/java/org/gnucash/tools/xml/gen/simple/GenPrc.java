@@ -231,23 +231,23 @@ public class GenPrc extends CommandLineTool
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <name>");
+      System.err.println("Could not parse <to-curr>");
       throw new InvalidCommandLineArgsException();
     }
     
     // <date-format>
-    dateFormat = CmdLineHelper.getDateFormat(cmdLine);
+    dateFormat = CmdLineHelper.getDateFormat(cmdLine, "date-format");
     System.err.println("date-format: " + dateFormat);
 
     // <date>
     try
     {
-      date = CmdLineHelper.getDate(cmdLine, dateFormat); 
+      date = CmdLineHelper.getDate(cmdLine, "date", dateFormat); 
       System.err.println("date: " + date);
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <name>");
+      System.err.println("Could not parse <date>");
       throw new InvalidCommandLineArgsException();
     }
     

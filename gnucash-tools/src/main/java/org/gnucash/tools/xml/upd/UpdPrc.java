@@ -12,8 +12,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashPrice;
-// ::TODO
-// import org.gnucash.api.read.PriceNotFoundException;
 import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;

@@ -11,14 +11,6 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
-import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -26,6 +18,13 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillEntryImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class GetGenerInvcEntryInfo extends CommandLineTool
 {
@@ -70,7 +69,7 @@ public class GetGenerInvcEntryInfo extends CommandLineTool
       .hasArg()
       .withArgName("file")
       .withDescription("GnuCash file")
-      .withLongOpt("GnuCash file")
+      .withLongOpt("gnucash-file")
       .create("f");
       
     Option optInvcEntrID = OptionBuilder
@@ -329,14 +328,14 @@ public class GetGenerInvcEntryInfo extends CommandLineTool
 
     // ---
 
-    // <GnuCash file>
+    // <gnucash-file>
     try
     {
-      gcshFileName = cmdLine.getOptionValue("GnuCash file");
+      gcshFileName = cmdLine.getOptionValue("gnucash-file");
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <GnuCash file>");
+      System.err.println("Could not parse <gnucash-file>");
       throw new InvalidCommandLineArgsException();
     }
     

@@ -91,16 +91,17 @@ To compile the sources, do the following:
 
 1) Make sure that you have Maven installed on your system.
 
-2) Clone the [`SchnorxoLib`](https://github.com/jross765/schnorxolib) repository, compile it and install the resulting JAR file in your local repository by typing:
+2) Build and install [`SchnorxoLib`](https://github.com/jross765/schnorxolib) (cf. details there).
 
-    `$ ./build.sh`
+3) Clone this repository.
 
-     Then, either copy the resulting file to whereever you want to have it, 
-     or do it the standard Maven way be typing:
+4) Check out the latest version tag. In this case: `V_1_5_0`.
 
-    `$ mvn install`
+   The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
+   who do not seem to understand the concept of version tags and configuration management, 
+   so please bear with him...
 
-3) Clone this repository and compile the sources:
+5) Compile the sources:
     a) Adapt the path to your local repository in *all* pom.xml files (search for "`schnorxolib-base-systemPath`").
     b) Type:
 

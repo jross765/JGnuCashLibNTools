@@ -11,17 +11,16 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.api.read.GnuCashTransaction;
-import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.impl.GnuCashFileImpl;
 
 public class GetTrxInfo extends CommandLineTool
 {
@@ -68,7 +67,7 @@ public class GetTrxInfo extends CommandLineTool
       .hasArg()
       .withArgName("file")
       .withDescription("GnuCash file")
-      .withLongOpt("GnuCash file")
+      .withLongOpt("gnucash-file")
       .create("f");
       
     Option optTrxID = OptionBuilder
@@ -195,14 +194,14 @@ public class GetTrxInfo extends CommandLineTool
 
     // ---
 
-    // <GnuCash file>
+    // <gnucash-file>
     try
     {
-      gcshFileName = cmdLine.getOptionValue("GnuCash file");
+      gcshFileName = cmdLine.getOptionValue("gnucash-file");
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <GnuCash file>");
+      System.err.println("Could not parse <gnucash-file>");
       throw new InvalidCommandLineArgsException();
     }
     

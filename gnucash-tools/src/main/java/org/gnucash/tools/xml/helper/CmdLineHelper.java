@@ -16,19 +16,26 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class CmdLineHelper
 {
-  public static Helper.DateFormat getDateFormat(CommandLine cmdLine) throws InvalidCommandLineArgsException
+  // What-String
+  final static String __VERSION_STRING = "@(#) $Header: svn://gila_svn_priv/finanzen/GnuCashToolsXML/trunk/GnuCashToolsXML/src/main/java/de/riegelmuenchen/gnucash/tools/xml/helper/CmdLineHelper.java 9350 2024-04-16 08:37:25Z thilo $";
+
+  // final static final String SEPARATOR = ";";
+
+  // -----------------------------------------------------------------
+  
+  public static Helper.DateFormat getDateFormat(CommandLine cmdLine, String argName) throws InvalidCommandLineArgsException
   {
     Helper.DateFormat dateFormat;
     
-    if ( cmdLine.hasOption("date-format") )
+    if ( cmdLine.hasOption(argName) )
     {
       try
       {
-        dateFormat = Helper.DateFormat.valueOf(cmdLine.getOptionValue("date-format"));
+        dateFormat = Helper.DateFormat.valueOf(cmdLine.getOptionValue(argName));
       }
       catch (Exception exc)
       {
-        System.err.println("Error: Could not parse <date-format>");
+        System.err.println("Error: Could not parse <" + argName + ">");
         throw new InvalidCommandLineArgsException();
       }
     }
@@ -40,41 +47,91 @@ public class CmdLineHelper
     return dateFormat;
   }
 
-  public static LocalDate getDate(CommandLine cmdLine, Helper.DateFormat dateFormat) throws InvalidCommandLineArgsException
+  public static Helper.DateFormat getDateFormat(String arg, String argName) throws InvalidCommandLineArgsException
+  {
+    Helper.DateFormat dateFormat;
+    
+    if ( arg != null )
+    {
+      try
+      {
+        dateFormat = Helper.DateFormat.valueOf(arg);
+      }
+      catch (Exception exc)
+      {
+        System.err.println("Error: Could not parse <" + argName + ">");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
+    else
+    {
+      dateFormat = Helper.DateFormat.ISO_8601;
+    }
+    
+    return dateFormat;
+  }
+  
+  // ------------------------------
+
+  public static LocalDate getDate(CommandLine cmdLine, String argName,
+		  						  Helper.DateFormat dateFormat) throws InvalidCommandLineArgsException
   {
     LocalDate datum = LocalDate.now();
     
     try
     {
       if ( dateFormat == Helper.DateFormat.ISO_8601 )
-        datum = LocalDateHelpers.parseLocalDate(cmdLine.getOptionValue("date"), DateHelpers.DATE_FORMAT_2);
+        datum = LocalDateHelpers.parseLocalDate(cmdLine.getOptionValue(argName), DateHelpers.DATE_FORMAT_2);
       else if ( dateFormat == Helper.DateFormat.DE )
-        datum = LocalDateHelpers.parseLocalDate(cmdLine.getOptionValue("date"));
+        datum = LocalDateHelpers.parseLocalDate(cmdLine.getOptionValue(argName));
     }
     catch (Exception exc)
     {
-      System.err.println("Error: Could not parse <datum>");
+      System.err.println("Error: Could not parse <" + argName + ">");
       throw new InvalidCommandLineArgsException();
     }
     
     return datum;
   }
 
+  public static LocalDate getDate(String arg, String argName,
+			  					  Helper.DateFormat dateFormat) throws InvalidCommandLineArgsException
+	{
+		LocalDate datum = LocalDate.now();
+
+		try
+		{
+			if ( dateFormat == Helper.DateFormat.ISO_8601 )
+				datum = LocalDateHelpers.parseLocalDate( arg, DateHelpers.DATE_FORMAT_2 );
+			else if ( dateFormat == Helper.DateFormat.DE )
+				datum = LocalDateHelpers.parseLocalDate( arg );
+		} catch ( Exception exc )
+		{
+			System.err.println( "Error: Could not parse <" + argName + ">" );
+			throw new InvalidCommandLineArgsException();
+		}
+
+		return datum;
+	}
+
   // -----------------------------------------------------------------
   
-  public static Collection<AcctIDAmountPair> getExpAcctAmtMulti(CommandLine cmdLine) throws InvalidCommandLineArgsException
+  public static Collection<AcctIDAmountPair> getExpAcctAmtMulti(CommandLine cmdLine, String argName) throws InvalidCommandLineArgsException
   {
     List<AcctIDAmountPair> result = new ArrayList<AcctIDAmountPair>();
 
-    // <expense-account-amounts>
-    if ( cmdLine.hasOption("expense-account-amounts") )
+    if ( cmdLine.hasOption(argName) )
     {
-        try
+	    try
         {
-        	String temp = cmdLine.getOptionValue("expense-account-amounts");
+        	String temp = cmdLine.getOptionValue(argName);
+    	    // System.err.println("*** expacctamt: '" + temp + "' ***");
+
         	String[] pairListArr = temp.split("\\|");
+    	    // System.err.println("*** arr-size: " + pairListArr.length);
         	for ( String pairStr : pairListArr )
         	{
+        	    // System.err.println("*** pair: '" + pairStr + "'");
         		int pos = pairStr.indexOf(";");
         		if ( pos < 0 )
         		{
@@ -83,7 +140,7 @@ public class CmdLineHelper
         		}
         		String acctIDStr = pairStr.substring(0, pos);
         		String amtStr    = pairStr.substring(pos + 1);
-        		// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "' (pos " + pos + ")");
+        		// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
         		
         		GCshID acctID = new GCshID(acctIDStr);
         		Double amtDbl = Double.valueOf(amtStr);
@@ -95,7 +152,55 @@ public class CmdLineHelper
         }
         catch (Exception e)
         {
-        	System.err.println("Could not parse <expense-account-amounts>");
+        	System.err.println("Could not parse <" + argName + ">");
+        	throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	// ::EMPTY
+    }
+
+    return result;
+  }
+
+  public static Collection<AcctIDAmountPair> getExpAcctAmtMulti(String arg, String argName) throws InvalidCommandLineArgsException
+  {
+    List<AcctIDAmountPair> result = new ArrayList<AcctIDAmountPair>();
+
+    if ( arg != null )
+    {
+	    try
+        {
+        	String temp = arg;
+    	    // System.err.println("*** expacctamt: '" + temp + "' ***");
+
+        	String[] pairListArr = temp.split("\\|");
+    	    // System.err.println("*** arr-size: " + pairListArr.length);
+        	for ( String pairStr : pairListArr )
+        	{
+        	    // System.err.println("*** pair: '" + pairStr + "'");
+        		int pos = pairStr.indexOf(";");
+        		if ( pos < 0 )
+        		{
+        			System.err.println("Error: List element '" + pairStr + "' does not contain the separator");
+        			throw new InvalidCommandLineArgsException();
+        		}
+        		String acctIDStr = pairStr.substring(0, pos);
+        		String amtStr    = pairStr.substring(pos + 1);
+        		// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
+        		
+        		GCshID acctID = new GCshID(acctIDStr);
+        		Double amtDbl = Double.valueOf(amtStr);
+        		// System.err.println(" - elt2: " + acctIDStr + " / " + amtStr);
+        		
+        		AcctIDAmountPair newPair = new AcctIDAmountPair(acctID, new FixedPointNumber(amtDbl));
+        		result.add(newPair);
+        	}
+        }
+        catch (Exception e)
+        {
+        	System.err.println("Could not parse <" + argName + ">");
         	throw new InvalidCommandLineArgsException();
         }
     }

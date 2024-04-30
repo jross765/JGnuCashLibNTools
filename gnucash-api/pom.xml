@@ -16,6 +16,7 @@
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<schnorxolib-base-systemPath>/home/xxx/.m2/repository/xyz/schnorxoborx/schnorxolib-base/0.1-RELEASE/schnorxolib-base-0.1-RELEASE.jar</schnorxolib-base-systemPath>
 
 	</properties>
 
@@ -29,14 +30,6 @@
 	</repositories>
 
 	<dependencies>
-
-		<!-- GnuCash Base -->
-		<dependency>
-			<groupId>org.gnucash</groupId>
-			<artifactId>gnucash-base</artifactId>
-			<version>${project.version}</version>
-			<scope>compile</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>jakarta.xml.bind</groupId>
@@ -115,6 +108,26 @@
 			<artifactId>istack-commons-runtime</artifactId>
 			<version>4.0.1</version>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- *********************************************************  -->
+		
+		<dependency>
+			<groupId>xyz.schnorxoborx</groupId>
+			<artifactId>schnorxolib-base</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${schnorxolib-base-systemPath}</systemPath>
+		</dependency>
+
+		<!-- *********************************************************  -->
+		
+		<!-- GnuCash Base -->
+		<dependency>
+			<groupId>org.gnucash</groupId>
+			<artifactId>gnucash-base</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 	</dependencies>

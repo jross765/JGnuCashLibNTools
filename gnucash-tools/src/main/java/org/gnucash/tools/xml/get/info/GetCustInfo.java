@@ -78,7 +78,7 @@ public class GetCustInfo extends CommandLineTool
       .hasArg()
       .withArgName("file")
       .withDescription("GnuCash file")
-      .withLongOpt("GnuCash file")
+      .withLongOpt("gnucash-file")
       .create("f");
       
     Option optMode = OptionBuilder
@@ -387,14 +387,14 @@ public class GetCustInfo extends CommandLineTool
 
     // ---
 
-    // <GnuCash file>
+    // <gnucash-file>
     try
     {
-      gcshFileName = cmdLine.getOptionValue("GnuCash file");
+      gcshFileName = cmdLine.getOptionValue("gnucash-file");
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <GnuCash file>");
+      System.err.println("Could not parse <gnucash-file>");
       throw new InvalidCommandLineArgsException();
     }
     

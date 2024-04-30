@@ -11,22 +11,18 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.write.GnuCashWritableAccount;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.AccountNotFoundException;
-import xyz.schnorxoborx.base.beanbase.UnknownAccountTypeException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.get.list.GetAcctList;
-import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.write.GnuCashWritableAccount;
-import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 
 public class UpdAcct extends CommandLineTool
 {
