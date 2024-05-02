@@ -9,6 +9,7 @@ import org.apache.commons.cli.CommandLine;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 
+import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.dateutils.DateHelpers;
 import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;

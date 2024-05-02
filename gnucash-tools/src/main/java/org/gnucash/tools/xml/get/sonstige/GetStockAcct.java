@@ -19,13 +19,13 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.helper.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class GetStockAcct extends CommandLineTool
@@ -39,7 +39,7 @@ public class GetStockAcct extends CommandLineTool
   private static String                gcshFileName = null;
   
   private static Helper.Mode           acctMode     = null;
-  private static Helper.CmdtyMode      cmdtyMode      = null;
+  private static Helper.CmdtySecMode   cmdtyMode      = null;
   private static GCshID                acctID       = null;
   private static String                acctName     = null;
   
@@ -201,7 +201,7 @@ public class GetStockAcct extends CommandLineTool
 
     GnuCashCommodity cmdty = null;
     
-    if ( cmdtyMode == Helper.CmdtyMode.ID )
+    if ( cmdtyMode == Helper.CmdtySecMode.ID )
     {
       cmdty = kmmFile.getCommodityByQualifID(cmdtyID);
       if ( cmdty == null )
@@ -211,7 +211,7 @@ public class GetStockAcct extends CommandLineTool
         throw new NoEntryFoundException();
       }
     }
-    else if ( cmdtyMode == Helper.CmdtyMode.ISIN )
+    else if ( cmdtyMode == Helper.CmdtySecMode.ISIN )
     {
       cmdty = kmmFile.getCommodityByXCode(isin);
       if ( cmdty == null )
@@ -221,7 +221,7 @@ public class GetStockAcct extends CommandLineTool
         throw new NoEntryFoundException();
       }
     }
-    else if ( cmdtyMode == Helper.CmdtyMode.NAME )
+    else if ( cmdtyMode == Helper.CmdtySecMode.NAME )
     {
       Collection<GnuCashCommodity> cmdtyList = kmmFile.getCommoditiesByName(cmdtyName); 
       if ( cmdtyList.size() == 0 )
@@ -314,7 +314,13 @@ public class GetStockAcct extends CommandLineTool
     // <commodity-mode>
     try
     {
-      cmdtyMode = Helper.CmdtyMode.valueOf(cmdLine.getOptionValue("commodity-mode"));
+      cmdtyMode = Helper.CmdtySecMode.valueOf(cmdLine.getOptionValue("commodity-mode"));
+      if ( cmdtyMode == Helper.CmdtySecMode.TYPE )
+      {
+    	  // sic, not valid
+          System.err.println("Could not parse <commodity-mode>");
+          throw new InvalidCommandLineArgsException();
+      }
     }
     catch ( Exception exc )
     {
@@ -390,9 +396,9 @@ public class GetStockAcct extends CommandLineTool
     // <commodity-id>
     if ( cmdLine.hasOption("commodity-id") )
     {
-      if ( cmdtyMode != Helper.CmdtyMode.ID )
+      if ( cmdtyMode != Helper.CmdtySecMode.ID )
       {
-        System.err.println("<commodity-id> must only be set with <commodity-mode> = '" + Helper.CmdtyMode.ID.toString() + "'");
+        System.err.println("<commodity-id> must only be set with <commodity-mode> = '" + Helper.CmdtySecMode.ID.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
       
@@ -408,9 +414,9 @@ public class GetStockAcct extends CommandLineTool
     }
     else
     {
-      if ( cmdtyMode == Helper.CmdtyMode.ID )
+      if ( cmdtyMode == Helper.CmdtySecMode.ID )
       {
-        System.err.println("<commodity-id> must be set with <commodity-mode> = '" + Helper.CmdtyMode.ID.toString() + "'");
+        System.err.println("<commodity-id> must be set with <commodity-mode> = '" + Helper.CmdtySecMode.ID.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
     }
@@ -421,9 +427,9 @@ public class GetStockAcct extends CommandLineTool
     // <isin>
     if ( cmdLine.hasOption("isin") )
     {
-      if ( cmdtyMode != Helper.CmdtyMode.ISIN )
+      if ( cmdtyMode != Helper.CmdtySecMode.ISIN )
       {
-        System.err.println("<isin> must only be set with <commodity-mode> = '" + Helper.CmdtyMode.ISIN.toString() + "'");
+        System.err.println("<isin> must only be set with <commodity-mode> = '" + Helper.CmdtySecMode.ISIN.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
       
@@ -439,9 +445,9 @@ public class GetStockAcct extends CommandLineTool
     }
     else
     {
-      if ( cmdtyMode == Helper.CmdtyMode.ISIN )
+      if ( cmdtyMode == Helper.CmdtySecMode.ISIN )
       {
-        System.err.println("<isin> must be set with <commodity-mode> = '" + Helper.CmdtyMode.ISIN.toString() + "'");
+        System.err.println("<isin> must be set with <commodity-mode> = '" + Helper.CmdtySecMode.ISIN.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
     }
@@ -452,9 +458,9 @@ public class GetStockAcct extends CommandLineTool
     // <commodity-name>
     if ( cmdLine.hasOption("commodity-name") )
     {
-      if ( cmdtyMode != Helper.CmdtyMode.NAME )
+      if ( cmdtyMode != Helper.CmdtySecMode.NAME )
       {
-        System.err.println("<commodity-name> must only be set with <commodity-mode> = '" + Helper.CmdtyMode.NAME.toString() + "'");
+        System.err.println("<commodity-name> must only be set with <commodity-mode> = '" + Helper.CmdtySecMode.NAME.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
       
@@ -470,9 +476,9 @@ public class GetStockAcct extends CommandLineTool
     }
     else
     {
-      if ( cmdtyMode == Helper.CmdtyMode.NAME )
+      if ( cmdtyMode == Helper.CmdtySecMode.NAME )
       {
-        System.err.println("<commodity-name> must be set with <commodity-mode> = '" + Helper.CmdtyMode.NAME.toString() + "'");
+        System.err.println("<commodity-name> must be set with <commodity-mode> = '" + Helper.CmdtySecMode.NAME.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
     }
@@ -494,7 +500,10 @@ public class GetStockAcct extends CommandLineTool
 
     System.out.println("");
     System.out.println("Valid values for <commodity-mode>:");
-    for ( Helper.CmdtyMode elt : Helper.CmdtyMode.values() )
-      System.out.println(" - " + elt);
+    for ( Helper.CmdtySecMode elt : Helper.CmdtySecMode.values() )
+    {
+      if ( elt != Helper.CmdtySecMode.TYPE ) // sic
+        System.out.println(" - " + elt);
+    }
   }
 }

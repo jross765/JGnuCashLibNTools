@@ -19,11 +19,11 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.tools.CommandLineTool;
 import org.gnucash.tools.xml.helper.CmdLineHelper;
-import org.gnucash.tools.xml.helper.Helper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
