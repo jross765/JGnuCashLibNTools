@@ -1,6 +1,7 @@
 package org.gnucash.tools.xml.get.list;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.cli.CommandLine;
@@ -32,6 +33,7 @@ public class GetCmdtyList extends CommandLineTool
   
   private static String               gcshFileName = null;
   private static Helper.CmdtyListMode mode         = null; 
+  private static String               isin         = null;
   private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO
@@ -84,6 +86,13 @@ public class GetCmdtyList extends CommandLineTool
 //      .withLongOpt("type")
 //      .create("t");
       
+    Option optISIN = OptionBuilder
+      .hasArg()
+      .withArgName("isin")
+      .withDescription("ISIN")
+      .withLongOpt("isin")
+      .create("is");
+    	    	      
     Option optName = OptionBuilder
       .hasArg()
       .withArgName("name")
@@ -98,6 +107,7 @@ public class GetCmdtyList extends CommandLineTool
     options.addOption(optFile);
     options.addOption(optMode);
     // options.addOption(optType);
+    options.addOption(optISIN);
     options.addOption(optName);
   }
 
@@ -115,8 +125,13 @@ public class GetCmdtyList extends CommandLineTool
     Collection<GnuCashCommodity> cmdtyList = null; 
     if ( mode == Helper.CmdtyListMode.ALL )
         cmdtyList = gcshFile.getCommodities();
-//    else if ( mode == Helper.CmdtyListMode.ISIN )
+//    else if ( mode == Helper.CmdtyListMode.TYPE )
 //    	cmdtyList = gcshFile.getCommoditiesByType(type);
+    else if ( mode == Helper.CmdtyListMode.ISIN ) {
+    	GnuCashCommodity sec = gcshFile.getCommodityByXCode(isin);
+    	cmdtyList = new ArrayList<GnuCashCommodity>();
+    	cmdtyList.add( sec );
+    }
     else if ( mode == Helper.CmdtyListMode.NAME )
     	cmdtyList = gcshFile.getCommoditiesByName(name, true);
 
@@ -209,6 +224,39 @@ public class GetCmdtyList extends CommandLineTool
 //    if ( ! scriptMode )
 //      System.err.println("Type:              " + type);
 
+    // <isin>
+    if ( cmdLine.hasOption( "isin" ) )
+    {
+    	if ( mode != Helper.CmdtyListMode.ISIN )
+    	{
+            System.err.println("Error: <isin> must only be set with <mode> = '" + Helper.CmdtyListMode.ISIN + "'");
+            throw new InvalidCommandLineArgsException();
+    	}
+    	
+        try
+        {
+        	isin = cmdLine.getOptionValue("isin");
+        }
+        catch ( Exception exc )
+        {
+        	System.err.println("Could not parse <isin>");
+        	throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	if ( mode == Helper.CmdtyListMode.ISIN )
+    	{
+            System.err.println("Error: <isin> must be set with <mode> = '" + Helper.CmdtyListMode.ISIN + "'");
+            throw new InvalidCommandLineArgsException();
+    	}
+    	
+    	isin = null;
+    }
+    
+    if ( ! scriptMode )
+      System.err.println("ISIN:              " + isin);
+    
     // <name>
     if ( cmdLine.hasOption( "name" ) )
     {
@@ -251,7 +299,7 @@ public class GetCmdtyList extends CommandLineTool
     
     System.out.println("");
     System.out.println("Valid values for <mode>:");
-    for ( Helper.AcctListMode elt : Helper.AcctListMode.values() )
+    for ( Helper.CmdtyListMode elt : Helper.CmdtyListMode.values() )
       System.out.println(" - " + elt);
 
 //    System.out.println("");
