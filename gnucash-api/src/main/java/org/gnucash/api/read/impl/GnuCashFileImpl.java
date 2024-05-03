@@ -438,6 +438,15 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 *         result is sorted)
 	 */
 	@Override
+	public GCshID getRootAccountID() {
+		return acctMgr.getRootAccountID();
+	}
+
+	/**
+	 * @return a read-only collection of all accounts that have no parent (the
+	 *         result is sorted)
+	 */
+	@Override
 	public GnuCashAccount getRootAccount() {
 		return acctMgr.getRootAccount();
 	}

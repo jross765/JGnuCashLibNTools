@@ -23,7 +23,8 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestHasUserDefinedAttributesImpl {
 	public static final GCshID ACCT_1_ID = new GCshID( "b3741e92e3b9475b9d5a2dc8254a8111" ); // SAP
-	public static final GCshID ACCT_2_ID = new GCshID( "3b0e56552514420da0e2cec300f64ce6" ); // Depots
+	public static final GCshID ACCT_2_ID = new GCshID( "7ee6fe4de6db46fd957f3513c9c6f983" ); // Depots
+	public static final GCshID ACCT_3_ID = new GCshID( "3b0e56552514420da0e2cec300f64ce6" ); // Aktiva
 
 	public static final GCshID TRX_1_ID = new GCshID( "18a45dfc8a6868c470438e27d6fe10b2" );
 	public static final GCshID TRX_2_ID = new GCshID( "cc9fe6a245df45ba9b494660732a7755" );

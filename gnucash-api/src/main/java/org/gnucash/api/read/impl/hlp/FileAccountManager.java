@@ -367,6 +367,13 @@ public class FileAccountManager {
 		return Collections.unmodifiableCollection(acctMap.values());
 	}
 
+	public GCshID getRootAccountID()  {
+		if ( getRootAccount() == null )
+			return null;
+		
+		return getRootAccount().getID();
+	}
+
 	public GnuCashAccount getRootAccount()  {
 		for ( GnuCashAccount acct : getAccounts() ) {
 			if ( acct.getParentAccountID() == null && 

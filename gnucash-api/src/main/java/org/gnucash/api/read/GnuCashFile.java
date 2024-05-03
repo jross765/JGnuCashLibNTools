@@ -172,6 +172,11 @@ public interface GnuCashFile extends GnuCashObject,
     /**
      * @return
      */
+    GCshID getRootAccountID();
+
+    /**
+     * @return
+     */
     GnuCashAccount getRootAccount();
 
     /**

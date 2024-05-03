@@ -225,30 +225,50 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @see GnuCashAccount#addTransactionSplit(GnuCashTransactionSplit)
      */
     @Override
-    public void addTransactionSplit(final GnuCashTransactionSplit split) {
-	super.addTransactionSplit(split);
+    public void addTransactionSplit(final GnuCashTransactionSplit splt) {
+		if ( splt == null ) {
+			throw new IllegalArgumentException("null split given");
+		}
+		
+		if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+			 getGnuCashFile().getRootAccountID().equals(getID())) {
+			LOGGER.error("Setting name is forbidden for root and top-level accounts");
+			throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+		}
+		
+		super.addTransactionSplit(splt);
 
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if ( propertyChangeFirer != null ) {
-	    propertyChangeFirer.firePropertyChange("transactionSplits", null, getTransactionSplits());
-	}
+		setIsModified();
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("transactionSplits", null, getTransactionSplits());
+		}
     }
 
     /**
-     * @param impl the split to remove
+     * @param splt the split to remove
      */
-    protected void removeTransactionSplit(final GnuCashWritableTransactionSplit impl) {
-	List<GnuCashTransactionSplit> transactionSplits = getTransactionSplits();
-	transactionSplits.remove(impl);
+    protected void removeTransactionSplit(final GnuCashWritableTransactionSplit splt) {
+		if ( splt == null ) {
+			throw new IllegalArgumentException("null split given");
+		}
+		
+		if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+			 getGnuCashFile().getRootAccountID().equals(getID())) {
+			LOGGER.error("Setting name is forbidden for root and top-level accounts");
+			throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+		}
+			
+		List<GnuCashTransactionSplit> transactionSplits = getTransactionSplits();
+		transactionSplits.remove(splt);
 
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if ( propertyChangeFirer != null ) {
-	    propertyChangeFirer.firePropertyChange("transactionSplits", null, transactionSplits);
-	}
+		setIsModified();
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("transactionSplits", null, transactionSplits);
+		}
     }
 
     // ---------------------------------------------------------------
@@ -257,50 +277,66 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @see GnuCashWritableAccount#setName(java.lang.String)
      */
     public void setName(final String name) {
-	if ( name == null ) {
-	    throw new IllegalArgumentException("null name given!");
-	}
+    	if ( name == null ) {
+    		throw new IllegalArgumentException("null name given!");
+    	}
 
-	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty name given!");
-	}
+    	if ( name.trim().length() == 0 ) {
+    		throw new IllegalArgumentException("empty name given!");
+    	}
 
-	String oldName = getName();
-	if (oldName == name) {
-	    return; // nothing has changed
-	}
-	this.getJwsdpPeer().setActName(name);
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("name", oldName, name);
-	}
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+			 getGnuCashFile().getRootAccountID().equals(getID())) {
+			LOGGER.error("Setting name is forbidden for root and top-level accounts");
+			throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+		}
+			
+    	String oldName = getName();
+    	if (oldName == name) {
+    		return; // nothing has changed
+    	}
+    	
+    	this.getJwsdpPeer().setActName(name);
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if (propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("name", oldName, name);
+    	}
     }
 
     /**
      * @see GnuCashWritableAccount#setAccountCode(java.lang.String)
      */
     public void setAccountCode(final String code) {
-	if ( code == null ) {
-	    throw new IllegalArgumentException("null code given!");
-	}
+    	if ( code == null ) {
+    		throw new IllegalArgumentException("null code given!");
+    	}
 
-	if ( code.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty code given!");
-	}
+    	if ( code.trim().length() == 0 ) {
+    		throw new IllegalArgumentException("empty code given!");
+    	}
 
-	String oldCode = getCode();
-	if (oldCode == code) {
-	    return; // nothing has changed
-	}
-	this.getJwsdpPeer().setActCode(code);
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("code", oldCode, code);
-	}
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+    		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+		
+    	String oldCode = getCode();
+    	if (oldCode == code) {
+    		return; // nothing has changed
+    	}
+    	
+    	this.getJwsdpPeer().setActCode(code);
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if (propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("code", oldCode, code);
+    	}
     }
 
     /**
@@ -308,30 +344,52 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @see {@link GnuCashAccount#getCurrencyNameSpace()}
      */
     private void setCmdtyCurrNameSpace(final String currNameSpace) {
-	if ( currNameSpace == null ) {
-	    throw new IllegalArgumentException("null currencyNameSpace given!");
-	}
+    	if ( currNameSpace == null ) {
+    		throw new IllegalArgumentException("null currencyNameSpace given!");
+    	}
 
-	if ( currNameSpace.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty currencyNameSpace given!");
-	}
+    	if ( currNameSpace.trim().length() == 0 ) {
+    		throw new IllegalArgumentException("empty currencyNameSpace given!");
+    	}
 
-	String oldCurrNameSpace = getCmdtyCurrID().getNameSpace();
-	if (oldCurrNameSpace == currNameSpace) {
-	    return; // nothing has changed
-	}
-	this.getJwsdpPeer().getActCommodity().setCmdtySpace(currNameSpace);
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("currencyNameSpace", oldCurrNameSpace, currNameSpace);
-	}
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+    		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+		
+    	String oldCurrNameSpace = getCmdtyCurrID().getNameSpace();
+    	if (oldCurrNameSpace == currNameSpace) {
+    		return; // nothing has changed
+    	}
+    	
+    	this.getJwsdpPeer().getActCommodity().setCmdtySpace(currNameSpace);
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if ( propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("currencyNameSpace", oldCurrNameSpace, currNameSpace);
+    	}
     }
 
     public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
-	setCmdtyCurrNameSpace(cmdtyCurrID.getNameSpace());
-	setCmdtyCurrCode(cmdtyCurrID.getCode());
+    	if ( cmdtyCurrID == null ) {
+    		throw new IllegalArgumentException("null commodity/currency ID given!");
+    	}
+
+    	if ( ! cmdtyCurrID.isSet() ) {
+    		throw new IllegalArgumentException("unset commodity/currency ID given!");
+    	}
+
+//    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+//			 getGnuCashFile().getRootAccountID().equals(getID())) {
+//			LOGGER.error("Setting name is forbidden for root and top-level accounts");
+//			throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+//		}
+			
+    	setCmdtyCurrNameSpace(cmdtyCurrID.getNameSpace());
+    	setCmdtyCurrCode(cmdtyCurrID.getCode());
     }
 
     /**
@@ -340,128 +398,179 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @see {@link GnuCashAccount#getCurrencyID()}
      */
     private void setCmdtyCurrCode(final String currID) {
-	if ( currID == null ) {
-	    throw new IllegalArgumentException("null currencyID given!");
-	}
+    	if ( currID == null ) {
+    		throw new IllegalArgumentException("null currencyID given!");
+    	}
 
-	if ( currID.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty currencyID given!");
-	}
+    	if ( currID.trim().length() == 0 ) {
+    		throw new IllegalArgumentException("empty currencyID given!");
+    	}
 
-	String oldCurrencyId = getCmdtyCurrID().getCode();
-	if (oldCurrencyId == currID) {
-	    return; // nothing has changed
-	}
-	this.getJwsdpPeer().getActCommodity().setCmdtyId(currID);
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("currencyID", oldCurrencyId, currID);
-	}
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+    		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+		
+    	String oldCurrencyId = getCmdtyCurrID().getCode();
+    	if (oldCurrencyId == currID) {
+    		return; // nothing has changed
+    	}
+    	
+    	this.getJwsdpPeer().getActCommodity().setCmdtyId(currID);
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if (propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("currencyID", oldCurrencyId, currID);
+    	}
     }
 
     /**
      * set getWritableFile().setModified(true).
      */
     protected void setIsModified() {
-	GnuCashWritableFile writableFile = getWritableGnuCashFile();
-	writableFile.setModified(true);
+    	GnuCashWritableFile writableFile = getWritableGnuCashFile();
+    	writableFile.setModified(true);
     }
 
     /**
      * @see GnuCashWritableAccount#setName(java.lang.String)
      */
     public void setDescription(final String descr) {
-	if ( descr == null ) {
-	    throw new IllegalArgumentException("null description given!");
-	}
+    	if ( descr == null ) {
+    		throw new IllegalArgumentException("null description given!");
+    	}
 
-	// Caution: empty string allowed here
-//	if ( descr.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty description given!");
-//	}
+    	// Caution: empty string allowed here
+    	//	if ( descr.trim().length() == 0 ) {
+    	//	    throw new IllegalArgumentException("empty description given!");
+    	//	}
 
-	String oldDescr = getDescription();
-	if (oldDescr == descr) {
-	    return; // nothing has changed
-	}
-	getJwsdpPeer().setActDescription(descr);
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("description", oldDescr, descr);
-	}
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+    		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+		
+    	String oldDescr = getDescription();
+    	if (oldDescr == descr) {
+    		return; // nothing has changed
+    	}
+    	
+    	getJwsdpPeer().setActDescription(descr);
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if (propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("description", oldDescr, descr);
+    	}
     }
 
     public void setType(final Type type) {
-	Type oldType = getType();
-	if (oldType == type) {
-	    return; // nothing has changed
-	}
-	
-	getJwsdpPeer().setActType(type.toString());
-	setIsModified();
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("type", oldType, type);
-	}
+    	if ( type == null ) {
+    		throw new IllegalArgumentException("null type given!");
+    	}
+
+    	if ( type == Type.ROOT ) {
+    		throw new UnsupportedOperationException("no account's type may be set to '" + Type.ROOT.toString() + "'");
+    	}
+
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+       		 getGnuCashFile().getRootAccountID().equals(getID())) {
+       		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+       		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+       	}
+   		
+    	Type oldType = getType();
+    	if (oldType == type) {
+    		return; // nothing has changed
+    	}
+    	
+		// ::CHECK
+		// Not sure whether we should allow this action at all...
+		// It does happen that you set an account's type wrong by accident,
+		// and it should be possibly to correct that.
+		// It does not seem prudent to change an account's type when
+		// there are already transactions pointing to/from it.
+		if ( getTransactionSplits().size() > 0 ) {
+	    	LOGGER.error("Changing account type is forbidden for accounts that already contain transactions: " + getID());
+			throw new UnsupportedOperationException("Changing account type is forbidden for accounts that already contain transactions: " + getID());
+		}
+
+		getJwsdpPeer().setActType(type.toString());
+    	setIsModified();
+    	
+    	// <<insert code to react further to this change here
+    	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+    	if (propertyChangeFirer != null) {
+    		propertyChangeFirer.firePropertyChange("type", oldType, type);
+    	}
     }
 
     /**
      * @see GnuCashWritableAccount#setParentAccount(GnuCashAccount)
      */
     public void setParentAccountID(final GCshID prntAcctID) {
-	if (prntAcctID == null) {
-	    setParentAccount(null);
-	} else if (!prntAcctID.isSet()) {
-	    setParentAccount(null);
-	} else {
-	    setParentAccount(getGnuCashFile().getAccountByID(prntAcctID));
-	}
+    	if (prntAcctID == null) {
+    		setParentAccount(null);
+    		return;
+    	} 
+
+		if ( ! prntAcctID.isSet() ) {
+			throw new IllegalArgumentException("unset account ID given!");
+		}
+
+		// check if new parent is a child-account recursively
+		GnuCashAccount prntAcct = getGnuCashFile().getAccountByID(prntAcctID);
+		if ( isChildAccountRecursive(prntAcct) ) {
+			throw new IllegalArgumentException("An account may not be set as its own (grand-)parent");
+		}
+
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+       		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+      		
+    	GnuCashAccount oldPrntAcctID = null;
+    	GncAccount.ActParent jwsdpPrntID = getJwsdpPeer().getActParent();
+    	if (jwsdpPrntID == null) {
+    	    jwsdpPrntID = ((GnuCashWritableFileImpl) getWritableGnuCashFile()).getObjectFactory()
+    	    		.createGncAccountActParent();
+    	    jwsdpPrntID.setType(Const.XML_DATA_TYPE_GUID);
+    	    jwsdpPrntID.setValue(prntAcctID.toString());
+    	    getJwsdpPeer().setActParent(jwsdpPrntID);
+
+    	} else {
+    	    oldPrntAcctID = getParentAccount();
+    	    jwsdpPrntID.setValue(prntAcctID.toString());
+    	}
+		setIsModified();
+
+		// <<insert code to react further to this change here
+		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
+		if ( propertyChangeFirer != null ) {
+			propertyChangeFirer.firePropertyChange("parentAccount", oldPrntAcctID, prntAcctID);
+		}
     }
 
     /**
      * @see GnuCashWritableAccount#setParentAccount(GnuCashAccount)
      */
     public void setParentAccount(final GnuCashAccount prntAcct) {
+    	if (prntAcct == null) {
+    		this.getJwsdpPeer().setActParent(null);
+    		return;
+    	}
 
-	if (prntAcct == null) {
-	    this.getJwsdpPeer().setActParent(null);
-	    return;
-	}
+    	if (prntAcct == this) {
+    		throw new IllegalArgumentException("I cannot be my own parent!");
+    	}
 
-	if (prntAcct == this) {
-	    throw new IllegalArgumentException("I cannot be my own parent!");
-	}
-
-	// check if newparent is a child-account recusively
-	if (isChildAccountRecursive(prntAcct)) {
-	    throw new IllegalArgumentException("I cannot be my own (grand-)parent!");
-	}
-
-	GnuCashAccount oldPrntAcct = null;
-	GncAccount.ActParent parent = getJwsdpPeer().getActParent();
-	if (parent == null) {
-	    parent = ((GnuCashWritableFileImpl) getWritableGnuCashFile()).getObjectFactory()
-	    		.createGncAccountActParent();
-	    parent.setType(Const.XML_DATA_TYPE_GUID);
-	    parent.setValue(prntAcct.getID().toString());
-	    getJwsdpPeer().setActParent(parent);
-
-	} else {
-	    oldPrntAcct = getParentAccount();
-	    parent.setValue(prntAcct.getID().toString());
-	}
-	setIsModified();
-
-	// <<insert code to react further to this change here
-	PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
-	if (propertyChangeFirer != null) {
-	    propertyChangeFirer.firePropertyChange("parentAccount", oldPrntAcct, prntAcct);
-	}
+		setParentAccountID(prntAcct.getID());
     }
 
     // ---------------------------------------------------------------
@@ -569,6 +678,28 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
 	@Override
 	public void addUserDefinedAttribute(final String type, final String name, final String value) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.isEmpty() ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+
+		if ( value == null ) {
+			throw new IllegalArgumentException("null value given");
+		}
+		
+		if ( value.isEmpty() ) {
+			throw new IllegalArgumentException("empty value given");
+		}
+
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+       		 getGnuCashFile().getRootAccountID().equals(getID())) {
+    		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+    		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+    	}
+      		
 		if ( jwsdpPeer.getActSlots() == null ) {
 			ObjectFactory fact = getGnuCashFile().getObjectFactory();
 			SlotsType newSlotsType = fact.createSlotsType();
@@ -583,6 +714,20 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
 	@Override
 	public void removeUserDefinedAttribute(final String name) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.isEmpty() ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+       		 getGnuCashFile().getRootAccountID().equals(getID())) {
+       		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+       		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+       	}
+         		
 		if ( jwsdpPeer.getActSlots() == null ) {
 			throw new SlotListDoesNotContainKeyException();
 		}
@@ -595,6 +740,20 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
 	@Override
 	public void setUserDefinedAttribute(final String name, final String value) {
+		if ( name == null ) {
+			throw new IllegalArgumentException("null name given");
+		}
+		
+		if ( name.isEmpty() ) {
+			throw new IllegalArgumentException("empty name given");
+		}
+
+    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
+       		 getGnuCashFile().getRootAccountID().equals(getID())) {
+       		LOGGER.error("Setting name is forbidden for root and top-level accounts");
+       		throw new UnsupportedOperationException("Setting name is forbidden for root and top-level accounts");
+       	}
+         		
 		if ( jwsdpPeer.getActSlots() == null ) {
 			throw new SlotListDoesNotContainKeyException();
 		}

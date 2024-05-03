@@ -33,6 +33,7 @@ import junit.framework.JUnit4TestAdapter;
 public class TestHasWritableUserDefinedAttributesImpl {
 	public static final GCshID ACCT_1_ID = TestHasUserDefinedAttributesImpl.ACCT_1_ID;
 	public static final GCshID ACCT_2_ID = TestHasUserDefinedAttributesImpl.ACCT_2_ID;
+	public static final GCshID ACCT_3_ID = TestHasUserDefinedAttributesImpl.ACCT_3_ID;
 
 	public static final GCshID TRX_1_ID = TestHasUserDefinedAttributesImpl.TRX_1_ID;
 	public static final GCshID TRX_2_ID = TestHasUserDefinedAttributesImpl.TRX_2_ID;
@@ -472,6 +473,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 			acct.setUserDefinedAttribute("abc", "def"); // illegal call, because does not exist
 			assertEquals(0, 1);
 		} catch ( SlotListDoesNotContainKeyException exc ) {
+			assertEquals(0, 0);
 			acct.setUserDefinedAttribute(ConstTest.SLOT_KEY_ACCT_PLACEHOLDER, "false");
 		}
 
@@ -513,6 +515,27 @@ public class TestHasWritableUserDefinedAttributesImpl {
 		assertNotEquals(null, acct.getUserDefinedAttributeKeys()); // unchanged
 		assertEquals(1, acct.getUserDefinedAttributeKeys().size()); // unchanged
 		assertEquals("false", acct.getUserDefinedAttribute(ConstTest.SLOT_KEY_ACCT_PLACEHOLDER)); // changed
+	}
+
+	// ----------------------------
+	// Top-level account
+
+	@Test
+	public void test_02_acct_03() throws Exception {
+		GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_3_ID);
+		assertNotEquals(null, acct);
+
+		assertEquals(ACCT_3_ID, acct.getID());
+
+		// ----------------------------
+		// Modify the object
+
+		try {
+			acct.setUserDefinedAttribute("abc", "def"); // illegal call, because is top-level account
+			assertEquals(0, 1);
+		} catch ( UnsupportedOperationException exc ) {
+			assertEquals(0, 0);
+		}
 	}
 
 	// -----------------------------------------------------------------
