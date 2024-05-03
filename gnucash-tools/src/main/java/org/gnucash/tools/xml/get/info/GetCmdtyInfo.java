@@ -174,7 +174,7 @@ public class GetCmdtyInfo extends CommandLineTool
       }
       if ( cmdtyList.size() > 1 )
       {
-        System.err.println("Found " + cmdtyList.size() + "commodities matching that name.");
+        System.err.println("Found " + cmdtyList.size() + " commodities matching that name.");
         System.err.println("Please specify more precisely.");
         throw new TooManyEntriesFoundException();
       }

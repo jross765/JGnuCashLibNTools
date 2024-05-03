@@ -180,7 +180,9 @@ public class GetStockAcct extends CommandLineTool
       if (acctList.size() == 0)
       {
         if ( ! scriptMode )
-          System.err.println("Found no account with that name.");
+        {
+          System.err.println("Could not find accounts matching this name.");
+        }
         throw new NoEntryFoundException();
       }
       else if (acctList.size() > 1)
@@ -188,8 +190,9 @@ public class GetStockAcct extends CommandLineTool
         if ( ! scriptMode )
         {
           System.err.println("Found " + acctList.size() + " accounts with that name.");
-          System.err.println("Taking first one.");
+          System.err.println("Please specify more precisely.");
         }
+        throw new TooManyEntriesFoundException();
       }
       acct = acctList.iterator().next();
     }

@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -150,13 +151,14 @@ public class GetVendInfo extends CommandLineTool
       vendList = gcshFile.getVendorsByName(vendName);
       if ( vendList.size() == 0 ) 
       {
-        System.err.println("Found no vendor with that name.");
+        System.err.println("Could not find vendors matching that name.");
         throw new NoEntryFoundException();
       }
       else if ( vendList.size() > 1 ) 
       {
-        System.err.println("Found several vendors with that name.");
-        System.err.println("Taking first one.");
+          System.err.println("Found " + vendList.size() + " vendors matching that name.");
+          System.err.println("Please specify more precisely.");
+          throw new TooManyEntriesFoundException();
       }
       vend = vendList.iterator().next();
     }

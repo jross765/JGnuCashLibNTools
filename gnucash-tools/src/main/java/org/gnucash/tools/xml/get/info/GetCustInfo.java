@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -150,13 +151,14 @@ public class GetCustInfo extends CommandLineTool
       custList = gcshFile.getCustomersByName(custName);
       if ( custList.size() == 0 ) 
       {
-        System.err.println("Found no customer with that name.");
+        System.err.println("Could not find customers matching that name.");
         throw new NoEntryFoundException();
       }
       else if ( custList.size() > 1 ) 
       {
-        System.err.println("Found several customers with that name.");
-        System.err.println("Taking first one.");
+        System.err.println("Found " + custList.size() + " customers matching that name.");
+        System.err.println("Please specify more precisely.");
+        throw new TooManyEntriesFoundException();
       }
       cust = custList.iterator().next();
     }

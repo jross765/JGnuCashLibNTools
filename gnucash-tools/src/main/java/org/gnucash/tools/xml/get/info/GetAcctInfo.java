@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -152,13 +153,14 @@ public class GetAcctInfo extends CommandLineTool
       acctList = gcshFile.getAccountsByName(acctName, true, true);
       if ( acctList.size() == 0 ) 
       {
-        System.err.println("Found no account with that name.");
+        System.err.println("Could not find accounts matching this name.");
         throw new NoEntryFoundException();
       }
       else if ( acctList.size() > 1 ) 
       {
-        System.err.println("Found several accounts with that name.");
-        System.err.println("Taking first one.");
+        System.err.println("Found " + acctList.size() + " accounts matching this name.");
+        System.err.println("Please specify more precisely.");
+        throw new TooManyEntriesFoundException();
       }
       acct = acctList.iterator().next();
     }

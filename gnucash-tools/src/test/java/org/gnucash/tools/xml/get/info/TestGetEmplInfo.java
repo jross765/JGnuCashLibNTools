@@ -23,6 +23,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
+import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -140,13 +141,14 @@ public class TestGetEmplInfo extends CommandLineTool
       emplList = gcshFile.getEmployeesByUserName(emplName);
       if ( emplList.size() == 0 ) 
       {
-        System.err.println("Found no employee with that name.");
+        System.err.println("Could not find employees matching that name.");
         throw new NoEntryFoundException();
       }
       else if ( emplList.size() > 1 ) 
       {
-        System.err.println("Found several employees with that name.");
-        System.err.println("Taking first one.");
+        System.err.println("Found " + emplList.size() + " employees matching that name.");
+        System.err.println("Please specify more precisely.");
+        throw new TooManyEntriesFoundException();
       }
       empl = new GnuCashWritableEmployeeImpl( (GnuCashEmployeeImpl) emplList.iterator().next() );
     }
