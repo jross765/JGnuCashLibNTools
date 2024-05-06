@@ -189,11 +189,28 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 			throw new IllegalArgumentException("null 'slots' given!");
 		}
 
-		SlotsType oldSlots = currSlots;
-		if ( oldSlots == newSlots ) {
+		if ( currSlots == newSlots ) {
 			return; // nothing has changed
 		}
-		// ::TODO Check with equals as well
+		
+		if ( currSlots.getSlot().size() == newSlots.getSlot().size() ) {
+			boolean areEqual = true;
+			int size = currSlots.getSlot().size();
+			for ( int i = 0; i < size; i++ ) {
+				if ( ! currSlots.getSlot().get(i).equals(newSlots.getSlot().get(i)) ) {
+					areEqual = false;
+					LOGGER.debug("setSlotsInit: current and new slots objects are not equal");
+				}
+			}
+			if ( areEqual ) {
+				LOGGER.debug("setSlotsInit: current and new slots objects are equal");
+				return;
+			}
+		} else {
+			// have changed
+			LOGGER.debug("setSlotsInit: current and new slots objects have different sizes");
+		}
+
 		currSlots = newSlots;
 
 		// we have an xsd-problem saving empty slots so we add a dummy-value
