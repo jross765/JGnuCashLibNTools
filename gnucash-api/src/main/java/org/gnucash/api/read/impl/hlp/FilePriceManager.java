@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -138,7 +139,40 @@ public class FilePriceManager {
 		return Collections.unmodifiableCollection(prcMap.values());
 	}
 	
-	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyCurrID cmdtyCurrID) {
+	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyID cmdtyID) {
+		if ( cmdtyID == null ) {
+			throw new IllegalArgumentException("null commodity ID given");
+		}
+		
+		if ( ! cmdtyID.isSet() ) {
+			throw new IllegalArgumentException("unset commodity ID given");
+		}
+		
+		return getPricesByCmdtyCurrID(cmdtyID);
+	}
+	
+	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCurrID currID) {
+		if ( currID == null ) {
+			throw new IllegalArgumentException("null currency ID given");
+		}
+		
+		if ( ! currID.isSet() ) {
+			throw new IllegalArgumentException("unset currency ID given");
+		}
+		
+		return getPricesByCmdtyCurrID(currID);
+	}
+	
+	public List<GnuCashPrice> getPricesByCmdtyCurr(final Currency curr) {
+		if ( curr == null ) {
+			throw new IllegalArgumentException("null currency ID given");
+		}
+		
+		GCshCurrID currID = new GCshCurrID(curr);
+		return getPricesByCmdtyCurrID(currID);
+	}
+	
+	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
 		if ( cmdtyCurrID == null ) {
 			throw new IllegalArgumentException("null commodity/currency ID given");
 		}

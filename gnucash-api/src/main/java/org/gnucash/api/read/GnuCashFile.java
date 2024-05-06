@@ -3,6 +3,7 @@ package org.gnucash.api.read;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 
 import org.gnucash.api.currency.ComplexPriceTable;
@@ -20,6 +21,8 @@ import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
@@ -897,6 +900,12 @@ public interface GnuCashFile extends GnuCashObject,
     Collection<GnuCashPrice> getPrices();
 
     // sic: List, not Collection
+	List<GnuCashPrice> getPricesByCmdtyID(GCshCmdtyID cmdtyID);
+	
+	List<GnuCashPrice> getPricesByCurrID(GCshCurrID currID);
+	
+	List<GnuCashPrice> getPricesByCurr(Currency curr);
+	
 	List<GnuCashPrice> getPricesByCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 	
     /**

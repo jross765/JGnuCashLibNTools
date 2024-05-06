@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
@@ -77,6 +78,8 @@ import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -1040,8 +1043,23 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
+	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyID cmdtyID) {
+		return prcMgr.getPricesByCmdtyCurrID(cmdtyID);
+	}
+
+	@Override
+	public List<GnuCashPrice> getPricesByCurrID(final GCshCurrID currID) {
+		return prcMgr.getPricesByCmdtyCurrID(currID);
+	}
+
+	@Override
+	public List<GnuCashPrice> getPricesByCurr(final Currency curr) {
+		return prcMgr.getPricesByCmdtyCurr(curr);
+	}
+
+	@Override
 	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
-		return prcMgr.getPricesByCmdtyID(cmdtyCurrID);
+		return prcMgr.getPricesByCmdtyCurrID(cmdtyCurrID);
 	}
 
 	//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
