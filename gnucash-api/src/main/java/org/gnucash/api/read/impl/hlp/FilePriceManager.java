@@ -3,6 +3,7 @@ package org.gnucash.api.read.impl.hlp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -136,6 +137,29 @@ public class FilePriceManager {
 
 		return Collections.unmodifiableCollection(prcMap.values());
 	}
+	
+	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyCurrID cmdtyCurrID) {
+		if ( cmdtyCurrID == null ) {
+			throw new IllegalArgumentException("null commodity/currency ID given");
+		}
+		
+		if ( ! cmdtyCurrID.isSet() ) {
+			throw new IllegalArgumentException("unset commodity/currency ID given");
+		}
+		
+		List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
+
+		for ( GnuCashPrice prc : getPrices() ) {
+			if ( prc.getFromCmdtyCurrQualifID().toString().equals(cmdtyCurrID.toString()) ) {
+				result.add(prc);
+			}
+		}
+		
+		Collections.sort(result, Collections.reverseOrder()); // descending, i.e. youngest first
+		return Collections.unmodifiableList(result);
+	}
+
+	// ---------------------------------------------------------------
 
 //    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
 //      try {

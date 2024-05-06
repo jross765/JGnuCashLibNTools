@@ -896,6 +896,9 @@ public interface GnuCashFile extends GnuCashObject,
      */
     Collection<GnuCashPrice> getPrices();
 
+    // sic: List, not Collection
+	List<GnuCashPrice> getPricesByCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
+	
     /**
      * @param cmdtyCurrID 
      * @param pCmdtySpace the name space for pCmdtyId

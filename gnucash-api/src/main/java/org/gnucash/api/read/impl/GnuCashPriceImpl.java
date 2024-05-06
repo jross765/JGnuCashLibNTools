@@ -249,12 +249,12 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 
     @Override
 	public int compareTo(final GnuCashPrice otherPrc) {
-		int i = getFromCmdtyCurrQualifID().toString().compareTo(otherPrc.getFromCmdtyCurrQualifID().toString());
+		int i = getDate().compareTo(otherPrc.getDate());
 		if ( i != 0 ) {
 			return i;
 		}
 
-		i = getDate().compareTo(otherPrc.getDate());
+		i = getFromCmdtyCurrQualifID().toString().compareTo(otherPrc.getFromCmdtyCurrQualifID().toString());
 		if ( i != 0 ) {
 			return i;
 		}

@@ -34,6 +34,11 @@ public class TestGnuCashPriceImpl {
 	public static final GCshID PRC_3_ID = new GCshID("d2db5e4108b9413aa678045ca66b205f"); // SAP/EUR
 	public static final GCshID PRC_4_ID = new GCshID("037c268b47fb46d385360b1c9788a459"); // USD/EUR
 
+	public static final GCshID PRC_10_ID = new GCshID("0f9b0c306c1f490c92f3fb96d03f40c3");
+	public static final GCshID PRC_11_ID = new GCshID("f2806739b34a4f55a86d9c83f2061606");
+	public static final GCshID PRC_12_ID = new GCshID("232625da7b4b4f55ba5e0e81b6ab4cac");
+	public static final GCshID PRC_13_ID = new GCshID("144582489ce24f3d934699b77d634977");
+	
 	// -----------------------------------------------------------------
 
 	private GnuCashFile gcshFile = null;
@@ -104,10 +109,10 @@ public class TestGnuCashPriceImpl {
 		//		System.err.println("=============");
 
 		assertEquals(9, prcList.size());
-		assertEquals(PRC_4_ID, prcList.get(0).getID());
-		assertEquals(PRC_1_ID, prcList.get(1).getID());
-		assertEquals(PRC_3_ID, prcList.get(5).getID()); // <-- CAUTION index!
-		assertEquals(PRC_2_ID, prcList.get(6).getID()); // <-- CAUTION index!
+		assertEquals(PRC_10_ID, prcList.get(0).getID());
+		assertEquals(PRC_11_ID, prcList.get(1).getID());
+		assertEquals(PRC_12_ID, prcList.get(2).getID()); // <-- CAUTION index!
+		assertEquals(PRC_13_ID, prcList.get(3).getID()); // <-- CAUTION index!
 	}
 
 	@Test

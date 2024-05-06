@@ -127,6 +127,7 @@ public class GetCmdtyInfo extends CommandLineTool
             
     options = new Options();
     options.addOption(optFile);
+    options.addOption(optMode);
     options.addOption(optExchange);
     options.addOption(optTicker);
     options.addOption(optISIN);

@@ -38,6 +38,11 @@ public class TestGnuCashWritablePriceImpl {
 	private static final GCshID PRC_3_ID = TestGnuCashPriceImpl.PRC_3_ID;
 	private static final GCshID PRC_4_ID = TestGnuCashPriceImpl.PRC_4_ID;
 
+	private static final GCshID PRC_10_ID = TestGnuCashPriceImpl.PRC_10_ID;
+	private static final GCshID PRC_11_ID = TestGnuCashPriceImpl.PRC_11_ID;
+	private static final GCshID PRC_12_ID = TestGnuCashPriceImpl.PRC_12_ID;
+	private static final GCshID PRC_13_ID = TestGnuCashPriceImpl.PRC_13_ID;
+
 	// -----------------------------------------------------------------
 
 	private GnuCashWritableFileImpl gcshInFile = null;
@@ -123,10 +128,10 @@ public class TestGnuCashWritablePriceImpl {
 		prcList.sort(Comparator.naturalOrder());
 
 		assertEquals(9, prcList.size());
-		assertEquals(PRC_4_ID, prcList.get(0).getID());
-		assertEquals(PRC_1_ID, prcList.get(1).getID());
-		assertEquals(PRC_3_ID, prcList.get(5).getID()); // <-- CAUTION index!
-		assertEquals(PRC_2_ID, prcList.get(6).getID()); // <-- CAUTION index!
+		assertEquals(PRC_10_ID, prcList.get(0).getID());
+		assertEquals(PRC_11_ID, prcList.get(1).getID());
+		assertEquals(PRC_12_ID, prcList.get(2).getID());
+		assertEquals(PRC_13_ID, prcList.get(3).getID());
 	}
 
 	@Test

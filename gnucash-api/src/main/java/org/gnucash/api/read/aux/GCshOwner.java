@@ -8,9 +8,6 @@ import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
 
-// ::TODO ::CHECK 
-// Really interface? Or shouldn't it just be a wrapper class
-// for the enums?
 public interface GCshOwner {
 
     public enum JIType { // ::TODO in search of a better name...
@@ -79,8 +76,6 @@ public interface GCshOwner {
     }
     
     // -----------------------------------------------------------------
-    // ::TODO: ::CHECK: 
-    // Are the following really needed?
   
     public JIType getJIType();
 

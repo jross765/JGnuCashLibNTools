@@ -1026,6 +1026,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public GnuCashPrice getPriceByID(GCshID prcID) {
 		return prcMgr.getPriceByID(prcID);
 	}
@@ -1033,17 +1034,24 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public Collection<GnuCashPrice> getPrices() {
 		return prcMgr.getPrices();
 	}
 
-//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
+	@Override
+	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
+		return prcMgr.getPricesByCmdtyID(cmdtyCurrID);
+	}
+
+	//    public FixedPointNumber getLatestPrice(final String cmdtyCurrIDStr) {
 //      return prcMgr.getLatestPrice(cmdtyCurrIDStr);
 //    }
 
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) {
 		return prcMgr.getLatestPrice(cmdtyCurrID);
 	}
@@ -1051,6 +1059,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	@Deprecated
 	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
 		return prcMgr.getLatestPrice(pCmdtySpace, pCmdtyId);

@@ -134,35 +134,18 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 
     // -----------------------------------------------------------------
 
-    // ::TODO sort the entries by date
     @Override
     public List<GnuCashPrice> getQuotes() {
-    	List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
-	
-	Collection<GnuCashPrice> prices = getGnuCashFile().getPrices();
-	for ( GnuCashPrice price : prices ) {
-	    if ( price.getFromCmdtyCurrQualifID().toString().equals(getQualifID().toString()) ) {
-		result.add(price);
-	    }
-	}
-	
-	return result;
+    	return getGnuCashFile().getPricesByCmdtyCurrID(getQualifID());
     }
 
     @Override
     public GnuCashPrice getYoungestQuote() {
-	
-	GnuCashPrice result = null;
-
-	LocalDate youngestDate = LocalDate.of(1970, 1, 1); // ::MAGIC
-	for ( GnuCashPrice price : getQuotes() ) {
-	    if ( price.getDate().isAfter(youngestDate) ) {
-		result = price;
-		youngestDate = price.getDate();
-	    }
-	}
-
-	return result;
+    	List<GnuCashPrice> qutList = getQuotes();
+    	if ( qutList.size() == 0 )
+    		return null;
+    	
+    	return qutList.get(0);
     }
 
     // -----------------------------------------------------------------
