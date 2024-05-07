@@ -23,6 +23,7 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
+import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
@@ -332,6 +333,97 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	public static GnuCashEmployeeVoucherImpl toReadable(GnuCashWritableEmployeeVoucherImpl invc) {
 		GnuCashEmployeeVoucherImpl result = new GnuCashEmployeeVoucherImpl(invc.getJwsdpPeer(), invc.getGnuCashFile());
 		return result;
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GnuCashEmployeeVoucherEntry getEntryByID(GCshID id) {
+		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(id));
+	}
+
+	@Override
+	public Collection<GnuCashEmployeeVoucherEntry> getEntries() {
+		Collection<GnuCashEmployeeVoucherEntry> castEntries = new HashSet<GnuCashEmployeeVoucherEntry>();
+
+		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
+			if ( entry.getType() == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
+				castEntries.add(new GnuCashEmployeeVoucherEntryImpl(entry));
+			}
+		}
+
+		return castEntries;
+	}
+
+	@Override
+	public void addEntry(GnuCashEmployeeVoucherEntry entry) {
+		addGenerEntry(entry);
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public FixedPointNumber getAmountUnpaidWithTaxes() {
+		return getEmplVchAmountUnpaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithTaxes() {
+		return getEmplVchAmountPaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithoutTaxes() {
+		return getEmplVchAmountPaidWithoutTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithTaxes() {
+		return getEmplVchAmountWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithoutTaxes() {
+		return getEmplVchAmountWithoutTaxes();
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public String getAmountUnpaidWithTaxesFormatted() {
+		return getEmplVchAmountUnpaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithTaxesFormatted() {
+		return getEmplVchAmountPaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithoutTaxesFormatted() {
+		return getEmplVchAmountPaidWithoutTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithTaxesFormatted() {
+		return getEmplVchAmountWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithoutTaxesFormatted() {
+		return getEmplVchAmountWithoutTaxesFormatted();
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public boolean isFullyPaid() {
+		return isEmplVchFullyPaid();
+	}
+
+	@Override
+	public boolean isNotFullyPaid() {
+		return isNotEmplVchFullyPaid();
 	}
 
 }

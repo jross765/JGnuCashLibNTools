@@ -18,7 +18,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -248,6 +247,8 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
+    // ::TODO ::CHECK Check the order yet again (and have it consistent
+    // with sister project)
 	public int compareTo(final GnuCashPrice otherPrc) {
 		int i = getDate().compareTo(otherPrc.getDate());
 		if ( i != 0 ) {

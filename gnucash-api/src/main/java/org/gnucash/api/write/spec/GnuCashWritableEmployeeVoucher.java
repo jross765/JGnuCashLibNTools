@@ -9,6 +9,7 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
+import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
@@ -23,7 +24,10 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * @see GnuCashWritableVendorBill
  * @see GnuCashWritableJobInvoice
  */
-public interface GnuCashWritableEmployeeVoucher extends GnuCashWritableGenerInvoice {
+public interface GnuCashWritableEmployeeVoucher extends GnuCashWritableGenerInvoice,
+														GnuCashEmployeeVoucher,
+														GnuCashWritableObject
+{
 
     GnuCashWritableEmployeeVoucherEntry getWritableEntryByID(GCshID id);
     

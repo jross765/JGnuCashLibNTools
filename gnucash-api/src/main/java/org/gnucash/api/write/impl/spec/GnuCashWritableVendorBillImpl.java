@@ -23,6 +23,7 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
@@ -349,6 +350,97 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	public static GnuCashVendorBillImpl toReadable(GnuCashWritableVendorBillImpl invc) {
 		GnuCashVendorBillImpl result = new GnuCashVendorBillImpl(invc.getJwsdpPeer(), invc.getGnuCashFile());
 		return result;
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GnuCashVendorBillEntry getEntryByID(GCshID id) {
+		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(id));
+	}
+
+	@Override
+	public Collection<GnuCashVendorBillEntry> getEntries() {
+		Collection<GnuCashVendorBillEntry> castEntries = new HashSet<GnuCashVendorBillEntry>();
+
+		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
+			if ( entry.getType() == GnuCashGenerInvoice.TYPE_VENDOR ) {
+				castEntries.add(new GnuCashVendorBillEntryImpl(entry));
+			}
+		}
+
+		return castEntries;
+	}
+
+	@Override
+	public void addEntry(GnuCashVendorBillEntry entry) {
+		addGenerEntry(entry);
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public FixedPointNumber getAmountUnpaidWithTaxes() {
+		return getVendBllAmountUnpaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithTaxes() {
+		return getVendBllAmountPaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithoutTaxes() {
+		return getVendBllAmountPaidWithoutTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithTaxes() {
+		return getVendBllAmountWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithoutTaxes() {
+		return getVendBllAmountWithoutTaxes();
+	}
+
+	// ----------------------------
+
+	@Override
+	public String getAmountUnpaidWithTaxesFormatted() {
+		return getVendBllAmountUnpaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithTaxesFormatted() {
+		return getVendBllAmountPaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithoutTaxesFormatted() {
+		return getVendBllAmountPaidWithoutTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithTaxesFormatted() {
+		return getVendBllAmountWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithoutTaxesFormatted() {
+		return getVendBllAmountWithoutTaxesFormatted();
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public boolean isFullyPaid() {
+		return isVendBllFullyPaid();
+	}
+
+	@Override
+	public boolean isNotFullyPaid() {
+		return isNotVendBllFullyPaid();
 	}
 
 }

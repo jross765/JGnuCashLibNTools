@@ -12,6 +12,7 @@ import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
+import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
@@ -26,7 +27,10 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * @see GnuCashWritableEmployeeVoucher
  * @see GnuCashWritableVendorBill
  */
-public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice {
+public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice,
+												   GnuCashJobInvoice,
+												   GnuCashWritableObject
+{
 
     GnuCashWritableJobInvoiceEntry getWritableEntryByID(GCshID id);
     

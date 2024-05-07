@@ -23,6 +23,7 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
@@ -327,6 +328,97 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	public static GnuCashCustomerInvoiceImpl toReadable(GnuCashWritableCustomerInvoiceImpl invc) {
 		GnuCashCustomerInvoiceImpl result = new GnuCashCustomerInvoiceImpl(invc.getJwsdpPeer(), invc.getGnuCashFile());
 		return result;
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID id) {
+		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(id));
+	}
+
+	@Override
+	public Collection<GnuCashCustomerInvoiceEntry> getEntries() {
+		Collection<GnuCashCustomerInvoiceEntry> castEntries = new HashSet<GnuCashCustomerInvoiceEntry>();
+
+		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
+			if ( entry.getType() == GCshOwner.Type.CUSTOMER ) {
+				castEntries.add(new GnuCashCustomerInvoiceEntryImpl(entry));
+			}
+		}
+
+		return castEntries;
+	}
+
+	@Override
+	public void addEntry(GnuCashCustomerInvoiceEntry entry) {
+		addGenerEntry(entry);
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public FixedPointNumber getAmountUnpaidWithTaxes() {
+		return getCustInvcAmountUnpaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithTaxes() {
+		return getCustInvcAmountPaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithoutTaxes() {
+		return getCustInvcAmountPaidWithoutTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithTaxes() {
+		return getCustInvcAmountWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithoutTaxes() {
+		return getCustInvcAmountWithoutTaxes();
+	}
+
+	// ----------------------------
+
+	@Override
+	public String getAmountUnpaidWithTaxesFormatted() {
+		return getCustInvcAmountUnpaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithTaxesFormatted() {
+		return getCustInvcAmountPaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithoutTaxesFormatted() {
+		return getCustInvcAmountPaidWithoutTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithTaxesFormatted() {
+		return getCustInvcAmountWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithoutTaxesFormatted() {
+		return getCustInvcAmountWithoutTaxesFormatted();
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public boolean isFullyPaid() {
+		return isCustInvcFullyPaid();
+	}
+
+	@Override
+	public boolean isNotFullyPaid() {
+		return isNotCustInvcFullyPaid();
 	}
 
 }

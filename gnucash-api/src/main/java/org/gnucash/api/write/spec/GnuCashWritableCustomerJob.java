@@ -3,6 +3,7 @@ package org.gnucash.api.write.spec;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
+import org.gnucash.api.write.hlp.GnuCashWritableObject;
 
 /**
  * Customer job that can be modified.
@@ -11,7 +12,10 @@ import org.gnucash.api.write.GnuCashWritableGenerJob;
  * 
  * @see GnuCashWritableVendorJob
  */
-public interface GnuCashWritableCustomerJob extends GnuCashWritableGenerJob {
+public interface GnuCashWritableCustomerJob extends GnuCashWritableGenerJob,
+													GnuCashCustomerJob,
+													GnuCashWritableObject
+{
 
     void remove();
 

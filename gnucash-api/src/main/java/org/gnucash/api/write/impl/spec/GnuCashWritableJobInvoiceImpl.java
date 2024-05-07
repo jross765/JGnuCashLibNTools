@@ -7,26 +7,33 @@ import java.util.HashSet;
 
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.aux.GCshOwner.Type;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
+import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
@@ -369,6 +376,163 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	public static GnuCashJobInvoiceImpl toReadable(GnuCashWritableJobInvoiceImpl invc) {
 		GnuCashJobInvoiceImpl result = new GnuCashJobInvoiceImpl(invc.getJwsdpPeer(), invc.getGnuCashFile());
 		return result;
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public Type getJobType() {
+		return getGenerJob().getOwnerType();
+	}
+
+	// ----------------------------
+
+	@Override
+	public GCshID getCustomerID() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
+			throw new WrongInvoiceTypeException();
+
+		return getOwnerId_viaJob();
+	}
+
+	@Override
+	public GCshID getVendorID() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
+			throw new WrongInvoiceTypeException();
+
+		return getOwnerId_viaJob();
+	}
+
+	// ----------------------------
+
+	@Override
+	public GnuCashGenerJob getGenerJob() {
+		return getGnuCashFile().getGenerJobByID(getJobID());
+	}
+
+	@Override
+	public GnuCashCustomerJob getCustJob() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
+			throw new WrongJobTypeException();
+
+		return new GnuCashCustomerJobImpl(getGenerJob());
+	}
+
+	@Override
+	public GnuCashVendorJob getVendJob() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
+			throw new WrongJobTypeException();
+
+		return new GnuCashVendorJobImpl(getGenerJob());
+	}
+	
+	// ----------------------------
+
+	@Override
+	public GnuCashCustomer getCustomer() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
+			throw new WrongInvoiceTypeException();
+
+		return getGnuCashFile().getCustomerByID(getCustomerID());
+	}
+
+	@Override
+	public GnuCashVendor getVendor() {
+		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
+			throw new WrongInvoiceTypeException();
+
+		return getGnuCashFile().getVendorByID(getVendorID());
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public GnuCashJobInvoiceEntry getEntryByID(GCshID id) {
+		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(id));
+	}
+
+	@Override
+	public Collection<GnuCashJobInvoiceEntry> getEntries() {
+		Collection<GnuCashJobInvoiceEntry> castEntries = new HashSet<GnuCashJobInvoiceEntry>();
+
+		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
+			if ( entry.getType() == GCshOwner.Type.JOB ) {
+				castEntries.add(new GnuCashJobInvoiceEntryImpl(entry));
+			}
+		}
+
+		return castEntries;
+	}
+
+	@Override
+	public void addEntry(GnuCashJobInvoiceEntry entry) {
+		addGenerEntry(entry);
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public FixedPointNumber getAmountUnpaidWithTaxes() {
+		return getJobInvcAmountUnpaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithTaxes() {
+		return getJobInvcAmountPaidWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountPaidWithoutTaxes() {
+		return getJobInvcAmountPaidWithoutTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithTaxes() {
+		return getJobInvcAmountWithTaxes();
+	}
+
+	@Override
+	public FixedPointNumber getAmountWithoutTaxes() {
+		return getJobInvcAmountWithoutTaxes();
+	}
+
+	// ---------------------------------------------------------------
+
+	@Override
+	public String getAmountUnpaidWithTaxesFormatted() {
+		return getJobInvcAmountUnpaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithTaxesFormatted() {
+		return getJobInvcAmountPaidWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountPaidWithoutTaxesFormatted() {
+		return getJobInvcAmountPaidWithoutTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithTaxesFormatted() {
+		return getJobInvcAmountWithTaxesFormatted();
+	}
+
+	@Override
+	public String getAmountWithoutTaxesFormatted() {
+		return getJobInvcAmountWithoutTaxesFormatted();
+	}
+	
+	// ---------------------------------------------------------------
+
+	@Override
+	public boolean isFullyPaid() {
+		return isJobInvcFullyPaid();
+	}
+
+	@Override
+	public boolean isNotFullyPaid() {
+		return isNotJobInvcFullyPaid();
 	}
 
 }
