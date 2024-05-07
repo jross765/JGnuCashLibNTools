@@ -39,7 +39,7 @@ public interface GCshBillTerms {
 
     // ----------------------------
 
-    Type getType() throws BillTermsTypeException;
+    Type getType();
 
     GCshBillTermsDays getDays();
 

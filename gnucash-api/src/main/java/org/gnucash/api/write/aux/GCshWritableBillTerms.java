@@ -1,8 +1,7 @@
 package org.gnucash.api.write.aux;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 public interface GCshWritableBillTerms extends GCshBillTerms {
 
@@ -22,7 +21,7 @@ public interface GCshWritableBillTerms extends GCshBillTerms {
 
     // ----------------------------
     
-    void setType(Type type) throws BillTermsTypeException;
+    void setType(Type type);
 
     void setDays(GCshWritableBillTermsDays bllTrmsDays);
 

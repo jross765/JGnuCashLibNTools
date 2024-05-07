@@ -3,7 +3,6 @@ package org.gnucash.api.read.impl.aux;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.generated.GncGncBillTerm.BilltermChild;
 import org.gnucash.api.read.GnuCashFile;
@@ -11,6 +10,7 @@ import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +86,7 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     
     // ------------------------
 
-    public Type getType() throws BillTermsTypeException {
+    public Type getType() {
 	if ( getDays() != null )
 	    return Type.DAYS;
 	else if ( getProximo() != null )

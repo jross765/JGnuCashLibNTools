@@ -1,6 +1,6 @@
 package org.gnucash.api.read.aux;
 
-public class BillTermsTypeException extends Exception {
+public class BillTermsTypeException extends RuntimeException {
 
     private static final long serialVersionUID = -4025434886232899290L;
     

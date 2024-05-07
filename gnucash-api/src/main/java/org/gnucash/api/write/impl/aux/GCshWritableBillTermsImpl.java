@@ -58,7 +58,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     // ---------------------------------------------------------------
     
     @Override
-    public Type getType() throws BillTermsTypeException {
+    public Type getType() {
 	return type;
     }
 
@@ -103,7 +103,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     // ---------------------------------------------------------------
 
     @Override
-    public void setType(final Type newType) throws BillTermsTypeException {
+    public void setType(final Type newType) {
 	
 	if ( newType == Type.UNSET ) {
 	    throw new BillTermsTypeException("Bill type may not be set to 'UNSET'");
