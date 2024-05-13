@@ -18,6 +18,7 @@ import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -62,8 +63,10 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      * @param file the file we belong to
      * @param id   the ID we shall have
      */
-    protected GnuCashWritableCommodityImpl(final GnuCashWritableFileImpl file) {
-	super(createCommodity_int(file, GCshID.getNew()), file);
+    protected GnuCashWritableCommodityImpl(
+    		final GnuCashWritableFileImpl file,
+    		final GCshCmdtyID cmdtyID) {
+	super(createCommodity_int(file, cmdtyID), file);
     }
 
     public GnuCashWritableCommodityImpl(GnuCashCommodityImpl cmdty) {
@@ -96,12 +99,12 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      */
     protected static GncCommodity createCommodity_int(
     		final GnuCashWritableFileImpl file,
-    		final GCshID newID) {
-		if ( newID == null ) {
+    		final GCshCmdtyID cmdtyID) {
+		if ( cmdtyID == null ) {
 			throw new IllegalArgumentException("null ID given");
 		}
 
-		if ( ! newID.isSet() ) {
+		if ( ! cmdtyID.isSet() ) {
 			throw new IllegalArgumentException("unset ID given");
 		}
 
@@ -110,8 +113,8 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
 	jwsdpCmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
 	jwsdpCmdty.setVersion(Const.XML_FORMAT_VERSION);
 	jwsdpCmdty.setCmdtyName("no name given");
-	jwsdpCmdty.setCmdtySpace(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString()); // ::TODO : soft
-	jwsdpCmdty.setCmdtyId("XYZ"); // ::TODO
+	jwsdpCmdty.setCmdtySpace(cmdtyID.getNameSpace());
+	jwsdpCmdty.setCmdtyId(cmdtyID.getCode());
 	jwsdpCmdty.setCmdtyXcode(Const.CMDTY_XCODE_DEFAULT);
 
 	file.getRootElement().getGncBook().getBookElements().add(jwsdpCmdty);

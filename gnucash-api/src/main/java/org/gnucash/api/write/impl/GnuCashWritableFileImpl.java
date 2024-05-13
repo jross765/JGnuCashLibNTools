@@ -1619,10 +1619,10 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	@Override
 	public GnuCashWritableCommodity createWritableCommodity(
-			final GCshCmdtyID qualifID, 
+			final GCshCmdtyID cmdtyID, 
 			final String name) {
-		GnuCashWritableCommodityImpl cmdty = new GnuCashWritableCommodityImpl(this);
-		cmdty.setQualifID(qualifID);
+		GnuCashWritableCommodityImpl cmdty = new GnuCashWritableCommodityImpl(this, cmdtyID);
+		cmdty.setQualifID(cmdtyID);
 		cmdty.setName(name);
 		super.cmdtyMgr.addCommodity(cmdty);
 		return cmdty;
