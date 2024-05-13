@@ -12,10 +12,12 @@ import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -23,6 +25,14 @@ import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
+import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
+import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.api.read.spec.GnuCashCustomerJob;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
@@ -30,7 +40,6 @@ import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +83,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
 
-	if (!invc.isModifiable()) {
+	if ( ! invc.isModifiable() ) {
 	    throw new IllegalArgumentException("The given customer invoice has payments and is thus not modifiable");
 	}
 
@@ -110,15 +119,25 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
-	    // ::TODO
-	    // GnuCashCustomer customer = invoice.getCustomer();
-	    // if (customer != null) {
-	    // taxTable = customer.getTaxTable();
-	    // }
+	    
+	    // If customer has a tax table, then assign it to 
+	    // then customer invoice.
+	    GnuCashCustomer cust = null;
+		if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
+			GnuCashCustomerInvoice custInvc = new GnuCashCustomerInvoiceImpl((GnuCashGenerInvoice) invc);
+			cust = custInvc.getCustomer();
+		} else if ( invc.getType() == GCshOwner.Type.JOB ) {
+			GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl((GnuCashGenerInvoice) invc);
+			GnuCashCustomerJob custJob = jobInvc.getCustJob();
+			cust = custJob.getCustomer();
+		}
+		if ( cust != null ) {
+			taxTab = cust.getTaxTable();
+		}
 
-	    // use first tax-table found
-	    if (taxTab == null) {
-		taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
+	    // Else: Use first tax table found
+	    if ( taxTab == null ) {
+	    	taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
 	    }
 
 	    /*
@@ -159,7 +178,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
 
-	if (!invc.isModifiable()) {
+	if ( ! invc.isModifiable() ) {
 	    throw new IllegalArgumentException("The given vendor bill has payments and is thus not modifiable");
 	}
 
@@ -192,15 +211,25 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
-	    // ::TODO
-	    // GnuCashVendor vend = invoice.getVendor();
-	    // if (vend != null) {
-	    // taxTable = vend.getTaxTable();
-	    // }
+	    
+	    // If vendor has a tax table, then assign it to 
+	    // then vendor bill.
+	    GnuCashVendor vend = null;
+		if ( invc.getType() == GCshOwner.Type.VENDOR ) {
+			GnuCashVendorBill vendInvc = new GnuCashVendorBillImpl((GnuCashGenerInvoice) invc);
+			vend = vendInvc.getVendor();
+		} else if ( invc.getType() == GCshOwner.Type.JOB ) {
+			GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl((GnuCashGenerInvoice) invc);
+			GnuCashVendorJob vendJob = jobInvc.getVendJob();
+			vend = vendJob.getVendor();
+		}
+		if ( vend != null ) {
+			taxTab = vend.getTaxTable();
+		}
 
-	    // use first tax-table found
-	    if (taxTab == null) {
-		taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
+	    // Else: Use first tax table found
+	    if ( taxTab == null ) {
+	    	taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
 	    }
 
 	    /*
@@ -273,15 +302,16 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    taxTabRef.setType(Const.XML_DATA_TYPE_GUID);
 
 	    GCshTaxTable taxTab = null;
-	    // ::TODO
-	    // GnuCashEmployee empl = invoice.getEmployee();
-	    // if (empl != null) {
-	    // taxTable = vend.getTaxTable();
-	    // }
 
-	    // use first tax-table found
-	    if (taxTab == null) {
-		taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
+	    // Caution: As opposed to the customers and vendors,
+	    // employees do not have a tax table. 
+	    // Therefore, we cannot apply the generic rule "if customer/vendor 
+	    // has a tax table..." from the methods createCustInvcEntry_int() and
+	    // createVendBillEntry_int(), resp.
+
+	    // Use first tax table found
+	    if ( taxTab == null ) {
+	    	taxTab = invc.getGnuCashFile().getTaxTables().iterator().next();
 	    }
 
 	    /*
@@ -321,7 +351,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
 
-	if (!invc.isModifiable()) {
+	if ( ! invc.isModifiable() ) {
 	    throw new IllegalArgumentException("The given job invoice has payments and is thus not modifiable");
 	}
 	
@@ -341,7 +371,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	// TODO: keep count-data in file intact <gnc:count-data
 	// cd:type="gnc:GncEntry">18</gnc:count-data>
 
-	if (!invc.isModifiable()) {
+	if ( ! invc.isModifiable() ) {
 	    throw new IllegalArgumentException("The given invoice has payments and is" + " thus not modifiable");
 	}
 
