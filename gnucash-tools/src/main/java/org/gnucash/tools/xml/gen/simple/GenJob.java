@@ -13,6 +13,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.OwnerNotFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -323,5 +324,10 @@ public class GenJob extends CommandLineTool
   {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp( "GenJob", options );
+    
+    System.out.println("");
+    System.out.println("Valid values for <type>:");
+    for ( JobType elt : JobType.values() )
+      System.out.println(" - " + elt);
   }
 }

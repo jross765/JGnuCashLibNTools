@@ -12,4 +12,4 @@ Created
 ./.
 
 ## Known Issues
-./.
+* The programs that generate new objects (`gen.simple.GenXYZ`) currently only work when at least one object of the same type (a customer, say) is already in the file (cf. according note on issue in README file for package "API").

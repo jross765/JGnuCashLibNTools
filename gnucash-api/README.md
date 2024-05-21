@@ -182,6 +182,8 @@ It should go without saying, but the following points are of course subject to c
 
 * As mentioned above: As of now, the lib only works well when your GnuCash files are generated on a handful of system locales.
 
+* Generating new objects currently only works when at least one object of the same type (a customer, say) is already in the file.
+
 * When generating invoices, you cannot/should not call the `post()`-method immediately after composing the object. The post-method will work, but the amount of the post-transaction will be wrong (thus, the transaction will be useless as it cannot be corrected manually in GnuCash; post-transactions are read-only). Instead, you should first write the results to the output file using the `GnucashWritableFile.writeFile()`-method, then re-load/re-parse the invoice generated before and then use the `post()`-method. Then, the amount will be correct.
 
   Cf. test classes `TestGnucashWritableCustomerInvoiceImpl`, `TestGnucashWritableVendorBillImpl` and  `TestGnucashWritableJobInvoiceImpl`.

@@ -121,7 +121,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    GCshTaxTable taxTab = null;
 	    
 	    // If customer has a tax table, then assign it to 
-	    // then customer invoice.
+	    // then customer invoice entry.
 	    GnuCashCustomer cust = null;
 		if ( invc.getType() == GCshOwner.Type.CUSTOMER ) {
 			GnuCashCustomerInvoice custInvc = new GnuCashCustomerInvoiceImpl((GnuCashGenerInvoice) invc);
@@ -213,7 +213,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    GCshTaxTable taxTab = null;
 	    
 	    // If vendor has a tax table, then assign it to 
-	    // then vendor bill.
+	    // then vendor bill.entry.
 	    GnuCashVendor vend = null;
 		if ( invc.getType() == GCshOwner.Type.VENDOR ) {
 			GnuCashVendorBill vendInvc = new GnuCashVendorBillImpl((GnuCashGenerInvoice) invc);
