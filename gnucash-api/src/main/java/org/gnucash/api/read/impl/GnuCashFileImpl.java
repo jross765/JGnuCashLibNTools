@@ -819,6 +819,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
+	public Collection<GnuCashGenerJob> getGenerJobsByType(final GCshOwner.Type type) {
+		return jobMgr.getGenerJobsByType(type);
+	}
+
+	@Override
 	public Collection<GnuCashGenerJob> getGenerJobsByName(final String name) {
 		return jobMgr.getGenerJobsByName(name);
 	}

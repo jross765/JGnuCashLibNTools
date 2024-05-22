@@ -3,16 +3,19 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
@@ -133,6 +136,25 @@ public class FileJobManager {
 		}
 
 		return retval;
+	}
+
+	public List<GnuCashGenerJob> getGenerJobsByType(GCshOwner.Type type) {
+		if ( type != GnuCashGenerJob.TYPE_CUSTOMER && 
+			 type != GnuCashGenerJob.TYPE_VENDOR ) {
+			throw new IllegalArgumentException("invalid job type given");
+		}
+		
+		List<GnuCashGenerJob> result = new ArrayList<GnuCashGenerJob>();
+
+		for ( GnuCashGenerJob job : getGenerJobs() ) {
+			if ( job.getType() == type ) {
+				result.add(job);
+			}
+		}
+
+		// result.sort(Comparator.naturalOrder()); 
+
+		return result;
 	}
 
 	public List<GnuCashGenerJob> getGenerJobsByName(String name) {

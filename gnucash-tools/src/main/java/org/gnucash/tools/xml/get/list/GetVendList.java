@@ -12,8 +12,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.gnucash.api.read.GnuCashGenerInvoice;
-import org.gnucash.api.read.aux.GCshOwner;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -23,16 +22,18 @@ import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
-public class GetInvcList extends CommandLineTool
+public class GetVendList extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GetInvcList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GetVendList.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String         gcshFileName = null;
-  private static GCshOwner.Type type         = null;
+  private static String               gcshFileName = null;
+  private static Helper.CustEmplVendListMode mode = null; 
+  private static String               isin         = null;
+  private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO
 
@@ -40,7 +41,7 @@ public class GetInvcList extends CommandLineTool
   {
     try
     {
-      GetInvcList tool = new GetInvcList ();
+      GetVendList tool = new GetVendList ();
       tool.execute(args);
     }
     catch (CouldNotExecuteException exc) 
@@ -54,7 +55,7 @@ public class GetInvcList extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-    // invcID = UUID.randomUUID();
+    // cmdtyID = UUID.randomUUID();
 
 //    cfg = new PropertiesConfiguration(System.getProperty("config"));
 //    getConfigSettings(cfg);
@@ -69,20 +70,28 @@ public class GetInvcList extends CommandLineTool
       .withLongOpt("gnucash-file")
       .create("f");
       
-    Option optType = OptionBuilder
+    Option optMode = OptionBuilder
       .isRequired()
       .hasArg()
-      .withArgName("type")
-      .withDescription("(Generic) invoice type")
-      .withLongOpt("type")
-      .create("t");
-      
+      .withArgName("Mode")
+      .withDescription("Mode")
+      .withLongOpt("mode")
+      .create("m");
+    	    	      
+    Option optName = OptionBuilder
+      .hasArg()
+      .withArgName("name")
+      .withDescription("Vendor name (part of)")
+      .withLongOpt("name")
+      .create("n");
+    	      
     // The convenient ones
     // ::EMPTY
           
     options = new Options();
     options.addOption(optFile);
-    options.addOption(optType);
+    options.addOption(optMode);
+    options.addOption(optName);
   }
 
   @Override
@@ -96,17 +105,22 @@ public class GetInvcList extends CommandLineTool
   {
     GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
     
-    Collection<GnuCashGenerInvoice> invcList = null; 
-    invcList = gcshFile.getGenerInvoicesByType(type);
-    if ( invcList.size() == 0 ) 
+    Collection<GnuCashVendor> cmdtyList = null; 
+    if ( mode == Helper.CustEmplVendListMode.ALL )
+        cmdtyList = gcshFile.getVendors();
+    else if ( mode == Helper.CustEmplVendListMode.NAME )
+    	cmdtyList = gcshFile.getVendorsByName(name, true);
+
+    if ( cmdtyList.size() == 0 ) 
     {
-    	System.err.println("Found no invoice with that type.");
+    	System.err.println("Found no vendor with that type.");
     	throw new NoEntryFoundException();
     }
 
-    for ( GnuCashGenerInvoice invc : invcList )
+    System.err.println("Found " + cmdtyList.size() + " vendors.");
+    for ( GnuCashVendor cmdty : cmdtyList )
     {
-    	System.out.println(invc.toString());	
+    	System.out.println(cmdty.toString());	
     }
   }
 
@@ -142,40 +156,60 @@ public class GetInvcList extends CommandLineTool
     if ( ! scriptMode )
       System.err.println("GnuCash file:      '" + gcshFileName + "'");
     
-    // <type>
+    // <mode>
     try
     {
-      type = GCshOwner.Type.valueOf(cmdLine.getOptionValue("type"));
-      if ( type != GnuCashGenerInvoice.TYPE_CUSTOMER &&
-    	   type != GnuCashGenerInvoice.TYPE_VENDOR &&
-    	   type != GnuCashGenerInvoice.TYPE_EMPLOYEE &&
-    	   type != GnuCashGenerInvoice.TYPE_JOB )
-      {
-          System.err.println("Invalid owner type for invoice");
-          throw new InvalidCommandLineArgsException();
-      }
+      mode = Helper.CustEmplVendListMode.valueOf(cmdLine.getOptionValue("mode"));
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <type>");
+      System.err.println("Could not parse <mode>");
       throw new InvalidCommandLineArgsException();
+    }
+
+    // <name>
+    if ( cmdLine.hasOption( "name" ) )
+    {
+    	if ( mode != Helper.CustEmplVendListMode.NAME )
+    	{
+            System.err.println("Error: <name> must only be set with <mode> = '" + Helper.CustEmplVendListMode.NAME + "'");
+            throw new InvalidCommandLineArgsException();
+    	}
+    	
+        try
+        {
+        	name = cmdLine.getOptionValue("name");
+        }
+        catch ( Exception exc )
+        {
+        	System.err.println("Could not parse <name>");
+        	throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	if ( mode == Helper.CustEmplVendListMode.NAME )
+    	{
+            System.err.println("Error: <name> must be set with <mode> = '" + Helper.CustEmplVendListMode.NAME + "'");
+            throw new InvalidCommandLineArgsException();
+    	}
+    	
+    	name = null;
     }
     
     if ( ! scriptMode )
-      System.err.println("Type:              " + type);
+      System.err.println("Name:              " + name);
   }
   
   @Override
   protected void printUsage()
   {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp( "GetInvcList", options );
+    formatter.printHelp( "GetVendList", options );
     
     System.out.println("");
-    System.out.println("Valid values for <type>:");
-    System.out.println(" - " + GnuCashGenerInvoice.TYPE_CUSTOMER);
-    System.out.println(" - " + GnuCashGenerInvoice.TYPE_VENDOR);
-    System.out.println(" - " + GnuCashGenerInvoice.TYPE_EMPLOYEE);
-    System.out.println(" - " + GnuCashGenerInvoice.TYPE_JOB);
+    System.out.println("Valid values for <mode>:");
+    for ( Helper.CustEmplVendListMode elt : Helper.CustEmplVendListMode.values() )
+      System.out.println(" - " + elt);
   }
 }

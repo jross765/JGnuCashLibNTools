@@ -549,6 +549,12 @@ public interface GnuCashFile extends GnuCashObject,
     GnuCashGenerJob getGenerJobByID(GCshID jobID);
 
     /**
+     * @param type 
+     * @return
+     */
+    Collection<GnuCashGenerJob> getGenerJobsByType(GCshOwner.Type type);
+
+    /**
      * @param expr
      * @return
      */

@@ -210,6 +210,15 @@ public class GetGenerJobInfo extends CommandLineTool
     
     try
     {
+      System.out.println("Type:            " + job.getType());
+    }
+    catch ( Exception exc )
+    {
+      System.out.println("Type:            " + "ERROR");
+    }
+
+    try
+    {
       System.out.println("Owner type:      " + job.getOwnerType());
     }
     catch ( Exception exc )
