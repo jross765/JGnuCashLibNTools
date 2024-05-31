@@ -166,7 +166,11 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 			}
 	
 			// the currency of the quantity is the one of the account
-			balance.add(splt.getQuantity());
+			if ( splt.getAction() == GnuCashTransactionSplit.Action.SPLIT ) {
+				balance.multiply(splt.getQuantity());
+			} else {
+				balance.add(splt.getQuantity());
+			}
 		}
 	
 		return balance;
