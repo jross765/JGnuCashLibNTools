@@ -64,7 +64,7 @@ public class TestSimpleCommodityQuoteTable {
 
 		assertEquals(2, simplPriceTab.getCurrencies().size());
 		assertEquals(145.0, simplPriceTab.getConversionFactor("SAP").doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals(22.53, simplPriceTab.getConversionFactor("MBG").doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(11.265, simplPriceTab.getConversionFactor("MBG").doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -94,7 +94,7 @@ public class TestSimpleCommodityQuoteTable {
 
 		val = new FixedPointNumber("101.0");
 		assertEquals(true, simplPriceTab.convertToBaseCurrency(val, "MBG"));
-		assertEquals(2275.53, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1137.765, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class TestSimpleCommodityQuoteTable {
 		assertEquals(true, simplPriceTab.convertFromBaseCurrency(val, "SAP"));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		val = new FixedPointNumber("2275.53");
+		val = new FixedPointNumber("1137.765");
 		assertEquals(true, simplPriceTab.convertFromBaseCurrency(val, "MBG"));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}

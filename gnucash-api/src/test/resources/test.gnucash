@@ -215,8 +215,8 @@
 </book:slots>
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
 <gnc:count-data cd:type="account">103</gnc:count-data>
-<gnc:count-data cd:type="transaction">14</gnc:count-data>
-<gnc:count-data cd:type="price">9</gnc:count-data>
+<gnc:count-data cd:type="transaction">15</gnc:count-data>
+<gnc:count-data cd:type="price">10</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
@@ -328,6 +328,23 @@
     </price:time>
     <price:source>user:price</price:source>
     <price:value>100/93</price:value>
+  </price>
+  <price>
+    <price:id type="guid">3206bcc27c4242b88f7570788646c13a</price:id>
+    <price:commodity>
+      <cmdty:space>EURONEXT</cmdty:space>
+      <cmdty:id>MBG</cmdty:id>
+    </price:commodity>
+    <price:currency>
+      <cmdty:space>CURRENCY</cmdty:space>
+      <cmdty:id>EUR</cmdty:id>
+    </price:currency>
+    <price:time>
+      <ts:date>2024-06-01 10:59:00 +0000</ts:date>
+    </price:time>
+    <price:source>user:split-register</price:source>
+    <price:type>unknown</price:type>
+    <price:value>2253/200</price:value>
   </price>
   <price>
     <price:id type="guid">b7fe7eb916164f1d9d43f41262530381</price:id>
@@ -1912,6 +1929,44 @@
       <split:value>-225300/100</split:value>
       <split:quantity>-225300/100</split:quantity>
       <split:account type="guid">bbf77a599bd24a3dbfec3dd1d0bb9f5c</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">ab25b1f4035344b395764d2aa6e2d864</trn:id>
+  <trn:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2024-06-01 10:59:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2024-06-01 09:09:44 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>Aktienteilung</trn:description>
+  <trn:slots>
+    <slot>
+      <slot:key>date-posted</slot:key>
+      <slot:value type="gdate">
+        <gdate>2024-06-01</gdate>
+      </slot:value>
+    </slot>
+  </trn:slots>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">eb16c2887bfe4e53b8508142ba8fac7a</split:id>
+      <split:action>Aktienteilung</split:action>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>0/1</split:value>
+      <split:quantity>1000000/10000</split:quantity>
+      <split:account type="guid">d49554f33a0340bdb6611a1ab5575998</split:account>
+      <split:slots>
+        <slot>
+          <slot:key>split-type</slot:key>
+          <slot:value type="string">stock-split</slot:value>
+        </slot>
+      </split:slots>
     </trn:split>
   </trn:splits>
 </gnc:transaction>

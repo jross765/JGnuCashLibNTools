@@ -127,7 +127,7 @@ public class TestGnuCashWritablePriceImpl {
 		List<GnuCashWritablePrice> prcList = new ArrayList<GnuCashWritablePrice>(prcColl);
 		prcList.sort(Comparator.naturalOrder());
 
-		assertEquals(9, prcList.size());
+		assertEquals(ConstTest.Stats.NOF_PRC, prcList.size());
 		assertEquals(PRC_10_ID, prcList.get(0).getID());
 		assertEquals(PRC_11_ID, prcList.get(1).getID());
 		assertEquals(PRC_12_ID, prcList.get(2).getID());

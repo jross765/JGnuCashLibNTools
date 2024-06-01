@@ -229,10 +229,10 @@ public class TestGnuCashAccountImpl {
 
     	assertEquals(ACCT_2_ID, acct.getParentAccountID());
 
-    	assertEquals(100.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
-    	assertEquals(100.00, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	assertEquals(200.00, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	assertEquals(200.00, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-    	assertEquals(1, acct.getTransactions().size());
+    	assertEquals(2, acct.getTransactions().size());
     	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(0).getID().toString());
     }
 }

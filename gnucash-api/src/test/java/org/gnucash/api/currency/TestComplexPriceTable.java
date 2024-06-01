@@ -76,7 +76,7 @@ public class TestComplexPriceTable {
 		assertEquals(145.0, complPriceTab
 				.getConversionFactor(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(), "SAP").doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
-		assertEquals(22.53, complPriceTab
+		assertEquals(11.265, complPriceTab
 				.getConversionFactor(GCshCmdtyCurrNameSpace.Exchange.EURONEXT.toString(), "MBG").doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 	}
@@ -107,7 +107,7 @@ public class TestComplexPriceTable {
 		val = new FixedPointNumber("101.0");
 		assertEquals(true, complPriceTab.convertToBaseCurrency(val,
 				new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "MBG")));
-		assertEquals(2275.53, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(1137.765, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -120,7 +120,7 @@ public class TestComplexPriceTable {
 				new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "SAP")));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		val = new FixedPointNumber("2275.53");
+		val = new FixedPointNumber("1137.765");
 		assertEquals(true, complPriceTab.convertFromBaseCurrency(val,
 				new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "MBG")));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);

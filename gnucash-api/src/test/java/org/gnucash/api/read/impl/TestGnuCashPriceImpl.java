@@ -108,7 +108,7 @@ public class TestGnuCashPriceImpl {
 		//		}
 		//		System.err.println("=============");
 
-		assertEquals(9, prcList.size());
+		assertEquals(ConstTest.Stats.NOF_PRC, prcList.size());
 		assertEquals(PRC_10_ID, prcList.get(0).getID());
 		assertEquals(PRC_11_ID, prcList.get(1).getID());
 		assertEquals(PRC_12_ID, prcList.get(2).getID()); // <-- CAUTION index!
