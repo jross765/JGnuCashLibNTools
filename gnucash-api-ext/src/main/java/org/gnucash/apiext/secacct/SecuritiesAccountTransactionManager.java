@@ -1,5 +1,6 @@
 package org.gnucash.apiext.secacct;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,29 +28,74 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class SecuritiesAccountTransactionManager {
     
     public enum Type {
-	BUY_STOCK,
-	DIVIDEND
+    	BUY_STOCK,
+    	DIVIDEND,
+    	STOCK_SPLIT,
+    }
+    
+    public enum StockSplitVar {
+    	FACTOR,
+    	NOF_ADD_SHARES,
     }
     
     // ---------------------------------------------------------------
     
     // Logger
     private static final Logger LOGGER = LoggerFactory.getLogger(SecuritiesAccountTransactionManager.class);
+    
+    // ----------------------------
+
+    // ::TODO These numbers should be extracted into a config. file. 
+    // ::MAGIC
+    private static FixedPointNumber SPLIT_FACTOR_MIN = new FixedPointNumber("1/20"); 
+    	// anything below that value is technically OK,
+        // but unplausible and thus forbidden.
+    private static FixedPointNumber SPLIT_FACTOR_MAX = new FixedPointNumber("20");
+    	// accordingly
+    
+    // Notes: 
+    //  - It common to specify stock (reverse) splits by a factor (e.g., 2 for a 2-to-1 split,
+    //    or 1/4 for 1-to-4 reverse split). So why use the number of add. shares? Because that
+    //    is how GnuCash handles things, as opposed to KMyMoney (cf. the sister project) , both 
+    //    on the data and the GUI level, and given that we want to have both projects as symmetrical 
+    //    as possibly, we copy that logic here, so that the user can choose between both methods.
+    //    Besides, the author has witnessed cases where the bank's statements provide wrong 
+    //    values for the factor (yes, a bank's software also has bugs), whereas the number of add. 
+    //    shares is practically always correct, given the usual bank-internal processes which
+    //    the author happens to know a thing or two about.
+    //  - As opposed to the factor above, a plausible range for the (abs.) number of additional 
+    //    (to be subtracted) shares cannot as generally be specified. 
+    //    E.g., European/US stocks tend to be priced above 1 EUR/USD, else they are considered penny 
+    //    stocks (both literally and figuratively) and thus deemed uninvestable for the average Joe, 
+    //    whereas in South-East-Asia (Singapore, say), it is deemed absolutely normal for a stock to 
+    //    be priced by just a few cents or even less. The number of shares in a typical retail portfolio 
+    //    will vary accordingly.
+    //    Moreover, we of course know absolutely nothing about the entity/the individual that/who 
+    //    will use this lib. A "regular" individual investor might have, say, 100 to 500 or so shares of 
+    //    a European/US stock in his/her portfolio (and possibly 50-times that number of shares of a 
+    //    Singaporean stock), whereas a wealthy individual might have 100-times as much or even more 
+    //    (never mind institutional investors, but these entities will very probably use different 
+    //    software...)
+    //    ==> ::TODO These numbers *must* be extracted into a config. file ASAP, whereas the above 
+    //    factor *should* (but in fact can wait a little). 
+    // ::MAGIC
+    private static FixedPointNumber SPLIT_NOF_ADD_SHARES_MIN = new FixedPointNumber("1");
+    private static FixedPointNumber SPLIT_NOF_ADD_SHARES_MAX = new FixedPointNumber("99999");
 
     // ---------------------------------------------------------------
     
     public static GnuCashWritableTransaction genBuyStockTrx(
-	    final GnuCashWritableFileImpl gcshFile,
-	    final GCshID stockAcctID,
-	    final GCshID taxFeeAcctID,
-	    final GCshID offsetAcctID,
-	    final FixedPointNumber nofStocks,
-	    final FixedPointNumber stockPrc,
-	    final FixedPointNumber taxesFees,
-	    final LocalDate postDate,
-	    final String descr) {
+    		final GnuCashWritableFileImpl gcshFile,
+    		final GCshID stockAcctID,
+    		final GCshID taxFeeAcctID,
+    		final GCshID offsetAcctID,
+    		final FixedPointNumber nofStocks,
+    		final FixedPointNumber stockPrc,
+    		final FixedPointNumber taxesFees,
+    		final LocalDate postDate,
+    		final String descr) {
     	Collection<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
-    	
+	
     	AcctIDAmountPair newPair = new AcctIDAmountPair(taxFeeAcctID, taxesFees);
     	expensesAcctAmtList.add(newPair);
     	
@@ -60,144 +106,143 @@ public class SecuritiesAccountTransactionManager {
     }
     
     public static GnuCashWritableTransaction genBuyStockTrx(
-	    final GnuCashWritableFileImpl gcshFile,
-	    final GCshID stockAcctID,
-	    final Collection<AcctIDAmountPair> expensesAcctAmtList,
-	    final GCshID offsetAcctID,
-	    final FixedPointNumber nofStocks,
-	    final FixedPointNumber stockPrc,
-	    final LocalDate postDate,
-	    final String descr) {
-	
-	if ( gcshFile == null ) {
-	    throw new IllegalArgumentException("null GnuCash file given");
-	}
+    		final GnuCashWritableFileImpl gcshFile,
+    		final GCshID stockAcctID,
+    		final Collection<AcctIDAmountPair> expensesAcctAmtList,
+    		final GCshID offsetAcctID,
+    		final FixedPointNumber nofStocks,
+    		final FixedPointNumber stockPrc,
+    		final LocalDate postDate,
+    		final String descr) {
+    	if ( gcshFile == null ) {
+    		throw new IllegalArgumentException("null GnuCash file given");
+    	}
 		
-	if ( stockAcctID == null  ||
-	     offsetAcctID == null ) {
-	    throw new IllegalArgumentException("null account ID given");
-	}
+    	if ( stockAcctID == null ||
+    		 offsetAcctID == null ) {
+    		throw new IllegalArgumentException("null account ID given");
+    	}
 	
-	if ( ! ( stockAcctID.isSet()  ) ||
-	     ! ( offsetAcctID.isSet() ) ) {
-	    throw new IllegalArgumentException("unset account ID given");
-	}
+    	if ( ! ( stockAcctID.isSet()  ) ||
+    		 ! ( offsetAcctID.isSet() ) ) {
+    		throw new IllegalArgumentException("unset account ID given");
+    	}
 		
-	if ( expensesAcctAmtList == null ) {
-	    throw new IllegalArgumentException("null expenses account list given");
-	}
+    	if ( expensesAcctAmtList == null ) {
+    		throw new IllegalArgumentException("null expenses account list given");
+    	}
 			
-	if ( expensesAcctAmtList.isEmpty() ) {
-	    throw new IllegalArgumentException("empty expenses account list given");
-	}
+    	if ( expensesAcctAmtList.isEmpty() ) {
+    		throw new IllegalArgumentException("empty expenses account list given");
+    	}
 			
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-	    if ( ! elt.isNotNull() ) {
-		throw new IllegalArgumentException("null expenses account list element given");
-	    }
-	    if ( ! elt.isSet() ) {
-		throw new IllegalArgumentException("unset expenses account list element given");
-	    }
-	}
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		if ( ! elt.isNotNull() ) {
+    			throw new IllegalArgumentException("null expenses account list element given");
+    		}
+    		if ( ! elt.isSet() ) {
+    			throw new IllegalArgumentException("unset expenses account list element given");
+    		}
+    	}
 
-	if ( nofStocks == null  ||
-		 stockPrc == null ) {
-	    throw new IllegalArgumentException("null amount given");
-	}
+    	if ( nofStocks == null ||
+    		 stockPrc == null ) {
+    		throw new IllegalArgumentException("null amount given");
+    	}
+		
+    	if ( nofStocks.doubleValue() <= 0.0 ) {
+    		throw new IllegalArgumentException("number of stocks <= 0.0 given");
+    	}
+			
+    	if ( stockPrc.doubleValue() <= 0.0 ) {
+    		throw new IllegalArgumentException("stock price <= 0.0 given");
+    	}
 	
-	if ( nofStocks.doubleValue() <= 0.0 ) {
-	    throw new IllegalArgumentException("number of stocks <= 0.0 given");
-	}
-				
-	if ( stockPrc.doubleValue() <= 0.0 ) {
-	    throw new IllegalArgumentException("stock price <= 0.0 given");
-	}
-				
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-	    if ( elt.amount().doubleValue() <= 0.0 ) {
-		throw new IllegalArgumentException("expense <= 0.0 given");
-	    }
-	}
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		if ( elt.amount().doubleValue() <= 0.0 ) {
+    			throw new IllegalArgumentException("expense <= 0.0 given");
+    		}
+    	}
 
-	LOGGER.debug("genBuyStockTrx: Account 1 name (stock):      '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
-	int counter = 1;
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-	    LOGGER.debug("genBuyStockTrx: Account 2." + counter + " name (expenses): '" + gcshFile.getAccountByID(elt.accountID()).getQualifiedName() + "'");
-	    counter++;
-	}
-	LOGGER.debug("genBuyStockTrx: Account 3 name (offsetting): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
+    	LOGGER.debug("genBuyStockTrx: Account 1 name (stock):      '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
+    	int counter = 1;
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		LOGGER.debug("genBuyStockTrx: Account 2." + counter + " name (expenses): '" + gcshFile.getAccountByID(elt.accountID()).getQualifiedName() + "'");
+    		counter++;
+    	}
+    	LOGGER.debug("genBuyStockTrx: Account 3 name (offsetting): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
 
-	// ---
-	// Check account types
-	GnuCashAccount stockAcct  = gcshFile.getAccountByID(stockAcctID);
-	if ( stockAcct.getType() != GnuCashAccount.Type.STOCK ) {
-	    throw new IllegalArgumentException("Account with ID " + stockAcctID + " is not of type " + GnuCashAccount.Type.STOCK);
-	}
+    	// ---
+    	// Check account types
+    	GnuCashAccount stockAcct  = gcshFile.getAccountByID(stockAcctID);
+    	if ( stockAcct.getType() != GnuCashAccount.Type.STOCK ) {
+    		throw new IllegalArgumentException("Account with ID " + stockAcctID + " is not of type " + GnuCashAccount.Type.STOCK);
+    	}
 
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-		GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
-	    if ( expensesAcct.getType() != GnuCashAccount.Type.EXPENSE ) {
-		throw new IllegalArgumentException("Account with ID " + elt.accountID() + " is not of type " + GnuCashAccount.Type.EXPENSE);
-	    }
-	}
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
+    		if ( expensesAcct.getType() != GnuCashAccount.Type.EXPENSE ) {
+    			throw new IllegalArgumentException("Account with ID " + elt.accountID() + " is not of type " + GnuCashAccount.Type.EXPENSE);
+    		}
+    	}
 
-	GnuCashAccount offsetAcct = gcshFile.getAccountByID(offsetAcctID);
-	if ( offsetAcct.getType() != GnuCashAccount.Type.BANK ) {
-	    throw new IllegalArgumentException("Account with ID " + offsetAcctID + " is not of type " + GnuCashAccount.Type.BANK);
-	}
+    	GnuCashAccount offsetAcct = gcshFile.getAccountByID(offsetAcctID);
+    	if ( offsetAcct.getType() != GnuCashAccount.Type.BANK ) {
+    		throw new IllegalArgumentException("Account with ID " + offsetAcctID + " is not of type " + GnuCashAccount.Type.BANK);
+    	}
 
-	// ---
+    	// ---
 
-	FixedPointNumber amtNet   = nofStocks.copy().multiply(stockPrc);
-	LOGGER.debug("genBuyStockTrx: Net amount: " + amtNet);
+    	FixedPointNumber amtNet   = nofStocks.copy().multiply(stockPrc);
+    	LOGGER.debug("genBuyStockTrx: Net amount: " + amtNet);
+
+    	FixedPointNumber amtGross = amtNet.copy();
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		amtGross.add(elt.amount());
+    	}
+    	LOGGER.debug("genBuyStockTrx: Gross amount: " + amtGross);
+
+    	// ---
+
+    	GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
+    	trx.setDescription(descr);
+
+    	// ---
+
+    	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(offsetAcct);
+    	splt1.setValue(amtGross.copy().negate());
+    	splt1.setQuantity(amtGross.copy().negate());
+    	LOGGER.debug("genBuyStockTrx: Split 1 to write: " + splt1.toString());
+
+    	// ---
 	
-	FixedPointNumber amtGross = amtNet.copy();
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-	    amtGross.add(elt.amount());
-	}
-	LOGGER.debug("genBuyStockTrx: Gross amount: " + amtGross);
+    	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(stockAcct);
+    	splt2.setValue(amtNet);
+    	splt2.setQuantity(nofStocks);
+    	splt2.setAction(GnuCashTransactionSplit.Action.BUY);
+    	LOGGER.debug("genBuyStockTrx: Split 2 to write: " + splt2.toString());
 
-	// ---
+    	// ---
 
-	GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
-	trx.setDescription(descr);
+    	counter = 1;
+    	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
+    		GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
+    		GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(expensesAcct);
+    		splt3.setValue(elt.amount());
+    		splt3.setQuantity(elt.amount());
+    		LOGGER.debug("genBuyStockTrx: Split 3." + counter + " to write: " + splt3.toString());
+    		counter++;
+    	}
 
-	// ---
-	
-	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(offsetAcct);
-	splt1.setValue(amtGross.copy().negate());
-	splt1.setQuantity(amtGross.copy().negate());
-	LOGGER.debug("genBuyStockTrx: Split 1 to write: " + splt1.toString());
+    	// ---
 
-	// ---
-	
-	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(stockAcct);
-	splt2.setValue(amtNet);
-	splt2.setQuantity(nofStocks);
-	splt2.setAction(GnuCashTransactionSplit.Action.BUY);
-	LOGGER.debug("genBuyStockTrx: Split 2 to write: " + splt2.toString());
+    	trx.setDatePosted(postDate);
+    	trx.setDateEntered(LocalDateTime.now());
 
-	// ---
+    	// ---
 
-	counter = 1;
-	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-	    GnuCashAccount expensesAcct = gcshFile.getAccountByID(elt.accountID());
-	    GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(expensesAcct);
-	    splt3.setValue(elt.amount());
-	    splt3.setQuantity(elt.amount());
-	    LOGGER.debug("genBuyStockTrx: Split 3." + counter + " to write: " + splt3.toString());
-	    counter++;
-	}
-
-	// ---
-
-	trx.setDatePosted(postDate);
-	trx.setDateEntered(LocalDateTime.now());
-
-	// ---
-
-	LOGGER.info("genBuyStockTrx: Generated new Transaction: " + trx.getID());
-	return trx;
+    	LOGGER.info("genBuyStockTrx: Generated new Transaction: " + trx.getID());
+    	return trx;
     }
     
     // ---------------------------------------------------------------
@@ -213,13 +258,13 @@ public class SecuritiesAccountTransactionManager {
     	    final LocalDate postDate,
     	    final String descr) {
     	Collection<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
-    	
+	
     	AcctIDAmountPair newPair = new AcctIDAmountPair(taxFeeAcctID, taxesFees);
     	expensesAcctAmtList.add(newPair);
-    	
-    	return genDivivendTrx(gcshFile, 
+
+    	return genDivivendTrx(gcshFile,
     			      stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID, 
-    			      divGross, 
+    			      divGross,
     			      postDate, descr);
     }
     
@@ -232,23 +277,22 @@ public class SecuritiesAccountTransactionManager {
     	    final FixedPointNumber divGross,
     	    final LocalDate postDate,
     	    final String descr) {
-    	
     	if ( gcshFile == null ) {
     	    throw new IllegalArgumentException("null GnuCash file given");
     	}
-    		
+
     	if ( stockAcctID == null  ||
     	     incomeAcctID == null ||
     	     offsetAcctID == null ) {
     	    throw new IllegalArgumentException("null account ID given");
     	}
-    	
+
     	if ( ! ( stockAcctID.isSet()  ) ||
     	     ! ( incomeAcctID.isSet() ) ||
     	     ! ( offsetAcctID.isSet() ) ) {
     	    throw new IllegalArgumentException("unset account ID given");
     	}
-    		
+
     	if ( expensesAcctAmtList == null ) {
     	    throw new IllegalArgumentException("null expenses account list given");
     	}
@@ -375,5 +419,230 @@ public class SecuritiesAccountTransactionManager {
     	LOGGER.info("genDivivendTrx: Generated new Transaction: " + trx.getID());
     	return trx;
     }
-        
+
+    // ---------------------------------------------------------------
+    
+    public static GnuCashWritableTransaction genStockSplitTrx(
+    		final GnuCashWritableFileImpl gcshFile,
+    		final GCshID stockAcctID,
+    		final StockSplitVar var,
+    		final FixedPointNumber factorOfNofAddShares,
+    		final LocalDate postDate,
+    		final String descr) {
+    	if ( var == StockSplitVar.FACTOR ) {
+    		return genStockSplitTrx_factor(gcshFile, 
+    									   stockAcctID, factorOfNofAddShares, 
+    									   postDate, descr);
+    	} else if ( var == StockSplitVar.NOF_ADD_SHARES ) {
+    		return genStockSplitTrx_nofShares(gcshFile,
+    										  stockAcctID, factorOfNofAddShares,
+    										  postDate, descr);
+    	}
+
+    	return null; // Compiler happy
+    }
+    
+    /**
+     * 
+     * @param gcshFile
+     * @param stockAcctID
+     * @param factor E.g., the number 3.0 for a 3-for-1 split (a threefold increase of the number of shares), 
+     * or the number 1/3 (0.333...) for a 1-for-3 reverse stock-split (the number of shares is decreased to a third).
+     * 
+     * <em>Caution:</em> The wording is not standardized, at least not internationally: 
+     * In english-speaking countries, people tend to say "3-for-1" ("3 new shares for 1 old share") 
+     * when they mean a threefold-increase of the stocks, whereas in Germany, e.g., it tends
+     * to be the other way round, i.e. "Aktiensplit 1:4" ("eine alte zu 4 neuen Aktien") is a 
+     * "4-for-1" split).
+     * 
+     * Also, please be aware that GnuCash does not use the factor-logic, neither internally
+     * nor on the GUI, but instead only shows and stores the number of additional shares.
+     * @param postDate
+     * @param descr
+     * @return a new share-(reverse-)split transaction
+     * 
+     * @see #genStockSplitTrx_nofShares(GnuCashWritableFileImpl, GCshID, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshID, StockSplitVar, FixedPointNumber, LocalDate, String)
+     */
+    public static GnuCashWritableTransaction genStockSplitTrx_factor(
+    		final GnuCashWritableFileImpl gcshFile,
+    		final GCshID stockAcctID,
+    		final FixedPointNumber factor,
+    		final LocalDate postDate,
+    		final String descr) {
+    	if ( gcshFile == null ) {
+    		throw new IllegalArgumentException("null GnuCash file given");
+    	}
+		
+    	if ( stockAcctID == null  ) {
+    		throw new IllegalArgumentException("null stock account ID given");
+    	}
+	
+    	if ( ! ( stockAcctID.isSet() ) ) {
+    		throw new IllegalArgumentException("unset stock account ID given");
+    	}
+		
+    	if ( factor == null ) {
+    		throw new IllegalArgumentException("null factor given");
+    	}
+
+    	if ( factor.isNegative() ) {
+    		throw new IllegalArgumentException("negative factor given");
+    	}
+
+    	if ( factor.getBigDecimal().equals(BigDecimal.ZERO) ) {
+    		throw new IllegalArgumentException("zero-value factor given");
+    	}
+
+    	// ::TODO: Reconsider: Should we really reject the input and throw an exception 
+    	// (which is kind of overly strict), or shouldn't we rather just issue a warning?
+    	if ( factor.isLessThan(SPLIT_FACTOR_MIN) ) {
+    		throw new IllegalArgumentException("unplausible factor given (smaller than " + SPLIT_FACTOR_MIN + ")");
+    	}
+
+    	// ::TODO: cf. above
+    	if ( factor.isGreaterThan(SPLIT_FACTOR_MAX) ) {
+    		throw new IllegalArgumentException("unplausible factor given (greater than " + SPLIT_FACTOR_MAX + ")");
+    	}
+
+    	LOGGER.debug("genStockSplitTrx_factor: Stock account name: '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
+
+    	// ---
+    	// Check account type
+    	GnuCashAccount stockAcct  = gcshFile.getAccountByID(stockAcctID);
+    	if ( stockAcct.getType() != GnuCashAccount.Type.STOCK ) {
+    		throw new IllegalArgumentException("Account with ID " + stockAcctID + " is not of type " + GnuCashAccount.Type.STOCK);
+    	}
+
+    	// ---
+    	
+    	FixedPointNumber nofSharesOld = stockAcct.getBalance();
+    	LOGGER.debug("genStockSplitTrx_factor: Old no. of shares: " + nofSharesOld);
+    	FixedPointNumber nofSharesNew = nofSharesOld.copy().multiply(factor);
+    	LOGGER.debug("genStockSplitTrx_factor: New no. of shares: " + nofSharesNew);
+    	
+    	// ---
+
+    	GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
+    	trx.setDescription(descr);
+
+    	// ---
+    	// CAUTION: One single split
+	
+    	GnuCashWritableTransactionSplit splt = trx.createWritableSplit(stockAcct);
+    	splt.setValue(new FixedPointNumber());
+    	splt.setQuantity(new FixedPointNumber(factor));
+    	splt.setAction(GnuCashTransactionSplit.Action.SPLIT);
+    	splt.setDescription("Generated by SecuritiesAccountTransactionManager, " + LocalDateTime.now());
+    	LOGGER.debug("genStockSplitTrx_factor: Split 1 to write: " + splt.toString());
+
+    	// ---
+
+    	trx.setDatePosted(postDate);
+    	trx.setDateEntered(LocalDateTime.now());
+
+    	// ---
+
+    	LOGGER.info("genStockSplitTrx_factor: Generated new Transaction: " + trx.getID());
+    	return trx;
+    }
+    
+    /**
+     * 
+     * @param gcshFile
+     * @param stockAcctID
+     * @param nofAddShares The number of additional shares to be added to the stock account.
+     * E.g., when you have 100 shares and you add 200 more, then you have 300 shares, 
+     * i.e. the number has increased by a factor of 3 (a 3-for-1 split).
+     * Likewise, if you have 100 shares and you take away 75 of them (neg. no. of add. shares),
+     * then you have 25 shares left, i.e. the number of shares as decreased by a factor
+     * of 1/4 (1-for-4). 
+     * 
+     * Also, please be aware that GnuCash does not use the factor-logic, neither internally
+     * nor on the GUI, but instead only shows and stores the number of additional shares.
+     * @param postDate
+     * @param descr
+     * @return a new share-(reverse-)split transaction
+     * 
+     * @see #genStockSplitTrx_factor(GnuCashWritableFileImpl, GCshID, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshID, StockSplitVar, FixedPointNumber, LocalDate, String)
+     */
+    public static GnuCashWritableTransaction genStockSplitTrx_nofShares(
+    	    final GnuCashWritableFileImpl gcshFile,
+    	    final GCshID stockAcctID,
+    	    final FixedPointNumber nofAddShares, // use neg. number in case of reverse stock-split
+    	    final LocalDate postDate,
+    	    final String descr) {
+    	if ( gcshFile == null ) {
+    		throw new IllegalArgumentException("null KMyMoney file given");
+    	}
+		
+    	if ( stockAcctID == null  ) {
+    		throw new IllegalArgumentException("null stock account ID given");
+    	}
+	
+    	if ( ! ( stockAcctID.isSet() ) ) {
+    		throw new IllegalArgumentException("unset stock account ID given");
+    	}
+		
+    	if ( nofAddShares == null ) {
+    		throw new IllegalArgumentException("null no. of add. shares given");
+    	}
+
+    	// CAUTION: Neg. no. of add. shares is allowed!
+//    	if ( nofAddShares.isNegative() ) {
+//    		throw new IllegalArgumentException("negative no. of add. shares given");
+//    	}
+
+    	if ( nofAddShares.getBigDecimal().equals(BigDecimal.ZERO) ) {
+    		throw new IllegalArgumentException("zero-value no. of add. shares given");
+    	}
+
+    	FixedPointNumber nofAddSharesAbs = new FixedPointNumber( nofAddShares.copy().abs() );
+    	
+    	// ::TODO: Reconsider: Should we really reject the input and throw an exception 
+    	// (which is kind of overly strict), or shouldn't we rather just issue a warning?
+    	if ( nofAddSharesAbs.isLessThan(SPLIT_NOF_ADD_SHARES_MIN) ) {
+    		throw new IllegalArgumentException("unplausible no. of add. shares given (abs. smaller than " + SPLIT_NOF_ADD_SHARES_MIN + ")");
+    	}
+
+    	// ::TODO: Cf. above
+    	if ( nofAddSharesAbs.isGreaterThan(SPLIT_NOF_ADD_SHARES_MAX) ) {
+    		throw new IllegalArgumentException("unplausible no. of add. shares (abs. greater than " + SPLIT_NOF_ADD_SHARES_MAX + ")");
+    	}
+
+    	// CAUTION: Yes, it actually *is* possible that the no. of add. shares
+    	// is not an integer: If the old no. of shares is non-int as well (and yes,
+    	// that can actually be the case, not just theoretically, but in practice!)
+//    	// Check if no. of add. shares is integer
+//    	// https://stackoverflow.com/questions/1078953/check-if-bigdecimal-is-an-integer-in-java
+//    	if ( nofAddShares.stripTrailingZeros().scale() <= 0 ) {
+//    		throw new IllegalArgumentException("no. of add. shares given is not integer value");
+//    	}
+
+    	LOGGER.debug("genStockSplitTrx_nofShares: Stock account name: '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
+
+    	// ---
+    	// Check account type
+    	GnuCashAccount stockAcct  = gcshFile.getAccountByID(stockAcctID);
+    	if ( stockAcct.getType() != GnuCashAccount.Type.STOCK ) {
+    		throw new IllegalArgumentException("Account with ID " + stockAcctID + " is not of type " + GnuCashAccount.Type.STOCK);
+    	}
+
+    	// ---
+    	
+    	FixedPointNumber nofSharesOld = stockAcct.getBalance();
+    	LOGGER.debug("genStockSplitTrx_nofShares: Old no. of shares: " + nofSharesOld);
+    	FixedPointNumber nofSharesNew = nofSharesOld.copy().add(nofAddShares);
+    	LOGGER.debug("genStockSplitTrx_nofShares: New no. of shares: " + nofSharesNew);
+    	FixedPointNumber factor = nofSharesNew.copy().divide(nofSharesOld);
+    	LOGGER.debug("genStockSplitTrx_nofShares: Factor: " + factor);
+    	
+    	// ---
+    	
+    	return genStockSplitTrx_factor(gcshFile, 
+    								   stockAcctID, factor, postDate, 
+    								   descr);
+    }
+    
 }

@@ -17,7 +17,10 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class CmdLineHelper
 {
-  // final static final String SEPARATOR = ";";
+  // ::MAGIC
+  private static final String ACCT_AMT_DUMMY_ARG = "DUMMY";
+  private static final String ACCT_AMT_SEP_OUTER = "\\|";
+  private static final String ACCT_AMT_SEP_INNER = ";";
 
   // -----------------------------------------------------------------
   
@@ -120,39 +123,9 @@ public class CmdLineHelper
 
     if ( cmdLine.hasOption(argName) )
     {
-	    try
-        {
-        	String temp = cmdLine.getOptionValue(argName);
-    	    // System.err.println("*** expacctamt: '" + temp + "' ***");
-
-        	String[] pairListArr = temp.split("\\|");
-    	    // System.err.println("*** arr-size: " + pairListArr.length);
-        	for ( String pairStr : pairListArr )
-        	{
-        	    // System.err.println("*** pair: '" + pairStr + "'");
-        		int pos = pairStr.indexOf(";");
-        		if ( pos < 0 )
-        		{
-        			System.err.println("Error: List element '" + pairStr + "' does not contain the separator");
-        			throw new InvalidCommandLineArgsException();
-        		}
-        		String acctIDStr = pairStr.substring(0, pos);
-        		String amtStr    = pairStr.substring(pos + 1);
-        		// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
-        		
-        		GCshID acctID = new GCshID(acctIDStr);
-        		Double amtDbl = Double.valueOf(amtStr);
-        		// System.err.println(" - elt2: " + acctIDStr + " / " + amtStr);
-        		
-        		AcctIDAmountPair newPair = new AcctIDAmountPair(acctID, new FixedPointNumber(amtDbl));
-        		result.add(newPair);
-        	}
-        }
-        catch (Exception e)
-        {
-        	System.err.println("Could not parse <" + argName + ">");
-        	throw new InvalidCommandLineArgsException();
-        }
+       	String arg = cmdLine.getOptionValue(argName);
+   	    // System.err.println("*** expacctamt: '" + arg + "' ***");
+       	return getExpAcctAmtMulti(arg, argName);
     }
     else
     {
@@ -166,48 +139,57 @@ public class CmdLineHelper
   {
     List<AcctIDAmountPair> result = new ArrayList<AcctIDAmountPair>();
 
-    if ( arg != null )
+    if ( arg == null )
+    	return result;
+    
+    if ( arg.trim().equals( "" ) ||
+    	 arg.equals( ACCT_AMT_DUMMY_ARG ) )
     {
-	    try
-        {
-        	String temp = arg;
-    	    // System.err.println("*** expacctamt: '" + temp + "' ***");
-
-        	String[] pairListArr = temp.split("\\|");
-    	    // System.err.println("*** arr-size: " + pairListArr.length);
-        	for ( String pairStr : pairListArr )
-        	{
-        	    // System.err.println("*** pair: '" + pairStr + "'");
-        		int pos = pairStr.indexOf(";");
-        		if ( pos < 0 )
-        		{
-        			System.err.println("Error: List element '" + pairStr + "' does not contain the separator");
-        			throw new InvalidCommandLineArgsException();
-        		}
-        		String acctIDStr = pairStr.substring(0, pos);
-        		String amtStr    = pairStr.substring(pos + 1);
-        		// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
-        		
-        		GCshID acctID = new GCshID(acctIDStr);
-        		Double amtDbl = Double.valueOf(amtStr);
-        		// System.err.println(" - elt2: " + acctIDStr + " / " + amtStr);
-        		
-        		AcctIDAmountPair newPair = new AcctIDAmountPair(acctID, new FixedPointNumber(amtDbl));
+    	return result;
+    }
+    
+    try
+    {
+    	String[] pairListArr = arg.split(ACCT_AMT_SEP_OUTER);
+    	// System.err.println("*** arr-size: " + pairListArr.length);
+    	for ( String pairStr : pairListArr )
+    	{
+    		// System.err.println("*** pair: '" + pairStr + "'");
+    		if ( ! pairStr.trim().equals( "" ) )
+    		{
+        		AcctIDAmountPair newPair = getExpAcctAmtSingle( pairStr );
         		result.add(newPair);
-        	}
-        }
-        catch (Exception e)
-        {
-        	System.err.println("Could not parse <" + argName + ">");
-        	throw new InvalidCommandLineArgsException();
-        }
-    }
-    else
-    {
-    	// ::EMPTY
-    }
+    		}
+    	}
+   	}
+   	catch (Exception e)
+   	{
+   		System.err.println("Could not parse <" + argName + ">");
+   		throw new InvalidCommandLineArgsException();
+   	}
 
     return result;
+  }
+
+  private static AcctIDAmountPair getExpAcctAmtSingle(String pairStr) throws InvalidCommandLineArgsException
+  {
+	int pos = pairStr.indexOf(ACCT_AMT_SEP_INNER);
+	if ( pos < 0 )
+	{
+		System.err.println("Error: List element '" + pairStr + "' does not contain the separator");
+		throw new InvalidCommandLineArgsException();
+	}
+	String acctIDStr = pairStr.substring(0, pos);
+	String amtStr    = pairStr.substring(pos + 1);
+	// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
+        		
+	GCshID acctID = new GCshID(acctIDStr);
+	Double amtDbl = Double.valueOf(amtStr);
+	// System.err.println(" - elt2: " + acctIDStr + " / " + amtStr);
+        		
+	AcctIDAmountPair newPair = new AcctIDAmountPair(acctID, new FixedPointNumber(amtDbl));
+
+    return newPair;
   }
 
 }
