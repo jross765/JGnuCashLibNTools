@@ -64,7 +64,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     /**
      * Used by ${@link #getBalance()} to cache the result.
      */
-    private PropertyChangeListener myBalanceCachedInvalidtor = null;
+    private PropertyChangeListener myBalanceCachedInvalidator = null;
     
     // ---------------------------------------------------------------
 
@@ -86,7 +86,9 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	super(createAccount_int(file, GCshID.getNew()), file);
     }
 
-    public GnuCashWritableAccountImpl(final GnuCashAccountImpl acct, final boolean addSplits) {
+    public GnuCashWritableAccountImpl(
+    		final GnuCashAccountImpl acct, 
+    		final boolean addSplits) {
 	super(acct.getJwsdpPeer(), acct.getGnuCashFile());
 
 	if (addSplits) {
@@ -597,8 +599,8 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	    myBalanceCached = balance;
 
 	    // add a listener to keep the cache up to date
-	    if ( myBalanceCachedInvalidtor != null ) {
-		myBalanceCachedInvalidtor = new PropertyChangeListener() {
+	    if ( myBalanceCachedInvalidator != null ) {
+		myBalanceCachedInvalidator = new PropertyChangeListener() {
 		    private final Collection<GnuCashTransactionSplit> splitsWeAreAddedTo = new HashSet<GnuCashTransactionSplit>();
 
 		    public void propertyChange(final PropertyChangeEvent evt) {
@@ -636,9 +638,9 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 		    }
 		};
 		
-		helper.addPropertyChangeListener("currencyID", myBalanceCachedInvalidtor);
-		helper.addPropertyChangeListener("currencyNameSpace", myBalanceCachedInvalidtor);
-		helper.addPropertyChangeListener("transactionSplits", myBalanceCachedInvalidtor);
+		helper.addPropertyChangeListener("currencyID", myBalanceCachedInvalidator);
+		helper.addPropertyChangeListener("currencyNameSpace", myBalanceCachedInvalidator);
+		helper.addPropertyChangeListener("transactionSplits", myBalanceCachedInvalidator);
 	    }
 	}
 

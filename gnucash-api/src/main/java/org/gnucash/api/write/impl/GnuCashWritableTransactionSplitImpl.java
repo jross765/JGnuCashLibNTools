@@ -16,7 +16,6 @@ import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,6 +71,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 		  trx, 
 		  true, true);
 
+	// ::TODO ::CHECK
 	// this is a workaround.
 	// if super does account.addSplit(this) it adds an instance on
 	// GnuCashTransactionSplitImpl that is "!=

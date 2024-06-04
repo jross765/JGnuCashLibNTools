@@ -2,6 +2,9 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.chrono.ChronoZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -159,7 +162,9 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
 			if ( date != null && 
 				 after != null ) {
-				if ( splt.getTransaction().getDatePosted().isAfter(ChronoZonedDateTime.from(date.atStartOfDay())) ) {
+				LocalDateTime startOfDay = date.atStartOfDay();
+				ZonedDateTime startOfDay_zdt = startOfDay.atZone(ZoneId.systemDefault());
+				if ( splt.getTransaction().getDatePosted().isAfter(startOfDay_zdt) ) {
 					after.add(splt);
 					continue;
 				}

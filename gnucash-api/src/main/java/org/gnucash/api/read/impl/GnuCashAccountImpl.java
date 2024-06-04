@@ -217,7 +217,7 @@ public class GnuCashAccountImpl extends SimpleAccount
      *
      * @param splt
      */
-    private void replaceTransactionSplit(final GnuCashTransactionSplit splt,
+    public void replaceTransactionSplit(final GnuCashTransactionSplit splt,
 	    final GnuCashTransactionSplit impl) {
     	if ( ! mySplits.remove(splt) ) {
     		throw new IllegalArgumentException("old object not found!");
