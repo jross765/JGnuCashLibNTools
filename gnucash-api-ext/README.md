@@ -12,14 +12,17 @@ which provides a simplified, high-level interface for generating buy- and divide
 in a securities account (brokerage account).
 
 ## Major Changes
+### V. 1.4 &rarr; 1.5
+* Sub-module SecAcct:
+  * Added support for stock splits / reverse splits.
+  * Added helper class that filters out inactive stock accounts.
+
 ### V. 1.3 &rarr; 1.4
 Created module.
 
 ## Planned
 * Sub-module SecAcct: 
-	* More variants of buy/sell/dividend/etc. transactions, including wrappers
-          which you provide account names to instead of account IDs.
-	* Support for stock splits / reverse splits.
+	* More variants of buy/sell/dividend/etc. transactions, including wrappers which you provide account names to instead of account IDs.
 	* Possibly new class for high-level consistency checks of existing transactions, e.g.: All dividends of domestic shares are actually posted to the domestic dividend account.
 
 * New sub-module for management of commodities and currencies (esp. bulk quote import)
