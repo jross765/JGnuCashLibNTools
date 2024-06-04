@@ -1,12 +1,18 @@
 package org.gnucash.api.write.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,8 +21,14 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableFileImpl {
+
+	private static final GCshID ACCT_7_ID = TestGnuCashAccountImpl.ACCT_7_ID;
+	
+	// -----------------------------------------------------------------
+
 	private GnuCashWritableFileImpl gcshInFile  = null;
 	private GnuCashWritableFileImpl gcshOutFile = null;
+	private GnuCashFileImpl         gcshROFile = null;
 
 	private GCshFileStats gcshInFileStats  = null;
 	private GCshFileStats gcshOutFileStats = null;
@@ -54,10 +66,20 @@ public class TestGnuCashWritableFileImpl {
 			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash in-file");
-			exc.printStackTrace();
+//			exc.printStackTrace();
+			return;
 		}
 
 		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		try {
+			InputStream gcshInFileStream2 = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
+			gcshROFile = new GnuCashFileImpl(gcshInFileStream2);
+		} catch (Exception exc) {
+			System.err.println("Cannot parse GnuCash read-only file");
+//			exc.printStackTrace();
+			return;
+		}
 	}
 
 	// -----------------------------------------------------------------
@@ -247,6 +269,31 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(gcshInFile.getPrices().toString(), gcshOutFile.getPrices().toString());
 		assertEquals(gcshInFile.getTaxTables().toString(), gcshOutFile.getTaxTables().toString());
 		assertEquals(gcshInFile.getBillTerms().toString(), gcshOutFile.getBillTerms().toString());
+	}
+	
+	// ---------------------------------------------------------------
+	
+	@Test
+	public void test_05() throws Exception {
+		// CAUTION: This test case is not trivial! It checks for a subtle
+		// bug that long went unnoticed. 
+		// Notice that the first line calls the *read-only*-method of the *writable* 
+		// file object.
+		// Cf. comments in org.gnucash.api.*write*.FileAccountManager.createAccount()
+		GnuCashAccount acct11 = gcshInFile.getAccountByID(ACCT_7_ID);
+		GnuCashAccount acct12 = gcshROFile.getAccountByID(ACCT_7_ID);
+		assertNotEquals(null, acct11);
+		assertNotEquals(null, acct12);
+		
+		// The first comparison is not problematic, it just ensures that the
+		// two account objects really belong to the same account. 
+		// The following ones are the real test: They check the correct handling 
+		// of transactions and trx-splits in GnuCash*Writable*Account.
+		assertEquals(acct11.getQualifiedName(), acct12.getQualifiedName());
+		assertTrue(acct11.getTransactions().size() > 0);
+		assertEquals(acct11.getTransactions().size(), acct12.getTransactions().size());
+		assertTrue(acct11.getBalance().getBigDecimal().doubleValue() > 0);
+		assertEquals(acct11.getBalance(), acct12.getBalance());
 	}
 
 }
