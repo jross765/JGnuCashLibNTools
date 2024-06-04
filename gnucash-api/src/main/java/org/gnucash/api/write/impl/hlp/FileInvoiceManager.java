@@ -39,9 +39,23 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 	 */
 	@Override
 	protected GnuCashGenerInvoiceImpl createGenerInvoice(final GncGncInvoice jwsdpInvc) {
-		GnuCashWritableGenerInvoiceImpl invc = new GnuCashWritableGenerInvoiceImpl(jwsdpInvc, (GnuCashWritableFileImpl)  gcshFile);
-		LOGGER.debug("createGenerInvoice: Generated new writable generic invoice: " + invc.getID());
-		return invc;
+		// CAUTION: Do *not* instantiate with GnuCashWritableGenerInvoiceImpl(jwsdpAcct, gcshFile),
+		// because else there will be subtle problems with the assignment of entries of the 
+		// GnuCashWritableGenerInvoice, and thus, e.g., getAmountXYZ() will yield 
+		// wrong results.
+		// E.g.:
+		// - GnuCashGenerInvoice invc from GnuCashFile.getGenerInvoiceByID() -> invc.getAmountXYZ() will work
+		// - GnuCashWritableGenerInvoice from GnuCashWritableFile.getWritableGenerInvoiceByID() invc -> invc.getAmountXYZ() will work
+		// - GnuCashGenerInvoice invc from GnuCashWritableFile.getGenerInvoiceByID() -> invc.getAmountXYZ() will *not* work
+		// The following code fixes this problem by first calling super.createGenerInvoice() and then 
+		// converting the read-only-object into a writable one by calling the other constructor.
+		// NOT this:
+		// GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl(jwsdpInvc, (GnuCashWritableFileImpl)  gcshFile);
+		// Instead:
+		GnuCashGenerInvoiceImpl roInvc = super.createGenerInvoice(jwsdpInvc);
+		GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) roInvc, false, true);
+		LOGGER.debug("createGenerInvoice: Generated new writable generic invoice: " + wrtblInvc.getID());
+		return wrtblInvc;
 	}
 
 	// ---------------------------------------------------------------
@@ -62,7 +76,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			// Important: instantiate writable invoice
 			// Cf. comment above.
-			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc);
+			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc, true, true);
 			if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
 					if ( wrtblInvc.isCustInvcFullyPaid() ) {
 						retval.add(wrtblInvc);
@@ -91,7 +105,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
 			// Important: instantiate writable invoice
 			// Cf. comments above.
-			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc);
+			GnuCashWritableGenerInvoiceImpl wrtblInvc = new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc, true, true);
 			if ( wrtblInvc.getType() == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
 					if ( wrtblInvc.isNotCustInvcFullyPaid() ) {
 						retval.add(wrtblInvc);

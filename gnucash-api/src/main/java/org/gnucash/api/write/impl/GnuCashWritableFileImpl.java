@@ -843,7 +843,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		GnuCashGenerInvoice invc = super.getGenerInvoiceByID(invcID);
-		return new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc);
+		return new GnuCashWritableGenerInvoiceImpl((GnuCashGenerInvoiceImpl) invc, true, true);
 	}
 
 	/**

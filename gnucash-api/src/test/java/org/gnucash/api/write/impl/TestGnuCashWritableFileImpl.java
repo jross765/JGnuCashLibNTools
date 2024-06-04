@@ -9,9 +9,16 @@ import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashCommodity;
+import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
+import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
+import org.gnucash.api.read.impl.TestGnuCashTransactionImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
@@ -22,7 +29,10 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableFileImpl {
 
-	private static final GCshID ACCT_7_ID = TestGnuCashAccountImpl.ACCT_7_ID;
+	private static final GCshID ACCT_1_ID     = TestGnuCashAccountImpl.ACCT_1_ID;
+	private static final GCshID TRX_1_ID      = TestGnuCashTransactionImpl.TRX_1_ID;
+	private static final GCshID INVC_1_ID     = TestGnuCashGenerInvoiceImpl.INVC_1_ID;
+	private static final String CMDTY_4_ISIN  = "DE000BASF111";
 	
 	// -----------------------------------------------------------------
 
@@ -59,15 +69,14 @@ public class TestGnuCashWritableFileImpl {
 			gcshInFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME_IN);
 		} catch (Exception exc) {
 			System.err.println("Cannot generate input stream from resource");
-			return;
+			throw exc;
 		}
 
 		try {
 			gcshInFile = new GnuCashWritableFileImpl(gcshInFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash in-file");
-//			exc.printStackTrace();
-			return;
+			throw exc;
 		}
 
 		gcshInFileStats = new GCshFileStats(gcshInFile);
@@ -77,8 +86,7 @@ public class TestGnuCashWritableFileImpl {
 			gcshROFile = new GnuCashFileImpl(gcshInFileStream2);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash read-only file");
-//			exc.printStackTrace();
-			return;
+			throw exc;
 		}
 	}
 
@@ -94,21 +102,21 @@ public class TestGnuCashWritableFileImpl {
 	// complete (as complete as returned be GnuCashFileImpl.getFileByID().
 
 	@Test
-	public void test01() throws Exception {
+	public void test01_01() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_ACCT, gcshInFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test02() throws Exception {
+	public void test01_02() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test03() throws Exception {
+	public void test01_03() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_TRX_SPLT,
 				gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
 		// This one is an exception:
@@ -119,14 +127,14 @@ public class TestGnuCashWritableFileImpl {
 	}
 
 	@Test
-	public void test04() throws Exception {
+	public void test01_04() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test05() throws Exception {
+	public void test01_05() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
 				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
@@ -138,28 +146,28 @@ public class TestGnuCashWritableFileImpl {
 	// ------------------------------
 
 	@Test
-	public void test06() throws Exception {
+	public void test01_06() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test07() throws Exception {
+	public void test01_07() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test08() throws Exception {
+	public void test01_08() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test09() throws Exception {
+	public void test01_09() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
@@ -168,7 +176,7 @@ public class TestGnuCashWritableFileImpl {
 	// ------------------------------
 
 	@Test
-	public void test10() throws Exception {
+	public void test01_10() throws Exception {
 		// CAUTION: This one is an exception:
 		// There is one additional commodity object on the "raw" level:
 		// the "template".
@@ -181,7 +189,7 @@ public class TestGnuCashWritableFileImpl {
 	}
 
 	@Test
-	public void test11() throws Exception {
+	public void test01_11() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
@@ -190,14 +198,14 @@ public class TestGnuCashWritableFileImpl {
 	// ------------------------------
 
 	@Test
-	public void test12() throws Exception {
+	public void test01_12() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_TAXTAB, gcshInFileStats.getNofEntriesTaxTables(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
-	public void test13() throws Exception {
+	public void test01_13() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_BLLTRM, gcshInFileStats.getNofEntriesBillTerms(GCshFileStats.Type.CACHE));
@@ -244,18 +252,18 @@ public class TestGnuCashWritableFileImpl {
 		gcshOutFile = new GnuCashWritableFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		test_04_1_check_1();
-		test_04_1_check_2();
+		test04_1_check_1();
+		test04_1_check_2();
 	}
 
-	private void test_04_1_check_1() {
+	private void test04_1_check_1() {
 		// Does not work:
 		// assertEquals(gcshFileStats, gcshFileStats2);
 		// Works:
 		assertEquals(true, gcshInFileStats.equals(gcshOutFileStats));
 	}
 
-	private void test_04_1_check_2() {
+	private void test04_1_check_2() {
 		assertEquals(gcshInFile.getAccounts().toString(), gcshOutFile.getAccounts().toString());
 		assertEquals(gcshInFile.getTransactions().toString(), gcshOutFile.getTransactions().toString());
 		assertEquals(gcshInFile.getTransactionSplits().toString(), gcshOutFile.getTransactionSplits().toString());
@@ -271,20 +279,23 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(gcshInFile.getBillTerms().toString(), gcshOutFile.getBillTerms().toString());
 	}
 	
-	// ---------------------------------------------------------------
+	// -----------------------------------------------------------------
+	// PART 5: Symmetry of read-only objects gotten from a) GnucashFile
+	// and b) GnuCashWritableFile (esp. sub-objects)
 	
 	@Test
-	public void test_05() throws Exception {
+	public void test05_1() throws Exception {
 		// CAUTION: This test case is not trivial! It checks for a subtle
 		// bug that long went unnoticed. 
 		// Notice that the first line calls the *read-only*-method of the *writable* 
 		// file object.
 		// Cf. comments in org.gnucash.api.*write*.FileAccountManager.createAccount()
-		GnuCashAccount acct11 = gcshInFile.getAccountByID(ACCT_7_ID);
-		GnuCashAccount acct12 = gcshROFile.getAccountByID(ACCT_7_ID);
+		GnuCashAccount acct11 = gcshInFile.getAccountByID(ACCT_1_ID);
+		GnuCashAccount acct12 = gcshROFile.getAccountByID(ACCT_1_ID);
 		assertNotEquals(null, acct11);
 		assertNotEquals(null, acct12);
 		
+		// transactions
 		// The first comparison is not problematic, it just ensures that the
 		// two account objects really belong to the same account. 
 		// The following ones are the real test: They check the correct handling 
@@ -294,6 +305,60 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(acct11.getTransactions().size(), acct12.getTransactions().size());
 		assertTrue(acct11.getBalance().getBigDecimal().doubleValue() > 0);
 		assertEquals(acct11.getBalance(), acct12.getBalance());
+	}
+
+	@Test
+	public void test05_2() throws Exception {
+		// Analogous to test05_1, but with transactions
+		GnuCashTransaction trx11 = gcshInFile.getTransactionByID(TRX_1_ID);
+		GnuCashTransaction trx12 = gcshROFile.getTransactionByID(TRX_1_ID);
+		assertNotEquals(null, trx11);
+		assertNotEquals(null, trx12);
+		
+		// splits
+		assertEquals(trx11.getID(), trx12.getID());
+		assertTrue(trx11.getSplits().size() > 0);
+		assertEquals(trx11.getSplits().size(), trx12.getSplits().size());
+		assertEquals(trx11.getBalance(), trx12.getBalance());
+		assertEquals(trx11.getSplits().get(0).getValue(), trx12.getSplits().get(0).getValue());
+		assertEquals(trx11.getSplits().get(1).getValue(), trx12.getSplits().get(1).getValue());
+	}
+
+	@Test
+	public void test05_3() throws Exception {
+		// Analogous to test05_1, but with invoices
+		GnuCashGenerInvoice invc11 = gcshInFile.getGenerInvoiceByID(INVC_1_ID);
+		GnuCashGenerInvoice invc12 = gcshROFile.getGenerInvoiceByID(INVC_1_ID);
+		assertNotEquals(null, invc11);
+		assertNotEquals(null, invc12);
+		
+		// entries
+		assertEquals(invc11.getID(), invc12.getID());
+		assertTrue(invc11.getGenerEntries().size() > 0);
+		assertEquals(invc11.getGenerEntries().size(), invc12.getGenerEntries().size());
+		assertTrue(invc11.getCustInvcAmountWithTaxes().getBigDecimal().doubleValue() > 0);
+		assertEquals(invc11.getCustInvcAmountWithTaxes(), invc12.getCustInvcAmountWithTaxes());
+
+		// paying transactions
+		assertTrue(invc11.getPayingTransactions().size() > 0);
+		assertEquals(invc11.getPayingTransactions().size(), invc12.getPayingTransactions().size());
+		assertTrue(invc11.getCustInvcAmountPaidWithTaxes().getBigDecimal().doubleValue() > 0);
+		assertEquals(invc11.getCustInvcAmountPaidWithTaxes(), invc12.getCustInvcAmountPaidWithTaxes());
+	}
+
+	@Test
+	public void test05_4() throws Exception {
+		// Analogous to test05_1, but with commodities
+		GCshCmdtyID_SecIdType cmdtyCurrID3 = new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, CMDTY_4_ISIN);
+		GnuCashCommodity cmdty11 = gcshInFile.getCommodityByQualifID(cmdtyCurrID3);
+		GnuCashCommodity cmdty12 = gcshROFile.getCommodityByQualifID(cmdtyCurrID3);
+		assertNotEquals(null, cmdty11);
+		assertNotEquals(null, cmdty12);
+		
+		// quotes
+		assertEquals(cmdty11.getName(), cmdty12.getName());
+		assertTrue(cmdty11.getQuotes().size() > 0);
+		assertEquals(cmdty11.getQuotes().size(), cmdty12.getQuotes().size());
 	}
 
 }

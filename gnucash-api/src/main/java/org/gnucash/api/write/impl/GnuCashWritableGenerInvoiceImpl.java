@@ -110,38 +110,44 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 		super(jwsdpPeer, gcshFile);
 	}
 
-    public GnuCashWritableGenerInvoiceImpl(final GnuCashGenerInvoiceImpl invc) {
+    public GnuCashWritableGenerInvoiceImpl(
+    		final GnuCashGenerInvoiceImpl invc, 
+    		boolean addEntries, boolean addPayTrx) {
 	super(invc.getJwsdpPeer(), invc.getGnuCashFile());
 
 	// Entries
-	// Does not work:
-//	for ( GnuCashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
-//	    addGenerEntry(entr);
-//	}
-	// This works: 
-	for ( GnuCashGenerInvoiceEntry entr : invc.getGnuCashFile().getGenerInvoiceEntries() ) {
-	    if ( entr.getGenerInvoiceID().equals(invc.getID()) ) {
-		addGenerEntry(entr);
-	    }
+	if ( addEntries ) {
+		// Does not work:
+//		for ( GnuCashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
+//		    addGenerEntry(entr);
+//		}
+		// This works: 
+		for ( GnuCashGenerInvoiceEntry entr : invc.getGnuCashFile().getGenerInvoiceEntries() ) {
+		    if ( entr.getGenerInvoiceID().equals(invc.getID()) ) {
+			addGenerEntry(entr);
+		    }
+		}
 	}
 
 	// Paying transactions
-	for ( GnuCashTransaction trx : invc.getGnuCashFile().getTransactions() ) {
-	    for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-		GCshID lot = splt.getLotID();
-		if ( lot != null ) {
-		    GCshID lotID = invc.getLotID();
-		    if ( lotID != null && 
-			 lotID.equals(lot) ) {
-			// Check if it's a payment transaction.
-			// If so, add it to the invoice's list of payment transactions.
-			if ( splt.getAction() == GnuCashTransactionSplit.Action.PAYMENT ) {
-			    addPayingTransaction(splt);
-			}
-		    } // if lotID
-		} // if lot
-	    } // for splt
-	} // for trx
+	if ( addPayTrx ) {
+		for ( GnuCashTransaction trx : invc.getGnuCashFile().getTransactions() ) {
+		    for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
+			GCshID lot = splt.getLotID();
+			if ( lot != null ) {
+			    GCshID lotID = invc.getLotID();
+			    if ( lotID != null && 
+				 lotID.equals(lot) ) {
+				// Check if it's a payment transaction.
+				// If so, add it to the invoice's list of payment transactions.
+				if ( splt.getAction() == GnuCashTransactionSplit.Action.PAYMENT ) {
+				    addPayingTransaction(splt);
+				}
+			    } // if lotID
+			} // if lot
+		    } // for splt
+		} // for trx
+	}
     }
 
     // ---------------------------------------------------------------
