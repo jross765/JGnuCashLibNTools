@@ -18,7 +18,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class CmdLineHelper
 {
   // ::MAGIC
-  private static final String ACCT_AMT_DUMMY_ARG = "DUMMY";
+  public  static final String ACCT_AMT_DUMMY_ARG = "DUMMY";
   private static final String ACCT_AMT_SEP_OUTER = "\\|";
   private static final String ACCT_AMT_SEP_INNER = ";";
 

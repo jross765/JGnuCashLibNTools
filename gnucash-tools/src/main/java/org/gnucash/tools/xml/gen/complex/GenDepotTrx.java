@@ -841,39 +841,50 @@ public class GenDepotTrx extends CommandLineTool
     	System.err.println("Income account ID: " + incomeAcctID);
 
     // <expense-account-amounts>
-    // CAUTION: <expense-account-amounts> must *not necessarily* be set for buy-stock or
-    // dividend transactions (although in most cases, it is). However, we have an additional 
-    // option: "DUMMY" may be set for easier handling with scripts (i.e., it is always set in 
-    // scripts), but when calling interactively, it need not be set.
+    // CAUTION: Logically, <expense-account-amounts> must *not necessarily* be set for buy-stock 
+    // or dividend transactions (although in most cases, it is). However, technically, it does 
+    // have to be set in these cases: to "DUMMY" (to be used both in interactive and in script mode
+    // in order to make option handling more easy and clear).
     if ( tuple.expensesAcctAmtList != null )
     {
-//    	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
-//       	 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
-//      {
-//       	System.err.println("Error: <expense-account-amounts> may only be set with <type> = '" + 
-//       					   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
-//       					   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-//       	throw new InvalidCommandLineArgsException();
-//       }
+    	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
+    		 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+      {
+       	System.err.println("Error: <expense-account-amounts> may only be set with <type> = '" + 
+       					   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
+       					   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+       	throw new InvalidCommandLineArgsException();
+       }
 
     	expensesAcctAmtList = CmdLineHelper.getExpAcctAmtMulti(tuple.expensesAcctAmtList, "expense-account-amounts");
     }
-//    else
-//    {
-//    	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ||
-//    		 type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
-//    	{
-//    		System.err.println("Error: <expense-account-amounts> must be set with <type> = '" + 
-//    						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
-//    						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-//    		throw new InvalidCommandLineArgsException();
-//    	}
-//    }
+    else
+    {
+    	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ||
+    		 type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
+    	{
+    		System.err.println("Error: <expense-account-amounts> must be set with <type> = '" + 
+    						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
+    						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+    		System.err.println("If logically unset, set to '" + CmdLineHelper.ACCT_AMT_DUMMY_ARG + "'");
+    		throw new InvalidCommandLineArgsException();
+    	}
+
+    	expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
+    }
     if (! silent)
     {
-        System.err.println("Expenses account/amount pairs");
-        for ( AcctIDAmountPair elt : expensesAcctAmtList )
-            System.err.println(" - " + elt);
+        System.err.print("Expenses account/amount pairs:");
+       	if ( expensesAcctAmtList.size() == 0 )
+       	{
+       		System.err.println(" (none)");
+       	}
+       	else
+       	{
+       		System.err.println("");
+       		for ( AcctIDAmountPair elt : expensesAcctAmtList )
+       			System.err.println(" - " + elt);
+       	}
     }
     
     // <offset-account-id>
