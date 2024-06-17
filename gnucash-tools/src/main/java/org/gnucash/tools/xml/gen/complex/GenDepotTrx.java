@@ -360,7 +360,7 @@ public class GenDepotTrx extends CommandLineTool
 	  try
 	  {
 		  readListFile(paramTupleList);
-		  System.out.println("Params: ");
+//		  System.out.println("Params: ");
 //		  for ( ParamTuple elt : paramTupleList )
 //			  System.out.println(" - " + elt.toString());
 	  }
@@ -622,7 +622,7 @@ public class GenDepotTrx extends CommandLineTool
       throw new InvalidCommandLineArgsException();
     }
     if (! silent)
-    	System.err.println("Book mode: " + mode);
+    	System.err.println("Book mode:           " + mode);
     
     // <gnucash-in-file>
     try
@@ -739,7 +739,7 @@ public class GenDepotTrx extends CommandLineTool
     	batch = false;
     }
     if (! silent)
-      System.err.println("batch:         " + batch);
+    	System.err.println("Batch-mode:          " + batch);
 
     // <batch-out-file>
     if ( cmdLine.hasOption("batch-out-file") )
@@ -769,20 +769,30 @@ public class GenDepotTrx extends CommandLineTool
 	// <type>
 	if ( tuple.type != null )
 	{
-	    try
-	    {
-	      type = SecuritiesAccountTransactionManager.Type.valueOf( tuple.type );
-	    }
-	    catch ( Exception exc )
-	    {
-	      System.err.println("Could not parse <type>");
-	      throw new InvalidCommandLineArgsException();
-	    }
+		if ( mode == BookMode.LISTFILE &&
+	       	 tuple.type.trim().equals( "" ) )
+		{
+    		// Technically set, but logically unset
+			System.err.println("<type> is empty");
+			throw new InvalidCommandLineArgsException();
+		}
+		else
+		{
+		    try
+		    {
+		      type = SecuritiesAccountTransactionManager.Type.valueOf( tuple.type );
+		    }
+		    catch ( Exception exc )
+		    {
+		      System.err.println("Could not parse <type>");
+		      throw new InvalidCommandLineArgsException();
+		    }
+		}		
 	}
 	else
 	{
-	      System.err.println("<type> is not set");
-	      throw new InvalidCommandLineArgsException();
+		System.err.println("<type> is not set");
+		throw new InvalidCommandLineArgsException();
 	}
     if (! silent)
     	System.err.println("Type: " + type);
@@ -792,15 +802,25 @@ public class GenDepotTrx extends CommandLineTool
     // <stock-account-id>
     if ( tuple.stockAcctID != null )
     {
-        try
-        {
-          stockAcctID = new GCshID( tuple.stockAcctID );
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <stock-account-id>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	if ( mode == BookMode.LISTFILE &&
+   	       	 tuple.stockAcctID.trim().equals( "" ) )
+    	{
+    		// Technically set, but logically unset
+        	System.err.println("<stock-account-id> is empty");
+        	throw new InvalidCommandLineArgsException();
+    	}
+    	else
+    	{
+            try
+            {
+              stockAcctID = new GCshID( tuple.stockAcctID );
+            }
+            catch ( Exception exc )
+            {
+              System.err.println("Could not parse <stock-account-id>");
+              throw new InvalidCommandLineArgsException();
+            }
+    	}
     }
     else
     {
@@ -813,21 +833,34 @@ public class GenDepotTrx extends CommandLineTool
     // <income-account-id>
     if ( tuple.incomeAcctID != null ) 
     {
-    	if ( type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.incomeAcctID.trim().equals( "" ) )
     	{
-    		System.err.println("Error: <income-account-id> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-    		throw new InvalidCommandLineArgsException();
+    		// Technically set, but logically unset
+        	if ( type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
+        	{
+        		System.err.println("Error: <income-account-id> must be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
     	}
-    	
-        try
-        {
-            incomeAcctID = new GCshID( tuple.incomeAcctID );
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <income-account-id>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	else
+    	{
+        	if ( type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+        	{
+        		System.err.println("Error: <income-account-id> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
+        	
+            try
+            {
+                incomeAcctID = new GCshID( tuple.incomeAcctID );
+            }
+            catch ( Exception exc )
+            {
+              System.err.println("Could not parse <income-account-id>");
+              throw new InvalidCommandLineArgsException();
+            }
+    	}
     } 
     else 
     {
@@ -847,16 +880,35 @@ public class GenDepotTrx extends CommandLineTool
     // in order to make option handling more easy and clear).
     if ( tuple.expensesAcctAmtList != null )
     {
-    	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
-    		 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
-      {
-       	System.err.println("Error: <expense-account-amounts> may only be set with <type> = '" + 
-       					   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
-       					   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-       	throw new InvalidCommandLineArgsException();
-       }
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.expensesAcctAmtList.trim().equals( "" ) )
+    	{
+    		// Technically set, but logically unset
+        	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ||
+           		 type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
+           	{
+           		System.err.println("Error: <expense-account-amounts> must be set with <type> = '" + 
+           						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
+           						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+           		System.err.println("If logically unset, set to '" + CmdLineHelper.ACCT_AMT_DUMMY_ARG + "'");
+           		throw new InvalidCommandLineArgsException();
+           	}
 
-    	expensesAcctAmtList = CmdLineHelper.getExpAcctAmtMulti(tuple.expensesAcctAmtList, "expense-account-amounts");
+           	expensesAcctAmtList = new ArrayList<AcctIDAmountPair>();
+    	}
+    	else
+    	{
+        	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
+               	 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+           	{
+           		System.err.println("Error: <expense-account-amounts> may only be set with <type> = '" + 
+           						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
+           						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+           		throw new InvalidCommandLineArgsException();
+           	}
+
+           	expensesAcctAmtList = CmdLineHelper.getExpAcctAmtMulti(tuple.expensesAcctAmtList, "expense-account-amounts");
+    	}    	
     }
     else
     {
@@ -890,24 +942,40 @@ public class GenDepotTrx extends CommandLineTool
     // <offset-account-id>
     if ( tuple.offsetAcctID != null )
     {
-    	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
-    		 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.offsetAcctID.trim().equals( "" ) )
     	{
-    		System.err.println("Error: <offset-account-id> may only be set with <type> = '" + 
-    						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" + 
-    						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-    		throw new InvalidCommandLineArgsException();
+    		// Technically set, but logically unset
+        	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ||
+        		 type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
+           	{
+           		System.err.println("Error: <offset-account-id> must be set with <type> = '" + 
+           						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" + 
+           						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+           		throw new InvalidCommandLineArgsException();
+           	}
     	}
-    	
-        try
-        {
-          offsetAcctID = new GCshID( tuple.offsetAcctID );
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <offset-account-id>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	else
+    	{
+        	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK &&
+           		 type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+           	{
+           		System.err.println("Error: <offset-account-id> may only be set with <type> = '" + 
+           						   SecuritiesAccountTransactionManager.Type.BUY_STOCK + "' or '" +
+           						   SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+           		throw new InvalidCommandLineArgsException();
+           	}
+                 	
+        	try
+        	{
+        		offsetAcctID = new GCshID( tuple.offsetAcctID );
+        	}
+        	catch ( Exception exc )
+        	{
+        		System.err.println("Could not parse <offset-account-id>");
+        		throw new InvalidCommandLineArgsException();
+        	}
+    	}
     }
     else
     {
@@ -938,14 +1006,14 @@ public class GenDepotTrx extends CommandLineTool
         		throw new InvalidCommandLineArgsException();
         	}
        	}
-       	else
-       	{
+    	else
+    	{
         	if ( type != SecuritiesAccountTransactionManager.Type.BUY_STOCK )
         	{
         		System.err.println("Error: <nof-stocks> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.BUY_STOCK + "'");
         		throw new InvalidCommandLineArgsException();
         	}
-        	
+
         	try
         	{
         		nofStocks = new FixedPointNumber(Double.parseDouble(tuple.nofStocks));
@@ -955,8 +1023,8 @@ public class GenDepotTrx extends CommandLineTool
         		System.err.println("Could not parse <nof-stocks>");
         		throw new InvalidCommandLineArgsException();
         	}
-       	}
-    } 
+    	}
+    }
     else 
     {
     	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK )
@@ -1015,22 +1083,35 @@ public class GenDepotTrx extends CommandLineTool
     // <dividend-gross>
     if ( tuple.divGross != null ) 
     {
-    	if ( type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.divGross.trim().equals( "" ) )
     	{
-    		System.err.println("Error: <dividend-gross> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
-    		throw new InvalidCommandLineArgsException();
+    		// Technically set, but logically unset
+        	if ( type == SecuritiesAccountTransactionManager.Type.DIVIDEND )
+        	{
+        		System.err.println("Error: <dividend-gross> must be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
     	}
-    	
-        try
-        {
-          BigMoney betrag = BigMoney.of(CurrencyUnit.EUR, Double.parseDouble(tuple.divGross));
-          divGross = new FixedPointNumber(betrag.getAmount());
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <dividend-gross>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	else
+    	{
+        	if ( type != SecuritiesAccountTransactionManager.Type.DIVIDEND )
+        	{
+        		System.err.println("Error: <dividend-gross> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.DIVIDEND + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
+        	
+            try
+            {
+              BigMoney betrag = BigMoney.of(CurrencyUnit.EUR, Double.parseDouble(tuple.divGross));
+              divGross = new FixedPointNumber(betrag.getAmount());
+            }
+            catch ( Exception exc )
+            {
+              System.err.println("Could not parse <dividend-gross>");
+              throw new InvalidCommandLineArgsException();
+            }
+    	}
     } 
     else 
     {
@@ -1046,22 +1127,36 @@ public class GenDepotTrx extends CommandLineTool
     // <stock-split-factor>
     if ( tuple.stockSplitFactor != null ) 
     {
-    	if ( type != SecuritiesAccountTransactionManager.Type.STOCK_SPLIT )
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.stockSplitFactor.trim().equals( "" ) )
     	{
-    		System.err.println("Error: <stock-split-factor> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.STOCK_SPLIT + "'");
-    		throw new InvalidCommandLineArgsException();
+    		// Technically set, but logically unset
+        	if ( type == SecuritiesAccountTransactionManager.Type.STOCK_SPLIT )
+        	{
+        		System.err.println("Error: <stock-split-factor> must be set with <type> = '" + SecuritiesAccountTransactionManager.Type.STOCK_SPLIT + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
     	}
-    	
-        try
-        {
-          BigMoney betrag = BigMoney.of(CurrencyUnit.EUR, Double.parseDouble(tuple.stockSplitFactor));
-          stockSplitFactor = new FixedPointNumber(betrag.getAmount());
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <stock-split-factor>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	else
+    	{
+        	if ( type != SecuritiesAccountTransactionManager.Type.STOCK_SPLIT )
+        	{
+        		System.err.println("Error: <stock-split-factor> may only be set with <type> = '" + SecuritiesAccountTransactionManager.Type.STOCK_SPLIT + "'");
+        		System.err.println("ssf: '" + tuple.stockSplitFactor + "'");
+        		throw new InvalidCommandLineArgsException();
+        	}
+        	
+            try
+            {
+              BigMoney betrag = BigMoney.of(CurrencyUnit.EUR, Double.parseDouble(tuple.stockSplitFactor));
+              stockSplitFactor = new FixedPointNumber(betrag.getAmount());
+            }
+            catch ( Exception exc )
+            {
+              System.err.println("Could not parse <stock-split-factor>");
+              throw new InvalidCommandLineArgsException();
+            }
+    	}
     } 
     else 
     {
@@ -1077,22 +1172,58 @@ public class GenDepotTrx extends CommandLineTool
     // --
 
     // <date-format>
-    dateFormat = CmdLineHelper.getDateFormat(tuple.dateFormat, "date-format");
+    if ( tuple.dateFormat != null ) 
+    {
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.dateFormat.trim().equals( "" ) )
+    	{
+    		// Technically set, but logically unset
+        	System.err.println("Error: <date-format> is not set");
+        	throw new InvalidCommandLineArgsException();
+    	}
+    	else
+    	{
+            try
+            {
+            	dateFormat = CmdLineHelper.getDateFormat(tuple.dateFormat, "date-format");
+            }
+            catch ( Exception exc )
+            {
+              System.err.println("Could not parse <stock-split-factor>");
+              throw new InvalidCommandLineArgsException();
+            }
+    	}
+    } 
+    else 
+    {
+    	System.err.println("Error: <date-format> is not set");
+    	throw new InvalidCommandLineArgsException();
+    }
     if (! silent)
     	System.err.println("date-format: " + dateFormat);
 
     // <date-posted>
     if ( tuple.datPst != null )
     {
-        try
-        {
-          datPst = CmdLineHelper.getDate(tuple.datPst, "date-posted", dateFormat); 
-        }
-        catch ( Exception exc )
-        {
-          System.err.println("Could not parse <date-posted>");
-          throw new InvalidCommandLineArgsException();
-        }
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.datPst.trim().equals( "" ) )
+    	{
+    		// Technically set, but logically unset
+            System.err.println("<date-posted> is not set");
+            throw new InvalidCommandLineArgsException();
+    	}
+    	else
+    	{
+            try
+            {
+            	datPst = CmdLineHelper.getDate(tuple.datPst, "date-posted", dateFormat); 
+            }
+            catch ( Exception exc )
+            {
+            	System.err.println("Could not parse <date-posted>");
+            	throw new InvalidCommandLineArgsException();
+            }
+    	}
     }
     else
     {
@@ -1105,15 +1236,24 @@ public class GenDepotTrx extends CommandLineTool
     // <description>
     if ( tuple.descr != null )
     {
-      try
-      {
-        descr = tuple.descr;
-      }
-      catch ( Exception exc )
-      {
-        System.err.println("Could not parse <description>");
-        throw new InvalidCommandLineArgsException();
-      }
+    	if ( mode == BookMode.LISTFILE &&
+          	 tuple.descr.trim().equals( "" ) )
+    	{
+    		// Technically set, but logically unset
+    		descr = "Generated by GenDepotTrx, " + LocalDateTime.now();
+    	}
+    	else
+    	{
+        	try
+        	{
+        		descr = tuple.descr;
+        	}
+        	catch ( Exception exc )
+        	{
+        		System.err.println("Could not parse <description>");
+        		throw new InvalidCommandLineArgsException();
+        	}
+    	}
     }
     else
     {

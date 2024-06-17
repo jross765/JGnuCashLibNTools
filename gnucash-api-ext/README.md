@@ -25,9 +25,11 @@ Created module.
 	* More variants of buy/sell/dividend/etc. transactions, including wrappers which you provide account names to instead of account IDs.
 	* Possibly new class for high-level consistency checks of existing transactions, e.g.: All dividends of domestic shares are actually posted to the domestic dividend account.
 
-* New sub-module for management of commodities and currencies (esp. bulk quote import)
+* New sub-module for accounting-macros, such as closing the books.
 
-* New sub-module for management of customer jobs and invoices and possibly employee vouchers
+* New sub-module for management of commodities and currencies (esp. bulk quote import).
+
+* New sub-module for management of customer jobs and invoices and possibly employee vouchers.
 
 ## Known Issues
 (None)
