@@ -25,7 +25,7 @@ public class SecuritiesAccountManager {
     public SecuritiesAccountManager() {
     }
     
-    public SecuritiesAccountManager(GnuCashFile kmmFile, GCshID acctID) {
+    public SecuritiesAccountManager(GnuCashFile gcshFile, GCshID acctID) {
     	if ( acctID == null ) {
     		throw new IllegalArgumentException("null account ID given");
     	}
@@ -34,7 +34,7 @@ public class SecuritiesAccountManager {
     		throw new IllegalArgumentException("unset account ID given");
     	}
     	
-    	invstAcct = kmmFile.getAccountByID(acctID);
+    	invstAcct = gcshFile.getAccountByID(acctID);
     	if ( invstAcct.getType() != GnuCashAccount.Type.ASSET ) {
     		invstAcct = null;
     		throw new IllegalArgumentException("account is not of type '" + GnuCashAccount.Type.ASSET + "'");

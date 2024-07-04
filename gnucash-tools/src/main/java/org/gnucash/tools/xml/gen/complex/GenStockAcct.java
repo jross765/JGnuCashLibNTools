@@ -1,4 +1,4 @@
-package org.gnucash.tools.xml.get.sonstige;
+package org.gnucash.tools.xml.gen.complex;
 
 import java.io.File;
 import java.util.Collection;
@@ -14,7 +14,11 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCommodity;
-import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.write.GnuCashWritableAccount;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.apiext.secacct.SecuritiesAccountManager;
+import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
+import org.gnucash.apiext.secacct.WritableSecuritiesAccountManager;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -28,32 +32,50 @@ import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
-public class GetStockAcct extends CommandLineTool
+public class GenStockAcct extends CommandLineTool
 {
+  enum BookMode {
+	  SINGLE_TRX,
+	  LISTFILE
+  }
+
+  // -----------------------------------------------------------------
+
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GetStockAcct.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GenStockAcct.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String                gcshFileName = null;
-  
+  // ------------------------------
+
+  private static String           gcshInFileName = null;
+  private static String           gcshOutFileName = null;
+  private static GnuCashWritableFileImpl gcshFile = null;
+		  
+  // ------------------------------
+
   private static Helper.Mode           acctMode     = null;
   private static GCshID                acctID       = null;
   private static String                acctName     = null;
   
-  private static Helper.CmdtySecMode   cmdtyMode    = null;
+  private static Helper.CmdtySecMode   cmdtyMode      = null;
   private static GCshCmdtyID_SecIdType cmdtyID      = null;
   private static String                isin         = null;
   private static String                cmdtyName    = null;
-  
-  private static boolean scriptMode = false;
+
+  // ------------------------------
+
+  // batch-mode:
+  private static boolean    silent           = false;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {
     try
     {
-      GetStockAcct tool = new GetStockAcct ();
+      GenStockAcct tool = new GenStockAcct ();
       tool.execute(args);
     }
     catch (CouldNotExecuteException exc) 
@@ -67,19 +89,27 @@ public class GetStockAcct extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-//    cfg = new PropertiesConfiguration(System.getProperty("config"));
-//    getConfigSettings(cfg);
+    // cfg = new PropertiesConfiguration(System.getProperty("config"));
+    // getConfigSettings(cfg);
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
+    Option optFileIn = OptionBuilder
       .isRequired()
       .hasArg()
       .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
-      
+      .withDescription("GnuCash file (in)")
+      .withLongOpt("gnucash-in-file")
+      .create("if");
+        
+    Option optFileOut = OptionBuilder
+      .isRequired()
+      .hasArg()
+      .withArgName("file")
+      .withDescription("GnuCash file (out)")
+      .withLongOpt("gnucash-out-file")
+      .create("of");
+    
     Option optAcctMode = OptionBuilder
       .isRequired()
       .hasArg()
@@ -87,7 +117,21 @@ public class GetStockAcct extends CommandLineTool
       .withDescription("Selection mode for account")
       .withLongOpt("account-mode")
       .create("am");
-      
+    	      
+    Option optAcctID = OptionBuilder
+      .hasArg()
+      .withArgName("acctid")
+      .withDescription("Account-ID")
+      .withLongOpt("account-id")
+      .create("acct");
+    	    
+    Option optAcctName = OptionBuilder
+      .hasArg()
+      .withArgName("name")
+      .withDescription("Account name (or part of)")
+      .withLongOpt("account-name")
+      .create("an");
+    	      
     Option optCmdtyMode = OptionBuilder
       .isRequired()
       .hasArg()
@@ -95,58 +139,46 @@ public class GetStockAcct extends CommandLineTool
       .withDescription("Selection mode for commodity")
       .withLongOpt("commodity-mode")
       .create("cm");
-        
-    Option optAcctID = OptionBuilder
-      .hasArg()
-      .withArgName("acctid")
-      .withDescription("Account-ID")
-      .withLongOpt("account-id")
-      .create("acct");
-    
-    Option optAcctName = OptionBuilder
-      .hasArg()
-      .withArgName("name")
-      .withDescription("Account name (or part of)")
-      .withLongOpt("account-name")
-      .create("an");
-      
+    	    	        
     Option optCmdtyID = OptionBuilder
       .hasArg()
       .withArgName("ID")
       .withDescription("Commodity ID")
       .withLongOpt("commodity-id")
       .create("cmdty");
-            
+    	            
     Option optCmdtyISIN = OptionBuilder
       .hasArg()
       .withArgName("isin")
       .withDescription("ISIN")
       .withLongOpt("isin")
       .create("is");
-          
+    	          
     Option optCmdtyName = OptionBuilder
       .hasArg()
       .withArgName("name")
       .withDescription("Commodity name (or part of)")
       .withLongOpt("commodity-name")
       .create("sn");
-            
-    // The convenient ones
-    Option optScript = OptionBuilder
-      .withDescription("Script Mode")
-      .withLongOpt("script")
-      .create("sl");            
-          
+    
+    // ---
+    	    
+    Option optSilent = OptionBuilder
+      .withDescription("Silent mode")
+      .withLongOpt("silent")
+      .create("sl");
+
     options = new Options();
-    options.addOption(optFile);
-    options.addOption(optAcctMode);
+    options.addOption(optFileIn);
+    options.addOption(optFileOut);
+    options.addOption(optAcctMode );
     options.addOption(optAcctID);
     options.addOption(optAcctName);
     options.addOption(optCmdtyMode);
     options.addOption(optCmdtyID);
     options.addOption(optCmdtyISIN);
     options.addOption(optCmdtyName);
-    options.addOption(optScript);
+    options.addOption(optSilent);
   }
 
   @Override
@@ -158,16 +190,39 @@ public class GetStockAcct extends CommandLineTool
   @Override
   protected void kernel() throws Exception
   {
-    GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
+	  gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-    GnuCashAccount acct = null;
+	  GnuCashWritableAccount acct = getSecAccount();
+	  GnuCashCommodity cmdty = getCommodity();
+	  
+	  WritableSecuritiesAccountManager secAcctMgr = new WritableSecuritiesAccountManager(acct);
+	  if ( stockAcctAlreadyExists(secAcctMgr, cmdty) )
+	  {
+		  System.err.println("Error: Stock account already exists");
+		  throw new IllegalStateException("Stock account already exists");
+	  }
+	  
+	  GnuCashWritableAccount newStockAcct = secAcctMgr.genShareAcct( cmdty );
+	  System.out.println("Stock account generated: " + newStockAcct);
+	  
+	  // ---
+
+	  gcshFile.writeFile(new File(gcshOutFileName));
+		    
+	  if ( ! silent )
+		  System.out.println("OK");
+  }
+  
+  private GnuCashWritableAccount getSecAccount() throws Exception
+  {
+    GnuCashWritableAccount acct = null;
     
     if (acctMode == Helper.Mode.ID)
     {
-      acct = gcshFile.getAccountByID(acctID);
+      acct = gcshFile.getWritableAccountByID(acctID);
       if (acct == null)
       {
-        if ( ! scriptMode )
+        if ( ! silent )
           System.err.println("Found no account with that name");
         throw new NoEntryFoundException();
       }
@@ -176,32 +231,37 @@ public class GetStockAcct extends CommandLineTool
     {
       Collection<GnuCashAccount> acctList = null;
       acctList = gcshFile.getAccountsByTypeAndName(GnuCashAccount.Type.ASSET, acctName, 
-                                                  true, true);
-      if (acctList.size() == 0)
+    		  									   true, true);
+      if ( acctList.size() == 0 )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
         {
           System.err.println("Could not find accounts matching this name.");
         }
         throw new NoEntryFoundException();
       }
-      else if (acctList.size() > 1)
+      else if ( acctList.size() > 1 )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
         {
           System.err.println("Found " + acctList.size() + " accounts with that name.");
           System.err.println("Please specify more precisely.");
         }
         throw new TooManyEntriesFoundException();
       }
-      acct = acctList.iterator().next();
+      // No:
+      // acct = acctList.iterator().next();
+      acct = gcshFile.getWritableAccountByID(acctList.iterator().next().getID());
     }
 
-    if ( ! scriptMode )
+    if ( ! silent )
       System.out.println("Account:  " + acct.toString());
     
-    // ----------------------------
-
+    return acct;
+  }
+  
+  private GnuCashCommodity getCommodity() throws Exception
+  {
     GnuCashCommodity cmdty = null;
     
     if ( cmdtyMode == Helper.CmdtySecMode.ID )
@@ -209,7 +269,7 @@ public class GetStockAcct extends CommandLineTool
       cmdty = gcshFile.getCommodityByQualifID(cmdtyID);
       if ( cmdty == null )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
           System.err.println("Could not find a commodity with this ID.");
         throw new NoEntryFoundException();
       }
@@ -219,7 +279,7 @@ public class GetStockAcct extends CommandLineTool
       cmdty = gcshFile.getCommodityByXCode(isin);
       if ( cmdty == null )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
           System.err.println("Could not find securities with this ISIN.");
         throw new NoEntryFoundException();
       }
@@ -229,13 +289,13 @@ public class GetStockAcct extends CommandLineTool
       Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName(cmdtyName); 
       if ( cmdtyList.size() == 0 )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
           System.err.println("Could not find securities matching this name.");
         throw new NoEntryFoundException();
       }
       if ( cmdtyList.size() > 1 )
       {
-        if ( ! scriptMode )
+        if ( ! silent )
         {
           System.err.println("Found " + cmdtyList.size() + "securities matching this name.");
           System.err.println("Please specify more precisely.");
@@ -245,18 +305,23 @@ public class GetStockAcct extends CommandLineTool
       cmdty = cmdtyList.iterator().next(); // first element
     }
     
-    if ( ! scriptMode )
+    if ( ! silent )
       System.out.println("Commodity: " + cmdty.toString());
-    
-    // ----------------------------
-    
-    for ( GnuCashAccount chld : acct.getChildren() ) {
-      if ( chld.getType() == GnuCashAccount.Type.STOCK &&
-           chld.getCmdtyCurrID().equals(cmdty.getQualifID()) ) {
-          System.out.println(chld.getID());
-      }
-    }
 
+    return cmdty;
+  }
+  
+  private boolean stockAcctAlreadyExists(SecuritiesAccountManager secAcctMgr, GnuCashCommodity cmdty)
+  {
+	  for ( GnuCashAccount acct : secAcctMgr.getShareAccts() )
+	  {
+		  if ( acct.getCmdtyCurrID().toString().equals( cmdty.getQualifID().toString() ) ) // Important: toString()
+		  {
+			  return true;
+		  }
+	  }
+	  
+	  return false;
   }
 
   // -----------------------------------------------------------------
@@ -277,28 +342,45 @@ public class GetStockAcct extends CommandLineTool
 
     // ---
 
-    // <script>
-    if ( cmdLine.hasOption("script") )
+    // <silent>
+    if (cmdLine.hasOption("silent"))
     {
-      scriptMode = true; 
+      silent = true;
     }
-    // System.err.println("Script mode: " + scriptMode);
+    else
+    {
+      silent = false;
+    }
+    if (! silent)
+      System.err.println("silent:              " + silent);
     
     // ---
 
-    // <gnucash-file>
+    // <gnucash-in-file>
     try
     {
-      gcshFileName = cmdLine.getOptionValue("gnucash-file");
+      gcshInFileName = cmdLine.getOptionValue("gnucash-in-file");
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <gnucash-file>");
+      System.err.println("Could not parse <gnucash-in-file>");
       throw new InvalidCommandLineArgsException();
     }
+    if (! silent)
+    	System.err.println("GnuCash file (in):  '" + gcshInFileName + "'");
     
-    if ( ! scriptMode )
-      System.err.println("GnuCash file:     '" + gcshFileName + "'");
+    // <gnucash-out-file>
+    try
+    {
+      gcshOutFileName = cmdLine.getOptionValue("gnucash-out-file");
+    }
+    catch ( Exception exc )
+    {
+      System.err.println("Could not parse <gnucash-out-file>");
+      throw new InvalidCommandLineArgsException();
+    }
+    if (! silent)
+    	System.err.println("GnuCash file (out): '" + gcshOutFileName + "'");
     
     // <account-mode>
     try
@@ -311,7 +393,7 @@ public class GetStockAcct extends CommandLineTool
       throw new InvalidCommandLineArgsException();
     }
     
-    if ( ! scriptMode )
+    if ( ! silent )
       System.err.println("Account mode:  " + acctMode);
 
     // <commodity-mode>
@@ -331,7 +413,7 @@ public class GetStockAcct extends CommandLineTool
       throw new InvalidCommandLineArgsException();
     }
     
-    if ( ! scriptMode )
+    if ( ! silent )
       System.err.println("Commodity mode: " + cmdtyMode);
 
     // <account-id>
@@ -362,7 +444,7 @@ public class GetStockAcct extends CommandLineTool
       }      
     }
     
-    if ( ! scriptMode )
+    if ( ! silent )
       System.err.println("Account ID:    '" + acctID + "'");
 
     // <account-name>
@@ -393,7 +475,7 @@ public class GetStockAcct extends CommandLineTool
       }      
     }
     
-    if ( ! scriptMode )
+    if ( ! silent )
       System.err.println("Account name:  '" + acctName + "'");
 
     // <commodity-id>
@@ -424,7 +506,7 @@ public class GetStockAcct extends CommandLineTool
       }
     }
 
-    if (!scriptMode)
+    if (!silent)
       System.err.println("Commodity ID:  '" + cmdtyID + "'");
 
     // <isin>
@@ -455,7 +537,7 @@ public class GetStockAcct extends CommandLineTool
       }
     }
 
-    if (!scriptMode)
+    if (!silent)
       System.err.println("Commodity ISIN: '" + isin + "'");
 
     // <commodity-name>
@@ -486,15 +568,15 @@ public class GetStockAcct extends CommandLineTool
       }
     }
 
-    if (!scriptMode)
+    if (!silent)
       System.err.println("Commodity name: '" + cmdtyName + "'");
   }
-  
+
   @Override
   protected void printUsage()
   {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp( "GetSubAcct", options );
+    formatter.printHelp( "GenStockAcct", options );
     
     System.out.println("");
     System.out.println("Valid values for <account-mode>:");
