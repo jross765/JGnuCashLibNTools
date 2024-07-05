@@ -29,11 +29,13 @@ public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
      */
     GCshCmdtyCurrID getQualifID();
 
+    String getSymbol();
+
     /**
      * @return the "extended" code of a commodity
      *         (typically, this is the ISIN in case you have 
      *         a global portfolio; if you have a local portfolio,
-     *         this could also be the corresponding regional security/commodity
+     *         this might also be the corresponding regional security/commodity
      *         ID, such as "CUSIP" (USA, Canada), "SEDOL" (UK), or
      *         "WKN" (Germany, Austria, Switzerland)). 
      */

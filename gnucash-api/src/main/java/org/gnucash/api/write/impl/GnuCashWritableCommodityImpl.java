@@ -154,6 +154,23 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     }
 
     @Override
+    public void setSymbol(String symb) {
+	if ( symb == null ) {
+	    throw new IllegalArgumentException("null symbol given!");
+	}
+
+	if ( symb.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("empty symbol given!");
+	}
+
+	try {
+		setUserDefinedAttribute(Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
+	} catch ( SlotListDoesNotContainKeyException exc ) {
+		addUserDefinedAttribute(Const.XML_DATA_TYPE_STRING, Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
+	}
+    }
+
+    @Override
     public void setXCode(String xCode) {
 	if ( xCode == null ) {
 	    throw new IllegalArgumentException("null x-code given!");

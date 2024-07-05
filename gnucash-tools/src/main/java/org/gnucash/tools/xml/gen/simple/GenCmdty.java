@@ -34,6 +34,7 @@ public class GenCmdty extends CommandLineTool
   private static String gcshOutFileName = null;
 
   private static String  name     = null;
+  private static String  symbol   = null;
   private static String  isin     = null;
 
   public static void main( String[] args )
@@ -89,17 +90,25 @@ public class GenCmdty extends CommandLineTool
       .isRequired()
       .hasArg()
       .withArgName("name")
-      .withDescription("Customer name")
+      .withDescription("Name")
       .withLongOpt("name")
       .create("n");
     
     // The convenient ones
+    Option optSymbol = OptionBuilder
+      .hasArg()
+      .withArgName("symb")
+      .withDescription("Symbol (ticker)")
+      .withLongOpt("symbol")
+      .create("sy");
+    	          
           
     options = new Options();
     options.addOption(optFileIn);
     options.addOption(optFileOut);
     options.addOption(optISIN);
     options.addOption(optName);
+    options.addOption(optSymbol);
   }
 
   @Override
@@ -114,10 +123,13 @@ public class GenCmdty extends CommandLineTool
     GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
     
     GCshCmdtyID_SecIdType qualifID = new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, isin);
-    GnuCashWritableCommodity cmdty = gcshFile.createWritableCommodity(qualifID, name);
+    GnuCashWritableCommodity cmdty = gcshFile.createWritableCommodity(qualifID, isin, name);
     // cmdty.setQualifID(qualifID);
-    cmdty.setXCode(isin);
+    // cmdty.setXCode(isin);
     // cmdty.setName(name);
+    
+    if ( symbol != null )
+    	cmdty.setSymbol(symbol);
     
     System.out.println("Commodity to write: " + cmdty.toString());
     gcshFile.writeFile(new File(gcshOutFileName));
@@ -189,6 +201,26 @@ public class GenCmdty extends CommandLineTool
       throw new InvalidCommandLineArgsException();
     }
     System.err.println("Name: '" + name + "'");
+    
+    // <symbol>
+    if ( cmdLine.hasOption("symbol") )
+    {
+        try
+        {
+        	symbol = cmdLine.getOptionValue("symbol");
+        }
+        catch ( Exception exc )
+        {
+          System.err.println("Could not parse <symbol>");
+          throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	symbol = null;
+    }
+    System.err.println("Symbol: '" + symbol + "'");
+
   }
   
   @Override

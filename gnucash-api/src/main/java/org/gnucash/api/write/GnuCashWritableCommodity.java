@@ -24,11 +24,15 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
     
     List<GnuCashWritableAccount> getWritableStockAccounts();
 
+	// ---------------------------------------------------------------
+
+	void setSymbol(String symb);
+
+    void setXCode(String xCode);
+
     // ---------------------------------------------------------------
 
     void setQualifID(GCshCmdtyCurrID qualifId);
-
-    void setXCode(String xCode);
 
     void setName(String name);
 

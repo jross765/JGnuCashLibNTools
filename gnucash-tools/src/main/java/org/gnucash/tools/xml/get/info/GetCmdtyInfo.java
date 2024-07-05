@@ -193,6 +193,15 @@ public class GetCmdtyInfo extends CommandLineTool
 
     try
     {
+      System.out.println("ISIN:              " + cmdty.getXCode());
+    }
+    catch (Exception exc)
+    {
+      System.out.println("ISIN:              " + "ERROR");
+    }
+
+    try
+    {
       System.out.println("toString:          " + cmdty.toString());
     }
     catch (Exception exc)
@@ -202,11 +211,11 @@ public class GetCmdtyInfo extends CommandLineTool
     
     try
     {
-      System.out.println("X-Code:            " + cmdty.getXCode());
+      System.out.println("Symbol:            '" + cmdty.getSymbol() + "'");
     }
     catch (Exception exc)
     {
-      System.out.println("X-Code :           " + "ERROR");
+      System.out.println("Symbol:            " + "ERROR");
     }
 
     try

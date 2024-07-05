@@ -475,9 +475,21 @@ public interface GnuCashWritableFile extends GnuCashFile,
     // ----------------------------
 
     /**
+     * @param qualifID Technical commodity ID, fully qualified (e.g., containing the 'name space').
+     *                 <strong>Caution:</strong> GnuCash, for whatever reason, has no internal
+     *                 technical UUID for commodities (as opposed to all other entities). This is
+     *                 why, in this lib, we use the 'qualified' commodity ID as sort of pseudo-technical-
+     *                 ID, which is very similar to the code, but declared 'technical' nonetheless.
+	 * @param code  Commodity code (<strong>not</strong> the technical ID (which effectively
+	 *              is very similar, but declared technical nontheless),
+	 *              but the business ID, such as ISIN, CUSIP, etc. 
+	 *              A ticker will also work, but it is <strong>not</strong> recommended,
+	 *              as tickers typically are not unique, and there is a separate field
+	 *              for it. 
+	 * @param name  Security name
      * @return a new commodity with no values that is already added to this file
      */
-    GnuCashWritableCommodity createWritableCommodity(GCshCmdtyID qualifID, String name);
+    GnuCashWritableCommodity createWritableCommodity(GCshCmdtyID qualifID, String code, String name);
 
     /**
      * @param cmdty the commodity to remove
