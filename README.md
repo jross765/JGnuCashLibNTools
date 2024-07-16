@@ -22,7 +22,7 @@ GnuCash project.
 ## Compatibility
 ### System Compatibility
 Version 1.4 of the library has been tested with 
-GnuCash 5.5 on Linux (locale de_DE) and 
+GnuCash 5.7 on Linux (locale de_DE) and 
 OpenJDK 17.0.
 
 Java 11 or earlier won't work.
@@ -42,10 +42,10 @@ with locale de_DE (for details, cf. the API module documentation).
 
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
-| 1.5     | (WIP) almost?    | Only minor changes             |
+| 1.5     | almost           | Minor changes in interfaces    |
 | 1.4     | no               | Some substantial changes       |
 | 1.3     | no               | "Medium" changes in interfaces |
-| 1.2     | no               | Minor changes in interfaces    |
+| 1.2     | almost           | Minor changes in interfaces    |
 | 1.1     | no               | Major changes in interfaces    |
 | 1.0.1   | yes              |                                |
 
