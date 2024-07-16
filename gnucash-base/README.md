@@ -12,6 +12,8 @@ This might seem overly complicated, but in fact, it was necessary, because the a
 
 * Better test coverage: Now, I feel much better about it.
 
+* Finally: Moved package `numbers` to `SchnorxoLib` (and thus merged it with the almost 100%-redundant code in the sister project's according package).
+
 ### V. 1.3 &rarr; 1.4
 * Created, spun off from the API module.
 

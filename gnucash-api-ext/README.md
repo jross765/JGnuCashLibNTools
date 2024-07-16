@@ -16,6 +16,7 @@ in a securities account (brokerage account).
 * Sub-module SecAcct:
   * Added support for stock splits / reverse splits.
   * Added helper class that filters out inactive stock accounts.
+  * Added `WritableSecuritiesAccountManager` (analogous to separation in module "API").
 
 ### V. 1.3 &rarr; 1.4
 Created module.

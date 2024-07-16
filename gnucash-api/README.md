@@ -3,10 +3,32 @@
 This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
 
 ## Major Changes 
-### V. 1.4 &rarr; 1.5 (WIP)
+### V. 1.4 &rarr; 1.5
 * `GnuCash(Writable)Commodity(Impl)`: New methods `get(Writable)StockAccounts()`, which is a handy short-cut for specific use cases.
 
 * `GnuCash(Writable)File(Impl)`: Implemented empty skeleton methods that had been forgotten and previously just returned null, such as `getAccountsByName()`.
+
+* Added a few method implementations that had been forgotten here and there.
+
+* Re-iterated over some code, e.g.:
+	* Handling of invoice entries (all variants)
+	* `GnuCashJobInvoice(Entry)` vs `GnuCashGenerInvoice(Entry)` (inconsistencies)
+	* `GnuCash(Writable)GenerInvoice(Impl)` vs. `GnuCash(Writable)GenerJob(Impl)`
+	* `GnuCash(Writable)[Customer|etc](Impl)`
+	* `GnuCashCommodityImpl`
+	* `GnuCash(Writable)FileImpl`
+	* `GCshOwner(Impl)`
+	* Improved overall robustness by more consistently checking method parameters.
+
+* Finally completed list of internal manager classes `File[XYZ]Manager`.
+
+* Minor changes in interfaces.
+
+* Fixed a couple of bugs.
+
+* Some code-cleanup here and there.
+
+* Improved test coverage.
 
 ### V. 1.3 &rarr; 1.4
 * Extracted some basic packages to new module "Base".
