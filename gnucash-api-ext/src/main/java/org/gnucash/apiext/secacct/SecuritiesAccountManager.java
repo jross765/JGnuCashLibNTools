@@ -14,7 +14,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class SecuritiesAccountManager {
 
     // Logger
-    private static final Logger LOGGER = LoggerFactory.getLogger(SecuritiesAccountTransactionManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecuritiesAccountManager.class);
     
     // ---------------------------------------------------------------
     
