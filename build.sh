@@ -42,6 +42,7 @@ echo "=============================================================="
 echo "OMITTING"
 exit 0
 
+JAVADOC_STATUS_ALL=0
 
 for module in gnucash-base \
               gnucash-api \
@@ -54,6 +55,8 @@ do
   
   cd $module || exit 1
   rm -rf target/site
-  mvn javadoc:javadoc
+  mvn javadoc:javadoc || JAVADOC_STATUS_ALL=1
   cd ..
 done
+
+exit $JAVADOC_STATUS_ALL
