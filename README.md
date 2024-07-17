@@ -53,10 +53,10 @@ with locale de_DE (for details, cf. the API module documentation).
 Here, only the top-level changes on module-level are mentioned. For more Details, 
 cf. the README files of the resp. modules (links above).
 
-### V. 1.4 &rarr; 1.5 (WIP)
+### V. 1.4 &rarr; 1.5
 * Added module "Tools".
 
-* New external dependency (outside of Maven central): [`SchnorxoLib`](https://github.com/jross765/schnorxolib), a small library that contains some auxiliary stuff that is used both in this and the sister project.
+* New external dependency (outside of Maven central): [`SchnorxoLib`](https://github.com/jross765/schnorxolib), a small library that contains some auxiliary stuff that is used both in this and the sister project. Some of the code in the module "Base" has moved there.
 
 ### V. 1.3 &rarr; 1.4
 Changed project structure:
