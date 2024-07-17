@@ -13,7 +13,7 @@
 		<java.version>17</java.version>
 		<slf4j.version>2.0.9</slf4j.version>
 		<project.title>GnuCash.org</project.title>
-		<project.version>1.5.0-SNAPSHOT</project.version>
+		<project.version>1.5.0-RELEASE</project.version>
 	</properties>
 
 	<modules>

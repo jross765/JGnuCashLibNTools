@@ -64,7 +64,7 @@
 		<dependency>
 			<groupId>xyz.schnorxoborx</groupId>
 			<artifactId>schnorxolib-base</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1-RELEASE</version>
 			<scope>system</scope>
 			<systemPath>${schnorxolib-base-systemPath}</systemPath>
 		</dependency>

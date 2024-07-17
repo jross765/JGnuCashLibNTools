@@ -1,7 +1,7 @@
 # Project "JGnuCash Lib 'n' Tools"
 
 `JGnuCashLib` is a free and open-source Java library for reading and writing the XML file 
-format of the GnuCash open source accounting software 
+format of the GnuCash open source small-business accounting software 
 ([gnucash.org](https://gnucash.org)).
 
 It is not directly affiliated with / sponsored or coordinated by the developers of the 
@@ -21,7 +21,7 @@ GnuCash project.
 
 ## Compatibility
 ### System Compatibility
-Version 1.4 of the library has been tested with 
+Version 1.5 of the library has been tested with 
 GnuCash 5.7 on Linux (locale de_DE) and 
 OpenJDK 17.0.
 
