@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.gnucash</groupId>
 		<artifactId>gnucash</artifactId>
-		<version>${project.version}</version>
+		<version>1.6.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>gnucash-tools</artifactId>
@@ -29,7 +29,46 @@
 
 	</repositories>
 
+	<dependencyManagement>
+	
+		<dependencies>
+
+			<dependency>
+				<groupId>org.gnucash</groupId>
+				<artifactId>gnucash-base</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.gnucash</groupId>
+				<artifactId>gnucash-api</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.gnucash</groupId>
+				<artifactId>gnucash-api-ext</artifactId>
+				<version>${project.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+		</dependencies>
+		
+	</dependencyManagement>
+
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/commons-cli/commons-cli -->
 		<dependency>
@@ -43,13 +82,6 @@
 			<groupId>commons-configuration</groupId>
 			<artifactId>commons-configuration</artifactId>
 			<version>1.10</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.joda/joda-money -->
