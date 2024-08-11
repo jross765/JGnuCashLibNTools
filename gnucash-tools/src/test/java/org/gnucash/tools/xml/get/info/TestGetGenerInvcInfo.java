@@ -458,6 +458,7 @@ public class TestGetGenerInvcInfo extends CommandLineTool
     catch (ParseException exc)
     {
       System.err.println("Parsing options failed. Reason: " + exc.getMessage());
+      throw new InvalidCommandLineArgsException();
     }
 
     // ---

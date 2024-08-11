@@ -33,6 +33,7 @@ import org.joda.money.CurrencyUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.riegelmuenchen.depot.tools.db.book.Messages_BookPosWert;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -593,6 +594,7 @@ public class GenDepotTrx extends CommandLineTool
     catch (ParseException exc)
     {
       System.err.println("Parsing options failed. Reason: " + exc.getMessage());
+      throw new InvalidCommandLineArgsException();
     }
 
     // ---
