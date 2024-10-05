@@ -1,11 +1,15 @@
 package org.gnucash.base.basetypes.simple;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * A technical entry ID for all GnuCash entities except GnuCashCommodity.
  * (essentially a wrapper for a GUID-string, primarily defined for type safety).
+ * 
+ * ::TODO: Convert internal value to UUID
  */
 public class GCshID {
 
@@ -29,7 +33,11 @@ public class GCshID {
     }
 
     public GCshID(String idStr) throws InvalidGCshIDException {
-	set(idStr);
+   	set(idStr.replaceAll("-", ""));
+    }
+
+    public GCshID(UUID uuid) throws InvalidGCshIDException {
+   	set(uuid.toString().replaceAll("-", ""));
     }
 
     // -----------------------------------------------------------------
