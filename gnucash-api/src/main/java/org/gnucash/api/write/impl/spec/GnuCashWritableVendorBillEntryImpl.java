@@ -102,7 +102,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-    public void setVendBllTaxable(final boolean val) throws TaxTableNotFoundException {
+    public void setCustInvcTaxable(final boolean val) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
 	}
 	
@@ -128,7 +128,7 @@ public class GnuCashWritableVendorBillEntryImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-    public void setVendBllTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
+    public void setCustInvcTaxTable(final GCshTaxTable taxTab) throws TaxTableNotFoundException {
 		throw new WrongInvoiceTypeException();
     }
 
