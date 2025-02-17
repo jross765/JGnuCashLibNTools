@@ -41,6 +41,11 @@ public class Const {
   public static final String SLOT_KEY_CMDTY_USER_SYMBOL  = "user_symbol";
   
   public static final String SLOT_KEY_ASSOC_URI          = "assoc_uri";
+  
+  public static final String SLOT_KEY_GAINS_ACCT         = "gains-acct";
+  public static final String SLOT_KEY_GAINS_SPLT         = "gains-split";
+  public static final String SLOT_KEY_GAINS_SRC          = "gains-source";
+
   public static final String SLOT_KEY_DUMMY              = "dummy";
 
   // -----------------------------------------------------------------
