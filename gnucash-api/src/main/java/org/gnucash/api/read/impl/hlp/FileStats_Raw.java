@@ -12,7 +12,6 @@ import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.GncPricedb;
 import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,6 +46,24 @@ public class FileStats_Raw implements FileStats {
 	}
 
 	@Override
+	public int getNofEntriesAccountLots() {
+		int result = 0;
+
+		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
+			if ( bookElement instanceof GncAccount ) {
+				GncAccount acct = (GncAccount) bookElement;
+				if ( acct.getActLots() != null ) {
+					for ( GncAccount.ActLots.GncLot lot : acct.getActLots().getGncLot() ) {
+						result++;
+					}
+				}
+			}
+		}
+
+		return result;
+	}
+
+	@Override
 	public int getNofEntriesTransactions() {
 		int result = 0;
 
@@ -66,8 +83,10 @@ public class FileStats_Raw implements FileStats {
 		for ( Object bookElement : gcshFile.getRootElement().getGncBook().getBookElements() ) {
 			if ( bookElement instanceof GncTransaction ) {
 				GncTransaction trx = (GncTransaction) bookElement;
-				for ( TrnSplit splt : trx.getTrnSplits().getTrnSplit() ) {
-					result++;
+				if ( trx.getTrnSplits() != null ) {
+					for ( GncTransaction.TrnSplits.TrnSplit splt : trx.getTrnSplits().getTrnSplit() ) {
+						result++;
+					}
 				}
 			}
 		}

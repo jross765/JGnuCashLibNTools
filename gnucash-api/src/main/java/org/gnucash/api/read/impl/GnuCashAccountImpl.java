@@ -5,7 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
@@ -57,6 +60,10 @@ public class GnuCashAccountImpl extends SimpleAccount
      */
     private boolean mySplitsNeedSorting = false;
     
+    // ----------------------------
+    
+    private /* final */ List<GnuCashAccountLot> myLots = null; // sic, null, i.Ggs. zu oben
+
     // ---------------------------------------------------------------
 
     /**
@@ -64,12 +71,26 @@ public class GnuCashAccountImpl extends SimpleAccount
      * @param gcshFile the file to register under
      */
     @SuppressWarnings("exports")
-    public GnuCashAccountImpl(final GncAccount peer, final GnuCashFile gcshFile) {
+    public GnuCashAccountImpl(
+    		final GncAccount peer,
+    		final GnuCashFile gcshFile) {
 	super(gcshFile);
 
 //	if (peer.getActSlots() == null) {
 //	    peer.setActSlots(new ObjectFactory().createSlotsType());
 //	}
+
+//	if (peer.getActLots() == null) {
+//    peer.setActLots(new ObjectFactory().createGncAccountActLots());
+//  }
+
+	if (peer == null) {
+	    throw new IllegalArgumentException("null jwsdpPeer given");
+	}
+
+	if (gcshFile == null) {
+	    throw new IllegalArgumentException("null file given");
+	}
 
 	jwsdpPeer = peer;
     }
@@ -168,6 +189,8 @@ public class GnuCashAccountImpl extends SimpleAccount
 	
 	return result;
 	}
+    
+    // ----------------------------
 
 	/**
      * @see GnuCashAccount#getTransactionSplits()
@@ -226,6 +249,88 @@ public class GnuCashAccountImpl extends SimpleAccount
     	mySplits.add(impl);
     }
 
+    // ----------------------------
+
+    @Override
+    public List<GnuCashAccountLot> getLots() {
+	return getLots(false);
+    }
+
+    public List<GnuCashAccountLot> getLots(boolean addToAcct) {
+    	if (myLots == null) {
+    	    initLots(addToAcct);
+    	}
+    	
+    	return myLots;
+    }
+
+    private void initLots(final boolean addToAcct) {
+    	if ( jwsdpPeer.getActLots() == null )
+    		return;
+    	
+		List<GncAccount.ActLots.GncLot> jwsdpLots = jwsdpPeer.getActLots().getGncLot();
+
+	myLots = new ArrayList<GnuCashAccountLot>();
+	for ( GncAccount.ActLots.GncLot elt : jwsdpLots ) {
+		myLots.add(createLot(elt, addToAcct));
+	}
+    }
+
+    /**
+     * Create a new split for a split found in the jaxb-data.
+     *
+     * @param jwsdpSplt the jaxb-data
+     * @return the new split-instance
+     */
+    protected GnuCashAccountLotImpl createLot(
+	    final GncAccount.ActLots.GncLot jwsdpLot,
+	    final boolean addToAcct) {
+	return new GnuCashAccountLotImpl(jwsdpLot, this, 
+		                             addToAcct);
+    }
+
+    /**
+     * @see GnuCashAccount#addLot(GnuCashAccountLot)
+     */
+    public void addLot(final GnuCashAccountLot lot) {
+    	GnuCashAccountLot old = getAccountLotByID(lot.getID());
+	if ( old != null ) {
+	    // There already is a split with that ID
+	    if ( ! old.equals(lot) ) {
+	    	System.err.println("addLot: New Account Lot object with same ID, needs to be replaced: " + 
+	    			lot.getID() + "[" + lot.getClass().getName() + "] and " + 
+	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
+	    			"new=" + lot.toString() + "\n" + 
+	    			"old=" + old.toString());
+	    	LOGGER.error("addLot: New Account Lot object with same ID, needs to be replaced: " + 
+	    			lot.getID() + "[" + lot.getClass().getName() + "] and " + 
+	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
+	    			"new=" + lot.toString() + "\n" + 
+	    			"old=" + old.toString());
+	    	IllegalStateException exc = new IllegalStateException("DEBUG");
+	    	exc.printStackTrace();
+	    	replaceLot(old, lot);
+	    }
+	} else {
+	    // There is no split with that ID yet
+	    myLots.add(lot);
+	}
+    }
+
+    /**
+     * For internal use only.
+     *
+     * @param lot
+     */
+    public void replaceLot(final GnuCashAccountLot lot,
+	    final GnuCashAccountLot impl) {
+    	if ( ! myLots.remove(lot) ) {
+    		throw new IllegalArgumentException("old object not found!");
+    	}
+
+    	myLots.add(impl);
+    }
+
     // -----------------------------------------------------------------
 
     @Override
@@ -273,5 +378,5 @@ public class GnuCashAccountImpl extends SimpleAccount
 	
 	return buffer.toString();
     }
-    
+
 }

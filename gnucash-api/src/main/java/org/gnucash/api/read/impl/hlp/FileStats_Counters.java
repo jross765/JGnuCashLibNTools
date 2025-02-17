@@ -32,6 +32,11 @@ public class FileStats_Counters implements FileStats {
 	}
 
 	@Override
+	public int getNofEntriesAccountLots() {
+		return ERROR; // n/a
+	}
+
+	@Override
 	public int getNofEntriesTransactions() {
 		GncCountData obj = findCountDataByType("transaction");
 		if ( obj == null ) {

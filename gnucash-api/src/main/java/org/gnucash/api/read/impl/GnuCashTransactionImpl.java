@@ -47,10 +47,12 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      */
     protected final GncTransaction jwsdpPeer;
 
+    // ---------------------------------------------------------------
+    
     /**
-     * The Currency-Format to use if no locale is given.
+     * @see #getSplits()
      */
-    protected NumberFormat currencyFormat;
+    protected List<GnuCashTransactionSplit> mySplits = null;
 
     // ---------------------------------------------------------------
 
@@ -63,6 +65,13 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getDatePosted()
      */
     protected ZonedDateTime datePosted;
+
+    // ---------------------------------------------------------------
+
+    /**
+     * The Currency-Format to use if no locale is given.
+     */
+    protected NumberFormat currencyFormat;
 
     // ---------------------------------------------------------------
 
@@ -317,11 +326,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     // ----------------------------
 
     /**
-     * @see #getSplits()
-     */
-    protected List<GnuCashTransactionSplit> mySplits = null;
-
-    /**
      * @param impl the split to add to mySplits
      */
     protected void addSplit(final GnuCashTransactionSplitImpl impl) {
@@ -382,6 +386,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *  
      * @see GnuCashTransaction#getSplits()
      */
+    @Override
     public List<GnuCashTransactionSplit> getSplits() {
 	return getSplits(false, false);
     }
@@ -394,11 +399,14 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     }
 
     private void initSplits(final boolean addToAcct, final boolean addToInvc) {
+    	if ( jwsdpPeer.getTrnSplits() == null )
+    		return;
+    	
 	List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
 
 	mySplits = new ArrayList<GnuCashTransactionSplit>();
-	for (GncTransaction.TrnSplits.TrnSplit element : jwsdpSplits) {
-	    mySplits.add(createSplit(element, 
+	for ( GncTransaction.TrnSplits.TrnSplit elt : jwsdpSplits ) {
+	    mySplits.add(createSplit(elt, 
 		                         addToAcct, addToInvc));
 	}
     }

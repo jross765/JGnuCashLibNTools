@@ -10,6 +10,8 @@ public interface FileStats {
 
     int getNofEntriesAccounts();
 
+    int getNofEntriesAccountLots();
+
     int getNofEntriesTransactions();
 
     int getNofEntriesTransactionSplits();

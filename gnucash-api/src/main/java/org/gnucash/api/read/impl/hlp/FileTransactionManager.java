@@ -105,11 +105,17 @@ public class FileTransactionManager {
 	}
 
 	public void addTransaction(GnuCashTransaction trx, boolean withSplt) {
+		if ( trx == null ) {
+			throw new IllegalArgumentException("null transaction given");
+		}
+		
 		trxMap.put(trx.getID(), trx);
 
 		if ( withSplt ) {
-			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-				addTransactionSplit(splt, false);
+			if ( trx.getSplits() != null ) {
+				for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
+					addTransactionSplit(splt, false);
+				}
 			}
 		}
 
@@ -121,6 +127,10 @@ public class FileTransactionManager {
 	}
 
 	public void removeTransaction(GnuCashTransaction trx, boolean withSplt) {
+		if ( trx == null ) {
+			throw new IllegalArgumentException("null transaction given");
+		}
+		
 		if ( withSplt ) {
 			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
 				removeTransactionSplit(splt, false);
@@ -189,14 +199,6 @@ public class FileTransactionManager {
 		return retval;
 	}
 
-	public Collection<? extends GnuCashTransaction> getTransactions() {
-		if ( trxMap == null ) {
-			throw new IllegalStateException("no root-element loaded");
-		}
-		
-		return Collections.unmodifiableCollection(trxMap.values());
-	}
-
 	// ---------------------------------------------------------------
 
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
@@ -218,6 +220,16 @@ public class FileTransactionManager {
 		}
 
 		return retval;
+	}
+
+	// ---------------------------------------------------------------
+
+	public Collection<? extends GnuCashTransaction> getTransactions() {
+		if ( trxMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
+		return Collections.unmodifiableCollection(trxMap.values());
 	}
 
 	public List<GnuCashTransactionImpl> getTransactions_readAfresh() {
@@ -278,7 +290,7 @@ public class FileTransactionManager {
 			for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 				try {
 					GnuCashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx,
-																			  false, false);
+																false, false);
 					result.add(splt);
 				} catch (RuntimeException e) {
 					LOGGER.error("getTransactionSplits_readAfresh(1): [RuntimeException] Problem in "
@@ -301,7 +313,7 @@ public class FileTransactionManager {
 				for ( GncTransaction.TrnSplits.TrnSplit jwsdpTrxSplt : getTransactionSplits_raw(trx.getID()) ) {
 					try {
 						GnuCashTransactionSplitImpl splt = createTransactionSplit(jwsdpTrxSplt, trx, 
-																				  true, true);
+																	true, true);
 						result.add(splt);
 					} catch (RuntimeException e) {
 						LOGGER.error("getTransactionSplits_readAfresh(2): [RuntimeException] Problem in "

@@ -50,6 +50,18 @@ public class GCshFileStats {
 	return FileStats.ERROR; // Compiler happy
     }
 
+    public int getNofEntriesAccountLots(Type type) {
+	if ( type == Type.RAW ) {
+	    return raw.getNofEntriesAccountLots();
+	} else if ( type == Type.COUNTER ) {
+	    return cnt.getNofEntriesAccountLots();
+	} else if ( type == Type.CACHE ) {
+	    return che.getNofEntriesAccountLots();
+	}
+	
+	return FileStats.ERROR; // Compiler happy
+    }
+
     public int getNofEntriesTransactions(Type type) {
 	if ( type == Type.RAW ) {
 	    return raw.getNofEntriesTransactions();

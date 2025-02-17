@@ -14,6 +14,7 @@ import java.util.Locale;
 
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
@@ -58,7 +59,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		}
 
 		// retval.sort(Comparator.reverseOrder()); // not necessary 
-		
+
 		return retval;
 	}
 
@@ -387,6 +388,8 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 		return lastSplit;
 	}
+	
+	// ----------------------------
 
 	@Override
 	public boolean hasTransactions() {
@@ -407,6 +410,15 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 		return false;
 	}
+
+	// ----------------------------
+
+	@Override
+	public boolean hasLots() {
+		return this.getLots().size() > 0;
+	}
+    
+	// ----------------------------
 
 	/**
 	 * @return null if we are no currency but e.g. a fund
@@ -435,6 +447,8 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 		return currencyFormat;
 	}
+	
+	// ---------------------------------------------------------------
 
 	@Override
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
@@ -449,6 +463,26 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
 			if ( id.equals(split.getID()) ) {
 				return split;
+			}
+
+		}
+
+		return null;
+	}
+
+	@Override
+	public GnuCashAccountLot getAccountLotByID(final GCshID id) {
+		if ( id == null ) {
+			throw new IllegalArgumentException("null id given!");
+		}
+
+		if ( ! id.isSet() ) {
+			throw new IllegalArgumentException("ID not set");
+		}
+
+		for ( GnuCashAccountLot lot : getLots() ) {
+			if ( id.equals(lot.getID()) ) {
+				return lot;
 			}
 
 		}

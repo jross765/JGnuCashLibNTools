@@ -187,13 +187,36 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     boolean hasTransactionsRecursive();
 
     /**
-     * The returned list ist sorted by the natural order of the Transaction-Splits.
+     * The returned list is sorted by the natural order of the Transaction-Splits.
      *
      * @return all splits
      */
     List<GnuCashTransaction> getTransactions();
 
     List<GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
+
+    // -----------------------------------------------------------------
+
+    /**
+     * @param split split to add to this transaction
+     */
+    void addLot(final GnuCashAccountLot lot);
+
+    /**
+     * @return true if ${@link #getTransactionSplits()}.size() &gt; 0
+     */
+    boolean hasLots();
+
+    /**
+     * @return all lots
+     */
+    List<GnuCashAccountLot> getLots();
+
+    /**
+     * @param id the lot-id to look for
+     * @return the identified lot or null
+     */
+    GnuCashAccountLot getAccountLotByID(final GCshID id);
 
     // -----------------------------------------------------------------
 

@@ -14,9 +14,12 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashAccount.Type;
+import org.gnucash.api.read.GnuCashAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
+import org.gnucash.api.read.impl.GnuCashAccountLotImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +35,8 @@ public class FileAccountManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GnuCashAccount> acctMap;
+	private Map<GCshID, GnuCashAccount>    acctMap;
+	private Map<GCshID, GnuCashAccountLot> acctLotMap;
 
 	// ---------------------------------------------------------------
 
@@ -44,50 +48,139 @@ public class FileAccountManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
+		init1(pRootElement);
+		init2(pRootElement);
+	}
+
+	private void init1(final GncV2 pRootElement) {
 		acctMap = new HashMap<GCshID, GnuCashAccount>();
 
-		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
-			if ( !(bookElement instanceof GncAccount) ) {
-				continue;
-			}
-			GncAccount jwsdpAcct = (GncAccount) bookElement;
+		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
+			acctMap.put(acct.getID(), acct);
+		}
 
-			try {
-				GnuCashAccount acct = createAccount(jwsdpAcct);
-				acctMap.put(acct.getID(), acct);
-			} catch (RuntimeException e) {
-				LOGGER.error("init: [RuntimeException] Problem in " + getClass().getName() + ".init: "
-						+ "ignoring illegal Account-Entry with id=" + jwsdpAcct.getActId().getValue(), e);
-			}
-		} // for
-
-		LOGGER.debug("init: No. of entries in account map: " + acctMap.size());
+		LOGGER.debug("init1: No. of entries in account map: " + acctMap.size());
 	}
+
+	private void init2(final GncV2 pRootElement) {
+		acctLotMap = new HashMap<GCshID, GnuCashAccountLot>();
+
+		for ( GnuCashAccount acct : acctMap.values() ) {
+			try {
+				List<GnuCashAccountLot> lotList = null;
+				if ( gcshFile instanceof GnuCashWritableFileImpl ) {
+					lotList = ((GnuCashAccountImpl) acct).getLots(false);
+				} else {
+					lotList = ((GnuCashAccountImpl) acct).getLots(true);
+				}
+				for ( GnuCashAccountLot lot : lotList ) {
+					acctLotMap.put(lot.getID(), lot);
+				}
+			} catch (RuntimeException e) {
+				LOGGER.error("init2: [RuntimeException] Problem in " + getClass().getName() + ".init2: "
+						+ "ignoring illegal Account entry with id=" + acct.getID(), e);
+//		System.err.println("init2: ignoring illegal Account entry with id: " + acct.getID());
+//		System.err.println("  " + e.getMessage());
+			}
+		} // for acct
+
+		LOGGER.debug("init2: No. of entries in account lot map: " + acctLotMap.size());
+	}
+
+	// ----------------------------
 
 	protected GnuCashAccountImpl createAccount(final GncAccount jwsdpAcct) {
 		GnuCashAccountImpl acct = new GnuCashAccountImpl(jwsdpAcct, gcshFile);
-		LOGGER.debug("Generated new account: " + acct.getID());
+		LOGGER.debug("createAccount: Generated new account: " + acct.getID());
 		return acct;
+	}
+
+	protected GnuCashAccountLotImpl createAccountLot(
+			final GncAccount.ActLots.GncLot jwsdpAcctLot,
+			final GnuCashAccountImpl acct, 
+			final boolean addLotToAcct) {
+		GnuCashAccountLotImpl lot = new GnuCashAccountLotImpl(jwsdpAcctLot, acct, 
+				                                              addLotToAcct);
+		LOGGER.debug("createAccountLot: Generated new account lot: " + lot.getID());
+		return lot;
 	}
 
 	// ---------------------------------------------------------------
 
 	public void addAccount(GnuCashAccount acct) {
+		addAccount(acct, true);
+	}
+
+	public void addAccount(GnuCashAccount acct, boolean withLot) {
 		if ( acct == null ) {
 			throw new IllegalArgumentException("null account given");
 		}
 		
 		acctMap.put(acct.getID(), acct);
+
+		if ( withLot ) {
+			if ( acct.getLots() != null ) {
+				for ( GnuCashAccountLot lot : acct.getLots() ) {
+					addAccountLot(lot, false);
+				}
+			}
+		}
+
 		LOGGER.debug("addAccount: Added account to cache: " + acct.getID());
 	}
 
 	public void removeAccount(GnuCashAccount acct) {
+		removeAccount(acct, true);
+	}
+
+	public void removeAccount(GnuCashAccount acct, boolean withLot) {
 		if ( acct == null ) {
 			throw new IllegalArgumentException("null account given");
 		}
 		
+		if ( withLot ) {
+			for ( GnuCashAccountLot lot : acct.getLots() ) {
+				removeAccountLot(lot, false);
+			}
+		}
+
 		acctMap.remove(acct.getID());
+
 		LOGGER.debug("removeAccount: Removed account from cache: " + acct.getID());
+	}
+
+	// ---------------------------------------------------------------
+
+	public void addAccountLot(GnuCashAccountLot lot) {
+		addAccountLot(lot, true);
+	}
+
+	public void addAccountLot(GnuCashAccountLot lot, boolean withAcct) {
+		if ( lot == null ) {
+			throw new IllegalArgumentException("null lot given");
+		}
+		
+		acctLotMap.put(lot.getID(), lot);
+
+		if ( withAcct ) {
+			addAccount(lot.getAccount(), false);
+		}
+	}
+
+	public void removeAccountLot(GnuCashAccountLot lot) {
+		removeAccountLot(lot, true);
+	}
+
+	public void removeAccountLot(GnuCashAccountLot lot, boolean withAcct) {
+		if ( lot == null ) {
+			throw new IllegalArgumentException("null lot given");
+		}
+		
+		if ( withAcct ) {
+			removeAccount(lot.getAccount(), false);
+		}
+
+		acctLotMap.remove(lot.getID());
 	}
 
 	// ---------------------------------------------------------------
@@ -359,6 +452,29 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
+	public GnuCashAccountLot getAccountLotByID(final GCshID lotID) {
+		if ( lotID == null ) {
+			throw new IllegalArgumentException("null lot ID given");
+		}
+		
+		if ( ! lotID.isSet() ) {
+			throw new IllegalArgumentException("unset lot ID given");
+		}
+		
+		if ( acctLotMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+
+		GnuCashAccountLot retval = acctLotMap.get(lotID);
+		if ( retval == null ) {
+			LOGGER.warn("getAccountLotByID: No Account-Lot with id '" + lotID + "'. We know " + acctLotMap.size() + " account lots.");
+		}
+
+		return retval;
+	}
+
+	// ---------------------------------------------------------------
+
 	public Collection<GnuCashAccount> getAccounts() {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
@@ -366,6 +482,129 @@ public class FileAccountManager {
 
 		return Collections.unmodifiableCollection(acctMap.values());
 	}
+
+	public List<GnuCashAccountImpl> getAccounts_readAfresh() {
+		List<GnuCashAccountImpl> result = new ArrayList<GnuCashAccountImpl>();
+
+		for ( GncAccount jwsdpAcct : getAccounts_raw() ) {
+			try {
+				GnuCashAccountImpl acct = createAccount(jwsdpAcct);
+				result.add(acct);
+			} catch (RuntimeException e) {
+				LOGGER.error("getAccounts_readAfresh: [RuntimeException] Problem in " + getClass().getName()
+						+ ".getAccounts_readAfresh: " + "ignoring illegal Account entry with id="
+						+ jwsdpAcct.getActId().getValue(), e);
+//		System.err.println("getAccounts_readAfresh: ignoring illegal Account entry with id: " + jwsdpAcct.getActID().getValue());
+//		System.err.println("  " + e.getMessage());
+			}
+		}
+
+		return result;
+	}
+
+	private List<GncAccount> getAccounts_raw() {
+		GncV2 pRootElement = gcshFile.getRootElement();
+
+		List<GncAccount> result = new ArrayList<GncAccount>();
+
+		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
+			if ( !(bookElement instanceof GncAccount) ) {
+				continue;
+			}
+
+			GncAccount jwsdpAcct = (GncAccount) bookElement;
+			result.add(jwsdpAcct);
+		}
+
+		return result;
+	}
+
+	// ----------------------------
+
+	public List<GnuCashAccountLot> getAccountLots() {
+		if ( acctLotMap == null ) {
+			throw new IllegalStateException("no root-element loaded");
+		}
+		
+		List<GnuCashAccountLot> result = new ArrayList<GnuCashAccountLot>();
+		for ( GnuCashAccountLot elt : acctLotMap.values() ) {
+			result.add(elt);
+		}
+		
+		return Collections.unmodifiableList(result);
+	}
+
+	public List<GnuCashAccountLotImpl> getAccountLots_readAfresh() {
+		List<GnuCashAccountLotImpl> result = new ArrayList<GnuCashAccountLotImpl>();
+
+		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
+			for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
+				try {
+					GnuCashAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct,
+																 false);
+					result.add(lot);
+				} catch (RuntimeException e) {
+					LOGGER.error("getAccountLots_readAfresh(1): [RuntimeException] Problem in "
+							+ "ignoring illegal Account Lot entry with id="
+							+ jwsdpAcctLot.getLotId().getValue(), e);
+//			System.err.println("getAccountLots_readAfresh(1): ignoring illegal Account Lot entry with id: " + jwsdpAcctLot.getLotID().getValue());
+//			System.err.println("  " + e.getMessage());
+				}
+			} // for jwsdpAcctLot
+		} // for acct
+
+		return result;
+	}
+
+	public List<GnuCashAccountLotImpl> getAccountLots_readAfresh(final GCshID acctID) {
+		List<GnuCashAccountLotImpl> result = new ArrayList<GnuCashAccountLotImpl>();
+
+		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
+			if ( acct.getID().equals(acctID) ) {
+				for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
+					try {
+						GnuCashAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct, 
+																	 true);
+						result.add(lot);
+					} catch (RuntimeException e) {
+						LOGGER.error("getAccountLots_readAfresh(2): [RuntimeException] Problem in "
+								+ "ignoring illegal Account Lot entry with id="
+								+ jwsdpAcctLot.getLotId().getValue(), e);
+//			System.err.println("getAccountLots_readAfresh(2): ignoring illegal Account Lot entry with id: " + jwsdpAcctLot.getLotID().getValue());
+//			System.err.println("  " + e.getMessage());
+					}
+				} // for jwsdpAcctLot
+			} // if
+		} // for acct
+
+		return result;
+	}
+
+	private List<GncAccount.ActLots.GncLot> getAccountLots_raw(final GncAccount jwsdpAcct) {
+		List<GncAccount.ActLots.GncLot> result = new ArrayList<GncAccount.ActLots.GncLot>();
+
+		for ( GncAccount.ActLots.GncLot jwsdpAcctLot : jwsdpAcct.getActLots().getGncLot() ) {
+			result.add(jwsdpAcctLot);
+		}
+
+		return result;
+	}
+
+	private List<GncAccount.ActLots.GncLot> getAccountLots_raw(final GCshID acctID) {
+		List<GncAccount.ActLots.GncLot> result = new ArrayList<GncAccount.ActLots.GncLot>();
+
+		for ( GncAccount jwsdpAcct : getAccounts_raw() ) {
+			if ( jwsdpAcct.getActId().getValue().equals(acctID.toString()) ) {
+				for ( GncAccount.ActLots.GncLot jwsdpAcctLot : jwsdpAcct.getActLots().getGncLot() ) {
+					result.add(jwsdpAcctLot);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	// ---------------------------------------------------------------
 
 	public GCshID getRootAccountID()  {
 		if ( getRootAccount() == null )
@@ -428,6 +667,8 @@ public class FileAccountManager {
 		return result;
 	}
 
+	// ---------------------------
+
 	public List<GnuCashAccount> getTopAccounts() {
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
@@ -445,6 +686,10 @@ public class FileAccountManager {
 
 	public int getNofEntriesAccountMap() {
 		return acctMap.size();
+	}
+
+	public int getNofEntriesAccountLotMap() {
+		return acctLotMap.size();
 	}
 
 }

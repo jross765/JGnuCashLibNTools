@@ -1594,32 +1594,20 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		try {
 			stats = new GCshFileStats(this);
 
-			result += "    No. of accounts:                  " + stats.getNofEntriesAccounts(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of transactions:              " + stats.getNofEntriesTransactions(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of transaction splits:        "
-					+ stats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW) + "\n";
-			result += "    No. of (generic) invoices:        "
-					+ stats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW) + "\n";
-			result += "    No. of (generic) invoice entries: "
-					+ stats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW) + "\n";
-			result += "    No. of customers:                 " + stats.getNofEntriesCustomers(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of vendors:                   " + stats.getNofEntriesVendors(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of employees:                 " + stats.getNofEntriesEmployees(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of (generic) jobs:            " + stats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of commodities:               " + stats.getNofEntriesCommodities(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of tax tables:                " + stats.getNofEntriesTaxTables(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of bill terms:                " + stats.getNofEntriesBillTerms(GCshFileStats.Type.RAW)
-					+ "\n";
-			result += "    No. of prices:                    " + stats.getNofEntriesPrices(GCshFileStats.Type.RAW)
-					+ "\n";
+			result += "    No. of accounts:                  " + stats.getNofEntriesAccounts(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of account lots:              " + stats.getNofEntriesAccountLots(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of transactions:              " + stats.getNofEntriesTransactions(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of transaction splits:        " + stats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of (generic) invoices:        " + stats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of (generic) invoice entries: " + stats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of customers:                 " + stats.getNofEntriesCustomers(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of vendors:                   " + stats.getNofEntriesVendors(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of employees:                 " + stats.getNofEntriesEmployees(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of (generic) jobs:            " + stats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of commodities:               " + stats.getNofEntriesCommodities(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of tax tables:                " + stats.getNofEntriesTaxTables(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of bill terms:                " + stats.getNofEntriesBillTerms(GCshFileStats.Type.RAW) + "\n";
+			result += "    No. of prices:                    " + stats.getNofEntriesPrices(GCshFileStats.Type.RAW) + "\n";
 		} catch (Exception e) {
 			result += "ERROR\n";
 		}

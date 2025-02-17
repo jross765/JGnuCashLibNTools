@@ -61,8 +61,16 @@ public class TestGnuCashFileImpl {
 	@Test
 	public void test01() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_ACCT, gcshFileStats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_ACCT, gcshFileStats.getNofEntriesAccounts(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_ACCT, gcshFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
-		assertEquals(ConstTest.Stats.NOF_ACCT, gcshFileStats.getNofEntriesAccounts(GCshFileStats.Type.CACHE));
+	}
+
+	@Test
+	public void test01_2() throws Exception {
+		assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshFileStats.getNofEntriesAccountLots(GCshFileStats.Type.RAW));
+		// This one is an exception:
+		// assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshFileStats.getNofEntriesAccountLots(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshFileStats.getNofEntriesAccountLots(GCshFileStats.Type.CACHE));
 	}
 
 	@Test

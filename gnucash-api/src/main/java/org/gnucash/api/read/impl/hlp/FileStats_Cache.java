@@ -73,6 +73,11 @@ public class FileStats_Cache implements FileStats {
 	}
 
 	@Override
+	public int getNofEntriesAccountLots() {
+		return acctMgr.getNofEntriesAccountLotMap();
+	}
+
+	@Override
 	public int getNofEntriesTransactions() {
 		return trxMgr.getNofEntriesTransactionMap();
 	}
