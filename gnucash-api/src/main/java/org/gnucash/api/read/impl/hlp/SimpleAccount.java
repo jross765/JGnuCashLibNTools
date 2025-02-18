@@ -14,10 +14,10 @@ import java.util.Locale;
 
 import org.gnucash.api.currency.ComplexPriceTable;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.GnuCashAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -471,7 +471,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GnuCashAccountLot getAccountLotByID(final GCshID id) {
+	public GCshAccountLot getAccountLotByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");
 		}
@@ -480,7 +480,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 			throw new IllegalArgumentException("ID not set");
 		}
 
-		for ( GnuCashAccountLot lot : getLots() ) {
+		for ( GCshAccountLot lot : getLots() ) {
 			if ( id.equals(lot.getID()) ) {
 				return lot;
 			}

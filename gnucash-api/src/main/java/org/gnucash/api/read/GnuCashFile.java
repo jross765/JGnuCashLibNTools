@@ -24,6 +24,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
@@ -221,6 +222,12 @@ public interface GnuCashFile extends GnuCashObject,
      * @return the transaction split or null if it's not found
      */
     GnuCashTransactionSplit getTransactionSplitByID(GCshID spltID);
+
+    /**
+     * @return
+     * @throws GCshIDNotSetException 
+     */
+    List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(GCshID acctLotID);
 
     /**
      * @return

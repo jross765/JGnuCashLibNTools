@@ -14,11 +14,11 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashAccount.Type;
-import org.gnucash.api.read.GnuCashAccountLot;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
-import org.gnucash.api.read.impl.GnuCashAccountLotImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
@@ -36,7 +36,7 @@ public class FileAccountManager {
 	protected GnuCashFileImpl gcshFile;
 
 	private Map<GCshID, GnuCashAccount>    acctMap;
-	private Map<GCshID, GnuCashAccountLot> acctLotMap;
+	private Map<GCshID, GCshAccountLot> acctLotMap;
 
 	// ---------------------------------------------------------------
 
@@ -63,17 +63,17 @@ public class FileAccountManager {
 	}
 
 	private void init2(final GncV2 pRootElement) {
-		acctLotMap = new HashMap<GCshID, GnuCashAccountLot>();
+		acctLotMap = new HashMap<GCshID, GCshAccountLot>();
 
 		for ( GnuCashAccount acct : acctMap.values() ) {
 			try {
-				List<GnuCashAccountLot> lotList = null;
+				List<GCshAccountLot> lotList = null;
 				if ( gcshFile instanceof GnuCashWritableFileImpl ) {
 					lotList = ((GnuCashAccountImpl) acct).getLots(false);
 				} else {
 					lotList = ((GnuCashAccountImpl) acct).getLots(true);
 				}
-				for ( GnuCashAccountLot lot : lotList ) {
+				for ( GCshAccountLot lot : lotList ) {
 					acctLotMap.put(lot.getID(), lot);
 				}
 			} catch (RuntimeException e) {
@@ -95,11 +95,11 @@ public class FileAccountManager {
 		return acct;
 	}
 
-	protected GnuCashAccountLotImpl createAccountLot(
+	protected GCshAccountLotImpl createAccountLot(
 			final GncAccount.ActLots.GncLot jwsdpAcctLot,
 			final GnuCashAccountImpl acct, 
 			final boolean addLotToAcct) {
-		GnuCashAccountLotImpl lot = new GnuCashAccountLotImpl(jwsdpAcctLot, acct, 
+		GCshAccountLotImpl lot = new GCshAccountLotImpl(jwsdpAcctLot, acct, 
 				                                              addLotToAcct);
 		LOGGER.debug("createAccountLot: Generated new account lot: " + lot.getID());
 		return lot;
@@ -120,7 +120,7 @@ public class FileAccountManager {
 
 		if ( withLot ) {
 			if ( acct.getLots() != null ) {
-				for ( GnuCashAccountLot lot : acct.getLots() ) {
+				for ( GCshAccountLot lot : acct.getLots() ) {
 					addAccountLot(lot, false);
 				}
 			}
@@ -139,7 +139,7 @@ public class FileAccountManager {
 		}
 		
 		if ( withLot ) {
-			for ( GnuCashAccountLot lot : acct.getLots() ) {
+			for ( GCshAccountLot lot : acct.getLots() ) {
 				removeAccountLot(lot, false);
 			}
 		}
@@ -151,11 +151,11 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public void addAccountLot(GnuCashAccountLot lot) {
+	public void addAccountLot(GCshAccountLot lot) {
 		addAccountLot(lot, true);
 	}
 
-	public void addAccountLot(GnuCashAccountLot lot, boolean withAcct) {
+	public void addAccountLot(GCshAccountLot lot, boolean withAcct) {
 		if ( lot == null ) {
 			throw new IllegalArgumentException("null lot given");
 		}
@@ -167,11 +167,11 @@ public class FileAccountManager {
 		}
 	}
 
-	public void removeAccountLot(GnuCashAccountLot lot) {
+	public void removeAccountLot(GCshAccountLot lot) {
 		removeAccountLot(lot, true);
 	}
 
-	public void removeAccountLot(GnuCashAccountLot lot, boolean withAcct) {
+	public void removeAccountLot(GCshAccountLot lot, boolean withAcct) {
 		if ( lot == null ) {
 			throw new IllegalArgumentException("null lot given");
 		}
@@ -452,7 +452,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashAccountLot getAccountLotByID(final GCshID lotID) {
+	public GCshAccountLot getAccountLotByID(final GCshID lotID) {
 		if ( lotID == null ) {
 			throw new IllegalArgumentException("null lot ID given");
 		}
@@ -465,7 +465,7 @@ public class FileAccountManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GnuCashAccountLot retval = acctLotMap.get(lotID);
+		GCshAccountLot retval = acctLotMap.get(lotID);
 		if ( retval == null ) {
 			LOGGER.warn("getAccountLotByID: No Account-Lot with id '" + lotID + "'. We know " + acctLotMap.size() + " account lots.");
 		}
@@ -521,26 +521,26 @@ public class FileAccountManager {
 
 	// ----------------------------
 
-	public List<GnuCashAccountLot> getAccountLots() {
+	public List<GCshAccountLot> getAccountLots() {
 		if ( acctLotMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 		
-		List<GnuCashAccountLot> result = new ArrayList<GnuCashAccountLot>();
-		for ( GnuCashAccountLot elt : acctLotMap.values() ) {
+		List<GCshAccountLot> result = new ArrayList<GCshAccountLot>();
+		for ( GCshAccountLot elt : acctLotMap.values() ) {
 			result.add(elt);
 		}
 		
 		return Collections.unmodifiableList(result);
 	}
 
-	public List<GnuCashAccountLotImpl> getAccountLots_readAfresh() {
-		List<GnuCashAccountLotImpl> result = new ArrayList<GnuCashAccountLotImpl>();
+	public List<GCshAccountLotImpl> getAccountLots_readAfresh() {
+		List<GCshAccountLotImpl> result = new ArrayList<GCshAccountLotImpl>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 				try {
-					GnuCashAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct,
+					GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct,
 																 false);
 					result.add(lot);
 				} catch (RuntimeException e) {
@@ -556,14 +556,14 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public List<GnuCashAccountLotImpl> getAccountLots_readAfresh(final GCshID acctID) {
-		List<GnuCashAccountLotImpl> result = new ArrayList<GnuCashAccountLotImpl>();
+	public List<GCshAccountLotImpl> getAccountLots_readAfresh(final GCshID acctID) {
+		List<GCshAccountLotImpl> result = new ArrayList<GCshAccountLotImpl>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			if ( acct.getID().equals(acctID) ) {
 				for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 					try {
-						GnuCashAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct, 
+						GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct, 
 																	 true);
 						result.add(lot);
 					} catch (RuntimeException e) {

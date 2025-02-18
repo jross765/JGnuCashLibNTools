@@ -1,4 +1,4 @@
-package org.gnucash.api.read;
+package org.gnucash.api.read.aux;
 
 import java.time.LocalDate;
 import java.util.Currency;
@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 
 /**
  * ::TOOD
  */
-public interface GnuCashAccountLot extends GnuCashObject
+public interface GCshAccountLot extends GnuCashObject
 {
     // -----------------------------------------------------------------
     
@@ -60,22 +64,19 @@ public interface GnuCashAccountLot extends GnuCashObject
      * The returned list ist sorted by the natural order of the Transaction-Splits.
      *
      * @return all splits
+     * @throws GCshIDNotSetException 
      */
-    List<GnuCashTransactionSplit> getTransactionSplits();
+    List<GnuCashTransactionSplit> getTransactionSplits() throws GCshIDNotSetException;
 
     /**
-     * @param id the split-id to look for
-     * @return the identified split or null
+     * Gets the list of transactions-split before (or at) the given date.
      */
-    GnuCashTransactionSplit getTransactionSplitByID(final GCshID id);
+    List<GnuCashTransactionSplit> getSplitsBefore(LocalDate date);
 
     /**
      * Gets the last transaction-split before the given date.
-     *
-     * @param date if null, the last split of all time is returned
-     * @return the last transaction-split before the given date
      */
-    GnuCashTransactionSplit getLastSplitBefore(final LocalDate date);
+    List<GnuCashTransactionSplit> getSplitsAfterBefore(LocalDate fromDate, LocalDate toDate);
 
     /**
      * @param split split to add to this transaction

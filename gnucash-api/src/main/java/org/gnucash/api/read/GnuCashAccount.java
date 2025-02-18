@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -200,7 +201,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     /**
      * @param split split to add to this transaction
      */
-    void addLot(final GnuCashAccountLot lot);
+    void addLot(final GCshAccountLot lot);
 
     /**
      * @return true if ${@link #getTransactionSplits()}.size() &gt; 0
@@ -210,13 +211,13 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     /**
      * @return all lots
      */
-    List<GnuCashAccountLot> getLots();
+    List<GCshAccountLot> getLots();
 
     /**
      * @param id the lot-id to look for
      * @return the identified lot or null
      */
-    GnuCashAccountLot getAccountLotByID(final GCshID id);
+    GCshAccountLot getAccountLotByID(final GCshID id);
 
     // -----------------------------------------------------------------
 

@@ -1,6 +1,7 @@
-package org.gnucash.api.read.impl;
+package org.gnucash.api.read.impl.aux;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.Const;
@@ -9,21 +10,23 @@ import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.GnuCashAccountLot;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.GnuCashTransactionSplit.Action;
+import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GnuCashAccountLotImpl extends GnuCashObjectImpl 
-								  implements GnuCashAccountLot 
+public class GCshAccountLotImpl extends GnuCashObjectImpl 
+								implements GCshAccountLot 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashAccountLotImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GCshAccountLotImpl.class);
 
     // ---------------------------------------------------------------
 
@@ -44,7 +47,7 @@ public class GnuCashAccountLotImpl extends GnuCashObjectImpl
      * @param acct  the acc ount this lot belongs to
      */
     @SuppressWarnings("exports")
-    public GnuCashAccountLotImpl(
+    public GCshAccountLotImpl(
 	    final GncAccount.ActLots.GncLot peer,
 	    final GnuCashAccountImpl acct,
 	    final boolean addLotToAcct) {
@@ -136,20 +139,38 @@ public class GnuCashAccountLotImpl extends GnuCashObjectImpl
 
 	@Override
 	public List<GnuCashTransactionSplit> getTransactionSplits() {
-		// TODO Auto-generated method stub
-		return null;
+		return myAccount.getGnuCashFile().getTransactionSplitsByAccountLotID(getID());
 	}
 
 	@Override
-	public GnuCashTransactionSplit getTransactionSplitByID(GCshID id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GnuCashTransactionSplit> getSplitsBefore(final LocalDate date) {
+		ArrayList<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
+		
+		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
+			if ( splt.getTransaction().getDatePosted().toLocalDate().isBefore(date) ||
+				 splt.getTransaction().getDatePosted().toLocalDate().isEqual(date) ) {
+				result.add(splt);
+			}
+		}
+
+		return result;
 	}
 
 	@Override
-	public GnuCashTransactionSplit getLastSplitBefore(LocalDate date) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GnuCashTransactionSplit> getSplitsAfterBefore(final LocalDate fromDate, final LocalDate toDate) {
+		ArrayList<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
+		
+		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
+			if ( ( splt.getTransaction().getDatePosted().toLocalDate().isAfter(fromDate) ||
+				   splt.getTransaction().getDatePosted().toLocalDate().isEqual(fromDate) ) 
+				 &&
+				 ( splt.getTransaction().getDatePosted().toLocalDate().isBefore(toDate) ||
+				   splt.getTransaction().getDatePosted().toLocalDate().isEqual(toDate) ) ) {
+				result.add(splt);
+			}
+		}
+
+		return result;
 	}
 
 	@Override

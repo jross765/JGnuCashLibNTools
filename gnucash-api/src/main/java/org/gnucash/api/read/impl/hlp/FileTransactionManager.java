@@ -3,12 +3,18 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit.SplitLot;
 import org.gnucash.api.generated.GncV2;
+import org.gnucash.api.generated.Slot;
+import org.gnucash.api.generated.SlotsType;
+import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -16,6 +22,7 @@ import org.gnucash.api.read.impl.GnuCashTransactionImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -220,6 +227,38 @@ public class FileTransactionManager {
 		}
 
 		return retval;
+	}
+
+	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
+		if ( acctLotID == null ) {
+			throw new IllegalArgumentException("null account-lot ID given");
+		}
+		
+		if ( ! acctLotID.isSet() ) {
+			throw new IllegalArgumentException("empty account-lot ID given");
+		}
+		
+		String acctLotIDStr = null;
+		try {
+			acctLotIDStr = acctLotID.get();
+		} catch (GCshIDNotSetException e) {
+			throw new IllegalArgumentException("Cannot get account-lot ID");
+		}
+		
+		List<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
+
+		for ( GnuCashTransactionSplit splt : trxSpltMap.values() ) {
+			SplitLot spltLot = ((GnuCashTransactionSplitImpl) splt).getJwsdpPeer().getSplitLot();
+			if ( spltLot != null ) {
+				if ( spltLot.getType().equals(Const.XML_DATA_TYPE_GUID) &&
+					 spltLot.getValue().equals(acctLotIDStr) ) {
+					GnuCashTransactionSplit newSplt = gcshFile.getTransactionSplitByID(splt.getID());
+					result.add(newSplt);
+				}
+			}
+		}
+
+		return result;
 	}
 
 	// ---------------------------------------------------------------
