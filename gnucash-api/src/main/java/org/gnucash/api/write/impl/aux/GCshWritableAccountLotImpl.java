@@ -1,36 +1,25 @@
 package org.gnucash.api.write.impl.aux;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.write.GnuCashWritableAccount;
-import org.gnucash.api.write.GnuCashWritableFile;
-import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.impl.GnuCashWritableAccountImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.api.write.impl.GnuCashWritableTransactionImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
-import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
  * Extension of GnuCashTransactionSplitImpl to allow read-write access instead of
@@ -85,9 +74,9 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	acct.addLot(this);
     }
 
-//    public GCshWritableAccountLotImpl(final GCshAccountLot lot) {
-//    	super(lot.getJwsdpPeer(), (GnuCashAccountImpl) lot.getAccount());
-//    }
+    public GCshWritableAccountLotImpl(final GCshAccountLotImpl lot) {
+    	super(lot.getJwsdpPeer(), (GnuCashAccountImpl) lot.getAccount());
+    }
 
     // ---------------------------------------------------------------
 

@@ -249,8 +249,8 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     public List<GCshWritableAccountLot> getWritableLots() {
 	List<GCshWritableAccountLot> result = new ArrayList<GCshWritableAccountLot>();
 	
-	for ( GCshAccountLot split : super.getLots() ) {
-		GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl(split);
+	for ( GCshAccountLot lot : super.getLots() ) {
+		GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl((GCshAccountLotImpl) lot);
 	    result.add(newLot);
 	}
 
