@@ -170,7 +170,8 @@ public class TestHasWritableUserDefinedAttributesImpl {
 		GnuCashWritableAccount acct = gcshInFile.getWritableAccountByID(ACCT_1_ID);
 		assertNotEquals(null, acct);
 
-		assertEquals(null, acct.getUserDefinedAttributeKeys());
+		assertEquals(1, acct.getUserDefinedAttributeKeys().size());
+		assertEquals("lot-mgmt", acct.getUserDefinedAttributeKeys().get(0));
 	}
 
 	// One slot
@@ -440,7 +441,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 	private void test_02_acct_01_check_memory(GnuCashWritableAccount acct) throws Exception {
 		assertEquals(ACCT_1_ID, acct.getID()); // unchanged
 		assertNotEquals(null, acct.getUserDefinedAttributeKeys()); // changed
-		assertEquals(1, acct.getUserDefinedAttributeKeys().size()); // changed
+		assertEquals(2, acct.getUserDefinedAttributeKeys().size()); // changed
 		assertEquals("http://bore.dom", acct.getUserDefinedAttribute("abc")); // changed
 	}
 
@@ -452,7 +453,7 @@ public class TestHasWritableUserDefinedAttributesImpl {
 
 		assertEquals(ACCT_1_ID, acct.getID()); // unchanged
 		assertNotEquals(null, acct.getUserDefinedAttributeKeys()); // changed
-		assertEquals(1, acct.getUserDefinedAttributeKeys().size()); // changed
+		assertEquals(2, acct.getUserDefinedAttributeKeys().size()); // changed
 		assertEquals("http://bore.dom", acct.getUserDefinedAttribute("abc")); // changed
 	}
 

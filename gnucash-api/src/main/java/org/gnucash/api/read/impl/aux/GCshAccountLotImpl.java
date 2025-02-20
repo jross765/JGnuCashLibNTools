@@ -6,20 +6,17 @@ import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
+import org.gnucash.api.generated.GncAccount.ActLots.GncLot;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.GnuCashFile;
-import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.GnuCashTransactionSplit.Action;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
+import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,26 +46,16 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
     @SuppressWarnings("exports")
     public GCshAccountLotImpl(
 	    final GncAccount.ActLots.GncLot peer,
-	    final GnuCashAccountImpl acct,
-	    final boolean addLotToAcct) {
+	    final GnuCashAccountImpl acct) {
 	super(acct.getGnuCashFile());
 
 	jwsdpPeer = peer;
 	myAccount = acct;
-
-	if ( addLotToAcct ) {
-	    if (acct == null) {
-	    	LOGGER.error("No such Account id='" + getAccountID() + "' for Account-Lot with id '" + getID()
-	    		+ "' title'" + getTitle() + "' in account with id '" + getAccount().getID() + "'");
-	    } else {
-	    	acct.addLot(this);
-	    }
-	}
     }
 
     // ---------------------------------------------------------------
 
-    /**
+	/**
      * @return the JWSDP-object we are wrapping.
      */
     @SuppressWarnings("exports")
@@ -89,18 +76,7 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
     		throw new IllegalStateException("No slots in account-lot");
     	}
     		
-		for ( Slot slot : jwsdpPeer.getLotSlots().getSlot() ) {
-			if ( slot.getSlotKey().equals("title") ) { // ::MAGIC
-				SlotValue val = slot.getSlotValue();
-				if ( val.getType().equals(Const.XML_DATA_TYPE_STRING) ) {
-					return val.getContent().toString();
-				} else {
-					return null;
-				}
-			}
-		}
-		
-		return null;
+		return getUserDefinedAttribute("title");
     }
 
 	@Override
@@ -109,18 +85,7 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
     		throw new IllegalStateException("No slots in account-lot");
     	}
     		
-		for ( Slot slot : jwsdpPeer.getLotSlots().getSlot() ) {
-			if ( slot.getSlotKey().equals("notes") ) { // ::MAGIC
-				SlotValue val = slot.getSlotValue();
-				if ( val.getType().equals(Const.XML_DATA_TYPE_STRING) ) {
-					return val.getContent().toString();
-				} else {
-					return null;
-				}
-			}
-		}
-		
-		return null;
+		return getUserDefinedAttribute("notes");
 	}
 	
 	// ----------------------------
@@ -197,6 +162,20 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
 	public List<GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	// -----------------------------------------------------------
+    
+	@Override
+	public String getUserDefinedAttribute(String name) {
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeCore(jwsdpPeer.getLotSlots(), name);
+	}
+
+	@Override
+	public List<String> getUserDefinedAttributeKeys() {
+		return HasUserDefinedAttributesImpl
+				.getUserDefinedAttributeKeysCore(jwsdpPeer.getLotSlots());
 	}
 
 	// ---------------------------------------------------------------

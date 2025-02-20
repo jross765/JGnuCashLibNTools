@@ -1,13 +1,17 @@
 package org.gnucash.api.write;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
+import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
@@ -84,9 +88,39 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      * @see {@link #setParentAccount(GnuCashAccount)}
      */
     void setParentAccountID(GCshID newParentID);
+    
+    /**
+     *  
+     * @return 
+     * @see GnuCashAccount#getLotByID(GCshID)
+     */
+    GCshWritableAccountLot getWritableLotByID(GCshID id);
 
     /**
-     * Remove this account from the sytem.<br/>
+     *  
+     * @see GnuCashAccount#getLots()
+     */
+    List<GCshWritableAccountLot> getWritableLots();
+
+    /**
+     * Create a new split, already atached to this transaction.
+     * 
+     * @param account the account for the new split
+     * @return a new split, already atached to this transaction
+     *  
+     */
+    GCshWritableAccountLot createWritableLot();
+
+    /**
+     * Removes the given lot from this account.
+     * 
+     * @param impl the lot to be removed from this account
+     *  
+     */
+    void remove(GCshWritableAccountLot lot);
+
+    /**
+     * Remove this account from the system.<br/>
      * Throws IllegalStateException if this account has splits or childres.
      */
     void remove();

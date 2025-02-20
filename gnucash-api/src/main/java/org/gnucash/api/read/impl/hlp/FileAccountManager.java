@@ -73,8 +73,10 @@ public class FileAccountManager {
 				} else {
 					lotList = ((GnuCashAccountImpl) acct).getLots(true);
 				}
-				for ( GCshAccountLot lot : lotList ) {
-					acctLotMap.put(lot.getID(), lot);
+				if ( lotList != null ) { // yes, that happens
+					for ( GCshAccountLot lot : lotList ) {
+						acctLotMap.put(lot.getID(), lot);
+					}
 				}
 			} catch (RuntimeException e) {
 				LOGGER.error("init2: [RuntimeException] Problem in " + getClass().getName() + ".init2: "
@@ -97,10 +99,8 @@ public class FileAccountManager {
 
 	protected GCshAccountLotImpl createAccountLot(
 			final GncAccount.ActLots.GncLot jwsdpAcctLot,
-			final GnuCashAccountImpl acct, 
-			final boolean addLotToAcct) {
-		GCshAccountLotImpl lot = new GCshAccountLotImpl(jwsdpAcctLot, acct, 
-				                                              addLotToAcct);
+			final GnuCashAccountImpl acct) {
+		GCshAccountLotImpl lot = new GCshAccountLotImpl(jwsdpAcctLot, acct);
 		LOGGER.debug("createAccountLot: Generated new account lot: " + lot.getID());
 		return lot;
 	}
@@ -540,8 +540,7 @@ public class FileAccountManager {
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 				try {
-					GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct,
-																 false);
+					GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
 					result.add(lot);
 				} catch (RuntimeException e) {
 					LOGGER.error("getAccountLots_readAfresh(1): [RuntimeException] Problem in "
@@ -563,8 +562,7 @@ public class FileAccountManager {
 			if ( acct.getID().equals(acctID) ) {
 				for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 					try {
-						GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct, 
-																	 true);
+						GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
 						result.add(lot);
 					} catch (RuntimeException e) {
 						LOGGER.error("getAccountLots_readAfresh(2): [RuntimeException] Problem in "

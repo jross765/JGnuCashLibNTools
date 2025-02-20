@@ -1949,6 +1949,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	// ----------------------------
 
+	public GncAccount.ActLots.GncLot createGncAccountLotType() {
+		GncAccount.ActLots.GncLot retval = getObjectFactory().createGncAccountActLotsGncLot();
+		// Does not apply:
+		// incrementCountDataFor();
+		return retval;
+	}
+
+	// ----------------------------
+
 	protected GncGncInvoice createGncGncInvoiceType() {
 		GncGncInvoice retval = getObjectFactory().createGncGncInvoice();
 		incrementCountDataFor("gnc:GncInvoice");

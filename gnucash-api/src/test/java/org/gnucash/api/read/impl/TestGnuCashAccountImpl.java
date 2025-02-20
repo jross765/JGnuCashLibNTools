@@ -10,6 +10,7 @@ import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +27,7 @@ public class TestGnuCashAccountImpl {
     public static final GCshID ACCT_5_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root Account:Aktiva:Forderungen:Unfug_Quatsch
     public static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account:Anfangsbestand
     public static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007100000 Mercedes-Benz
+    public static final GCshID ACCT_8_ID = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
 
     // -----------------------------------------------------------------
 
@@ -80,18 +82,24 @@ public class TestGnuCashAccountImpl {
 
     	assertEquals("fdffaa52f5b04754901dfb1cf9221494", acct.getParentAccountID().toString());
 
-    	assertEquals(7778.31, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
-    	assertEquals(7778.31, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	assertEquals(9175.31, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	assertEquals(9175.31, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
     	List<GnuCashTransaction> trxList = acct.getTransactions();
     	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
-    	assertEquals(9, trxList.size());
+    	assertEquals(10, trxList.size());
     	assertEquals("568864bfb0954897ab8578db4d27372f", trxList.get(0).getID().toString());
     	assertEquals("cc9fe6a245df45ba9b494660732a7755", trxList.get(1).getID().toString());
     	assertEquals("4307689faade47d8aab4db87c8ce3aaf", trxList.get(2).getID().toString());
     	assertEquals("29557cfdf4594eb68b1a1b710722f991", trxList.get(3).getID().toString());
     	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", trxList.get(4).getID().toString());
     	assertEquals("18a45dfc8a6868c470438e27d6fe10b2", trxList.get(5).getID().toString());
+
+    	List<GCshAccountLot> lotList = acct.getLots();
+    	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
+    	assertEquals(null, lotList);
+    	// assertEquals(1, lotList.size());
+    	// assertEquals("xyz", lotList.get(0).getID().toString());
     }
 
     @Test
@@ -110,12 +118,14 @@ public class TestGnuCashAccountImpl {
 
     	// ::TODO
     	assertEquals(0.0, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
-    	assertEquals(4428.0, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
+    	assertEquals(2978.0, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
     	// ::TODO
     	assertEquals(0, acct.getTransactions().size());
     	//    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID());
     	//    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(1).getID());
+
+    	assertEquals(null, acct.getLots());
     }
 
     @Test
@@ -145,6 +155,8 @@ public class TestGnuCashAccountImpl {
     	assertEquals(-289.92, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
     	assertEquals(0, acct.getTransactions().size());
+
+    	assertEquals(null, acct.getLots());
     }
 
     @Test
@@ -169,6 +181,12 @@ public class TestGnuCashAccountImpl {
     	assertEquals(2, acct.getTransactions().size());
     	assertEquals("aa64d862bb5e4d749eb41f198b28d73d", acct.getTransactions().get(0).getID().toString());
     	assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(1).getID().toString());
+
+    	List<GCshAccountLot> lotList = acct.getLots();
+    	assertEquals(1, lotList.size());
+    	assertEquals("ae4de9f6ba2941af94595a6b161795c7", lotList.get(0).getID().toString());
+    	assertEquals("Lieferantenrechnung 2740921", lotList.get(0).getTitle());
+    	// assertEquals(null, lotList.get(0).getNotes());
     }
 
     @Test
@@ -193,6 +211,12 @@ public class TestGnuCashAccountImpl {
     	assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(1).getID().toString());
     	assertEquals("9e066e5f3081485ab08539e41bf85495", acct.getTransactions().get(2).getID().toString());
     	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(3).getID().toString());
+
+    	List<GCshAccountLot> lotList = acct.getLots();
+    	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
+    	assertEquals(2, lotList.size());
+    	// assertEquals(1, lotList.size());
+    	// assertEquals("xyz", lotList.get(0).getID().toString());
     }
 
     @Test
@@ -213,6 +237,8 @@ public class TestGnuCashAccountImpl {
     	assertEquals(0.00, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
     	assertEquals(0, acct.getTransactions().size());
+
+    	assertEquals(null, acct.getLots());
     }
 
     @Test
@@ -234,5 +260,7 @@ public class TestGnuCashAccountImpl {
 
     	assertEquals(2, acct.getTransactions().size());
     	assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(0).getID().toString());
+
+    	assertEquals(null, acct.getLots());
     }
 }

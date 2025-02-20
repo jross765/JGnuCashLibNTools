@@ -1,23 +1,22 @@
 package org.gnucash.api.read.aux;
 
 import java.time.LocalDate;
-import java.util.Currency;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.hlp.GnuCashObject;
+import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 
 /**
  * ::TOOD
  */
-public interface GCshAccountLot extends GnuCashObject
+public interface GCshAccountLot extends GnuCashObject,
+                                        HasUserDefinedAttributes
 {
     // -----------------------------------------------------------------
     

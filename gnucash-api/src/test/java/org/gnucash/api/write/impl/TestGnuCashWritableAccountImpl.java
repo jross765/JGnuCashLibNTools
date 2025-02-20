@@ -5,11 +5,13 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
@@ -106,13 +108,19 @@ public class TestGnuCashWritableAccountImpl {
 		//    assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		//    assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		assertEquals(9, acct.getTransactions().size());
+		assertEquals(10, acct.getTransactions().size());
 		assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 		assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 		assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
 		assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(3).getID().toString());
 		assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(4).getID().toString());
 		assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(5).getID().toString());
+
+    	List<GCshAccountLot> lotList = acct.getLots();
+    	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
+    	assertEquals(null, lotList);
+    	// assertEquals(1, lotList.size());
+    	// assertEquals("xyz", lotList.get(0).getID().toString());
 	}
 
 	@Test
@@ -138,6 +146,8 @@ public class TestGnuCashWritableAccountImpl {
 		assertEquals(0, acct.getTransactions().size());
 		//    assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID());
 		//    assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(1).getID());
+
+    	assertEquals(null, acct.getLots());
 	}
 
 	// -----------------------------------------------------------------
@@ -214,13 +224,15 @@ public class TestGnuCashWritableAccountImpl {
 		//      assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		//      assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		assertEquals(9, acct.getTransactions().size());
+		assertEquals(10, acct.getTransactions().size());
 		assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 		assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 		assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
 		assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(3).getID().toString());
 		assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(4).getID().toString());
 		assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(5).getID().toString());
+
+    	assertEquals(null, acct.getLots());
 	}
 
 	private void test02_1_check_persisted(File outFile) throws Exception {
@@ -247,13 +259,15 @@ public class TestGnuCashWritableAccountImpl {
 		//     assertEquals(3060.46, acct.getBalance().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		//     assertEquals(3060.46, acct.getBalanceRecursive().doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		assertEquals(9, acct.getTransactions().size());
+		assertEquals(10, acct.getTransactions().size());
 		assertEquals("568864bfb0954897ab8578db4d27372f", acct.getTransactions().get(0).getID().toString());
 		assertEquals("cc9fe6a245df45ba9b494660732a7755", acct.getTransactions().get(1).getID().toString());
 		assertEquals("4307689faade47d8aab4db87c8ce3aaf", acct.getTransactions().get(2).getID().toString());
 		assertEquals("29557cfdf4594eb68b1a1b710722f991", acct.getTransactions().get(3).getID().toString());
 		assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(4).getID().toString());
 		assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(5).getID().toString());
+
+    	assertEquals(null, acct.getLots());
 	}
 
 	// -----------------------------------------------------------------

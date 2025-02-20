@@ -305,6 +305,8 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(acct11.getTransactions().size(), acct12.getTransactions().size());
 		assertTrue(acct11.getBalance().getBigDecimal().doubleValue() > 0);
 		assertEquals(acct11.getBalance(), acct12.getBalance());
+		assertTrue(acct11.getBalanceRecursive().getBigDecimal().doubleValue() > 0);
+		assertEquals(acct11.getBalanceRecursive(), acct12.getBalanceRecursive());
 	}
 
 	@Test

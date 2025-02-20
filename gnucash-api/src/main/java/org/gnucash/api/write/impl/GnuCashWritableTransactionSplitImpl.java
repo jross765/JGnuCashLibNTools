@@ -164,7 +164,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * remove this split from it's transaction.
+     * remove this split from its transaction.
      */
     public void remove() {
 	getTransaction().remove(this);

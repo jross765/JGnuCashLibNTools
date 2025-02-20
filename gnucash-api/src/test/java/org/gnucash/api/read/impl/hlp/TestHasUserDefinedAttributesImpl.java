@@ -143,7 +143,8 @@ public class TestHasUserDefinedAttributesImpl {
 		GnuCashAccount acct = gcshFile.getAccountByID(ACCT_1_ID);
 		assertNotEquals(null, acct);
 
-		assertEquals(null, acct.getUserDefinedAttributeKeys());
+		assertEquals(1, acct.getUserDefinedAttributeKeys().size());
+		assertEquals("lot-mgmt", acct.getUserDefinedAttributeKeys().get(0));
 	}
 
 	// One slot

@@ -72,8 +72,10 @@ public class FileTransactionManager {
 				} else {
 					spltList = ((GnuCashTransactionImpl) trx).getSplits(true, true);
 				}
-				for ( GnuCashTransactionSplit splt : spltList ) {
-					trxSpltMap.put(splt.getID(), splt);
+				if ( spltList != null ) { // shouldn't happen, just in case...
+					for ( GnuCashTransactionSplit splt : spltList ) {
+						trxSpltMap.put(splt.getID(), splt);
+					}
 				}
 			} catch (RuntimeException e) {
 				LOGGER.error("init2: [RuntimeException] Problem in " + getClass().getName() + ".init2: "

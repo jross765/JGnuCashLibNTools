@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
@@ -19,12 +20,18 @@ import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
+import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
+import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableFile;
+import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
+import org.gnucash.api.write.aux.GCshWritableAccountLot;
+import org.gnucash.api.write.impl.aux.GCshWritableAccountLotImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -183,12 +190,92 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     }
 
     /**
-     * Remove this account from the sytem.<br/>
+     * Create a new split for a split found in the jaxb-data.
+     *
+     * @param splt the jaxb-data
+     * @return the new split-instance
+     */
+    @Override
+    protected GCshAccountLotImpl createLot(final GncAccount.ActLots.GncLot lot) {
+	GCshWritableAccountLotImpl gcshAcctLot = 
+		new GCshWritableAccountLotImpl(lot, this);
+	if (helper.getPropertyChangeSupport() != null) {
+	    helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
+	}
+
+	return gcshAcctLot;
+    }
+
+    /**
+     * @see GnuCashWritableTransaction#createWritableSplit(GnuCashAccount)
+     */
+    public GCshWritableAccountLot createWritableLot() {
+	GCshWritableAccountLotImpl lot = new GCshWritableAccountLotImpl(this);
+	addLot(lot);
+	if (helper.getPropertyChangeSupport() != null) {
+	    helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
+	}
+	return lot;
+    }
+
+    /**
+     * @param impl the split to remove from this transaction
+     */
+    public void remove(final GCshWritableAccountLot impl) {
+	getJwsdpPeer().getActLots().getGncLot().remove(((GnuCashWritableTransactionSplitImpl) impl).getJwsdpPeer());
+	getWritableGnuCashFile().setModified(true);
+	if (myLots != null) {
+	    myLots.remove(impl);
+	}
+
+	// there is no count for lots up to now
+	// getWritableFile().decrementCountDataFor()
+
+	if (helper.getPropertyChangeSupport() != null) {
+	    helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
+	}
+    }
+
+    /**
+     * @see {@link #getSplitByID(GCshID)}
+     */
+    public GCshWritableAccountLot getWritableLotByID(final GCshID id) {
+	return (GCshWritableAccountLot) super.getLotByID(id);
+    }
+
+    /**
+     * @see #getSplits()
+     */
+    public List<GCshWritableAccountLot> getWritableLots() {
+	List<GCshWritableAccountLot> result = new ArrayList<GCshWritableAccountLot>();
+	
+	for ( GCshAccountLot split : super.getLots() ) {
+		GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl(split);
+	    result.add(newLot);
+	}
+
+	return result;
+    }
+
+    /**
+     * @param impl the split to add to mySplits
+     */
+    protected void addLot(final GCshWritableAccountLotImpl impl) {
+	super.addLot(impl);
+	// ((GnuCashFileImpl) getGnuCashFile()).getAccountManager().addAccountLot(impl, false);
+    }
+
+    /**
+     * Remove this account from the system.<br/>
      * Throws IllegalStateException if this account has splits or childres.
      */
     public void remove() {
 	if ( getTransactionSplits().size() > 0 ) {
 	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits!");
+	}
+	
+	if ( getLots().size() > 0 ) {
+	    throw new IllegalStateException("Cannot remove account while it contains lots!");
 	}
 	
 	if ( this.getChildren().size() > 0 ) {

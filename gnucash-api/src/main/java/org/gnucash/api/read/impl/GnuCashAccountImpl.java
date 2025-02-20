@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
-import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
@@ -63,7 +61,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     
     // ----------------------------
     
-    private /* final */ List<GCshAccountLot> myLots = null; // sic, null, i.Ggs. zu oben
+    protected /* final */ List<GCshAccountLot> myLots = null; // sic, null, i.Ggs. zu oben
 
     // ---------------------------------------------------------------
 
@@ -259,13 +257,13 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     public List<GCshAccountLot> getLots(boolean addToAcct) {
     	if (myLots == null) {
-    	    initLots(addToAcct);
+    	    initLots();
     	}
     	
     	return myLots;
     }
 
-    private void initLots(final boolean addToAcct) {
+    private void initLots() {
     	if ( jwsdpPeer.getActLots() == null )
     		return;
     	
@@ -273,7 +271,7 @@ public class GnuCashAccountImpl extends SimpleAccount
 
 	myLots = new ArrayList<GCshAccountLot>();
 	for ( GncAccount.ActLots.GncLot elt : jwsdpLots ) {
-		myLots.add(createLot(elt, addToAcct));
+		myLots.add(createLot(elt));
 	}
     }
 
@@ -284,17 +282,15 @@ public class GnuCashAccountImpl extends SimpleAccount
      * @return the new split-instance
      */
     protected GCshAccountLotImpl createLot(
-	    final GncAccount.ActLots.GncLot jwsdpLot,
-	    final boolean addToAcct) {
-	return new GCshAccountLotImpl(jwsdpLot, this, 
-		                             addToAcct);
+	    final GncAccount.ActLots.GncLot jwsdpLot) {
+	return new GCshAccountLotImpl(jwsdpLot, this);
     }
 
     /**
      * @see GnuCashAccount#addLot(GCshAccountLot)
      */
     public void addLot(final GCshAccountLot lot) {
-    	GCshAccountLot old = getAccountLotByID(lot.getID());
+    	GCshAccountLot old = getLotByID(lot.getID());
 	if ( old != null ) {
 	    // There already is a split with that ID
 	    if ( ! old.equals(lot) ) {

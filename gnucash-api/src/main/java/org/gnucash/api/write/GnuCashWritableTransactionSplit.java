@@ -25,7 +25,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	GnuCashWritableTransaction getTransaction();
 
 	/**
-	 * Remove this split from the sytem.
+	 * Remove this split from the system.
 	 *  
 	 */
 	void remove();

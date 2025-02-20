@@ -214,9 +214,9 @@
   </slot>
 </book:slots>
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
-<gnc:count-data cd:type="account">103</gnc:count-data>
-<gnc:count-data cd:type="transaction">15</gnc:count-data>
-<gnc:count-data cd:type="price">10</gnc:count-data>
+<gnc:count-data cd:type="account">106</gnc:count-data>
+<gnc:count-data cd:type="transaction">17</gnc:count-data>
+<gnc:count-data cd:type="price">11</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
@@ -362,6 +362,23 @@
     <price:source>user:split-register</price:source>
     <price:type>transaction</price:type>
     <price:value>22530000/1000000</price:value>
+  </price>
+  <price>
+    <price:id type="guid">6311202714c54fe889ee7aa616cf4715</price:id>
+    <price:commodity>
+      <cmdty:space>EURONEXT</cmdty:space>
+      <cmdty:id>SAP</cmdty:id>
+    </price:commodity>
+    <price:currency>
+      <cmdty:space>CURRENCY</cmdty:space>
+      <cmdty:id>EUR</cmdty:id>
+    </price:currency>
+    <price:time>
+      <ts:date>2025-02-19 10:59:00 +0000</ts:date>
+    </price:time>
+    <price:source>user:split-register</price:source>
+    <price:type>transaction</price:type>
+    <price:value>145000000/1000000</price:value>
   </price>
   <price>
     <price:id type="guid">8f2d1e3263aa4efba4a8e0e892c166b3</price:id>
@@ -569,7 +586,42 @@
   </act:commodity>
   <act:commodity-scu>10000</act:commodity-scu>
   <act:description>SAP SE</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>lot-mgmt</slot:key>
+      <slot:value type="frame">
+        <slot>
+          <slot:key>gains-acct</slot:key>
+          <slot:value type="frame">
+            <slot>
+              <slot:key>CURRENCY::EUR</slot:key>
+              <slot:value type="guid">52f6de2021ca4accb4358a62f8df225f</slot:value>
+            </slot>
+          </slot:value>
+        </slot>
+        <slot>
+          <slot:key>next-id</slot:key>
+          <slot:value type="integer">1</slot:value>
+        </slot>
+      </slot:value>
+    </slot>
+  </act:slots>
   <act:parent type="guid">cc2c4709633943c39293bfd73de88c9b</act:parent>
+  <act:lots>
+    <gnc:lot version="2.0.0">
+      <lot:id type="guid">ef15827f413a4eeeaf8a7b492252b443</lot:id>
+      <lot:slots>
+        <slot>
+          <slot:key>notes</slot:key>
+          <slot:value type="string">Zur korrekten Vorbereitung des Jahresabschlusses ist ein vollständiges Abbilden der Posten-Logik notwendig.</slot:value>
+        </slot>
+        <slot>
+          <slot:key>title</slot:key>
+          <slot:value type="string">Charge 0</slot:value>
+        </slot>
+      </lot:slots>
+    </gnc:lot>
+  </act:lots>
 </gnc:account>
 <gnc:account version="2.0.0">
   <act:name>Depot SocGen</act:name>
@@ -1054,6 +1106,45 @@
   </act:commodity>
   <act:commodity-scu>100</act:commodity-scu>
   <act:parent type="guid">da2b964bc1b044719c598bd41f404c71</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Gewinne</act:name>
+  <act:id type="guid">04c305488604443ea7c668f9f30cf8dd</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:slots>
+    <slot>
+      <slot:key>balance-limit</slot:key>
+      <slot:value type="frame"/>
+    </slot>
+    <slot>
+      <slot:key>placeholder</slot:key>
+      <slot:value type="string">true</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">d81fd0a20c01452aa009db11647d6477</act:parent>
+</gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>real</act:name>
+  <act:id type="guid">9dbad1fda79644b0916154b404f84763</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>realisierte Gewinne</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>balance-limit</slot:key>
+      <slot:value type="frame"/>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">04c305488604443ea7c668f9f30cf8dd</act:parent>
 </gnc:account>
 <gnc:account version="2.0.0">
   <act:name>Aufwendungen</act:name>
@@ -1885,6 +1976,24 @@
   <act:commodity-scu>100</act:commodity-scu>
   <act:parent type="guid">14305dc80e034834b3f531696d81b493</act:parent>
 </gnc:account>
+<gnc:account version="2.0.0">
+  <act:name>Unverknüpfte Gewinne-EUR</act:name>
+  <act:id type="guid">52f6de2021ca4accb4358a62f8df225f</act:id>
+  <act:type>INCOME</act:type>
+  <act:commodity>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </act:commodity>
+  <act:commodity-scu>100</act:commodity-scu>
+  <act:description>Realisierter Gewinn/Verlust</act:description>
+  <act:slots>
+    <slot>
+      <slot:key>notes</slot:key>
+      <slot:value type="string">Realisierter Gewinn/Verlust von Aktienkonten, die nicht woanders gespeichert worden sind.</slot:value>
+    </slot>
+  </act:slots>
+  <act:parent type="guid">14305dc80e034834b3f531696d81b493</act:parent>
+</gnc:account>
 <gnc:transaction version="2.0.0">
   <trn:id type="guid">cc9fe6a245df45ba9b494660732a7755</trn:id>
   <trn:currency>
@@ -1958,7 +2067,7 @@
       <split:id type="guid">eb16c2887bfe4e53b8508142ba8fac7a</split:id>
       <split:action>Aktienteilung</split:action>
       <split:reconciled-state>n</split:reconciled-state>
-      <split:value>0/1</split:value>
+      <split:value>0/100</split:value>
       <split:quantity>1000000/10000</split:quantity>
       <split:account type="guid">d49554f33a0340bdb6611a1ab5575998</split:account>
       <split:slots>
@@ -1999,6 +2108,7 @@
       <split:value>187500/100</split:value>
       <split:quantity>150000/10000</split:quantity>
       <split:account type="guid">b3741e92e3b9475b9d5a2dc8254a8111</split:account>
+      <split:lot type="guid">ef15827f413a4eeeaf8a7b492252b443</split:lot>
     </trn:split>
     <trn:split>
       <split:id type="guid">65539ddefc34439d80925275226e7849</split:id>
@@ -2065,6 +2175,105 @@
       <split:value>-1100/100</split:value>
       <split:quantity>-1100/100</split:quantity>
       <split:account type="guid">d7c384bfc136464490965f3f254313b1</split:account>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">ae0dff27500e440293267a9c7db061f5</trn:id>
+  <trn:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2025-02-19 10:59:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2025-02-19 16:34:30 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>Verkauf SAP</trn:description>
+  <trn:slots>
+    <slot>
+      <slot:key>date-posted</slot:key>
+      <slot:value type="gdate">
+        <gdate>2025-02-19</gdate>
+      </slot:value>
+    </slot>
+  </trn:slots>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">99ba6ded10c54e34a8c5c5fd33a964d5</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>139700/100</split:value>
+      <split:quantity>139700/100</split:quantity>
+      <split:account type="guid">bbf77a599bd24a3dbfec3dd1d0bb9f5c</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">6b9149b937ea484b8e920f793e138d31</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>5000/100</split:value>
+      <split:quantity>5000/100</split:quantity>
+      <split:account type="guid">2a195872e24048a0a6228107ca8b6a52</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">ce99718854bc4416b25ff030fff487a4</split:id>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>300/100</split:value>
+      <split:quantity>300/100</split:quantity>
+      <split:account type="guid">41e998de2af144c7a9db5049fb677f8a</split:account>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">37eb9775e0644ee68e9414f28eef9cdb</split:id>
+      <split:action>Verkauf</split:action>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-145000/100</split:value>
+      <split:quantity>-100000/10000</split:quantity>
+      <split:account type="guid">b3741e92e3b9475b9d5a2dc8254a8111</split:account>
+      <split:lot type="guid">ef15827f413a4eeeaf8a7b492252b443</split:lot>
+      <split:slots>
+        <slot>
+          <slot:key>gains-split</slot:key>
+          <slot:value type="guid">e2cc9ce07b6f40e0a49c68f7e41d3fd0</slot:value>
+        </slot>
+      </split:slots>
+    </trn:split>
+  </trn:splits>
+</gnc:transaction>
+<gnc:transaction version="2.0.0">
+  <trn:id type="guid">c26d5c05c72e4412a87eee5ba49d4cce</trn:id>
+  <trn:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </trn:currency>
+  <trn:date-posted>
+    <ts:date>2025-02-19 10:59:00 +0000</ts:date>
+  </trn:date-posted>
+  <trn:date-entered>
+    <ts:date>2025-02-19 16:56:05 +0000</ts:date>
+  </trn:date-entered>
+  <trn:description>Realisierter Gewinn/Verlust</trn:description>
+  <trn:splits>
+    <trn:split>
+      <split:id type="guid">e2cc9ce07b6f40e0a49c68f7e41d3fd0</split:id>
+      <split:memo>Realisierter Gewinn/Verlust</split:memo>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>20000/100</split:value>
+      <split:quantity>0/10000</split:quantity>
+      <split:account type="guid">b3741e92e3b9475b9d5a2dc8254a8111</split:account>
+      <split:lot type="guid">ef15827f413a4eeeaf8a7b492252b443</split:lot>
+      <split:slots>
+        <slot>
+          <slot:key>gains-source</slot:key>
+          <slot:value type="guid">37eb9775e0644ee68e9414f28eef9cdb</slot:value>
+        </slot>
+      </split:slots>
+    </trn:split>
+    <trn:split>
+      <split:id type="guid">3cf5a146df4c47e7ae812cde20a47a1d</split:id>
+      <split:memo>Realisierter Gewinn/Verlust</split:memo>
+      <split:reconciled-state>n</split:reconciled-state>
+      <split:value>-20000/100</split:value>
+      <split:quantity>-20000/100</split:quantity>
+      <split:account type="guid">9dbad1fda79644b0916154b404f84763</split:account>
     </trn:split>
   </trn:splits>
 </gnc:transaction>

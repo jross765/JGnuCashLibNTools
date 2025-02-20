@@ -471,7 +471,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshAccountLot getAccountLotByID(final GCshID id) {
+	public GCshAccountLot getLotByID(final GCshID id) {
 		if ( id == null ) {
 			throw new IllegalArgumentException("null id given!");
 		}

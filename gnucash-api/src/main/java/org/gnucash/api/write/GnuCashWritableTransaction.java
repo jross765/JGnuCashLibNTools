@@ -108,9 +108,9 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
     GnuCashWritableTransactionSplit createWritableSplit(GnuCashAccount account);
 
     /**
-     * Also removes the split from it's account.
+     * Removes the given split from this transaction.
      * 
-     * @param impl the split to remove from this transaction
+     * @param impl the split to be removed from this transaction
      *  
      */
     void remove(GnuCashWritableTransactionSplit impl);
