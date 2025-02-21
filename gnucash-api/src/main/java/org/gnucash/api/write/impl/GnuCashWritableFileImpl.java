@@ -804,7 +804,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		GnuCashTransactionSplit splt = super.getTransactionSplitByID(spltID);
-		return new GnuCashWritableTransactionSplitImpl((GnuCashTransactionSplitImpl) splt);
+		// ::TODO
+		// !!! Diese nicht-triviale Änderung nochmal ganz genau abtesten !!!
+		return new GnuCashWritableTransactionSplitImpl((GnuCashTransactionSplitImpl) splt, false, false);
 	}
 
 	/**
@@ -1949,6 +1951,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	// ----------------------------
 
+	@SuppressWarnings("exports")
 	public GncAccount.ActLots.GncLot createGncAccountLotType() {
 		GncAccount.ActLots.GncLot retval = getObjectFactory().createGncAccountActLotsGncLot();
 		// Does not apply:

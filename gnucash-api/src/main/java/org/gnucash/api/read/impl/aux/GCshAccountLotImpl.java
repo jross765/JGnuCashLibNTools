@@ -4,11 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncAccount.ActLots.GncLot;
-import org.gnucash.api.generated.Slot;
-import org.gnucash.api.generated.SlotValue;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
@@ -182,14 +178,30 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
 
     @Override
     public String toString() {
-	
-	String result = "GnuCashAccountLotImpl [";
+    	StringBuffer buffer = new StringBuffer();
+    	buffer.append("GCshAccountLotImpl [");
 
-    result += "id='" + getID().toString() + "'";
-	result += ", title='" + getTitle() + "'"; 
-	result += ", notes='" + getNotes() + "']";
-	
-	return result;
+    	buffer.append("id=");
+    	buffer.append(getID());
+
+    	buffer.append(", account-id=");
+    	buffer.append(getAccount().getID());
+
+//    		buffer.append(", account=");
+//    		GnuCashAccount account = getAccount();
+//    		buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
+
+    	buffer.append(", title='");
+    	buffer.append(getTitle() + "'");
+
+    	buffer.append(", notes='");
+    	buffer.append(getNotes() + "'");
+
+//    	buffer.append(", account-description='");
+//    	buffer.append(getAccount().getDescription() + "'");
+
+    	buffer.append("]");
+    	return buffer.toString();
     }
 
 }

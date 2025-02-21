@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
-import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.Slot;
 import org.gnucash.api.generated.SlotValue;
@@ -23,7 +22,6 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
-import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnuCashWritableAccount;
@@ -235,12 +233,45 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	    helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
 	}
     }
+    
+    // ---------------------------------------------------------------
+
+    /**
+     * 
+     */
+    public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID) {
+	return (GnuCashWritableTransactionSplit) super.getTransactionSplitByID(spltID);
+    }
+
+    /**
+     * 
+     */
+    public List<GnuCashWritableTransactionSplit> getWritableTransactionSplits() {
+	List<GnuCashWritableTransactionSplit> result = new ArrayList<GnuCashWritableTransactionSplit>();
+	
+	for ( GnuCashTransactionSplit splt : super.getTransactionSplits() ) {
+		GnuCashWritableTransactionSplitImpl newSplt = new GnuCashWritableTransactionSplitImpl(splt);
+	    result.add(newSplt);
+	}
+
+	return result;
+    }
+
+    /**
+     * @param impl the split to add to mySplits
+     */
+    protected void addTransactionSplit(final GnuCashWritableTransactionSplitImpl impl) {
+	super.addTransactionSplit(impl);
+	// ((GnuCashFileImpl) getGnuCashFile()).getAccountManager().addTransactionSplit(impl, false);
+    }
+
+    // ---------------------------------------------------------------
 
     /**
      * @see {@link #getSplitByID(GCshID)}
      */
-    public GCshWritableAccountLot getWritableLotByID(final GCshID id) {
-	return (GCshWritableAccountLot) super.getLotByID(id);
+    public GCshWritableAccountLot getWritableLotByID(final GCshID lotID) {
+	return (GCshWritableAccountLot) super.getLotByID(lotID);
     }
 
     /**
@@ -264,6 +295,8 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	super.addLot(impl);
 	// ((GnuCashFileImpl) getGnuCashFile()).getAccountManager().addAccountLot(impl, false);
     }
+
+    // ---------------------------------------------------------------
 
     /**
      * Remove this account from the system.<br/>
@@ -317,6 +350,10 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     public void addTransactionSplit(final GnuCashTransactionSplit splt) {
 		if ( splt == null ) {
 			throw new IllegalArgumentException("null split given");
+		}
+		
+		if ( ! splt.getAccountID().equals(getID()) ) {
+			throw new IllegalArgumentException("split " + splt.getID() + " does not belong to account " + getID());
 		}
 		
 		if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||

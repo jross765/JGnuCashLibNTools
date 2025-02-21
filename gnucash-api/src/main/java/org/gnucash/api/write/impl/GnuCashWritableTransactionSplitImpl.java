@@ -17,6 +17,7 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,6 +91,14 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     		  true, true);
     }
 
+    public GnuCashWritableTransactionSplitImpl(
+    		final GnuCashTransactionSplit split,
+    		final boolean addSpltToAcct,
+    		final boolean addSpltToInvc) {
+    	super(split.getJwsdpPeer(), split.getTransaction(), 
+    		  addSpltToAcct, addSpltToInvc);
+    }
+
     // ---------------------------------------------------------------
 
     /**
@@ -117,10 +126,10 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	}
 	
 	// This is needed because transaction.addSplit() later
-	// must have an already build List of splits.
-	// if not it will create the list from the JAXB-Data
-	// thus 2 instances of this GnuCashWritableTransactionSplitImpl
-	// will exist. One created in getSplits() from this JAXB-Data
+	// must have an already built List of splits --
+	// if not, it will create the list from the JAXB-Data.
+	// Thus, 2 instances of this GnuCashWritableTransactionSplitImpl
+	// will exist: One created in getSplits() from this JAXB-Data
 	// the other is this object.
 	trx.getSplits();
 	
@@ -173,8 +182,8 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     /**
      * @see GnuCashWritableTransactionSplit#setAccount(GnuCashAccount)
      */
-    public void setAccountID(final GCshID accountId) {
-	setAccount(getTransaction().getGnuCashFile().getAccountByID(accountId));
+    public void setAccountID(final GCshID acctID) {
+	setAccount(getTransaction().getGnuCashFile().getAccountByID(acctID));
     }
 
     /**
@@ -248,11 +257,11 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
 	((GnuCashWritableFile) getGnuCashFile()).setModified(true);
 	if (isCurrencyMatching()) {
-	    String oldvalue = getJwsdpPeer().getSplitValue();
-	    getJwsdpPeer().setSplitValue(n.toGnuCashString());
+	    String oldQuant = getJwsdpPeer().getSplitQuantity();
+	    getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
 	    if (old == null || !old.equals(n.toGnuCashString())) {
 		if (helper.getPropertyChangeSupport() != null) {
-		    helper.getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(oldvalue), n);
+		    helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldQuant), n);
 		}
 	    }
 	}
@@ -367,13 +376,13 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	}
     }
 
-    public void setLotID(final String lotID) {
-	if (lotID == null) {
+    public void setLotID(final GCshID lotID) {
+	if ( lotID == null ) {
 	    throw new IllegalArgumentException("null lot ID given!");
 	}
 
-	if (lotID.trim().length() == 0) {
-	    throw new IllegalArgumentException("empty lot ID given!");
+	if ( ! lotID.isSet() ) {
+	    throw new IllegalArgumentException("unset lot ID given!");
 	}
 
 	GnuCashWritableTransactionImpl trx = (GnuCashWritableTransactionImpl) getTransaction();
@@ -384,8 +393,13 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	    GncTransaction.TrnSplits.TrnSplit.SplitLot lot = factory.createGncTransactionTrnSplitsTrnSplitSplitLot();
 	    getJwsdpPeer().setSplitLot(lot);
 	}
-	getJwsdpPeer().getSplitLot().setValue(lotID);
-	getJwsdpPeer().getSplitLot().setType(Const.XML_DATA_TYPE_GUID);
+	
+	try {
+		getJwsdpPeer().getSplitLot().setValue(lotID.get());
+		getJwsdpPeer().getSplitLot().setType(Const.XML_DATA_TYPE_GUID);
+	} catch (GCshIDNotSetException exc) {
+	    throw new IllegalArgumentException("unset lot ID given!"); // Compiler happy
+	}
 
 	// if we have a lot, and if we are a paying transaction, then check the slots
 	// ::TODO ::CHECK
@@ -407,6 +421,14 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 //			slots.getSlot().add(slot);
 //		}
 
+    }
+
+    public void unsetLotID() {
+	if ( getLotID() == null ) {
+	    throw new IllegalStateException("no lot ID in this transaction split!");
+	}
+
+	getJwsdpPeer().setSplitLot(null);
     }
 
     // --------------------- support for propertyChangeListeners ---------------

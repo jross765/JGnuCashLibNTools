@@ -5,9 +5,7 @@ import java.util.List;
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.ObjectFactory;
-import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
-import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
@@ -60,17 +58,6 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	super(createAccountLot_int(acct, GCshID.getNew()), 
 		  acct);
 
-	// ::TODO ::CHECK
-	// this is a workaround.
-	// if super does account.addLot(this) it adds an instance on
-	// GnuCashAccountLotImpl that is "!=
-	// (GnuCashWritableAccountLotImpl)this";
-	// thus we would get warnings about duplicate split-ids and can no longer
-	// compare splits by instance.
-	// if(account!=null)
-	// ((GnuCashAccountImpl)account).replaceAccountLot(account.getAccountLotByID(getID()),
-	// GnuCashWritableAccountLotImpl.this);
-
 	acct.addLot(this);
     }
 
@@ -99,11 +86,11 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 		throw new IllegalArgumentException("unset ID given");
 	}
 	
-	// This is needed because transaction.addSplit() later
-	// must have an already build List of splits.
-	// if not it will create the list from the JAXB-Data
-	// thus 2 instances of this GnuCashWritableTransactionSplitImpl
-	// will exist. One created in getSplits() from this JAXB-Data
+	// This is needed because account.addLot() later
+	// must have an already built List of lots --
+	// if not, it will create the list from the JAXB-Data.
+	// Thus 2 instances of this GCshWritableAccountLotImpl
+	// will exist: One created in getLots() from this JAXB-Data
 	// the other is this object.
 	acct.getLots();
 	
@@ -119,7 +106,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	    jwsdpLot.setLotId(id);
 	}
 	
-	LOGGER.debug("createTransactionSplit_int: Created new account lot (core): " + jwsdpLot.getLotId().getValue());
+	LOGGER.debug("createAccountLot_int: Created new account lot (core): " + jwsdpLot.getLotId().getValue());
 	
 	return jwsdpLot;
 	}
@@ -127,7 +114,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
     // ---------------------------------------------------------------
 
     /**
-     * @see GnuCashTransactionSplitImpl#getTransaction()
+     * @see GCshAccountLotImpl#getAccount()
      */
     @Override
     public GnuCashWritableAccount getAccount() {
@@ -156,17 +143,34 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public void setTransactionSplits(List<GnuCashTransactionSplit> splitList) {
-		// TODO Auto-generated method stub
-		// This is not going to be trivial...
+	public void clearTransactionSplits() {
+		for ( GnuCashWritableTransactionSplit splt : getAccount().getWritableTransactionSplits() ) {
+			if ( splt.getLotID() != null ) {
+				if ( splt.getAccountID().equals(getAccountID()) && /* this should be the case anyway */
+					 splt.getLotID().equals(getID()) ) {           /* this is the actual condition */
+					splt.unsetLotID();
+				}
+			}
+		}
 	}
 
 	@Override
-	public void addTransactionSplit(GnuCashWritableTransactionSplit split) {
-		// TODO Auto-generated method stub
-		// This is not going to be trivial...
+	public void addTransactionSplit(GnuCashWritableTransactionSplit splt) {
+		if ( ! splt.getAccountID().equals(getAccountID()) ) {
+			throw new IllegalArgumentException("split " + splt.getID() + " does not belong to account " + getAccountID());
+		}
+		
+		splt.setLotID(getID());
 	}
 	
+	@Override
+	public void setTransactionSplits(List<GnuCashWritableTransactionSplit> splitList) {
+		clearTransactionSplits();
+		for ( GnuCashWritableTransactionSplit splt : splitList ) {
+			addTransactionSplit(splt);
+		}
+	}
+
     // --------------------- support for propertyChangeListeners ---------------
 
     /**

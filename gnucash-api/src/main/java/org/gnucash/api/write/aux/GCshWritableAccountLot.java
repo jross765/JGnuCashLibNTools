@@ -33,9 +33,11 @@ public interface GCshWritableAccountLot extends GCshAccountLot,
 
     // -----------------------------------------------------------------
 
-    void setTransactionSplits(List<GnuCashTransactionSplit> splitList);
+    void clearTransactionSplits();
 
-    void addTransactionSplit(final GnuCashWritableTransactionSplit split);
+    void addTransactionSplit(GnuCashWritableTransactionSplit split);
+
+    void setTransactionSplits(List<GnuCashWritableTransactionSplit> splitList);
 
 }
 

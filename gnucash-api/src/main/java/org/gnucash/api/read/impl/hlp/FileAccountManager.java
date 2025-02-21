@@ -68,11 +68,7 @@ public class FileAccountManager {
 		for ( GnuCashAccount acct : acctMap.values() ) {
 			try {
 				List<GCshAccountLot> lotList = null;
-				if ( gcshFile instanceof GnuCashWritableFileImpl ) {
-					lotList = ((GnuCashAccountImpl) acct).getLots(false);
-				} else {
-					lotList = ((GnuCashAccountImpl) acct).getLots(true);
-				}
+				lotList = ((GnuCashAccountImpl) acct).getLots();
 				if ( lotList != null ) { // yes, that happens
 					for ( GCshAccountLot lot : lotList ) {
 						acctLotMap.put(lot.getID(), lot);

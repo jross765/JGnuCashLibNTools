@@ -4,14 +4,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
-import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
@@ -89,12 +87,35 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      */
     void setParentAccountID(GCshID newParentID);
     
+    // ---------------------------------------------------------------
+
+    /**
+     *  
+     */
+    GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshID spltID);
+
+    /**
+     *  
+     */
+    List<GnuCashWritableTransactionSplit> getWritableTransactionSplits();
+
+    /**
+     * Create a new split, already atached to this transaction.
+     * 
+     * @param account the account for the new split
+     * @return a new split, already atached to this transaction
+     *  
+     */
+//    GCshWritableAccountLot createWritableTransactionSplit();
+
+    // ---------------------------------------------------------------
+
     /**
      *  
      * @return 
      * @see GnuCashAccount#getLotByID(GCshID)
      */
-    GCshWritableAccountLot getWritableLotByID(GCshID id);
+    GCshWritableAccountLot getWritableLotByID(GCshID lotID);
 
     /**
      *  
@@ -110,6 +131,8 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      *  
      */
     GCshWritableAccountLot createWritableLot();
+
+    // ---------------------------------------------------------------
 
     /**
      * Removes the given lot from this account.

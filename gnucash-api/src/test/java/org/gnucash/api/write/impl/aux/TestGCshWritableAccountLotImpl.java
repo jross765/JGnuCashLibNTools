@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshAccountLotImpl;
 import org.gnucash.api.write.GnuCashWritableAccount;
+import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -127,6 +129,17 @@ public class TestGCshWritableAccountLotImpl {
 
 		lot.setTitle("Wutzi der Hammervogel");
 		lot.setNotes("Buale, Buale, Buale... mein Gott, ist unser Buale sueass!");
+		
+		try {
+			GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshID("980706f1ead64460b8205f093472c855"));
+			lot.addTransactionSplit(splt); // illegal arg.
+			assertEquals(0, 1);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+
+		GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshID("c3ae14400ec843f9bf63f5ef69a31528"));
+		lot.addTransactionSplit(splt); // valid arg.
 
 		// ----------------------------
 		// Check whether the object can has actually be modified

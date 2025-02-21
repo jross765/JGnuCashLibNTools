@@ -403,7 +403,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(String)
+     * @see #getGenerInvoiceByID(GCshID)
      * @see #getPaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashVendorBill>      getPaidBillsForVendor_direct(GnuCashVendor vend);

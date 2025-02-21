@@ -1055,7 +1055,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	}
 	
 	// post lot
-	String acctLotID = "(unset)";
+	GCshID acctLotID = new GCshID();
 	{
 	    GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
 	    postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1064,8 +1064,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 		    					invcGUID, invcNumber, 
 		                                        receivableAcct, cust);
 	    
-	    acctLotID = newLot.getLotId().getValue();
-	    postLotRef.setValue(acctLotID);
+	    acctLotID.set(newLot.getLotId().getValue());
+	    postLotRef.setValue(acctLotID.toString());
 	    
 	    invcRef.setInvoicePostlot(postLotRef);
 	}
@@ -1124,7 +1124,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	String acctLotID = "(unset)";
+	GCshID acctLotID = new GCshID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1133,8 +1133,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         	    					invcGUID, invcNumber,
         	    					payableAcct, vend);
     
-	    acctLotID = newLot.getLotId().getValue();
-            postLotRef.setValue(acctLotID);
+            acctLotID.set(newLot.getLotId().getValue());
+            postLotRef.setValue(acctLotID.toString());
             invcRef.setInvoicePostlot(postLotRef);
         }
     
@@ -1191,7 +1191,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	String acctLotID = "(unset)";
+	GCshID acctLotID = new GCshID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1200,8 +1200,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         	    					invcGUID, invcNumber,
         	    					payableAcct, empl);
     
-	    acctLotID = newLot.getLotId().getValue();
-            postLotRef.setValue(acctLotID);
+            acctLotID.set(newLot.getLotId().getValue());
+            postLotRef.setValue(acctLotID.toString());
             invcRef.setInvoicePostlot(postLotRef);
         }
     
@@ -1258,7 +1258,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	String acctLotID = "(unset)";
+	GCshID acctLotID = new GCshID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1267,8 +1267,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         	    					invcGUID, invcNumber,
         	                                        recvblPayblAcct, job);
     
-	    acctLotID = newLot.getLotId().getValue();
-            postLotRef.setValue(acctLotID);
+            acctLotID.set(newLot.getLotId().getValue());
+            postLotRef.setValue(acctLotID.toString());
             invcRef.setInvoicePostlot(postLotRef);
         }
         
@@ -1311,7 +1311,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    final String descr,
 	    final GnuCashAccount fromAcct, // receivable/payable account
 	    final GnuCashAccount toAcct,   // income/expense account
-	    final String acctLotID,
+	    final GCshID acctLotID,
 	    final FixedPointNumber amount,
 	    final FixedPointNumber quantity,
 	    final LocalDate postDate,

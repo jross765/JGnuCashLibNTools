@@ -214,15 +214,16 @@ public class GnuCashAccountImpl extends SimpleAccount
 	    // There already is a split with that ID
 	    if ( ! old.equals(splt) ) {
 	    	System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-	    			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
-	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
-	    			"new=" + splt.toString() + "\n" + 
-	    			"old=" + old.toString());
+	    			splt.getID() + " [" + splt.getClass().getName() + "] and " + 
+	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
+	    			"new = " + splt.toString() + "\n" + 
+	    			"old = " + old.toString());
 	    	LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-	    			splt.getID() + "[" + splt.getClass().getName() + "] and " + 
-	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
+	    			splt.getID() + " [" + splt.getClass().getName() + "] and " + 
+	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
 	    			"new=" + splt.toString() + "\n" + 
 	    			"old=" + old.toString());
+	    	// ::TODO
 	    	IllegalStateException exc = new IllegalStateException("DEBUG");
 	    	exc.printStackTrace();
 	    	replaceTransactionSplit(old, splt);
@@ -239,8 +240,9 @@ public class GnuCashAccountImpl extends SimpleAccount
      *
      * @param splt
      */
-    public void replaceTransactionSplit(final GnuCashTransactionSplit splt,
-	    final GnuCashTransactionSplit impl) {
+    public void replaceTransactionSplit(
+    		final GnuCashTransactionSplit splt,
+    		final GnuCashTransactionSplit impl) {
     	if ( ! mySplits.remove(splt) ) {
     		throw new IllegalArgumentException("old object not found!");
     	}
@@ -252,10 +254,6 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     @Override
     public List<GCshAccountLot> getLots() {
-	return getLots(false);
-    }
-
-    public List<GCshAccountLot> getLots(boolean addToAcct) {
     	if (myLots == null) {
     	    initLots();
     	}
@@ -292,18 +290,18 @@ public class GnuCashAccountImpl extends SimpleAccount
     public void addLot(final GCshAccountLot lot) {
     	GCshAccountLot old = getLotByID(lot.getID());
 	if ( old != null ) {
-	    // There already is a split with that ID
+	    // There already is a lot with that ID
 	    if ( ! old.equals(lot) ) {
 	    	System.err.println("addLot: New Account Lot object with same ID, needs to be replaced: " + 
-	    			lot.getID() + "[" + lot.getClass().getName() + "] and " + 
-	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
-	    			"new=" + lot.toString() + "\n" + 
-	    			"old=" + old.toString());
+	    			lot.getID() + " [" + lot.getClass().getName() + "] and " + 
+	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
+	    			"new = " + lot.toString() + "\n" + 
+	    			"old = " + old.toString());
 	    	LOGGER.error("addLot: New Account Lot object with same ID, needs to be replaced: " + 
-	    			lot.getID() + "[" + lot.getClass().getName() + "] and " + 
-	    			old.getID() + "[" + old.getClass().getName() + "]\n" + 
-	    			"new=" + lot.toString() + "\n" + 
-	    			"old=" + old.toString());
+	    			lot.getID() + " [" + lot.getClass().getName() + "] and " + 
+	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
+	    			"new = " + lot.toString() + "\n" + 
+	    			"old = " + old.toString());
 	    	IllegalStateException exc = new IllegalStateException("DEBUG");
 	    	exc.printStackTrace();
 	    	replaceLot(old, lot);
@@ -319,8 +317,9 @@ public class GnuCashAccountImpl extends SimpleAccount
      *
      * @param lot
      */
-    public void replaceLot(final GCshAccountLot lot,
-	    final GCshAccountLot impl) {
+    public void replaceLot(
+    		final GCshAccountLot lot,
+    		final GCshAccountLot impl) {
     	if ( ! myLots.remove(lot) ) {
     		throw new IllegalArgumentException("old object not found!");
     	}

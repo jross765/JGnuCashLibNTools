@@ -37,7 +37,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * @param accountId the new account to give this
 	 *        money to/take it from.
 	 */
-	void setAccountID(GCshID accountId);
+	void setAccountID(GCshID acctID);
 
 	/**
 	 * Does not convert the quantity to another
@@ -53,11 +53,21 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * contains a reference to the account lot which in turn
 	 * references the invoice.
 	 * 
-	 * @param accountId the new account to give this
-	 *        money to/take it from.
+	 * Similarly For transactions on stock accounts: When buying and
+	 * selling securities, it is important to know which securities
+	 * exactly have been sold (typically FIFO logic) in order to be able
+	 * to correctly prepare a tax report. This is achieved by account lots
+	 * which in turn contain the relevant transaction splits. Technically
+	 * speaking, the according splits point to the account lot. With this
+	 * function, you can have a transaction split point to a specific 
+	 * stock account's lot.
+	 * 
+	 * @param lotID the ID of the account lot this transaction split
+     * shall reference to..
 	 */
-	void setLotID(String accountId);
+	void setLotID(GCshID lotID);
 
+	void unsetLotID();
 
 	/**
 	 * If the currencies of transaction and account match, this also does
