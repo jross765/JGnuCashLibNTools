@@ -78,6 +78,9 @@ public class TestGnuCashTransactionSplitImpl {
 		assertEquals("-2.253,00 €", splt.getValueFormatted()); // ::TODO: locale-specific!
 		assertEquals("-2.253,00 &euro;", splt.getValueFormattedForHTML());
 		assertEquals(-2253.00, splt.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		// ::TODO: The following two do in fact not work:
+		// they should display the Euro-sign
+		// Cf. TestGnuCashWritableTransactionSplitImpl
 		assertEquals("-2.253", splt.getQuantityFormatted());
 		assertEquals("-2.253", splt.getQuantityFormattedForHTML());
 		assertEquals("", splt.getDescription());
@@ -97,8 +100,8 @@ public class TestGnuCashTransactionSplitImpl {
 		assertEquals("1.875,00 €", splt.getValueFormatted()); // ::TODO: locale-specific!
 		assertEquals("1.875,00 &euro;", splt.getValueFormattedForHTML());
 		assertEquals(15.00, splt.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		assertEquals("15 EURONEXT:SAP", splt.getQuantityFormatted()); // ::CHECK -- wieso hier Euro-Zeichen?
-		assertEquals("15 EURONEXT:SAP", splt.getQuantityFormattedForHTML()); // ::TODO: locale-specific!
+		assertEquals("15 EURONEXT:SAP", splt.getQuantityFormatted());
+		assertEquals("15 EURONEXT:SAP", splt.getQuantityFormattedForHTML());
 		assertEquals("", splt.getDescription());
 		assertEquals(ACCTLOT_1_ID, splt.getLotID());
 		assertEquals(null, splt.getUserDefinedAttributeKeys());
