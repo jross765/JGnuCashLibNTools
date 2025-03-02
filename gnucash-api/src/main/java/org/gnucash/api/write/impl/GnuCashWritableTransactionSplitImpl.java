@@ -207,24 +207,6 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
-     */
-    public void setQuantity(final String n) {
-	try {
-	    this.setQuantity(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
-	} catch (NumberFormatException e) {
-	    try {
-		Number parsed = this.getQuantityCurrencyFormat().parse(n);
-		this.setQuantity(new FixedPointNumber(parsed.toString()));
-	    } catch (NumberFormatException e1) {
-		throw e;
-	    } catch (ParseException e1) {
-		throw e;
-	    }
-	}
-    }
-
-    /**
      * @return true if the currency of transaction and account match
      */
     private boolean isCurrencyMatching() {
@@ -248,6 +230,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     /**
      * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
      */
+    @Override
     public void setQuantity(final FixedPointNumber n) {
 	if (n == null) {
 	    throw new NullPointerException("null quantity given");
@@ -256,7 +239,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	String old = getJwsdpPeer().getSplitQuantity();
 	getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
 	((GnuCashWritableFile) getGnuCashFile()).setModified(true);
-	if (isCurrencyMatching()) {
+	if ( isCurrencyMatching() ) {
 	    String oldQuant = getJwsdpPeer().getSplitQuantity();
 	    getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
 	    if (old == null || !old.equals(n.toGnuCashString())) {
@@ -266,7 +249,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	    }
 	}
 
-	if (old == null || !old.equals(n.toGnuCashString())) {
+	if ( old == null || !old.equals(n.toGnuCashString()) ) {
 	    if (helper.getPropertyChangeSupport() != null) {
 	    	helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(old), n);
 	    }
@@ -274,50 +257,89 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
-     */
-    public void setValue(final String n) {
-	try {
-	    this.setValue(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
-	} catch (NumberFormatException e) {
-	    try {
-		Number parsed = this.getValueCurrencyFormat().parse(n);
-		this.setValue(new FixedPointNumber(parsed.toString()));
-	    } catch (NumberFormatException e1) {
-		throw e;
-	    } catch (ParseException e1) {
-		throw e;
-	    } catch (InvalidCmdtyCurrIDException e1) {
-		throw e;
-	    }
-	}
-    }
-
-    /**
-     * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
-     */
-    public void setValue(final FixedPointNumber n) {
-	if (n == null) {
-	    throw new NullPointerException("null value given");
-	}
-	String old = getJwsdpPeer().getSplitValue();
-	getJwsdpPeer().setSplitValue(n.toGnuCashString());
-	((GnuCashWritableFile) getGnuCashFile()).setModified(true);
-	if (isCurrencyMatching()) {
-	    String oldquantity = getJwsdpPeer().getSplitQuantity();
-	    getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
-	    if (old == null || !old.equals(n.toGnuCashString())) {
-		if (helper.getPropertyChangeSupport() != null) {
-		    helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldquantity), n);
+	 * @see GnuCashWritableTransactionSplit#setQuantity(FixedPointNumber)
+	 */
+    @Override
+	public void setQuantity(final String n) {
+		if ( n == null ) {
+			throw new IllegalArgumentException("null quantity given");
 		}
-	    }
+		
+		if ( n.isEmpty() ) {
+			throw new IllegalArgumentException("empty quantity given");
+		}
+	
+		try {
+			this.setQuantity(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
+		} catch (NumberFormatException e) {
+			try {
+				Number parsed = this.getQuantityCurrencyFormat().parse(n);
+				this.setQuantity(new FixedPointNumber(parsed.toString()));
+			} catch (NumberFormatException e1) {
+				throw e;
+			} catch (ParseException e1) {
+				throw e;
+			}
+		}
 	}
 
-	if (old == null || !old.equals(n.toGnuCashString())) {
-	    if (helper.getPropertyChangeSupport() != null) {
-		helper.getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
-	    }
+	/**
+	 * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
+	 */
+	@Override
+	public void setValue(final FixedPointNumber n) {
+		if (n == null) {
+			throw new IllegalArgumentException("null value given");
+		}
+		
+		String old = getJwsdpPeer().getSplitValue();
+		jwsdpPeer.setSplitValue(n.toGnuCashString());
+		((GnuCashWritableFile) getGnuCashFile()).setModified(true);
+	
+		if ( isCurrencyMatching() ) {
+			String oldValue = getJwsdpPeer().getSplitQuantity();
+			getJwsdpPeer().setSplitQuantity(n.toGnuCashString());
+			if ( old == null || !old.equals(n.toGnuCashString()) ) {
+				if ( helper.getPropertyChangeSupport() != null ) {
+					helper.getPropertyChangeSupport().firePropertyChange("quantity", new FixedPointNumber(oldValue), n);
+				}
+			}
+		}
+	
+		if ( old == null || !old.equals(n.toGnuCashString()) ) {
+			if ( helper.getPropertyChangeSupport() != null ) {
+				helper.getPropertyChangeSupport().firePropertyChange("value", new FixedPointNumber(old), n);
+			}
+		}
 	}
+
+	/**
+     * @see GnuCashWritableTransactionSplit#setValue(FixedPointNumber)
+     */
+	@Override
+    public void setValue(final String n) {
+		if ( n == null ) {
+			throw new IllegalArgumentException("null value given");
+		}
+		
+		if ( n.isEmpty() ) {
+			throw new IllegalArgumentException("empty value given");
+		}
+
+		try {
+			this.setValue(new FixedPointNumber(n.toLowerCase().replaceAll("&euro;", "").replaceAll("&pound;", "")));
+		} catch (NumberFormatException e) {
+			try {
+				Number parsed = this.getValueCurrencyFormat().parse(n);
+				this.setValue(new FixedPointNumber(parsed.toString()));
+			} catch (NumberFormatException e1) {
+				throw e;
+			} catch (ParseException e1) {
+				throw e;
+			} catch (InvalidCmdtyCurrIDException e1) {
+				throw e;
+			}
+		}
     }
 
     /**

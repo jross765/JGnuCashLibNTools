@@ -74,6 +74,13 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * ${@link #setQuantity(FixedPointNumber)}.
 	 * @param n the new quantity (in the currency of the account)
 	 */
+	void setQuantity(FixedPointNumber n);
+
+	/**
+	 * If the currencies of transaction and account match, this also does
+	 * ${@link #setQuantity(FixedPointNumber)}.
+	 * @param n the new quantity (in the currency of the account)
+	 */
 	void setQuantity(String n);
 
 	/**
@@ -84,10 +91,10 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 
 	/**
 	 * If the currencies of transaction and account match, this also does
-	 * ${@link #setQuantity(FixedPointNumber)}.
-	 * @param n the new quantity (in the currency of the account)
+	 * ${@link #setValue(FixedPointNumber)}.
+	 * @param n the new value (in the currency of the transaction)
 	 */
-	void setQuantity(FixedPointNumber n);
+	void setValue(FixedPointNumber n);
 
 	/**
 	 * If the currencies of transaction and account match, this also does
@@ -101,13 +108,6 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * @param n the new value (in the currency of the transaction)
 	 */
 	void setValueFormattedForHTML(String n);
-
-	/**
-	 * If the currencies of transaction and account match, this also does
-	 * ${@link #setValue(FixedPointNumber)}.
-	 * @param n the new value (in the currency of the transaction)
-	 */
-	void setValue(FixedPointNumber n);
 
 	/**
 	 * Set the description-text.

@@ -105,8 +105,6 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		assertEquals("-2.253,00 €", splt.getValueFormatted()); // ::TODO: locale-specific!
 		assertEquals("-2.253,00 &euro;", splt.getValueFormattedForHTML());
 		assertEquals(-2253.00, splt.getQuantity().doubleValue(), ConstTest.DIFF_TOLERANCE);
-		// ::TODO: Here, it works correctly, as opposed to 
-		// TestGnuCashTransactionSplitImpl
 		assertEquals("-2.253,00 €", splt.getQuantityFormatted());
 		assertEquals("-2.253,00 &euro;", splt.getQuantityFormattedForHTML());
 		assertEquals("", splt.getDescription());

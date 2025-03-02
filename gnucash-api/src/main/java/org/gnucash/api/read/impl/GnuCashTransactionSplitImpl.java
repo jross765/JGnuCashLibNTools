@@ -271,14 +271,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * The value is in the currency of the account!
      */
     public String getQuantityFormatted() {
-	NumberFormat nf = getQuantityCurrencyFormat();
-	if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
-	    return nf.format(getQuantity());
-	}
-	else {
-	    return nf.format(getQuantity()) + " " + getAccount().getCmdtyCurrID().toString(); 
-	}
+    	return getQuantityFormatted(Locale.getDefault());
     }
 
     /**
@@ -288,7 +281,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @return the formatted number
      */
     public String getQuantityFormatted(final Locale lcl) {
-	NumberFormat nf = NumberFormat.getCurrencyInstance(lcl);
+		NumberFormat nf = getQuantityCurrencyFormat();
 	if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
 	    nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
 	    return nf.format(getQuantity());

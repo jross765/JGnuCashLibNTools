@@ -433,17 +433,16 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	public NumberFormat getCurrencyFormat() {
-		if ( currencyFormat == null ) {
-			currencyFormat = NumberFormat.getCurrencyInstance();
-		}
-
-		// the currency may have changed
-		if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-			Currency currency = getCurrency();
-			currencyFormat.setCurrency(currency);
-		} else {
-			currencyFormat = NumberFormat.getNumberInstance();
-		}
+		// Do *not* check for null; the currency may have changed
+//		if ( currencyFormat == null ) {
+			if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+				currencyFormat = NumberFormat.getCurrencyInstance();
+				Currency currency = getCurrency();
+				currencyFormat.setCurrency(currency);
+			} else {
+				currencyFormat = NumberFormat.getNumberInstance();
+			}
+//		}
 
 		return currencyFormat;
 	}

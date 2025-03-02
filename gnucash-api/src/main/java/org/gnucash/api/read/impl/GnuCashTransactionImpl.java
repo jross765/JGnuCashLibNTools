@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
@@ -398,7 +399,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 	return mySplits;
     }
 
-    private void initSplits(final boolean addToAcct, final boolean addToInvc) {
+    protected void initSplits(final boolean addToAcct, final boolean addToInvc) {
     	if ( jwsdpPeer.getTrnSplits() == null )
     		return;
     	
@@ -450,16 +451,19 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @return default currency-format with the transaction's currency set
      */
     protected NumberFormat getCurrencyFormat() {
-	if (currencyFormat == null) {
-	    currencyFormat = NumberFormat.getCurrencyInstance();
-	    if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    	currencyFormat.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
-	    } else {
-	    	currencyFormat = NumberFormat.getInstance();
-	    }
+		if ( currencyFormat == null ) {
+			currencyFormat = NumberFormat.getCurrencyInstance();
+		}
 
-	}
-	return currencyFormat;
+		// the currency may have changed
+		if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+			Currency currency = new GCshCurrID(getCmdtyCurrID()).getCurrency();
+			currencyFormat.setCurrency(currency);
+		} else {
+			currencyFormat = NumberFormat.getNumberInstance();
+		}
+
+		return currencyFormat;
     }
 
     /**
