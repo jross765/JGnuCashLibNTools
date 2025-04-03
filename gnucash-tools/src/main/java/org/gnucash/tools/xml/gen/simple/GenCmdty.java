@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -62,45 +61,45 @@ public class GenCmdty extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optISIN = OptionBuilder
-      .isRequired()
+    Option optISIN = Option.builder("is")
+      .required()
       .hasArg()
-      .withArgName("isin")
-      .withDescription("ISIN")
-      .withLongOpt("isin")
-      .create("is");
+      .argName("isin")
+      .desc("ISIN")
+      .longOpt("isin")
+      .build();
           
-    Option optName = OptionBuilder
-      .isRequired()
+    Option optName = Option.builder("n")
+      .required()
       .hasArg()
-      .withArgName("name")
-      .withDescription("Name")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Name")
+      .longOpt("name")
+      .build();
     
     // The convenient ones
-    Option optSymbol = OptionBuilder
+    Option optSymbol = Option.builder("sy")
       .hasArg()
-      .withArgName("symb")
-      .withDescription("Symbol (ticker)")
-      .withLongOpt("symbol")
-      .create("sy");
+      .argName("symb")
+      .desc("Symbol (ticker)")
+      .longOpt("symbol")
+      .build();
     	          
           
     options = new Options();

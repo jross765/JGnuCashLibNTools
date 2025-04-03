@@ -7,18 +7,10 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.log4j.Logger;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.tools.CommandLineTool;
-import org.gnucash.tools.xml.get.info.GetGenerInvcInfo;
-
-import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
-import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
-
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashTransaction;
@@ -38,6 +30,11 @@ import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.tools.CommandLineTool;
+
+import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
+import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class TestGetGenerInvcInfo extends CommandLineTool
 {
@@ -80,32 +77,32 @@ public class TestGetGenerInvcInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("GnuCash file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("GnuCash file")
+      .build();
       
-    Option optInvcID = OptionBuilder
-      .isRequired()
+    Option optInvcID = Option.builder("invc")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Invoice-ID")
-      .withLongOpt("invoice-id")
-      .create("invc");
+      .argName("UUID")
+      .desc("Invoice-ID")
+      .longOpt("invoice-id")
+      .build();
     
     // The convenient ones
-    Option optShowEntr = OptionBuilder
-      .withDescription("Show entries")
-      .withLongOpt("show-entries")
-      .create("sentr");        
+    Option optShowEntr = Option.builder("sentr")
+      .desc("Show entries")
+      .longOpt("show-entries")
+      .build();
             
-    Option optShowTrx = OptionBuilder
-      .withDescription("Show transactions")
-      .withLongOpt("show-transactions")
-      .create("strx");        
+    Option optShowTrx = Option.builder("strx")
+      .desc("Show transactions")
+      .longOpt("show-transactions")
+      .build();        
             
     options = new Options();
     options.addOption(optFile);

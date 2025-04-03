@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -70,51 +69,51 @@ public class GetAcctInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
       
-    Option optAcctID = OptionBuilder
+    Option optAcctID = Option.builder("acct")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Account-ID")
-      .withLongOpt("account-id")
-      .create("acct");
+      .argName("UUID")
+      .desc("Account-ID")
+      .longOpt("account-id")
+      .build();
     
-    Option optAcctName = OptionBuilder
+    Option optAcctName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Account name")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Account name")
+      .longOpt("name")
+      .build();
       
     // The convenient ones
-    Option optShowPrnt = OptionBuilder
-      .withDescription("Show parents")
-      .withLongOpt("show-parents")
-      .create("sprnt");
+    Option optShowPrnt = Option.builder("sprnt")
+      .desc("Show parents")
+      .longOpt("show-parents")
+      .build();
         
-    Option optShowChld = OptionBuilder
-        .withDescription("Show children")
-        .withLongOpt("show-children")
-        .create("schld");
+    Option optShowChld = Option.builder("schld")
+      .desc("Show children")
+      .longOpt("show-children")
+      .build();
           
-    Option optShowTrx = OptionBuilder
-      .withDescription("Show transactions")
-      .withLongOpt("show-transactions")
-      .create("strx");
+    Option optShowTrx = Option.builder("strx")
+      .desc("Show transactions")
+      .longOpt("show-transactions")
+      .build();
           
     options = new Options();
     options.addOption(optFile);

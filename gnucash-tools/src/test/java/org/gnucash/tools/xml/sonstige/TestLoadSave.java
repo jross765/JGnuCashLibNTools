@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -56,21 +55,21 @@ public class TestLoadSave extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
                 
     // The convenient ones
     // ::EMPTY

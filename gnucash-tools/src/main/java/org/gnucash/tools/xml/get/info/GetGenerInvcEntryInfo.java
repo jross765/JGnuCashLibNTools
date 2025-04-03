@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -64,21 +63,21 @@ public class GetGenerInvcEntryInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optInvcEntrID = OptionBuilder
-      .isRequired()
+    Option optInvcEntrID = Option.builder("entr")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Invoice-entry-ID")
-      .withLongOpt("invoice-entry-id")
-      .create("entr");
+      .argName("UUID")
+      .desc("Invoice-entry-ID")
+      .longOpt("invoice-entry-id")
+      .build();
     
     // The convenient ones
     // ::EMPTY        

@@ -65,13 +65,13 @@ public class TestDepTrxListFile extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optListFile = OptionBuilder
-      .isRequired()
+    Option optListFile = Option.builder("blf")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("List file for bookings")
-      .withLongOpt("booking-list-file")
-      .create("blf");
+      .argName("file")
+      .desc("List file for bookings")
+      .longOpt("booking-list-file")
+      .build();
     	    	        
     // ---
     	    

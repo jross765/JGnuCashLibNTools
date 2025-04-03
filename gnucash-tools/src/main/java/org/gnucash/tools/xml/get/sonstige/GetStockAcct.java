@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -72,70 +71,70 @@ public class GetStockAcct extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optAcctMode = OptionBuilder
-      .isRequired()
+    Option optAcctMode = Option.builder("am")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode for account")
-      .withLongOpt("account-mode")
-      .create("am");
+      .argName("mode")
+      .desc("Selection mode for account")
+      .longOpt("account-mode")
+      .build();
       
-    Option optCmdtyMode = OptionBuilder
-      .isRequired()
+    Option optCmdtyMode = Option.builder("cm")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode for commodity")
-      .withLongOpt("commodity-mode")
-      .create("cm");
+      .argName("mode")
+      .desc("Selection mode for commodity")
+      .longOpt("commodity-mode")
+      .build();
         
-    Option optAcctID = OptionBuilder
+    Option optAcctID = Option.builder("acct")
       .hasArg()
-      .withArgName("acctid")
-      .withDescription("Account-ID")
-      .withLongOpt("account-id")
-      .create("acct");
+      .argName("acctid")
+      .desc("Account-ID")
+      .longOpt("account-id")
+      .build();
     
-    Option optAcctName = OptionBuilder
+    Option optAcctName = Option.builder("an")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Account name (or part of)")
-      .withLongOpt("account-name")
-      .create("an");
+      .argName("name")
+      .desc("Account name (or part of)")
+      .longOpt("account-name")
+      .build();
       
-    Option optCmdtyID = OptionBuilder
+    Option optCmdtyID = Option.builder("cmdty")
       .hasArg()
-      .withArgName("ID")
-      .withDescription("Commodity ID")
-      .withLongOpt("commodity-id")
-      .create("cmdty");
+      .argName("ID")
+      .desc("Commodity ID")
+      .longOpt("commodity-id")
+      .build();
             
-    Option optCmdtyISIN = OptionBuilder
+    Option optCmdtyISIN = Option.builder("is")
       .hasArg()
-      .withArgName("isin")
-      .withDescription("ISIN")
-      .withLongOpt("isin")
-      .create("is");
+      .argName("isin")
+      .desc("ISIN")
+      .longOpt("isin")
+      .build();
           
-    Option optCmdtyName = OptionBuilder
+    Option optCmdtyName = Option.builder("sn")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Commodity name (or part of)")
-      .withLongOpt("commodity-name")
-      .create("sn");
+      .argName("name")
+      .desc("Commodity name (or part of)")
+      .longOpt("commodity-name")
+      .build();
             
     // The convenient ones
-    Option optScript = OptionBuilder
-      .withDescription("Script Mode")
-      .withLongOpt("script")
-      .create("sl");            
+    Option optScript = Option.builder("sl")
+      .desc("Script Mode")
+      .longOpt("script")
+      .build();            
           
     options = new Options();
     options.addOption(optFile);

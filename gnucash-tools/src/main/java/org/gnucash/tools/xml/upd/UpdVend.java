@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -65,50 +64,50 @@ public class UpdVend extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optID = OptionBuilder
-      .isRequired()
+    Option optID = Option.builder("id")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Vendor ID")
-      .withLongOpt("vendor-id")
-      .create("id");
+      .argName("UUID")
+      .desc("Vendor ID")
+      .longOpt("vendor-id")
+      .build();
             
-    Option optNumber = OptionBuilder
+    Option optNumber = Option.builder("num")
       .hasArg()
-      .withArgName("number")
-      .withDescription("Vendor number")
-      .withLongOpt("number")
-      .create("num");
+      .argName("number")
+      .desc("Vendor number")
+      .longOpt("number")
+      .build();
     	    
-    Option optName = OptionBuilder
+    Option optName = Option.builder("nam")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Vendor name")
-      .withLongOpt("name")
-      .create("nam");
+      .argName("name")
+      .desc("Vendor name")
+      .longOpt("name")
+      .build();
     
-    Option optDescr = OptionBuilder
+    Option optDescr = Option.builder("desc")
       .hasArg()
-      .withArgName("descr")
-      .withDescription("Vendor description")
-      .withLongOpt("description")
-      .create("desc");
+      .argName("descr")
+      .desc("Vendor description")
+      .longOpt("description")
+      .build();
       
     // The convenient ones
     // ::EMPTY

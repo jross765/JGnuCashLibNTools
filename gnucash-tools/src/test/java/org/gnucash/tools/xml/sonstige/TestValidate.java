@@ -16,7 +16,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -63,21 +62,21 @@ public class TestValidate extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("GnuCash file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("GnuCash file")
+      .build();
       
-    Option optSchema = OptionBuilder
-      .isRequired()
+    Option optSchema = Option.builder("s")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash schema file (XSD)")
-      .withLongOpt("schema-file")
-      .create("s");
+      .argName("file")
+      .desc("GnuCash schema file (XSD)")
+      .longOpt("schema-file")
+      .build();
         
     // The convenient ones
     // ::EMPTY

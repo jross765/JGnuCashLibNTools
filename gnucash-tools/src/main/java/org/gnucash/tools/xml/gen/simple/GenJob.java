@@ -7,13 +7,11 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.OwnerNotFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
@@ -75,53 +73,53 @@ public class GenJob extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optType = OptionBuilder
-      .isRequired()
+    Option optType = Option.builder("t")
+      .required()
       .hasArg()
-      .withArgName("type")
-      .withDescription("Job type")
-      .withLongOpt("type")
-      .create("t");
+      .argName("type")
+      .desc("Job type")
+      .longOpt("type")
+      .build();
       
-    Option optOwnerID = OptionBuilder
-      .isRequired()
+    Option optOwnerID = Option.builder("own")
+      .required()
       .hasArg()
-      .withArgName("owner")
-      .withDescription("Owner ID")
-      .withLongOpt("owner-id")
-      .create("own");
+      .argName("owner")
+      .desc("Owner ID")
+      .longOpt("owner-id")
+      .build();
         
-    Option optNumber = OptionBuilder
-      .isRequired()
+    Option optNumber = Option.builder("no")
+      .required()
       .hasArg()
-      .withArgName("number")
-      .withDescription("Job number")
-      .withLongOpt("number")
-      .create("no");
+      .argName("number")
+      .desc("Job number")
+      .longOpt("number")
+      .build();
       
-    Option optName = OptionBuilder
-      .isRequired()
+    Option optName = Option.builder("nm")
+      .required()
       .hasArg()
-      .withArgName("name")
-      .withDescription("Job name")
-      .withLongOpt("name")
-      .create("nm");
+      .argName("name")
+      .desc("Job name")
+      .longOpt("name")
+      .build();
       
     // The convenient ones
           

@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -67,57 +66,57 @@ public class UpdPrc extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optID = OptionBuilder
-      .isRequired()
+    Option optID = Option.builder("id")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Price ID")
-      .withLongOpt("price-id")
-      .create("id");
+      .argName("UUID")
+      .desc("Price ID")
+      .longOpt("price-id")
+      .build();
             
-    Option optType = OptionBuilder
+    Option optType = Option.builder("t")
       .hasArg()
-      .withArgName("type")
-      .withDescription("Price type")
-      .withLongOpt("type")
-      .create("t");
+      .argName("type")
+      .desc("Price type")
+      .longOpt("type")
+      .build();
     	    
-    Option optSource = OptionBuilder
+    Option optSource = Option.builder("s")
       .hasArg()
-      .withArgName("source")
-      .withDescription("Price source")
-      .withLongOpt("source")
-      .create("s");
+      .argName("source")
+      .desc("Price source")
+      .longOpt("source")
+      .build();
     	    	    
-    Option optValue = OptionBuilder
+    Option optValue = Option.builder("v")
       .hasArg()
-      .withArgName("value")
-      .withDescription("Price value")
-      .withLongOpt("val")
-      .create("v");
+      .argName("value")
+      .desc("Price value")
+      .longOpt("val")
+      .build();
     
-    Option optDescr = OptionBuilder
+    Option optDescr = Option.builder("desc")
       .hasArg()
-      .withArgName("descr")
-      .withDescription("Price description")
-      .withLongOpt("description")
-      .create("desc");
+      .argName("descr")
+      .desc("Price description")
+      .longOpt("description")
+      .build();
       
     // The convenient ones
     // ::EMPTY

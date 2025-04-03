@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -62,27 +61,27 @@ public class GetTrxInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optTrxID = OptionBuilder
-      .isRequired()
+    Option optTrxID = Option.builder("trx")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Transaction-ID")
-      .withLongOpt("transaction-id")
-      .create("trx");
+      .argName("UUID")
+      .desc("Transaction-ID")
+      .longOpt("transaction-id")
+      .build();
     
     // The convenient ones
-    Option optShowSplt = OptionBuilder
-      .withDescription("Show splits")
-      .withLongOpt("show-splits")
-      .create("ssplt");
+    Option optShowSplt = Option.builder("ssplt")
+      .desc("Show splits")
+      .longOpt("show-splits")
+      .build();
           
     options = new Options();
     options.addOption(optFile);

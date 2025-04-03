@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -77,32 +76,32 @@ public class GetGenerInvcInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optInvcID = OptionBuilder
-      .isRequired()
+    Option optInvcID = Option.builder("invc")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Invoice-ID")
-      .withLongOpt("invoice-id")
-      .create("invc");
+      .argName("UUID")
+      .desc("Invoice-ID")
+      .longOpt("invoice-id")
+      .build();
     
     // The convenient ones
-    Option optShowEntr = OptionBuilder
-      .withDescription("Show entries")
-      .withLongOpt("show-entries")
-      .create("sentr");        
+    Option optShowEntr = Option.builder("sentr")
+      .desc("Show entries")
+      .longOpt("show-entries")
+      .build();        
             
-    Option optShowTrx = OptionBuilder
-      .withDescription("Show transactions")
-      .withLongOpt("show-transactions")
-      .create("strx");        
+    Option optShowTrx = Option.builder("strx")
+      .desc("Show transactions")
+      .longOpt("show-transactions")
+      .build();        
             
     options = new Options();
     options.addOption(optFile);

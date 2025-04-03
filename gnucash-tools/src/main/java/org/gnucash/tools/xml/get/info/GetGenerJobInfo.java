@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -71,41 +70,41 @@ public class GetGenerJobInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
         
-    Option optJobID = OptionBuilder
+    Option optJobID = Option.builder("job")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Job-ID")
-      .withLongOpt("job-id")
-      .create("job");
+      .argName("UUID")
+      .desc("Job-ID")
+      .longOpt("job-id")
+      .build();
     
-    Option optJobName = OptionBuilder
+    Option optJobName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Job name")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Job name")
+      .longOpt("name")
+      .build();
       
     // The convenient ones
-    Option optShowInvc = OptionBuilder
-      .withDescription("Show invoices")
-      .withLongOpt("show-invoices")
-      .create("sinvc");
+    Option optShowInvc = Option.builder("sinvc")
+      .desc("Show invoices")
+      .longOpt("show-invoices")
+      .build();
           
     options = new Options();
     options.addOption(optFile);

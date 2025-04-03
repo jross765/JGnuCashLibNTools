@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -64,21 +63,21 @@ public class GetPrcInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optID = OptionBuilder
-      .isRequired()
+    Option optID = Option.builder("prc")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Price-ID")
-      .withLongOpt("price-id")
-      .create("prc");
+      .argName("UUID")
+      .desc("Price-ID")
+      .longOpt("price-id")
+      .build();
     	          
     // The convenient ones
     // ::EMPTY

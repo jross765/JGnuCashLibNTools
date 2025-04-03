@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -68,41 +67,41 @@ public class GetEmplInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
         
-    Option optEmplID = OptionBuilder
+    Option optEmplID = Option.builder("empl")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Employee-ID")
-      .withLongOpt("employee-id")
-      .create("empl");
+      .argName("UUID")
+      .desc("Employee-ID")
+      .longOpt("employee-id")
+      .build();
     
-    Option optEmplName = OptionBuilder
+    Option optEmplName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Employee name")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Employee name")
+      .longOpt("name")
+      .build();
       
     // The convenient ones
-    Option optShowVch = OptionBuilder
-      .withDescription("Show vouchers")
-      .withLongOpt("show-vouchers")
-      .create("svch");
+    Option optShowVch = Option.builder("svch")
+      .desc("Show vouchers")
+      .longOpt("show-vouchers")
+      .build();
           
     options = new Options();
     options.addOption(optFile);

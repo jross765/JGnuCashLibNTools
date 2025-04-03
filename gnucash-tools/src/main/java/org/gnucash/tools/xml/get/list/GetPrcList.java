@@ -1,7 +1,7 @@
 package org.gnucash.tools.xml.get.list;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -11,8 +11,9 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +22,16 @@ import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
-public class GetVendList extends CommandLineTool
+public class GetPrcList extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GetVendList.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(GetPrcList.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String               gcshFileName = null;
-  private static Helper.CustEmplVendListMode mode  = null; 
-  private static String               isin         = null;
-  private static String               name         = null;
+  private static String                kmmFileName     = null;
+  private static GCshCmdtyID_SecIdType fromCmdtyCurrID = null;
   
   private static boolean scriptMode = false; // ::TODO
 
@@ -40,7 +39,7 @@ public class GetVendList extends CommandLineTool
   {
     try
     {
-      GetVendList tool = new GetVendList ();
+      GetPrcList tool = new GetPrcList ();
       tool.execute(args);
     }
     catch (CouldNotExecuteException exc) 
@@ -54,8 +53,6 @@ public class GetVendList extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-    // cmdtyID = UUID.randomUUID();
-
 //    cfg = new PropertiesConfiguration(System.getProperty("config"));
 //    getConfigSettings(cfg);
 
@@ -69,28 +66,20 @@ public class GetVendList extends CommandLineTool
       .longOpt("gnucash-file")
       .build();
       
-    Option optMode = Option.builder("m")
+    Option optFromCmdtyCurr= Option.builder("fr")
       .required()
       .hasArg()
-      .argName("Mode")
-      .desc("Mode")
-      .longOpt("mode")
+      .argName("cmdty/curr")
+      .desc("From-commodity/currency")
+      .longOpt("from-cmdty-curr")
       .build();
-    	    	      
-    Option optName = Option.builder("n")
-      .hasArg()
-      .argName("name")
-      .desc("Vendor name (part of)")
-      .longOpt("name")
-      .build();
-    	      
+    	    	          
     // The convenient ones
     // ::EMPTY
           
     options = new Options();
     options.addOption(optFile);
-    options.addOption(optMode);
-    options.addOption(optName);
+    options.addOption(optFromCmdtyCurr);
   }
 
   @Override
@@ -102,24 +91,19 @@ public class GetVendList extends CommandLineTool
   @Override
   protected void kernel() throws Exception
   {
-    GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
+    GnuCashFileImpl kmmFile = new GnuCashFileImpl(new File(kmmFileName));
     
-    Collection<GnuCashVendor> cmdtyList = null; 
-    if ( mode == Helper.CustEmplVendListMode.ALL )
-        cmdtyList = gcshFile.getVendors();
-    else if ( mode == Helper.CustEmplVendListMode.NAME )
-    	cmdtyList = gcshFile.getVendorsByName(name, true);
-
-    if ( cmdtyList.size() == 0 ) 
+    List<GnuCashPrice> prcList = kmmFile.getPricesByCmdtyCurrID( fromCmdtyCurrID );
+    if ( prcList.size() == 0 ) 
     {
-    	System.err.println("Found no vendor with that type.");
+    	System.err.println("Found no price with for that commodity/currency ID.");
     	throw new NoEntryFoundException();
     }
 
-    System.err.println("Found " + cmdtyList.size() + " vendors.");
-    for ( GnuCashVendor cmdty : cmdtyList )
+	System.err.println("Found " + prcList.size() + " price(s).");
+    for ( GnuCashPrice prc : prcList )
     {
-    	System.out.println(cmdty.toString());	
+    	System.out.println(prc.toString());	
     }
   }
 
@@ -142,10 +126,10 @@ public class GetVendList extends CommandLineTool
 
     // ---
 
-    // <gnucash-file>
+    // <kmymoney-file>
     try
     {
-      gcshFileName = cmdLine.getOptionValue("gnucash-file");
+      kmmFileName = cmdLine.getOptionValue("gnucash-file");
     }
     catch ( Exception exc )
     {
@@ -154,62 +138,25 @@ public class GetVendList extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("GnuCash file:      '" + gcshFileName + "'");
+      System.err.println("GnuCash file: '" + kmmFileName + "'");
     
-    // <mode>
+    // <from-cmdty-curr>
     try
     {
-      mode = Helper.CustEmplVendListMode.valueOf(cmdLine.getOptionValue("mode"));
+      fromCmdtyCurrID = GCshCmdtyID_SecIdType.parse(cmdLine.getOptionValue("from-cmdty-curr")); 
+      System.err.println("from-cmdty-curr: " + fromCmdtyCurrID);
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <mode>");
+      System.err.println("Could not parse <from-cmdty-curr>");
       throw new InvalidCommandLineArgsException();
     }
-
-    // <name>
-    if ( cmdLine.hasOption( "name" ) )
-    {
-    	if ( mode != Helper.CustEmplVendListMode.NAME )
-    	{
-            System.err.println("Error: <name> must only be set with <mode> = '" + Helper.CustEmplVendListMode.NAME + "'");
-            throw new InvalidCommandLineArgsException();
-    	}
-    	
-        try
-        {
-        	name = cmdLine.getOptionValue("name");
-        }
-        catch ( Exception exc )
-        {
-        	System.err.println("Could not parse <name>");
-        	throw new InvalidCommandLineArgsException();
-        }
-    }
-    else
-    {
-    	if ( mode == Helper.CustEmplVendListMode.NAME )
-    	{
-            System.err.println("Error: <name> must be set with <mode> = '" + Helper.CustEmplVendListMode.NAME + "'");
-            throw new InvalidCommandLineArgsException();
-    	}
-    	
-    	name = null;
-    }
-    
-    if ( ! scriptMode )
-      System.err.println("Name:              " + name);
   }
   
   @Override
   protected void printUsage()
   {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp( "GetVendList", options );
-    
-    System.out.println("");
-    System.out.println("Valid values for <mode>:");
-    for ( Helper.CustEmplVendListMode elt : Helper.CustEmplVendListMode.values() )
-      System.out.println(" - " + elt);
+    formatter.printHelp( "GetPrcList", options );
   }
 }

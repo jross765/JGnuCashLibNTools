@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -62,35 +61,35 @@ public class GetAcctList extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("Mode")
-      .withDescription("Mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("Mode")
+      .desc("Mode")
+      .longOpt("mode")
+      .build();
     	      
-    Option optType = OptionBuilder
+    Option optType = Option.builder("t")
       .hasArg()
-      .withArgName("type")
-      .withDescription("Account type")
-      .withLongOpt("type")
-      .create("t");
+      .argName("type")
+      .desc("Account type")
+      .longOpt("type")
+      .build();
       
-    Option optName = OptionBuilder
+    Option optName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Account name (part of)")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Account name (part of)")
+      .longOpt("name")
+      .build();
     	      
     // The convenient ones
     // ::EMPTY

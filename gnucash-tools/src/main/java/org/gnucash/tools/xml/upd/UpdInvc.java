@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -75,64 +74,64 @@ public class UpdInvc extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optID = OptionBuilder
-      .isRequired()
+    Option optID = Option.builder("id")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Invoice ID")
-      .withLongOpt("invoice-id")
-      .create("id");
+      .argName("UUID")
+      .desc("Invoice ID")
+      .longOpt("invoice-id")
+      .build();
             
-    Option optIncExpAcctID = OptionBuilder
+    Option optIncExpAcctID = Option.builder("ieacct")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Income/expense account ID")
-      .withLongOpt("income-expense-account-id")
-      .create("ieacct");
+      .argName("UUID")
+      .desc("Income/expense account ID")
+      .longOpt("income-expense-account-id")
+      .build();
             
-    Option optRecvblPayblAcctID = OptionBuilder
+    Option optRecvblPayblAcctID = Option.builder("rpacct")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Receivable/payable account ID")
-      .withLongOpt("receivable-payable-account-id")
-      .create("rpacct");
+      .argName("UUID")
+      .desc("Receivable/payable account ID")
+      .longOpt("receivable-payable-account-id")
+      .build();
             
-    Option optNumber = OptionBuilder
+    Option optNumber = Option.builder("no")
       .hasArg()
-      .withArgName("number")
-      .withDescription("Invoice number")
-      .withLongOpt("number")
-      .create("no");
+      .argName("number")
+      .desc("Invoice number")
+      .longOpt("number")
+      .build();
     
-    Option optDescr = OptionBuilder
+    Option optDescr = Option.builder("desc")
       .hasArg()
-      .withArgName("descr")
-      .withDescription("Invoice description")
-      .withLongOpt("description")
-      .create("desc");
+      .argName("descr")
+      .desc("Invoice description")
+      .longOpt("description")
+      .build();
     
-    Option optOpenDate = OptionBuilder
+    Option optOpenDate = Option.builder("odat")
       .hasArg()
-      .withArgName("date")
-      .withDescription("Date opened")
-      .withLongOpt("opened-date")
-      .create("odat");
+      .argName("date")
+      .desc("Date opened")
+      .longOpt("opened-date")
+      .build();
 
     // The convenient ones
     // ::EMPTY

@@ -10,43 +10,48 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.write.GnuCashWritableAccount;
+import org.gnucash.api.write.GnuCashWritableCommodity;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.schnorxoborx.base.beanbase.AccountNotFoundException;
+import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
-public class UpdAcct extends CommandLineTool
+public class UpdCmdty extends CommandLineTool
 {
+  enum Mode
+  {
+    EXCHANGE_TICKER,
+    ISIN
+    // NAME <-- NO, NOT HERE!
+  }
+  
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(UpdAcct.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UpdCmdty.class);
   
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String gcshInFileName = null;
+  private static String gcshInFileName  = null;
   private static String gcshOutFileName = null;
-  private static GCshID acctID = null;
+  
+  private static Mode   mode     = null;
+  private static String exchange = null;
+  private static String ticker   = null;
+  private static String isin     = null;
 
-  private static String              name = null;
-  private static String              descr = null;
-  private static GnuCashAccount.Type type = null;
-  private static GCshCmdtyCurrID     cmdtyCurrID = null;
+  private static String name   = null;
 
-  private static GnuCashWritableAccount acct = null;
+  private static GnuCashWritableCommodity cmdty = null;
 
   public static void main( String[] args )
   {
     try
     {
-      UpdAcct tool = new UpdAcct ();
+      UpdCmdty tool = new UpdCmdty ();
       tool.execute(args);
     }
     catch (CouldNotExecuteException exc) 
@@ -83,12 +88,33 @@ public class UpdAcct extends CommandLineTool
       .longOpt("gnucash-out-file")
       .build();
       
-    Option optID = Option.builder("id")
+    Option optMode = Option.builder("m")
       .required()
       .hasArg()
-      .argName("UUID")
-      .desc("Account ID")
-      .longOpt("account-id")
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
+    	         
+    Option optExchange = Option.builder("exch")
+      .hasArg()
+      .argName("exch")
+      .desc("Exchange code")
+      .longOpt("exchange")
+      .build();
+   	      
+    Option optTicker = Option.builder("tkr")
+      .hasArg()
+      .argName("ticker")
+      .desc("Ticker")
+      .longOpt("ticker")
+      .build();
+    	      
+    Option optISIN = Option.builder("is")
+      .hasArg()
+      .argName("isin")
+      .desc("ISIN")
+      .longOpt("isin")
       .build();
             
     Option optName = Option.builder("n")
@@ -98,12 +124,12 @@ public class UpdAcct extends CommandLineTool
       .longOpt("name")
       .build();
     
-    Option optDescr = Option.builder("desc")
-      .hasArg()
-      .argName("descr")
-      .desc("Account description")
-      .longOpt("description")
-      .build();
+//    Option optDescr = Option.builder("desc")
+//      .hasArg()
+//      .argName("descr")
+//      .desc("Account description")
+//      .longOpt("description")
+//      .build();
       
     Option optType = Option.builder("t")
       .hasArg()
@@ -112,12 +138,12 @@ public class UpdAcct extends CommandLineTool
       .longOpt("type")
       .build();
         
-    Option optCmdtyCurr = Option.builder("cmdty")
-      .hasArg()
-      .argName("cmdty/curr-id")
-      .desc("Commodity/currency ID")
-      .longOpt("commodity-currency-id")
-      .build();
+//    Option optCmdtyCurr = Option.builder("cmdty")
+//      .hasArg()
+//      .argName("cmdty/curr-id")
+//      .desc("Commodity/currency ID")
+//      .longOpt("commodity-currency-id")
+//      .create();
       
     // The convenient ones
     // ::EMPTY
@@ -125,11 +151,11 @@ public class UpdAcct extends CommandLineTool
     options = new Options();
     options.addOption(optFileIn);
     options.addOption(optFileOut);
-    options.addOption(optID);
+    options.addOption(optMode);
+    options.addOption(optExchange);
+    options.addOption(optTicker);
+    options.addOption(optISIN);
     options.addOption(optName);
-    options.addOption(optDescr);
-    options.addOption(optType);
-    options.addOption(optCmdtyCurr);
   }
 
   @Override
@@ -143,19 +169,28 @@ public class UpdAcct extends CommandLineTool
   {
     GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-    try 
+    cmdty = null;
+    if ( mode == Mode.EXCHANGE_TICKER )
     {
-      acct = gcshFile.getWritableAccountByID(acctID);
-      System.err.println("Account before update: " + acct.toString());
+      cmdty = gcshFile.getWritableCommodityByQualifID(exchange, ticker);
+      if ( cmdty == null )
+      {
+        System.err.println("Could not find commodities matching that ticker.");
+        throw new NoEntryFoundException();
+      }
     }
-    catch ( Exception exc )
+    else if ( mode == Mode.ISIN )
     {
-      System.err.println("Error: Could not find/instantiate account with ID '" + acctID + "'");
-      throw new AccountNotFoundException();
+      cmdty = gcshFile.getWritableCommodityByXCode(isin);
+      if ( cmdty == null )
+      {
+        System.err.println("Could not find commodities matching that ISIN.");
+        throw new NoEntryFoundException();
+      }
     }
     
     doChanges(gcshFile);
-    System.err.println("Account after update: " + acct.toString());
+    System.err.println("Account after update: " + cmdty.toString());
     
     gcshFile.writeFile(new File(gcshOutFileName));
     
@@ -167,25 +202,7 @@ public class UpdAcct extends CommandLineTool
     if ( name != null )
     {
       System.err.println("Setting name");
-      acct.setName(name);
-    }
-
-    if ( descr != null )
-    {
-      System.err.println("Setting description");
-      acct.setDescription(descr);
-    }
-
-    if ( type != null )
-    {
-      System.err.println("Setting type");
-      acct.setType(type);
-    }
-
-    if ( cmdtyCurrID != null )
-    {
-      System.err.println("Setting commodity/currency");
-      acct.setCmdtyCurrID(cmdtyCurrID);
+      cmdty.setName(name);
     }
   }
 
@@ -232,17 +249,93 @@ public class UpdAcct extends CommandLineTool
     }
     System.err.println("GnuCash file (out): '" + gcshOutFileName + "'");
     
-    // <account-id>
+    // <mode>
     try
     {
-      acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+      mode = Mode.valueOf(cmdLine.getOptionValue("mode"));
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <account-id>");
+      System.err.println("Could not parse <mode>");
       throw new InvalidCommandLineArgsException();
     }
-    System.err.println("Account ID: " + acctID);
+    
+    System.err.println("Mode:         " + mode);
+
+    // <exchange>, <ticker>
+    if ( cmdLine.hasOption("exchange") )
+    {
+      if ( ! cmdLine.hasOption("ticker") )
+      {
+        System.err.println("Error: <exchange> and <ticker> must both either be set or unset");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      if ( mode != Mode.EXCHANGE_TICKER )
+      {
+        System.err.println("<exchange> and <ticker> must only be set with <mode> = '" + Mode.EXCHANGE_TICKER.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }
+      
+      try
+      {
+        exchange = cmdLine.getOptionValue("exchange");
+      }
+      catch (Exception exc)
+      {
+        System.err.println("Could not parse <exchange>");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      try
+      {
+        ticker = cmdLine.getOptionValue("ticker");
+      }
+      catch (Exception exc)
+      {
+        System.err.println("Could not parse <ticker>");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
+    else
+    {
+      if ( cmdLine.hasOption("ticker") )
+      {
+        System.err.println("Error: <exchange> and <ticker> must both either be set or unset");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
+
+    System.err.println("Exchange: '" + exchange + "'");
+    System.err.println("Ticker:   '" + ticker + "'");
+
+    // <isin>
+    if ( cmdLine.hasOption("isin") )
+    {
+      if ( mode != Mode.ISIN )
+      {
+        System.err.println("<isin> must only be set with <mode> = '" + Mode.ISIN.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }
+      
+      try
+      {
+        isin = cmdLine.getOptionValue("isin");
+      }
+      catch (Exception exc)
+      {
+        System.err.println("Could not parse <isin>");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
+    else
+    {
+      if ( mode == Mode.ISIN )
+      {
+        System.err.println("<isin> must be set with <mode> = '" + Mode.ISIN.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
 
     // <name>
     if ( cmdLine.hasOption("name") ) 
@@ -258,62 +351,17 @@ public class UpdAcct extends CommandLineTool
       }
     }
     System.err.println("Name: '" + name + "'");
-
-    // <description>
-    if ( cmdLine.hasOption("description") ) 
-    {
-      try
-      {
-        descr = cmdLine.getOptionValue("description");
-      }
-      catch ( Exception exc )
-      {
-        System.err.println("Could not parse <description>");
-        throw new InvalidCommandLineArgsException();
-      }
-    }
-    System.err.println("Description: '" + descr + "'");
-    
-    // <type>
-    if ( cmdLine.hasOption("type") ) 
-    {
-      try
-      {
-        type = GnuCashAccount.Type.valueOf( cmdLine.getOptionValue("type") );
-      }
-      catch ( Exception exc )
-      {
-        System.err.println("Could not parse <type>");
-        throw new InvalidCommandLineArgsException();
-      }
-    }
-    System.err.println("Type: '" + type + "'");
-
-    // <commodity-currency-id>
-    if ( cmdLine.hasOption("commodity-currency-id") ) 
-    {
-      try
-      {
-        cmdtyCurrID = GCshCmdtyCurrID.parse( cmdLine.getOptionValue("commodity-currency-id") );
-      }
-      catch ( Exception exc )
-      {
-        System.err.println("Could not parse <commodity-currency-id>");
-        throw new InvalidCommandLineArgsException();
-      }
-    }
-    System.err.println("Cmdty/Curr: '" + cmdtyCurrID + "'");
   }
   
   @Override
   protected void printUsage()
   {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp( "UpdAcct", options );
+    formatter.printHelp( "UpdCmdty", options );
     
     System.out.println("");
     System.out.println("Valid values for <type>:");
-    for ( GnuCashAccount.Type elt : GnuCashAccount.Type.values() )
+    for ( Mode elt : Mode.values() )
       System.out.println(" - " + elt);
   }
 }

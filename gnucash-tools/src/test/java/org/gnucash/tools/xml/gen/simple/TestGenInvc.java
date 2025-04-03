@@ -96,101 +96,101 @@ public class TestGenInvc extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optType = OptionBuilder
-      .isRequired()
+    Option optType = Option.builder("t")
+      .required()
       .hasArg()
-      .withArgName("type")
-      .withDescription("Invoice type")
-      .withLongOpt("type")
-      .create("t");
+      .argName("type")
+      .desc("Invoice type")
+      .longOpt("type")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Mode to specify accounts by")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Mode to specify accounts by")
+      .longOpt("mode")
+      .build();
         
-    Option optOwnerID = OptionBuilder
-      .isRequired()
+    Option optOwnerID = Option.builder("own")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Owner ID")
-      .withLongOpt("owner-id")
-      .create("own");
+      .argName("UUID")
+      .desc("Owner ID")
+      .longOpt("owner-id")
+      .build();
         
-    Option optIncExpAcctIDOrName = OptionBuilder
-      .isRequired()
+    Option optIncExpAcctIDOrName = Option.builder("ieacct")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Income/expense account ID or name")
-      .withLongOpt("income-expense-account")
-      .create("ieacct");
+      .argName("UUID")
+      .desc("Income/expense account ID or name")
+      .longOpt("income-expense-account")
+      .build();
             
-    Option optRecvblPayblAcctIDOrName = OptionBuilder
-      .isRequired()
+    Option optRecvblPayblAcctIDOrName = Option.builder("rpacct")
+      .required()
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Receivable/payable account ID or name")
-      .withLongOpt("receivable-payable-account")
-      .create("rpacct");
+      .argName("UUID")
+      .desc("Receivable/payable account ID or name")
+      .longOpt("receivable-payable-account")
+      .build();
             
-    Option optNumber = OptionBuilder
-      .isRequired()
+    Option optNumber = Option.builder("no")
+      .required()
       .hasArg()
-      .withArgName("number")
-      .withDescription("Invoice number")
-      .withLongOpt("number")
-      .create("no");
+      .argName("number")
+      .desc("Invoice number")
+      .longOpt("number")
+      .build();
     
-    Option optOpenDate = OptionBuilder
-      .isRequired()
+    Option optOpenDate = Option.builder("odat")
+      .required()
       .hasArg()
-      .withArgName("date")
-      .withDescription("Date opened")
-      .withLongOpt("opened-date")
-      .create("odat");
+      .argName("date")
+      .desc("Date opened")
+      .longOpt("opened-date")
+      .build();
 
-    Option optPostDate = OptionBuilder
-      .isRequired()
+    Option optPostDate = Option.builder("pdat")
+      .required()
       .hasArg()
-      .withArgName("date")
-      .withDescription("Post date")
-      .withLongOpt("post-date")
-      .create("pdat");
+      .argName("date")
+      .desc("Post date")
+      .longOpt("post-date")
+      .build();
 
-    Option optDueDate = OptionBuilder
-      .isRequired()
+    Option optDueDate = Option.builder("ddat")
+      .required()
       .hasArg()
-      .withArgName("date")
-      .withDescription("Due date")
-      .withLongOpt("due-date")
-      .create("ddat");
+      .argName("date")
+      .desc("Due date")
+      .longOpt("due-date")
+      .build();
 
-    Option optAmount = OptionBuilder
-      .isRequired()
+    Option optAmount = Option.builder("amt")
+      .required()
       .hasArg()
-      .withArgName("amount")
-      .withDescription("Amount")
-      .withLongOpt("amount")
-      .create("amt");
+      .argName("amount")
+      .desc("Amount")
+      .longOpt("amount")
+      .build();
                 
     // The convenient ones
     // ::EMPTY

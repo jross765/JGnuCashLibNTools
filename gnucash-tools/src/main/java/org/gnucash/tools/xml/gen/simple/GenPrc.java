@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -70,69 +69,68 @@ public class GenPrc extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFileIn = OptionBuilder
-      .isRequired()
+    Option optFileIn = Option.builder("if")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (in)")
-      .withLongOpt("gnucash-in-file")
-      .create("if");
+      .argName("file")
+      .desc("GnuCash file (in)")
+      .longOpt("gnucash-in-file")
+      .build();
           
-    Option optFileOut = OptionBuilder
-      .isRequired()
+    Option optFileOut = Option.builder("of")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file (out)")
-      .withLongOpt("gnucash-out-file")
-      .create("of");
+      .argName("file")
+      .desc("GnuCash file (out)")
+      .longOpt("gnucash-out-file")
+      .build();
       
-    Option optFromCmdtyCurr= OptionBuilder
-      .isRequired()
+    Option optFromCmdtyCurr= Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("cmdty/curr")
-      .withDescription("From-commodity/currency")
-      .withLongOpt("from-cmdty-curr")
-      .create("f");
+      .argName("cmdty/curr")
+      .desc("From-commodity/currency")
+      .longOpt("from-cmdty-curr")
+      .build();
           
-    Option optToCurr = OptionBuilder
-      .isRequired()
+    Option optToCurr = Option.builder("t")
+      .required()
       .hasArg()
-      .withArgName("curr")
-      .withDescription("To-currency")
-      .withLongOpt("to-curr")
-      .create("t");
+      .argName("curr")
+      .desc("To-currency")
+      .longOpt("to-curr")
+      .build();
     
-    Option optDateFormat = OptionBuilder
+    Option optDateFormat = Option.builder("df")
       .hasArg()
-      .withArgName("date-format")
-      .withDescription("Date format")
-      .withLongOpt("date-format")
-      .create("df");
+      .argName("date-format")
+      .desc("Date format")
+      .longOpt("date-format")
+      .build();
             
-    Option optDate = OptionBuilder
-      .isRequired()
+    Option optDate = Option.builder("dat")
+      .required()
       .hasArg()
-      .withArgName("date")
-      .withDescription("Date")
-      .withLongOpt("date")
-      .create("dat");
+      .argName("date")
+      .desc("Date")
+      .longOpt("date")
+      .build();
           
-    Option optValue = OptionBuilder
-      .isRequired()
+    Option optValue = Option.builder("v")
+      .required()
       .hasArg()
-      .withArgName("value")
-      .withDescription("Value")
-      .withLongOpt("value")
-      .create("v");
+      .argName("value")
+      .desc("Value")
+      .longOpt("value")
+      .build();
             
-              
     // The convenient ones
-    Option optSource = OptionBuilder
+    Option optSource = Option.builder("src")
       .hasArg()
-      .withArgName("source")
-      .withDescription("Source")
-      .withLongOpt("source")
-      .create("src");
+      .argName("source")
+      .desc("Source")
+      .longOpt("source")
+      .build();
           
     options = new Options();
     options.addOption(optFileIn);

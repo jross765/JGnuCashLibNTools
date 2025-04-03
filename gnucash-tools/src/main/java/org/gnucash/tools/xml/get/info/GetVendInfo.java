@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -74,46 +73,46 @@ public class GetVendInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
         
-    Option optVendID = OptionBuilder
+    Option optVendID = Option.builder("vend")
       .hasArg()
-      .withArgName("UUID")
-      .withDescription("Vendor-ID")
-      .withLongOpt("vendor-id")
-      .create("vend");
+      .argName("UUID")
+      .desc("Vendor-ID")
+      .longOpt("vendor-id")
+      .build();
     
-    Option optVendName = OptionBuilder
+    Option optVendName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Vendor name")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Vendor name")
+      .longOpt("name")
+      .build();
       
     // The convenient ones
-    Option optShowJob = OptionBuilder
-      .withDescription("Show jobs")
-      .withLongOpt("show-jobs")
-      .create("sjob");
+    Option optShowJob = Option.builder("sjob")
+      .desc("Show jobs")
+      .longOpt("show-jobs")
+      .build();
               
-    Option optShowBll = OptionBuilder
-      .withDescription("Show bills")
-      .withLongOpt("show-bills")
-      .create("sbll");
+    Option optShowBll = Option.builder("sbll")
+      .desc("Show bills")
+      .longOpt("show-bills")
+      .build();
           
     options = new Options();
     options.addOption(optFile);

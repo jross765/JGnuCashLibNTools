@@ -8,7 +8,6 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -75,55 +74,55 @@ public class GetCmdtyInfo extends CommandLineTool
 
     // Options
     // The essential ones
-    Option optFile = OptionBuilder
-      .isRequired()
+    Option optFile = Option.builder("f")
+      .required()
       .hasArg()
-      .withArgName("file")
-      .withDescription("GnuCash file")
-      .withLongOpt("gnucash-file")
-      .create("f");
+      .argName("file")
+      .desc("GnuCash file")
+      .longOpt("gnucash-file")
+      .build();
       
-    Option optMode = OptionBuilder
-      .isRequired()
+    Option optMode = Option.builder("m")
+      .required()
       .hasArg()
-      .withArgName("mode")
-      .withDescription("Selection mode")
-      .withLongOpt("mode")
-      .create("m");
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
          
-    Option optExchange = OptionBuilder
+    Option optExchange = Option.builder("exch")
       .hasArg()
-      .withArgName("exch")
-      .withDescription("Exchange code")
-      .withLongOpt("exchange")
-      .create("exch");
+      .argName("exch")
+      .desc("Exchange code")
+      .longOpt("exchange")
+      .build();
       
-    Option optTicker = OptionBuilder
+    Option optTicker = Option.builder("tkr")
       .hasArg()
-      .withArgName("ticker")
-      .withDescription("Ticker")
-      .withLongOpt("ticker")
-      .create("tkr");
+      .argName("ticker")
+      .desc("Ticker")
+      .longOpt("ticker")
+      .build();
       
-    Option optISIN = OptionBuilder
+    Option optISIN = Option.builder("is")
       .hasArg()
-      .withArgName("isin")
-      .withDescription("ISIN")
-      .withLongOpt("isin")
-      .create("is");
+      .argName("isin")
+      .desc("ISIN")
+      .longOpt("isin")
+      .build();
         
-    Option optName = OptionBuilder
+    Option optName = Option.builder("n")
       .hasArg()
-      .withArgName("name")
-      .withDescription("Name (or part of)")
-      .withLongOpt("name")
-      .create("n");
+      .argName("name")
+      .desc("Name (or part of)")
+      .longOpt("name")
+      .build();
           
     // The convenient ones
-    Option optShowQuote = OptionBuilder
-      .withDescription("Show quotes")
-      .withLongOpt("show-quotes")
-      .create("squt");
+    Option optShowQuote = Option.builder("squt")
+      .desc("Show quotes")
+      .longOpt("show-quotes")
+      .build();
             
     options = new Options();
     options.addOption(optFile);
