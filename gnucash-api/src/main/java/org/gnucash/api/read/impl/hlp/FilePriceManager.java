@@ -3,6 +3,7 @@ package org.gnucash.api.read.impl.hlp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -130,6 +131,51 @@ public class FilePriceManager {
 		
 		return retval;
 	}
+
+	// ---------------------------------------------------------------
+	
+	public GnuCashPrice getPriceByCmdtyIDDate(final GCshCmdtyID cmdtyID, final LocalDate date) {
+		return getPriceByCmdtyCurrIDDate(cmdtyID, date);
+	}
+	
+	public GnuCashPrice getPriceByCurrIDDate(final GCshCurrID currID, final LocalDate date) {
+		return getPriceByCmdtyCurrIDDate(currID, date);
+	}
+	
+	public GnuCashPrice getPriceByCurrDate(final Currency curr, final LocalDate date) {
+		if ( curr == null ) {
+			throw new IllegalArgumentException("null currency ID given");
+		}
+		
+		GCshCurrID currID = new GCshCurrID(curr);
+		return getPriceByCmdtyCurrIDDate(currID, date);
+	}
+
+	public GnuCashPrice getPriceByCmdtyCurrIDDate(final GCshCmdtyCurrID cmdtyCurrID, final LocalDate date) {
+		if ( cmdtyCurrID == null ) {
+			throw new IllegalArgumentException("null commodity/currency ID given");
+		}
+		
+		if ( ! cmdtyCurrID.isSet() ) {
+			throw new IllegalArgumentException("unset commodity/currency ID given");
+		}
+		
+		if ( date == null ) {
+			throw new IllegalArgumentException("null date given");
+		}
+		
+		List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
+
+		for ( GnuCashPrice prc : getPricesByCmdtyCurrID(cmdtyCurrID) ) {
+			if ( prc.getDate().equals(date) ) {
+				result.add(prc);
+			}
+		}
+		
+		return null;
+	}
+
+	// ---------------------------------------------------------------
 
 	public Collection<GnuCashPrice> getPrices() {
 		if ( prcMap == null ) {

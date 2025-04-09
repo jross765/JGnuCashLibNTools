@@ -1043,6 +1043,26 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	public GnuCashPrice getPriceByID(GCshID prcID) {
 		return prcMgr.getPriceByID(prcID);
 	}
+	
+	// ---------------------------------------------------------------
+
+	public GnuCashPrice getPriceByCmdtyIDDate(final GCshCmdtyID cmdtyID, final LocalDate date) {
+		return prcMgr.getPriceByCmdtyIDDate(cmdtyID, date);
+	}
+	
+	public GnuCashPrice getPriceByCurrIDDate(final GCshCurrID currID, final LocalDate date) {
+		return prcMgr.getPriceByCurrIDDate(currID, date);
+	}
+	
+	public GnuCashPrice getPriceByCurrDate(final Currency curr, final LocalDate date) {
+		return prcMgr.getPriceByCurrDate(curr, date);
+	}
+	
+	public GnuCashPrice getPriceByCmdtyCurrIDDate(final GCshCmdtyCurrID cmdtyCurrID, final LocalDate date) {
+		return prcMgr.getPriceByCmdtyCurrIDDate(cmdtyCurrID, date);
+    }
+
+	// ---------------------------------------------------------------
 
 	/**
 	 * {@inheritDoc}

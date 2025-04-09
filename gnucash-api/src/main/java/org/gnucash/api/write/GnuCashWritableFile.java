@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 
 import org.gnucash.api.generated.GncV2;
@@ -11,15 +12,11 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashFile;
-import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
-import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
-import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
-import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
-import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
@@ -516,6 +513,14 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     GnuCashWritablePrice getWritablePriceByID(GCshID prcID);
 
+    GnuCashWritablePrice getWritablePriceByCmdtyIDDate(GCshCmdtyID cmdtyID, LocalDate date);
+	
+    GnuCashWritablePrice getWritablePriceByCurrIDDate(GCshCurrID currID, LocalDate date);
+	
+    GnuCashWritablePrice getWritablePriceByCurrDate(Currency curr, LocalDate date);
+	
+    GnuCashWritablePrice getWritablePriceByCmdtyCurrIDDate(GCshCmdtyCurrID cmdtyCurrID, LocalDate date);
+    
     Collection<GnuCashWritablePrice> getWritablePrices();
 
     // ----------------------------

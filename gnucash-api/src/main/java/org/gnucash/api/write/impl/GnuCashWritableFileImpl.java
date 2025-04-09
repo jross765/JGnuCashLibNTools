@@ -11,6 +11,7 @@ import java.io.Writer;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
@@ -1745,6 +1746,28 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	@Override
+	public GnuCashWritablePrice getWritablePriceByCmdtyIDDate(final GCshCmdtyID cmdtyID, final LocalDate date) {
+		return getWritablePriceByCmdtyCurrIDDate(cmdtyID, date);
+	}
+	
+	@Override
+	public GnuCashWritablePrice getWritablePriceByCurrIDDate(final GCshCurrID currID, final LocalDate date) {
+		return getWritablePriceByCmdtyCurrIDDate(currID, date);
+	}
+	
+	@Override
+	public GnuCashWritablePrice getWritablePriceByCurrDate(final Currency curr, final LocalDate date) {
+		GnuCashPrice prc = prcMgr.getPriceByCurrDate(curr, date);
+		return new GnuCashWritablePriceImpl((GnuCashPriceImpl) prc);
+	}
+	
+	@Override
+    public GnuCashWritablePrice getWritablePriceByCmdtyCurrIDDate(final GCshCmdtyCurrID cmdtyCurrID, final LocalDate date) {
+		GnuCashPrice prc = prcMgr.getPriceByCmdtyCurrIDDate(cmdtyCurrID, date);
+		return new GnuCashWritablePriceImpl((GnuCashPriceImpl) prc);
+    }
+
+    @Override
 	public Collection<GnuCashWritablePrice> getWritablePrices() {
 		Collection<GnuCashWritablePrice> result = new ArrayList<GnuCashWritablePrice>();
 

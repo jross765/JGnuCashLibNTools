@@ -906,6 +906,14 @@ public interface GnuCashFile extends GnuCashObject,
      */
     GnuCashPrice getPriceByID(GCshID prcID);
 
+	GnuCashPrice getPriceByCmdtyIDDate(GCshCmdtyID cmdtyID, LocalDate date);
+	
+	GnuCashPrice getPriceByCurrIDDate(GCshCurrID currID, LocalDate date);
+	
+	GnuCashPrice getPriceByCurrDate(Currency curr, LocalDate date);
+	
+    GnuCashPrice getPriceByCmdtyCurrIDDate(GCshCmdtyCurrID cmdtyCurrID, LocalDate date);
+
     /**
      * @return all prices defined in the book
      * @link GCshPrice
