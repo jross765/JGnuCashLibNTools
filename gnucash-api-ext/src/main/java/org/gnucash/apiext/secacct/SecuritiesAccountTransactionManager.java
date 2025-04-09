@@ -58,7 +58,7 @@ public class SecuritiesAccountTransactionManager {
     //    or 1/4 for 1-to-4 reverse split). So why use the number of add. shares? Because that
     //    is how GnuCash handles things, as opposed to KMyMoney (cf. the sister project) , both 
     //    on the data and the GUI level, and given that we want to have both projects as symmetrical 
-    //    as possibly, we copy that logic here, so that the user can choose between both methods.
+    //    as possible, we copy that logic here, so that the user can choose between both methods.
     //    Besides, the author has witnessed cases where the bank's statements provide wrong 
     //    values for the factor (yes, a bank's software also has bugs), whereas the number of add. 
     //    shares is practically always correct, given the usual bank-internal processes which
