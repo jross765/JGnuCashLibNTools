@@ -30,7 +30,7 @@ public class ConstTest extends Const {
     	public static final int NOF_CMDTY_SEC  = 6;
     	public static final int NOF_CMDTY_CURR = 2;
     	public static final int NOF_CMDTY_ALL  = NOF_CMDTY_SEC + NOF_CMDTY_CURR;
-    	public static final int NOF_PRC        = 11;
+    	public static final int NOF_PRC        = 23;
 
     	public static final int NOF_TAXTAB     = 7;
     	public static final int NOF_BLLTRM     = 3;

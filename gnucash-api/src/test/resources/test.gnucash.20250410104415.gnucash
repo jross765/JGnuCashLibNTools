@@ -216,7 +216,7 @@
 <gnc:count-data cd:type="commodity">7</gnc:count-data>
 <gnc:count-data cd:type="account">106</gnc:count-data>
 <gnc:count-data cd:type="transaction">17</gnc:count-data>
-<gnc:count-data cd:type="price">23</gnc:count-data>
+<gnc:count-data cd:type="price">20</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
@@ -313,57 +313,6 @@
   <cmdty:fraction>1</cmdty:fraction>
 </gnc:commodity>
 <gnc:pricedb version="1">
-  <price>
-    <price:id type="guid">f011f1d79cb844d88aa21a622ecebba8</price:id>
-    <price:commodity>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>USD</cmdty:id>
-    </price:commodity>
-    <price:currency>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>EUR</cmdty:id>
-    </price:currency>
-    <price:time>
-      <ts:date>2024-01-01 10:59:00 +0000</ts:date>
-    </price:time>
-    <price:source>user:price-editor</price:source>
-    <price:type>unknown</price:type>
-    <price:value>93/100</price:value>
-  </price>
-  <price>
-    <price:id type="guid">861b7b820a644f48a9ebc32577ce9720</price:id>
-    <price:commodity>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>USD</cmdty:id>
-    </price:commodity>
-    <price:currency>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>EUR</cmdty:id>
-    </price:currency>
-    <price:time>
-      <ts:date>2023-12-01 10:59:00 +0000</ts:date>
-    </price:time>
-    <price:source>user:price-editor</price:source>
-    <price:type>unknown</price:type>
-    <price:value>23/25</price:value>
-  </price>
-  <price>
-    <price:id type="guid">7c6ab10fde9943ccbfb1623d58a9448a</price:id>
-    <price:commodity>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>USD</cmdty:id>
-    </price:commodity>
-    <price:currency>
-      <cmdty:space>CURRENCY</cmdty:space>
-      <cmdty:id>EUR</cmdty:id>
-    </price:currency>
-    <price:time>
-      <ts:date>2023-11-01 10:59:00 +0000</ts:date>
-    </price:time>
-    <price:source>user:price-editor</price:source>
-    <price:type>unknown</price:type>
-    <price:value>91/100</price:value>
-  </price>
   <price>
     <price:id type="guid">037c268b47fb46d385360b1c9788a459</price:id>
     <price:commodity>

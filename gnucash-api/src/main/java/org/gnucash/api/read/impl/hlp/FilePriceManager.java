@@ -164,11 +164,9 @@ public class FilePriceManager {
 			throw new IllegalArgumentException("null date given");
 		}
 		
-		List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
-
 		for ( GnuCashPrice prc : getPricesByCmdtyCurrID(cmdtyCurrID) ) {
 			if ( prc.getDate().equals(date) ) {
-				result.add(prc);
+				return prc;
 			}
 		}
 		

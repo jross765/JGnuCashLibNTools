@@ -89,7 +89,7 @@ public class TestComplexPriceTable {
 		assertEquals(53.58, complPriceTab
 				.getConversionFactor(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(), "FR0000120644").doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
-		assertEquals(43.255, complPriceTab
+		assertEquals(46.3, complPriceTab
 				.getConversionFactor(GCshCmdtyCurrNameSpace.SecIdType.ISIN.toString(), "DE000BASF111").doubleValue(),
 				ConstTest.DIFF_TOLERANCE);
 	}
@@ -139,7 +139,7 @@ public class TestComplexPriceTable {
 		val = new FixedPointNumber("101.0");
 		assertEquals(true, complPriceTab.convertToBaseCurrency(val,
 				new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "DE000BASF111")));
-		assertEquals(4368.755, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(4676.3, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 	}
 
 	@Test
@@ -152,7 +152,7 @@ public class TestComplexPriceTable {
 				new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "FR0000120644")));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);
 
-		val = new FixedPointNumber("4368.755");
+		val = new FixedPointNumber("4676.3");
 		assertEquals(true, complPriceTab.convertFromBaseCurrency(val,
 				new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, "DE000BASF111")));
 		assertEquals(101.0, val.doubleValue(), ConstTest.DIFF_TOLERANCE);

@@ -8,18 +8,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Currency;
 import java.util.List;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID;
-import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashPrice.Type;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,6 +40,18 @@ public class TestGnuCashPriceImpl {
 	public static final GCshID PRC_11_ID = new GCshID("f2806739b34a4f55a86d9c83f2061606");
 	public static final GCshID PRC_12_ID = new GCshID("232625da7b4b4f55ba5e0e81b6ab4cac");
 	public static final GCshID PRC_13_ID = new GCshID("144582489ce24f3d934699b77d634977");
+	
+	public static final GCshID PRC_14_ID = new GCshID("3d7b1c6ca678483985cda54863f62ef5");
+	public static final GCshID PRC_15_ID = new GCshID("d9204b5e5b724562b99ae6d24ac06883");
+	public static final GCshID PRC_16_ID = new GCshID("6e651c2d5a934a7998efa3ea0a94f1ee");
+	public static final GCshID PRC_17_ID = new GCshID("861b7b820a644f48a9ebc32577ce9720");
+	public static final GCshID PRC_18_ID = new GCshID("f011f1d79cb844d88aa21a622ecebba8");
+	public static final GCshID PRC_19_ID = new GCshID("7c6ab10fde9943ccbfb1623d58a9448a");
+	
+	public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
+	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_2_ISIN;
+
+	public static final String CMDTY_4_ISIN = "DE000BASF111";
 	
 	// -----------------------------------------------------------------
 
@@ -114,6 +128,8 @@ public class TestGnuCashPriceImpl {
 		assertEquals(PRC_12_ID, prcList.get(2).getID()); // <-- CAUTION index!
 		assertEquals(PRC_13_ID, prcList.get(3).getID()); // <-- CAUTION index!
 	}
+
+	// ---------------------------------------------------------------
 
 	@Test
 	public void test02_1() throws Exception {
@@ -265,7 +281,68 @@ public class TestGnuCashPriceImpl {
 			assertEquals(0, 0);
 		}
 	}
+	
+	// ---------------------------------------------------------------
 
+	@Test
+	public void test03_1() throws Exception {
+		GCshCmdtyID_Exchange cmdty21ID = new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, CMDTY_2_ID);
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(cmdty21ID, LocalDate.of(2012, 3, 5));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_12_ID, prc.getID());
+		
+		GCshCmdtyID_SecIdType cmdty22ID = new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, CMDTY_2_ISIN);
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(cmdty22ID, LocalDate.of(2012, 3, 5));
+		assertEquals(null, prc); // sic, cannot be found by ISIN (in this particular case)
+	}
+	
+	@Test
+	public void test03_2() throws Exception {
+		GCshCmdtyID_SecIdType cmdty4ID = new GCshCmdtyID_SecIdType(GCshCmdtyCurrNameSpace.SecIdType.ISIN, CMDTY_4_ISIN);
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(cmdty4ID, LocalDate.of(2023, 4, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_14_ID, prc.getID());
+		
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(cmdty4ID, LocalDate.of(2023, 7, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_15_ID, prc.getID());
+		
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(cmdty4ID, LocalDate.of(2023, 10, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_16_ID, prc.getID());
+	}
+	
+	@Test
+	public void test04_1() throws Exception {
+		GCshCurrID currID = new GCshCurrID("USD");
+		prc = gcshFile.getPriceByCurrIDDate(currID, LocalDate.of(2023, 12, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_17_ID, prc.getID());
+		
+		Currency curr = Currency.getInstance("USD");
+		prc = gcshFile.getPriceByCurrDate(curr, LocalDate.of(2023, 12, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_17_ID, prc.getID());
+		
+		prc = gcshFile.getPriceByCmdtyCurrIDDate(currID, LocalDate.of(2023, 12, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_17_ID, prc.getID());
+	}
+	
+	@Test
+	public void test04_2() throws Exception {
+		Currency curr = Currency.getInstance("USD");
+		prc = gcshFile.getPriceByCurrDate(curr, LocalDate.of(2024, 1, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_18_ID, prc.getID());
+		
+		prc = gcshFile.getPriceByCurrDate(curr, LocalDate.of(2023, 11, 1));
+		assertNotEquals(null, prc);
+		assertEquals(PRC_19_ID, prc.getID());
+	}
+	
+	// ---------------------------------------------------------------
+	
 	// ::TODO
 	/*
 	 * @Test public void test02_2_2() throws Exception { taxTab =
