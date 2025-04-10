@@ -83,7 +83,7 @@
 			<artifactId>commons-configuration</artifactId>
 			<version>1.10</version>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.joda/joda-money -->
 		<dependency>
 			<groupId>org.joda</groupId>
