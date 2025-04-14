@@ -41,12 +41,13 @@ public class TestGnuCashPriceImpl {
 	public static final GCshID PRC_12_ID = new GCshID("232625da7b4b4f55ba5e0e81b6ab4cac");
 	public static final GCshID PRC_13_ID = new GCshID("144582489ce24f3d934699b77d634977");
 	
-	public static final GCshID PRC_14_ID = new GCshID("3d7b1c6ca678483985cda54863f62ef5");
-	public static final GCshID PRC_15_ID = new GCshID("d9204b5e5b724562b99ae6d24ac06883");
-	public static final GCshID PRC_16_ID = new GCshID("6e651c2d5a934a7998efa3ea0a94f1ee");
-	public static final GCshID PRC_17_ID = new GCshID("861b7b820a644f48a9ebc32577ce9720");
-	public static final GCshID PRC_18_ID = new GCshID("f011f1d79cb844d88aa21a622ecebba8");
-	public static final GCshID PRC_19_ID = new GCshID("7c6ab10fde9943ccbfb1623d58a9448a");
+	public static final GCshID PRC_14_ID = new GCshID("3d7b1c6ca678483985cda54863f62ef5"); // BASF/EUR
+	public static final GCshID PRC_15_ID = new GCshID("d9204b5e5b724562b99ae6d24ac06883"); // BASF/EUR
+	public static final GCshID PRC_16_ID = new GCshID("6e651c2d5a934a7998efa3ea0a94f1ee"); // BASF/EUR
+	
+	public static final GCshID PRC_17_ID = new GCshID("861b7b820a644f48a9ebc32577ce9720"); // USD/EUR
+	public static final GCshID PRC_18_ID = new GCshID("f011f1d79cb844d88aa21a622ecebba8"); // USD/EUR
+	public static final GCshID PRC_19_ID = new GCshID("7c6ab10fde9943ccbfb1623d58a9448a"); // USD/EUR
 	
 	public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
 	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_2_ISIN;

@@ -421,8 +421,8 @@ public class TestGnuCashWritablePriceImpl {
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
-		GCshCmdtyID_Exchange cmdty21ID = new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, CMDTY_2_ID);
-		GnuCashWritablePrice prc = gcshInFile.getWritablePriceByCmdtyCurrIDDate(cmdty21ID, LocalDate.of(2012, 3, 5));
+		GCshCmdtyID_Exchange cmdty31ID = new GCshCmdtyID_Exchange(GCshCmdtyCurrNameSpace.Exchange.EURONEXT, CMDTY_2_ID);
+		GnuCashWritablePrice prc = gcshInFile.getWritablePriceByCmdtyCurrIDDate(cmdty31ID, LocalDate.of(2012, 3, 5));
 		assertNotEquals(null, prc);
 		
 		assertEquals(PRC_12_ID, prc.getID());
@@ -437,7 +437,7 @@ public class TestGnuCashWritablePriceImpl {
 		// Check whether the object can has actually be modified
 		// (in memory, not in the file yet).
 
-		test03_1_check_memory(prc);
+		test02_3_check_memory(prc);
 
 		// ----------------------------
 		// Now, check whether the modified object can be written to the
@@ -451,7 +451,7 @@ public class TestGnuCashWritablePriceImpl {
 		// and the GnuCash file writer does not like that.
 		gcshInFile.writeFile(outFile);
 
-		test03_1_check_persisted(outFile);
+		test02_3_check_persisted(outFile);
 	}
 	
 	// ----------------------------
@@ -502,7 +502,7 @@ public class TestGnuCashWritablePriceImpl {
 	
 	// ----------------------------
 
-	private void test03_1_check_memory(GnuCashWritablePrice prc) throws Exception {
+	private void test02_3_check_memory(GnuCashWritablePrice prc) throws Exception {
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
@@ -521,7 +521,7 @@ public class TestGnuCashWritablePriceImpl {
 		assertEquals(2122.22, prc.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
 	}
 
-	private void test03_1_check_persisted(File outFile) throws Exception {
+	private void test02_3_check_persisted(File outFile) throws Exception {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
