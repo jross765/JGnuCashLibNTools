@@ -8,4 +8,5 @@ module gnucash.apiext {
 	requires transitive gnucash.api;
 
 	exports org.gnucash.apiext.secacct;
+	exports org.gnucash.apiext.trxmgr;
 }
