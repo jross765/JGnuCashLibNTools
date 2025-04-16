@@ -98,28 +98,18 @@ public class TransactionFilter {
 //			}
 //		}
 
-		try {
-			if ( ! datePostedFrom.equals( LocalDateHelpers.parseLocalDate(LocalDateHelpers.DATE_UNSET, DateHelpers.DATE_FORMAT_1) ) ) {
-				if ( trx.getDatePosted().toLocalDate().isBefore(datePostedFrom) ) {
-					return false;
-				}
+		if ( isDatePostedFromSet() ) {
+			if ( trx.getDatePosted().toLocalDate().isBefore(datePostedFrom) ) {
+				return false;
 			}
-		} catch (Exception e) {
-			// pro forma, de facto unreachable
-			e.printStackTrace();
 		}
 		
-		try {
-			if ( ! datePostedTo.equals( LocalDateHelpers.parseLocalDate(LocalDateHelpers.DATE_UNSET, DateHelpers.DATE_FORMAT_1) ) ) {
-				if ( trx.getDatePosted().toLocalDate().isAfter(datePostedTo) ) {
-					return false;
-				}
+		if ( isDatePostedToSet() ) {
+			if ( trx.getDatePosted().toLocalDate().isAfter(datePostedTo) ) {
+				return false;
 			}
-		} catch (Exception e) {
-			// pro forma, de facto unreachable
-			e.printStackTrace();
 		}
-		
+			
 		if ( nofSpltFrom != 0 ) {
 			if ( trx.getSplits().size() < nofSpltFrom ) {
 				return false;
@@ -170,6 +160,37 @@ public class TransactionFilter {
 			else
 				return true;
 		} // splitLogic
+		
+		return true; // Compiler happy
+	}
+	
+	// -----------------------------------------------------
+	// helpers
+
+	public boolean isDatePostedFromSet() {
+		try {
+			if ( datePostedFrom.equals( LocalDateHelpers.parseLocalDate(LocalDateHelpers.DATE_UNSET, DateHelpers.DATE_FORMAT_1) ) )
+				return false;
+			else			
+				return true;
+		} catch (Exception e) {
+			// pro forma, de facto unreachable
+			e.printStackTrace();
+		}
+		
+		return true; // Compiler happy
+	}
+
+	public boolean isDatePostedToSet() {
+		try {
+			if ( datePostedTo.equals( LocalDateHelpers.parseLocalDate(LocalDateHelpers.DATE_UNSET, DateHelpers.DATE_FORMAT_1) ) )
+				return false;
+			else			
+				return true;
+		} catch (Exception e) {
+			// pro forma, de facto unreachable
+			e.printStackTrace();
+		}
 		
 		return true; // Compiler happy
 	}
