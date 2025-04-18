@@ -6,7 +6,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.gnucash.api.Const;
@@ -227,19 +226,33 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * @param impl the split to remove from this transaction
      */
     public void remove(final GnuCashWritableTransactionSplit impl) {
-	getJwsdpPeer().getTrnSplits().getTrnSplit().remove(((GnuCashWritableTransactionSplitImpl) impl).getJwsdpPeer());
+	getJwsdpPeer().getTrnSplits().getTrnSplit()
+		.remove(((GnuCashWritableTransactionSplitImpl) impl).getJwsdpPeer());
 	getWritableFile().setModified(true);
-	if (mySplits != null) {
-	    mySplits.remove(impl);
+	
+	if ( mySplits == null ) { 
+		// important!
+		List<GnuCashTransactionSplit> dummy = getSplits();
+	} else {
+		// That does not work with writable splits:
+	    // mySplits.remove(impl);
+		// Instead:
+		for ( int i = 0; i < mySplits.size(); i++ ) {
+			if ( mySplits.get(i).getID().equals(impl.getID())) {
+				mySplits.remove(i);
+				i--;
+			}
+		}
 	}
+	
 	GnuCashWritableAccountImpl account = (GnuCashWritableAccountImpl) impl.getAccount();
 	if (account != null) {
 	    account.removeTransactionSplit(impl);
 	}
 
+	getWritableFile().removeTransactionSplit(impl);
 	// there is no count for splits up to now
 	// getWritableFile().decrementCountDataFor()
-
 	if (helper.getPropertyChangeSupport() != null) {
 	    helper.getPropertyChangeSupport().firePropertyChange("splits", null, getWritableSplits());
 	}
@@ -291,7 +304,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 	List<GnuCashWritableTransactionSplit> result = new ArrayList<GnuCashWritableTransactionSplit>();
 	
 	for ( GnuCashTransactionSplit split : super.getSplits() ) {
-	    GnuCashWritableTransactionSplit newSplit = new GnuCashWritableTransactionSplitImpl(split);
+	    GnuCashWritableTransactionSplit newSplit = new GnuCashWritableTransactionSplitImpl(split, false, false);
 	    result.add(newSplit);
 	}
 
@@ -311,12 +324,11 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      */
     public void remove() {
 	getWritableFile().removeTransaction(this);
-	Collection<GnuCashWritableTransactionSplit> c = new ArrayList<GnuCashWritableTransactionSplit>();
-	c.addAll(getWritableSplits());
-	for (GnuCashWritableTransactionSplit element : c) {
-	    element.remove();
-	}
-
+//	Collection<GnuCashWritableTransactionSplit> c = new ArrayList<GnuCashWritableTransactionSplit>();
+//	c.addAll(getWritableSplits());
+//	for (GnuCashWritableTransactionSplit element : c) {
+//	    element.remove();
+//	}
     }
 
     /**

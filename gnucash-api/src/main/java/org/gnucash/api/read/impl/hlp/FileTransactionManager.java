@@ -170,7 +170,7 @@ public class FileTransactionManager {
 	}
 
 	public void removeTransactionSplit(GnuCashTransactionSplit splt) {
-		removeTransactionSplit(splt, true);
+		removeTransactionSplit(splt, false);
 	}
 
 	public void removeTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {

@@ -777,13 +777,25 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		Collection<GnuCashWritableTransactionSplit> c = new ArrayList<GnuCashWritableTransactionSplit>();
 		c.addAll(trx.getWritableSplits());
-		for ( GnuCashWritableTransactionSplit element : c ) {
-			element.remove();
+		for ( GnuCashWritableTransactionSplit splt : c ) {
+			splt.remove();
 		}
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionImpl) trx).getJwsdpPeer());
 		setModified(true);
 		super.trxMgr.removeTransaction(trx);
+	}
+
+	/**
+	 * @param trx what to remove
+	 * 
+	 */
+	// By purpose, this method has not been defined in the interface
+	// @Override
+	public void removeTransactionSplit(final GnuCashWritableTransactionSplit splt) {
+		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionSplitImpl) splt).getJwsdpPeer());
+		setModified(true);
+		super.trxMgr.removeTransactionSplit(splt, false);
 	}
 
 	// ---------------------------------------------------------------
