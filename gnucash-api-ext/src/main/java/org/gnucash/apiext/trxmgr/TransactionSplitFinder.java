@@ -20,6 +20,10 @@ public class TransactionSplitFinder {
     // ---------------------------------------------------------------
 	
 	public TransactionSplitFinder(GnuCashWritableFile gcshFile) {
+		if ( gcshFile == null ) {
+			throw new IllegalArgumentException("null gnucash-file object given");
+		}
+		
 		this.gcshFile = gcshFile;
 	}
     
@@ -29,6 +33,11 @@ public class TransactionSplitFinder {
 	// - Have results writable?
     
 	public ArrayList<GnuCashTransactionSplit> find(TransactionSplitFilter flt) {
+		if ( flt == null ) {
+			throw new IllegalArgumentException("null transaction-split-filter given");
+		}
+		
+		LOGGER.debug("find: Searching for Transaction-Splits matching filter: " + flt.toString());
 		ArrayList<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
 		
 		Collection<GnuCashTransactionSplit> candList = gcshFile.getTransactionSplits();
@@ -38,7 +47,8 @@ public class TransactionSplitFinder {
 				result.add(splt);
 			}
 		}
-		
+
+		LOGGER.debug("find: Found " + result.size() + " Transaction-Splits matching filter");
 		return result;
 	}
 

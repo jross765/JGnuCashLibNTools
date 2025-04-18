@@ -22,6 +22,10 @@ public class TransactionFinder {
     // ---------------------------------------------------------------
 	
 	public TransactionFinder(GnuCashWritableFile gcshFile) {
+		if ( gcshFile == null ) {
+			throw new IllegalArgumentException("null gnucash-file object given");
+		}
+		
 		this.gcshFile = gcshFile;
 	}
     
@@ -33,6 +37,11 @@ public class TransactionFinder {
 	public ArrayList<GnuCashTransaction> find(TransactionFilter flt, 
 			                                  boolean withSplits,
 			                                  TransactionFilter.SplitLogic splitLogic) {
+		if ( flt == null ) {
+			throw new IllegalArgumentException("null transaction-filter given");
+		}
+		
+		LOGGER.debug("find: Searching for Transactions matching filter: " + flt.toString());
 		ArrayList<GnuCashTransaction> result = new ArrayList<GnuCashTransaction>();
 		
 		Collection<? extends GnuCashTransaction> candList = null;
@@ -62,6 +71,7 @@ public class TransactionFinder {
 			}
 		}
 		
+		LOGGER.debug("find: Found " + result.size() + " Transactions matching filter");
 		return result;
 	}
 

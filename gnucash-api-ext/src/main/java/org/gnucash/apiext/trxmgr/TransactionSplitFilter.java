@@ -80,6 +80,10 @@ public class TransactionSplitFilter {
 	
 	public boolean matchesCriteria(final GnuCashTransactionSplit splt) {
 		
+		if ( splt == null ) {
+			throw new IllegalArgumentException("null transaction-split given");
+		}
+		
 		if ( action != null ) {
 			if ( splt.getAction() != action ) {
 				return false;
@@ -137,4 +141,19 @@ public class TransactionSplitFilter {
 		return true;
 	}
 	
+	// ---------------------------------------------------------------
+	
+	@Override
+	public String toString() {
+		return "TransactionSplitFilter [" + 
+	                 "action=" + action + ", " +
+				     "acctID=" + acctID + ", " +
+	               "acctType=" + acctType + ", " +
+				  "valueFrom=" + valueFrom + ", " +
+	                "valueTo=" + valueTo + ", " +
+			   "quantityFrom=" + quantityFrom + ", " + 
+	             "quantityTo=" + quantityTo + ", " +
+			      "descrPart='" + descrPart + "']";
+	}
+
 }

@@ -12,6 +12,11 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import xyz.schnorxoborx.base.dateutils.DateHelpers;
+import xyz.schnorxoborx.base.dateutils.IllegalDayOfMonthValueException;
+import xyz.schnorxoborx.base.dateutils.IllegalMonthValueException;
+import xyz.schnorxoborx.base.dateutils.JulianDate;
+import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TransactionMerger {
@@ -38,13 +43,16 @@ public class TransactionMerger {
 	}
 
 	public void merge(GnuCashTransaction survivor, GnuCashWritableTransaction dier) throws MergePlausiCheckException {
+		// 1) Perform plausi checks
 		if ( ! plausiCheck(survivor, dier) ) {
 			LOGGER.error("merge: survivor-dier-pair did not pass plausi check: " + survivor.getID() + "/" + dier.getID());
 			throw new MergePlausiCheckException();
 		}
 		
+		// 2) If OK, remove dier
 		GCshID dierID = dier.getID();
 		gcshFile.removeTransaction(dier);
+		// dier.remove();
 		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
 	}
 
@@ -52,8 +60,17 @@ public class TransactionMerger {
 	
 	private boolean plausiCheck(GnuCashTransaction survivor, GnuCashTransaction dier) {
 		// Level 1:
-		// ::TODO: Tolerance
-		if ( ! survivor.getDatePosted().equals(dier.getDatePosted()) ) {
+		double survDateFromJul = 0.0;
+		double dierDateToJul   = 0.0;
+		try {
+			survDateFromJul = JulianDate.toJulian(survivor.getDatePosted().toLocalDate());
+			dierDateToJul   = JulianDate.toJulian(dier.getDatePosted().toLocalDate());
+		} catch ( Exception exc ) {
+			// pro forma
+			exc.printStackTrace();
+		}
+		
+		if ( Math.abs( survDateFromJul - dierDateToJul ) > Const.DIFF_TOLERANCE_DAYS ) {
 			LOGGER.warn("plausiCheck: Survivor- and dier-transaction do not have the same post-date");
 			LOGGER.debug("plausiCheck: Survivor-date: " + survivor.getDatePosted());
 			LOGGER.debug("plausiCheck: Dier-date: " + dier.getDatePosted());

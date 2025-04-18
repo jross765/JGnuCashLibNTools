@@ -91,6 +91,10 @@ public class TransactionFilter {
 			                       final boolean withSplits,
 			                       final SplitLogic splitLogic) {
 		
+		if ( trx == null ) {
+			throw new IllegalArgumentException("null transaction given");
+		}
+		
 		// 1) Transaction Level
 //		if ( type != null ) {
 //			if ( trx.gettype() != type) {
@@ -140,6 +144,9 @@ public class TransactionFilter {
 	
 	private boolean splitsMatchCriteria(final GnuCashTransaction trx,
 										final SplitLogic splitLogic) {
+		if ( spltFilt == null ) {
+			throw new IllegalStateException("split-filter is null");
+		}
 		
 		if ( splitLogic == SplitLogic.AND ) {
 			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
@@ -193,6 +200,19 @@ public class TransactionFilter {
 		}
 		
 		return true; // Compiler happy
+	}
+	
+	// ---------------------------------------------------------------
+
+	@Override
+	public String toString() {
+		return "TransactionFilter [" + 
+	              "datePostedFrom=" + datePostedFrom + ", " +
+				    "datePostedTo=" + datePostedTo + ", " +
+	                 "nofSpltFrom=" + nofSpltFrom + ", " +
+				       "nofSpltTo=" + nofSpltTo + ", " +
+	                   "descrPart='" + descrPart + "', " +
+				        "spltFilt=" + spltFilt + "]";
 	}
 
 }
