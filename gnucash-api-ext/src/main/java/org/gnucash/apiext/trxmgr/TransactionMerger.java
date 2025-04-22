@@ -12,11 +12,7 @@ import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.schnorxoborx.base.dateutils.DateHelpers;
-import xyz.schnorxoborx.base.dateutils.IllegalDayOfMonthValueException;
-import xyz.schnorxoborx.base.dateutils.IllegalMonthValueException;
 import xyz.schnorxoborx.base.dateutils.JulianDate;
-import xyz.schnorxoborx.base.dateutils.LocalDateHelpers;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TransactionMerger {
@@ -52,7 +48,6 @@ public class TransactionMerger {
 		// 2) If OK, remove dier
 		GCshID dierID = dier.getID();
 		gcshFile.removeTransaction(dier);
-		// dier.remove();
 		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
 	}
 
