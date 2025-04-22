@@ -3,7 +3,6 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +11,6 @@ import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.generated.GncTransaction.TrnSplits.TrnSplit.SplitLot;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.generated.Slot;
-import org.gnucash.api.generated.SlotsType;
-import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -392,6 +388,18 @@ public class FileTransactionManager {
 		}
 
 		return result;
+	}
+
+	// ---------------------------------------------------------------
+	
+	protected GncTransaction getTransaction_raw(final GCshID trxID) {
+		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
+			if ( jwsdpTrx.getTrnId().getValue().equals(trxID.toString()) ) {
+				return jwsdpTrx;
+			}
+		}
+		
+		return null;
 	}
 
 	// ---------------------------------------------------------------

@@ -118,6 +118,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -724,12 +725,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		try {
 			return new GnuCashWritableTransactionImpl(super.getTransactionByID(trxID));
 		} catch (Exception exc) {
-			LOGGER.error(
-					"getWritableTransactionByID: Could not instantiate writable transaction object from read-only transaction object (ID: "
-							+ trxID + ")");
-			throw new RuntimeException(
-					"Could not instantiate writable transaction object from read-only transaction object (ID: " + trxID
-							+ ")");
+			LOGGER.error("getWritableTransactionByID: Could not instantiate writable transaction object from read-only transaction object (ID: " + trxID + ")");
+			throw new RuntimeException("Could not instantiate writable transaction object from read-only transaction object (ID: " + trxID + ")");
 		}
 	}
 
@@ -775,27 +772,58 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeTransaction(final GnuCashWritableTransaction trx) {
 
-		Collection<GnuCashWritableTransactionSplit> c = new ArrayList<GnuCashWritableTransactionSplit>();
-		c.addAll(trx.getWritableSplits());
-		for ( GnuCashWritableTransactionSplit splt : c ) {
+		Collection<GnuCashWritableTransactionSplit> spltList = new ArrayList<GnuCashWritableTransactionSplit>();
+		spltList.addAll(trx.getWritableSplits());
+		for ( GnuCashWritableTransactionSplit splt : spltList ) {
 			splt.remove();
 		}
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionImpl) trx).getJwsdpPeer());
 		setModified(true);
-		super.trxMgr.removeTransaction(trx);
+		super.trxMgr.removeTransaction(trx);		
 	}
 
 	/**
-	 * @param trx what to remove
+	 * @param splt what to remove
 	 * 
 	 */
 	// By purpose, this method has not been defined in the interface
 	// @Override
 	public void removeTransactionSplit(final GnuCashWritableTransactionSplit splt) {
-		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionSplitImpl) splt).getJwsdpPeer());
-		setModified(true);
+		// 1) remove avatar in transaction manager
 		super.trxMgr.removeTransactionSplit(splt, false);
+		
+		// 2) remove transaction split
+		GCshID trxID = splt.getTransactionID();
+		String trxIDStr = null;
+		try {
+			trxIDStr = trxID.get();
+		} catch (GCshIDNotSetException e) {
+			throw new IllegalStateException("Transaction-split " + splt + " does not seem to have a correct transaction (ID)");
+		}
+		
+		// Does not work like that, as splits are embedded in transactions:
+		// getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionSplitImpl) splt).getJwsdpPeer());
+		// Instead:
+		((org.gnucash.api.write.impl.hlp.FileTransactionManager) trxMgr)
+			.removeTransactionSplit_raw(splt.getTransactionID(), splt.getID());
+		
+		// 3) remove transaction, if no splits left
+		// ::TODO / ::CHECK
+		// uncomment?
+		// cf. according code in removePrice()
+//		for ( TRANSACTION jwsdpTrx : getRootElement().getTRANSACTIONS().getTRANSACTION() ) {
+//			if ( jwsdpTrx.getId().equals(trx.getID().get()) ) {
+//				if ( jwsdpTrx.getSPLITS().size() == 0 ) {
+//					// CAUTION concurrency ::CHECK
+//					getRootElement().getTRANSACTIONS().getTRANSACTION().remove(jwsdpTrx);
+//					break;
+//				}
+//			}
+//		}
+		
+		// 4) set 'modified' flag
+		setModified(true);
 	}
 
 	// ---------------------------------------------------------------

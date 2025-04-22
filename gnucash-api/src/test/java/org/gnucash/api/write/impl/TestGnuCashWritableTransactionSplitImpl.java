@@ -29,8 +29,8 @@ public class TestGnuCashWritableTransactionSplitImpl {
 	public static final GCshID ACCT_2_ID = TestGnuCashAccountImpl.ACCT_2_ID;
 	public static final GCshID ACCT_8_ID = TestGnuCashTransactionSplitImpl.ACCT_8_ID;
 
-	public static final GCshID TRX_1_ID = TestGnuCashTransactionSplitImpl.TRX_1_ID;
-	public static final GCshID TRX_2_ID = TestGnuCashTransactionSplitImpl.TRX_2_ID;
+	public static final GCshID TRX_4_ID = TestGnuCashTransactionSplitImpl.TRX_4_ID;
+	public static final GCshID TRX_5_ID = TestGnuCashTransactionSplitImpl.TRX_5_ID;
 
 	public static final GCshID TRXSPLT_1_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_1_ID;
 	public static final GCshID TRXSPLT_2_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_2_ID;
@@ -100,7 +100,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
 
 		assertEquals(TRXSPLT_1_ID, splt.getID());
-		assertEquals(TRX_1_ID, splt.getTransactionID());
+		assertEquals(TRX_4_ID, splt.getTransactionID());
 		assertEquals(ACCT_1_ID, splt.getAccountID());
 		assertEquals(null, splt.getAction());
 		assertEquals(-2253.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -119,7 +119,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
 
 		assertEquals(TRXSPLT_2_ID, splt.getID());
-		assertEquals(TRX_2_ID, splt.getTransactionID());
+		assertEquals(TRX_5_ID, splt.getTransactionID());
 		assertEquals(ACCT_8_ID, splt.getAccountID());
 		assertEquals(GnuCashTransactionSplit.Action.BUY, splt.getAction());
 		assertEquals(1875.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -185,49 +185,6 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		test02_1_check_persisted(outFile);
 	}
 
-	@Test
-	public void test02_2() throws Exception {
-		gcshInFileStats = new GCshFileStats(gcshInFile);
-
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
-		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
-
-		// Variant 1
-		GnuCashWritableTransaction trx1 = gcshInFile.getWritableTransactionByID(TRX_1_ID);
-		GnuCashWritableTransactionSplit splt1 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
-		assertNotEquals(null, trx1);
-		assertNotEquals(null, splt1);
-		trx1.remove(splt1);
-
-		// Variant 2
-		GnuCashWritableTransaction trx2 = gcshInFile.getWritableTransactionByID(TRX_2_ID);
-		GnuCashWritableTransactionSplit splt2 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
-		assertNotEquals(null, splt2);
-		splt2.remove();
-
-		// ----------------------------
-		// Check whether the object can has actually be modified
-		// (in memory, not in the file yet).
-
-		test02_2_check_memory(splt1, splt2, 
-							  trx1, trx2);
-
-		// ----------------------------
-		// Now, check whether the modified object can be written to the
-		// output file, then re-read from it, and whether is is what
-		// we expect it is.
-
-		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
-		// + outFile.getPath() + "'");
-		outFile.delete(); // sic, the temp. file is already generated (empty),
-		// and the GnuCash file writer does not like that.
-		gcshInFile.writeFile(outFile);
-
-		test02_2_check_persisted(trx1, outFile);
-	}
-	
 	// ---------------------------------------------------------------
 
 	private void test02_1_check_memory(GnuCashWritableTransactionSplit splt) throws Exception {
@@ -235,7 +192,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
 
-		assertEquals(TRX_1_ID, splt.getTransactionID()); // unchanged
+		assertEquals(TRX_4_ID, splt.getTransactionID()); // unchanged
 		assertEquals(ACCT_2_ID, splt.getAccountID()); // changed
 		assertEquals(null, splt.getAction()); // unchanged
 		assertEquals(-123.45, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
@@ -256,7 +213,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		GnuCashTransactionSplit splt = gcshOutFile.getTransactionSplitByID(TRXSPLT_1_ID);
 		assertNotEquals(null, splt);
 
-		assertEquals(TRX_1_ID, splt.getTransactionID()); // unchanged
+		assertEquals(TRX_4_ID, splt.getTransactionID()); // unchanged
 		assertEquals(ACCT_2_ID, splt.getAccountID()); // changed
 		assertEquals(null, splt.getAction()); // unchanged
 		assertEquals(-123.45, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE); // changed
@@ -264,51 +221,6 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		assertEquals("Alle meine Entchen", splt.getDescription()); // changed
 		assertEquals(null, splt.getLotID()); // unchanged
 		assertEquals(null, splt.getUserDefinedAttributeKeys()); // unchanged
-	}
-
-	// ---------------------------------------------------------------
-
-	private void test02_2_check_memory(GnuCashWritableTransactionSplit splt1, 
-									   GnuCashWritableTransactionSplit splt2, 
-									   GnuCashTransaction trx1,
-									   GnuCashTransaction trx2) throws Exception {
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
-		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
-
-		assertEquals(2, trx1.getSplitsCount());
-		assertEquals("980706f1ead64460b8205f093472c855", trx1.getSplits().get(0).getID().toString());
-		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx1.getSplits().get(1).getID().toString());
-
-		GnuCashWritableTransaction trx1Now = gcshInFile.getWritableTransactionByID(TRX_1_ID);
-		// CAUTION / ::TODO
-		// Don't know what to do about this oddity right now,
-		// but it needs to be addressed at some point.
-		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
-		assertNotEquals(null, trx1Now); // still there
-		try {
-			GnuCashWritableTransactionSplit splt1Now = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
-			assertEquals(1, 0);
-		} catch ( NullPointerException exc ) {
-			assertEquals(0, 0);
-		}
-	}
-
-	private void test02_2_check_persisted(GnuCashTransaction trx, File outFile) throws Exception {
-		gcshOutFile = new GnuCashFileImpl(outFile);
-		gcshOutFileStats = new GCshFileStats(gcshOutFile);
-
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
-		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
-
-		GnuCashTransactionSplit splt = gcshOutFile.getTransactionSplitByID(TRXSPLT_1_ID);
-		assertEquals(null, splt); // sic
-
-		assertEquals(TRX_1_ID, trx.getID()); // unchanged
-		assertEquals(2, trx.getSplitsCount());
-		assertEquals("980706f1ead64460b8205f093472c855", trx.getSplits().get(0).getID().toString());
-		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx.getSplits().get(1).getID().toString());
 	}
 
 	// -----------------------------------------------------------------
@@ -323,6 +235,150 @@ public class TestGnuCashWritableTransactionSplitImpl {
 
 	// ------------------------------
 	// PART 3.2: Low-Level
+	// ------------------------------
+
+	// ::TODO
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_2() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
+
+		// Variant 1
+		GnuCashWritableTransaction trx1 = gcshInFile.getWritableTransactionByID(TRX_4_ID);
+		GnuCashWritableTransactionSplit splt1 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
+		assertNotEquals(null, trx1);
+		assertNotEquals(null, splt1);
+		trx1.remove(splt1);
+
+		// Variant 2
+		GnuCashWritableTransaction trx2 = gcshInFile.getWritableTransactionByID(TRX_5_ID);
+		GnuCashWritableTransactionSplit splt2 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
+		assertNotEquals(null, splt2);
+		splt2.remove();
+
+		// ----------------------------
+		// Check whether the object have actually been deleted
+		// (in memory, not in the file yet).
+
+		test04_2_check_memory(splt1, splt2, 
+							  trx1, trx2);
+
+		// ----------------------------
+		// Now, check whether the deletions have been written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_2_check_persisted(outFile,
+								 trx1, trx2);
+	}
+	
+	// ---------------------------------------------------------------
+
+	private void test04_2_check_memory(GnuCashWritableTransactionSplit splt1, 
+									   GnuCashWritableTransactionSplit splt2, 
+									   GnuCashTransaction trx1,
+									   GnuCashTransaction trx2) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
+
+		// ---
+		// First split:
+		
+		assertEquals(2, trx1.getSplitsCount());
+		assertEquals("980706f1ead64460b8205f093472c855", trx1.getSplits().get(0).getID().toString());
+		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx1.getSplits().get(1).getID().toString());
+
+		GnuCashWritableTransaction trx1Now = gcshInFile.getWritableTransactionByID(TRX_4_ID);
+		// CAUTION / ::TODO
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
+		assertNotEquals(null, trx1Now); // still there
+		try {
+			GnuCashWritableTransactionSplit splt1Now = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
+			assertEquals(1, 0);
+		} catch ( NullPointerException exc ) {
+			assertEquals(0, 0);
+		}
+		
+		// ---
+		// Second split, same as above:
+		
+		assertEquals(3, trx2.getSplitsCount());
+		assertEquals("65539ddefc34439d80925275226e7849", trx2.getSplits().get(0).getID().toString());
+		assertEquals("4cd194156b014823ab4fea16c3947fcb", trx2.getSplits().get(1).getID().toString());
+		assertEquals("ffdc46ece30042baa3657af57eabe6ee", trx2.getSplits().get(2).getID().toString());
+
+		GnuCashWritableTransaction trx2Now = gcshInFile.getWritableTransactionByID(TRX_5_ID);
+		// CAUTION / ::TODO
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
+		assertNotEquals(null, trx2Now); // still there
+		try {
+			GnuCashWritableTransactionSplit splt2Now = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
+			assertEquals(1, 0);
+		} catch ( NullPointerException exc ) {
+			assertEquals(0, 0);
+		}
+	}
+
+	private void test04_2_check_persisted(File outFile,
+										  GnuCashTransaction trx1,
+										  GnuCashTransaction trx2) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
+
+		// ---
+		// First split:
+		
+		GnuCashTransactionSplit splt1 = gcshOutFile.getTransactionSplitByID(TRXSPLT_1_ID);
+		assertEquals(null, splt1); // sic
+
+		assertEquals(TRX_4_ID, trx1.getID()); // unchanged
+		assertEquals(2, trx1.getSplitsCount()); // changed
+		assertEquals("980706f1ead64460b8205f093472c855", trx1.getSplits().get(0).getID().toString());
+		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx1.getSplits().get(1).getID().toString());
+
+		// ---
+		// Second split, same as above:
+		
+		GnuCashTransactionSplit splt2 = gcshOutFile.getTransactionSplitByID(TRXSPLT_2_ID);
+		assertEquals(null, splt2); // sic
+
+		assertEquals(TRX_5_ID, trx2.getID()); // unchanged
+		assertEquals(3, trx2.getSplitsCount()); // changed
+		assertEquals("65539ddefc34439d80925275226e7849", trx2.getSplits().get(0).getID().toString());
+		assertEquals("4cd194156b014823ab4fea16c3947fcb", trx2.getSplits().get(1).getID().toString());
+		assertEquals("ffdc46ece30042baa3657af57eabe6ee", trx2.getSplits().get(2).getID().toString());
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
 	// ------------------------------
 
 	// ::TODO

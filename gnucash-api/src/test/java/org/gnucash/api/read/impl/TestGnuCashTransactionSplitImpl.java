@@ -19,8 +19,8 @@ public class TestGnuCashTransactionSplitImpl {
 	public static final GCshID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
 	public static final GCshID ACCT_8_ID = TestGnuCashAccountImpl.ACCT_8_ID;
 
-	public static final GCshID TRX_1_ID = new GCshID("cc9fe6a245df45ba9b494660732a7755");
-	public static final GCshID TRX_2_ID = new GCshID("4307689faade47d8aab4db87c8ce3aaf");
+	public static final GCshID TRX_4_ID = new GCshID("cc9fe6a245df45ba9b494660732a7755");
+	public static final GCshID TRX_5_ID = new GCshID("4307689faade47d8aab4db87c8ce3aaf");
 
 	public static final GCshID TRXSPLT_1_ID = new GCshID("b6a88c1d918e465892488c561e02831a");
 	public static final GCshID TRXSPLT_2_ID = new GCshID("c3ae14400ec843f9bf63f5ef69a31528");
@@ -71,7 +71,7 @@ public class TestGnuCashTransactionSplitImpl {
 		splt = gcshFile.getTransactionSplitByID(TRXSPLT_1_ID);
 
 		assertEquals(TRXSPLT_1_ID, splt.getID());
-		assertEquals(TRX_1_ID, splt.getTransactionID());
+		assertEquals(TRX_4_ID, splt.getTransactionID());
 		assertEquals(ACCT_1_ID, splt.getAccountID());
 		assertEquals(null, splt.getAction());
 		assertEquals(-2253.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
@@ -90,7 +90,7 @@ public class TestGnuCashTransactionSplitImpl {
 		splt = gcshFile.getTransactionSplitByID(TRXSPLT_2_ID);
 
 		assertEquals(TRXSPLT_2_ID, splt.getID());
-		assertEquals(TRX_2_ID, splt.getTransactionID());
+		assertEquals(TRX_5_ID, splt.getTransactionID());
 		assertEquals(ACCT_8_ID, splt.getAccountID());
 		assertEquals(GnuCashTransactionSplit.Action.BUY, splt.getAction());
 		assertEquals(1875.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);

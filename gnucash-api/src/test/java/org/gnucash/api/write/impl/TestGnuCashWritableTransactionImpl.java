@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
@@ -21,6 +19,8 @@ import org.gnucash.api.read.impl.TestGnuCashTransactionImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
+import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -181,6 +181,8 @@ public class TestGnuCashWritableTransactionImpl {
 	public void test02_2() throws Exception {
 		// ::TODO
 	}
+	
+	// ---------------------------------------------------------------
 
 	private void test02_1_check_memory(GnuCashWritableTransaction trx) throws Exception {
 		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
@@ -380,6 +382,136 @@ public class TestGnuCashWritableTransactionImpl {
 
 	// ------------------------------
 	// PART 3.2: Low-Level
+	// ------------------------------
+
+	// ::TODO
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
+
+
+		// ----------------------------
+		// Delete the object
+
+		// Variant 1
+		GnuCashWritableTransaction trx1 = gcshInFile.getWritableTransactionByID(TRX_1_ID);
+		assertNotEquals(null, trx1);
+		gcshInFile.removeTransaction(trx1);
+
+		// Variant 2
+		GnuCashWritableTransaction trx2 = gcshInFile.getWritableTransactionByID(TRX_2_ID);
+		trx2.remove();
+
+		// ----------------------------
+		// Check whether the objects have actually been deleted
+		// (in memory, not in the file yet).
+
+		test04_1_check_memory(trx1, trx2);
+
+		// ----------------------------
+		// Now, check whether the deletions have been written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_1_check_persisted(outFile);
+	}
+
+	// ---------------------------------------------------------------
+
+	private void test04_1_check_memory(GnuCashWritableTransaction trx1,
+									   GnuCashWritableTransaction trx2) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
+
+		// ---
+		// First transaction:
+		
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(0.0, trx1.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals("Dividenderl", trx1.getDescription()); // unchanged
+		assertEquals("2023-08-06T10:59Z", trx1.getDatePosted().toString()); // unchanged
+		assertEquals(0, trx1.getSplitsCount()); // changed
+		
+		// However, the transaction cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritableTransaction trx1Now = gcshInFile.getWritableTransactionByID(TRX_1_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		
+		// ---
+		// Second transaction, same as above:
+		
+		// CAUTION / ::TODO
+		// Cf. above.
+		assertEquals(TRX_2_ID, trx2.getID()); // unchanged
+		assertEquals(0.0, trx2.getBalance().getBigDecimal().doubleValue(), ConstTest.DIFF_TOLERANCE); // unchanged
+		assertEquals("Unfug und Quatsch GmbH", trx2.getDescription()); // unchanged
+		assertEquals("2023-07-29T10:59Z", trx2.getDatePosted().toString()); // unchanged
+		assertEquals(0, trx2.getSplitsCount()); // changed
+		
+		// Cf. above.
+		try {
+			GnuCashWritableTransaction trx2Now = gcshInFile.getWritableTransactionByID(TRX_2_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+	}
+
+	private void test04_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
+
+		// ---
+		// First transaction:
+		
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashTransaction trx1 = gcshOutFile.getTransactionByID(TRX_1_ID);
+		assertEquals(null, trx1); // sic
+
+		// ---
+		// Second transaction, same as above:
+		
+		// Cf. above
+		GnuCashTransaction trx2 = gcshOutFile.getTransactionByID(TRX_2_ID);
+		assertEquals(null, trx2); // sic
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
 	// ------------------------------
 
 	// ::TODO
