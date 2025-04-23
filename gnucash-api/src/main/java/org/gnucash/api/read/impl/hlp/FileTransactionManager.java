@@ -30,8 +30,8 @@ public class FileTransactionManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GnuCashTransaction>      trxMap;
-	private Map<GCshID, GnuCashTransactionSplit> trxSpltMap;
+	protected Map<GCshID, GnuCashTransaction>      trxMap;
+	protected Map<GCshID, GnuCashTransactionSplit> trxSpltMap;
 
 	// ---------------------------------------------------------------
 
@@ -101,84 +101,6 @@ public class FileTransactionManager {
 				                                                           addSpltToAcct, addSpltToInvc);
 		LOGGER.debug("createTransactionSplit: Generated new transaction split: " + splt.getID());
 		return splt;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addTransaction(GnuCashTransaction trx) {
-		addTransaction(trx, true);
-	}
-
-	public void addTransaction(GnuCashTransaction trx, boolean withSplt) {
-		if ( trx == null ) {
-			throw new IllegalArgumentException("null transaction given");
-		}
-		
-		trxMap.put(trx.getID(), trx);
-
-		if ( withSplt ) {
-			if ( trx.getSplits() != null ) {
-				for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-					addTransactionSplit(splt, false);
-				}
-			}
-		}
-
-		LOGGER.debug("addTransaction: Added transaction to cache: " + trx.getID());
-	}
-
-	public void removeTransaction(GnuCashTransaction trx) {
-		removeTransaction(trx, true);
-	}
-
-	public void removeTransaction(GnuCashTransaction trx, boolean withSplt) {
-		if ( trx == null ) {
-			throw new IllegalArgumentException("null transaction given");
-		}
-		
-		if ( withSplt ) {
-			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-				removeTransactionSplit(splt, false);
-			}
-		}
-
-		trxMap.remove(trx.getID());
-
-		LOGGER.debug("removeTransaction: Removed transaction from cache: " + trx.getID());
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addTransactionSplit(GnuCashTransactionSplit splt) {
-		addTransactionSplit(splt, true);
-	}
-
-	public void addTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
-		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
-		}
-		
-		trxSpltMap.put(splt.getID(), splt);
-
-		if ( withTrx ) {
-			addTransaction(splt.getTransaction(), false);
-		}
-	}
-
-	public void removeTransactionSplit(GnuCashTransactionSplit splt) {
-		removeTransactionSplit(splt, false);
-	}
-
-	public void removeTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
-		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
-		}
-		
-		if ( withTrx ) {
-			removeTransaction(splt.getTransaction(), false);
-		}
-
-		trxSpltMap.remove(splt.getID());
 	}
 
 	// ---------------------------------------------------------------

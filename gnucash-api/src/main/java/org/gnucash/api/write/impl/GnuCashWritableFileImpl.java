@@ -764,7 +764,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	protected void addTransaction(final GnuCashTransactionImpl trx) {
 		getRootElement().getGncBook().getBookElements().add(trx.getJwsdpPeer());
 		setModified(true);
-		super.trxMgr.addTransaction(trx);
+		((org.gnucash.api.write.impl.hlp.FileTransactionManager) super.trxMgr)
+			.addTransaction(trx);
 	}
 
 	/**
@@ -782,7 +783,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableTransactionImpl) trx).getJwsdpPeer());
 		setModified(true);
-		super.trxMgr.removeTransaction(trx);		
+		((org.gnucash.api.write.impl.hlp.FileTransactionManager) super.trxMgr)
+			.removeTransaction(trx);		
 	}
 
 	/**
@@ -793,7 +795,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// @Override
 	public void removeTransactionSplit(final GnuCashWritableTransactionSplit splt) {
 		// 1) remove avatar in transaction manager
-		super.trxMgr.removeTransactionSplit(splt, false);
+		((org.gnucash.api.write.impl.hlp.FileTransactionManager) super.trxMgr)
+			.removeTransactionSplit(splt, false);
 		
 		// 2) remove transaction split
 		GCshID trxID = splt.getTransactionID();
@@ -944,7 +947,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 													   (GnuCashAccountImpl) receivableAcct, 
 													   openedDate, postDate, dueDate);
 
-		super.invcMgr.addGenerInvoice(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
+			.addGenerInvoice(retval);
 		return retval;
 	}
 
@@ -979,7 +983,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 												  (GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, 
 												  openedDate, postDate, dueDate);
 
-		super.invcMgr.addGenerInvoice(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
+			.addGenerInvoice(retval);
 		return retval;
 	}
 
@@ -1014,7 +1019,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 													   (GnuCashAccountImpl) expensesAcct, (GnuCashAccountImpl) payableAcct, 
 													   openedDate, postDate, dueDate);
 
-		super.invcMgr.addGenerInvoice(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
+			.addGenerInvoice(retval);
 		return retval;
 	}
 
@@ -1046,7 +1052,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		GnuCashWritableJobInvoice retval = new GnuCashWritableJobInvoiceImpl(this, number, job,
 				(GnuCashAccountImpl) incExpAcct, (GnuCashAccountImpl) recvblPayblAcct, openedDate, postDate, dueDate);
 
-		super.invcMgr.addGenerInvoice(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
+			.addGenerInvoice(retval);
 		return retval;
 	}
 
@@ -1079,7 +1086,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			((GnuCashWritableTransaction) postTransaction).remove();
 		}
 		
-		super.invcMgr.removeGenerInvoice(invc);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
+			.removeGenerInvoice(invc);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceImpl) invc).getJwsdpPeer());
 		this.decrementCountDataFor("gnc:GncInvoice");
 		setModified(true);
