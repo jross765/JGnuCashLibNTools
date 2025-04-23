@@ -24,7 +24,7 @@ public class FileInvoiceEntryManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private Map<GCshID, GnuCashGenerInvoiceEntry> invcEntrMap;
+    protected Map<GCshID, GnuCashGenerInvoiceEntry> invcEntrMap;
     
     // ---------------------------------------------------------------
     
@@ -61,26 +61,6 @@ public class FileInvoiceEntryManager {
 		GnuCashGenerInvoiceEntryImpl entr = new GnuCashGenerInvoiceEntryImpl(jwsdpInvcEntr, gcshFile, true);
 		LOGGER.debug("Generated new generic invoice entry: " + entr.getID());
 		return entr;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
-		if ( entr == null ) {
-			throw new IllegalArgumentException("null invoice entry given");
-		}
-		
-		invcEntrMap.put(entr.getID(), entr);
-		LOGGER.debug("Added (generic) invoice entry to cache: " + entr.getID());
-	}
-
-	public void removeGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
-		if ( entr == null ) {
-			throw new IllegalArgumentException("null invoice entry given");
-		}
-		
-		invcEntrMap.remove(entr.getID());
-		LOGGER.debug("Removed (generic) invoice entry from cache: " + entr.getID());
 	}
 
 	// ---------------------------------------------------------------

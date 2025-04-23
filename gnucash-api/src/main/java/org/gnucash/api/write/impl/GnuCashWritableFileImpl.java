@@ -1168,7 +1168,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 															account,
 															quantity, price);
 
-		super.invcEntrMgr.addGenerInvcEntry(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
+			.addGenerInvcEntry(retval);
 		return retval;
 	}
 
@@ -1191,7 +1192,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 													   account,
 													   quantity, price);
 
-		super.invcEntrMgr.addGenerInvcEntry(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
+			.addGenerInvcEntry(retval);
 		return retval;
 	}
 
@@ -1214,7 +1216,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 															account,
 															quantity, price);
 
-		super.invcEntrMgr.addGenerInvcEntry(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
+			.addGenerInvcEntry(retval);
 		return retval;
 	}
 
@@ -1237,7 +1240,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 													   account,
 													   quantity, price);
 
-		super.invcEntrMgr.addGenerInvcEntry(retval);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
+			.addGenerInvcEntry(retval);
 		return retval;
 	}
 
@@ -1254,7 +1258,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		
 		GCshID entrID = entr.getID();
 
-		super.invcEntrMgr.removeGenerInvcEntry(entr);
+		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
+			.removeGenerInvcEntry(entr);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceEntryImpl) entr).getJwsdpPeer());
 		this.decrementCountDataFor("gnc:GncEntry");
 		setModified(true);

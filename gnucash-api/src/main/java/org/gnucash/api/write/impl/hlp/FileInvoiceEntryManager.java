@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncGncEntry;
+import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceEntryImpl;
@@ -27,6 +28,26 @@ public class FileInvoiceEntryManager extends org.gnucash.api.read.impl.hlp.FileI
 		GnuCashWritableGenerInvoiceEntryImpl entr = new GnuCashWritableGenerInvoiceEntryImpl(jwsdpInvcEntr, (GnuCashWritableFileImpl) gcshFile);
 		LOGGER.debug("createGenerInvoiceEntry: Generated new writable generic invoice entry: " + entr.getID());
 		return entr;
+	}
+
+	// ---------------------------------------------------------------
+
+	public void addGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
+		if ( entr == null ) {
+			throw new IllegalArgumentException("null invoice entry given");
+		}
+		
+		invcEntrMap.put(entr.getID(), entr);
+		LOGGER.debug("Added (generic) invoice entry to cache: " + entr.getID());
+	}
+
+	public void removeGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
+		if ( entr == null ) {
+			throw new IllegalArgumentException("null invoice entry given");
+		}
+		
+		invcEntrMap.remove(entr.getID());
+		LOGGER.debug("Removed (generic) invoice entry from cache: " + entr.getID());
 	}
 
 }

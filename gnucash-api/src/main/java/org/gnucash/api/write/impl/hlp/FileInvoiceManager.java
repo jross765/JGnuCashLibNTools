@@ -222,4 +222,24 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 		return FileInvoiceManager_Job.getUnpaidInvoices(this, job);
 	}
 
+	// ---------------------------------------------------------------
+
+	public void addGenerInvoice(GnuCashGenerInvoice invc) {
+		if ( invc == null ) {
+			throw new IllegalArgumentException("null invoice given");
+		}
+		
+		invcMap.put(invc.getID(), invc);
+		LOGGER.debug("addGenerInvoice: Added (generic) invoice to cache: " + invc.getID());
+	}
+
+	public void removeGenerInvoice(GnuCashGenerInvoice invc) {
+		if ( invc == null ) {
+			throw new IllegalArgumentException("null invoice given");
+		}
+		
+		invcMap.remove(invc.getID());
+		LOGGER.debug("removeGenerInvoice: Removed (generic) invoice from cache: " + invc.getID());
+	}
+
 }
