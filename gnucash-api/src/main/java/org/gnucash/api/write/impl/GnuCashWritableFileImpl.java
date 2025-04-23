@@ -689,7 +689,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableAccount createWritableAccount() {
 		GnuCashWritableAccount acct = new GnuCashWritableAccountImpl(this);
-		super.acctMgr.addAccount(acct);
+		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
+			.addAccount(acct);
 		return acct;
 	}
 
@@ -704,7 +705,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableAccountImpl) acct).getJwsdpPeer());
 		setModified(true);
-		super.acctMgr.removeAccount(acct);
+		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
+			.removeAccount(acct);
 	}
 
 	// ---------------------------------------------------------------
