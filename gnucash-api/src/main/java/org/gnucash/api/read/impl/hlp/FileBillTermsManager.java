@@ -21,9 +21,9 @@ public class FileBillTermsManager {
 
 	// ---------------------------------------------------------------
 
-	private GnuCashFileImpl gcshFile;
+	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GCshBillTerms> bllTrmMap = null;
+	protected Map<GCshID, GCshBillTerms> bllTrmMap = null;
 
 	// ---------------------------------------------------------------
 
@@ -54,26 +54,6 @@ public class FileBillTermsManager {
 		GCshBillTermsImpl bllTrm = new GCshBillTermsImpl(jwsdpBllTrm, gcshFile);
 		LOGGER.debug("Generated new bill terms: " + bllTrm.getID());
 		return bllTrm;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addBillTerms(GCshBillTerms bllTrm) {
-		if ( bllTrm == null ) {
-			throw new IllegalArgumentException("null bill terms given");
-		}
-		
-		bllTrmMap.put(bllTrm.getID(), bllTrm);
-		LOGGER.debug("Added bill terms to cache: " + bllTrm.getID());
-	}
-
-	public void removeBillTerms(GCshBillTerms bllTrm) {
-		if ( bllTrm == null ) {
-			throw new IllegalArgumentException("null bill terms given");
-		}
-		
-		bllTrmMap.remove(bllTrm.getID());
-		LOGGER.debug("Removed bill terms from cache: " + bllTrm.getID());
 	}
 
 	// ---------------------------------------------------------------
