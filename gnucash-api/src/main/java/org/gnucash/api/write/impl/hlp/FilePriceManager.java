@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.Price;
+import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashPriceImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritablePriceImpl;
@@ -27,6 +28,26 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
 		GnuCashWritablePriceImpl prc = new GnuCashWritablePriceImpl(jwsdpPrc, (GnuCashWritableFileImpl) gcshFile);
 		LOGGER.debug("createPrice: Generated new writable price: " + prc.getID());
 		return prc;
+	}
+
+	// ---------------------------------------------------------------
+
+	public void addPrice(GnuCashPrice prc) {
+		if ( prc == null ) {
+			throw new IllegalArgumentException("null prc given");
+		}
+		
+		prcMap.put(prc.getID(), prc);
+		LOGGER.debug("Added price to cache: " + prc.getID());
+	}
+
+	public void removePrice(GnuCashPrice prc) {
+		if ( prc == null ) {
+			throw new IllegalArgumentException("null prc given");
+		}
+		
+		prcMap.remove(prc.getID());
+		LOGGER.debug("Removed price from cache: " + prc.getID());
 	}
 
 }

@@ -44,8 +44,8 @@ public class FilePriceManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private GncPricedb                priceDB = null;
-    private Map<GCshID, GnuCashPrice> prcMap  = null;
+    private   GncPricedb                priceDB = null;
+    protected Map<GCshID, GnuCashPrice> prcMap  = null;
 
     // ---------------------------------------------------------------
     
@@ -83,26 +83,6 @@ public class FilePriceManager {
 		GnuCashPriceImpl prc = new GnuCashPriceImpl(jwsdpPrc, gcshFile);
 		LOGGER.debug("Generated new price: " + prc.getID());
 		return prc;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addPrice(GnuCashPrice prc) {
-		if ( prc == null ) {
-			throw new IllegalArgumentException("null prc given");
-		}
-		
-		prcMap.put(prc.getID(), prc);
-		LOGGER.debug("Added price to cache: " + prc.getID());
-	}
-
-	public void removePrice(GnuCashPrice prc) {
-		if ( prc == null ) {
-			throw new IllegalArgumentException("null prc given");
-		}
-		
-		prcMap.remove(prc.getID());
-		LOGGER.debug("Removed price from cache: " + prc.getID());
 	}
 
 	// ---------------------------------------------------------------

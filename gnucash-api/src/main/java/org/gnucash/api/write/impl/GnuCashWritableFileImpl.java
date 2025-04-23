@@ -1870,13 +1870,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	    prc.setFromCmdtyCurrQualifID(fromCmdtyCurrID);
 	    prc.setToCurrencyQualifID(toCurrID);
 		prc.setDate(date);
-		super.prcMgr.addPrice(prc);
+		((org.gnucash.api.write.impl.hlp.FilePriceManager) super.prcMgr)
+			.addPrice(prc);
 		return prc;
 	}
 
 	@Override
 	public void removePrice(final GnuCashWritablePrice prc) {
-		super.prcMgr.removePrice(prc);
+		((org.gnucash.api.write.impl.hlp.FilePriceManager) super.prcMgr)
+			.removePrice(prc);
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritablePriceImpl) prc).getJwsdpPeer());
 		setModified(true);
