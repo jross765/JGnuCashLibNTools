@@ -27,7 +27,7 @@ public class FileCustomerManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GnuCashCustomer> custMap;
+	protected Map<GCshID, GnuCashCustomer> custMap;
 
 	// ---------------------------------------------------------------
 
@@ -63,26 +63,6 @@ public class FileCustomerManager {
 		GnuCashCustomerImpl cust = new GnuCashCustomerImpl(jwsdpCust, gcshFile);
 		LOGGER.debug("Generated new customer: " + cust.getID());
 		return cust;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addCustomer(GnuCashCustomer cust) {
-		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
-		}
-		
-		custMap.put(cust.getID(), cust);
-		LOGGER.debug("Added customer to cache: " + cust.getID());
-	}
-
-	public void removeCustomer(GnuCashCustomer cust) {
-		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
-		}
-		
-		custMap.remove(cust.getID());
-		LOGGER.debug("Removed customer from cache: " + cust.getID());
 	}
 
 	// ---------------------------------------------------------------

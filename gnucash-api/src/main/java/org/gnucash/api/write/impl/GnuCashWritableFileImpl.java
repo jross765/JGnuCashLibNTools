@@ -1314,7 +1314,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableCustomer createWritableCustomer(final String name) {
 		GnuCashWritableCustomerImpl cust = new GnuCashWritableCustomerImpl(this);
 		cust.setName(name);
-		super.custMgr.addCustomer(cust);
+		((org.gnucash.api.write.impl.hlp.FileCustomerManager) super.custMgr)
+			.addCustomer(cust);
 		return cust;
 	}
 
@@ -1323,7 +1324,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeCustomer(final GnuCashWritableCustomer cust) {
-		super.custMgr.removeCustomer(cust);
+		((org.gnucash.api.write.impl.hlp.FileCustomerManager) super.custMgr)
+			.removeCustomer(cust);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableCustomerImpl) cust).getJwsdpPeer());
 		setModified(true);
 	}
