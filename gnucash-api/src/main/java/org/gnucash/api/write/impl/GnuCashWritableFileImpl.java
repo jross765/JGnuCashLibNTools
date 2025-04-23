@@ -1533,7 +1533,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(this, cust, number, name);
-		super.jobMgr.addGenerJob(job);
+		((org.gnucash.api.write.impl.hlp.FileJobManager) super.jobMgr)
+			.addGenerJob(job);
 		return job;
 	}
 
@@ -1547,7 +1548,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(this, vend, number, name);
-		super.jobMgr.addGenerJob(job);
+		((org.gnucash.api.write.impl.hlp.FileJobManager) super.jobMgr)
+			.addGenerJob(job);
 		return job;
 	}
 
@@ -1567,7 +1569,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalStateException("Job cannot be deleted; there are still customer invoices/vendor bills attached to it");
 		}
 
-		super.jobMgr.removeGenerJob(job);
+		((org.gnucash.api.write.impl.hlp.FileJobManager) super.jobMgr)
+			.removeGenerJob(job);
 		getRootElement().getGncBook().getBookElements().remove(job.getJwsdpPeer());
 		setModified(true);
 	}

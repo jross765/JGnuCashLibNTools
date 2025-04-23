@@ -95,28 +95,6 @@ public class FileJobManager {
 
 	// ---------------------------------------------------------------
 
-	public void addGenerJob(GnuCashGenerJob job) {
-		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
-		}
-		
-		jobMap.put(job.getID(), job);
-
-		LOGGER.debug("Added (generic) jop to cache: " + job.getID());
-	}
-
-	public void removeGenerJob(GnuCashGenerJob job) {
-		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
-		}
-		
-		jobMap.remove(job.getID());
-
-		LOGGER.debug("removeGenerJob: No. of generic jobs: " + jobMap.size());
-	}
-
-	// ---------------------------------------------------------------
-
 	public GnuCashGenerJob getGenerJobByID(final GCshID jobID) {
 		if ( jobID == null ) {
 			throw new IllegalArgumentException("null job ID given");

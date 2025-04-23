@@ -2,15 +2,10 @@ package org.gnucash.api.write.impl.hlp;
 
 import java.util.List;
 
-import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
-import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
-import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
-import org.gnucash.api.write.impl.spec.GnuCashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.slf4j.Logger;
@@ -71,6 +66,28 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 		}
 
 		return FileJobManager_Vendor.getJobsByVendor(this, vend);
+	}
+
+	// ---------------------------------------------------------------
+
+	public void addGenerJob(GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
+		jobMap.put(job.getID(), job);
+
+		LOGGER.debug("Added (generic) jop to cache: " + job.getID());
+	}
+
+	public void removeGenerJob(GnuCashGenerJob job) {
+		if ( job == null ) {
+			throw new IllegalArgumentException("null job given");
+		}
+		
+		jobMap.remove(job.getID());
+
+		LOGGER.debug("removeGenerJob: No. of generic jobs: " + jobMap.size());
 	}
 
 }
