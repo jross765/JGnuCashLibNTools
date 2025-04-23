@@ -1671,7 +1671,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		cmdty.setQualifID(cmdtyID);
 		cmdty.setName(name);
 		cmdty.setXCode(code);
-		super.cmdtyMgr.addCommodity(cmdty);
+		((org.gnucash.api.write.impl.hlp.FileCommodityManager) super.cmdtyMgr)
+			.addCommodity(cmdty);
 		return cmdty;
 	}
 
@@ -1691,7 +1692,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new ObjectCascadeException();
 		}
 
-		super.cmdtyMgr.removeCommodity(cmdty);
+		((org.gnucash.api.write.impl.hlp.FileCommodityManager) super.cmdtyMgr)
+			.removeCommodity(cmdty);
 
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableCommodityImpl) cmdty).getJwsdpPeer());
 		setModified(true);

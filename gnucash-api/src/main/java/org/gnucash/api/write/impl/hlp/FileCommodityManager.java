@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncCommodity;
+import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.impl.GnuCashCommodityImpl;
 import org.gnucash.api.write.impl.GnuCashWritableCommodityImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
@@ -29,5 +30,35 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 	LOGGER.debug("createCommodity: Generated new writable commodity: " + cmdty.getQualifID());
 	return cmdty;
     }
+
+	// ---------------------------------------------------------------
+
+	public void addCommodity(GnuCashCommodity cmdty) {
+		if ( cmdty == null ) {
+			throw new IllegalArgumentException("null commodity given");
+		}
+		
+		cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
+
+		if ( cmdty.getXCode() != null )
+			xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
+
+		LOGGER.debug("Added commodity to cache: " + cmdty.getQualifID());
+	}
+
+	public void removeCommodity(GnuCashCommodity cmdty) {
+		if ( cmdty == null ) {
+			throw new IllegalArgumentException("null commodity given");
+		}
+		
+		cmdtyMap.remove(cmdty.getQualifID().toString());
+
+		for ( String xCode : xCodeMap.keySet() ) {
+			if ( xCodeMap.get(xCode).equals(cmdty.getQualifID().toString()) )
+				xCodeMap.remove(xCode);
+		}
+
+		LOGGER.debug("Removed commodity from cache: " + cmdty.getQualifID());
+	}
 
 }

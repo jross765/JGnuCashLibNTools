@@ -30,9 +30,9 @@ public class FileCommodityManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private Map<String, GnuCashCommodity>  cmdtyMap; // Keys: Sic, String not CmdtyCurrID
-    private Map<String, String>            xCodeMap; // X-Code -> Qualif. ID
-                                                     // Values: Sic, String not CmdtyCurrID like above
+    protected Map<String, GnuCashCommodity>  cmdtyMap; // Keys: Sic, String not CmdtyCurrID
+    protected Map<String, String>            xCodeMap; // X-Code -> Qualif. ID
+                                                       // Values: Sic, String not CmdtyCurrID like above
 
     // ---------------------------------------------------------------
     
@@ -101,36 +101,6 @@ public class FileCommodityManager {
 		GnuCashCommodityImpl cmdty = new GnuCashCommodityImpl(jwsdpCmdty, gcshFile);
 		LOGGER.debug("Generated new commodity: " + cmdty.getQualifID());
 		return cmdty;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addCommodity(GnuCashCommodity cmdty) {
-		if ( cmdty == null ) {
-			throw new IllegalArgumentException("null commodity given");
-		}
-		
-		cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
-
-		if ( cmdty.getXCode() != null )
-			xCodeMap.put(cmdty.getXCode(), cmdty.getQualifID().toString());
-
-		LOGGER.debug("Added commodity to cache: " + cmdty.getQualifID());
-	}
-
-	public void removeCommodity(GnuCashCommodity cmdty) {
-		if ( cmdty == null ) {
-			throw new IllegalArgumentException("null commodity given");
-		}
-		
-		cmdtyMap.remove(cmdty.getQualifID().toString());
-
-		for ( String xCode : xCodeMap.keySet() ) {
-			if ( xCodeMap.get(xCode).equals(cmdty.getQualifID().toString()) )
-				xCodeMap.remove(xCode);
-		}
-
-		LOGGER.debug("Removed commodity from cache: " + cmdty.getQualifID());
 	}
 
 	// ---------------------------------------------------------------
