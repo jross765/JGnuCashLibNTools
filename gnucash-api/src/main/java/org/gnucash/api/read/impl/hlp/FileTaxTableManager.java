@@ -21,9 +21,9 @@ public class FileTaxTableManager {
 
 	// ---------------------------------------------------------------
 
-	private GnuCashFileImpl gcshFile;
+	protected GnuCashFileImpl gcshFile;
 
-	private Map<GCshID, GCshTaxTable> taxTabMap;
+	protected Map<GCshID, GCshTaxTable> taxTabMap;
 
 	// ---------------------------------------------------------------
 
@@ -59,26 +59,6 @@ public class FileTaxTableManager {
 		GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpTaxTab, gcshFile);
 		LOGGER.debug("Generated new tax table: " + taxTab.getID());
 		return taxTab;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addTaxTable(GCshTaxTable taxTab) {
-		if ( taxTab == null ) {
-			throw new IllegalArgumentException("null tax table given");
-		}
-		
-		taxTabMap.put(taxTab.getID(), taxTab);
-		LOGGER.debug("Added tax table to cache: " + taxTab.getID());
-	}
-
-	public void removeTaxTable(GCshTaxTable taxTab) {
-		if ( taxTab == null ) {
-			throw new IllegalArgumentException("null tax table given");
-		}
-		
-		taxTabMap.remove(taxTab.getID());
-		LOGGER.debug("Removed tax table from cache: " + taxTab.getID());
 	}
 
 	// ---------------------------------------------------------------
