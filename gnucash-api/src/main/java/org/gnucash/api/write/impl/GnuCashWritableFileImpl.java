@@ -1424,7 +1424,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableEmployee createWritableEmployee(final String userName) {
 		GnuCashWritableEmployeeImpl empl = new GnuCashWritableEmployeeImpl(this);
 		empl.setUserName(userName);
-		super.emplMgr.addEmployee(empl);
+		((org.gnucash.api.write.impl.hlp.FileEmployeeManager) super.emplMgr)
+			.addEmployee(empl);
 		return empl;
 	}
 
@@ -1433,7 +1434,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeEmployee(final GnuCashWritableEmployee empl) {
-		emplMgr.removeEmployee(empl);
+		((org.gnucash.api.write.impl.hlp.FileEmployeeManager) super.emplMgr)
+			.removeEmployee(empl);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableEmployeeImpl) empl).getJwsdpPeer());
 		setModified(true);
 	}

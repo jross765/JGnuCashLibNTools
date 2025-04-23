@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncGncEmployee;
+import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
 import org.gnucash.api.write.impl.GnuCashWritableEmployeeImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
@@ -27,6 +28,26 @@ public class FileEmployeeManager extends org.gnucash.api.read.impl.hlp.FileEmplo
 		GnuCashWritableEmployeeImpl empl = new GnuCashWritableEmployeeImpl(jwsdpEmpl, (GnuCashWritableFileImpl) gcshFile);
 		LOGGER.debug("createEmployee: Generated new writable employee: " + empl.getID());
 		return empl;
+	}
+
+	// ---------------------------------------------------------------
+
+	public void addEmployee(GnuCashEmployee empl) {
+		if ( empl == null ) {
+			throw new IllegalArgumentException("null employee given");
+		}
+		
+		emplMap.put(empl.getID(), empl);
+		LOGGER.debug("Added employee to cache: " + empl.getID());
+	}
+
+	public void removeEmployee(GnuCashEmployee empl) {
+		if ( empl == null ) {
+			throw new IllegalArgumentException("null employee given");
+		}
+		
+		emplMap.remove(empl.getID());
+		LOGGER.debug("Removed employee from cache: " + empl.getID());
 	}
 
 }

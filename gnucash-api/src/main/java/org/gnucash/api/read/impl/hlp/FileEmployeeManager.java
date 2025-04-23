@@ -27,7 +27,7 @@ public class FileEmployeeManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private Map<GCshID, GnuCashEmployee> emplMap;
+    protected Map<GCshID, GnuCashEmployee> emplMap;
 
     // ---------------------------------------------------------------
     
@@ -63,26 +63,6 @@ public class FileEmployeeManager {
 		GnuCashEmployeeImpl empl = new GnuCashEmployeeImpl(jwsdpEmpl, gcshFile);
 		LOGGER.debug("Generated new employee: " + empl.getID());
 		return empl;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addEmployee(GnuCashEmployee empl) {
-		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
-		}
-		
-		emplMap.put(empl.getID(), empl);
-		LOGGER.debug("Added employee to cache: " + empl.getID());
-	}
-
-	public void removeEmployee(GnuCashEmployee empl) {
-		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
-		}
-		
-		emplMap.remove(empl.getID());
-		LOGGER.debug("Removed employee from cache: " + empl.getID());
 	}
 
 	// ---------------------------------------------------------------
