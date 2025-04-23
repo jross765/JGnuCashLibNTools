@@ -1370,7 +1370,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableVendor createWritableVendor(final String name) {
 		GnuCashWritableVendorImpl vend = new GnuCashWritableVendorImpl(this);
 		vend.setName(name);
-		super.vendMgr.addVendor(vend);
+		((org.gnucash.api.write.impl.hlp.FileVendorManager) super.vendMgr)
+			.addVendor(vend);
 		return vend;
 	}
 
@@ -1379,7 +1380,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeVendor(final GnuCashWritableVendor vend) {
-		super.vendMgr.removeVendor(vend);
+		((org.gnucash.api.write.impl.hlp.FileVendorManager) super.vendMgr)
+			.removeVendor(vend);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableVendorImpl) vend).getJwsdpPeer());
 		setModified(true);
 	}

@@ -27,7 +27,7 @@ public class FileVendorManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private Map<GCshID, GnuCashVendor> vendMap;
+    protected Map<GCshID, GnuCashVendor> vendMap;
 
     // ---------------------------------------------------------------
     
@@ -63,26 +63,6 @@ public class FileVendorManager {
 		GnuCashVendorImpl vend = new GnuCashVendorImpl(jwsdpVend, gcshFile);
 		LOGGER.debug("Generated new vendor: " + vend.getID());
 		return vend;
-	}
-
-	// ---------------------------------------------------------------
-
-	public void addVendor(GnuCashVendor vend) {
-		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
-		}
-		
-		vendMap.put(vend.getID(), vend);
-		LOGGER.debug("Added vendor to cache: " + vend.getID());
-	}
-
-	public void removeVendor(GnuCashVendor vend) {
-		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
-		}
-		
-		vendMap.remove(vend.getID());
-		LOGGER.debug("Removed vendor to cache: " + vend.getID());
 	}
 
 	// ---------------------------------------------------------------
