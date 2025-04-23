@@ -6,54 +6,47 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableFile;
-import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.apiext.Const;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.dateutils.JulianDate;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
-public class TransactionMerger {
+public abstract class TransactionMergerBase {
+	
+	public enum Var {
+		VAR_1,
+		VAR_2
+	}
 	
     // Logger
-    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionMerger.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransactionMergerBase.class);
     
     // ---------------------------------------------------------------
     
-	private GnuCashWritableFile gcshFile = null;
+	protected GnuCashWritableFile gcshFile = null;
+	private   Var                 var      = null;
 	
     // ---------------------------------------------------------------
 	
-	public TransactionMerger(GnuCashWritableFile gcshFile) {
+	public TransactionMergerBase(GnuCashWritableFile gcshFile) {
 		this.gcshFile = gcshFile;
 	}
     
     // ---------------------------------------------------------------
-    
-	public void merge(GCshID survivorID, GCshID dierID) throws MergePlausiCheckException {
-		GnuCashTransaction survivor = gcshFile.getTransactionByID(survivorID);
-		GnuCashWritableTransaction dier = gcshFile.getWritableTransactionByID(dierID);
-		merge(survivor, dier);
+	
+	public Var getVar() {
+		return var;
 	}
-
-	public void merge(GnuCashTransaction survivor, GnuCashWritableTransaction dier) throws MergePlausiCheckException {
-		// 1) Perform plausi checks
-		if ( ! plausiCheck(survivor, dier) ) {
-			LOGGER.error("merge: survivor-dier-pair did not pass plausi check: " + survivor.getID() + "/" + dier.getID());
-			throw new MergePlausiCheckException();
-		}
-		
-		// 2) If OK, remove dier
-		GCshID dierID = dier.getID();
-		gcshFile.removeTransaction(dier);
-		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
+	
+	public void setVar(Var var) {
+		this.var = var;
 	}
-
+	
     // ---------------------------------------------------------------
 	
-	private boolean plausiCheck(GnuCashTransaction survivor, GnuCashTransaction dier) {
+	public boolean plausiCheck(GnuCashTransaction survivor, GnuCashTransaction dier) {
 		// Level 1:
 		double survDateFromJul = 0.0;
 		double dierDateToJul   = 0.0;
