@@ -26,12 +26,14 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 	// Analogously, the dierBankTrxSplt (ZS Splt/before), part of the survivor trx, 
 	// will die / be replaced by the above-mentioned copy ZS Splt/after.
 	// 
-	// Visualization:
-	// -------------
+	// Visualization of Typical Example:
+	// ---------------------------------
 	//
 	// Dier Trx                            Survivor Trx
-	// +-- XD Splt                         +-- XS Splt
-	// +-- YD Splt                         +-- YS Splt
+	// +-- XD Splt                         +-- XS Splt (to stock account)
+	// |                                   +-- YS.a Splt (to expenses account)
+	// |                                   +-- YS.b Splt (to expenses account)
+	// |                                   +-- YS.c Splt (to income account)
 	// +-- ZD Splt (to bank acct)          +-- ZS Splt/before (to bank account)
 	//     ^                               |   ^
 	//     +-- will be copied to           |   +-- Will be replaced by ZS Splt/after
@@ -41,11 +43,13 @@ public class TransactionMergerVar2 extends TransactionMergerBase
     //
 	// Let that sink in for a moment before you review the code in this class.
 
-	private GCshID zdTrxBankSpltID = null;
-	private GCshID zsBankTrxSpltBeforeID = null;
-
-	private GnuCashWritableTransaction survivorTrx = null;
+	private GnuCashWritableTransaction survTrx = null;
+	private GnuCashTransactionSplit zDierTrxBankSplt = null; // "ZS Split/before"
+	private GnuCashTransactionSplit zSurvTrxBankSpltBefore = null; // "ZS Split/before"
 	
+	private GCshID zDierTrxBankSpltID = null;       // cf. above
+	private GCshID zSurvTrxBankSpltBeforeID = null; // dto.
+
     // ---------------------------------------------------------------
 	
 	public TransactionMergerVar2(GnuCashWritableFile gcshFile) {
@@ -55,32 +59,36 @@ public class TransactionMergerVar2 extends TransactionMergerBase
     
     // ---------------------------------------------------------------
 	
-	public GCshID getZDBankTrxSpltID() {
-		return zdTrxBankSpltID;
+	public GCshID getZDierTrxBankSpltID() {
+		return zDierTrxBankSpltID;
 	}
     
-	public void setZDBankTrxSpltID(GCshID spltID) {
-		this.zdTrxBankSpltID = spltID;
+	public void setZDierTrxBankSpltID(GCshID spltID) {
+		this.zDierTrxBankSpltID = spltID;
+		
+		zDierTrxBankSplt = gcshFile.getTransactionSplitByID(spltID);
 	}
 	
 	// ---
     
-	public GCshID getZSBankTrxSpltBeforeID() {
-		return zsBankTrxSpltBeforeID;
+	public GCshID getZSurvTrxBankSpltBeforeID() {
+		return zSurvTrxBankSpltBeforeID;
 	}
     
-	public void setZSBankTrxSpltBeforeID(GCshID spltID) {
-		this.zsBankTrxSpltBeforeID = spltID;
+	public void setZSurvTrxBankSpltBeforeID(GCshID spltID) {
+		this.zSurvTrxBankSpltBeforeID = spltID;
+		
+		zSurvTrxBankSpltBefore = gcshFile.getTransactionSplitByID(spltID);
 	}
     
 	// ---
     
-	public GnuCashWritableTransaction getSurvivorTransaction() {
-		return survivorTrx;
+	public GnuCashWritableTransaction getSurvTrx() {
+		return survTrx;
 	}
     
-	public void setSurvivorTransaction(GnuCashWritableTransaction trx) {
-		this.survivorTrx = trx;
+	public void setSurvTrx(GnuCashWritableTransaction trx) {
+		this.survTrx = trx;
 	}
     
     // ---------------------------------------------------------------
@@ -92,32 +100,32 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 	}
 
 	public void merge(GnuCashTransaction survivor, GnuCashWritableTransaction dier) throws MergePlausiCheckException {
-		if ( zdTrxBankSpltID == null ) {
-			throw new IllegalStateException("ZD bank Trx Split ID is null");
+		if ( zDierTrxBankSpltID == null ) {
+			throw new IllegalStateException("Z dier Trx bank Split ID is null");
 		}
 		
-		if ( zsBankTrxSpltBeforeID == null ) {
-			throw new IllegalStateException("ZS bank Trx Split (before) ID is null");
+		if ( zSurvTrxBankSpltBeforeID == null ) {
+			throw new IllegalStateException("Z survivor Trx bank Split (before) ID is null");
 		}
 		
-		if ( survivorTrx == null ) {
-			throw new IllegalStateException("New bank Trx is null");
+		if ( survTrx == null ) {
+			throw new IllegalStateException("Survivor Trx is null");
 		}
 		
-		if ( ! zdTrxBankSpltID.isSet() ) {
-			throw new IllegalStateException("ZD bank Trx Split ID is not set");
+		if ( ! zDierTrxBankSpltID.isSet() ) {
+			throw new IllegalStateException("Z dier Trx bank Split ID is not set");
 		}
 		
-		if ( ! zsBankTrxSpltBeforeID.isSet() ) {
-			throw new IllegalStateException("ZSw bank Trx Split (before) ID is not set");
+		if ( ! zSurvTrxBankSpltBeforeID.isSet() ) {
+			throw new IllegalStateException("Z survivor Trx bank Split (before) ID is not set");
 		}
 		
-		if ( ! survivorTrx.getID().isSet() ) {
+		if ( ! survTrx.getID().isSet() ) {
 			throw new IllegalStateException("New bank Trx's ID is not set");
 		}
 		
-		if ( ! zdTrxBankSpltID.equals(zsBankTrxSpltBeforeID) ) {
-			throw new IllegalStateException("IDs of ZD bank Trx Split and ZS bank Trx Split (before) are identical");
+		if ( zDierTrxBankSpltID.equals(zSurvTrxBankSpltBeforeID) ) {
+			throw new IllegalStateException("IDs of Z dier Trx bank Split and Z survivor Trx bank Split (before) are identical");
 		}
 		
 		// ---
@@ -128,13 +136,13 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 			throw new MergePlausiCheckException();
 		}
 
-		GnuCashWritableTransactionSplit zsBankTrxSpltAfter = copyBankTrxSplt();
-		LOGGER.info("merge: Transaction Split " + zdTrxBankSpltID + " copied to new Splt " + zsBankTrxSpltAfter.getID());
+		GnuCashWritableTransactionSplit zSurvBankTrxSpltAfter = copyBankTrxSplt();
+		LOGGER.info("merge: Transaction Split " + zDierTrxBankSpltID + " copied to new Splt " + zSurvBankTrxSpltAfter.getID());
 		
-		GnuCashWritableTransactionSplit zsBankTrxSpltBefore = gcshFile.getWritableTransactionSplitByID(zsBankTrxSpltBeforeID);
-		survivorTrx.remove(zsBankTrxSpltBefore);
-		LOGGER.info("merge: Removed Transaction Split " + zsBankTrxSpltBeforeID);
-		
+		GnuCashWritableTransactionSplit zSurvBankTrxSpltBefore = gcshFile.getWritableTransactionSplitByID(zSurvTrxBankSpltBeforeID);
+		survTrx.remove(zSurvBankTrxSpltBefore);
+		LOGGER.info("merge: Removed Transaction Split " + zSurvTrxBankSpltBeforeID);
+
 		GCshID dierID = dier.getID();
 		gcshFile.removeTransaction(dier);
 		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
@@ -143,13 +151,14 @@ public class TransactionMergerVar2 extends TransactionMergerBase
     // ---------------------------------------------------------------
 	
 	private GnuCashWritableTransactionSplit copyBankTrxSplt() {
-		GnuCashTransactionSplit zdTrxBankSplt = gcshFile.getTransactionSplitByID(zdTrxBankSpltID);
-		GnuCashWritableTransactionSplit copy = survivorTrx.createWritableSplit(zdTrxBankSplt.getAccount());
-		
-		copy.setAction(zdTrxBankSplt.getAction());
-		copy.setValue(zdTrxBankSplt.getValue());
-		copy.setQuantity(zdTrxBankSplt.getQuantity());
-		copy.setDescription(zdTrxBankSplt.getDescription());
+		GnuCashWritableTransactionSplit copy = survTrx.createWritableSplit(zDierTrxBankSplt.getAccount());
+
+		if ( zDierTrxBankSplt.getAction() != null )
+			copy.setAction(zDierTrxBankSplt.getAction());
+		copy.setAccountID(zSurvTrxBankSpltBefore.getAccountID());
+		copy.setValue(zDierTrxBankSplt.getValue().negate());
+		copy.setQuantity(zDierTrxBankSplt.getQuantity().negate());
+		copy.setDescription(zDierTrxBankSplt.getDescription());
 		
 		// User-defined attributes
 		// ::TODO
