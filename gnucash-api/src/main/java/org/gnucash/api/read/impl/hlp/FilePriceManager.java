@@ -44,7 +44,7 @@ public class FilePriceManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    private   GncPricedb                priceDB = null;
+    protected GncPricedb                priceDB = null;
     protected Map<GCshID, GnuCashPrice> prcMap  = null;
 
     // ---------------------------------------------------------------
@@ -422,6 +422,28 @@ public class FilePriceManager {
 		}
 
 		return factor.multiply(latestQuote);
+	}
+
+	// ----------------------------
+	
+	private List<Price> getPrices_raw() {
+		List<Price> result = new ArrayList<Price>();
+
+		for ( Price jwsdpPrc : priceDB.getPrice() ) {
+			result.add(jwsdpPrc);
+		}
+
+		return result;
+	}
+
+	protected Price getPrice_raw(final GCshID prcID) {
+		for ( Price jwsdpPrc : getPrices_raw() ) {
+			if ( jwsdpPrc.getPriceId().getValue().equals(prcID.toString()) ) {
+				return jwsdpPrc;
+			}
+		}
+		
+		return null;
 	}
 
 	// ---------------------------------------------------------------

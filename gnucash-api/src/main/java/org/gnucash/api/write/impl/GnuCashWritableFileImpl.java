@@ -1880,7 +1880,12 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		((org.gnucash.api.write.impl.hlp.FilePriceManager) super.prcMgr)
 			.removePrice(prc);
 
-		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritablePriceImpl) prc).getJwsdpPeer());
+		// Does not work like that, as prices are one level deeper, in price DB:
+		// getRootElement().getGncBook().getBookElements().remove(((GnuCashWritablePriceImpl) prc).getJwsdpPeer());
+		// Instead:
+		((org.gnucash.api.write.impl.hlp.FilePriceManager) super.prcMgr)
+			.removePrice_raw(prc.getID());
+		
 		setModified(true);
 	}
 

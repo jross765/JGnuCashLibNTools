@@ -15,10 +15,12 @@ import java.util.List;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashPrice.Type;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashPriceImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
@@ -618,5 +620,103 @@ public class TestGnuCashWritablePriceImpl {
 	// ------------------------------
 
 	// ::TODO
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+		GnuCashWritablePrice prc = gcshInFile.getWritablePriceByID(PRC_1_ID);
+		assertNotEquals(null, prc);
+		assertEquals(PRC_1_ID, prc.getID());
+
+		// ----------------------------
+		// Delete the object
+
+		gcshInFile.removePrice(prc);
+
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
+
+		test04_1_check_memory(prc);
+
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritablePriceImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_1_check_persisted(outFile);
+	}
+	
+	// ---------------------------------------------------------------
+
+	private void test04_1_check_memory(GnuCashWritablePrice prc) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_PRC, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
+		assertEquals("CURRENCY:EUR", prc.getToCurrencyQualifID().toString());
+		assertEquals("Mercedes-Benz Group AG", prc.getFromCommodity().getName());
+		// etc.
+		
+		// However, the price cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritablePrice prcNow1 = gcshInFile.getWritablePriceByID(PRC_1_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashPrice prcNow2 = gcshInFile.getPriceByID(PRC_1_ID);
+		assertEquals(null, prcNow2);
+	}
+
+	private void test04_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);
+		assertEquals(null, prc); // sic
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+	
+	// ::EMPTY
 
 }
