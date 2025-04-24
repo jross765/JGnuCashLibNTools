@@ -520,10 +520,8 @@ public class TestGnuCashWritableCustomerImpl {
 
 		test04_1_check_persisted(outFile);
 	}
-
-	// ------------------------------
-	// PART 4.2: Low-Level
-	// ------------------------------
+	
+	// ---------------------------------------------------------------
 
 	private void test04_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
 		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
@@ -578,5 +576,11 @@ public class TestGnuCashWritableCustomerImpl {
 		GnuCashCustomer cust = gcshOutFile.getCustomerByID(CUST_1_ID);
 		assertEquals(null, cust); // sic
 	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+	
+	// ::TODO
 
 }

@@ -174,7 +174,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 		// and the GnuCash file writer does not like that.
@@ -247,7 +247,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 		// and the GnuCash file writer does not like that.
@@ -431,5 +431,102 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals("Stefani Germanotta", elt.getElementsByTagName("employee:username").item(0).getTextContent());
 		assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 	}
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+
+		GnuCashWritableEmployee empl = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+		assertNotEquals(null, empl);
+		assertEquals(EMPL_1_ID, empl.getID());
+
+		// ----------------------------
+		// Delete the object
+
+		gcshInFile.removeEmployee(empl);
+
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
+
+		test04_1_check_memory(empl);
+
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableEmployeeImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_1_check_persisted(outFile);
+	}
+	
+	// ---------------------------------------------------------------
+
+	private void test04_1_check_memory(GnuCashWritableEmployee empl) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals("000001", empl.getNumber());
+		assertEquals("otwist", empl.getUserName());
+		assertEquals("Oliver Twist", empl.getAddress().getAddressName());
+		
+		// However, the employee cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritableEmployee emplNow1 = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashEmployee emplNow2 = gcshInFile.getEmployeeByID(EMPL_1_ID);
+		assertEquals(null, emplNow2);
+	}
+
+	private void test04_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(EMPL_1_ID);
+		assertEquals(null, empl); // sic
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+	
+	// ::EMPTY
 
 }
