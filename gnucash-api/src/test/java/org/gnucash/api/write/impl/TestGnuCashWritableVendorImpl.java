@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
@@ -20,6 +21,7 @@ import org.gnucash.api.read.impl.TestGnuCashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -194,7 +196,7 @@ public class TestGnuCashWritableVendorImpl {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableVendorImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 		// and the GnuCash file writer does not like that.
@@ -279,7 +281,7 @@ public class TestGnuCashWritableVendorImpl {
 		// we expect it is.
 
 		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
-		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// System.err.println("Outfile for TestGnuCashWritableVendorImpl.test01_1: '"
 		// + outFile.getPath() + "'");
 		outFile.delete(); // sic, the temp. file is already generated (empty),
 		// and the GnuCash file writer does not like that.
@@ -463,5 +465,114 @@ public class TestGnuCashWritableVendorImpl {
 		assertEquals("Rowan Atkinson", elt.getElementsByTagName("vendor:name").item(0).getTextContent());
 		assertEquals("000006", elt.getElementsByTagName("vendor:id").item(0).getTextContent());
 	}
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+		GnuCashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
+		assertNotEquals(null, vend);
+		assertEquals(VEND_1_ID, vend.getID());
+
+		// ----------------------------
+		// Delete the object
+
+		gcshInFile.removeVendor(vend);
+
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
+
+		test04_1_check_memory(vend);
+
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableVendorImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_1_check_persisted(outFile);
+	}
+	
+	// ---------------------------------------------------------------
+
+	private void test04_1_check_memory(GnuCashWritableVendor vend) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_VEND - 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_VEND, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_VEND - 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(VEND_1_ID, vend.getID());
+		assertEquals("000001", vend.getNumber());
+		assertEquals("Lieferfanto AG", vend.getName());
+		
+		// Attached objects (*not dependent*)
+		assertEquals(BLLTRM_1_ID, vend.getTermsID());
+		assertEquals("sofort", vend.getTerms().getName());
+		assertEquals(GCshBillTerms.Type.DAYS, vend.getTerms().getType());
+		assertEquals(null, vend.getNotes());
+		
+		// However, the vendor cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritableVendor vendNow1 = gcshInFile.getWritableVendorByID(VEND_1_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashVendor vendNow2 = gcshInFile.getVendorByID(VEND_1_ID);
+		assertEquals(null, vendNow2);
+
+		// Attached objects (*not dependent*)
+		// Bill terms, however, still exist because they are not
+		// customer-specific (not in principle, at least).
+		GCshBillTerms bllTrmNow = gcshInFile.getBillTermsByID(BLLTRM_1_ID);
+		assertNotEquals(null, bllTrmNow);
+	}
+
+	private void test04_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_VEND - 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_VEND - 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_VEND - 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
+
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashVendor vend = gcshOutFile.getVendorByID(VEND_1_ID);
+		assertEquals(null, vend); // sic
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+	
+	// ::EMPTY
 
 }

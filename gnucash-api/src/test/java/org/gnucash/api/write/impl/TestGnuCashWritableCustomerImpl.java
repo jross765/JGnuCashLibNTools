@@ -538,7 +538,7 @@ public class TestGnuCashWritableCustomerImpl {
 		assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		
-		// Dependent objects
+		// Attached objects (*not dependent*)
 		assertEquals(BLLTRM_2_ID, cust.getTermsID());
 		assertEquals("30-10-3", cust.getTerms().getName());
 		assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType());
@@ -557,6 +557,7 @@ public class TestGnuCashWritableCustomerImpl {
 		GnuCashCustomer custNow2 = gcshInFile.getCustomerByID(CUST_1_ID);
 		assertEquals(null, custNow2);
 
+		// Attached objects (*not dependent*)
 		// Bill terms, however, still exist because they are not
 		// customer-specific (not in principle, at least).
 		GCshBillTerms bllTrmNow = gcshInFile.getBillTermsByID(BLLTRM_2_ID);
