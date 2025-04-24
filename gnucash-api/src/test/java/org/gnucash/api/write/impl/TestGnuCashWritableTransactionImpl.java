@@ -460,11 +460,16 @@ public class TestGnuCashWritableTransactionImpl {
 		// However, the transaction cannot newly be instantiated any more,
 		// just as you would expect.
 		try {
-			GnuCashWritableTransaction trx1Now = gcshInFile.getWritableTransactionByID(TRX_1_ID);
+			GnuCashWritableTransaction trx1Now1 = gcshInFile.getWritableTransactionByID(TRX_1_ID);
 			assertEquals(1, 0);
 		} catch ( Exception exc ) {
 			assertEquals(0, 0);
 		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashTransaction trx1Now2 = gcshInFile.getTransactionByID(TRX_1_ID);
+		assertEquals(null, trx1Now2);
 		
 		// ---
 		// Second transaction, same as above:
@@ -479,11 +484,14 @@ public class TestGnuCashWritableTransactionImpl {
 		
 		// Cf. above.
 		try {
-			GnuCashWritableTransaction trx2Now = gcshInFile.getWritableTransactionByID(TRX_2_ID);
+			GnuCashWritableTransaction trx2Now1 = gcshInFile.getWritableTransactionByID(TRX_2_ID);
 			assertEquals(1, 0);
 		} catch ( Exception exc ) {
 			assertEquals(0, 0);
 		}
+		// Cf. above.
+		GnuCashTransaction trx2Now2 = gcshInFile.getTransactionByID(TRX_2_ID);
+		assertEquals(null, trx2Now2);
 	}
 
 	private void test04_1_check_persisted(File outFile) throws Exception {

@@ -475,4 +475,108 @@ public class TestGnuCashWritableCustomerImpl {
 		assertEquals("000006", elt.getElementsByTagName("cust:id").item(0).getTextContent());
 	}
 
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+		GnuCashWritableCustomer cust = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+		assertNotEquals(null, cust);
+		assertEquals(CUST_1_ID, cust.getID());
+
+		// ----------------------------
+		// Delete the object
+
+		gcshInFile.removeCustomer(cust);
+
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
+
+		test04_1_check_memory(cust);
+
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_1_check_persisted(outFile);
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+
+	private void test04_1_check_memory(GnuCashWritableCustomer cust) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals("000001", cust.getNumber());
+		assertEquals("Unfug und Quatsch GmbH", cust.getName());
+		assertEquals(0.0, cust.getDiscount().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		assertEquals(0.0, cust.getCredit().doubleValue(), ConstTest.DIFF_TOLERANCE);
+		
+		// Dependent objects
+		assertEquals(BLLTRM_2_ID, cust.getTermsID());
+		assertEquals("30-10-3", cust.getTerms().getName());
+		assertEquals(GCshBillTerms.Type.DAYS, cust.getTerms().getType());
+		
+		// However, the customer cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritableCustomer custNow1 = gcshInFile.getWritableCustomerByID(CUST_1_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashCustomer custNow2 = gcshInFile.getCustomerByID(CUST_1_ID);
+		assertEquals(null, custNow2);
+
+		// Bill terms, however, still exist because they are not
+		// customer-specific (not in principle, at least).
+		GCshBillTerms bllTrmNow = gcshInFile.getBillTermsByID(BLLTRM_2_ID);
+		assertNotEquals(null, bllTrmNow);
+	}
+
+	private void test04_1_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashCustomer cust = gcshOutFile.getCustomerByID(CUST_1_ID);
+		assertEquals(null, cust); // sic
+	}
+
 }

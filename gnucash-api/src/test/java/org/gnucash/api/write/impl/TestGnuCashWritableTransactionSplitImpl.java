@@ -304,10 +304,6 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		// ---
 		// First split:
 		
-		assertEquals(2, trx1.getSplitsCount());
-		assertEquals("980706f1ead64460b8205f093472c855", trx1.getSplits().get(0).getID().toString());
-		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx1.getSplits().get(1).getID().toString());
-
 		GnuCashWritableTransaction trx1Now = gcshInFile.getWritableTransactionByID(TRX_4_ID);
 		// CAUTION / ::TODO
 		// Don't know what to do about this oddity right now,
@@ -315,32 +311,42 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
 		assertNotEquals(null, trx1Now); // still there
 		try {
-			GnuCashWritableTransactionSplit splt1Now = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
+			GnuCashWritableTransactionSplit splt1Now1 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_1_ID);
 			assertEquals(1, 0);
 		} catch ( NullPointerException exc ) {
 			assertEquals(0, 0);
 		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashTransactionSplit splt1Now2 = gcshInFile.getTransactionSplitByID(TRXSPLT_1_ID);
+		assertEquals(null, splt1Now2);
 		
+		assertEquals(2, trx1.getSplitsCount());
+		assertEquals("980706f1ead64460b8205f093472c855", trx1.getSplits().get(0).getID().toString());
+		assertEquals("22e449ac0a864d4fae7c58171bdcfcfc", trx1.getSplits().get(1).getID().toString());
+
 		// ---
 		// Second split, same as above:
+		
+		GnuCashWritableTransaction trx2Now = gcshInFile.getWritableTransactionByID(TRX_5_ID);
+		// Cf. above
+		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
+		assertNotEquals(null, trx2Now); // still there
+		try {
+			GnuCashWritableTransactionSplit splt2Now1 = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
+			assertEquals(1, 0);
+		} catch ( NullPointerException exc ) {
+			assertEquals(0, 0);
+		}
+		// Cf. above
+		GnuCashTransactionSplit splt2Now2 = gcshInFile.getTransactionSplitByID(TRXSPLT_2_ID);
+		assertEquals(null, splt2Now2);
 		
 		assertEquals(3, trx2.getSplitsCount());
 		assertEquals("65539ddefc34439d80925275226e7849", trx2.getSplits().get(0).getID().toString());
 		assertEquals("4cd194156b014823ab4fea16c3947fcb", trx2.getSplits().get(1).getID().toString());
 		assertEquals("ffdc46ece30042baa3657af57eabe6ee", trx2.getSplits().get(2).getID().toString());
-
-		GnuCashWritableTransaction trx2Now = gcshInFile.getWritableTransactionByID(TRX_5_ID);
-		// CAUTION / ::TODO
-		// Don't know what to do about this oddity right now,
-		// but it needs to be addressed at some point.
-		assertEquals(3, trx2.getSplitsCount()); // sic, 3, because it's not persisted yet
-		assertNotEquals(null, trx2Now); // still there
-		try {
-			GnuCashWritableTransactionSplit splt2Now = gcshInFile.getWritableTransactionSplitByID(TRXSPLT_2_ID);
-			assertEquals(1, 0);
-		} catch ( NullPointerException exc ) {
-			assertEquals(0, 0);
-		}
 	}
 
 	private void test04_2_check_persisted(File outFile,
