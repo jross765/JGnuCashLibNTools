@@ -707,7 +707,7 @@ public class TestGnuCashWritablePriceImpl {
 		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
-		// The transaction does not exist any more, just as you would expect.
+		// The price does not exist any more, just as you would expect.
 		// However, no exception is thrown, as opposed to test04_1_check_memory()
 		GnuCashPrice prc = gcshOutFile.getPriceByID(PRC_1_ID);
 		assertEquals(null, prc); // sic

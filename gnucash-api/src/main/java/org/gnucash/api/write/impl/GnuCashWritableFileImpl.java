@@ -312,7 +312,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		if ( compMode == CompressMode.COMPRESS ) {
 			out = new GZIPOutputStream(out);
 		} else if ( compMode == CompressMode.GUESS_FROM_FILENAME ) {
-			if ( file.getName().endsWith(".gz") ) {
+			if ( file.getName().endsWith(FILE_EXT_ZIPPED_1) ) {
 				out = new GZIPOutputStream(out);
 			}
 		}

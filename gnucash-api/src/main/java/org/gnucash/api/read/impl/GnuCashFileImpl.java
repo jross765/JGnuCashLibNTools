@@ -82,7 +82,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -101,9 +100,19 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * @see GnuCashFile
  */
 public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
+	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(GnuCashFileImpl.class);
 
-	// ---------------------------------------------------------------
+    // ---------------------------------------------------------------
+    // ::MAGIC
+	
+	// Cf. https://en.wikipedia.org/wiki/List_of_file_signatures
+	private static final int GZIP_HEADER_BYTE_1 = 31;
+    private static final int GZIP_HEADER_BYTE_2 = -117;
+
+    protected static final String FILE_EXT_ZIPPED_1 = ".gz";
+
+    // ---------------------------------------------------------------
 
 	private File file;
 
@@ -210,7 +219,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		setFile(pFile);
 
 		InputStream in = new FileInputStream(pFile);
-		if ( pFile.getName().endsWith(".gz") ) {
+		if ( pFile.getName().endsWith(FILE_EXT_ZIPPED_1) ) {
 			in = new BufferedInputStream(in);
 			in = new GZIPInputStream(in);
 		} else {
@@ -221,7 +230,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 			in = new FileInputStream(pFile);
 			in = new BufferedInputStream(in);
-			if ( magic[0] == 31 && magic[1] == -117 ) {
+			if ( magic[0] == GZIP_HEADER_BYTE_1 && 
+				 magic[1] == GZIP_HEADER_BYTE_2 ) {
 				in = new GZIPInputStream(in);
 			}
 		}

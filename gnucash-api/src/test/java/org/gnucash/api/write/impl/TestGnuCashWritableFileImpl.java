@@ -6,6 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
+import java.util.zip.GZIPInputStream;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
@@ -17,6 +19,7 @@ import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.TestGnuCashTransactionImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -252,6 +255,9 @@ public class TestGnuCashWritableFileImpl {
 		gcshOutFile = new GnuCashWritableFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
+		assertEquals(true, outFile.exists());
+		assertEquals(false, isGZipped(outFile));
+
 		test04_1_check_1();
 		test04_1_check_2();
 	}
@@ -279,6 +285,26 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(gcshInFile.getBillTerms().toString(), gcshOutFile.getBillTerms().toString());
 	}
 	
+	// Same as test04_1, but with compressed file
+	@Test
+	public void test04_2() throws Exception {
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCustomerImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile, GnuCashWritableFile.CompressMode.COMPRESS );
+
+		gcshOutFile = new GnuCashWritableFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+		
+		assertEquals(true, outFile.exists());
+		assertEquals(true, isGZipped(outFile));
+
+		test04_1_check_1();
+		test04_1_check_2();
+	}
+
 	// -----------------------------------------------------------------
 	// PART 5: Symmetry of read-only objects gotten from a) GnucashFile
 	// and b) GnuCashWritableFile (esp. sub-objects)
@@ -363,4 +389,18 @@ public class TestGnuCashWritableFileImpl {
 		assertEquals(cmdty11.getQuotes().size(), cmdty12.getQuotes().size());
 	}
 
+	// ---------------------------------------------------------------
+	
+	// https://stackoverflow.com/questions/30507653/how-to-check-whether-file-is-gzip-or-not-in-java
+	public boolean isGZipped(File f) {
+		int magic = 0;
+		try {
+			RandomAccessFile raf = new RandomAccessFile(f, "r");
+			magic = raf.read() & 0xff | ((raf.read() << 8) & 0xff00);
+			raf.close();
+		} catch (Throwable e) {
+			e.printStackTrace(System.err);
+		}
+		return magic == GZIPInputStream.GZIP_MAGIC;
+	}
 }

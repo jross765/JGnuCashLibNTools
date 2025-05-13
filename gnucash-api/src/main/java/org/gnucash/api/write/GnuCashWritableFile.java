@@ -13,7 +13,6 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
-import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;

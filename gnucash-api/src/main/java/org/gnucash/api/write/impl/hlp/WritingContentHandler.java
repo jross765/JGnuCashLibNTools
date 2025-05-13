@@ -87,30 +87,12 @@ public class WritingContentHandler implements ContentHandler {
 				return;
 			}
 
-			// make sure GUIDs are written with non-capital letters
+			// make sure GUIDs are written with lower-case letters
 			if ( isGUID ) {
 				String s = new String(ch, start, length);
 				wrt.write(s.toLowerCase());
 			} else {
-
-				StringBuffer sb = new StringBuffer();
-				sb.append(ch, start, length);
-
-				for ( int j = 0; j < encodeme.length; j++ ) {
-					int index = 0;
-					while ( (index = sb.indexOf(encodeme[j], index)) != -1 ) {
-						sb.replace(index, index + encodeme[j].length(), encoded[j]);
-						index += encoded[j].length() - encodeme[j].length() + 1;
-					}
-
-				}
-
-				// String s = sb.toString();
-				// if(s.indexOf("bis 410") != -1) {
-				// System.err.println(s+"---"+Integer.toHexString(s.charAt(s.length()-1)));
-				// }
-
-				wrt.write(sb.toString());
+				charactersCore(ch, start, length);
 			}
 
 			last_was = LAST_WAS_CHARACTER_DATA;
@@ -118,6 +100,29 @@ public class WritingContentHandler implements ContentHandler {
 			LOGGER.error("characters: Problem", e);
 		}
 
+	}
+
+	public void charactersCore(String str) throws SAXException {
+		charactersCore(str.toCharArray(), 0, str.length());
+	}
+	
+	public void charactersCore(char[] ch, int start, int length) throws SAXException {
+		try {
+			StringBuffer sb = new StringBuffer();
+			sb.append(ch, start, length);
+
+			for ( int j = 0; j < encodeme.length; j++ ) {
+				int index = 0;
+				while ( (index = sb.indexOf(encodeme[j], index)) != -1 ) {
+					sb.replace(index, index + encodeme[j].length(), encoded[j]);
+					index += encoded[j].length() - encodeme[j].length() + 1;
+				}
+			}
+
+			wrt.write(sb.toString());
+		} catch (IOException e) {
+			LOGGER.error("charactersCore: Problem", e);
+		}
 	}
 
 	public void ignorableWhitespace(final char[] ch, final int start, final int length) {
@@ -198,7 +203,10 @@ public class WritingContentHandler implements ContentHandler {
 
 	}
 
-	public void startElement(final String namespaceURI, final String localName, final String qName,
+	public void startElement(
+			final String namespaceURI,
+			final String localName,
+			final String qName,
 			final Attributes atts) throws SAXException {
 		try {
 			if ( last_was == LAST_WAS_OPEN_ELEMENT ) {
@@ -214,6 +222,7 @@ public class WritingContentHandler implements ContentHandler {
 
 			wrt.write("<" + qName);
 
+			// ::MAGIC
 			if ( qName.equals("gnc_template-transactions") ) {
 				insideGncTemplateTransactions = true;
 			}
@@ -252,7 +261,7 @@ public class WritingContentHandler implements ContentHandler {
 				return;
 			}
 
-			wrt.write(getSpaces(), 0, depth - 6);
+			wrt.write(getSpaces(), 0, depth - MAX_DEPTH_2);
 			return;
 		}
 
@@ -260,7 +269,7 @@ public class WritingContentHandler implements ContentHandler {
 			return;
 		}
 
-		wrt.write(getSpaces(), 0, depth - 4);
+		wrt.write(getSpaces(), 0, depth - MAX_DEPTH_1);
 	}
 
 	protected char[] getSpaces() {
