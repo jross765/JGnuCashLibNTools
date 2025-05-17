@@ -225,14 +225,18 @@ public interface GnuCashFile extends GnuCashObject,
 
     /**
      * @return
-     * @throws GCshIDNotSetException 
+     */
+    Collection<GnuCashTransactionSplit> getTransactionSplits();
+
+    /**
+     * @return
      */
     List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(GCshID acctLotID);
 
     /**
      * @return
      */
-    Collection<GnuCashTransactionSplit> getTransactionSplits();
+    List<GnuCashTransactionSplit> getTransactionSplitsByCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 
     // ---------------------------------------------------------------
 

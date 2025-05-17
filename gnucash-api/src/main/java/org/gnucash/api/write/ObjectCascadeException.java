@@ -1,4 +1,4 @@
-package org.gnucash.api.write.impl;
+package org.gnucash.api.write;
 
 public class ObjectCascadeException extends Exception {
 

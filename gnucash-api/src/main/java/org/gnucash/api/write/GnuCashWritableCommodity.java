@@ -5,7 +5,6 @@ import java.util.List;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
-import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 
 /**

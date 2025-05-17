@@ -498,9 +498,9 @@ public class TestGnuCashWritableTransactionImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshInFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshOutFileStats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshOutFileStats.getNofEntriesTransactions(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_TRX - 2, gcshOutFileStats.getNofEntriesTransactions(GCshFileStats.Type.CACHE));
 
 		// ---
 		// First transaction:

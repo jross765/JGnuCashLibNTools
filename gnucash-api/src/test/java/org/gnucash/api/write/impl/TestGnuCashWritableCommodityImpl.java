@@ -16,6 +16,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashCommodityImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableCommodity;
+import org.gnucash.api.write.ObjectCascadeException;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
@@ -40,11 +41,15 @@ public class TestGnuCashWritableCommodityImpl {
 
 	public static final GCshCmdtyCurrNameSpace.Exchange CMDTY_2_EXCH = TestGnuCashCommodityImpl.CMDTY_2_EXCH;
 	public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
-	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
+	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_2_ISIN;
 
 	public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_3_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
 	public static final String CMDTY_3_ID = TestGnuCashCommodityImpl.CMDTY_3_ID;
-	public static final String CMDTY_3_ISIN = TestGnuCashCommodityImpl.CMDTY_1_ISIN;
+	public static final String CMDTY_3_ISIN = TestGnuCashCommodityImpl.CMDTY_3_ISIN;
+
+	public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_4_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
+	public static final String CMDTY_4_ID = TestGnuCashCommodityImpl.CMDTY_4_ID;
+	public static final String CMDTY_4_ISIN = TestGnuCashCommodityImpl.CMDTY_4_ISIN;
 
 	// ---------------------------------------------------------------
 
@@ -186,7 +191,7 @@ public class TestGnuCashWritableCommodityImpl {
 		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
 		// ::CHECK ???
 		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL    , gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
 		GnuCashWritableCommodity cmdty = gcshInFile.createWritableCommodity(newID, "US0123456001", "Best Corp Ever");
 
@@ -214,8 +219,8 @@ public class TestGnuCashWritableCommodityImpl {
 	private void test03_1_1_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
 		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
 		// ::CHECK ???
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, NOT + 1 yet ??? ::CHECK
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL     + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
 		assertEquals(newID.toString(), cmdty.getQualifID().toString());
 		assertEquals("Best Corp Ever", cmdty.getName());
@@ -225,9 +230,9 @@ public class TestGnuCashWritableCommodityImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
-		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 + 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic + 1 for template
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1 + 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // dto.
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL     + 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
 
 		GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(newID);
 		assertNotEquals(null, cmdty);
@@ -429,5 +434,140 @@ public class TestGnuCashWritableCommodityImpl {
 		assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:id").item(0).getTextContent());
 		assertEquals("GB10000A2222", elt.getElementsByTagName("cmdty:xcode").item(0).getTextContent());
 	}
+
+	// -----------------------------------------------------------------
+	// PART 4: Delete objects
+	// -----------------------------------------------------------------
+
+	// ------------------------------
+	// PART 4.1: High-Level
+	// ------------------------------
+
+	@Test
+	public void test04_1() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic +1 for template
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL    , gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+		GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_1_EXCH, CMDTY_1_ID);
+		assertNotEquals(null, cmdty);
+		assertEquals(CMDTY_1_EXCH + ":"+ CMDTY_1_ID, cmdty.getQualifID().toString());
+
+		// Objects attached
+		assertNotEquals(0, cmdty.getQuotes().size()); // there are quotes (prices)
+		assertNotEquals(0, cmdty.getTransactionSplits().size()); // there are transactions
+
+		// ----------------------------
+		// Delete the object
+
+		try {
+			gcshInFile.removeCommodity(cmdty); // Correctly fails because prices are attached
+			assertEquals(1, 0);
+		} catch ( ObjectCascadeException exc ) {
+			assertEquals(0, 0);
+		}
+	}
+	
+	@Test
+	public void test04_2() throws Exception {
+		gcshInFileStats = new GCshFileStats(gcshInFile);
+
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic +1 for template
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL    , gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+		GnuCashWritableCommodity cmdty = gcshInFile.getWritableCommodityByQualifID(CMDTY_4_SECIDTYPE, CMDTY_4_ID);
+		assertNotEquals(null, cmdty);
+		assertEquals(CMDTY_4_SECIDTYPE + ":"+ CMDTY_4_ID, cmdty.getQualifID().toString());
+
+		// Objects attached
+		assertEquals(0, cmdty.getQuotes().size()); // no quotes (prices)
+		assertEquals(0, cmdty.getTransactionSplits().size()); // no transactions
+
+		// ----------------------------
+		// Delete the object
+
+		gcshInFile.removeCommodity(cmdty);
+
+		// ----------------------------
+		// Check whether the object can has actually be modified
+		// (in memory, not in the file yet).
+
+		test04_2_check_memory(cmdty);
+
+		// ----------------------------
+		// Now, check whether the modified object can be written to the
+		// output file, then re-read from it, and whether is is what
+		// we expect it is.
+
+		File outFile = folder.newFile(ConstTest.GCSH_FILENAME_OUT);
+		// System.err.println("Outfile for TestGnuCashWritableCommodityImpl.test01_1: '"
+		// + outFile.getPath() + "'");
+		outFile.delete(); // sic, the temp. file is already generated (empty),
+		// and the GnuCash file writer does not like that.
+		gcshInFile.writeFile(outFile);
+
+		test04_2_check_persisted(outFile);
+	}
+	
+	// ---------------------------------------------------------------
+
+	private void test04_2_check_memory(GnuCashWritableCommodity cmdty) throws Exception {
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic +1 for template
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1    , gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER)); // sic, because not persisted yet
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL     - 1, gcshInFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+		// CAUTION / ::TODO
+		// Old Object still exists and is unchanged
+		// Exception: no splits any more
+		// Don't know what to do about this oddity right now,
+		// but it needs to be addressed at some point.
+		assertEquals(CMDTY_4_SECIDTYPE + ":"+ CMDTY_4_ID, cmdty.getQualifID().toString());
+		assertEquals("The Coca-Cola Co.", cmdty.getName());
+		
+		// However, the commodity cannot newly be instantiated any more,
+		// just as you would expect.
+		try {
+			GnuCashWritableCommodity cmdtyNow1 = gcshInFile.getWritableCommodityByQualifID(CMDTY_4_SECIDTYPE, CMDTY_4_ID);
+			assertEquals(1, 0);
+		} catch ( Exception exc ) {
+			assertEquals(0, 0);
+		}
+		// Same for a non non-writable instance. 
+		// However, due to design asymmetry, no exception is thrown here,
+		// but the method just returns null.
+		GnuCashCommodity cmdtyNow2 = gcshInFile.getCommodityByQualifID(CMDTY_4_SECIDTYPE, CMDTY_4_ID);
+		assertEquals(null, cmdtyNow2);
+
+		// Attached objects (*not dependent*)
+		// Bill terms, however, still exist because they are not
+		// customer-specific (not in principle, at least).
+		// xxx TODO
+//		GCshBillTerms prcNow = gcshInFile.getBillTermsByID(BLLTRM_1_ID);
+//		assertNotEquals(null, bllTrmNow);
+	}
+
+	private void test04_2_check_persisted(File outFile) throws Exception {
+		gcshOutFile = new GnuCashFileImpl(outFile);
+		gcshOutFileStats = new GCshFileStats(gcshOutFile);
+		
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL + 1 - 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.RAW)); // sic +1 for template
+		// ::tODO: ::CHECK
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL - 1 - 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CMDTY_ALL     - 1, gcshOutFileStats.getNofEntriesCommodities(GCshFileStats.Type.CACHE));
+
+		// The transaction does not exist any more, just as you would expect.
+		// However, no exception is thrown, as opposed to test04_1_check_memory()
+		GnuCashCommodity cmdty = gcshOutFile.getCommodityByQualifID(CMDTY_4_SECIDTYPE, CMDTY_4_ID);
+		assertEquals(null, cmdty); // sic
+	}
+
+	// ------------------------------
+	// PART 4.2: Low-Level
+	// ------------------------------
+	
+	// ::EMPTY
 
 }

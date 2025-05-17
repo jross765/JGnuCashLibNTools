@@ -84,6 +84,7 @@ import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableVendor;
+import org.gnucash.api.write.ObjectCascadeException;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.aux.GCshWritableBillTermsImpl;
@@ -506,8 +507,14 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 		
 		// Special case commoditiy-counter: 
-		// The template entry is not accounted for.
-		cntCommodity--;
+		// The template entry is not accounted for. ( => minus 1 )
+		// In addition to that, there seems to be a bug in GnuCash:
+		// the counter is always set to even one less when saved
+		// with the original software.
+		// (If there is a reason for that, I do not understaand it; seems weird to me.)
+		// Anyway: In order to maintain consistency, we need to mimick this 
+		// bug (?) here. ( => again minus 1 ).
+		cntCommodity += -2;
 
 		setCountDataFor("account", cntAccount);
 		setCountDataFor("transaction", cntTransaction);
@@ -1708,9 +1715,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalArgumentException("Currency commodities may not be removed");
 		}
 
-		if ( existPriceObjects(cmdty) ) {
+		if ( cmdty.getQuotes().size() > 0 ) {
 			LOGGER.error("removeCommodity: Commodity with ID '" + cmdty.getQualifID() + "' cannot be removed because "
 					+ "there are price objects in the Price DB that depend on it");
+			throw new ObjectCascadeException();
+		}
+
+		if ( cmdty.getTransactionSplits().size() > 0 ) {
+			LOGGER.error("removeCommodity: Commodity with ID '" + cmdty.getQualifID() + "' cannot be removed because "
+					+ "there are transactions (splits) that depend on it");
 			throw new ObjectCascadeException();
 		}
 
@@ -1843,20 +1856,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		}
 
 		return result;
-	}
-
-	private boolean existPriceObjects(GnuCashWritableCommodity cmdty) {
-		int counter = 0;
-		for ( GnuCashPrice price : getPrices() ) {
-			if ( price.getFromCommodity().getQualifID().equals(cmdty.getQualifID()) ) {
-				counter++;
-			}
-		}
-
-		if ( counter > 0 )
-			return true;
-		else
-			return false;
 	}
 
 	// ----------------------------

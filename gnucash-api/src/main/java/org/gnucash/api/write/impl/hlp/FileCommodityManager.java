@@ -52,10 +52,11 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 		}
 		
 		cmdtyMap.remove(cmdty.getQualifID().toString());
-
-		for ( String xCode : xCodeMap.keySet() ) {
-			if ( xCodeMap.get(xCode).equals(cmdty.getQualifID().toString()) )
-				xCodeMap.remove(xCode);
+		
+		if ( cmdty.getXCode() != null ) {
+			// xCodeMap.keySet().remove(cmdty.getXCode());
+			// xCodeMap.values().remove(cmdty.getQualifID().toString());
+			xCodeMap.remove(cmdty.getXCode());
 		}
 
 		LOGGER.debug("Removed commodity from cache: " + cmdty.getQualifID());

@@ -36,6 +36,11 @@ public class TestGnuCashCommodityImpl {
 	public static final String CMDTY_3_ID = "GB0009895292";
 	public static final String CMDTY_3_ISIN = CMDTY_3_ID;
 
+	// Coca Cola
+	public static final GCshCmdtyCurrNameSpace.SecIdType CMDTY_4_SECIDTYPE = GCshCmdtyCurrNameSpace.SecIdType.ISIN;
+	public static final String CMDTY_4_ID = "US1912161007";
+	public static final String CMDTY_4_ISIN = CMDTY_4_ID;
+
 	// -----------------------------------------------------------------
 
 	private GnuCashFile gcshFile = null;

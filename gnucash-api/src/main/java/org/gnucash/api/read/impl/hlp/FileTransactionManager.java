@@ -17,6 +17,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
@@ -175,6 +176,27 @@ public class FileTransactionManager {
 					GnuCashTransactionSplit newSplt = gcshFile.getTransactionSplitByID(splt.getID());
 					result.add(newSplt);
 				}
+			}
+		}
+
+		return result;
+	}
+
+	public List<GnuCashTransactionSplit> getTransactionSplitsByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
+		if ( cmdtyCurrID == null ) {
+			throw new IllegalArgumentException("null commodity/currency ID given");
+		}
+		
+		if ( ! cmdtyCurrID.isSet() ) {
+			throw new IllegalArgumentException("empty commodity/currency ID given");
+		}
+		
+		List<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
+
+		for ( GnuCashTransactionSplit splt : trxSpltMap.values() ) {
+			if ( splt.getAccount().getCmdtyCurrID().toString().equals(cmdtyCurrID.toString()) ) {
+				GnuCashTransactionSplit newSplt = gcshFile.getTransactionSplitByID(splt.getID());
+				result.add(newSplt);
 			}
 		}
 

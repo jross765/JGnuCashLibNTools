@@ -274,7 +274,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 *
 	 * @param type the type to set it for
 	 */
-	protected int getCountDataFor(final String type) {
+	public int getCountDataFor(final String type) {
 
 		if ( type == null ) {
 			throw new IllegalArgumentException("null type given");
@@ -519,10 +519,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return trxMgr.getTransactionSplitByID(spltID);
 	}
 
-	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
-		return trxMgr.getTransactionSplitsByAccountLotID(acctLotID);
-	}
-
 	public Collection<GnuCashTransactionSplit> getTransactionSplits() {
 		return trxMgr.getTransactionSplits();
 	}
@@ -533,6 +529,16 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
 		return trxMgr.getTransactionSplits_readAfresh(trxID);
+	}
+
+	// ----------------------------
+
+	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
+		return trxMgr.getTransactionSplitsByAccountLotID(acctLotID);
+	}
+
+	public List<GnuCashTransactionSplit> getTransactionSplitsByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
+		return trxMgr.getTransactionSplitsByCmdtyCurrID(cmdtyCurrID);
 	}
 
 	// ---------------------------------------------------------------

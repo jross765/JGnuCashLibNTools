@@ -14,6 +14,7 @@ import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableCommodity;
 import org.gnucash.api.write.GnuCashWritableFile;
+import org.gnucash.api.write.ObjectCascadeException;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;

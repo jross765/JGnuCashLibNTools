@@ -203,9 +203,9 @@ public class TestGnuCashWritableEmployeeImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_EMPL, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
 		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(EMPL_1_ID);
 		assertNotEquals(null, empl);
@@ -269,9 +269,9 @@ public class TestGnuCashWritableEmployeeImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
 		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(newID);
 		assertNotEquals(null, empl);
@@ -513,9 +513,9 @@ public class TestGnuCashWritableEmployeeImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_EMPL - 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
 		// The transaction does not exist any more, just as you would expect.
 		// However, no exception is thrown, as opposed to test04_1_check_memory()

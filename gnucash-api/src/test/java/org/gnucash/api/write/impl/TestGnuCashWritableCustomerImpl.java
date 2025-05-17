@@ -312,9 +312,9 @@ public class TestGnuCashWritableCustomerImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
 		GnuCashCustomer cust = gcshOutFile.getCustomerByID(newID);
 		assertNotEquals(null, cust);
@@ -568,9 +568,9 @@ public class TestGnuCashWritableCustomerImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_CUST - 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
 		// The transaction does not exist any more, just as you would expect.
 		// However, no exception is thrown, as opposed to test04_1_check_memory()

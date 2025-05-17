@@ -47,7 +47,7 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
 		}
 		
 		vendMap.remove(vend.getID());
-		LOGGER.debug("Removed vendor to cache: " + vend.getID());
+		LOGGER.debug("Removed vendor from cache: " + vend.getID());
 	}
 
 }

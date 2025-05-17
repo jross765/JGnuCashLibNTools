@@ -35,8 +35,12 @@ public class WritingContentHandler implements ContentHandler {
 
     // ----------------------------
 
-    private final String encodeme[] = new String[] { "&", ">", "<", "\"" };
-    private final String encoded[]  = new String[] { "&amp;", "&gt;", "&lt;", "&quot;" };
+    // https://www.w3schools.io/xml-escape-characters/
+    // https://stackoverflow.com/questions/1091945/what-characters-do-i-need-to-escape-in-xml-documents
+    // https://stackoverflow.com/questions/35504890/how-to-add-a-newline-line-break-in-an-xml-file
+    // https://www.w3schools.com/XML/xml_syntax.asp
+    private final String encodeme[] = new String[] { "&", ">", "<", "'", "\"" };
+    private final String encoded[]  = new String[] { "&amp;", "&gt;", "&lt;", "&apos;", "&quot;" };
 
     // ----------------------------
 

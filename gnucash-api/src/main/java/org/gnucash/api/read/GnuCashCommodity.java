@@ -58,4 +58,8 @@ public interface GnuCashCommodity extends Comparable<GnuCashCommodity>,
     
     GnuCashPrice getYoungestQuote();
     
+    // ------------------------------------------------------------
+
+    List<GnuCashTransactionSplit> getTransactionSplits();
+    
 }

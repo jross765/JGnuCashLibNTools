@@ -9,6 +9,7 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashPrice;
+import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -152,6 +153,13 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
     		return null;
     	
     	return qutList.get(0);
+    }
+
+    // -----------------------------------------------------------------
+
+    @Override
+    public List<GnuCashTransactionSplit> getTransactionSplits() {
+    	return getGnuCashFile().getTransactionSplitsByCmdtyCurrID(getQualifID());
     }
 
     // -----------------------------------------------------------------

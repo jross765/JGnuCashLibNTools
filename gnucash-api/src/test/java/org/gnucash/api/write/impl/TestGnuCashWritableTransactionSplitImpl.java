@@ -206,9 +206,9 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshOutFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
 		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshOutFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
 
 		GnuCashTransactionSplit splt = gcshOutFile.getTransactionSplitByID(TRXSPLT_1_ID);
 		assertNotEquals(null, splt);
@@ -355,9 +355,9 @@ public class TestGnuCashWritableTransactionSplitImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshOutFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
 		// assertEquals(ConstTest.Stats.NOF_TRX_SPLT, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshInFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_TRX_SPLT - 2, gcshOutFileStats.getNofEntriesTransactionSplits(GCshFileStats.Type.CACHE));
 
 		// ---
 		// First split:

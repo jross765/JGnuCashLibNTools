@@ -20,7 +20,6 @@ import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
-import org.gnucash.api.write.impl.ObjectCascadeException;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;

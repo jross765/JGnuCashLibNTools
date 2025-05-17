@@ -1,6 +1,5 @@
 package org.gnucash.api.read.impl.hlp;
 
-import org.gnucash.api.generated.GncCountData;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +22,10 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesAccounts() {
-		GncCountData obj = findCountDataByType("account");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("account");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
@@ -38,11 +36,10 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesTransactions() {
-		GncCountData obj = findCountDataByType("transaction");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("transaction");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
@@ -55,21 +52,19 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesGenerInvoices() {
-		GncCountData obj = findCountDataByType("gnc:GncInvoice");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncInvoice");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesGenerInvoiceEntries() {
-		GncCountData obj = findCountDataByType("gnc:GncEntry");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncEntry");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
@@ -77,41 +72,37 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesCustomers() {
-		GncCountData obj = findCountDataByType("gnc:GncCustomer");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncCustomer");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesVendors() {
-		GncCountData obj = findCountDataByType("gnc:GncVendor");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncVendor");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesEmployees() {
-		GncCountData obj = findCountDataByType("gnc:GncEmployee");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncEmployee");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesGenerJobs() {
-		GncCountData obj = findCountDataByType("gnc:GncJob");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncJob");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
@@ -119,21 +110,19 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesCommodities() {
-		GncCountData obj = findCountDataByType("commodity");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("commodity");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesPrices() {
-		GncCountData obj = findCountDataByType("price");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("price");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
@@ -141,34 +130,20 @@ public class FileStats_Counters implements FileStats {
 
 	@Override
 	public int getNofEntriesTaxTables() {
-		GncCountData obj = findCountDataByType("gnc:GncTaxTable");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncTaxTable");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
 	}
 
 	@Override
 	public int getNofEntriesBillTerms() {
-		GncCountData obj = findCountDataByType("gnc:GncBillTerm");
-		if ( obj == null ) {
+		try {
+			return gcshFile.getCountDataFor("gnc:GncBillTerm");
+		} catch ( IllegalArgumentException exc ) {
 			return ERROR;
-		} else {
-			return obj.getValue();
 		}
-	}
-
-	// ---------------------------------------------------------------
-
-	private GncCountData findCountDataByType(final String type) {
-		for ( GncCountData count : gcshFile.getRootElement().getGncBook().getGncCountData() ) {
-			if ( count.getCdType().equals(type) ) {
-				return count;
-			}
-		}
-
-		return null;
 	}
 
 }

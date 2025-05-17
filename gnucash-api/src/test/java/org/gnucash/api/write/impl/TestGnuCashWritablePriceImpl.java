@@ -602,9 +602,9 @@ public class TestGnuCashWritablePriceImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
 		GnuCashPrice prc = gcshOutFile.getPriceByID(newID);
 		assertNotEquals(null, prc);
@@ -703,9 +703,9 @@ public class TestGnuCashWritablePriceImpl {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_PRC - 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
 		// The price does not exist any more, just as you would expect.
 		// However, no exception is thrown, as opposed to test04_1_check_memory()
