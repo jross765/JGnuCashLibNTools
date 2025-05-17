@@ -16,7 +16,8 @@
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<schnorxolib-base-systemPath>/home/xxx/.m2/repository/xyz/schnorxoborx/schnorxolib-base/0.1.1-RELEASE/schnorxolib-base-0.1.1-RELEASE.jar</schnorxolib-base-systemPath>
+
+		<schnorxolib-base-systemPath>/home/xxx/Programme-ProdReady/schnorxoborx/schnorxolib-base-0.1.1.jar</schnorxolib-base-systemPath>
 
 	</properties>
 
@@ -32,9 +33,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>xyz.schnorxoborx</groupId>
+			<groupId>xyz.schnorxoborx.schnorxolib</groupId>
 			<artifactId>schnorxolib-base</artifactId>
-			<version>0.1-RELEASE</version>
+			<version>0.1.1</version>
 			<scope>system</scope>
 			<systemPath>${schnorxolib-base-systemPath}</systemPath>
 		</dependency>
