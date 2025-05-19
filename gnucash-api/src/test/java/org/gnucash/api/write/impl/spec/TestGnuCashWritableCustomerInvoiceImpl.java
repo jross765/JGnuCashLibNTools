@@ -47,8 +47,8 @@ public class TestGnuCashWritableCustomerInvoiceImpl {
 	private static final GCshID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
 	private static final GCshID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
 
-	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.JOB_1_ID;
-	private static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.JOB_2_ID;
+	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
 	static final GCshID INCOME_ACCT_ID = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root
 	// Account::Erträge::Sonstiges
@@ -186,7 +186,7 @@ public class TestGnuCashWritableCustomerInvoiceImpl {
 		//      System.err.println("xxxx XML normalized");
 
 		NodeList nList = document.getElementsByTagName("gnc:GncInvoice");
-		assertEquals(8, nList.getLength());
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC + 1, nList.getLength());
 
 		// Last (new) node
 		Node lastNode = nList.item(nList.getLength() - 1);

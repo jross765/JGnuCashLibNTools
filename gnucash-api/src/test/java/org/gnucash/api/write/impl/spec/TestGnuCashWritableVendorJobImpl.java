@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableVendorJobImpl {
-	private static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.JOB_2_ID;
+	private static final GCshID VEND_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
 	private static final GCshID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
 	//    private static final GCshID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
@@ -105,18 +105,18 @@ public class TestGnuCashWritableVendorJobImpl {
 
 	@Test
 	public void test01_1() throws Exception {
-		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
+		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(VEND_JOB_2_ID);
 		assertNotEquals(null, jobSpec);
 
 		assertTrue(jobSpec instanceof GnuCashWritableVendorJob);
-		assertEquals(JOB_2_ID, jobSpec.getID());
+		assertEquals(VEND_JOB_2_ID, jobSpec.getID());
 		assertEquals("000002", jobSpec.getNumber());
 		assertEquals("Let's buy help", jobSpec.getName());
 	}
 
 	@Test
 	public void test01_2() throws Exception {
-		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
+		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(VEND_JOB_2_ID);
 		assertNotEquals(null, jobSpec);
 
 		assertEquals(1, jobSpec.getNofOpenInvoices());
@@ -135,7 +135,7 @@ public class TestGnuCashWritableVendorJobImpl {
 
 	@Test
 	public void test01_3() throws Exception {
-		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(JOB_2_ID);
+		GnuCashWritableVendorJob jobSpec = (GnuCashWritableVendorJob) gcshInFile.getWritableGenerJobByID(VEND_JOB_2_ID);
 		assertNotEquals(null, jobSpec);
 
 		// Note: That the following three return the same result

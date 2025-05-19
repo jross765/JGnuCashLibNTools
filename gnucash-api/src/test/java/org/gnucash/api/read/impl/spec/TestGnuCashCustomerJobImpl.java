@@ -19,7 +19,7 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashCustomerJobImpl {
-	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.JOB_1_ID;
+	private static final GCshID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
 
 	// -----------------------------------------------------------------
 
@@ -63,20 +63,20 @@ public class TestGnuCashCustomerJobImpl {
 
 	@Test
 	public void test01() throws Exception {
-		jobGener = gcshFile.getGenerJobByID(JOB_1_ID);
+		jobGener = gcshFile.getGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobGener);
 		jobSpec = new GnuCashCustomerJobImpl(jobGener);
 		assertNotEquals(null, jobSpec);
 
 		assertTrue(jobSpec instanceof GnuCashCustomerJob);
-		assertEquals(JOB_1_ID, jobSpec.getID());
+		assertEquals(CUST_JOB_1_ID, jobSpec.getID());
 		assertEquals("000001", jobSpec.getNumber());
 		assertEquals("Do more for others", jobSpec.getName());
 	}
 
 	@Test
 	public void test02() throws Exception {
-		jobGener = gcshFile.getGenerJobByID(JOB_1_ID);
+		jobGener = gcshFile.getGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobGener);
 		jobSpec = new GnuCashCustomerJobImpl(jobGener);
 		assertNotEquals(null, jobSpec);
@@ -102,7 +102,7 @@ public class TestGnuCashCustomerJobImpl {
 
 	@Test
 	public void test03() throws Exception {
-		jobGener = gcshFile.getGenerJobByID(JOB_1_ID);
+		jobGener = gcshFile.getGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobGener);
 		jobSpec = new GnuCashCustomerJobImpl(jobGener);
 		assertNotEquals(null, jobSpec);

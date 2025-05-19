@@ -19,8 +19,13 @@ public class ConstTest extends Const {
     	public static final int NOF_TRX        = 17;
     	public static final int NOF_TRX_SPLT   = 43;
 	
-    	public static final int NOF_INVC       = 7;
-    	public static final int NOF_INVC_ENTR  = 14;
+    	public static final int NOF_VEND_BLL   = 4;
+    	public static final int NOF_CUST_INVC  = 2;
+    	public static final int NOF_JOB_INVC   = 2;
+    	public static final int NOF_EMPL_VCH   = 1;
+    	
+    	public static final int NOF_GENER_INVC       = NOF_VEND_BLL + NOF_CUST_INVC + NOF_JOB_INVC + NOF_EMPL_VCH;
+    	public static final int NOF_GENER_INVC_ENTR  = 15;
 	
     	public static final int NOF_CUST       = 3;
     	public static final int NOF_VEND       = 3;

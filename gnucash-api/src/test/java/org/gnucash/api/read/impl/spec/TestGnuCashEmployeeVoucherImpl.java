@@ -23,7 +23,7 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashEmployeeVoucherImpl {
-	private static final GCshID INVC_7_ID = TestGnuCashGenerInvoiceImpl.INVC_7_ID;
+	private static final GCshID EMPL_VCH_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
 
 	// -----------------------------------------------------------------
 
@@ -67,13 +67,13 @@ public class TestGnuCashEmployeeVoucherImpl {
 
 	@Test
 	public void test01_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_7_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(EMPL_VCH_7_ID);
 		assertNotEquals(null, invcGen);
 		vchSpec = new GnuCashEmployeeVoucherImpl(invcGen);
 		assertNotEquals(null, vchSpec);
 
 		assertEquals(true, vchSpec instanceof GnuCashEmployeeVoucherImpl);
-		assertEquals(INVC_7_ID, vchSpec.getID());
+		assertEquals(EMPL_VCH_7_ID, vchSpec.getID());
 		assertEquals(GCshOwner.Type.EMPLOYEE, vchSpec.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT));
 		assertEquals("000001", vchSpec.getNumber());
 		assertEquals("Spesen Geschäftsreise", vchSpec.getDescription());
@@ -84,7 +84,7 @@ public class TestGnuCashEmployeeVoucherImpl {
 
 	@Test
 	public void test02_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_7_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(EMPL_VCH_7_ID);
 		assertNotEquals(null, invcGen);
 		vchSpec = new GnuCashEmployeeVoucherImpl(invcGen);
 		assertNotEquals(null, vchSpec);
@@ -106,7 +106,7 @@ public class TestGnuCashEmployeeVoucherImpl {
 
 	@Test
 	public void test03_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_7_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(EMPL_VCH_7_ID);
 		assertNotEquals(null, invcGen);
 		vchSpec = new GnuCashEmployeeVoucherImpl(invcGen);
 		assertNotEquals(null, vchSpec);
@@ -129,7 +129,7 @@ public class TestGnuCashEmployeeVoucherImpl {
 
 	@Test
 	public void test04_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_7_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(EMPL_VCH_7_ID);
 		assertNotEquals(null, invcGen);
 		vchSpec = new GnuCashEmployeeVoucherImpl(invcGen);
 		assertNotEquals(null, vchSpec);

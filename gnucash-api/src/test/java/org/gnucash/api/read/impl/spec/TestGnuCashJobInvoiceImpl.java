@@ -21,8 +21,8 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashJobInvoiceImpl {
-	private static final GCshID INVC_3_ID = TestGnuCashGenerInvoiceImpl.INVC_3_ID;
-	private static final GCshID INVC_5_ID = TestGnuCashGenerInvoiceImpl.INVC_5_ID;
+	private static final GCshID JOB_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	private static final GCshID JOB_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
 
 	// -----------------------------------------------------------------
 
@@ -66,13 +66,13 @@ public class TestGnuCashJobInvoiceImpl {
 
 	@Test
 	public void test01_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(JOB_INVC_3_ID);
 		assertNotEquals(null, invcGen);
 		invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 		assertNotEquals(null, invcSpec);
 
 		assertEquals(true, invcSpec instanceof GnuCashJobInvoiceImpl);
-		assertEquals(INVC_3_ID, invcSpec.getID());
+		assertEquals(JOB_INVC_3_ID, invcSpec.getID());
 		assertEquals(GCshOwner.Type.JOB, invcSpec.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT));
 		assertEquals("R94871", invcSpec.getNumber());
 		assertEquals("With customer job / with taxes", invcSpec.getDescription());
@@ -83,7 +83,7 @@ public class TestGnuCashJobInvoiceImpl {
 
 	@Test
 	public void test02_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(JOB_INVC_3_ID);
 		assertNotEquals(null, invcGen);
 		invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 		assertNotEquals(null, invcSpec);
@@ -107,7 +107,7 @@ public class TestGnuCashJobInvoiceImpl {
 
 	@Test
 	public void test03_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(JOB_INVC_3_ID);
 		assertNotEquals(null, invcGen);
 		invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 		assertNotEquals(null, invcSpec);
@@ -134,7 +134,7 @@ public class TestGnuCashJobInvoiceImpl {
 	// ::TODO
 	@Test
 	public void test04_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_3_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(JOB_INVC_3_ID);
 		assertNotEquals(null, invcGen);
 		invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 		assertNotEquals(null, invcSpec);
@@ -167,7 +167,7 @@ public class TestGnuCashJobInvoiceImpl {
 
 	@Test
 	public void test05() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(INVC_5_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(JOB_INVC_5_ID);
 		assertNotEquals(null, invcGen);
 		invcSpec = new GnuCashJobInvoiceImpl(invcGen);
 		assertNotEquals(null, invcSpec);

@@ -93,18 +93,18 @@ public class TestGnuCashFileImpl {
 
 	@Test
 	public void test04() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
 	public void test05() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 					 gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
-					 gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2,
+					 gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 					 gcshFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 	}
 

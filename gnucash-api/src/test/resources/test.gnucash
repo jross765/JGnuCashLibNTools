@@ -220,8 +220,8 @@
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncEntry">14</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncInvoice">7</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncEntry">17</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncInvoice">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncJob">2</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncTaxTable">7</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncVendor">3</gnc:count-data>
@@ -3021,7 +3021,7 @@
   <billterm:guid type="guid">599bfe3ab5b84a73bf3acabc5abd5bc7</billterm:guid>
   <billterm:name>sofort</billterm:name>
   <billterm:desc>5 Tage netto</billterm:desc>
-  <billterm:refcount>1</billterm:refcount>
+  <billterm:refcount>3</billterm:refcount>
   <billterm:invisible>0</billterm:invisible>
   <billterm:days>
     <bt-days:due-days>5</bt-days:due-days>
@@ -3160,6 +3160,25 @@
   <entry:bill type="guid">4eb0dc387c3f4daba57b11b2a657d8a4</entry:bill>
   <entry:billable>0</entry:billable>
   <entry:b-taxable>1</entry:b-taxable>
+  <entry:b-taxincluded>0</entry:b-taxincluded>
+  <entry:b-pay>CASH</entry:b-pay>
+</gnc:GncEntry>
+<gnc:GncEntry version="2.0.0">
+  <entry:guid type="guid">220af9aa331947078954cd8ad31916c2</entry:guid>
+  <entry:date>
+    <ts:date>2025-05-19 10:00:00 +0000</ts:date>
+  </entry:date>
+  <entry:entered>
+    <ts:date>2025-05-19 07:41:34 +0000</ts:date>
+  </entry:entered>
+  <entry:description>Brezeln</entry:description>
+  <entry:action>Material</entry:action>
+  <entry:qty>100/1</entry:qty>
+  <entry:b-acct type="guid">e93bd8a244c94de9bb4d5c3cb6749bf1</entry:b-acct>
+  <entry:b-price>13/20</entry:b-price>
+  <entry:bill type="guid">d1e64a86c4004ef7b87e2610d762456d</entry:bill>
+  <entry:billable>0</entry:billable>
+  <entry:b-taxable>0</entry:b-taxable>
   <entry:b-taxincluded>0</entry:b-taxincluded>
   <entry:b-pay>CASH</entry:b-pay>
 </gnc:GncEntry>
@@ -3528,6 +3547,29 @@
   </invoice:slots>
 </gnc:GncInvoice>
 <gnc:GncInvoice version="2.0.0">
+  <invoice:guid type="guid">75e5e943505a4272ab2bcf75b03bd6fd</invoice:guid>
+  <invoice:id>gg8nixlos</invoice:id>
+  <invoice:owner version="2.0.0">
+    <owner:type>gncVendor</owner:type>
+    <owner:id type="guid">087e1a3d43fa4ef9a9bdd4b4797c4231</owner:id>
+  </invoice:owner>
+  <invoice:opened>
+    <ts:date>2025-05-19 10:59:00 +0000</ts:date>
+  </invoice:opened>
+  <invoice:terms type="guid">599bfe3ab5b84a73bf3acabc5abd5bc7</invoice:terms>
+  <invoice:active>1</invoice:active>
+  <invoice:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </invoice:currency>
+  <invoice:slots>
+    <slot>
+      <slot:key>credit-note</slot:key>
+      <slot:value type="integer">0</slot:value>
+    </slot>
+  </invoice:slots>
+</gnc:GncInvoice>
+<gnc:GncInvoice version="2.0.0">
   <invoice:guid type="guid">8de4467c17e04bb2895fb68cc07fc4df</invoice:guid>
   <invoice:id>000001</invoice:id>
   <invoice:owner version="2.0.0">
@@ -3561,6 +3603,29 @@
     <ts:date>2023-09-20 10:59:00 +0000</ts:date>
   </invoice:opened>
   <invoice:notes>With customer job / with taxes</invoice:notes>
+  <invoice:active>1</invoice:active>
+  <invoice:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </invoice:currency>
+  <invoice:slots>
+    <slot>
+      <slot:key>credit-note</slot:key>
+      <slot:value type="integer">0</slot:value>
+    </slot>
+  </invoice:slots>
+</gnc:GncInvoice>
+<gnc:GncInvoice version="2.0.0">
+  <invoice:guid type="guid">d1e64a86c4004ef7b87e2610d762456d</invoice:guid>
+  <invoice:id>gg9nixlos</invoice:id>
+  <invoice:owner version="2.0.0">
+    <owner:type>gncVendor</owner:type>
+    <owner:id type="guid">087e1a3d43fa4ef9a9bdd4b4797c4231</owner:id>
+  </invoice:owner>
+  <invoice:opened>
+    <ts:date>2025-05-19 10:59:00 +0000</ts:date>
+  </invoice:opened>
+  <invoice:terms type="guid">599bfe3ab5b84a73bf3acabc5abd5bc7</invoice:terms>
   <invoice:active>1</invoice:active>
   <invoice:currency>
     <cmdty:space>CURRENCY</cmdty:space>

@@ -24,8 +24,8 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashVendorBillImpl {
-	private static final GCshID BLL_1_ID = TestGnuCashGenerInvoiceImpl.INVC_4_ID;
-	private static final GCshID BLL_2_ID = TestGnuCashGenerInvoiceImpl.INVC_2_ID;
+	private static final GCshID VEND_BLL_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	private static final GCshID VEND_BLL_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
 
 	// -----------------------------------------------------------------
 
@@ -69,13 +69,13 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test01_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_1_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
 
 		assertEquals(true, bllSpec instanceof GnuCashVendorBillImpl);
-		assertEquals(BLL_1_ID, bllSpec.getID());
+		assertEquals(VEND_BLL_1_ID, bllSpec.getID());
 		assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT));
 		assertEquals("1730-383/2", bllSpec.getNumber());
 		assertEquals("Sie wissen schon: Gefälligkeiten, ne?", bllSpec.getDescription());
@@ -87,13 +87,13 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test01_2() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_2_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
 
 		assertEquals(true, bllSpec instanceof GnuCashVendorBillImpl);
-		assertEquals(BLL_2_ID, bllSpec.getID());
+		assertEquals(VEND_BLL_2_ID, bllSpec.getID());
 		assertEquals(GCshOwner.Type.VENDOR, bllSpec.getOwnerType(GnuCashGenerInvoice.ReadVariant.DIRECT));
 		assertEquals("2740921", bllSpec.getNumber());
 		assertEquals("Dat isjamaol eine schöne jepflejgte Reschnung!", bllSpec.getDescription());
@@ -105,7 +105,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test02_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_1_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -125,7 +125,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test02_2() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_2_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -147,7 +147,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test03_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_1_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -172,7 +172,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test03_2() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_2_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -195,7 +195,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test04_1() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_1_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -228,7 +228,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test04_2() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_2_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_2_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);
@@ -264,7 +264,7 @@ public class TestGnuCashVendorBillImpl {
 
 	@Test
 	public void test05() throws Exception {
-		invcGen = gcshFile.getGenerInvoiceByID(BLL_1_ID);
+		invcGen = gcshFile.getGenerInvoiceByID(VEND_BLL_1_ID);
 		assertNotEquals(null, invcGen);
 		bllSpec = new GnuCashVendorBillImpl(invcGen);
 		assertNotEquals(null, bllSpec);

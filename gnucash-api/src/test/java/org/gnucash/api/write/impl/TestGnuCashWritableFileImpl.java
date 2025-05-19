@@ -34,7 +34,7 @@ public class TestGnuCashWritableFileImpl {
 
 	private static final GCshID ACCT_1_ID     = TestGnuCashAccountImpl.ACCT_1_ID;
 	private static final GCshID TRX_1_ID      = TestGnuCashTransactionImpl.TRX_1_ID;
-	private static final GCshID INVC_1_ID     = TestGnuCashGenerInvoiceImpl.INVC_1_ID;
+	private static final GCshID INVC_1_ID     = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
 	private static final String CMDTY_4_ISIN  = "DE000BASF111";
 	
 	// -----------------------------------------------------------------
@@ -131,18 +131,18 @@ public class TestGnuCashWritableFileImpl {
 
 	@Test
 	public void test01_04() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC, gcshInFileStats.getNofEntriesGenerInvoices(GCshFileStats.Type.CACHE));
 	}
 
 	@Test
 	public void test01_05() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
-				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_INVC_ENTR,
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2,
+				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 	}
 

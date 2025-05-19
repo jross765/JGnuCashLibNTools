@@ -1096,7 +1096,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
 			.removeGenerInvoice(invc);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceImpl) invc).getJwsdpPeer());
-		this.decrementCountDataFor("gnc:GncInvoice");
+		// this.decrementCountDataFor("gnc:GncInvoice");
 		setModified(true);
 		
 		LOGGER.info("Deleted invoice with ID " + invcID);
@@ -1255,7 +1255,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeGenerInvoiceEntry(GnuCashWritableGenerInvoiceEntry entr) {
 		if ( entr.getGenerInvoice().getPayingTransactions().size() > 0 ) {
-			throw new IllegalStateException("cannot remove this invoice entry! It belongs to an invoice that has payments!");
+			throw new IllegalStateException("cannot remove this (generic) invoice entry! It belongs to an invoice that has payments!");
 		}
 
 		GnuCashTransaction postTransaction = entr.getGenerInvoice().getPostTransaction();
@@ -1268,10 +1268,10 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.removeGenerInvcEntry(entr);
 		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableGenerInvoiceEntryImpl) entr).getJwsdpPeer());
-		this.decrementCountDataFor("gnc:GncEntry");
+		// this.decrementCountDataFor("gnc:GncEntry");
 		setModified(true);
 		
-		LOGGER.info("Deleted invoice entry with ID " + entrID);
+		LOGGER.info("Deleted (generic) invoice entry with ID " + entrID);
 	}
 
 	@Override

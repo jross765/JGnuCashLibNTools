@@ -31,6 +31,11 @@ public class TestGnuCashVendorImpl {
 	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 	private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
+	private static final GCshID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	private static final GCshID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	private static final GCshID INVC_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
+	private static final GCshID INVC_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
+
 	// -----------------------------------------------------------------
 
 	private GnuCashFile gcshFile = null;
@@ -126,19 +131,21 @@ public class TestGnuCashVendorImpl {
 		vend = gcshFile.getVendorByID(VEND_1_ID);
 		assertNotEquals(null, vend);
 
-		assertEquals(1, vend.getNofOpenBills());
+		assertEquals(2, vend.getNofOpenBills());
 
-		assertEquals(1, vend.getPaidBills_direct().size());
+		assertEquals(2, vend.getPaidBills_direct().size());
 
 		List<GnuCashVendorBill> bllList = vend.getPaidBills_direct();
 		Collections.sort(bllList);
-		assertEquals("286fc2651a7848038a23bb7d065c8b67", ((GnuCashVendorBill) bllList.toArray()[0]).getID().toString());
+		assertEquals(INVC_12_ID.toString(), ((GnuCashVendorBill) bllList.toArray()[0]).getID().toString());
+		assertEquals(INVC_2_ID.toString(),  ((GnuCashVendorBill) bllList.toArray()[1]).getID().toString());
 
-		assertEquals(1, vend.getUnpaidBills_direct().size());
+		assertEquals(2, vend.getUnpaidBills_direct().size());
 
 		bllList = vend.getUnpaidBills_direct();
 		Collections.sort(bllList);
-		assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", ((GnuCashVendorBill) bllList.toArray()[0]).getID().toString());
+		assertEquals(INVC_13_ID.toString(), ((GnuCashVendorBill) bllList.toArray()[0]).getID().toString());
+		assertEquals(INVC_4_ID.toString(),  ((GnuCashVendorBill) bllList.toArray()[1]).getID().toString());
 	}
 
 	@Test

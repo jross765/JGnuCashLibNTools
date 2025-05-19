@@ -7,21 +7,29 @@ import java.io.InputStream;
 import java.util.Locale;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
-import org.gnucash.api.read.impl.aux.GCshFileStats;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashGenerInvoiceEntryImpl {
-	public static final GCshID INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa"); // vendor bill entry
-	public static final GCshID INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec"); // vendor bill entry
-	public static final GCshID INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6"); // customer invoice entry
-	public static final GCshID INVCENTR_4_ID = new GCshID("fa483972d10a4ce0abf2a7e1319706e7"); // job invoice entry
-	public static final GCshID INVCENTR_5_ID = new GCshID("b6e2313e32d44bb4a8a701c1063e03a7"); // employee voucher entry
+	// private static final GCshID GENER_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	private static final GCshID GENER_INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	// private static final GCshID GENER_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	private static final GCshID GENER_INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	// private static final GCshID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
+	private static final GCshID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+
+	public static final GCshID GENER_INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa"); // vendor bill entry
+	public static final GCshID GENER_INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec"); // vendor bill entry
+	public static final GCshID GENER_INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6"); // customer invoice entry
+	public static final GCshID GENER_INVCENTR_4_ID = new GCshID("fa483972d10a4ce0abf2a7e1319706e7"); // job invoice entry
+	public static final GCshID GENER_INVCENTR_5_ID = new GCshID("b6e2313e32d44bb4a8a701c1063e03a7"); // employee voucher entry
+	public static final GCshID GENER_INVCENTR_6_ID = new GCshID("220af9aa331947078954cd8ad31916c2"); // vendor bill entry (gg9nixlos)
+	public static final GCshID GENER_INVCENTR_7_ID = new GCshID("d1e64a86c4004ef7b87e2610d762456d");
 	
 	// -----------------------------------------------------------------
 
@@ -75,12 +83,12 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 
 	@Test
 	public void test02_1() throws Exception {
-		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_1_ID);
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(GENER_INVCENTR_1_ID);
 		assertNotEquals(null, invcEntr);
 
-		assertEquals(INVCENTR_1_ID, invcEntr.getID());
+		assertEquals(GENER_INVCENTR_1_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
-		assertEquals("286fc2651a7848038a23bb7d065c8b67", invcEntr.getGenerInvoiceID().toString());
+		assertEquals(GENER_INVC_2_ID.toString(), invcEntr.getGenerInvoiceID().toString());
 		assertEquals(null, invcEntr.getAction());
 		assertEquals("Item 1", invcEntr.getDescription());
 
@@ -96,12 +104,12 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 
 	@Test
 	public void test02_2() throws Exception {
-		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_2_ID);
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(GENER_INVCENTR_2_ID);
 		assertNotEquals(null, invcEntr);
 
-		assertEquals(INVCENTR_2_ID, invcEntr.getID());
+		assertEquals(GENER_INVCENTR_2_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
-		assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", invcEntr.getGenerInvoiceID().toString());
+		assertEquals(GENER_INVC_4_ID.toString(), invcEntr.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.HOURS, invcEntr.getAction());
 		assertEquals("Gefälligkeiten", invcEntr.getDescription());
 
@@ -119,12 +127,12 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 
 	@Test
 	public void test02_3() throws Exception {
-		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_3_ID);
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(GENER_INVCENTR_3_ID);
 		assertNotEquals(null, invcEntr);
 
-		assertEquals(INVCENTR_3_ID, invcEntr.getID());
+		assertEquals(GENER_INVCENTR_3_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_CUSTOMER, invcEntr.getType());
-		assertEquals("6588f1757b9e4e24b62ad5b37b8d8e07", invcEntr.getGenerInvoiceID().toString());
+		assertEquals(GENER_INVC_6_ID.toString(), invcEntr.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
 		assertEquals("Posten 3", invcEntr.getDescription());
 
@@ -140,10 +148,10 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 
 	@Test
 	public void test02_4() throws Exception {
-		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_4_ID);
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(GENER_INVCENTR_4_ID);
 		assertNotEquals(null, invcEntr);
 
-		assertEquals(INVCENTR_4_ID, invcEntr.getID());
+		assertEquals(GENER_INVCENTR_4_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_JOB, invcEntr.getType());
 		assertEquals("b1e981f796b94ca0b17a9dccb91fedc0", invcEntr.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB, invcEntr.getAction());
@@ -162,10 +170,10 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 
 	@Test
 	public void test02_5() throws Exception {
-		invcEntr = gcshFile.getGenerInvoiceEntryByID(INVCENTR_5_ID);
+		invcEntr = gcshFile.getGenerInvoiceEntryByID(GENER_INVCENTR_5_ID);
 		assertNotEquals(null, invcEntr);
 
-		assertEquals(INVCENTR_5_ID, invcEntr.getID());
+		assertEquals(GENER_INVCENTR_5_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_EMPLOYEE, invcEntr.getType());
 		assertEquals("8de4467c17e04bb2895fb68cc07fc4df", invcEntr.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());

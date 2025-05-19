@@ -15,8 +15,8 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashGenerJobImpl {
-	public static final GCshID JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
-	public static final GCshID JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
+	public static final GCshID GENER_JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
+	public static final GCshID GENER_JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
 
 	// -----------------------------------------------------------------
 
@@ -59,10 +59,10 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testCust01() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_1_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_1_ID);
 		assertNotEquals(null, job);
 
-		assertEquals(JOB_1_ID, job.getID());
+		assertEquals(GENER_JOB_1_ID, job.getID());
 		assertEquals("000001", job.getNumber());
 		assertEquals(GnuCashGenerJob.TYPE_CUSTOMER, job.getOwnerType());
 		assertEquals("Do more for others", job.getName());
@@ -70,7 +70,7 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testCust02() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_1_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_1_ID);
 		assertNotEquals(null, job);
 
 		assertEquals(0, job.getPaidInvoices().size());
@@ -79,7 +79,7 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testCust03() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_1_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_1_ID);
 		assertNotEquals(null, job);
 
 		GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
@@ -90,10 +90,10 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testVend01() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_2_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_2_ID);
 		assertNotEquals(null, job);
 
-		assertEquals(JOB_2_ID, job.getID());
+		assertEquals(GENER_JOB_2_ID, job.getID());
 		assertEquals("000002", job.getNumber());
 		assertEquals(GnuCashGenerJob.TYPE_VENDOR, job.getOwnerType());
 		assertEquals("Let's buy help", job.getName());
@@ -101,7 +101,7 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testVend02() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_2_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_2_ID);
 		assertNotEquals(null, job);
 
 		assertEquals(0, job.getPaidInvoices().size());
@@ -110,7 +110,7 @@ public class TestGnuCashGenerJobImpl {
 
 	@Test
 	public void testVend03() throws Exception {
-		job = gcshFile.getGenerJobByID(JOB_2_ID);
+		job = gcshFile.getGenerJobByID(GENER_JOB_2_ID);
 		assertNotEquals(null, job);
 
 		GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");

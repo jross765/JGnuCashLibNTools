@@ -27,18 +27,18 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshOwnerImpl {
 
-	public static final GCshID INVC_1_ID = TestGnuCashGenerInvoiceImpl.INVC_1_ID;
-	public static final GCshID INVC_2_ID = TestGnuCashGenerInvoiceImpl.INVC_2_ID;
-	public static final GCshID INVC_3_ID = TestGnuCashGenerInvoiceImpl.INVC_3_ID;
-	public static final GCshID INVC_4_ID = TestGnuCashGenerInvoiceImpl.INVC_4_ID;
-	public static final GCshID INVC_5_ID = TestGnuCashGenerInvoiceImpl.INVC_5_ID;
-	public static final GCshID INVC_6_ID = TestGnuCashGenerInvoiceImpl.INVC_6_ID;
-	public static final GCshID INVC_7_ID = TestGnuCashGenerInvoiceImpl.INVC_7_ID;
-	public static final GCshID INVC_8_ID = TestGnuCashGenerInvoiceImpl.INVC_8_ID;
-	public static final GCshID INVC_9_ID = TestGnuCashGenerInvoiceImpl.INVC_9_ID;
+	public static final GCshID INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	public static final GCshID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	public static final GCshID INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	public static final GCshID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	public static final GCshID INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
+	public static final GCshID INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+	public static final GCshID INVC_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
+	public static final GCshID INVC_8_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_8_ID;
+	public static final GCshID INVC_9_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_9_ID;
 
-	public static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.JOB_1_ID;
-	public static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.JOB_2_ID;
+	public static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	public static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
 	public static final GCshID OWN_1_ID = new GCshID("5d1dd9afa7554553988669830cc1f696");
 	public static final GCshID OWN_2_ID = new GCshID("087e1a3d43fa4ef9a9bdd4b4797c4231");

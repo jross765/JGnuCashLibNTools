@@ -175,7 +175,7 @@ public class TestGnuCashWritableVendorBillImpl {
 		//      System.err.println("xxxx XML normalized");
 
 		NodeList nList = document.getElementsByTagName("gnc:GncInvoice");
-		assertEquals(8, nList.getLength());
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC + 1, nList.getLength());
 
 		// Last (new) node
 		Node lastNode = nList.item(nList.getLength() - 1);

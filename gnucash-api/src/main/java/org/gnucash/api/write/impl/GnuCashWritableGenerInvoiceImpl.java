@@ -1586,7 +1586,10 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	}
 
 	this.subtractInvcEntry(impl);
+	
 	entries.remove(impl);
+	
+	getWritableGnuCashFile().removeGenerInvoiceEntry(impl);
     }
 
     /**
@@ -1604,8 +1607,16 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new IllegalStateException("This vendor bill has payments and is not modifiable!");
 	}
 
+	// 2) remove generic invoice entry
+	getWritableGnuCashFile().getRootElement().getGncBook().getBookElements()
+		.remove(impl.getJwsdpPeer());
+	getWritableGnuCashFile().setModified(true);
+	
 	this.subtractBillEntry(impl);
+	
 	entries.remove(impl);
+	
+	getWritableGnuCashFile().removeGenerInvoiceEntry(impl);
     }
     
     /**
@@ -1624,7 +1635,10 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	}
 
 	this.subtractVoucherEntry(impl);
+	
 	entries.remove(impl);
+	
+	getWritableGnuCashFile().removeGenerInvoiceEntry(impl);
     }
     
     /**
@@ -1642,7 +1656,10 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	}
 
 	this.subtractJobEntry(impl);
+	
 	entries.remove(impl);
+	
+	getWritableGnuCashFile().removeGenerInvoiceEntry(impl);
     }
     
     // ---------------------------------------------------------------
@@ -2435,7 +2452,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     public void remove() throws TaxTableNotFoundException {
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("Invoice has payments and cannot be deleted!");
+	    throw new IllegalStateException("This (generic) invoice has payments and cannot be deleted!");
 	}
 
 	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this, true);

@@ -13,15 +13,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashVendor;
-import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
+import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.TestGnuCashVendorImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -46,6 +45,11 @@ public class TestGnuCashWritableVendorImpl {
 	private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
 	//  private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 	//  private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+	
+	private static final GCshID VEND_BLL_2_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	private static final GCshID VEND_BLL_4_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	private static final GCshID VEND_BLL_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
+	private static final GCshID VEND_BLL_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
 
 	// -----------------------------------------------------------------
 
@@ -128,34 +132,42 @@ public class TestGnuCashWritableVendorImpl {
 		GnuCashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
 		assertNotEquals(null, vend);
 
-		assertEquals(1, ((GnuCashWritableVendorImpl) vend).getNofOpenBills());
+		assertEquals(2, ((GnuCashWritableVendorImpl) vend).getNofOpenBills());
 		assertEquals(vend.getNofOpenBills(), ((GnuCashWritableVendorImpl) vend).getNofOpenBills()); // not trivial
 
-		assertEquals(1, ((GnuCashWritableVendorImpl) vend).getPaidWritableBills_direct().size());
+		assertEquals(2, ((GnuCashWritableVendorImpl) vend).getPaidWritableBills_direct().size());
 		assertEquals(vend.getPaidBills_direct().size(),
 				((GnuCashWritableVendorImpl) vend).getPaidWritableBills_direct().size()); // not trivial
 
 		List<GnuCashVendorBill> bllList1 = vend.getPaidBills_direct();
 		Collections.sort(bllList1);
-		assertEquals("286fc2651a7848038a23bb7d065c8b67",
+		assertEquals(VEND_BLL_12_ID.toString(),
 				((GnuCashVendorBill) bllList1.toArray()[0]).getID().toString());
+		assertEquals(VEND_BLL_2_ID.toString(),
+				((GnuCashVendorBill) bllList1.toArray()[1]).getID().toString());
 		List<GnuCashWritableVendorBill> bllList2 = ((GnuCashWritableVendorImpl) vend).getPaidWritableBills_direct();
 		Collections.sort(bllList2);
-		assertEquals("286fc2651a7848038a23bb7d065c8b67",
+		assertEquals(VEND_BLL_12_ID.toString(),
 				((GnuCashWritableVendorBill) bllList2.toArray()[0]).getID().toString());
+		assertEquals(VEND_BLL_2_ID.toString(),
+				((GnuCashWritableVendorBill) bllList2.toArray()[1]).getID().toString());
 
-		assertEquals(1, ((GnuCashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size());
+		assertEquals(2, ((GnuCashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size());
 		assertEquals(vend.getUnpaidBills_direct().size(),
 				((GnuCashWritableVendorImpl) vend).getUnpaidWritableBills_direct().size()); // not trivial
 
 		bllList1 = vend.getUnpaidBills_direct();
 		Collections.sort(bllList1);
-		assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4",
+		assertEquals(VEND_BLL_13_ID.toString(),
 				((GnuCashVendorBill) bllList1.toArray()[0]).getID().toString());
+		assertEquals(VEND_BLL_4_ID.toString(),
+				((GnuCashVendorBill) bllList1.toArray()[1]).getID().toString());
 		bllList2 = ((GnuCashWritableVendorImpl) vend).getUnpaidWritableBills_direct();
 		Collections.sort(bllList2);
-		assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4",
-				((GnuCashWritableVendorBill) bllList2.toArray()[0]).getID().toString());
+		assertEquals(VEND_BLL_13_ID.toString(),
+				((GnuCashVendorBill) bllList1.toArray()[0]).getID().toString());
+		assertEquals(VEND_BLL_4_ID.toString(),
+				((GnuCashWritableVendorBill) bllList2.toArray()[1]).getID().toString());
 	}
 
 	// -----------------------------------------------------------------

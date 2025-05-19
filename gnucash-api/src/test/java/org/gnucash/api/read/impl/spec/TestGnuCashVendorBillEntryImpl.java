@@ -19,8 +19,8 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashVendorBillEntryImpl {
-	private static final GCshID INVCENTR_1_ID = TestGnuCashGenerInvoiceEntryImpl.INVCENTR_1_ID;
-	private static final GCshID INVCENTR_2_ID = TestGnuCashGenerInvoiceEntryImpl.INVCENTR_2_ID;
+	private static final GCshID VEND_BLL_ENTR_1_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_1_ID;
+	private static final GCshID VEND_BLL_ENTR_2_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_2_ID;
 
 	// -----------------------------------------------------------------
 
@@ -64,12 +64,12 @@ public class TestGnuCashVendorBillEntryImpl {
 
 	@Test
 	public void test02_1() throws Exception {
-		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(INVCENTR_1_ID);
+		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(VEND_BLL_ENTR_1_ID);
 		assertNotEquals(null, invcEntrGen);
 		invcEntrSpec = new GnuCashVendorBillEntryImpl(invcEntrGen);
 		assertNotEquals(null, invcEntrSpec);
 
-		assertEquals(INVCENTR_1_ID, invcEntrSpec.getID());
+		assertEquals(VEND_BLL_ENTR_1_ID, invcEntrSpec.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntrSpec.getType());
 		assertEquals("286fc2651a7848038a23bb7d065c8b67", invcEntrSpec.getGenerInvoiceID().toString());
 		assertEquals(null, invcEntrSpec.getAction());
@@ -105,12 +105,12 @@ public class TestGnuCashVendorBillEntryImpl {
 
 	@Test
 	public void test02_2() throws Exception {
-		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(INVCENTR_2_ID);
+		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(VEND_BLL_ENTR_2_ID);
 		assertNotEquals(null, invcEntrGen);
 		invcEntrSpec = new GnuCashVendorBillEntryImpl(invcEntrGen);
 		assertNotEquals(null, invcEntrSpec);
 
-		assertEquals(INVCENTR_2_ID, invcEntrSpec.getID());
+		assertEquals(VEND_BLL_ENTR_2_ID, invcEntrSpec.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntrSpec.getType());
 		assertEquals("4eb0dc387c3f4daba57b11b2a657d8a4", invcEntrSpec.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.HOURS, invcEntrSpec.getAction());

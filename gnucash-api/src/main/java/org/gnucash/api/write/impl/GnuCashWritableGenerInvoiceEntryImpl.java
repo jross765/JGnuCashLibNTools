@@ -550,7 +550,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	}
 	
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable!");
 	}
 	ZonedDateTime oldDate = getDate();
 	ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.of(date, LocalTime.MIN),
@@ -1141,12 +1141,18 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     public void remove() throws TaxTableNotFoundException {
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable!");
 	}
 	GnuCashWritableGenerInvoiceImpl gcshWrtblInvcImpl = ((GnuCashWritableGenerInvoiceImpl) getGenerInvoice());
-	gcshWrtblInvcImpl.removeInvcEntry(this);
-	gcshWrtblInvcImpl.getGnuCashFile().getRootElement().getGncBook().getBookElements().remove(this.getJwsdpPeer());
-	((GnuCashWritableFileImpl) gcshWrtblInvcImpl.getGnuCashFile()).decrementCountDataFor("gnc:GncEntry");
+
+	if ( getType() == GCshOwner.Type.VENDOR )
+		gcshWrtblInvcImpl.removeBillEntry(this);
+	else if ( getType() == GCshOwner.Type.CUSTOMER )
+		gcshWrtblInvcImpl.removeInvcEntry(this);
+	else if ( getType() == GCshOwner.Type.JOB )
+		gcshWrtblInvcImpl.removeJobEntry(this);
+	else if ( getType() == GCshOwner.Type.EMPLOYEE )
+		gcshWrtblInvcImpl.removeVoucherEntry(this);
     }
 
     /**

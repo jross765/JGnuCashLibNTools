@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableCustomerJobImpl {
-	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.JOB_1_ID;
+	private static final GCshID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
 
 	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
 	//    private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
@@ -105,18 +105,18 @@ public class TestGnuCashWritableCustomerJobImpl {
 
 	@Test
 	public void test01_1() throws Exception {
-		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
+		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobSpec);
 
 		assertTrue(jobSpec instanceof GnuCashWritableCustomerJob);
-		assertEquals(JOB_1_ID, jobSpec.getID());
+		assertEquals(CUST_JOB_1_ID, jobSpec.getID());
 		assertEquals("000001", jobSpec.getNumber());
 		assertEquals("Do more for others", jobSpec.getName());
 	}
 
 	@Test
 	public void test01_2() throws Exception {
-		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
+		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobSpec);
 
 		assertEquals(1, jobSpec.getNofOpenInvoices());
@@ -135,7 +135,7 @@ public class TestGnuCashWritableCustomerJobImpl {
 
 	@Test
 	public void test01_3() throws Exception {
-		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(JOB_1_ID);
+		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobSpec);
 
 		GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");

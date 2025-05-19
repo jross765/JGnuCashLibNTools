@@ -37,8 +37,8 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableJobInvoiceImpl {
-	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.JOB_1_ID;
-	private static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.JOB_2_ID;
+	private static final GCshID GENER_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshID GENER_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
 	private static final GCshID INCOME_ACCT_ID = TestGnuCashWritableCustomerInvoiceImpl.INCOME_ACCT_ID;
 	private static final GCshID EXPENSES_ACCT_ID = TestGnuCashWritableVendorBillImpl.EXPENSES_ACCT_ID;
@@ -98,8 +98,8 @@ public class TestGnuCashWritableJobInvoiceImpl {
 
 		// ----------------------------
 
-		job1 = gcshInFile.getGenerJobByID(JOB_1_ID);
-		job2 = gcshInFile.getGenerJobByID(JOB_2_ID);
+		job1 = gcshInFile.getGenerJobByID(GENER_JOB_1_ID);
+		job2 = gcshInFile.getGenerJobByID(GENER_JOB_2_ID);
 
 		incomeAcct = gcshInFile.getAccountByID(INCOME_ACCT_ID);
 		expensesAcct = gcshInFile.getAccountByID(EXPENSES_ACCT_ID);
@@ -182,7 +182,7 @@ public class TestGnuCashWritableJobInvoiceImpl {
 		//      System.err.println("xxxx XML normalized");
 
 		NodeList nList = document.getElementsByTagName("gnc:GncInvoice");
-		assertEquals(8, nList.getLength());
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC + 1, nList.getLength());
 
 		// Last (new) node
 		Node lastNode = nList.item(nList.getLength() - 1);

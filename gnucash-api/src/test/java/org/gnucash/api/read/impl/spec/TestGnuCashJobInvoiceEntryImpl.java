@@ -19,7 +19,7 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashJobInvoiceEntryImpl {
-	private static final GCshID INVCENTR_4_ID = TestGnuCashGenerInvoiceEntryImpl.INVCENTR_4_ID;
+	private static final GCshID JOB_INVC_ENTR_4_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_4_ID;
 
 	// -----------------------------------------------------------------
 
@@ -63,12 +63,12 @@ public class TestGnuCashJobInvoiceEntryImpl {
 
 	@Test
 	public void test02_3() throws Exception {
-		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(INVCENTR_4_ID);
+		invcEntrGen = gcshFile.getGenerInvoiceEntryByID(JOB_INVC_ENTR_4_ID);
 		assertNotEquals(null, invcEntrGen);
 		invcEntrSpec = new GnuCashJobInvoiceEntryImpl(invcEntrGen);
 		assertNotEquals(null, invcEntrSpec);
 
-		assertEquals(INVCENTR_4_ID, invcEntrSpec.getID());
+		assertEquals(JOB_INVC_ENTR_4_ID, invcEntrSpec.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_JOB, invcEntrSpec.getType());
 		assertEquals("b1e981f796b94ca0b17a9dccb91fedc0", invcEntrSpec.getGenerInvoiceID().toString());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB, invcEntrSpec.getAction());
