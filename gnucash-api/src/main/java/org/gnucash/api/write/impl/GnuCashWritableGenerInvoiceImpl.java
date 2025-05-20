@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
@@ -2435,6 +2436,19 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	GCshID invcPostTrxID = new GCshID( invoicePosttxn.getValue() );
 	return getGnuCashFile().getWritableTransactionByID(invcPostTrxID);
     }
+    
+    // ---------------------------------------------------------------
+
+    public List<GnuCashWritableGenerInvoiceEntry> getWritableGenerEntries() {
+    	ArrayList<GnuCashWritableGenerInvoiceEntry> result = new ArrayList<GnuCashWritableGenerInvoiceEntry>();
+    	
+    	for ( GnuCashGenerInvoiceEntry entr : getGenerEntries() ) {
+    		GnuCashWritableGenerInvoiceEntry newEntr = new GnuCashWritableGenerInvoiceEntryImpl(entr);
+    		result.add(newEntr);
+    	}
+    	
+    	return result;
+    }
 
     /**
      * @see #getGenerEntryByID(GCshID)
@@ -2443,19 +2457,31 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	return new GnuCashWritableGenerInvoiceEntryImpl(super.getGenerEntryByID(id));
     }
 
+    // ---------------------------------------------------------------
+
     /**
-* 
+     * 
      * @throws TaxTableNotFoundException
      *  
      * @see GnuCashWritableGenerInvoice#remove()
      */
     public void remove() throws TaxTableNotFoundException {
+    	remove(true);
+    }
+
+    /**
+     * 
+     * @throws TaxTableNotFoundException
+     *  
+     * @see GnuCashWritableGenerInvoice#remove()
+     */
+    public void remove(final boolean withEntries) throws TaxTableNotFoundException {
 
 	if (!isModifiable()) {
 	    throw new IllegalStateException("This (generic) invoice has payments and cannot be deleted!");
 	}
 
-	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this, true);
+	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this, withEntries);
 
     }
 

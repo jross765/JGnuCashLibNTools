@@ -1,9 +1,11 @@
 package org.gnucash.api.write;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
+import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -72,7 +74,9 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
      */
     GnuCashTransaction getPostTransaction();
 
-    // ------------------------
+    // -----------------------------------------------------------
+
+    List<GnuCashWritableGenerInvoiceEntry> getWritableGenerEntries();
 
     /**
      * @param entrID the id to look for
@@ -84,11 +88,20 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
     /**
      * remove this invoice from the system.
      * 
-* 
+     * 
      * @throws TaxTableNotFoundException
      * @throws IllegalTransactionSplitActionException
      */
     void remove() throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
+
+    /**
+     * remove this invoice from the system.
+     * 
+     * 
+     * @throws TaxTableNotFoundException
+     * @throws IllegalTransactionSplitActionException
+     */
+    void remove(boolean withEntries) throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
     // -----------------------------------------------------------
 

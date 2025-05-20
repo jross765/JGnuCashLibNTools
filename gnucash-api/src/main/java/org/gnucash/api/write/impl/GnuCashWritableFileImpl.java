@@ -1077,9 +1077,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		if ( withEntries ) {
 			if ( invc.getGenerEntries().size() > 0 ) {
-				 for ( GnuCashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
-					 // ::TODO ugly cast, better implement getWritableGenerEntries()
-					 removeGenerInvoiceEntry((GnuCashWritableGenerInvoiceEntry) entr);
+				 for ( GnuCashWritableGenerInvoiceEntry entr : invc.getWritableGenerEntries() ) {
+					 removeGenerInvoiceEntry(entr);
 				 }
 			}
 		} else {

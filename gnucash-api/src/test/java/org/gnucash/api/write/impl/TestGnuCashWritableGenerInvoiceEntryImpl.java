@@ -205,7 +205,6 @@ public class TestGnuCashWritableGenerInvoiceEntryImpl {
 
 		// Variant 1
 		try {
-			entr.remove();
 			gcshInFile.removeGenerInvoiceEntry(entr); // Correctly fails because invoice in not modifiable
 			assertEquals(1, 0);
 		} catch ( IllegalStateException exc ) {
