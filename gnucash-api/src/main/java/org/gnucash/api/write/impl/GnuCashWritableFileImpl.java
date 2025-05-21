@@ -706,14 +706,20 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeAccount(final GnuCashWritableAccount acct) {
-		if ( acct.getTransactionSplits().size() > 0 ) {
+		if ( acct.hasTransactions() ) {
 			throw new IllegalStateException("cannot remove account while it contains transaction-splits!");
 		}
 
-		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableAccountImpl) acct).getJwsdpPeer());
-		setModified(true);
+		// 1) Remove avatar in account manager
 		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
 			.removeAccount(acct);
+		
+		// 2) Remove lots, if any
+		((GnuCashWritableAccountImpl) acct).removeLots();
+
+		// 3) remove account
+		getRootElement().getGncBook().getBookElements().remove(((GnuCashWritableAccountImpl) acct).getJwsdpPeer());
+		setModified(true);
 	}
 
 	// ---------------------------------------------------------------

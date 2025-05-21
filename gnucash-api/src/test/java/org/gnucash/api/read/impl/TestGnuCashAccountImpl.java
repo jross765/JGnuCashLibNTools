@@ -28,6 +28,7 @@ public class TestGnuCashAccountImpl {
     public static final GCshID ACCT_6_ID = new GCshID("ebc834e7f20e4be38f445d655142d6b1"); // Root Account:Anfangsbestand
     public static final GCshID ACCT_7_ID = new GCshID("d49554f33a0340bdb6611a1ab5575998"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007100000 Mercedes-Benz
     public static final GCshID ACCT_8_ID = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
+    public static final GCshID ACCT_9_ID = new GCshID("a30550e282814ee499f956626d69fb97"); // Root Account:Aufwendungen:Wohnen:Nebenkosten:Gas
 
     // -----------------------------------------------------------------
 

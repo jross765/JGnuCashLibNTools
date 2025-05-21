@@ -79,8 +79,10 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 		}
 		
 		if ( withLot ) {
-			for ( GCshAccountLot lot : acct.getLots() ) {
-				removeAccountLot(lot, false);
+			if ( acct.getLots() != null ) {
+				for ( GCshAccountLot lot : acct.getLots() ) {
+					removeAccountLot(lot, false);
+				}
 			}
 		}
 

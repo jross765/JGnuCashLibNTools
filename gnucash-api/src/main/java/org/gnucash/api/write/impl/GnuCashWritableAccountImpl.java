@@ -36,6 +36,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -216,24 +217,40 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	return lot;
     }
 
+	public void removeLots() {
+		if ( getJwsdpPeer().getActLots() == null ) {
+			LOGGER.debug("removeLots: No lots to remove in account " + getID());
+			return;
+		}
+		
+		for ( int i = 0; i < getJwsdpPeer().getActLots().getGncLot().size(); i++ ) {
+			getJwsdpPeer().getActLots().getGncLot().remove(i);
+		}
+
+    	if ( myLots != null ) {
+    		myLots.clear();
+    	}
+    	
+    	if ( helper.getPropertyChangeSupport() != null ) {
+   		 	 helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
+    	}
+	}
+    
     /**
      * @param impl the split to remove from this transaction
      */
     public void remove(final GCshWritableAccountLot impl) {
-	getJwsdpPeer().getActLots().getGncLot().remove(((GnuCashWritableTransactionSplitImpl) impl).getJwsdpPeer());
-	getWritableGnuCashFile().setModified(true);
-	if (myLots != null) {
-	    myLots.remove(impl);
-	}
+    	try {
+			if ( impl.getTransactionSplits().size() != 0 ) {
+			    throw new IllegalStateException("This account has transaction splits and cannot be deleted!");
+			}
+		} catch (GCshIDNotSetException e) {
+			LOGGER.error("remove: Cannot check whether account has transactions or not: " + impl.getID());
+		}
 
-	// there is no count for lots up to now
-	// getWritableFile().decrementCountDataFor()
-
-	if (helper.getPropertyChangeSupport() != null) {
-	    helper.getPropertyChangeSupport().firePropertyChange("lots", null, getWritableLots());
-	}
+    	((GnuCashWritableFileImpl) getGnuCashFile()).removeAccount(this);
     }
-    
+
     // ---------------------------------------------------------------
 
     /**
@@ -280,9 +297,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     public List<GCshWritableAccountLot> getWritableLots() {
 	List<GCshWritableAccountLot> result = new ArrayList<GCshWritableAccountLot>();
 	
-	for ( GCshAccountLot lot : super.getLots() ) {
-		GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl((GCshAccountLotImpl) lot);
-	    result.add(newLot);
+	if ( getLots() != null ) { // important / ::TODO
+		for ( GCshAccountLot lot : super.getLots() ) {
+			GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl((GCshAccountLotImpl) lot);
+			result.add(newLot);
+		}
 	}
 
 	return result;
@@ -307,8 +326,10 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits!");
 	}
 	
-	if ( getLots().size() > 0 ) {
-	    throw new IllegalStateException("Cannot remove account while it contains lots!");
+	if ( getLots() != null ) { // important / ::TODO
+		if ( getLots().size() > 0 ) {
+			throw new IllegalStateException("Cannot remove account while it contains lots!");
+		}
 	}
 	
 	if ( this.getChildren().size() > 0 ) {
