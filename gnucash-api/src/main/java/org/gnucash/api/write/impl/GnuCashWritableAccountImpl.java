@@ -237,16 +237,12 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	}
     
     /**
-     * @param impl the split to remove from this transaction
+     * @param impl the lot to remove from this account
      */
     public void remove(final GCshWritableAccountLot impl) {
-    	try {
-			if ( impl.getTransactionSplits().size() != 0 ) {
-			    throw new IllegalStateException("This account has transaction splits and cannot be deleted!");
-			}
-		} catch (GCshIDNotSetException e) {
-			LOGGER.error("remove: Cannot check whether account has transactions or not: " + impl.getID());
-		}
+    	if ( impl.hasTransactions() ) {
+    		throw new IllegalStateException("This account has transaction splits and cannot be deleted!");
+    	}
 
     	((GnuCashWritableFileImpl) getGnuCashFile()).removeAccount(this);
     }
@@ -322,7 +318,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * Throws IllegalStateException if this account has splits or childres.
      */
     public void remove() {
-	if ( getTransactionSplits().size() > 0 ) {
+	if ( hasTransactions() ) {
 	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits!");
 	}
 	
@@ -650,7 +646,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 		// and it should be possibly to correct that.
 		// It does not seem prudent to change an account's type when
 		// there are already transactions pointing to/from it.
-		if ( getTransactionSplits().size() > 0 ) {
+		if ( hasTransactions() ) {
 	    	LOGGER.error("Changing account type is forbidden for accounts that already contain transactions: " + getID());
 			throw new UnsupportedOperationException("Changing account type is forbidden for accounts that already contain transactions: " + getID());
 		}
