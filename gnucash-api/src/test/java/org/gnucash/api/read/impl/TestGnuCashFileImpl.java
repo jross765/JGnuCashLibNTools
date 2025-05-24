@@ -133,9 +133,9 @@ public class TestGnuCashFileImpl {
 
 	@Test
 	public void test09() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
 	}
 
 	// ------------------------------

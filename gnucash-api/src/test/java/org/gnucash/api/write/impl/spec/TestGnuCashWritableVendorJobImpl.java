@@ -225,7 +225,7 @@ public class TestGnuCashWritableVendorJobImpl {
 		//      System.err.println("xxxx XML normalized");
 
 		NodeList nList = document.getElementsByTagName("gnc:GncJob");
-		assertEquals(3, nList.getLength());
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB + 1, nList.getLength());
 
 		// Last (new) node
 		Node lastNode = nList.item(nList.getLength() - 1);

@@ -171,9 +171,9 @@ public class TestGnuCashWritableFileImpl {
 
 	@Test
 	public void test01_09() throws Exception {
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
-		assertEquals(ConstTest.Stats.NOF_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_JOB, gcshInFileStats.getNofEntriesGenerJobs(GCshFileStats.Type.CACHE));
 	}
 
 	// ------------------------------

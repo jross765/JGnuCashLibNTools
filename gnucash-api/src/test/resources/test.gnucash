@@ -95,7 +95,7 @@
       </slot>
       <slot>
         <slot:key>gncJob</slot:key>
-        <slot:value type="integer">2</slot:value>
+        <slot:value type="integer">4</slot:value>
       </slot>
       <slot>
         <slot:key>gncOrder</slot:key>
@@ -222,7 +222,7 @@
 <gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEntry">17</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncInvoice">9</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncJob">2</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncJob">4</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncTaxTable">7</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncVendor">3</gnc:count-data>
 <gnc:commodity version="2.0.0">
@@ -3668,6 +3668,26 @@
   <job:owner version="2.0.0">
     <owner:type>gncVendor</owner:type>
     <owner:id type="guid">4f16fd55c0d64ebe82ffac0bb25fe8f5</owner:id>
+  </job:owner>
+  <job:active>1</job:active>
+</gnc:GncJob>
+<gnc:GncJob version="2.0.0">
+  <job:guid type="guid">bdb7cfdd002b4ea28c8c0080f051479b</job:guid>
+  <job:id>000004</job:id>
+  <job:name>Dummy-Auftrag (Lieferant)</job:name>
+  <job:owner version="2.0.0">
+    <owner:type>gncVendor</owner:type>
+    <owner:id type="guid">087e1a3d43fa4ef9a9bdd4b4797c4231</owner:id>
+  </job:owner>
+  <job:active>1</job:active>
+</gnc:GncJob>
+<gnc:GncJob version="2.0.0">
+  <job:guid type="guid">e1ffc66e574447de963c13c0465e74e8</job:guid>
+  <job:id>000003</job:id>
+  <job:name>Dummy-Auftrag (Kunde)</job:name>
+  <job:owner version="2.0.0">
+    <owner:type>gncCustomer</owner:type>
+    <owner:id type="guid">5d1dd9afa7554553988669830cc1f696</owner:id>
   </job:owner>
   <job:active>1</job:active>
 </gnc:GncJob>

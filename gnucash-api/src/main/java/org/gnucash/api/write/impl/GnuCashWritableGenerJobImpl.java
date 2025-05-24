@@ -15,7 +15,6 @@ import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.aux.GCshOwnerImpl;
-import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;

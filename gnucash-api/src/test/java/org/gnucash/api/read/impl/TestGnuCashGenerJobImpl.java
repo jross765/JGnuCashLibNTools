@@ -17,7 +17,9 @@ import junit.framework.JUnit4TestAdapter;
 public class TestGnuCashGenerJobImpl {
 	public static final GCshID GENER_JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
 	public static final GCshID GENER_JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
-
+	public static final GCshID GENER_JOB_3_ID = new GCshID("e1ffc66e574447de963c13c0465e74e8");
+	public static final GCshID GENER_JOB_4_ID = new GCshID("bdb7cfdd002b4ea28c8c0080f051479b");
+	
 	// -----------------------------------------------------------------
 
 	private GnuCashFile gcshFile = null;
