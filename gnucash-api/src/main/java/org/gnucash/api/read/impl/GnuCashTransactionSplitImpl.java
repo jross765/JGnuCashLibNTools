@@ -70,12 +70,12 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 	}
 
 	if ( addSpltToInvc ) {
-	    GCshID lot = getLotID();
-	    if ( lot != null ) {
+	    GCshID spltLotID = getLotID();
+	    if ( spltLotID != null ) {
 		for ( GnuCashGenerInvoice invc : getTransaction().getGnuCashFile().getGenerInvoices() ) {
-		    GCshID lotID = invc.getLotID();
-		    if ( lotID != null && 
-			 lotID.equals(lot) ) {
+		    GCshID invcPostLotID = invc.getLotID();
+		    if ( invcPostLotID != null && 
+			 invcPostLotID.equals(spltLotID) ) {
 			// Check if it's a payment transaction.
 			// If so, add it to the invoice's list of payment transactions.
 			if ( getAction() == Action.PAYMENT ) {

@@ -3,14 +3,12 @@ package org.gnucash.api.read.impl.hlp;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
-import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;

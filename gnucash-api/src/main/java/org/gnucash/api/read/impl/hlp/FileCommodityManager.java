@@ -119,19 +119,19 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final String nameSpace, final String id) {
 		if ( nameSpace == null ) {
-			throw new IllegalStateException("null name space given");
+			throw new IllegalArgumentException("null name space given");
 		}
 
 		if ( nameSpace.trim().equals("") ) {
-			throw new IllegalStateException("empty name space given");
+			throw new IllegalArgumentException("empty name space given");
 		}
 
 		if ( id == null ) {
-			throw new IllegalStateException("null ID string given");
+			throw new IllegalArgumentException("null ID string given");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalStateException("empty ID string given");
+			throw new IllegalArgumentException("empty ID string given");
 		}
 
 		return getCommodityByQualifID(nameSpace + GCshCmdtyCurrID.SEPARATOR + id);
@@ -143,11 +143,11 @@ public class FileCommodityManager {
 		}
 		
 		if ( id == null ) {
-			throw new IllegalStateException("null ID string given");
+			throw new IllegalArgumentException("null ID string given");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalStateException("empty ID string given");
+			throw new IllegalArgumentException("empty ID string given");
 		}
 
 		return getCommodityByQualifID(exch.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -159,11 +159,11 @@ public class FileCommodityManager {
 		}
 		
 		if ( id == null ) {
-			throw new IllegalStateException("null ID string given");
+			throw new IllegalArgumentException("null ID string given");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalStateException("empty ID string given");
+			throw new IllegalArgumentException("empty ID string given");
 		}
 
 		return getCommodityByQualifID(mic.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -175,11 +175,11 @@ public class FileCommodityManager {
 		}
 		
 		if ( id == null ) {
-			throw new IllegalStateException("null ID string given");
+			throw new IllegalArgumentException("null ID string given");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalStateException("empty ID string given");
+			throw new IllegalArgumentException("empty ID string given");
 		}
 
 		return getCommodityByQualifID(secIdType.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -187,11 +187,11 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final String qualifID) {
 		if ( qualifID == null ) {
-			throw new IllegalStateException("null ID string given");
+			throw new IllegalArgumentException("null ID string given");
 		}
 
 		if ( qualifID.trim().equals("") ) {
-			throw new IllegalStateException("empty ID string given");
+			throw new IllegalArgumentException("empty ID string given");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -209,11 +209,11 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByXCode(final String xCode) {
 		if ( xCode == null ) {
-			throw new IllegalStateException("null x-code given");
+			throw new IllegalArgumentException("null x-code given");
 		}
 
 		if ( xCode.trim().equals("") ) {
-			throw new IllegalStateException("empty x-code given");
+			throw new IllegalArgumentException("empty x-code given");
 		}
 
 		if ( cmdtyMap == null || xCodeMap == null ) {
@@ -246,11 +246,11 @@ public class FileCommodityManager {
 
 	public List<GnuCashCommodity> getCommoditiesByName(final String expr) {
 		if ( expr == null ) {
-			throw new IllegalStateException("null expression given");
+			throw new IllegalArgumentException("null expression given");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalStateException("empty expression given");
+			throw new IllegalArgumentException("empty expression given");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -262,11 +262,11 @@ public class FileCommodityManager {
 
 	public List<GnuCashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalStateException("null expression given");
+			throw new IllegalArgumentException("null expression given");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalStateException("empty expression given");
+			throw new IllegalArgumentException("empty expression given");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -298,11 +298,11 @@ public class FileCommodityManager {
 	public GnuCashCommodity getCommodityByNameUniq(final String expr)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( expr == null ) {
-			throw new IllegalStateException("null expression given");
+			throw new IllegalArgumentException("null expression given");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalStateException("empty expression given");
+			throw new IllegalArgumentException("empty expression given");
 		}
 
 		if ( cmdtyMap == null ) {
