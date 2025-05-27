@@ -192,16 +192,16 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     /**
      * Create a new split for a split found in the jaxb-data.
      *
-     * @param splt the jaxb-data
+     * @param jwsdpSplt the jaxb-data
      * @return the new split-instance
      */
     @Override
     protected GnuCashTransactionSplitImpl createSplit(
-    		final GncTransaction.TrnSplits.TrnSplit splt,
+    		final GncTransaction.TrnSplits.TrnSplit jwsdpSplt,
     		final boolean addToAcct,
     		final boolean addToInvc) {
 	GnuCashWritableTransactionSplitImpl gcshTrxSplt = 
-		new GnuCashWritableTransactionSplitImpl(splt, this,
+		new GnuCashWritableTransactionSplitImpl(jwsdpSplt, this,
 			                                    addToAcct, addToInvc);
 	if (helper.getPropertyChangeSupport() != null) {
 	    helper.getPropertyChangeSupport().firePropertyChange("splits", null, getWritableSplits());
@@ -214,6 +214,10 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * @see GnuCashWritableTransaction#createWritableSplit(GnuCashAccount)
      */
     public GnuCashWritableTransactionSplit createWritableSplit(final GnuCashAccount acct) {
+		if ( acct == null ) {
+			throw new IllegalArgumentException("null account given");
+		}
+
 	GnuCashWritableTransactionSplitImpl splt = new GnuCashWritableTransactionSplitImpl(this, acct);
 	addSplit(splt);
 	if (helper.getPropertyChangeSupport() != null) {

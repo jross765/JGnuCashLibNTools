@@ -39,13 +39,15 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     /**
      * the transaction this split belongs to.
      */
-    private final GnuCashTransaction myTransaction;
+    private final GnuCashTransaction myTrx;
 
     // ---------------------------------------------------------------
 
     /**
      * @param peer the JWSDP-object we are facading.
      * @param trx  the transaction this split belongs to
+     * @param addSpltToAcct 
+     * @param addSpltToInvc 
      */
     @SuppressWarnings("exports")
     public GnuCashTransactionSplitImpl(
@@ -55,8 +57,8 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 	    final boolean addSpltToInvc) {
 	super(trx.getGnuCashFile());
 
-	jwsdpPeer = peer;
-	myTransaction = trx;
+	this.jwsdpPeer = peer;
+	this.myTrx = trx;
 
 	if ( addSpltToAcct ) {
 	    GnuCashAccount acct = getAccount();
@@ -157,21 +159,21 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @see GnuCashTransactionSplit#getAccount()
      */
     public GnuCashAccount getAccount() {
-    	return myTransaction.getGnuCashFile().getAccountByID(getAccountID());
+    	return myTrx.getGnuCashFile().getAccountByID(getAccountID());
     }
 
     /**
      * @see GnuCashTransactionSplit#getAccountID()
      */
     public GCshID getTransactionID() {
-    	return myTransaction.getID();
+    	return myTrx.getID();
     }
 
     /**
      * @see GnuCashTransactionSplit#getTransaction()
      */
     public GnuCashTransaction getTransaction() {
-    	return myTransaction;
+    	return myTrx;
     }
 
     /**

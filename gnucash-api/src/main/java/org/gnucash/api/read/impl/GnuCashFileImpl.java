@@ -516,6 +516,14 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+		if ( spltID == null ) {
+			throw new IllegalArgumentException("null split ID given");
+		}
+
+		if ( ! spltID.isSet() ) {
+			throw new IllegalArgumentException("unset split ID given");
+		}
+
 		return trxMgr.getTransactionSplitByID(spltID);
 	}
 
@@ -528,6 +536,14 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
+		if ( trxID == null ) {
+			throw new IllegalArgumentException("null transaction ID given");
+		}
+
+		if ( ! trxID.isSet() ) {
+			throw new IllegalArgumentException("unset transaction ID given");
+		}
+
 		return trxMgr.getTransactionSplits_readAfresh(trxID);
 	}
 
