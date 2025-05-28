@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.hlp.HasTransactions;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
@@ -30,6 +31,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  * Cf. <a href="https://lists.gnucash.org/docs/C/gnucash-manual/acct-types.html">GnuCash manual</a>
  */
 public interface GnuCashAccount extends Comparable<GnuCashAccount>,
+										HasTransactions,
 										HasUserDefinedAttributes
 {
 
@@ -149,19 +151,6 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     // -----------------------------------------------------------------
 
     /**
-     * The returned list ist sorted by the natural order of the Transaction-Splits.
-     *
-     * @return all splits
-     */
-    List<GnuCashTransactionSplit> getTransactionSplits();
-
-    /**
-     * @param id the split-id to look for
-     * @return the identified split or null
-     */
-    GnuCashTransactionSplit getTransactionSplitByID(final GCshID id);
-
-    /**
      * Gets the last transaction-split before the given date.
      *
      * @param date if null, the last split of all time is returned
@@ -169,32 +158,13 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      */
     GnuCashTransactionSplit getLastSplitBeforeRecursive(final LocalDate date);
 
-    /**
-     * @param split split to add to this transaction
-     */
-    void addTransactionSplit(final GnuCashTransactionSplit split);
-
     // ----------------------------
-
-    /**
-     * @return true if ${@link #getTransactionSplits()}.size() &gt; 0
-     */
-    boolean hasTransactions();
 
     /**
      * @return true if ${@link #hasTransactions()} is true for this or any
      *         sub-accounts
      */
     boolean hasTransactionsRecursive();
-
-    /**
-     * The returned list is sorted by the natural order of the Transaction-Splits.
-     *
-     * @return all splits
-     */
-    List<GnuCashTransaction> getTransactions();
-
-    List<GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
 
     // -----------------------------------------------------------------
 

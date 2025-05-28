@@ -226,7 +226,7 @@ public class GnuCashAccountImpl extends SimpleAccount
 	    	// ::TODO
 	    	IllegalStateException exc = new IllegalStateException("DEBUG");
 	    	exc.printStackTrace();
-	    	replaceTransactionSplit(old, splt);
+	    	replaceTransactionSplit(old, (GnuCashTransactionSplitImpl) splt);
 	    }
 	} else {
 	    // There is no split with that ID yet
@@ -242,7 +242,7 @@ public class GnuCashAccountImpl extends SimpleAccount
      */
     public void replaceTransactionSplit(
     		final GnuCashTransactionSplit splt,
-    		final GnuCashTransactionSplit impl) {
+    		final GnuCashTransactionSplitImpl impl) {
     	if ( ! mySplits.remove(splt) ) {
     		throw new IllegalArgumentException("old object not found!");
     	}
