@@ -3,6 +3,20 @@
 This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
 
 ## Major Changes 
+### V. 1.5 &rarr; 1.6
+* Fixed a couple of bugs in write-branch of API (for various entities), esp. in object-deleting code.
+
+* Introduced `GCsh(Writable)AccountLot(Impl)`, which has a similar relationship to GnuCashAccount as `GnuCash(Writable)TransactionSplit` has to `GnuCash(Writable)Transaction`.
+    
+  This is needed to report on lots in securities (stock) accounts,
+  and that, in turn, is needed to prepare German tax filings (so-called "FIFO principle").
+
+* `GnuCashWritableAccount(Impl)`, `GnuCash(Writable)File(Impl)`: Expanded interface and implemented it.
+    
+* Significantly improved overall test coverage, esp. in write-branch.
+
+* Various minor changes, cleaning and improving code.
+
 ### V. 1.4 &rarr; 1.5
 * `GnuCash(Writable)Commodity(Impl)`: New methods `get(Writable)StockAccounts()`, which is a handy short-cut for specific use cases.
 
@@ -163,7 +177,7 @@ Further improvements:
 
 * Enhanced type safety and compile-time checks -- both were not always as strict as possible.
 
-* (Partially) got rid of overly specific and/or obsolete code (e.g., there were methods that only make sense when using the german standard SKR03/04 chart of accounts, or the 19% VAT (originally, until 2006, 16%, which you still could find in the code)).
+* (Partially) got rid of overly specific and/or obsolete code (e.g., there were methods that only make sense when using the German standard SKR03/04 chart of accounts, or the 19% VAT (originally, until 2006, 16%, which you still could find in the code)).
 
 * Got rid of some redundancies here and there, introduced class `Const` for that (which in turn contains hard-coded values).
 
@@ -176,26 +190,13 @@ Further improvements:
 * Provided an extensive set of example programs (not generally-usable tools!) in a module of its own. Moved the one single example program that was there before into this module.
 
 ## Planned
-It should go without saying, but the following points are of course subject to change and by no means a promise that they will actually be implemented soon:
-
-* Methods for buying/selling securities ("commodities") in investment accounts.
+It should go without saying, but the following items are of course subject to change and by no means a promise that they will actually be implemented soon:
 
 * Invoices and bills: Support more variants, such as choosing the terms of payment or the "tax included" flag for entries.
 
 * Get rid of ugly code redundancies here and there, esp. in the class `Gnucash(Writable)GenerInvoiceImpl`.
 
-* Better test case coverage.
-
 * Configurable values in `Const` class.
-
-* Possibly some additional high-level helper classes/methods in module "API Extensions" (i.e., wrappers for generating specific variants), e.g. wrappers for:
-
-  * generating specific variants of invoices/bills,
-  * booking invoice-payment transactions.
-
-* Possibly taking over other original code from Marcus Wolschon (there are two more packages).
-
-* Possibly write a set of generally-usable command-line tools for basic handling of reading/writing activities, based on existing set of simple examples (but in a separate module).
 
 * Last not least: Provide user documentation.
 

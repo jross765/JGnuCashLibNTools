@@ -10,19 +10,30 @@ Currently, the module consists of two sub-modules:
 * "TrxMgr"
 
 ### SecAcct
-Currently, this sub-module contains just one single class: `SecuritiesAccountTransactionManager`, 
-which provides a simplified, high-level interface for generating buy- and dividend transactions 
-in a securities account (brokerage account).
+This sub-module contains classes that provide a simplified, high-level interface for...
+
+* ...generating and maintaining stock accounts,
+* ...generating buy- and dividend transactions in a securities account (brokerage account),
+* ...handling and tracking account lots for stock accounts (needed, e.g., to prepare German tax filings). **CAUTION: CURRENTLY EMPTY CLASS**
 
 ### TrxMgr
-This sub-module contains classes that help to:
+This sub-module contains classes that help to...
 
-* Find transaction and splits by setting filter criteria
-* Manipulate transactions in a more convenient way than by using the pure API.
+* ...find transaction and splits by setting filter criteria,
+* ...merge stock account transcations,
+* ...generally manipulate transactions in a more convenient way than by using the pure API.
 
 ## Major Changes
 ### V. 1.5 &rarr; 1.6
 * Added sub-module TrxMgr.
+
+  * New: `Transaction(Split)Filter`
+  * New: `TransactionFinder`
+  * New: `TransactionManager`, `TransactionMergerXYZ` (the latter in two variants)
+
+* Extended sub-module SecAcct:
+
+  * New: `SecuritiesAccountLotManager` **CAUTION: CURRENTLY EMPTY CLASS**
 
 ### V. 1.4 &rarr; 1.5
 * Sub-module SecAcct:

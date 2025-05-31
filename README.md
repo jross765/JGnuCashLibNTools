@@ -116,7 +116,7 @@ more advanced than `JKMyMoneyLib`. Obviously, the author strives to keep both pr
 symmetrical and to eventually have them both on a comparable level of maturity.
 
 What is meant by "symmetry" is this context? It means that `JKMyMoneyLib` has, in the early
-stages, literally evolved from a source-code copy of its sister, this project). 
+stages, literally evolved from a source-code copy of its sister, this project. 
 Meanwhile, changes and adaptations are going in both directions.
 Given that KMyMoney and GnuCash are two finance applications with quite a few 
 similarities (both in business logic and file format), this approach makes sense
