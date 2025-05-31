@@ -42,6 +42,7 @@ with locale de_DE (for details, cf. the API module documentation).
 
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.6     | almost           | Minor changes in interfaces, partially extendsions |
 | 1.5     | almost           | Minor changes in interfaces    |
 | 1.4     | no               | Some substantial changes       |
 | 1.3     | no               | "Medium" changes in interfaces |
@@ -52,6 +53,19 @@ with locale de_DE (for details, cf. the API module documentation).
 ## Major Changes
 Here, only the top-level changes on module-level are mentioned. For more Details, 
 cf. the README files of the resp. modules (links above).
+
+### V. 1.5 &rarr; 1.6
+* Module "API": 
+ 
+  * Some bug-fixing and cleanup-work, making code more robust.
+  * New functionalities.
+
+* Module "API Extensions": 
+
+  * New sub-module.
+  * Expanded functionality of already-existing module.
+
+* Module "Tools": Maintenance.
 
 ### V. 1.4 &rarr; 1.5
 * Added module "Tools".
