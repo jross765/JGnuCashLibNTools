@@ -20,23 +20,7 @@ This might seem overly complicated, but in fact, it was necessary, because the a
 * Better test coverage
 
 ## Planned
-* Get rid of inconsistencies in class `FixedPointNumber` (cf. below).
-
-* Same class: Support for more data types in constructors and operation methods.
-
-* Possibly spin off package `numbers` in yet another, package outside of this
-  project (as it is completely redundant to the according package in the sister project).
-  
-* Alternatively to the above-mentioned points: 
-  Research and re-evaluate whether we actually need this package or if 
-  there is not an equivalent one from a widely used library (such as Apache Commons)
-  that we can migrate to.
+./.
 
 ## Known Issues
-* Class `FixedPointNumber`: I essentially took it from the original author. Apart from the fact that it has a misleading name, I am less than convinced that it is optimal for this project, at least in its current form: 
-
-	* Using it gets clumsy from time to time.
-	* Parsing strings is not safe and not locale-flexible.
-	* It is not compatible with GnuCash's internal way of doing exact computations with rational numbers. 
-
-  ==> Re-evaluate: Should we possibly switch completely switch to another class, possibly based on `BigRational` (cf. test cases) or s.t. comparable?
+./.

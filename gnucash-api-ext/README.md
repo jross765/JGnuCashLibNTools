@@ -1,7 +1,8 @@
 # Notes on the Module "API Extensions"
 
-This module provides simplified, high-level access functions to a GnuCash file 
-via the "API" module (sort of "macros") for specialized, complex tasks.
+This module provides simplified, high-level access functions to a 
+GnuCash 
+file via the "API" module (sort of "macros") for specialized, complex tasks.
 
 ## Sub-Modules
 Currently, the module consists of two sub-modules:
@@ -26,13 +27,11 @@ This sub-module contains classes that help to...
 ## Major Changes
 ### V. 1.5 &rarr; 1.6
 * Added sub-module TrxMgr.
-
   * New: `Transaction(Split)Filter`
   * New: `TransactionFinder`
   * New: `TransactionManager`, `TransactionMergerXYZ` (the latter in two variants)
 
 * Extended sub-module SecAcct:
-
   * New: `SecuritiesAccountLotManager` **CAUTION: CURRENTLY EMPTY CLASS**
 
 ### V. 1.4 &rarr; 1.5

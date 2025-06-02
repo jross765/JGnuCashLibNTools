@@ -1,10 +1,12 @@
-# Project "JGnuCash Lib 'n' Tools"
+# Project "Java GnuCash Lib 'n' Tools"
 
-`JGnuCashLib` is a free and open-source Java library for reading and writing the XML file 
-format of the GnuCash open source small-business accounting software 
+`JGnuCashLibNTools` 
+is a free and open-source set of Java-libraries for reading and writing the XML file 
+format of the 
+GnuCash open source small-business accounting software 
 ([gnucash.org](https://gnucash.org)).
 
-It is not directly affiliated with / sponsored or coordinated by the developers of the 
+This project is not directly affiliated with / sponsored or coordinated by the developers of the 
 GnuCash project.
 
 ## Modules and Further Details
@@ -127,16 +129,32 @@ To compile the sources, do the following:
 
         `$ ./build.sh`
 
+## Planned
+
+### Overall
+* Split up the all-encompassing repository into several ones: One per module plus one for the parent.
+
+  I know, I know, that will come with some disadvantages, and there are people who would advise 
+  against it, for valid reasons. But life is not black and white, and while I acknowledge that 
+  having everything in one single repository makes things easier in the early stages of development, 
+  I am convinced that in the long run, the advantages of doing so will outweigh the disadvantages.
+
+* Possibly contribute some more Java tools / wrapper scripts that already exist in separate repositories that currently are not published.
+
+### Module-Specific
+Cf. the according module's README file (links above).
+
 ## Sister Project
 This project has a sister project: 
-[`JKMyMoneyLib`](https://github.com/jross765/JKMyMoneyLibNTools)
+[`JKMyMoneyLibNTools`](https://github.com/jross765/JKMyMoneyLibNTools)
 
 By now, both projects have roughly the same level of maturity. 
 Obviously, the author strives to keep both projects symmetrical.
 
-What does "symmetry" mean in this context? It means that `JKMyMoneyLib` has, in the early
-stages, literally evolved from a source-code copy of its sister, this project.
-Meanwhile, changes and adaptations are going in both directions. Let's call this "coupled development". 
+What does "symmetry" mean in this context? It means that `JKMyMoneyLibNTools` has 
+literally evolved from a source-code copy of its sister, this project.
+Meanwhile, changes and adaptations are going in both directions.
+Let's call this "coupled development". 
 Given that KMyMoney and GnuCash are two finance applications with quite a few 
 similarities (both in business logic and file format), this approach makes sense
 and has been working well so far.
@@ -144,9 +162,9 @@ and has been working well so far.
 Of course, this is a "10.000-metre bird's-eye view". As always in life, things are a little more
 complicated once you go into the details. Still, looking at the big picture and at least 
 up to the current state of development, the author has managed to keep both projects very 
-similar on a source code level -- so much so that you partially can use `diff`. You will, 
-however, also see some exceptions here and there where that "low-level-symmetry" is not 
-maintainable.
+similar on a source code level -- so much so that you partially can use `diff`. 
+You will, however, also see some exceptions here and there where that "low-level-symmetry" 
+is not maintainable.
 
 ## Acknowledgements
 
@@ -154,7 +172,7 @@ Special thanks to:
 
 * **Marcus Wolschon (Sofware-Design u. Beratung)** for the original version (from 2005) and the pioneering work and for putting the base of this project under the GPL.
 
-    This project is based on Marcus's work. There have been major changes and additions since then, but you can still can see where it originated from.
+    This project is based on Marcus' work. There have been major changes and additions since then, but you can still can see where it originated from.
 
     (Forked from http://sourceforge.net/projects/jgnucashlib / revived in 2017, after some years of enchanted sleep.)
 
