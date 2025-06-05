@@ -694,11 +694,45 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ----------------------------
 
 	@Override
+	@Deprecated
 	public GnuCashWritableAccount createWritableAccount() {
 		GnuCashWritableAccount acct = new GnuCashWritableAccountImpl(this);
 		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
 			.addAccount(acct);
 		return acct;
+	}
+
+	@Override
+	public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
+														GCshCmdtyCurrID cmdtyCurrID,
+														GCshID parentID,
+														String name) {
+		GnuCashWritableAccount acct = new GnuCashWritableAccountImpl(this);
+		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
+			.addAccount(acct);
+		
+		acct.setType(type);
+		acct.setCmdtyCurrID(cmdtyCurrID);
+		acct.setParentAccountID(parentID);
+		acct.setName(name);
+		
+		return acct;
+	}
+
+	@Override
+    public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
+    													GCshCmdtyID cmdtyID,
+    													GCshID parentID,
+    													String name) {
+		return createWritableAccount(type, (GCshCmdtyCurrID) cmdtyID, parentID, name);
+	}
+
+	@Override
+	public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
+														GCshCurrID currID,
+														GCshID parentID,
+														String name) {
+		return createWritableAccount(type, (GCshCmdtyCurrID) currID, parentID, name);
 	}
 
 	/**

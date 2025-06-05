@@ -11,7 +11,7 @@ This is the core module of the project, providing all low-level read-/write acce
   This is needed to report on lots in securities (stock) accounts,
   and that, in turn, is needed to prepare German tax filings (so-called "FIFO principle").
 
-* `GnuCashWritableTransactionSplitImpl`: Fixed bug in setQuantiy().
+* `GnuCashWritableTransactionSplitImpl`: Fixed bug in `setQuantiy()`.
 
 * `GnuCashWritableAccount(Impl)`, `GnuCash(Writable)File(Impl)`: Expanded interface and implemented it.
     

@@ -136,8 +136,23 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @return a new account that is already added to this file as a top-level
      *         account
      */
+    @Deprecated
     GnuCashWritableAccount createWritableAccount();
 
+    GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
+			  									 GCshCmdtyCurrID cmdtyCurrID,
+			  									 GCshID parentID,
+			  									 String name);
+
+    GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type, 
+    											 GCshCmdtyID cmdtyID,
+    											 GCshID parentID,
+    											 String name);
+
+    GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type, 
+    											 GCshCurrID currID,
+    											 GCshID parentID,
+    											 String name);
     /**
      * @param acct the account to remove
      */
