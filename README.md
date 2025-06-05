@@ -172,7 +172,7 @@ Special thanks to:
 
 * **Marcus Wolschon (Sofware-Design u. Beratung)** for the original version (from 2005) and the pioneering work and for putting the base of this project under the GPL.
 
-    This project is based on Marcus' work. There have been major changes and additions since then, but you can still can see where it originated from.
+    This project is based on Marcus' work. There have been major changes and additions since then, but you still can see where it originated from.
 
     (Forked from http://sourceforge.net/projects/jgnucashlib / revived in 2017, after some years of enchanted sleep.)
 
