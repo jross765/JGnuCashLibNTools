@@ -7,7 +7,7 @@ You will notice that the tools partially pull on the examples in the "Examples" 
 ## Major Changes 
 ### V. 1.5 &rarr; 1.6
 * New tools: 
-  * UpdCmdty, GenPrcList
+  * UpdCmdty, GenAcct (finally!), GenPrcList
 * Existing tools: 
   * For parsing command-line options: Replaced `GnuParser` by `DefaultParser` (the former has been deprecated).
   * Fixed a few small bugs
