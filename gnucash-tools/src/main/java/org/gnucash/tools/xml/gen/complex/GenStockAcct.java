@@ -291,7 +291,7 @@ public class GenStockAcct extends CommandLineTool
           System.err.println("Could not find securities matching this name.");
         throw new NoEntryFoundException();
       }
-      if ( cmdtyList.size() > 1 )
+      else if ( cmdtyList.size() > 1 )
       {
         if ( ! silent )
         {

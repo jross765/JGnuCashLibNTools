@@ -69,10 +69,6 @@ public class GenDepotTrx extends CommandLineTool
 
   private static SecuritiesAccountTransactionManager.Type type = null;
   
-  // CAUTION: The following account IDs are all of type
-  // GCshAcctID. Why not GCshComplAcctID? Yes, that would work
-  // as well, but we never book to the special top-level 
-  // accounts. Thus, this is a precautionary measure.
   private static GCshID            stockAcctID = null;
   private static GCshID            incomeAcctID = null;
   private static Collection<AcctIDAmountPair> expensesAcctAmtList = null;
