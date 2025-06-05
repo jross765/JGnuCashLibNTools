@@ -54,8 +54,8 @@ public class SecuritiesAccountTransactionManager {
     	// accordingly
     
     // Notes: 
-    //  - It common to specify stock (reverse) splits by a factor (e.g., 2 for a 2-to-1 split,
-    //    or 1/4 for 1-to-4 reverse split). So why use the number of add. shares? Because that
+    //  - It is common to specify stock (reverse) splits by a factor (e.g., 2 for a 2-for-1 split,
+    //    or 1/4 for 1-for-4 reverse split). So why use the number of add. shares? Because that
     //    is how GnuCash handles things, as opposed to KMyMoney (cf. the sister project) , both 
     //    on the data and the GUI level, and given that we want to have both projects as symmetrical 
     //    as possible, we copy that logic here, so that the user can choose between both methods.
@@ -282,13 +282,13 @@ public class SecuritiesAccountTransactionManager {
     	    throw new IllegalArgumentException("null GnuCash file given");
     	}
 
-    	if ( stockAcctID == null  ||
+    	if ( stockAcctID == null ||
     	     incomeAcctID == null ||
     	     offsetAcctID == null ) {
     	    throw new IllegalArgumentException("null account ID given");
     	}
 
-    	if ( ! ( stockAcctID.isSet()  ) ||
+    	if ( ! ( stockAcctID.isSet() ) ||
     	     ! ( incomeAcctID.isSet() ) ||
     	     ! ( offsetAcctID.isSet() ) ) {
     	    throw new IllegalArgumentException("unset account ID given");
@@ -298,8 +298,9 @@ public class SecuritiesAccountTransactionManager {
     	    throw new IllegalArgumentException("null expenses account list given");
     	}
 
-    	// CAUTION: Yes, this actually happen in real life, e.g. with specifics 
+    	// CAUTION: Yes, this actually happens in real life, e.g. with specifics 
     	// of German tax law (Freibetrag, Kapitalausschuettung).
+    	// ==> The following check is commented out on purpose.
 //    	if ( expensesAcctAmtList.isEmpty() ) {
 //    	    throw new IllegalArgumentException("empty expenses account list given");
 //    	}
@@ -560,7 +561,7 @@ public class SecuritiesAccountTransactionManager {
     public static GnuCashWritableTransaction genStockSplitTrx_nofShares(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,
-    	    final FixedPointNumber nofAddShares,
+    	    final FixedPointNumber nofAddShares, // use neg. number in case of reverse stock-split
     	    final LocalDate postDate,
     	    final String descr) {
     	if ( gcshFile == null ) {

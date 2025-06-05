@@ -15,7 +15,7 @@ This sub-module contains classes that provide a simplified, high-level interface
 
 * ...generating and maintaining stock accounts,
 * ...generating buy- and dividend transactions in a securities account (brokerage account),
-* ...handling and tracking account lots for stock accounts (needed, e.g., to prepare German tax filings). **CAUTION: CURRENTLY EMPTY CLASS**
+* ...handling and tracking account lots for stock accounts (needed, e.g., to prepare German tax filings).
 
 ### TrxMgr
 This sub-module contains classes that help to...
@@ -32,7 +32,7 @@ This sub-module contains classes that help to...
   * New: `TransactionManager`, `TransactionMergerXYZ` (the latter in two variants)
 
 * Extended sub-module SecAcct:
-  * New: `SecuritiesAccountLotManager` **CAUTION: CURRENTLY EMPTY CLASS**
+  * New: `SecuritiesAccountLotManager`
 
 ### V. 1.4 &rarr; 1.5
 * Sub-module SecAcct:
