@@ -7,8 +7,9 @@ You will notice that the tools partially pull on the examples in the "Examples" 
 ## Major Changes 
 ### V. 1.5 &rarr; 1.6
 * New tools: 
-  * UpdCmdty, GenAcct (finally!), GenPrcList
+  * UpdCmdty, GenAcct (finally!), GetPrcList
 * Existing tools: 
+  * GetJob: removed "employee" code  -- there is no such thing as an "employee job" in GnuCash.
   * For parsing command-line options: Replaced `GnuParser` by `DefaultParser` (the former has been deprecated).
   * Fixed a few small bugs
 
