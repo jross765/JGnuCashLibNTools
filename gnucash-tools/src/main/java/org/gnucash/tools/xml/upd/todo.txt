@@ -1,0 +1,8 @@
+UpdAcct: Noch nicht richtig symmetrisch mit Schwester
+  (AccountNotFoundException)
+
+UpdCmdty:
+  - Symmetrie verbessern
+  - Spez. Cmdty-ID: erweitern (vgl. GetCmdtyInfo)
+
+UpdPrc: Symmetrie kann bisschen verbessert werden.

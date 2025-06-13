@@ -62,8 +62,6 @@ public class GetAcctInfo extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-    // acctID = UUID.randomUUID();
-
 //    cfg = new PropertiesConfiguration(System.getProperty("config"));
 //    getConfigSettings(cfg);
 
@@ -95,7 +93,7 @@ public class GetAcctInfo extends CommandLineTool
     Option optAcctName = Option.builder("n")
       .hasArg()
       .argName("name")
-      .desc("Account name")
+      .desc("Account name (or part of)")
       .longOpt("name")
       .build();
       
@@ -282,7 +280,15 @@ public class GetAcctInfo extends CommandLineTool
   private void showChildren(GnuCashAccount acct, int depth)
   {
     System.out.println("");
-    System.out.println("Children:");
+    System.out.println("Children (1st Level, Overview):");
+    
+    for ( GnuCashAccount chld : acct.getChildren() )
+    {
+        System.out.println(" - " + chld.toString());
+    }
+    
+    System.out.println("");
+    System.out.println("Children (Recursive, Details):");
     
     if ( depth >= 0 )
     {
@@ -354,28 +360,62 @@ public class GetAcctInfo extends CommandLineTool
       System.err.println("Mode:              " + mode);
 
     // <account-id>
-    try
+    if ( cmdLine.hasOption("account-id") )
     {
-      acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+      if ( mode != Helper.Mode.ID )
+      {
+        System.err.println("<account-id> must only be set with <mode> = '" + Helper.Mode.ID.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }
+      
+      try
+      {
+        acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+      }
+      catch ( Exception exc )
+      {
+        System.err.println("Could not parse <account-id>");
+        throw new InvalidCommandLineArgsException();
+      }
     }
-    catch ( Exception exc )
+    else
     {
-      System.err.println("Could not parse <account-id>");
-      throw new InvalidCommandLineArgsException();
+      if ( mode == Helper.Mode.ID )
+      {
+        System.err.println("<account-id> must be set with <mode> = '" + Helper.Mode.ID.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }      
     }
     
     if ( ! scriptMode )
       System.err.println("Account ID:        '" + acctID + "'");
 
     // <name>
-    try
+    if ( cmdLine.hasOption("account-name") )
     {
-      acctName = cmdLine.getOptionValue("name");
+      if ( mode != Helper.Mode.NAME )
+      {
+        System.err.println("<account-name> must only be set with <mode> = '" + Helper.Mode.NAME.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }
+      
+      try
+      {
+        acctName = cmdLine.getOptionValue("name");
+      }
+      catch ( Exception exc )
+      {
+        System.err.println("Could not parse <name>");
+        throw new InvalidCommandLineArgsException();
+      }
     }
-    catch ( Exception exc )
+    else
     {
-      System.err.println("Could not parse <name>");
-      throw new InvalidCommandLineArgsException();
+      if ( mode == Helper.Mode.NAME )
+      {
+        System.err.println("<account-name> must be set with <mode> = '" + Helper.Mode.NAME.toString() + "'");
+        throw new InvalidCommandLineArgsException();
+      }      
     }
     
     if ( ! scriptMode )

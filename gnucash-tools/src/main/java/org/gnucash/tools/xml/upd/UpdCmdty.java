@@ -120,7 +120,7 @@ public class UpdCmdty extends CommandLineTool
     Option optName = Option.builder("n")
       .hasArg()
       .argName("name")
-      .desc("Account name")
+      .desc("Security name")
       .longOpt("name")
       .build();
     

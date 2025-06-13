@@ -1,7 +1,6 @@
 package org.gnucash.tools.xml.get.info;
 
 import java.io.File;
-import java.util.Collection;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -14,20 +13,22 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.helper.CmdLineHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
-import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
 import xyz.schnorxoborx.base.cmdlinetools.CouldNotExecuteException;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 
 public class GetCmdtyInfo extends CommandLineTool
 {
-  enum Mode
+  public enum CmdtySelectMode
   {
-    EXCHANGE_TICKER,
+    ID,
     ISIN,
     NAME
   }
@@ -39,11 +40,18 @@ public class GetCmdtyInfo extends CommandLineTool
   private static Options options;
   
   private static String  gcshFileName = null;
-  private static Mode    mode     = null;
-  private static String  exchange = null;
-  private static String  ticker   = null;
-  private static String  name     = null;
+  private static CmdtySelectMode mode = null;
+  private static CmdLineHelper.CmdtySelectSubMode subMode = null;
+
+  private static GCshCmdtyID cmdtyID = null;
+  
   private static String  isin     = null;
+  // Possibly later:
+  // private static String  wkn      = null;
+  // private static String  cusip    = null;
+  // private static String  sedol    = null;
+  
+  private static String  name     = null;
   
   private static boolean showQuotes = false;
   
@@ -89,32 +97,75 @@ public class GetCmdtyInfo extends CommandLineTool
       .desc("Selection mode")
       .longOpt("mode")
       .build();
-         
+        
+    Option optSubMode = Option.builder("sm")
+      .hasArg()
+      .argName("submode")
+      .desc("Selection sub-mode " +
+    		"(for <mode> = " + CmdtySelectMode.ID + " only)")
+      .longOpt("sub-mode")
+      .build();
+    	        
     Option optExchange = Option.builder("exch")
       .hasArg()
       .argName("exch")
-      .desc("Exchange code")
+      .desc("Exchange code " +
+   		    "(for <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.EXCHANGE_TICKER + " only)")
       .longOpt("exchange")
       .build();
       
     Option optTicker = Option.builder("tkr")
       .hasArg()
       .argName("ticker")
-      .desc("Ticker")
+      .desc("Ticker " + 
+   		    "(for <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.EXCHANGE_TICKER + " only)")
       .longOpt("ticker")
       .build();
-      
+    
+    Option optMIC = Option.builder("mic")
+      .hasArg()
+      .argName("mic")
+      .desc("MIC " +
+   		    "(for <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.MIC + " only)")
+      .longOpt("mic")
+      .build();
+    	      
+    Option optMICID = Option.builder("mid")
+      .hasArg()
+      .argName("micid")
+      .desc("MIC-ID " +
+   		    "(for <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.MIC + " only)")
+      .longOpt("mic-id")
+      .build();
+    	    
+    Option optSecIDType = Option.builder("sit")
+      .hasArg()
+      .argName("type")
+      .desc("Security ID type " + 
+   		    "(for <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.SEC_ID_TYPE + " only)")
+      .longOpt("secid-type")
+      .build();
+    	    	      
     Option optISIN = Option.builder("is")
       .hasArg()
       .argName("isin")
-      .desc("ISIN")
+      .desc("ISIN " + 
+  		   	"(for <mode> = " + CmdtySelectMode.ISIN + " xor " +
+  		   	"( <mode> = " + CmdtySelectMode.ID + " and " +
+            "<sub-mode> = " + CmdLineHelper.CmdtySelectSubMode.SEC_ID_TYPE + " ) only)")
       .longOpt("isin")
       .build();
         
     Option optName = Option.builder("n")
       .hasArg()
       .argName("name")
-      .desc("Name (or part of)")
+      .desc("Name (full) " + 
+  		    "(for <mode> = " + CmdtySelectMode.NAME + " only)")
       .longOpt("name")
       .build();
           
@@ -127,8 +178,12 @@ public class GetCmdtyInfo extends CommandLineTool
     options = new Options();
     options.addOption(optFile);
     options.addOption(optMode);
+    options.addOption(optSubMode);
     options.addOption(optExchange);
     options.addOption(optTicker);
+    options.addOption(optMIC);
+    options.addOption(optMICID);
+    options.addOption(optSecIDType);
     options.addOption(optISIN);
     options.addOption(optName);
     options.addOption(optShowQuote);
@@ -146,40 +201,49 @@ public class GetCmdtyInfo extends CommandLineTool
     GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
     GnuCashCommodity cmdty = null;
-    if ( mode == Mode.EXCHANGE_TICKER )
+    if ( mode == CmdtySelectMode.ID )
     {
-      cmdty = gcshFile.getCommodityByQualifID(exchange, ticker);
-      if ( cmdty == null )
-      {
-        System.err.println("Could not find commodities matching that ticker.");
-        throw new NoEntryFoundException();
-      }
+    	if ( cmdtyID != null ) 
+    	{
+    		cmdty = gcshFile.getCommodityByQualifID(cmdtyID);
+    		if ( cmdty == null )
+    		{
+    			System.err.println("Could not find commodity with id " + cmdtyID);
+    	        throw new NoEntryFoundException();
+    		}
+    	}
+    	else
+    	{
+    		// Should not happen -- just in case
+			System.err.println("Parsed commodity ID is null. Cannot continue");
+	        throw new NoEntryFoundException();
+    	}
     }
-    else if ( mode == Mode.ISIN )
+    else if ( mode == CmdtySelectMode.ISIN )
     {
+      // CAUTION: This branch is *not necessarily* redundant to
+	  // the Mode.ID / SubMode.SEC_ID_TYPE branch above 
+      // (it only is in the project's specific test file, which 
+      // reflects the way the author organizes his data, but by 
+      // no means is the only "correct", let alone conceivable way).
       cmdty = gcshFile.getCommodityByXCode(isin);
       if ( cmdty == null )
       {
-        System.err.println("Could not find commodities matching that ISIN.");
+        System.err.println("Could not find a commodity with this ISIN.");
         throw new NoEntryFoundException();
       }
     }
-    else if ( mode == Mode.NAME )
+    else if ( mode == CmdtySelectMode.NAME )
     {
-      Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName(name); 
-      if ( cmdtyList.size() == 0 )
+      cmdty = gcshFile.getCommodityByNameUniq(name); 
+      if ( cmdty == null )
       {
-        System.err.println("Could not find commodities matching that name.");
+        System.err.println("Could not find a commodity (uniquely) matching this name.");
         throw new NoEntryFoundException();
       }
-      if ( cmdtyList.size() > 1 )
-      {
-        System.err.println("Found " + cmdtyList.size() + " commodities matching that name.");
-        System.err.println("Please specify more precisely.");
-        throw new TooManyEntriesFoundException();
-      }
-      cmdty = cmdtyList.iterator().next(); // first element
     }
+    
+    // ----------------------------
 
     try
     {
@@ -192,7 +256,7 @@ public class GetCmdtyInfo extends CommandLineTool
 
     try
     {
-      System.out.println("ISIN:              " + cmdty.getXCode());
+      System.out.println("ISIN:              '" + cmdty.getXCode() + "'");
     }
     catch (Exception exc)
     {
@@ -237,7 +301,8 @@ public class GetCmdtyInfo extends CommandLineTool
 
     // ---
 
-    showQuotes(cmdty);
+    if ( showQuotes )
+      showQuotes(cmdty);
   }
 
   // -----------------------------------------------------------------
@@ -251,7 +316,7 @@ public class GetCmdtyInfo extends CommandLineTool
     System.out.println("Number of quotes: " + cmdty.getQuotes().size());
     
     System.out.println("");
-    for (GnuCashPrice prc : cmdty.getQuotes())
+    for ( GnuCashPrice prc : cmdty.getQuotes() )
     {
       System.out.println(" - " + prc.toString());
     }
@@ -298,7 +363,7 @@ public class GetCmdtyInfo extends CommandLineTool
     // <mode>
     try
     {
-      mode = Mode.valueOf(cmdLine.getOptionValue("mode"));
+      mode = CmdtySelectMode.valueOf(cmdLine.getOptionValue("mode"));
     }
     catch ( Exception exc )
     {
@@ -309,62 +374,102 @@ public class GetCmdtyInfo extends CommandLineTool
     if ( ! scriptMode )
       System.err.println("Mode:         " + mode);
 
-    // <exchange>, <ticker>
-    if ( cmdLine.hasOption("exchange") )
+    // <sub-mode>
+    if ( cmdLine.hasOption("sub-mode") )
     {
-      if ( ! cmdLine.hasOption("ticker") )
-      {
-        System.err.println("Error: <exchange> and <ticker> must both either be set or unset");
-        throw new InvalidCommandLineArgsException();
-      }
-
-      if ( mode != Mode.EXCHANGE_TICKER )
-      {
-        System.err.println("<exchange> and <ticker> must only be set with <mode> = '" + Mode.EXCHANGE_TICKER.toString() + "'");
-        throw new InvalidCommandLineArgsException();
-      }
-      
-      try
-      {
-        exchange = cmdLine.getOptionValue("exchange");
-      }
-      catch (Exception exc)
-      {
-        System.err.println("Could not parse <exchange>");
-        throw new InvalidCommandLineArgsException();
-      }
-
-      try
-      {
-        ticker = cmdLine.getOptionValue("ticker");
-      }
-      catch (Exception exc)
-      {
-        System.err.println("Could not parse <ticker>");
-        throw new InvalidCommandLineArgsException();
-      }
+        if ( mode != CmdtySelectMode.ID )
+        {
+          System.err.println("<sub-mode> must only be set with <mode> = '" + CmdtySelectMode.ID.toString() + "'");
+          throw new InvalidCommandLineArgsException();
+        }
+        
+        try
+        {
+          subMode = CmdLineHelper.CmdtySelectSubMode.valueOf(cmdLine.getOptionValue("sub-mode"));
+        }
+        catch ( Exception exc )
+        {
+          System.err.println("Could not parse <sub-mode>");
+          throw new InvalidCommandLineArgsException();
+        }
     }
     else
     {
-      if ( cmdLine.hasOption("ticker") )
-      {
-        System.err.println("Error: <exchange> and <ticker> must both either be set or unset");
-        throw new InvalidCommandLineArgsException();
-      }
+        if ( mode == CmdtySelectMode.ID )
+        {
+          System.err.println("<sub-mode> must be set with <mode> = '" + CmdtySelectMode.ID.toString() + "'");
+          throw new InvalidCommandLineArgsException();
+        }
+    }
+    
+    if ( ! scriptMode )
+      System.err.println("Sub-mode:     " + subMode);
+
+    // <exchange>, <ticker>,
+    // <mid>, <mic-id>,
+    // <secid-type>, <isin>
+    if ( ( cmdLine.hasOption("exchange")   && cmdLine.hasOption("ticker") ) ||
+    	 ( cmdLine.hasOption("mic")        && cmdLine.hasOption("mic-id") ) ||
+    	 ( cmdLine.hasOption("secid-type") && cmdLine.hasOption("isin") ) )
+    {
+        if ( mode != CmdtySelectMode.ID )
+        {
+          System.err.println("Pair <exchange>/<ticker>, <mic>/<mic-id>, <secid-type>/<isin> must only be set with <mode> = '" + CmdtySelectMode.ID.toString() + "'");
+          throw new InvalidCommandLineArgsException();
+        }
+    	
+    	cmdtyID = CmdLineHelper.getCmdtyID( cmdLine,
+    										mode, subMode,
+    										scriptMode);
+    	if ( cmdtyID == null )
+    	{
+            System.err.println("Could not get commodity ID from " + 
+            				   "<exchange>/<ticker> nor from" + 
+            				   "<mic>/<mic-id> nor from" + 
+            				   "<secid-type>/<isin>");
+            throw new InvalidCommandLineArgsException();
+    	}
+    }
+    else
+    {
+    	if ( ! cmdLine.hasOption("isin") && 
+    		 ! cmdLine.hasOption("name") )
+       	{
+               System.err.println("One of the following must be set:\n" + 
+            		   			  " - <exchange>/<ticker> (pair) xor\n"+ 
+            		   			  " - <mic>/<mic-id> (pair) xor\n"+ 
+               				   	  " - <secid-type>/<isin> (pair) xor\n"+ 
+               				   	  " - <isin> (alone) xor\n"+ 
+    				   	  		  " - <name>");
+               throw new InvalidCommandLineArgsException();
+       	}
     }
 
-    if (!scriptMode)
+    // <isin> (alone)
+    if ( cmdLine.hasOption("isin") && 
+    	 ! cmdLine.hasOption("secid-type") )
     {
-      System.err.println("Exchange: '" + exchange + "'");
-      System.err.println("Ticker:   '" + ticker + "'");
-    }
+        if ( cmdLine.hasOption("exchange") ) 
+        {
+          System.err.println("Error: <isin> and <exchange> are mutually exclusive");
+          throw new InvalidCommandLineArgsException();
+        }
 
-    // <isin>
-    if ( cmdLine.hasOption("isin") )
-    {
-      if ( mode != Mode.ISIN )
+        if ( cmdLine.hasOption("mic") ) 
+        {
+          System.err.println("Error: <isin> and <mic> are mutually exclusive");
+          throw new InvalidCommandLineArgsException();
+        }
+
+        if ( cmdLine.hasOption("name") ) 
+        {
+          System.err.println("Error: <isin> and <name> are mutually exclusive");
+          throw new InvalidCommandLineArgsException();
+        }
+
+      if ( mode != CmdtySelectMode.ISIN )
       {
-        System.err.println("<isin> must only be set with <mode> = '" + Mode.ISIN.toString() + "'");
+        System.err.println("<isin> (alone) must only be set with <mode> = '" + CmdtySelectMode.ISIN + "'");
         throw new InvalidCommandLineArgsException();
       }
       
@@ -380,19 +485,58 @@ public class GetCmdtyInfo extends CommandLineTool
     }
     else
     {
-      if ( mode == Mode.ISIN )
+//    	if ( ! cmdLine.hasOption("name") )
+//    	{
+//                  System.err.println("One of the following must be set:\n" + 
+//               		   			  " - <exchange>/<ticker> (pair) xor\n"+ 
+//               		   			  " - <mic>/<mic-id> (pair) xor\n"+ 
+//                  				   	  " - <secid-type>/<isin> (pair) xor\n"+ 
+//                  				   	  " - <isin> (alone) xor\n"+ 
+//       				   	  		  " - <name>");
+//                  throw new InvalidCommandLineArgsException();
+//    	}
+    	
+      if ( mode == CmdtySelectMode.ISIN &&
+    	   ! cmdLine.hasOption("secid-type") )
       {
-        System.err.println("<isin> must be set with <mode> = '" + Mode.ISIN.toString() + "'");
+        System.err.println("<isin> (alone) must be set with <mode> = '" + CmdtySelectMode.ISIN + "'");
         throw new InvalidCommandLineArgsException();
       }
     }
 
+    if (!scriptMode)
+      System.err.println("ISIN:         '" + isin + "'");
+
     // <name>
     if ( cmdLine.hasOption("name") )
     {
-      if ( mode != Mode.NAME )
+      if ( cmdLine.hasOption("exchange") ) 
       {
-        System.err.println("<name> must only be set with <mode> = '" + Mode.NAME.toString() + "'");
+        System.err.println("Error: <name> and <exchange> are mutually exclusive");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      if ( cmdLine.hasOption("mic") ) 
+      {
+        System.err.println("Error: <name> and <mic> are mutually exclusive");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      if ( cmdLine.hasOption("secid-type") ) 
+      {
+        System.err.println("Error: <name> and <secid-type> are mutually exclusive");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      if ( cmdLine.hasOption("isin") ) 
+      {
+        System.err.println("Error: <name> and <isin> are mutually exclusive");
+        throw new InvalidCommandLineArgsException();
+      }
+
+      if ( mode != CmdtySelectMode.NAME )
+      {
+        System.err.println("<name> must only be set with <mode> = '" + CmdtySelectMode.NAME.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
       
@@ -408,12 +552,15 @@ public class GetCmdtyInfo extends CommandLineTool
     }
     else
     {
-      if ( mode == Mode.NAME )
+      if ( mode == CmdtySelectMode.NAME )
       {
-        System.err.println("<name> must be set with <mode> = '" + Mode.NAME.toString() + "'");
+        System.err.println("<name> must be set with <mode> = '" + CmdtySelectMode.NAME.toString() + "'");
         throw new InvalidCommandLineArgsException();
       }
     }
+
+    if (!scriptMode)
+      System.err.println("Name:         '" + name + "'");
 
     // <show-quotes>
     if (cmdLine.hasOption("show-quotes"))
@@ -437,7 +584,27 @@ public class GetCmdtyInfo extends CommandLineTool
     
     System.out.println("");
     System.out.println("Valid values for <mode>:");
-    for ( Mode elt : Mode.values() )
+    for ( CmdtySelectMode elt : CmdtySelectMode.values() )
+      System.out.println(" - " + elt);
+    
+    System.out.println("");
+    System.out.println("Valid values for <sub-mode>:");
+    for ( CmdLineHelper.CmdtySelectSubMode elt : CmdLineHelper.CmdtySelectSubMode.values() )
+      System.out.println(" - " + elt);
+    
+    System.out.println("");
+    System.out.println("Valid values for <exchange>:");
+    for ( GCshCmdtyCurrNameSpace.Exchange elt : GCshCmdtyCurrNameSpace.Exchange.values() )
+      System.out.println(" - " + elt);
+    
+    System.out.println("");
+    System.out.println("Valid values for <mic>:");
+    for ( GCshCmdtyCurrNameSpace.MIC elt : GCshCmdtyCurrNameSpace.MIC.values() )
+      System.out.println(" - " + elt);
+    
+    System.out.println("");
+    System.out.println("Valid values for <secid-type>:");
+    for ( GCshCmdtyCurrNameSpace.SecIdType elt : GCshCmdtyCurrNameSpace.SecIdType.values() )
       System.out.println(" - " + elt);
   }
 }

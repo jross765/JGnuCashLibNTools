@@ -1,7 +1,6 @@
 package org.gnucash.tools.xml.get.list;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.apache.commons.cli.CommandLine;
@@ -32,7 +31,6 @@ public class GetCmdtyList extends CommandLineTool
   
   private static String               gcshFileName = null;
   private static Helper.CmdtyListMode mode         = null; 
-  private static String               isin         = null;
   private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO
@@ -55,8 +53,6 @@ public class GetCmdtyList extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-    // cmdtyID = UUID.randomUUID();
-
 //    cfg = new PropertiesConfiguration(System.getProperty("config"));
 //    getConfigSettings(cfg);
 
@@ -78,24 +74,10 @@ public class GetCmdtyList extends CommandLineTool
       .longOpt("mode")
       .build();
     	    	      
-//    Option optType = Option.builder()
-//      .hasArg()
-//      .argName("type")
-//      .desc("Commodity type")
-//      .longOpt("type")
-//      .create("t");
-      
-    Option optISIN = Option.builder("is")
-      .hasArg()
-      .argName("isin")
-      .desc("ISIN")
-      .longOpt("isin")
-      .build();
-    	    	      
     Option optName = Option.builder("n")
       .hasArg()
       .argName("name")
-      .desc("Account name (part of)")
+      .desc("Commodity name (part of)")
       .longOpt("name")
       .build();
     	      
@@ -105,8 +87,6 @@ public class GetCmdtyList extends CommandLineTool
     options = new Options();
     options.addOption(optFile);
     options.addOption(optMode);
-    // options.addOption(optType);
-    options.addOption(optISIN);
     options.addOption(optName);
   }
 
@@ -124,13 +104,6 @@ public class GetCmdtyList extends CommandLineTool
     Collection<GnuCashCommodity> cmdtyList = null; 
     if ( mode == Helper.CmdtyListMode.ALL )
         cmdtyList = gcshFile.getCommodities();
-//    else if ( mode == Helper.CmdtyListMode.TYPE )
-//    	cmdtyList = gcshFile.getCommoditiesByType(type);
-    else if ( mode == Helper.CmdtyListMode.ISIN ) {
-    	GnuCashCommodity sec = gcshFile.getCommodityByXCode(isin);
-    	cmdtyList = new ArrayList<GnuCashCommodity>();
-    	cmdtyList.add( sec );
-    }
     else if ( mode == Helper.CmdtyListMode.NAME )
     	cmdtyList = gcshFile.getCommoditiesByName(name, true);
 
@@ -191,72 +164,6 @@ public class GetCmdtyList extends CommandLineTool
       throw new InvalidCommandLineArgsException();
     }
 
-    // <type>
-//    if ( cmdLine.hasOption( "type" ) )
-//    {
-//    	if ( mode != Helper.CmdtyListMode.TYPE )
-//    	{
-//            System.err.println("Error: <type> must only be set with <mode> = '" + Helper.CmdtyListMode.TYPE + "'");
-//            throw new InvalidCommandLineArgsException();
-//    	}
-//    	
-//        try
-//        {
-//        	type = GnuCashCommodity.Type.valueOf(cmdLine.getOptionValue("type"));
-//        }
-//        catch ( Exception exc )
-//        {
-//        	System.err.println("Could not parse <type>");
-//        	throw new InvalidCommandLineArgsException();
-//        }
-//    }
-//    else
-//    {
-//    	if ( mode == Helper.CmdtyListMode.TYPE )
-//    	{
-//            System.err.println("Error: <type> must be set with <mode> = '" + Helper.CmdtyListMode.TYPE + "'");
-//            throw new InvalidCommandLineArgsException();
-//    	}
-//    	
-//    	type = null;
-//    }
-//    
-//    if ( ! scriptMode )
-//      System.err.println("Type:              " + type);
-
-    // <isin>
-    if ( cmdLine.hasOption( "isin" ) )
-    {
-    	if ( mode != Helper.CmdtyListMode.ISIN )
-    	{
-            System.err.println("Error: <isin> must only be set with <mode> = '" + Helper.CmdtyListMode.ISIN + "'");
-            throw new InvalidCommandLineArgsException();
-    	}
-    	
-        try
-        {
-        	isin = cmdLine.getOptionValue("isin");
-        }
-        catch ( Exception exc )
-        {
-        	System.err.println("Could not parse <isin>");
-        	throw new InvalidCommandLineArgsException();
-        }
-    }
-    else
-    {
-    	if ( mode == Helper.CmdtyListMode.ISIN )
-    	{
-            System.err.println("Error: <isin> must be set with <mode> = '" + Helper.CmdtyListMode.ISIN + "'");
-            throw new InvalidCommandLineArgsException();
-    	}
-    	
-    	isin = null;
-    }
-    
-    if ( ! scriptMode )
-      System.err.println("ISIN:              " + isin);
-    
     // <name>
     if ( cmdLine.hasOption( "name" ) )
     {
@@ -301,10 +208,5 @@ public class GetCmdtyList extends CommandLineTool
     System.out.println("Valid values for <mode>:");
     for ( Helper.CmdtyListMode elt : Helper.CmdtyListMode.values() )
       System.out.println(" - " + elt);
-
-//    System.out.println("");
-//    System.out.println("Valid values for <type>:");
-//    for ( GnuCashAccount.Type elt : GnuCashAccount.Type.values() )
-//      System.out.println(" - " + elt);
   }
 }

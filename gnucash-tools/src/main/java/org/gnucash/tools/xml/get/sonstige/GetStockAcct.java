@@ -219,29 +219,19 @@ public class GetStockAcct extends CommandLineTool
       if ( cmdty == null )
       {
         if ( ! scriptMode )
-          System.err.println("Could not find securities with this ISIN.");
+          System.err.println("Could not find security with this ISIN.");
         throw new NoEntryFoundException();
       }
     }
     else if ( cmdtyMode == Helper.CmdtySecMode.NAME )
     {
-      Collection<GnuCashCommodity> cmdtyList = gcshFile.getCommoditiesByName(cmdtyName); 
-      if ( cmdtyList.size() == 0 )
+      cmdty = gcshFile.getCommodityByNameUniq(cmdtyName); 
+      if ( cmdty == null )
       {
         if ( ! scriptMode )
-          System.err.println("Could not find securities matching this name.");
+          System.err.println("Could not find security (uniquely) matching this name.");
         throw new NoEntryFoundException();
       }
-      if ( cmdtyList.size() > 1 )
-      {
-        if ( ! scriptMode )
-        {
-          System.err.println("Found " + cmdtyList.size() + "securities matching this name.");
-          System.err.println("Please specify more precisely.");
-        }
-        throw new TooManyEntriesFoundException();
-      }
-      cmdty = cmdtyList.iterator().next(); // first element
     }
     
     if ( ! scriptMode )

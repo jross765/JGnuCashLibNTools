@@ -11,7 +11,6 @@ public class Helper
 
 	public enum CmdtyListMode
 	{
-		ISIN,
 		NAME,
 		ALL
 	}
