@@ -26,6 +26,8 @@ public class GetTrxSpltInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetTrxSpltInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -33,6 +35,8 @@ public class GetTrxSpltInfo extends CommandLineTool
   private static GCshID  spltID = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

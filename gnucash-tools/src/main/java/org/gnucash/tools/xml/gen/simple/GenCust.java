@@ -25,12 +25,16 @@ public class GenCust extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenCust.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
   private static String name = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

@@ -30,6 +30,8 @@ public class GetEmplInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetEmplInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -41,6 +43,8 @@ public class GetEmplInfo extends CommandLineTool
   private static boolean showVouchers  = false;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

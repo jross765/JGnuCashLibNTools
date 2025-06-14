@@ -26,6 +26,8 @@ public class GetCmdtyList extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetCmdtyList.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -34,6 +36,8 @@ public class GetCmdtyList extends CommandLineTool
   private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

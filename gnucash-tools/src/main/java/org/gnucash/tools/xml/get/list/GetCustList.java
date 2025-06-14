@@ -26,6 +26,8 @@ public class GetCustList extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetCustList.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -35,6 +37,8 @@ public class GetCustList extends CommandLineTool
   private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

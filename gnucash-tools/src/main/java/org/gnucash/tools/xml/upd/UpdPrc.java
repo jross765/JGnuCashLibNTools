@@ -28,6 +28,8 @@ public class UpdPrc extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdPrc.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -40,6 +42,8 @@ public class UpdPrc extends CommandLineTool
   private static FixedPointNumber    value = null;
 
   private static GnuCashWritablePrice prc = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

@@ -26,6 +26,8 @@ public class UpdCust extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdCust.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -38,6 +40,8 @@ public class UpdCust extends CommandLineTool
   private static String descr = null;
 
   private static GnuCashWritableCustomer cust = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

@@ -31,6 +31,8 @@ public class GenPrc extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenPrc.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -43,6 +45,8 @@ public class GenPrc extends CommandLineTool
   private static LocalDate         date = null;
   private static FixedPointNumber  value = null;
   private static GnuCashPrice.Source  source = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

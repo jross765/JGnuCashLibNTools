@@ -28,6 +28,8 @@ public class UpdAcct extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdAcct.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -41,6 +43,8 @@ public class UpdAcct extends CommandLineTool
   private static GCshCmdtyCurrID     cmdtyCurrID = null;
 
   private static GnuCashWritableAccount acct = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

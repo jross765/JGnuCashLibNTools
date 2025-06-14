@@ -27,6 +27,8 @@ public class GetInvcList extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetInvcList.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -34,6 +36,8 @@ public class GetInvcList extends CommandLineTool
   private static GCshOwner.Type type         = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

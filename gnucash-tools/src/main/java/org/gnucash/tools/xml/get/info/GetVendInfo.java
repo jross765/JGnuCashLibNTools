@@ -35,6 +35,8 @@ public class GetVendInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetVendInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -47,6 +49,8 @@ public class GetVendInfo extends CommandLineTool
   private static boolean showBills  = false;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

@@ -37,6 +37,8 @@ public class GenJob extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenJob.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -46,6 +48,8 @@ public class GenJob extends CommandLineTool
   private static GCshID           ownerID = null;
   private static String           number = null;
   private static String           name = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

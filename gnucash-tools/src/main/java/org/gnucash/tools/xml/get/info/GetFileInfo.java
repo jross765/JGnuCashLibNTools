@@ -24,10 +24,14 @@ public class GetFileInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetFileInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
   private static String  gcshFileName = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

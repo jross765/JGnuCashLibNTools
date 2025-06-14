@@ -33,6 +33,8 @@ public class UpdInvc extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdInvc.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -48,6 +50,8 @@ public class UpdInvc extends CommandLineTool
   private static GnuCashWritableGenerInvoice  invcGener = null;
   private static GnuCashAccount               incExpAcct = null;
   private static GnuCashAccount               recvblPayblAcct = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

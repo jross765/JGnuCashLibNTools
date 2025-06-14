@@ -33,6 +33,8 @@ public class GenTrx extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenTrx.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -44,6 +46,8 @@ public class GenTrx extends CommandLineTool
   private static FixedPointNumber quantity = null;
   private static LocalDate        datePosted = null;
   private static String           description = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

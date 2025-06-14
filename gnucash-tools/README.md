@@ -11,7 +11,8 @@ You will notice that the tools partially pull on the examples in the "Examples" 
 * Existing tools: 
   * GetJob: removed "employee" code  -- there is no such thing as an "employee job" in GnuCash.
   * For parsing command-line options: Replaced `GnuParser` by `DefaultParser` (the former has been deprecated).
-  * Fixed a few small bugs
+  * Fixed a few small bugs.
+  * Generalize and unify interfaces for tools in which a commodity has to be selected.
 
 ### V. 1.4 &rarr; 1.5
 Created and added a number of tools:

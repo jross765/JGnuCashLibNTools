@@ -25,6 +25,8 @@ public class GenEmpl extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenEmpl.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -32,6 +34,8 @@ public class GenEmpl extends CommandLineTool
   private static String gcshOutFileName = null;
   private static String userName = null;
   private static String name = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

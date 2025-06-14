@@ -26,6 +26,8 @@ public class GenCmdty extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenCmdty.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -35,6 +37,8 @@ public class GenCmdty extends CommandLineTool
   private static String  name     = null;
   private static String  symbol   = null;
   private static String  isin     = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

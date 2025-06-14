@@ -40,6 +40,8 @@ public class GetGenerInvcInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerInvcInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -50,6 +52,8 @@ public class GetGenerInvcInfo extends CommandLineTool
   private static boolean showTransactions = false;
   
   private static boolean scriptMode       = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

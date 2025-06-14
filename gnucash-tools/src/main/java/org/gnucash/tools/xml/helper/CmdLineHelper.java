@@ -13,7 +13,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
-import org.gnucash.tools.xml.get.info.GetCmdtyInfo.CmdtySelectMode;
 
 import xyz.schnorxoborx.base.cmdlinetools.Helper;
 import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
@@ -23,12 +22,19 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class CmdLineHelper
 {
-	  public enum CmdtySelectSubMode // for <mode> = 'ID' only
-	  {
-	    EXCHANGE_TICKER,
-	    MIC,
-	    SEC_ID_TYPE
-	  }
+  public enum CmdtySelectMode
+  {
+    ID,
+    ISIN,
+    NAME
+  }
+	  
+  public enum CmdtySelectSubMode // for <mode> = 'ID' only
+  {
+    EXCHANGE_TICKER,
+    MIC,
+    SEC_ID_TYPE
+  }
 
   // -----------------------------------------------------------------
 

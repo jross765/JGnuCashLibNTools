@@ -26,6 +26,8 @@ public class UpdVend extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdVend.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -38,6 +40,8 @@ public class UpdVend extends CommandLineTool
   private static String descr = null;
 
   private static GnuCashWritableVendor vend = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

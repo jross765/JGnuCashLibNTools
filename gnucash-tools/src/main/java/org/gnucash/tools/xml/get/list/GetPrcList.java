@@ -29,6 +29,8 @@ public class GetPrcList extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetPrcList.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -39,6 +41,8 @@ public class GetPrcList extends CommandLineTool
   private static String                fromCmdtyName   = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

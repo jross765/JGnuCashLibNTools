@@ -26,6 +26,8 @@ public class UpdEmpl extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(UpdEmpl.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -37,6 +39,8 @@ public class UpdEmpl extends CommandLineTool
   private static String name = null;
 
   private static GnuCashWritableEmployee empl = null;
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {

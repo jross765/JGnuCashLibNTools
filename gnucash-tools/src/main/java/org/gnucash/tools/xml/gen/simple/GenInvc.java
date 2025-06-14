@@ -61,11 +61,11 @@ public class GenInvc extends CommandLineTool
     NAME
   }
   
-  // -----------------------------------------------------------------
-  
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GenInvc.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   

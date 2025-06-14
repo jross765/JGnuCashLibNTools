@@ -30,6 +30,8 @@ public class GetGenerInvcEntryInfo extends CommandLineTool
   // Logger
   private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerInvcEntryInfo.class);
   
+  // -----------------------------------------------------------------
+
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
@@ -37,6 +39,8 @@ public class GetGenerInvcEntryInfo extends CommandLineTool
   private static GCshID  invcEntrID = null;
   
   private static boolean scriptMode = false; // ::TODO
+
+  // -----------------------------------------------------------------
 
   public static void main( String[] args )
   {
