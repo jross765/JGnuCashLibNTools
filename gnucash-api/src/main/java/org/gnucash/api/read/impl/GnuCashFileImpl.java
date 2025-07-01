@@ -53,6 +53,7 @@ import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
+import org.gnucash.api.read.impl.aux.GCshFileMetaInfo;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.hlp.FileAccountManager;
 import org.gnucash.api.read.impl.hlp.FileBillTermsManager;
@@ -1645,6 +1646,18 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	public String toString() {
 		String result = "GnuCashFileImpl [\n";
+
+    	result += "  Meta info:\n"; 
+    	GCshFileMetaInfo metaInfo;
+    	try {
+    		metaInfo = new GCshFileMetaInfo(this);
+
+    		result += "    Schema version: " + metaInfo.getSchemaVersion() + "\n"; 
+    		result += "    Book version:   " + metaInfo.getBookVersion() + "\n"; 
+    		result += "    Book ID:        " + metaInfo.getBookID() + "\n"; 
+    	} catch (Exception e) {
+    		result += "ERROR\n"; 
+    	}
 
 		result += "  Stats (raw):\n";
 		GCshFileStats stats;
