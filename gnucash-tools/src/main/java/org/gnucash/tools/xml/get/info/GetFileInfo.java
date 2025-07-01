@@ -84,7 +84,7 @@ public class GetFileInfo extends CommandLineTool
   {
     GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
     
-    printStats(gcshFile);
+    printMetaInfoAndStats(gcshFile);
     printRootAcct(gcshFile);
     printTopAccts(gcshFile);
     printStatement(gcshFile);
@@ -92,10 +92,10 @@ public class GetFileInfo extends CommandLineTool
 
   // -----------------------------------------------------------------
 
-  private void printStats(GnuCashFileImpl gcshFile)
+  private void printMetaInfoAndStats(GnuCashFileImpl gcshFile)
   {
     System.out.println("");
-    System.out.println("Stats:");
+    System.out.println("Meta Info and Stats:");
     System.out.println(gcshFile.toString());
   }
 
