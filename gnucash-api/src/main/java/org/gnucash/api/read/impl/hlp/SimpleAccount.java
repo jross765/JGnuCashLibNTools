@@ -271,13 +271,18 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	
 		FixedPointNumber balance = new FixedPointNumber();
 	
-		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
-			balance.add(split.getQuantity());
+		for ( GnuCashTransactionSplit splt : getTransactionSplits() ) {
+			try {
+				balance.add(splt.getQuantity());
 	
-			if ( split == lastIncludesSplit ) {
-				break;
+				if ( splt == lastIncludesSplit ) {
+					break;
+				}
+			} catch ( Exception exc ) {
+				// Yes, it does happen!
+				LOGGER.error("getBalance: Could not add Split " + splt.getID() + 
+						     " of Transaction " + splt.getTransactionID());
 			}
-	
 		}
 	
 		return balance;
@@ -341,7 +346,13 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		}
 
 		for ( GnuCashAccount child : getChildren() ) {
-			retval.add(child.getBalanceRecursive(date, curr));
+			try {
+				retval.add(child.getBalanceRecursive(date, curr));
+			} catch ( Exception exc ) {
+				// Yes, it does happen sometimes!
+				LOGGER.error("getBalanceRecursive: Error adding balance for child account " + child.getID());
+				throw exc;
+			}
 		}
 
 		return retval;
