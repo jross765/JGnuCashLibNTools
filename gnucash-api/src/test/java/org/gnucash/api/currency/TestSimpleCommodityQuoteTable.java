@@ -34,18 +34,18 @@ public class TestSimpleCommodityQuoteTable {
 	@Before
 	public void initialize() throws Exception {
 		ClassLoader classLoader = getClass().getClassLoader();
-		// URL kmmFileURL = classLoader.getResource(Const.GCSH_FILENAME);
-		// System.err.println("GnuCash test file resource: '" + kmmFileURL + "'");
-		InputStream kmmFileStream = null;
+		// URL gcshFileURL = classLoader.getResource(Const.GCSH_FILENAME);
+		// System.err.println("GnuCash test file resource: '" + gcshFileURL + "'");
+		InputStream gcshFileStream = null;
 		try {
-			kmmFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
+			gcshFileStream = classLoader.getResourceAsStream(ConstTest.GCSH_FILENAME);
 		} catch (Exception exc) {
 			System.err.println("Cannot generate input stream from resource");
 			return;
 		}
 
 		try {
-			gcshFile = new GnuCashFileImpl(kmmFileStream);
+			gcshFile = new GnuCashFileImpl(gcshFileStream);
 		} catch (Exception exc) {
 			System.err.println("Cannot parse GnuCash file");
 			exc.printStackTrace();
