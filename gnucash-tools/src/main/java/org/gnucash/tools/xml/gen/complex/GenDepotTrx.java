@@ -176,7 +176,7 @@ public class GenDepotTrx extends CommandLineTool
     Option optIncomeAcct = Option.builder("inacct")
       .hasArg()
       .argName("acctid")
-      .desc("Account-ID for (dividend) income")
+      .desc("Account-ID for (divid./distrib.) income")
       .longOpt("income-account-id")
       .build();
     	      
@@ -211,10 +211,10 @@ public class GenDepotTrx extends CommandLineTool
       .longOpt("stock-price")
       .build();
               
-    Option optDividend = Option.builder("divgr")
+    Option optDividDistr = Option.builder("divgr")
       .hasArg()
       .argName("amount")
-      .desc("Gross dividend")
+      .desc("Gross dividend/distribution")
       .longOpt("dividend-gross")
       .build();
 
@@ -284,7 +284,7 @@ public class GenDepotTrx extends CommandLineTool
     options.addOption(optOffsetAcct);
     options.addOption(optNofStocks);
     options.addOption(optStockPrice);
-    options.addOption(optDividend);
+    options.addOption(optDividDistr);
     options.addOption(optSpltFact);
     options.addOption(optDatePosted);
     options.addOption(optDateFormat);
