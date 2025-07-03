@@ -30,6 +30,7 @@ public class SecuritiesAccountTransactionManager {
     public enum Type {
     	BUY_STOCK,
     	DIVIDEND,
+    	DISTRIBUTION,
     	STOCK_SPLIT,
     }
     
@@ -248,12 +249,13 @@ public class SecuritiesAccountTransactionManager {
     
     // ---------------------------------------------------------------
     
-    public static GnuCashWritableTransaction genDivivendTrx(
+    public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,
     	    final GCshID incomeAcctID,
     	    final GCshID taxFeeAcctID,
     	    final GCshID offsetAcctID,
+    	    final GnuCashTransactionSplit.Action spltAct,
     	    final FixedPointNumber divGross,
     	    final FixedPointNumber taxesFees,
     	    final LocalDate postDate,
@@ -263,18 +265,19 @@ public class SecuritiesAccountTransactionManager {
     	AcctIDAmountPair newPair = new AcctIDAmountPair(taxFeeAcctID, taxesFees);
     	expensesAcctAmtList.add(newPair);
 
-    	return genDivivendTrx(gcshFile,
+    	return genDividDistribTrx(gcshFile,
     			      stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID, 
-    			      divGross,
+    			      spltAct, divGross,
     			      postDate, descr);
     }
     
-    public static GnuCashWritableTransaction genDivivendTrx(
+    public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,
     	    final GCshID incomeAcctID,
     	    final Collection<AcctIDAmountPair> expensesAcctAmtList,
     	    final GCshID offsetAcctID,
+    	    final GnuCashTransactionSplit.Action spltAct,
     	    final FixedPointNumber divGross,
     	    final LocalDate postDate,
     	    final String descr) {
@@ -382,7 +385,7 @@ public class SecuritiesAccountTransactionManager {
     	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(stockAcct);
     	splt1.setValue(new FixedPointNumber());
     	splt1.setQuantity(new FixedPointNumber());
-    	splt1.setAction(GnuCashTransactionSplit.Action.DIVIDEND);
+    	splt1.setAction(spltAct);
     	LOGGER.debug("genDivivendTrx: Split 1 to write: " + splt1.toString());
 
     	// ---
