@@ -299,21 +299,32 @@ public class GCshCmdtyCurrNameSpace {
 	
 	// Region/country-specific:
 	
-	CUSIP, // Covers USA and Canada -- can easily be converted to an ISIN
+	CUSIP, // Covers the USA and Canada -- can easily be converted to an ISIN.
 	       // (In practice, it's sometimes a little difficult to get a 
 	       // security's CUSIP because in these two countries, many individuals 
 	       // and even organizations insist on using the hopelessly obsolete and
-	       // market-specific tickers and treat the CUSIP as a sort of secret and/or
-	       // irrelevant)
+	       // market-specific tickers and treat the CUSIP as a sort of secret 
+           // or as if it was irrelevant.)
 	       // Cf. https://en.wikipedia.org/wiki/CUSIP
 	
-	SEDOL, // Covers the UK and Ireland -- can easily be converted to an ISIN
+	SEDOL, // Covers the UK and Ireland -- can easily be converted to an ISIN.
 	       // Cf. https://en.wikipedia.org/wiki/SEDOL
 	
-	WKN,   // Covers Germany, Austria and Switzerland -- can easily be converted 
-	       // to an ISIN
+//	SICOVAM, // Used to cover France -- could easily be converted to an ISIN.
+	       // Is obsolete / does not exist any more (not even "internally",
+	       // as far as I know), as it has been replaced by the ISIN in 2003.
+	       // Cf. https://en.wikipedia.org/wiki/Sicovam_code
+
+	WKN,   // Covers Germany and Austria -- can easily be converted 
+	       // to an ISIN. The Germans/Austrians to this day stubbornly
+	       // continue to use the WKN instead of the ISIN (even for
+	       // non-German/Austrian securities, where there is no link
+	       // between the WKN and the ISIN).
 	       // Cf. https://en.wikipedia.org/wiki/Wertpapierkennnummer
 	
+	VALOR, // Covers Switzerland -- can easily be converted to an ISIN.
+           // Cf. https://en.wikipedia.org/wiki/Valoren_number
+
 	// Others? Not that I knew...
 	// Note that market-specific code systems, such as:
 	// - Tokyo exchange codes

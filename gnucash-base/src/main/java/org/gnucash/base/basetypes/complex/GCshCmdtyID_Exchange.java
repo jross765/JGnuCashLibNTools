@@ -168,7 +168,7 @@ public class GCshCmdtyID_Exchange extends GCshCmdtyID {
 		if ( type != Type.SECURITY_EXCHANGE )
 			return "ERROR";
 
-		String result = "CommodityID_Exchange [";
+		String result = "GCshCmdtyID_Exchange [";
 
 		result += "namespace='" + getNameSpace() + "'";
 

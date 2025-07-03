@@ -168,7 +168,7 @@ public class GCshCmdtyID_MIC extends GCshCmdtyID {
 		if ( type != Type.SECURITY_MIC )
 			return "ERROR";
 
-		String result = "CommodityID_MIC [";
+		String result = "GCshCmdtyID_MIC [";
 
 		result += "namespace='" + getNameSpace() + "'";
 

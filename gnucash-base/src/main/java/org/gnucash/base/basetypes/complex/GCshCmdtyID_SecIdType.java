@@ -176,7 +176,7 @@ public class GCshCmdtyID_SecIdType extends GCshCmdtyID {
 		if ( type != Type.SECURITY_SECIDTYPE )
 			return "ERROR";
 
-		String result = "CommodityID_SecIdType [";
+		String result = "GCshCmdtyID_SecIdType [";
 
 		result += "namespace='" + getNameSpace() + "'";
 

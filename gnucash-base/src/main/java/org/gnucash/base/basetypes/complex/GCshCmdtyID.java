@@ -114,7 +114,7 @@ public class GCshCmdtyID extends GCshCmdtyCurrID {
 		if ( type != Type.SECURITY_GENERAL )
 			return "ERROR";
 
-		String result = "CommodityID [";
+		String result = "GCshCmdtyID [";
 
 		result += "nameSpace='" + getNameSpace() + "'";
 		result += ", secCode='" + getCode() + "'";

@@ -27,8 +27,8 @@ public class GCshCmdtyCurrID {
     public enum Type {
     	CURRENCY,
     	SECURITY_EXCHANGE,  // name space is semi-formal abbrev. of major world exchange
-    	SECURITY_MIC,       // name space is formal abbrev. of major world exchange
-    	SECURITY_SECIDTYPE, // name space is widely-used security ID type/scheme
+    	SECURITY_MIC,       // name space is formal abbrev. of major world exchange (ISO 10383)
+    	SECURITY_SECIDTYPE, // name space is widely-used security ID type/scheme (ISIN, CUSIP, SEDOL, WKN, ...)
     	SECURITY_GENERAL,   // name space can be freely chosen
     	UNSET
     }
@@ -237,7 +237,7 @@ public class GCshCmdtyCurrID {
     }
 
     public String toStringLong() {
-	String result = "CmdtyCurrID [type=" + getType();
+	String result = "GCshCmdtyCurrID [type=" + getType();
 	
 	result += ", nameSpace='" + getNameSpace() + "'";
 	result += ", code='" + getCode() + "'";

@@ -181,7 +181,7 @@ public class GCshCurrID extends GCshCmdtyCurrID {
 		if ( type != Type.CURRENCY )
 			return "ERROR";
 
-		String result = "CurrencyID [";
+		String result = "GCshCurrID [";
 
 		result += "nameSpace='" + getNameSpace() + "'";
 		result += ", secCode='" + getCode() + "'";
