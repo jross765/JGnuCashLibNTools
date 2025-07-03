@@ -565,7 +565,7 @@ public class SecuritiesAccountTransactionManager {
     	    final LocalDate postDate,
     	    final String descr) {
     	if ( gcshFile == null ) {
-    		throw new IllegalArgumentException("null KMyMoney file given");
+    		throw new IllegalArgumentException("null GnuCash file given");
     	}
 		
     	if ( stockAcctID == null  ) {
