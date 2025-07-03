@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
+import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
@@ -97,10 +98,16 @@ public class GenDepotTrx {
 									datPst, descr);
 		} else if ( type == SecuritiesAccountTransactionManager.Type.DIVIDEND ) {
 			trx = SecuritiesAccountTransactionManager
-					.genDivivendTrx(gcshFile, 
-									stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID, 
-									divGross, datPst, 
-									descr);
+					.genDividDistribTrx(gcshFile,
+										stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID,
+										GnuCashTransactionSplit.Action.DIVIDEND, divGross, datPst,
+										descr);
+		} else if ( type == SecuritiesAccountTransactionManager.Type.DISTRIBUTION ) {
+			trx = SecuritiesAccountTransactionManager
+					.genDividDistribTrx(gcshFile,
+										stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID,
+										GnuCashTransactionSplit.Action.DIST, divGross, datPst,
+										descr);
 		}
 
 		// ---
