@@ -2272,6 +2272,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 		}
 		
     	try {
+    		// Changing owner is critical:
         	attemptChange();
 			getJwsdpPeer().getInvoiceOwner().getOwnerId().setValue(ownID.get());
 	    	getGnuCashFile().setModified(true);
@@ -2310,13 +2311,14 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     /**
      * @see #setDatePosted(String)
      */
-    public void setDateOpened(final LocalDate d) {
-	if ( d == null ) {
+    public void setDateOpened(final LocalDate date) {
+	if ( date == null ) {
 	    throw new IllegalArgumentException("null date given!");
 	}
 
+	// Changing date-opened is critical:
 	attemptChange();
-	dateOpened = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
+	dateOpened = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault());
 	String dateOpenedStr = dateOpened.format(DATE_OPENED_FORMAT_BOOK);
 	getJwsdpPeer().getInvoiceOpened().setTsDate(dateOpenedStr);
 	getGnuCashFile().setModified(true);
@@ -2325,53 +2327,52 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     /**
      * @see #setDatePosted(String)
      */
-    public void setDateOpened(final String d) throws java.text.ParseException {
-	if ( d == null ) {
+    public void setDateOpened(final String dateStr) throws java.text.ParseException {
+	if ( dateStr == null ) {
 	    throw new IllegalArgumentException("null date string given!");
 	}
 
-	if ( d.trim().length() == 0 ) {
+	if ( dateStr.trim().length() == 0 ) {
 	    throw new IllegalArgumentException("empty date string given!");
 	}
 
-	attemptChange();
-	setDateOpened(LocalDate.parse(d, DATE_OPENED_FORMAT));
-	getGnuCashFile().setModified(true);
+	setDateOpened(LocalDate.parse(dateStr, DATE_OPENED_FORMAT));
     }
 
     /**
      * @see #setDateOpened(String)
      */
-    public void setDatePosted(final LocalDate d) {
-	if ( d == null ) {
+    public void setDatePosted(final LocalDate date) {
+	if ( date == null ) {
 	    throw new IllegalArgumentException("null date given!");
 	}
 
+	// Changing date-posted is critical:
 	attemptChange();
-	datePosted = ZonedDateTime.of(d, LocalTime.MIN, ZoneId.systemDefault());
-	getJwsdpPeer().getInvoicePosted().setTsDate(DATE_OPENED_FORMAT.format(d));
+	datePosted = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault());
+	getJwsdpPeer().getInvoicePosted().setTsDate(DATE_OPENED_FORMAT.format(date));
 	getGnuCashFile().setModified(true);
 
 	// change the date of the transaction too
 	GnuCashWritableTransaction postTr = getWritablePostTransaction();
 	if (postTr != null) {
-	    postTr.setDatePosted(d);
+	    postTr.setDatePosted(date);
 	}
     }
 
     /**
      * @see GnuCashWritableGenerInvoice#setDatePosted(java.lang.String)
      */
-    public void setDatePosted(final String d) throws java.text.ParseException {
-	if ( d == null ) {
+    public void setDatePosted(final String dateStr) throws java.text.ParseException {
+	if ( dateStr == null ) {
 	    throw new IllegalArgumentException("null date string given!");
 	}
 
-	if ( d.trim().length() == 0 ) {
+	if ( dateStr.trim().length() == 0 ) {
 	    throw new IllegalArgumentException("empty date string given!");
 	}
 
-	setDatePosted(LocalDate.parse(d, DATE_OPENED_FORMAT));
+	setDatePosted(LocalDate.parse(dateStr, DATE_OPENED_FORMAT));
     }
     
     // ---------------------------------------------------------------
@@ -2385,7 +2386,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new IllegalArgumentException("empty number given!");
 	}
 
-	attemptChange();
+	// Sic, changing number is uncritical:
+	// attemptChange();
 	getJwsdpPeer().setInvoiceId(number);
 	getGnuCashFile().setModified(true);
     }
@@ -2400,7 +2402,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 //	    throw new IllegalArgumentException("empty description given!");
 //	}
 
-	attemptChange();
+	// Sic, changing description is uncritical:
+	// attemptChange();
 	getJwsdpPeer().setInvoiceNotes(descr);
 	getGnuCashFile().setModified(true);
     }
