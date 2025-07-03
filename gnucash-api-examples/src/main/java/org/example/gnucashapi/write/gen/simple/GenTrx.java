@@ -29,7 +29,6 @@ public class GenTrx {
     
     // ---
     
-    // Following two account IDs: sic, not KMMComplAcctID
     private static GCshID           fromAcct2ID  = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account:Aktiva:Sichteinlagen:KK:Giro RaiBa
     private static GCshID           toAcct21ID   = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
     private static GCshID           toAcct22ID   = new GCshID("d3f947fdfbf54240b0cfb09fea4963ca"); // Root Account:Aufwendungen:Sonstiges:Bankgebühren
