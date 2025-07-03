@@ -45,6 +45,7 @@ public class UpdInvc extends CommandLineTool
   private static GCshID           recvblPayblAcctID = null;
   private static String           number = null;
   private static String           descr = null;
+  private static GCshID           ownerID = null;
   private static LocalDate        dateOpen = null;
 
   private static GnuCashWritableGenerInvoice  invcGener = null;
@@ -130,6 +131,13 @@ public class UpdInvc extends CommandLineTool
       .longOpt("description")
       .build();
     
+    Option optOwnerID = Option.builder("own")
+      .hasArg()
+      .argName("UUID")
+      .desc("Ownwer-ID")
+      .longOpt("owner-id")
+      .build();
+    	    
     Option optOpenDate = Option.builder("odat")
       .hasArg()
       .argName("date")
@@ -148,6 +156,7 @@ public class UpdInvc extends CommandLineTool
     options.addOption(optRecvblPayblAcctID);
     options.addOption(optNumber);
     options.addOption(optDescr);
+    options.addOption(optOwnerID);
     options.addOption(optOpenDate);
   }
 
@@ -235,6 +244,12 @@ public class UpdInvc extends CommandLineTool
     {
       System.err.println("Setting description");
       invcGener.setDescription(descr);
+    }
+
+    if ( ownerID != null )
+    {
+      System.err.println("Setting owner");
+      invcGener.setOwnerID(ownerID);
     }
 
     if ( dateOpen != null )
@@ -365,6 +380,21 @@ public class UpdInvc extends CommandLineTool
       }
     }
     System.err.println("Description: '" + descr + "'");
+
+    // <owner-id>
+    if ( cmdLine.hasOption("owner-id") ) 
+    {
+      try
+      {
+        ownerID = new GCshID( cmdLine.getOptionValue("owner-id") );
+      }
+      catch ( Exception exc )
+      {
+        System.err.println("Could not parse <owner-id>");
+        throw new InvalidCommandLineArgsException();
+      }
+    }
+    System.err.println("Owner ID: '" + ownerID + "'");
 
     // <opened-date>
     if ( cmdLine.hasOption("opened-date") ) 
