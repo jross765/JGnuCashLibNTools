@@ -11,7 +11,7 @@ public class ParamTuple
 	public String offsetAcctID;        // 4
 	public String nofStocks;           // 5
 	public String stockPrc;            // 6
-	public String divGross;            // 7
+	public String divDistrGross;       // 7
 	public String stockSplitFactor;    // 8
 	public String dateFormat;          // 9
 	public String datPst;              // 10
@@ -28,7 +28,7 @@ public class ParamTuple
 		offsetAcctID = null;
 		nofStocks = null;
 		stockPrc = null;
-		divGross = null;
+		divDistrGross = null;
 		stockSplitFactor = null;
 		dateFormat = null;
 		datPst = null;
@@ -42,7 +42,7 @@ public class ParamTuple
 					  String offsetAcctID,
 					  String nofStocks,
 					  String stockPrc,
-					  String divGross,
+					  String divDistrGross,
 					  String stockSplitFactor,
 					  String dateFormat,
 					  String datPst,
@@ -55,7 +55,7 @@ public class ParamTuple
 		this.offsetAcctID = offsetAcctID;
 		this.nofStocks = nofStocks;
 		this.stockPrc = stockPrc;
-		this.divGross = divGross;
+		this.divDistrGross = divDistrGross;
 		this.stockSplitFactor = stockSplitFactor;
 		this.dateFormat = dateFormat;
 		this.datPst = datPst;
@@ -74,7 +74,7 @@ public class ParamTuple
 		           "offsetAcctID='" + offsetAcctID +  "', " +
 		              "nofStocks='" + nofStocks +  "', " +
 		               "stockPrc='" + stockPrc +  "', " +
-		               "divGross='" + divGross +  "', " +
+		          "divDistrGross='" + divDistrGross +  "', " +
 		       "stockSplitFactor='" + stockSplitFactor +  "', " +
 		             "dateFormat='" + dateFormat +  "', " +
 		                 "datPst='" + datPst +  "', " +
