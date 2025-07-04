@@ -28,9 +28,9 @@ public class GenDepotTrx {
 	private static List<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>(); // only for dividend, not for buy/sell
 	private static GCshID offsetAcctID = new GCshID( "bbf77a599bd24a3dbfec3dd1d0bb9f5c" );
 	
-	private static FixedPointNumber nofStocks = new FixedPointNumber(15); // only for buy/sell, not for dividend
-	private static FixedPointNumber stockPrc  = new FixedPointNumber("23080/100"); // only for buy/sell, not for dividend
-	private static FixedPointNumber divGross  = new FixedPointNumber("11223/100"); // only for dividend, not for buy/sell
+	private static FixedPointNumber nofStocks      = new FixedPointNumber(15); // only for buy/sell, not for dividend
+	private static FixedPointNumber stockPrc       = new FixedPointNumber("23080/100"); // only for buy/sell, not for dividend
+	private static FixedPointNumber divDistrGross  = new FixedPointNumber("11223/100"); // only for dividend, not for buy/sell
 
 	private static LocalDate datPst = LocalDate.of(2024, 3, 1);
 	private static String descr = "Dividend payment";
@@ -100,13 +100,13 @@ public class GenDepotTrx {
 			trx = SecuritiesAccountTransactionManager
 					.genDividDistribTrx(gcshFile,
 										stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID,
-										GnuCashTransactionSplit.Action.DIVIDEND, divGross, datPst,
+										GnuCashTransactionSplit.Action.DIVIDEND, divDistrGross, datPst,
 										descr);
 		} else if ( type == SecuritiesAccountTransactionManager.Type.DISTRIBUTION ) {
 			trx = SecuritiesAccountTransactionManager
 					.genDividDistribTrx(gcshFile,
 										stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID,
-										GnuCashTransactionSplit.Action.DIST, divGross, datPst,
+										GnuCashTransactionSplit.Action.DIST, divDistrGross, datPst,
 										descr);
 		}
 
@@ -124,7 +124,7 @@ public class GenDepotTrx {
 	// account is not in the test file yet).
 	private void initExpAccts() {
 		GCshID expAcct1 = new GCshID( "2a195872e24048a0a6228107ca8b6a52" ); // Kapitalertragsteuer
-		FixedPointNumber amt1 = divGross.copy().multiply(new FixedPointNumber("25/100"));
+		FixedPointNumber amt1 = divDistrGross.copy().multiply(new FixedPointNumber("25/100"));
 		AcctIDAmountPair acctAmtPr1 = new AcctIDAmountPair(expAcct1, amt1);
 		expensesAcctAmtList.add(acctAmtPr1);
 		
