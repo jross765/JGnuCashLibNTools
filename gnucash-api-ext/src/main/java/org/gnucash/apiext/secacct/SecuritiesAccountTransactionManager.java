@@ -31,12 +31,12 @@ public class SecuritiesAccountTransactionManager {
     	BUY_STOCK,
     	DIVIDEND,
     	DISTRIBUTION,
-    	STOCK_SPLIT,
+    	STOCK_SPLIT
     }
     
     public enum StockSplitVar {
     	FACTOR,
-    	NOF_ADD_SHARES,
+    	NOF_ADD_SHARES
     }
     
     // ---------------------------------------------------------------
@@ -256,7 +256,7 @@ public class SecuritiesAccountTransactionManager {
     	    final GCshID taxFeeAcctID,
     	    final GCshID offsetAcctID,
     	    final GnuCashTransactionSplit.Action spltAct,
-    	    final FixedPointNumber divGross,
+    	    final FixedPointNumber divDistrGross,
     	    final FixedPointNumber taxesFees,
     	    final LocalDate postDate,
     	    final String descr) {
@@ -267,7 +267,7 @@ public class SecuritiesAccountTransactionManager {
 
     	return genDividDistribTrx(gcshFile,
     			      stockAcctID, incomeAcctID, expensesAcctAmtList, offsetAcctID, 
-    			      spltAct, divGross,
+    			      spltAct, divDistrGross,
     			      postDate, descr);
     }
     
@@ -278,7 +278,7 @@ public class SecuritiesAccountTransactionManager {
     	    final Collection<AcctIDAmountPair> expensesAcctAmtList,
     	    final GCshID offsetAcctID,
     	    final GnuCashTransactionSplit.Action spltAct,
-    	    final FixedPointNumber divGross,
+    	    final FixedPointNumber divDistrGross,
     	    final LocalDate postDate,
     	    final String descr) {
     	if ( gcshFile == null ) {
@@ -317,7 +317,7 @@ public class SecuritiesAccountTransactionManager {
     	    }
     	}
 
-    	if ( divGross == null ) {
+    	if ( divDistrGross == null ) {
     	    throw new IllegalArgumentException("null gross dividend given");
     	}
 
@@ -331,14 +331,14 @@ public class SecuritiesAccountTransactionManager {
 //    	    throw new IllegalArgumentException("taxes <= 0.0 given");
 //    	}
     				
-    	LOGGER.debug("genDivivendTrx: Account 1 name (stock):      '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
-    	LOGGER.debug("genDivivendTrx: Account 2 name (income):     '" + gcshFile.getAccountByID(incomeAcctID).getQualifiedName() + "'");
+    	LOGGER.debug("genDividDistribTrx: Account 1 name (stock):      '" + gcshFile.getAccountByID(stockAcctID).getQualifiedName() + "'");
+    	LOGGER.debug("genDividDistribTrx: Account 2 name (income):     '" + gcshFile.getAccountByID(incomeAcctID).getQualifiedName() + "'");
     	int counter = 1;
     	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
-    	    LOGGER.debug("genDivivendTrx: Account 3." + counter + " name (expenses): '" + gcshFile.getAccountByID(elt.accountID()).getQualifiedName() + "'");
+    	    LOGGER.debug("genDividDistribTrx: Account 3." + counter + " name (expenses): '" + gcshFile.getAccountByID(elt.accountID()).getQualifiedName() + "'");
     	    counter++;
     	}
-    	LOGGER.debug("genDivivendTrx: Account 4 name (offsetting): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
+    	LOGGER.debug("genDividDistribTrx: Account 4 name (offsetting): '" + gcshFile.getAccountByID(offsetAcctID).getQualifiedName() + "'");
 
     	// ---
     	// Check account types
@@ -370,10 +370,10 @@ public class SecuritiesAccountTransactionManager {
     	for ( AcctIDAmountPair elt : expensesAcctAmtList ) {
     	    expensesSum.add(elt.amount());
     	}
-    	LOGGER.debug("genDivivendTrx: Sum of all expenses: " + expensesSum);
+    	LOGGER.debug("genDividDistribTrx: Sum of all expenses: " + expensesSum);
 
-    	FixedPointNumber divNet = divGross.copy().subtract(expensesSum);
-    	LOGGER.debug("genDivivendTrx: Net dividend: " + divNet);
+    	FixedPointNumber divDistrNet = divDistrGross.copy().subtract(expensesSum);
+    	LOGGER.debug("genDividDistribTrx: Net dividend: " + divDistrNet);
 
     	// ---
 
@@ -386,21 +386,21 @@ public class SecuritiesAccountTransactionManager {
     	splt1.setValue(new FixedPointNumber());
     	splt1.setQuantity(new FixedPointNumber());
     	splt1.setAction(spltAct);
-    	LOGGER.debug("genDivivendTrx: Split 1 to write: " + splt1.toString());
+    	LOGGER.debug("genDividDistribTrx: Split 1 to write: " + splt1.toString());
 
     	// ---
 
     	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(offsetAcct);
-    	splt2.setValue(divNet);
-    	splt2.setQuantity(divNet);
-    	LOGGER.debug("genDivivendTrx: Split 2 to write: " + splt2.toString());
+    	splt2.setValue(divDistrNet);
+    	splt2.setQuantity(divDistrNet);
+    	LOGGER.debug("genDividDistribTrx: Split 2 to write: " + splt2.toString());
 
     	// ---
 
     	GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(incomeAcct);
-    	splt3.setValue(divGross.copy().negate());
-    	splt3.setQuantity(divGross.copy().negate());
-    	LOGGER.debug("genDivivendTrx: Split 3 to write: " + splt3.toString());
+    	splt3.setValue(divDistrGross.copy().negate());
+    	splt3.setQuantity(divDistrGross.copy().negate());
+    	LOGGER.debug("genDividDistribTrx: Split 3 to write: " + splt3.toString());
 
     	// ---
 
@@ -410,7 +410,7 @@ public class SecuritiesAccountTransactionManager {
     	    GnuCashWritableTransactionSplit splt4 = trx.createWritableSplit(expensesAcct);
     	    splt4.setValue(elt.amount());
     	    splt4.setQuantity(elt.amount());
-    	    LOGGER.debug("genDivivendTrx: Split 4." + counter + " to write: " + splt4.toString());
+    	    LOGGER.debug("genDividDistribTrx: Split 4." + counter + " to write: " + splt4.toString());
     	    counter++;
     	}
 
@@ -421,7 +421,7 @@ public class SecuritiesAccountTransactionManager {
 
     	// ---
 
-    	LOGGER.info("genDivivendTrx: Generated new Transaction: " + trx.getID());
+    	LOGGER.info("genDividDistribTrx: Generated new Transaction: " + trx.getID());
     	return trx;
     }
 
