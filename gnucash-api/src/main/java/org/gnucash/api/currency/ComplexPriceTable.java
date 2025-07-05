@@ -137,8 +137,8 @@ public class ComplexPriceTable implements Serializable {
     // -------------------------------------------------------
 
     /**
-     * Add a new nameSpace with no conversion-factors.<br/>
-     * Will not overwrite an existing nameSpace.
+     * Add a new name space with no conversion-factors.<br/>
+     * Will not overwrite an existing name space.
      *
      * @param nameSpace the new nameSpace to add.
      */
@@ -159,7 +159,7 @@ public class ComplexPriceTable implements Serializable {
     }
 
     /**
-     * Add a new nameSpace with an initial set of conversion-factors.
+     * Add a new name space with an initial set of conversion-factors.
      *
      * @param nameSpace the new nameSpace to add.
      * @param table    an initial set of conversion-factors.
@@ -172,6 +172,10 @@ public class ComplexPriceTable implements Serializable {
     // ---------------------------------------------------------------
     
     /**
+     * @param nameSpace 
+     * @param code 
+     * @return the factor to convert the price specified by the namespace-code-pair
+     *   to 
      * @see SimplePriceTable#setConversionFactor(java.lang.String, FixedPointNumber)
      */
     public FixedPointNumber getConversionFactor(final String nameSpace, final String code) {
@@ -189,12 +193,16 @@ public class ComplexPriceTable implements Serializable {
     }
 
     /**
-     * If the nameSpace does not exist yet, it is created.
+     * If the nameSpace does not exist yet, it will be created.
+     * 
+     * @param nameSpace 
+     * @param code 
+     * @param pFactor 
      *
      * @see SimplePriceTable#setConversionFactor(java.lang.String, FixedPointNumber)
      */
-    public void setConversionFactor(final String nameSpace, final String code, 
-	                            final FixedPointNumber pFactor) {
+    public void setConversionFactor(final String nameSpace, final String code,
+    								final FixedPointNumber pFactor) {
 
 	if (code == null) {
 	    throw new IllegalArgumentException("null code given!");
@@ -226,10 +234,13 @@ public class ComplexPriceTable implements Serializable {
     // ---------------------------------------------------------------
     
     /**
+     * @param pValue 
+     * @param cmdtyCurrID 
+     * @return return the price of the given commodity/currency in base currencies
      * @see SimplePriceTable#convertFromBaseCurrency(FixedPointNumber,
      *      java.lang.String)
      */
-    public boolean convertFromBaseCurrency(FixedPointNumber pValue, 
+    public boolean convertFromBaseCurrency(final FixedPointNumber pValue, 
 	    final GCshCmdtyCurrID cmdtyCurrID) {
 
 	SimplePriceTable table = getByNamespace(cmdtyCurrID.getNameSpace());
@@ -240,7 +251,7 @@ public class ComplexPriceTable implements Serializable {
 	return table.convertFromBaseCurrency(pValue, cmdtyCurrID.getCode());
     }
 
-    public boolean convertToBaseCurrency(FixedPointNumber pValue, 
+    public boolean convertToBaseCurrency(final FixedPointNumber pValue, 
 	    final GCshCmdtyCurrID cmdtyCurrID) {
 
 	SimplePriceTable table = getByNamespace(cmdtyCurrID.getNameSpace());
@@ -270,6 +281,7 @@ public class ComplexPriceTable implements Serializable {
 
     /**
      * @param nameSpace
+     * @return list of currencies in the given name space
      */
     public List<String> getCurrencies(final String nameSpace) {
 	SimplePriceTable table = getByNamespace(nameSpace);

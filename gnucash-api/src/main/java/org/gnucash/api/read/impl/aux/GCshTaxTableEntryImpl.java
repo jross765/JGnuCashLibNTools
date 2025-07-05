@@ -66,9 +66,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     // ---------------------------------------------------------------
 
     /**
-     * usually ${@link GCshTaxTableEntry#TYPE_PERCENT}.
-     * 
-     * @link #getAmount()
+     * @see GCshTaxTableEntry#getType()
      */
     @Override
     public Type getType() {
@@ -77,7 +75,6 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     /**
      * @return Returns the accountID.
-     * @link #myAccountID
      */
     @Override
     public GCshID getAccountID() {
@@ -90,7 +87,6 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     /**
      * @return Returns the account.
-     * @link #myAccount
      */
     @Override
     public GnuCashAccount getAccount() {
@@ -103,7 +99,6 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
 
     /**
      * @return the amount the tax is
-     * @link #getType()
      */
     @Override
     public FixedPointNumber getAmount() {

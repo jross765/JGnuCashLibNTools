@@ -26,8 +26,8 @@ public class GCshOwnerImpl implements GCshOwner {
     /**
      * The JWSDP-object we are wrapping.
      */
-    private GncGncInvoice.InvoiceOwner jwsdpInvcOwner;
-    private GncGncJob.JobOwner         jwsdpJobOwner;
+//    private GncGncInvoice.InvoiceOwner jwsdpInvcOwner;
+//    private GncGncJob.JobOwner         jwsdpJobOwner;
 
     /**
      * the file we belong to.
@@ -54,7 +54,7 @@ public class GCshOwnerImpl implements GCshOwner {
 	    final GnuCashFile gcshFile) {
 		this.myFile = gcshFile;
 
-		this.jiType = jiType.INVOICE;
+		this.jiType = JIType.INVOICE;
 		mapInvcType_Var1(jwsdpInvcOwner.getOwnerId());
 		this.ownerID = new GCshID(jwsdpInvcOwner.getOwnerId().getValue());
 		
@@ -67,7 +67,7 @@ public class GCshOwnerImpl implements GCshOwner {
 	    final GnuCashFile gcshFile) {
 		this.myFile = gcshFile;
 
-		this.jiType = jiType.JOB;
+		this.jiType = JIType.JOB;
 		mapJobType_Var1(jwsdpJobOwner.getOwnerId());
 		this.ownerID = new GCshID(jwsdpJobOwner.getOwnerId().getValue());
 		

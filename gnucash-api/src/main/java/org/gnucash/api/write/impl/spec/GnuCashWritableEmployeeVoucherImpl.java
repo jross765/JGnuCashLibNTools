@@ -57,7 +57,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 *
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @param gcshFile      the file to register under
-	 * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice, GnuCashFile)
+	 * @see GnuCashGenerInvoiceImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableEmployeeVoucherImpl(final GncGncInvoice jwsdpPeer, final GnuCashFile gcshFile) {
@@ -66,6 +66,13 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @param file the file we are associated with.
+	 * @param number 
+	 * @param empl 
+	 * @param expensesAcct 
+	 * @param payableAcct 
+	 * @param openedDate 
+	 * @param postDate 
+	 * @param dueDate 
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
@@ -85,7 +92,6 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @param invc 
-	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableEmployeeVoucherImpl(final GnuCashWritableGenerInvoiceImpl invc)
@@ -306,14 +312,14 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return 
+	 * @return the ID of the employee who owns the voucher
 	 */
 	public GCshID getEmployeeID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return
+	 * @return the employee who owns the voucher
 	 */
 	public GnuCashEmployee getEmployee() {
 		return getGnuCashFile().getEmployeeByID(getEmployeeID());

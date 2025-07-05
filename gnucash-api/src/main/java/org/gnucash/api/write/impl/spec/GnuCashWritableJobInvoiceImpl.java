@@ -66,7 +66,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 *
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @param gcshFile      the file to register under
-	 * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice, GnuCashFile)
+	 * @see GnuCashGenerInvoiceImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableJobInvoiceImpl(final GncGncInvoice jwsdpPeer, final GnuCashFile gcshFile) {
@@ -101,7 +101,6 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 
 	/**
 	 * @param invc 
-	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableJobInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
@@ -349,14 +348,14 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return
+	 * @return the ID of the job that owns the invoice
 	 */
 	public GCshID getJobID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return
+	 * @return the job that owns the invoice
 	 */
 	public GnuCashGenerJob getJob() {
 		return getGnuCashFile().getGenerJobByID(getJobID());

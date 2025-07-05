@@ -389,7 +389,7 @@ public class FileJobManager {
 			return jobList.get(0);
 	}
 
-	/**
+	/*
 	 * @see GnuCashFile#getGenerJobs()
 	 */
 	public Collection<GnuCashVendorJob> getVendorJobs() {

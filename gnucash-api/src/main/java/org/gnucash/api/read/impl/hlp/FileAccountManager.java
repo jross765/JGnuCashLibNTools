@@ -14,7 +14,6 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashAccount.Type;
-import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -102,9 +101,6 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	/**
-	 * @see GnuCashFile#getAccountByID(java.lang.String)
-	 */
 	public GnuCashAccount getAccountByID(final GCshID acctID) {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("null account ID given");
@@ -271,7 +267,7 @@ public class FileAccountManager {
 		return null;
 	}
 
-	/**
+	/*
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
@@ -301,7 +297,7 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	/**
+	/*
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
@@ -495,6 +491,7 @@ public class FileAccountManager {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
 	private List<GncAccount.ActLots.GncLot> getAccountLots_raw(final GncAccount jwsdpAcct) {
 		List<GncAccount.ActLots.GncLot> result = new ArrayList<GncAccount.ActLots.GncLot>();
 

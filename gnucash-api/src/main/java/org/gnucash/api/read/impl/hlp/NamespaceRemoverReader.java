@@ -6,7 +6,7 @@ import java.io.Reader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/*
  * replaces ':' in tag-names and attribute-names by '_' .
  */
 public class NamespaceRemoverReader extends Reader {
@@ -28,9 +28,6 @@ public class NamespaceRemoverReader extends Reader {
 
 	// ---------------------------------------------------------------
 
-	/**
-	 * @param pInput what to read from.
-	 */
 	public NamespaceRemoverReader(final Reader pInput) {
 		super();
 		input = pInput;

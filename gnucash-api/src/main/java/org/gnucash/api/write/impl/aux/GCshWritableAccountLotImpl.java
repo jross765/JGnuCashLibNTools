@@ -30,9 +30,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 
     // ---------------------------------------------------------------
 
-    /**
-     * Our helper to implement the GnuCashWritableObject-interface.
-     */
+    // Our helper to implement the GnuCashWritableObject-interface.
     private final GnuCashWritableObjectImpl helper = new GnuCashWritableObjectImpl(getWritableGnuCashFile(), this);
 
     // ---------------------------------------------------------------
@@ -195,10 +193,6 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 
     // ---------------------------------------------------------------
 
-	/**
-     * @see GnuCashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
-     */
 	public void setUserDefinedAttribute(final String name, final String value) {
 		HasWritableUserDefinedAttributesImpl
 			.setUserDefinedAttributeCore(jwsdpPeer.getLotSlots(),

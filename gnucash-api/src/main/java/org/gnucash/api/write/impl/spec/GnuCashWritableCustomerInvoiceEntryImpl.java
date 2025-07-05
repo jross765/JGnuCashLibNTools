@@ -8,7 +8,6 @@ import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
@@ -42,8 +41,7 @@ public class GnuCashWritableCustomerInvoiceEntryImpl extends GnuCashWritableGene
 	/**
 	 * @param file      the file we belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnuCashGenerInvoiceEntryImpl#GnuCashInvoiceEntryImpl(GncGncEntry,
-	 *      GnuCashFileImpl)
+	 * @see GnuCashGenerInvoiceEntryImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableCustomerInvoiceEntryImpl(final GncGncEntry jwsdpPeer, final GnuCashWritableFileImpl file) {

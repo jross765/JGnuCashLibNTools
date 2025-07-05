@@ -31,6 +31,7 @@ public interface GCshTaxTable {
     String getName();
 
     /**
+     * @return 
      * @see GCshTaxTable#isInvisible()
      */
     boolean isInvisible();

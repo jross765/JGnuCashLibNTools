@@ -57,7 +57,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 *
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @param gcshFile      the file to register under
-	 * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice, GnuCashFile)
+	 * @see GnuCashGenerInvoiceImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableVendorBillImpl(final GncGncInvoice jwsdpPeer, final GnuCashFile gcshFile) {
@@ -323,14 +323,14 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return
+	 * @return the ID of the vendor who/that owns the bill
 	 */
 	public GCshID getVendorID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return
+	 * @return the vendor who/that owns the bill
 	 */
 	public GnuCashVendor getVendor() {
 		return getGnuCashFile().getVendorByID(getVendorID());

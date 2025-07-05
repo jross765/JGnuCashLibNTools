@@ -89,14 +89,14 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return
+	 * @return the ID of the vendor who/that owns the bill
 	 */
 	public GCshID getVendorID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return
+	 * @return the vendor who/that owns the bill
 	 */
 	public GnuCashVendor getVendor() {
 		return getGnuCashFile().getVendorByID(getVendorID());

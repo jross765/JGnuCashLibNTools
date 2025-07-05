@@ -69,11 +69,16 @@ public interface GCshAccountLot extends GnuCashObject,
 
     /**
      * Gets the list of transactions-split before (or at) the given date.
+     * @param date 
+     * @return all splits before or at the given date
      */
     List<GnuCashTransactionSplit> getSplitsBefore(LocalDate date);
 
     /**
      * Gets the last transaction-split before the given date.
+     * @param fromDate 
+     * @param toDate 
+     * @return all splits between the given dates (the dates themselves included)
      */
     List<GnuCashTransactionSplit> getSplitsAfterBefore(LocalDate fromDate, LocalDate toDate);
 

@@ -51,10 +51,6 @@ public class FileTaxTableManager {
 		LOGGER.debug("init: No. of entries in tax table map: " + taxTabMap.size());
 	}
 
-	/**
-	 * @param jwsdpCust the JWSDP-peer (parsed xml-element) to fill our object with
-	 * @return the new GCshTaxTable to wrap the given JAXB object.
-	 */
 	protected GCshTaxTableImpl createTaxTable(final GncGncTaxTable jwsdpTaxTab) {
 		GCshTaxTableImpl taxTab = new GCshTaxTableImpl(jwsdpTaxTab, gcshFile);
 		LOGGER.debug("Generated new tax table: " + taxTab.getID());

@@ -160,20 +160,32 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
     GCshID getPostAccountID();
 
     /**
-     * @return
+     * @return ID of the (generic) invoice's posting transaction (if it exists)
+     *  
+     * @see #getPostAccount()
+     * @see #getPostTransactionID()
+     * @see #getPostTransaction()
      */
     GCshID getPostTransactionID();
 
     // ---------------------------------------------------------------
 
     /**
-     * @return
+     * @return ID of the (generic) invoice's posting account (the one
+     * targeted by the posting transaction, if it exists).
+     * 
+     * @see #getPostTransactionID()
+     * @see #getPostTransaction()
      */
     GnuCashAccount getPostAccount();
 
     /**
      * @return the transaction that transferes the money from the customer to the
      *         account for money you are to get and the one you owe the taxes.
+     *         
+     * @see #getPostAccount()
+     * @see #getPostTransactionID()
+     * @see #getPostTransaction()
      */
     GnuCashTransaction getPostTransaction();
 
@@ -209,7 +221,6 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
     /**
      *
      * @return the content of the invoice
-     * @see ${@link GnuCashGenerInvoiceEntry}
      */
     List<GnuCashGenerInvoiceEntry> getGenerEntries();
 

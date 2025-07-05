@@ -75,7 +75,6 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
 
     /**
      * @param acct The account to set.
-     * @link #myAccount
      */
     @Override
     public void setAccount(final GnuCashAccount acct) {

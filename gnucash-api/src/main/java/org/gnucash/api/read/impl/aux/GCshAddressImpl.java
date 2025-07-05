@@ -20,6 +20,7 @@ public class GCshAddressImpl implements GCshAddress {
 
     /**
      * @param newPeer the JWSDP-object we are wrapping.
+     * @param gcshFile 
      */
     @SuppressWarnings("exports")
     public GCshAddressImpl(
@@ -48,7 +49,7 @@ public class GCshAddressImpl implements GCshAddress {
     // -----------------------------------------------------------
 
     /**
-     * @see GnuCashVendor.GCshAddress#getAddressName()
+     * @see GnuCashVendor#getAddress()
      */
     public String getAddressName() {
 	if (jwsdpPeer.getAddrName() == null) {
@@ -58,7 +59,7 @@ public class GCshAddressImpl implements GCshAddress {
     }
 
     /**
-     * @see GnuCashVendor.GCshAddress#getAddressLine1()
+     * @see GnuCashVendor#getAddress
      */
     public String getAddressLine1() {
 	if (jwsdpPeer.getAddrAddr1() == null) {
@@ -68,7 +69,7 @@ public class GCshAddressImpl implements GCshAddress {
     }
 
     /**
-     * @see GnuCashVendor.GCshAddress#getAddressLine2()
+     * @see GnuCashVendor#getAddress
      */
     public String getAddressLine2() {
 	if (jwsdpPeer.getAddrAddr2() == null) {

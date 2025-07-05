@@ -104,7 +104,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return getQualifiedName();
 	}
 
-	/**
+	/*
 	 * Get name including the name of the parent accounts.
 	 */
 	@Override
@@ -152,7 +152,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return getBalance(date, (List<GnuCashTransactionSplit>) null);
 	}
 
-	/**
+	/*
 	 * The currency will be the one of this account.
 	 */
 	@Override
@@ -431,9 +431,6 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
     
 	// ----------------------------
 
-	/**
-	 * @return null if we are no currency but e.g. a fund
-	 */
 	public Currency getCurrency() {
 		if ( getCmdtyCurrID().getType() != GCshCmdtyCurrID.Type.CURRENCY ) {
 			return null;

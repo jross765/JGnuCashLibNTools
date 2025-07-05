@@ -3,7 +3,6 @@ package org.gnucash.api.read;
 import java.util.List;
 import java.util.Locale;
 
-import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.hlp.GnuCashObject;

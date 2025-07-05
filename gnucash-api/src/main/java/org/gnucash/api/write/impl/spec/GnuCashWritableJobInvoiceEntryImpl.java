@@ -43,8 +43,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
 	/**
 	 * @param file      the file we belong to
 	 * @param jwsdpPeer the JWSDP-object we are facading.
-	 * @see GnuCashGenerInvoiceEntryImpl#GnuCashInvoiceEntryImpl(GncGncEntry,
-	 *      GnuCashFileImpl)
+	 * @see GnuCashGenerInvoiceEntryImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableJobInvoiceEntryImpl(final GncGncEntry jwsdpPeer, final GnuCashWritableFileImpl file) {

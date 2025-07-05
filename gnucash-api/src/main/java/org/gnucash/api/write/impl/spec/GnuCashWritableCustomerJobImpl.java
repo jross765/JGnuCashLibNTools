@@ -89,14 +89,14 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return 
+	 * @return the ID of the customer who/that owns the Job 
 	 */
 	public GCshID getCustomerID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return 
+	 * @return the customer who/that owns the Job 
 	 */
 	public GnuCashCustomer getCustomer() {
 		return getGnuCashFile().getCustomerByID(getCustomerID());

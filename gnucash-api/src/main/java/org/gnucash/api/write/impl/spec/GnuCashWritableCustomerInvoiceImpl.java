@@ -56,7 +56,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 *
 	 * @param jwsdpPeer the JWSDP-object we are facading.
 	 * @param gcshFile      the file to register under
-	 * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice, GnuCashFile)
+	 * @see GnuCashGenerInvoiceImpl
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashWritableCustomerInvoiceImpl(final GncGncInvoice jwsdpPeer, final GnuCashFile gcshFile) {
@@ -65,6 +65,13 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @param file the file we are associated with.
+	 * @param number 
+	 * @param cust 
+	 * @param incomeAcct 
+	 * @param receivableAcct 
+	 * @param openedDate 
+	 * @param postDate 
+	 * @param dueDate 
 	 * @throws WrongOwnerTypeException
 	 * @throws IllegalTransactionSplitActionException
 	 */
@@ -84,7 +91,6 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 
 	/**
 	 * @param invc 
-	 * @param file the file we are associated with.
 	 * @throws TaxTableNotFoundException
 	 */
 	public GnuCashWritableCustomerInvoiceImpl(final GnuCashWritableGenerInvoiceImpl invc)
@@ -301,14 +307,14 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	/**
-	 * @return 
+	 * @return the ID of the customer who/that owns the invoice
 	 */
 	public GCshID getCustomerID() {
 		return getOwnerID();
 	}
 
 	/**
-	 * @return 
+	 * @return the customer who/that owns the invoice 
 	 */
 	public GnuCashCustomer getCustomer() {
 		return getGnuCashFile().getCustomerByID(getCustomerID());

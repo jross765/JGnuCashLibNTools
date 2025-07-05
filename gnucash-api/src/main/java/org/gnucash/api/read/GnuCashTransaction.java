@@ -116,14 +116,14 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     /**
      *
      * @return the first split of this transaction or null.
-     * @throws SplitNotFoundException 
+     * @throws TransactionSplitNotFoundException 
      *  
      */
     GnuCashTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
-     * @throws SplitNotFoundException 
+     * @throws TransactionSplitNotFoundException 
      *  
      */
     GnuCashTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException;
@@ -180,6 +180,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     
     /**
      * The result is in the currency of the transaction.
+     * @param lcl 
      * @return 
      *  
      * @see GnuCashTransaction#getBalance()
@@ -205,6 +206,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     
     /**
      * The result is in the currency of the transaction.
+     * @param lcl 
      * @return 
      *  
      * @see GnuCashTransaction#getNegatedBalance()

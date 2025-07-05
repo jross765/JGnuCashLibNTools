@@ -5,7 +5,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 /**
  * This Class represents a sum of the taxes of
  * multiple invoice-lines for one of the different
- * tax-percentages that occured.<br/>
+ * tax-percentages that occurred.<br/>
  * e.g. you may have 2 sales-tax-rates of 7% and 16%
  * and both occur, so you will get 2 instances
  * of this class. One sum of the 7%-items and one for

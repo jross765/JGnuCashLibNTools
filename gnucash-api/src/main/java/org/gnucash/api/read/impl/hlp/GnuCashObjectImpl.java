@@ -5,7 +5,7 @@ import org.gnucash.api.read.hlp.GnuCashObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/*
  * Helper-Class used to implement functions all gnucash-objects support.
  */
 public class GnuCashObjectImpl implements GnuCashObject {

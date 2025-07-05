@@ -184,6 +184,11 @@
 					<nohelp>true</nohelp>
 					<!-- <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable> -->
 					<javadocExecutable>/usr/bin/javadoc</javadocExecutable>
+					<excludePackageNames>org.gnucash.api.generated:org.gnucash.api.read.hlp:org.gnucash.api.read.impl.hlp:org.gnucash.api.write.hlp:org.gnucash.api.write.impl.hlp</excludePackageNames>
+					<additionalJOptions>
+						<!-- https://www.locked.de/how-to-ignore-maven-javadoc-errors-in-java-8/ -->
+						<additionalparam>-Xdoclint:none</additionalparam>
+					</additionalJOptions>
 				</configuration>
 			</plugin>
       

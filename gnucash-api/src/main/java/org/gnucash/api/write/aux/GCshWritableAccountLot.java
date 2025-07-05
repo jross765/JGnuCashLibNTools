@@ -2,7 +2,6 @@ package org.gnucash.api.write.aux;
 
 import java.util.List;
 
-import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
