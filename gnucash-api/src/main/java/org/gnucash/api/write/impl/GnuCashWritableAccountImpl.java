@@ -36,7 +36,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -288,7 +287,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     }
 
     /**
-     * @see #getSplits()
+     * @see #getLots()
      */
     public List<GCshWritableAccountLot> getWritableLots() {
 	List<GCshWritableAccountLot> result = new ArrayList<GCshWritableAccountLot>();
@@ -772,12 +771,12 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 			
 			if ( evt.getPropertyName().equals("transactionSplits") ) {
 				List<GnuCashTransactionSplit> splits = (List<GnuCashTransactionSplit>) evt.getNewValue();
-			    for ( GnuCashTransactionSplit split : splits ) {
-				if ( ! (split instanceof GnuCashWritableTransactionSplit) || 
-				     splitsWeAreAddedTo.contains(split)) {
+			    for ( GnuCashTransactionSplit splt : splits ) {
+				if ( ! (splt instanceof GnuCashWritableTransactionSplit) || 
+				     splitsWeAreAddedTo.contains(splt)) {
 				    continue;
 				}
-				GnuCashWritableTransactionSplit splitw = (GnuCashWritableTransactionSplit) split;
+				GnuCashWritableTransactionSplit splitw = (GnuCashWritableTransactionSplit) splt;
 				helper.addPropertyChangeListener("account", this);
 				helper.addPropertyChangeListener("quantity", this);
 				helper.addPropertyChangeListener("datePosted", this);

@@ -85,8 +85,7 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
     GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshID entrID);
 
     /**
-     * remove this invoice from the system.
-     * 
+     * Deletes this invoice.
      * 
      * @throws TaxTableNotFoundException
      * @throws IllegalTransactionSplitActionException

@@ -19,7 +19,8 @@ import org.slf4j.LoggerFactory;
 public class GCshAccountLotImpl extends GnuCashObjectImpl 
 								implements GCshAccountLot 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshAccountLotImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshAccountLotImpl.class);
 
     // ---------------------------------------------------------------
 

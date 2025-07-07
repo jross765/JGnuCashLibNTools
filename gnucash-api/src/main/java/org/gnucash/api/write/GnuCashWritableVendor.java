@@ -17,23 +17,35 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
                                                HasWritableUserDefinedAttributes
 {
 
+	/** 
+	 * Deletes the vendor.
+	 */
     void remove();
    
     // ---------------------------------------------------------------
 
     /**
+     * Sets the vendor's number.
+     * 
      * @see {@link GnuCashVendor#getNumber()}
-     * @param number the user-assigned number of this Vendor (may contain
+     * @param number the user-assigned number of this vendor (may contain
      *               non-digits)
      */
     void setNumber(String number);
 
+    /**
+     * Sets the vendor's name.
+     * 
+     * @param name
+     */
     void setName(String name);
 
 //    void setAddress(GCshAddress adr);
 
     /**
-     * @param notes user-defined notes about the customer (may be null)
+     * Sets the vendor's notes.
+     * 
+     * @param notes user-defined notes about the vendor (may be null)
      */
     void setNotes(String notes);
 
@@ -41,6 +53,9 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
 
 //    GCshWritableAddress getWritableAddress();
 
+    /**
+     * @return the vendor's address (rw-object) 
+     */
     GCshWritableAddress getAddress();
 
 }

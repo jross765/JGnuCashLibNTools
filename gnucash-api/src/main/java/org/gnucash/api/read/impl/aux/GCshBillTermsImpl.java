@@ -16,7 +16,8 @@ import org.slf4j.LoggerFactory;
 
 public class GCshBillTermsImpl implements GCshBillTerms {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsImpl.class);
 
     /**
      * the JWSDP-object we are facading.

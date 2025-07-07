@@ -23,7 +23,6 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 /**
  * Entry (line item) of a {@link GnuCashGenerInvoice}
  * <br>
- * <br>
  * Please note that, just as is the case with generic invoice, In GnuCash lingo, 
  * an "invoice entry" is a technical umbrella term comprising:
  * <ul>

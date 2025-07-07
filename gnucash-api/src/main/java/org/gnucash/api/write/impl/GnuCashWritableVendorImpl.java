@@ -25,7 +25,6 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +51,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     // ---------------------------------------------------------------
 
     /**
-     * Please use ${@link GnuCashWritableFile#createWritableVendor()}.
+     * Please use ${@link GnuCashWritableFile#createWritableVendor(String)}.
      *
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.

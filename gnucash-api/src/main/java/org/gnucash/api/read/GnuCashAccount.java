@@ -2,7 +2,6 @@ package org.gnucash.api.read;
 
 import java.time.LocalDate;
 import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -169,6 +168,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     // -----------------------------------------------------------------
 
     /**
+     * @param lot 
      * @param split split to add to this transaction
      */
     void addLot(final GCshAccountLot lot);
@@ -283,7 +283,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @param date              ignores transactions after the given date
      * @param secCurrID 
      * @return Gets the balance including all sub-accounts.
-     * @see GnuCashAccount#getBalanceRecursive(Date, Currency)
+     * @see GnuCashAccount#getBalanceRecursive(LocalDate)
      */
     FixedPointNumber getBalanceRecursive(final LocalDate date, final GCshCmdtyCurrID secCurrID);
 

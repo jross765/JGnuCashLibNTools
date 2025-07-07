@@ -45,7 +45,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     // ---------------------------------------------------------------
 
     /**
-     * Please use ${@link GnuCashWritableFile#createWritableCommodity()}.
+     * Please use ${@link GnuCashWritableFile#createWritableCommodity(GCshCmdtyID, String, String)
      *
      * @param file      the file we belong to
      * @param jwsdpPeer the JWSDP-object we are facading.

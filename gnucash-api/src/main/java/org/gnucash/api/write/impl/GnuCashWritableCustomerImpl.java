@@ -24,7 +24,6 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

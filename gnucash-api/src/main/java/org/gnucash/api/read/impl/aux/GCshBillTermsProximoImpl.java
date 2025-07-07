@@ -10,7 +10,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsProximoImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsProximoImpl.class);
 
     /**
      * the JWSDP-object we are facading.

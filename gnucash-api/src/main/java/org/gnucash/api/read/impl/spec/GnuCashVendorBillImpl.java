@@ -31,6 +31,7 @@ public class GnuCashVendorBillImpl extends GnuCashGenerInvoiceImpl
                                    implements GnuCashVendorBill,
                                               SpecInvoiceCommon
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashVendorBillImpl.class);
 
 	// ---------------------------------------------------------------

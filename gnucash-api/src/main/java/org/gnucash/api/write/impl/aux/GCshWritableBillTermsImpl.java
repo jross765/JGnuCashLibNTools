@@ -24,7 +24,8 @@ import org.slf4j.LoggerFactory;
 public class GCshWritableBillTermsImpl extends GCshBillTermsImpl 
                                        implements GCshWritableBillTerms 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsImpl.class);
 
     // ---------------------------------------------------------------
     

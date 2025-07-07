@@ -34,7 +34,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GnuCashWritablePriceImpl extends GnuCashPriceImpl 
                                       implements GnuCashWritablePrice 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritablePriceImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritablePriceImpl.class);
 
     // ---------------------------------------------------------------
 

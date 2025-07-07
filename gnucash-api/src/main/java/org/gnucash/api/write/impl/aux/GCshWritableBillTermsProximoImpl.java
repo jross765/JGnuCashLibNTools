@@ -16,7 +16,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl 
                                               implements GCshWritableBillTermsProximo 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsProximoImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsProximoImpl.class);
 
     // ---------------------------------------------------------------
 

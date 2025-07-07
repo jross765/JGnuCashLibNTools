@@ -18,7 +18,8 @@ import org.slf4j.LoggerFactory;
 public class GCshWritableTaxTableImpl extends GCshTaxTableImpl 
                                       implements GCshWritableTaxTable 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableTaxTableImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableTaxTableImpl.class);
 
     // ---------------------------------------------------------------
 

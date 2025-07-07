@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NamespaceAdderWriter extends Writer {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(NamespaceAdderWriter.class);
 
 	// ---------------------------------------------------------------

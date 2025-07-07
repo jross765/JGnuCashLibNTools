@@ -16,7 +16,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl 
                                            implements GCshWritableBillTermsDays 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsDaysImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableBillTermsDaysImpl.class);
 
     // ---------------------------------------------------------------
 

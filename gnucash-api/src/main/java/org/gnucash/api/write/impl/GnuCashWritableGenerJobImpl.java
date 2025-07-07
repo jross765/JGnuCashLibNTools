@@ -46,8 +46,6 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
      *
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @param gcshFile      the file to register under
-     * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice,
-     *      GnuCashFile)
      */
     @SuppressWarnings("exports")
 	public GnuCashWritableGenerJobImpl(
@@ -212,6 +210,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     // ---------------------------------------------------------------
 
     /**
+     * @return 
      * @see GnuCashWritableGenerInvoice#isModifiable()
      */
     public boolean isModifiable() {

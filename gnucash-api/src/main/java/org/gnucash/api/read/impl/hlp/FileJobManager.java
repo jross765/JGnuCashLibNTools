@@ -10,7 +10,6 @@ import java.util.Map;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashCustomer;
-import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;

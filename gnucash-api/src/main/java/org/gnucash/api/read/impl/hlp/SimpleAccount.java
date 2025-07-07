@@ -518,10 +518,12 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		return getID().toString().compareTo(otherAcct.getID().toString());
 	}
 
+	@SuppressWarnings("unused")
 	private int compareToByCode(final GnuCashAccount otherAcct) {
 		return getCode().toString().compareTo(otherAcct.getCode().toString());
 	}
 
+	@SuppressWarnings("unused")
 	private int compareToByName(final GnuCashAccount otherAcct) {
 		return getName().compareTo(otherAcct.getName());
 	}
@@ -536,6 +538,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	 * Helper used in ${@link #compareTo(Object)} to compare names starting with a
 	 * number.
 	 */
+	@SuppressWarnings("unused")
 	private Long startsWithNumber(final String s) {
 		int digitCount = 0;
 		for ( int i = 0; i < s.length() && Character.isDigit(s.charAt(i)); i++ ) {

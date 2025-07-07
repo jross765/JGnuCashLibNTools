@@ -17,6 +17,11 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
                                                   HasWritableUserDefinedAttributes
 {
 
+	/**
+	 * Removes the commodity.
+	 * 
+	 * @throws ObjectCascadeException
+	 */
     void remove() throws ObjectCascadeException;
     
     // ------------------------------------------------------------

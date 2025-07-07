@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 public class GnuCashCustomerJobImpl extends GnuCashGenerJobImpl
                                     implements GnuCashCustomerJob
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashCustomerJobImpl.class);
 
 	// ---------------------------------------------------------------

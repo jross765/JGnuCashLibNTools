@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class FileStats_Raw implements FileStats {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileStats_Raw.class);
 
 	// ---------------------------------------------------------------
@@ -53,9 +54,7 @@ public class FileStats_Raw implements FileStats {
 			if ( bookElement instanceof GncAccount ) {
 				GncAccount acct = (GncAccount) bookElement;
 				if ( acct.getActLots() != null ) {
-					for ( GncAccount.ActLots.GncLot lot : acct.getActLots().getGncLot() ) {
-						result++;
-					}
+					result += acct.getActLots().getGncLot().size();
 				}
 			}
 		}
@@ -84,9 +83,7 @@ public class FileStats_Raw implements FileStats {
 			if ( bookElement instanceof GncTransaction ) {
 				GncTransaction trx = (GncTransaction) bookElement;
 				if ( trx.getTrnSplits() != null ) {
-					for ( GncTransaction.TrnSplits.TrnSplit splt : trx.getTrnSplits().getTrnSplit() ) {
-						result++;
-					}
+					result += trx.getTrnSplits().getTrnSplit().size();
 				}
 			}
 		}

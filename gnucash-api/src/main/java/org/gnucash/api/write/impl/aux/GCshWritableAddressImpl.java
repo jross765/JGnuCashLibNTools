@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
 public class GCshWritableAddressImpl extends GCshAddressImpl 
                                      implements GCshWritableAddress 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableAddressImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableAddressImpl.class);
 
     // ---------------------------------------------------------------
 

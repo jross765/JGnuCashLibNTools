@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GnuCashObjectImpl implements GnuCashObject {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashObjectImpl.class);
 
 	// -----------------------------------------------------------------

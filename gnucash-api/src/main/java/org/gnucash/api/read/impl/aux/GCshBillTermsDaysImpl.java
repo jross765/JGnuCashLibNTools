@@ -10,7 +10,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsDaysImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshBillTermsDaysImpl.class);
 
     /**
      * the JWSDP-object we are facading.

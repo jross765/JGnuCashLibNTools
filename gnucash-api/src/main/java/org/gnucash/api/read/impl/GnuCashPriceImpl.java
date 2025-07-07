@@ -47,6 +47,7 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 
 	/**
 	 * @param newPeer the JWSDP-object we are wrapping.
+	 * @param gcshFile 
 	 */
 	@SuppressWarnings("exports")
 	public GnuCashPriceImpl(final Price newPeer, final GnuCashFile gcshFile) {

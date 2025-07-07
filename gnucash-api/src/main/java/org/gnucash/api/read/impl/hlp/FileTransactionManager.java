@@ -310,6 +310,7 @@ public class FileTransactionManager {
 		return result;
 	}
 
+	@SuppressWarnings("unused")
 	private List<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GncTransaction jwsdpTrx) {
 		List<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
 

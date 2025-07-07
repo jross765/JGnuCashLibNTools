@@ -10,7 +10,6 @@ import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
-import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.impl.GnuCashWritableAccountImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;

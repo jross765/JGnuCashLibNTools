@@ -37,6 +37,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 									 implements GnuCashGenerInvoice 
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashGenerInvoiceImpl.class);
 
 	protected static final DateTimeFormatter DATE_OPENED_FORMAT       = DateTimeFormatter.ofPattern(Const.STANDARD_DATE_FORMAT);

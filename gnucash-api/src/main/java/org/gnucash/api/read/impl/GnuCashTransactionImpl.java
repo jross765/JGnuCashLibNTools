@@ -360,7 +360,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws SplitNotFoundException 
      *  
      * @see GnuCashTransaction#getFirstSplit()
      */
@@ -372,7 +371,6 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @throws SplitNotFoundException 
      *  
      * @see GnuCashTransaction#getSecondSplit()
      */

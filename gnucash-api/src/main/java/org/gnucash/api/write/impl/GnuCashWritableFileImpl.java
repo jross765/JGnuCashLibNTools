@@ -563,7 +563,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @param type the type to look for
 	 * @return A changeable version of all accounts of that type.
 	 * 
-	 * @see {@link #getAccountsByTypeAndName(org.gnucash.api.read.GnuCashAccount.Type, String, boolean, boolean)}
+	 * @see #getAccountsByTypeAndName(org.gnucash.api.read.GnuCashAccount.Type, String, boolean, boolean)
 	 */
 	@Override
 	public Collection<GnuCashWritableAccount> getWritableAccountsByType(final GnuCashAccount.Type type) {
@@ -1534,8 +1534,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * @param jnr the job-number to look for.
 	 * @return the (first) jobs that have this number or null if not found
-	 * 
-	 * @see getGenerJobByNumber
 	 */
 	@Override
 	public GnuCashWritableGenerJob getWritableGenerJobByNumber(final String jnr) {

@@ -20,7 +20,8 @@ public class GCshFileStats {
     
     // ---------------------------------------------------------------
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshFileStats.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshFileStats.class);
     
     // ---------------------------------------------------------------
 

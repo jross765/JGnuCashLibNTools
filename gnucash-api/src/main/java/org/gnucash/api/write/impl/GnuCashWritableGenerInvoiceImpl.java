@@ -101,8 +101,6 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
      *
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @param gcshFile      the file to register under
-     * @see GnuCashGenerInvoiceImpl#GnuCashInvoiceImpl(GncGncInvoice,
-     *      GnuCashFile)
      */
     @SuppressWarnings("exports")
 	public GnuCashWritableGenerInvoiceImpl(

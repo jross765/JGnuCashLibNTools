@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class BookElementsSorter implements Comparator<Object> {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(BookElementsSorter.class);
 
 	// ---------------------------------------------------------------

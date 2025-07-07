@@ -19,7 +19,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl 
                                            implements GCshWritableTaxTableEntry 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableTaxTableEntryImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableTaxTableEntryImpl.class);
 
     // ---------------------------------------------------------------
 

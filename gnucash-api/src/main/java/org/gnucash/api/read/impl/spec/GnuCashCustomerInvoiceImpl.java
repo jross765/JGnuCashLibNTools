@@ -33,6 +33,7 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
                                         implements GnuCashCustomerInvoice,
                                                    SpecInvoiceCommon
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashCustomerInvoiceImpl.class);
 	
 	// ---------------------------------------------------------------

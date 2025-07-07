@@ -494,8 +494,8 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     // ---------------------------------------------------------------
 
 	/**
-     * @see GnuCashWritableObject#setUserDefinedAttribute(java.lang.String,
-     *      java.lang.String)
+     * @param name 
+	 * @param value 
      */
 	public void setUserDefinedAttribute(final String name, final String value) {
 		HasWritableUserDefinedAttributesImpl

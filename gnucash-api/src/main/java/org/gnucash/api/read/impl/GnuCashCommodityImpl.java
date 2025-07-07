@@ -20,7 +20,8 @@ import org.slf4j.LoggerFactory;
 public class GnuCashCommodityImpl extends GnuCashObjectImpl 
 								  implements GnuCashCommodity 
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashCommodityImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashCommodityImpl.class);
 
     // ---------------------------------------------------------------
 

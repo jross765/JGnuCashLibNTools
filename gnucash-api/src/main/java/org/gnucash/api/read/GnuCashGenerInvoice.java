@@ -21,6 +21,8 @@ import org.gnucash.base.basetypes.simple.GCshID;
 
 /**
  * This class represents a generic invoice.
+ * It usually (altough not right after creation) contains
+ * one or several "entries" (line items, {@link GnuCashGenerInvoiceEntry}).
  * <br>
  * Please note: In GnuCash lingo, an "invoice" does not precisely meet the 
  * normal definition of the business term 

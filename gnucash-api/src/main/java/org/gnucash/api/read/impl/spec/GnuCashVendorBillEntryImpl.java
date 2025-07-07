@@ -31,6 +31,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
                                         implements GnuCashVendorBillEntry 
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashVendorBillEntryImpl.class);
 
 	// ---------------------------------------------------------------

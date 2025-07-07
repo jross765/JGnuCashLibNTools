@@ -22,7 +22,6 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
@@ -412,8 +411,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     /**
      * @param gnucashFile the file we belong to
      * @param jwsdpPeer   the JWSDP-object we are facading.
-     * @see GnuCashGenerInvoiceEntryImpl#GnuCashInvoiceEntryImpl(GncGncEntry,
-     *      GnuCashFileImpl)
      */
     @SuppressWarnings("exports")
     public GnuCashWritableGenerInvoiceEntryImpl(
@@ -425,8 +422,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     /**
      * @param invc   the invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
-     * @see GnuCashGenerInvoiceEntryImpl#GnuCashInvoiceEntryImpl(GnuCashGenerInvoice,
-     *      GncGncEntry)
      */
     @SuppressWarnings("exports")
     public GnuCashWritableGenerInvoiceEntryImpl(
@@ -441,8 +436,6 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      * @param invc   the invoice this entry shall belong to
      * @param jwsdpPeer the JWSDP-object we are facading.
      * @param addEntrToInvc 
-     * @see GnuCashGenerInvoiceEntryImpl#GnuCashInvoiceEntryImpl(GnuCashGenerInvoice,
-     *      GncGncEntry)
      */
     @SuppressWarnings("exports")
     public GnuCashWritableGenerInvoiceEntryImpl(

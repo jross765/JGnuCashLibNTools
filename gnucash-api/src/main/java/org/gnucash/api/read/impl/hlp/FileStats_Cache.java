@@ -2,14 +2,13 @@ package org.gnucash.api.read.impl.hlp;
 
 import java.io.IOException;
 
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FileStats_Cache implements FileStats {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileStats_Cache.class);
 
 	// ---------------------------------------------------------------

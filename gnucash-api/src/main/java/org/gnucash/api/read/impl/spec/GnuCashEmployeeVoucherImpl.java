@@ -32,6 +32,7 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
                                         implements GnuCashEmployeeVoucher,
                                                    SpecInvoiceCommon
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashEmployeeVoucherImpl.class);
 
 	// ---------------------------------------------------------------

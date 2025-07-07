@@ -60,6 +60,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 		
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
+		@SuppressWarnings("unused")
 		List<Slot> dummy = slots.getSlot();
 		
 		addUserDefinedAttributeCore(slots.getSlot(), gcshFile, 
@@ -83,6 +84,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
+		@SuppressWarnings("unused")
 		List<Slot> dummy = slots.getSlot();
 
 		removeUserDefinedAttributeCore(slots.getSlot(), gcshFile, name);
@@ -96,6 +98,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 		
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
+		@SuppressWarnings("unused")
 		List<Slot> dummy = slots.getSlot();
 		
 		setUserDefinedAttributeCore(slots.getSlot(), gcshFile, name, value);

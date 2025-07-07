@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class FileStats_Counters implements FileStats {
 
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileStats_Counters.class);
 
 	// ---------------------------------------------------------------

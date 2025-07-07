@@ -19,7 +19,8 @@ import xyz.schnorxoborx.base.beanbase.MappingException;
 
 public class GCshOwnerImpl implements GCshOwner {
 	
-    private static final Logger LOGGER = LoggerFactory.getLogger(GCshOwnerImpl.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshOwnerImpl.class);
 
 	// ---------------------------------------------------------------
 

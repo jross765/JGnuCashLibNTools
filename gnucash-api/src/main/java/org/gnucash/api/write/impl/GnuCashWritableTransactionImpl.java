@@ -236,6 +236,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 	
 	if ( mySplits == null ) { 
 		// important!
+		@SuppressWarnings("unused")
 		List<GnuCashTransactionSplit> dummy = getSplits();
 	} else {
 		// That does not work with writable splits:
@@ -263,8 +264,6 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @throws SplitNotFoundException 
-
      * @see GnuCashWritableTransaction#getWritableFirstSplit()
      */
     @Override
