@@ -91,7 +91,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     		final GnuCashWritableFileImpl file, 
     		final GCshID vendID) {
 	if ( ! vendID.isSet() ) {
-	    throw new IllegalArgumentException("GUID not set!");
+	    throw new IllegalArgumentException("argument <vendID> is null");
 	}
     
         ObjectFactory factory = file.getObjectFactory();
@@ -183,22 +183,22 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      * @see GnuCashWritableVendor#setNumber(java.lang.String)
      */
     @Override
-    public void setNumber(final String number) {
-	if ( number == null ) {
-	    throw new IllegalArgumentException("null number given!");
+    public void setNumber(final String numStr) {
+	if ( numStr == null ) {
+	    throw new IllegalArgumentException("argument <numStr> is null");
 	}
 
-	if ( number.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty number given!");
+	if ( numStr.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("argument <numStr> is empty");
 	}
 
 	String oldNumber = getNumber();
-	getJwsdpPeer().setVendorId(number);
+	getJwsdpPeer().setVendorId(numStr);
 	getGnuCashFile().setModified(true);
 
 	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("VendorNumber", oldNumber, number);
+	    propertyChangeSupport.firePropertyChange("VendorNumber", oldNumber, numStr);
 	}
     }
 
@@ -208,11 +208,11 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     @Override
     public void setName(final String name) {
 	if ( name == null ) {
-	    throw new IllegalArgumentException("null name given!");
+	    throw new IllegalArgumentException("argument <name> is null");
 	}
 
 	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty name given!");
+	    throw new IllegalArgumentException("argument <name> is empty");
 	}
 
 	String oldName = getName();
@@ -226,27 +226,27 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     }
 
     /**
-     * @param notes user-defined notes about the customer (may be null)
+     * @param nts user-defined notes about the customer (may be null)
      * @see GnuCashWritableCustomer#setNotes(String)
      */
     @Override
-    public void setNotes(final String notes) {
-	if ( notes == null ) {
-	    throw new IllegalArgumentException("null notesgiven!");
+    public void setNotes(final String nts) {
+	if ( nts == null ) {
+	    throw new IllegalArgumentException("argument <nts> is null");
 	}
 
 	// Caution: empty string allowed here
 //	if ( notes.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty notesgiven!");
+//	    throw new IllegalArgumentException("argument <nts> is empty");
 //	}
 
 	String oldNotes = getNotes();
-	getJwsdpPeer().setVendorNotes(notes);
+	getJwsdpPeer().setVendorNotes(nts);
 	getGnuCashFile().setModified(true);
 
 	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("notes", oldNotes, notes);
+	    propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
 	}
     }
 
@@ -285,7 +285,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
+	    throw new IllegalArgumentException("argument <adr> is null");
 	}
 
 	/*

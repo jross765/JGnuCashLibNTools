@@ -21,7 +21,7 @@ public abstract class FileInvoiceManager_Vendor {
 	public static List<GnuCashVendorBill> getBills_direct(final FileInvoiceManager invMgr,
 			final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
@@ -37,7 +37,7 @@ public abstract class FileInvoiceManager_Vendor {
 
 	public static List<GnuCashJobInvoice> getBills_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
@@ -54,7 +54,7 @@ public abstract class FileInvoiceManager_Vendor {
 	public static List<GnuCashVendorBill> getPaidBills_direct(final FileInvoiceManager invMgr,
 			final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
@@ -70,7 +70,7 @@ public abstract class FileInvoiceManager_Vendor {
 
 	public static List<GnuCashJobInvoice> getPaidBills_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
@@ -87,7 +87,7 @@ public abstract class FileInvoiceManager_Vendor {
 	public static List<GnuCashVendorBill> getUnpaidBills_direct(final FileInvoiceManager invMgr,
 			final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
@@ -103,7 +103,7 @@ public abstract class FileInvoiceManager_Vendor {
 
 	public static List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();

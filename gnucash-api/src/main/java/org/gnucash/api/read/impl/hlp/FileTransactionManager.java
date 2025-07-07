@@ -108,11 +108,11 @@ public class FileTransactionManager {
 
 	public GnuCashTransaction getTransactionByID(final GCshID trxID) {
 		if ( trxID == null ) {
-			throw new IllegalArgumentException("null transaction ID given");
+			throw new IllegalArgumentException("argument <trxID> is null");
 		}
 		
 		if ( ! trxID.isSet() ) {
-			throw new IllegalArgumentException("unset transaction ID given");
+			throw new IllegalArgumentException("argument <trxID> is null");
 		}
 		
 		if ( trxMap == null ) {
@@ -131,11 +131,11 @@ public class FileTransactionManager {
 
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
 		if ( spltID == null ) {
-			throw new IllegalArgumentException("null split ID given");
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 		
 		if ( ! spltID.isSet() ) {
-			throw new IllegalArgumentException("unset split ID given");
+			throw new IllegalArgumentException("argument <spltID> is not set");
 		}
 		
 		if ( trxSpltMap == null ) {
@@ -152,11 +152,11 @@ public class FileTransactionManager {
 
 	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
 		if ( acctLotID == null ) {
-			throw new IllegalArgumentException("null account-lot ID given");
+			throw new IllegalArgumentException("argument <acctLotID> is null");
 		}
 		
 		if ( ! acctLotID.isSet() ) {
-			throw new IllegalArgumentException("empty account-lot ID given");
+			throw new IllegalArgumentException("argument <acctLotID> is not set");
 		}
 		
 		String acctLotIDStr = null;
@@ -184,11 +184,11 @@ public class FileTransactionManager {
 
 	public List<GnuCashTransactionSplit> getTransactionSplitsByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
 		}
 		
 		if ( ! cmdtyCurrID.isSet() ) {
-			throw new IllegalArgumentException("empty commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
 		}
 		
 		List<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();

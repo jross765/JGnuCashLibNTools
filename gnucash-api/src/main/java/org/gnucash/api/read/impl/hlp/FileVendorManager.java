@@ -69,11 +69,11 @@ public class FileVendorManager {
 
 	public GnuCashVendor getVendorByID(GCshID vendID) {
 		if ( vendID == null ) {
-			throw new IllegalArgumentException("null vendor ID given");
+			throw new IllegalArgumentException("argument <vendID> is null");
 		}
 		
 		if ( ! vendID.isSet() ) {
-			throw new IllegalArgumentException("unset vendor ID given");
+			throw new IllegalArgumentException("argument <vendID> is not set");
 		}
 		
 		if ( vendMap == null ) {
@@ -90,11 +90,11 @@ public class FileVendorManager {
 
 	public List<GnuCashVendor> getVendorsByName(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getVendorsByName(name, true);
@@ -102,11 +102,11 @@ public class FileVendorManager {
 
 	public List<GnuCashVendor> getVendorsByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( vendMap == null ) {
@@ -133,11 +133,11 @@ public class FileVendorManager {
 	public GnuCashVendor getVendorByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashVendor> vendList = getVendorsByName(name);

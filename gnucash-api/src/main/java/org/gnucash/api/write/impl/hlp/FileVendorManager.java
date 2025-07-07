@@ -34,7 +34,7 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
 
 	public void addVendor(GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		vendMap.put(vend.getID(), vend);
@@ -43,7 +43,7 @@ public class FileVendorManager extends org.gnucash.api.read.impl.hlp.FileVendorM
 
 	public void removeVendor(GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		vendMap.remove(vend.getID());

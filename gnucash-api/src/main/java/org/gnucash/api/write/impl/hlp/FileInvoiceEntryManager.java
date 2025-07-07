@@ -34,7 +34,7 @@ public class FileInvoiceEntryManager extends org.gnucash.api.read.impl.hlp.FileI
 
 	public void addGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
 		if ( entr == null ) {
-			throw new IllegalArgumentException("null invoice entry given");
+			throw new IllegalArgumentException("argument <entr> is null");
 		}
 		
 		invcEntrMap.put(entr.getID(), entr);
@@ -43,7 +43,7 @@ public class FileInvoiceEntryManager extends org.gnucash.api.read.impl.hlp.FileI
 
 	public void removeGenerInvcEntry(GnuCashGenerInvoiceEntry entr) {
 		if ( entr == null ) {
-			throw new IllegalArgumentException("null invoice entry given");
+			throw new IllegalArgumentException("argument <entr> is null");
 		}
 		
 		invcEntrMap.remove(entr.getID());

@@ -149,7 +149,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 */
 	public void setCustomer(GnuCashCustomer cust) {
     	if ( cust == null ) {
-    	    throw new IllegalArgumentException("null customer given!");
+    	    throw new IllegalArgumentException("argument <cust> is null");
     	}
     	
 		GnuCashCustomer oldCust = getCustomer();
@@ -293,7 +293,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	protected void attemptChange() {
 		if ( !isModifiable() ) {
 			throw new IllegalStateException(
-					"this customer invoice is NOT changeable because there are already payment for it made!");
+					"this customer invoice is NOT changeable because there are already payment for it made");
 		}
 	}
 

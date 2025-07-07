@@ -34,7 +34,7 @@ public class FileBillTermsManager extends org.gnucash.api.read.impl.hlp.FileBill
 
 	public void addBillTerms(GCshBillTerms bllTrm) {
 		if ( bllTrm == null ) {
-			throw new IllegalArgumentException("null bill terms given");
+			throw new IllegalArgumentException("argument <bllTrm> is null");
 		}
 		
 		bllTrmMap.put(bllTrm.getID(), bllTrm);
@@ -43,7 +43,7 @@ public class FileBillTermsManager extends org.gnucash.api.read.impl.hlp.FileBill
 
 	public void removeBillTerms(GCshBillTerms bllTrm) {
 		if ( bllTrm == null ) {
-			throw new IllegalArgumentException("null bill terms given");
+			throw new IllegalArgumentException("argument <bllTrm> is null");
 		}
 		
 		bllTrmMap.remove(bllTrm.getID());

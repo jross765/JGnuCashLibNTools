@@ -34,7 +34,7 @@ public class FileCustomerManager extends org.gnucash.api.read.impl.hlp.FileCusto
 
 	public void addCustomer(GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		custMap.put(cust.getID(), cust);
@@ -43,7 +43,7 @@ public class FileCustomerManager extends org.gnucash.api.read.impl.hlp.FileCusto
 
 	public void removeCustomer(GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		custMap.remove(cust.getID());

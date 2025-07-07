@@ -78,8 +78,8 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	 * @see GnuCashWritableVendorJob#remove()
 	 */
 	public void remove() {
-		if ( !getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot remove a job that has invoices!");
+		if ( ! getInvoices().isEmpty() ) {
+			throw new IllegalStateException("cannot remove a job that has invoices");
 		}
 		GnuCashWritableFileImpl writableFile = (GnuCashWritableFileImpl) getGnuCashFile();
 		writableFile.getRootElement().getGncBook().getBookElements().remove(getJwsdpPeer());
@@ -131,7 +131,7 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 //     */
 //    public void setVendorType(final String vendorType) {
 //	if (vendorType == null) {
-//	    throw new IllegalArgumentException("null 'vendorType' given!");
+//	    throw new IllegalArgumentException("argument <vendorType> is null");
 //	}
 //
 //	Object old = getJwsdpPeer().getJobOwner().getOwnerType();
@@ -152,11 +152,11 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	 */
 	public void setVendor(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given!");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 
 		if ( ! getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot change vendor of a job that has invoices!");
+			throw new IllegalStateException("cannot change vendor of a job that has invoices");
 		}
 
 		GnuCashVendor oldVend = getVendor();

@@ -226,7 +226,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 
 	public void addGenerInvoice(GnuCashGenerInvoice invc) {
 		if ( invc == null ) {
-			throw new IllegalArgumentException("null invoice given");
+			throw new IllegalArgumentException("argument <invc> is null");
 		}
 		
 		invcMap.put(invc.getID(), invc);
@@ -235,7 +235,7 @@ public class FileInvoiceManager extends org.gnucash.api.read.impl.hlp.FileInvoic
 
 	public void removeGenerInvoice(GnuCashGenerInvoice invc) {
 		if ( invc == null ) {
-			throw new IllegalArgumentException("null invoice given");
+			throw new IllegalArgumentException("argument <invc> is null");
 		}
 		
 		invcMap.remove(invc.getID());

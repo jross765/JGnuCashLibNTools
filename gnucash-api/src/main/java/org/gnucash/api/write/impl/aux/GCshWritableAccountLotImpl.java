@@ -72,15 +72,15 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	    final GnuCashWritableAccountImpl acct, 
 	    final GCshID newID) {
 	if ( acct == null ) {
-	    throw new IllegalArgumentException("null accout given");
+	    throw new IllegalArgumentException("argument <acct> is null");
 	}
 	
 	if ( newID == null ) {
-		throw new IllegalArgumentException("null ID given");
+		throw new IllegalArgumentException("argument <newID> is null");
 	}
 	
 	if ( ! newID.isSet() ) {
-		throw new IllegalArgumentException("unset ID given");
+		throw new IllegalArgumentException("argument <newID> is not set");
 	}
 	
 	// This is needed because account.addLot() later

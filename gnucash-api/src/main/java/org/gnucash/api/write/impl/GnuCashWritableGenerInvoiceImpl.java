@@ -1581,7 +1581,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("This customer invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This customer invoice has payments and is not modifiable");
 	}
 
 	this.subtractInvcEntry(impl);
@@ -1603,7 +1603,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("This vendor bill has payments and is not modifiable!");
+	    throw new IllegalStateException("This vendor bill has payments and is not modifiable");
 	}
 
 	// 2) remove generic invoice entry
@@ -1630,7 +1630,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("This employee voucher has payments and is not modifiable!");
+	    throw new IllegalStateException("This employee voucher has payments and is not modifiable");
 	}
 
 	this.subtractVoucherEntry(impl);
@@ -1651,7 +1651,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    throw new WrongInvoiceTypeException();
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("This job invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This job invoice has payments and is not modifiable");
 	}
 
 	this.subtractJobEntry(impl);
@@ -2244,7 +2244,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this invoice is NOT changeable because there already have been made payments for it!");
+		    "this invoice is NOT changeable because there already have been made payments for it");
 	}
     }
 
@@ -2252,11 +2252,11 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 
 	public void setOwnerID(final GCshID ownID) {
     	if ( ownID == null ) {
-    	    throw new IllegalArgumentException("null owner ID given!");
+    	    throw new IllegalArgumentException("argument <ownID> is null");
     	}
     	
     	if ( ! ownID.isSet() ) {
-    	    throw new IllegalArgumentException("unset owner ID given!");
+    	    throw new IllegalArgumentException("argument <ownID> is not set");
     	}
     	
 		GCshOwner oldOwner = new GCshOwnerImpl(getOwnerID(), GCshOwner.JIType.INVOICE, getGnuCashFile());
@@ -2288,14 +2288,14 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 
     public void setOwner(GCshOwner own) {
     	if ( own == null ) {
-    	    throw new IllegalArgumentException("null owner given!");
+    	    throw new IllegalArgumentException("argument <onw> is null");
     	}
     	
     	if ( own.getJIType() != GCshOwner.JIType.INVOICE )
-    		throw new IllegalArgumentException("Wrong GCshOwner JI-type");
+    		throw new IllegalArgumentException("argument <own> has wrong GCshOwner JI-type");
 
     	if ( ! own.getID().isSet() ) {
-    	    throw new IllegalArgumentException("unset owner ID given!");
+    	    throw new IllegalArgumentException("argument <own> is not set");
     	}
     	
     	if ( getType() != own.getInvcType() )
@@ -2311,7 +2311,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
      */
     public void setDateOpened(final LocalDate date) {
 	if ( date == null ) {
-	    throw new IllegalArgumentException("null date given!");
+	    throw new IllegalArgumentException("argument <date> is null");
 	}
 
 	// Changing date-opened is critical:
@@ -2327,11 +2327,11 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
      */
     public void setDateOpened(final String dateStr) throws java.text.ParseException {
 	if ( dateStr == null ) {
-	    throw new IllegalArgumentException("null date string given!");
+	    throw new IllegalArgumentException("argument <dateStr> is null");
 	}
 
 	if ( dateStr.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty date string given!");
+	    throw new IllegalArgumentException("argument <dateStr> is empty");
 	}
 
 	setDateOpened(LocalDate.parse(dateStr, DATE_OPENED_FORMAT));
@@ -2342,7 +2342,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
      */
     public void setDatePosted(final LocalDate date) {
 	if ( date == null ) {
-	    throw new IllegalArgumentException("null date given!");
+	    throw new IllegalArgumentException("argument <date> is null");
 	}
 
 	// Changing date-posted is critical:
@@ -2363,11 +2363,11 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
      */
     public void setDatePosted(final String dateStr) throws java.text.ParseException {
 	if ( dateStr == null ) {
-	    throw new IllegalArgumentException("null date string given!");
+	    throw new IllegalArgumentException("argument <dateStr> is null");
 	}
 
 	if ( dateStr.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty date string given!");
+	    throw new IllegalArgumentException("argument <dateStr> is empty");
 	}
 
 	setDatePosted(LocalDate.parse(dateStr, DATE_OPENED_FORMAT));
@@ -2375,29 +2375,29 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     
     // ---------------------------------------------------------------
 
-    public void setNumber(final String number) {
-	if ( number == null ) {
-	    throw new IllegalArgumentException("null number given!");
+    public void setNumber(final String numStr) {
+	if ( numStr == null ) {
+	    throw new IllegalArgumentException("argument <numStr> is null");
 	}
 
-	if ( number.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty number given!");
+	if ( numStr.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("argument <dateStr> is null");
 	}
 
 	// Sic, changing number is uncritical:
 	// attemptChange();
-	getJwsdpPeer().setInvoiceId(number);
+	getJwsdpPeer().setInvoiceId(numStr);
 	getGnuCashFile().setModified(true);
     }
 
     public void setDescription(final String descr) {
 	if ( descr == null ) {
-	    throw new IllegalArgumentException("null description given!");
+	    throw new IllegalArgumentException("argument <descr> is null");
 	}
 
 	// Caution: empty string allowed here
 //	if ( descr.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty description given!");
+//	    throw new IllegalArgumentException("argument <descr> is empty");
 //	}
 
 	// Sic, changing description is uncritical:
@@ -2479,7 +2479,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     public void remove(final boolean withEntries) throws TaxTableNotFoundException {
 
 	if (!isModifiable()) {
-	    throw new IllegalStateException("This (generic) invoice has payments and cannot be deleted!");
+	    throw new IllegalStateException("This (generic) invoice has payments and cannot be deleted");
 	}
 
 	((GnuCashWritableFileImpl) getGnuCashFile()).removeGenerInvoice(this, withEntries);

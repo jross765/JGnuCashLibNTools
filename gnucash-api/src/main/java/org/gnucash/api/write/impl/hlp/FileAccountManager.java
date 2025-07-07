@@ -53,7 +53,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 	public void addAccount(GnuCashAccount acct, boolean withLot) {
 		if ( acct == null ) {
-			throw new IllegalArgumentException("null account given");
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 		
 		acctMap.put(acct.getID(), acct);
@@ -75,7 +75,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 	public void removeAccount(GnuCashAccount acct, boolean withLot) {
 		if ( acct == null ) {
-			throw new IllegalArgumentException("null account given");
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 		
 		if ( withLot ) {
@@ -99,7 +99,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 	public void addAccountLot(GCshAccountLot lot, boolean withAcct) {
 		if ( lot == null ) {
-			throw new IllegalArgumentException("null lot given");
+			throw new IllegalArgumentException("argument <lot> is null");
 		}
 		
 		acctLotMap.put(lot.getID(), lot);
@@ -115,7 +115,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 	public void removeAccountLot(GCshAccountLot lot, boolean withAcct) {
 		if ( lot == null ) {
-			throw new IllegalArgumentException("null lot given");
+			throw new IllegalArgumentException("argument <lot> is null");
 		}
 		
 		if ( withAcct ) {

@@ -37,11 +37,11 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
     @Override
     public void setDueDays(final Integer dueDays) {
 	if ( dueDays == null ) {
-	    throw new IllegalArgumentException("null due days given!");
+	    throw new IllegalArgumentException("argument <dueDays> is null");
 	}
 	
 	if ( dueDays <= 0 ) {
-	    throw new IllegalArgumentException("due days <= 0 given!");
+	    throw new IllegalArgumentException("argument <dueDays> is <= 0");
 	}
 
 	jwsdpPeer.setBtDaysDueDays(dueDays);
@@ -50,11 +50,11 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
     @Override
     public void setDiscountDays(final Integer dscntDays) {
 	if ( dscntDays == null ) {
-	    throw new IllegalArgumentException("null discount days given!");
+	    throw new IllegalArgumentException("argument <dscntDays> is null");
 	}
 	
 	if ( dscntDays <= 0 ) {
-	    throw new IllegalArgumentException("discount days <= 0 given!");
+	    throw new IllegalArgumentException("argument <dscntDays> is <= 0");
 	}
 
 	jwsdpPeer.setBtDaysDiscDays(dscntDays);
@@ -63,11 +63,11 @@ public class GCshWritableBillTermsDaysImpl extends GCshBillTermsDaysImpl
     @Override
     public void setDiscount(final FixedPointNumber dscnt) {
 	if ( dscnt == null ) {
-	    throw new IllegalArgumentException("null discount given!");
+	    throw new IllegalArgumentException("argument <dscnt> is null");
 	}
 	
 	if ( dscnt.getBigDecimal().doubleValue() <= 0 ) {
-	    throw new IllegalArgumentException("discount <= 0 given!");
+	    throw new IllegalArgumentException("argument <dscnt> is <= 0");
 	}
 
 	jwsdpPeer.setBtDaysDiscount(dscnt.toGnuCashString());

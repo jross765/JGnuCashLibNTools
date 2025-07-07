@@ -69,11 +69,11 @@ public class FileCustomerManager {
 
 	public GnuCashCustomer getCustomerByID(final GCshID custID) {
 		if ( custID == null ) {
-			throw new IllegalArgumentException("null customer ID given");
+			throw new IllegalArgumentException("argument <custID> is null");
 		}
 		
 		if ( ! custID.isSet() ) {
-			throw new IllegalArgumentException("unset customer ID given");
+			throw new IllegalArgumentException("argument <custID> is not set");
 		}
 		
 		if ( custMap == null ) {
@@ -90,11 +90,11 @@ public class FileCustomerManager {
 
 	public List<GnuCashCustomer> getCustomersByName(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getCustomersByName(name, true);
@@ -102,11 +102,11 @@ public class FileCustomerManager {
 
 	public List<GnuCashCustomer> getCustomersByName(final String expr, boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( custMap == null ) {
@@ -133,11 +133,11 @@ public class FileCustomerManager {
 	public GnuCashCustomer getCustomerByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashCustomer> custList = getCustomersByName(name);

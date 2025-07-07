@@ -60,11 +60,11 @@ public class FileBillTermsManager {
 
 	public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
 		if ( bllTrmID == null ) {
-			throw new IllegalArgumentException("null bill terms ID given");
+			throw new IllegalArgumentException("argument <bllTrmID> is null");
 		}
 		
 		if ( ! bllTrmID.isSet() ) {
-			throw new IllegalArgumentException("unset bill terms ID given");
+			throw new IllegalArgumentException("argument <bllTrmID> is not set");
 		}
 		
 		if ( bllTrmMap == null ) {
@@ -81,11 +81,11 @@ public class FileBillTermsManager {
 
 	public GCshBillTerms getBillTermsByName(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		if ( bllTrmMap == null ) {

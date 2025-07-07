@@ -62,7 +62,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	public void addTransaction(GnuCashTransaction trx, boolean withSplt) {
 		if ( trx == null ) {
-			throw new IllegalArgumentException("null transaction given");
+			throw new IllegalArgumentException("argument <trx> is null");
 		}
 		
 		trxMap.put(trx.getID(), trx);
@@ -84,7 +84,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	public void removeTransaction(GnuCashTransaction trx, boolean withSplt) {
 		if ( trx == null ) {
-			throw new IllegalArgumentException("null transaction given");
+			throw new IllegalArgumentException("argument <trx> is null");
 		}
 		
 		if ( withSplt ) {
@@ -126,7 +126,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	public void addTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
 		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
+			throw new IllegalArgumentException("argument <splt> is null");
 		}
 		
 		trxSpltMap.put(splt.getID(), splt);
@@ -142,7 +142,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	public void removeTransactionSplit(GnuCashTransactionSplit splt, boolean withTrx) {
 		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
+			throw new IllegalArgumentException("argument <splt> is null");
 		}
 		
 		if ( withTrx ) {

@@ -39,11 +39,11 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     @Override
     public void setName(final String name) {
 	if ( name == null ) {
-	    throw new IllegalArgumentException("null name given!");
+	    throw new IllegalArgumentException("argument <name> is null");
 	}
 	
 	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty name given!");
+	    throw new IllegalArgumentException("argument <name> is empty");
 	}
 
 	getJwsdpPeer().setTaxtableName(name);
@@ -52,11 +52,11 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     @Override
     public void setParentID(final GCshID prntID) {
 	if ( prntID == null ) {
-	    throw new IllegalArgumentException("null parent-ID given!");
+	    throw new IllegalArgumentException("argument <prntID> is null");
 	}
 	
 	if ( ! prntID.isSet() ) {
-	    throw new IllegalArgumentException("unset parent-ID given!");
+	    throw new IllegalArgumentException("argument <prntID> is not set");
 	}
 
 	getJwsdpPeer().getTaxtableParent().setValue(prntID.toString());
@@ -65,7 +65,7 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     @Override
     public void setParent(final GCshTaxTable prnt) {
 	if ( prnt == null ) {
-	    throw new IllegalArgumentException("null parent given!");
+	    throw new IllegalArgumentException("argument <prnt> is null");
 	}
 	
 	setParentID(prnt.getID());
@@ -75,11 +75,11 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
 
     public void addEntry(final GCshTaxTableEntry entr) {
 	if ( entr == null ) {
-	    throw new IllegalArgumentException("null entry given!");
+	    throw new IllegalArgumentException("argument <entr> is null");
 	}
 	
 	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
-	    throw new IllegalArgumentException("wrong implementation of tax table entry given!");
+	    throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
 	}
 	
 	if ( ! entries.contains(entr) ) {
@@ -89,11 +89,11 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
 
     public void removeEntry(GCshTaxTableEntry entr) {
 	if ( entr == null ) {
-	    throw new IllegalArgumentException("null entry given!");
+	    throw new IllegalArgumentException("argument <entr> is null");
 	}
 
 	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
-	    throw new IllegalArgumentException("wrong implementation of tax table entry given!");
+	    throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
 	}
 	
 	for ( GCshTaxTableEntry elt : entries ) {

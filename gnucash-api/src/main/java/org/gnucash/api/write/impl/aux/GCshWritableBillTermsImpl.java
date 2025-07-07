@@ -125,11 +125,11 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 	}
 	
 	if ( bllTrmsDays == null ) {
-	    throw new IllegalArgumentException("null bill terms (days) given!");
+	    throw new IllegalArgumentException("argument <bllTrmsDays> is null");
 	}
 	
 	if ( ! ( bllTrmsDays instanceof GCshWritableBillTermsDaysImpl ) ) {
-	    throw new IllegalArgumentException("wrong implementation of bill terms (days) given!");
+	    throw new IllegalArgumentException("argument <bllTrmsDays> is not instance of GCshWritableBillTermsDaysImpl");
 	}
 	
 	jwsdpPeer.setBilltermDays(((GCshWritableBillTermsDaysImpl) bllTrmsDays).getJwsdpPeer());
@@ -142,11 +142,11 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
 	}
 	
 	if ( bllTrmsProx == null ) {
-	    throw new IllegalArgumentException("null bill terms (prox) given!");
+	    throw new IllegalArgumentException("argument <bllTrmsProx> is null");
 	}
 	
 	if ( ! ( bllTrmsProx instanceof GCshWritableBillTermsProximoImpl ) ) {
-	    throw new IllegalArgumentException("wrong implementation of bill terms (proxy) given!");
+	    throw new IllegalArgumentException("argument <bllTrmsProx> is not instance of GCshWritableBillTermsProximoImpl");
 	}
 	
 	jwsdpPeer.setBilltermProximo(((GCshWritableBillTermsProximoImpl) bllTrmsProx).getJwsdpPeer());
@@ -157,11 +157,11 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     @Override
     public void setParentID(final GCshID prntID) {
 	if ( prntID == null ) {
-	    throw new IllegalArgumentException("null parent ID given!");
+	    throw new IllegalArgumentException("argument <prntID> is null");
 	}
 	
 	if ( ! prntID.isSet() ) {
-	    throw new IllegalArgumentException("unset parent ID given!");
+	    throw new IllegalArgumentException("argument <prntID> is not set");
 	}
 
 	GncGncBillTerm.BilltermParent intVal = ((GnuCashWritableFileImpl) myFile).createGncGncBillTermParentType();

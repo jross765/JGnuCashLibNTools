@@ -150,7 +150,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 */
 	public void setEmployee(GnuCashEmployee empl) {
     	if ( empl == null ) {
-    	    throw new IllegalArgumentException("null employee given!");
+    	    throw new IllegalArgumentException("argument <empl> is null");
     	}
     	
 		GnuCashEmployee oldEmpl = getEmployee();
@@ -297,7 +297,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	protected void attemptChange() {
 		if ( !isModifiable() ) {
 			throw new IllegalStateException(
-					"this employee voucher is NOT changeable because there are already payment for it made!");
+					"this employee voucher is NOT modifiable because there are already payment for it made");
 		}
 	}
 

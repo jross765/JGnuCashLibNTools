@@ -34,7 +34,7 @@ public class FileEmployeeManager extends org.gnucash.api.read.impl.hlp.FileEmplo
 
 	public void addEmployee(GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		emplMap.put(empl.getID(), empl);
@@ -43,7 +43,7 @@ public class FileEmployeeManager extends org.gnucash.api.read.impl.hlp.FileEmplo
 
 	public void removeEmployee(GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		emplMap.remove(empl.getID());

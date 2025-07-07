@@ -107,11 +107,11 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrID qualifID) {
 		if ( qualifID == null ) {
-			throw new IllegalArgumentException("null commodity ID given");
+			throw new IllegalArgumentException("argument <qualifID> is null");
 		}
 		
 		if ( ! qualifID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity ID given");
+			throw new IllegalArgumentException("argument <qualifID> is not set");
 		}
 		
 		return getCommodityByQualifID(qualifID.toString());
@@ -119,19 +119,19 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final String nameSpace, final String id) {
 		if ( nameSpace == null ) {
-			throw new IllegalArgumentException("null name space given");
+			throw new IllegalArgumentException("argument <nameSpace> is null");
 		}
 
 		if ( nameSpace.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name space given");
+			throw new IllegalArgumentException("argument <nameSpace> is empty");
 		}
 
 		if ( id == null ) {
-			throw new IllegalArgumentException("null ID string given");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalArgumentException("empty ID string given");
+			throw new IllegalArgumentException("argument <id> is empty");
 		}
 
 		return getCommodityByQualifID(nameSpace + GCshCmdtyCurrID.SEPARATOR + id);
@@ -139,15 +139,15 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.Exchange exch, String id) {
 		if ( exch == GCshCmdtyCurrNameSpace.Exchange.UNSET ) {
-			throw new IllegalArgumentException("unset exchange given ");
+			throw new IllegalArgumentException("argument <exch> is not set");
 		}
 		
 		if ( id == null ) {
-			throw new IllegalArgumentException("null ID string given");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalArgumentException("empty ID string given");
+			throw new IllegalArgumentException("argument <id> is empty");
 		}
 
 		return getCommodityByQualifID(exch.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -155,15 +155,15 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.MIC mic, String id) {
 		if ( mic == GCshCmdtyCurrNameSpace.MIC.UNSET ) {
-			throw new IllegalArgumentException("unset MIC given");
+			throw new IllegalArgumentException("argument <mic> is not set");
 		}
 		
 		if ( id == null ) {
-			throw new IllegalArgumentException("null ID string given");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalArgumentException("empty ID string given");
+			throw new IllegalArgumentException("argument <id> is empty");
 		}
 
 		return getCommodityByQualifID(mic.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -171,15 +171,15 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final GCshCmdtyCurrNameSpace.SecIdType secIdType, String id) {
 		if ( secIdType == GCshCmdtyCurrNameSpace.SecIdType.UNSET ) {
-			throw new IllegalArgumentException("unset security ID type given");
+			throw new IllegalArgumentException("argument <secIdType> is not set");
 		}
 		
 		if ( id == null ) {
-			throw new IllegalArgumentException("null ID string given");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( id.trim().equals("") ) {
-			throw new IllegalArgumentException("empty ID string given");
+			throw new IllegalArgumentException("argument <id> is empty");
 		}
 
 		return getCommodityByQualifID(secIdType.toString() + GCshCmdtyCurrID.SEPARATOR + id);
@@ -187,11 +187,11 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByQualifID(final String qualifID) {
 		if ( qualifID == null ) {
-			throw new IllegalArgumentException("null ID string given");
+			throw new IllegalArgumentException("argument <qualifID> is null");
 		}
 
 		if ( qualifID.trim().equals("") ) {
-			throw new IllegalArgumentException("empty ID string given");
+			throw new IllegalArgumentException("argument <qualifID> is null");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -209,11 +209,11 @@ public class FileCommodityManager {
 
 	public GnuCashCommodity getCommodityByXCode(final String xCode) {
 		if ( xCode == null ) {
-			throw new IllegalArgumentException("null x-code given");
+			throw new IllegalArgumentException("argument <xCode> is null");
 		}
 
 		if ( xCode.trim().equals("") ) {
-			throw new IllegalArgumentException("empty x-code given");
+			throw new IllegalArgumentException("argument <xCode> is empty");
 		}
 
 		if ( cmdtyMap == null || xCodeMap == null ) {
@@ -246,11 +246,11 @@ public class FileCommodityManager {
 
 	public List<GnuCashCommodity> getCommoditiesByName(final String expr) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -262,11 +262,11 @@ public class FileCommodityManager {
 
 	public List<GnuCashCommodity> getCommoditiesByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 
 		if ( cmdtyMap == null ) {
@@ -298,11 +298,11 @@ public class FileCommodityManager {
 	public GnuCashCommodity getCommodityByNameUniq(final String expr)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 
 		if ( cmdtyMap == null ) {

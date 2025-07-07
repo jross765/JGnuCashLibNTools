@@ -69,11 +69,11 @@ public class FileEmployeeManager {
 
 	public GnuCashEmployee getEmployeeByID(final GCshID emplID) {
 		if ( emplID == null ) {
-			throw new IllegalArgumentException("null employee ID given");
+			throw new IllegalArgumentException("argument <emplID> is null");
 		}
 		
 		if ( ! emplID.isSet() ) {
-			throw new IllegalArgumentException("unset employee ID given");
+			throw new IllegalArgumentException("argument <emplID> is not set");
 		}
 		
 		if ( emplMap == null ) {
@@ -90,11 +90,11 @@ public class FileEmployeeManager {
 
 	public List<GnuCashEmployee> getEmployeesByUserName(final String userName) {
 		if ( userName == null ) {
-			throw new IllegalArgumentException("null user name given");
+			throw new IllegalArgumentException("argument <userName> is null");
 		}
 		
 		if ( userName.trim().equals("") ) {
-			throw new IllegalArgumentException("empty user name given");
+			throw new IllegalArgumentException("argument <userName> is empty");
 		}
 		
 		return getEmployeesByUserName(userName, true);
@@ -102,11 +102,11 @@ public class FileEmployeeManager {
 
 	public List<GnuCashEmployee> getEmployeesByUserName(final String expr, boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( emplMap == null ) {
@@ -133,11 +133,11 @@ public class FileEmployeeManager {
 	public GnuCashEmployee getEmployeeByUserNameUniq(final String userName)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( userName == null ) {
-			throw new IllegalArgumentException("null user name given");
+			throw new IllegalArgumentException("argument <userName> is null");
 		}
 		
 		if ( userName.trim().equals("") ) {
-			throw new IllegalArgumentException("empty user name given");
+			throw new IllegalArgumentException("argument <userName> is empty");
 		}
 		
 		List<GnuCashEmployee> emplList = getEmployeesByUserName(userName);

@@ -185,7 +185,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		FixedPointNumber retval = getBalance(date);
 
 		if ( retval == null ) {
-			LOGGER.error("getBalance: Error creating balance!");
+			LOGGER.error("getBalance: Could not create balance");
 			return null;
 		}
 
@@ -198,7 +198,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	
 		if ( priceTab == null ) {
 			LOGGER.error("getBalance: Cannot transfer "
-					+ "to given currency because we have no currency-table!");
+					+ "to given currency because we have no currency-table");
 			return null;
 		}
 	
@@ -206,7 +206,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 			Collection<String> currList = getGnuCashFile().getCurrencyTable()
 					.getCurrencies(getCmdtyCurrID().getNameSpace());
 			LOGGER.error("getBalance: Cannot transfer " + "from our currency '"
-					+ getCmdtyCurrID().toString() + "' to the base-currency!" + " \n(we know "
+					+ getCmdtyCurrID().toString() + "' to the base-currency " + " \n(we know "
 					+ getGnuCashFile().getCurrencyTable().getNameSpaces().size() + " currency-namespaces and "
 					+ (currList == null ? "no" : "" + currList.size()) + " currencies in our namespace)");
 			return null;
@@ -214,7 +214,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	
 		if ( ! priceTab.convertFromBaseCurrency(retval, cmdtyCurrID) ) {
 			LOGGER.error("getBalance: Cannot transfer " + "from base-currenty to given currency '"
-					+ cmdtyCurrID.toString() + "'!");
+					+ cmdtyCurrID.toString() + "'");
 			return null;
 		}
 	
@@ -227,7 +227,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 		FixedPointNumber retval = getBalance(date);
 
 		if ( retval == null ) {
-			LOGGER.warn("getBalance: Error creating balance!");
+			LOGGER.warn("getBalance: Could not create balance");
 			return null;
 		}
 
@@ -247,19 +247,19 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 		if ( priceTab == null ) {
 			LOGGER.warn("getBalance: Cannot transfer "
-					+ "to given currency because we have no currency-table!");
+					+ "to given currency because we have no currency-table");
 			return null;
 		}
 
 		if ( ! priceTab.convertToBaseCurrency(retval, getCmdtyCurrID()) ) {
 			LOGGER.warn("getBalance: Cannot transfer " + "from our currency '"
-					+ getCmdtyCurrID().toString() + "' to the base-currency!");
+					+ getCmdtyCurrID().toString() + "' to the base-currency");
 			return null;
 		}
 
 		if ( ! priceTab.convertFromBaseCurrency(retval, new GCshCurrID(curr)) ) {
 			LOGGER.warn("getBalance: Cannot transfer " + "from base-currenty to given currency '"
-					+ curr + "'!");
+					+ curr + "'");
 			return null;
 		}
 
@@ -460,11 +460,11 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	@Override
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
 		if ( id == null ) {
-			throw new IllegalArgumentException("null id given!");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( ! id.isSet() ) {
-			throw new IllegalArgumentException("ID not set");
+			throw new IllegalArgumentException("argument <id> is not set");
 		}
 
 		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
@@ -480,11 +480,11 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	@Override
 	public GCshAccountLot getLotByID(final GCshID id) {
 		if ( id == null ) {
-			throw new IllegalArgumentException("null id given!");
+			throw new IllegalArgumentException("argument <id> is null");
 		}
 
 		if ( ! id.isSet() ) {
-			throw new IllegalArgumentException("ID not set");
+			throw new IllegalArgumentException("argument <id> is not set");
 		}
 
 		for ( GCshAccountLot lot : getLots() ) {

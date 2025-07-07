@@ -92,11 +92,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     		final GnuCashWritableFileImpl file,
             final GCshID newID) {
 		if ( newID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <newID> is null");
 		}
     
         ObjectFactory factory = file.getObjectFactory();
@@ -221,11 +221,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     @Override
     public void setName(final String name) {
 	if ( name == null ) {
-	    throw new IllegalArgumentException("null name given!");
+	    throw new IllegalArgumentException("argument <name> is null");
 	}
 
 	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty name given!");
+	    throw new IllegalArgumentException("argument <name> is empty");
 	}
 
 	String oldName = getName();
@@ -242,18 +242,18 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @see #setCredit(FixedPointNumber)
      */
     @Override
-    public void setDiscount(final FixedPointNumber discount) {
-	if ( discount == null ) {
-	    throw new IllegalArgumentException("null discount given!");
+    public void setDiscount(final FixedPointNumber dscnt) {
+	if ( dscnt == null ) {
+	    throw new IllegalArgumentException("argument <dscnt> is null");
 	}
 
 	FixedPointNumber oldDiscount = getDiscount();
-	getJwsdpPeer().setCustDiscount(discount.toGnuCashString());
+	getJwsdpPeer().setCustDiscount(dscnt.toGnuCashString());
 	getGnuCashFile().setModified(true);
 
 	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("discount", oldDiscount, discount);
+	    propertyChangeSupport.firePropertyChange("discount", oldDiscount, dscnt);
 	}
     }
 
@@ -261,43 +261,43 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @see #setDiscount(FixedPointNumber)
      */
     @Override
-    public void setCredit(final FixedPointNumber credit) {
-	if ( credit == null ) {
-	    throw new IllegalArgumentException("null credit given!");
+    public void setCredit(final FixedPointNumber cred) {
+	if ( cred == null ) {
+	    throw new IllegalArgumentException("argument <cred> is null");
 	}
 
 	FixedPointNumber oldCredit = getDiscount();
-	getJwsdpPeer().setCustCredit(credit.toGnuCashString());
+	getJwsdpPeer().setCustCredit(cred.toGnuCashString());
 	getGnuCashFile().setModified(true);
 
 	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("discount", oldCredit, credit);
+	    propertyChangeSupport.firePropertyChange("discount", oldCredit, cred);
 	}
     }
 
     /**
-     * @param notes user-defined notes about the customer (may be null)
+     * @param nts user-defined notes about the customer (may be null)
      * @see GnuCashWritableCustomer#setNotes(String)
      */
     @Override
-    public void setNotes(final String notes) {
-	if ( notes == null ) {
-	    throw new IllegalArgumentException("null notes given!");
+    public void setNotes(final String nts) {
+	if ( nts == null ) {
+	    throw new IllegalArgumentException("argument <nts> is null");
 	}
 
 	// Caution: empty string are allowed here
 //	if ( notes.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty notes given!");
+//	    throw new IllegalArgumentException("argument <nts> is null");
 //	}
 
         String oldNotes = getNotes();
-        getJwsdpPeer().setCustNotes(notes);
+        getJwsdpPeer().setCustNotes(nts);
         getGnuCashFile().setModified(true);
     
         PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
         if (propertyChangeSupport != null) {
-            propertyChangeSupport.firePropertyChange("notes", oldNotes, notes);
+            propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
         }
     }
 
@@ -337,7 +337,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
+	    throw new IllegalArgumentException("argument <adr> is null");
 	}
 
         /*
@@ -400,7 +400,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     @Override
     public void setShippingAddress(final GCshAddress adr) {
 	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
+	    throw new IllegalArgumentException("argument <adr> is null");
 	}
 
         /*

@@ -103,11 +103,11 @@ public class FileAccountManager {
 
 	public GnuCashAccount getAccountByID(final GCshID acctID) {
 		if ( acctID == null ) {
-			throw new IllegalArgumentException("null account ID given");
+			throw new IllegalArgumentException("argument <acctID> is null");
 		}
 		
 		if ( ! acctID.isSet() ) {
-			throw new IllegalArgumentException("unset account ID given");
+			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
 		
 		if ( acctMap == null ) {
@@ -124,11 +124,11 @@ public class FileAccountManager {
 
 	public List<GnuCashAccount> getAccountsByParentID(final GCshID acctID) {
 		if ( acctID == null ) {
-			throw new IllegalArgumentException("null account ID given");
+			throw new IllegalArgumentException("argument <acctID> is null");
 		}
 		
 		if ( ! acctID.isSet() ) {
-			throw new IllegalArgumentException("unset account ID given");
+			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
 		
 		if ( acctMap == null ) {
@@ -159,11 +159,11 @@ public class FileAccountManager {
 
 	public List<GnuCashAccount> getAccountsByName(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getAccountsByName(name, true, true);
@@ -171,11 +171,11 @@ public class FileAccountManager {
 
 	public List<GnuCashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( acctMap == null ) {
@@ -216,11 +216,11 @@ public class FileAccountManager {
 	public GnuCashAccount getAccountByNameUniq(final String name, final boolean qualif)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashAccount> acctList = getAccountsByName(name, qualif, false);
@@ -240,11 +240,11 @@ public class FileAccountManager {
 	public GnuCashAccount getAccountByNameEx(final String nameRegEx)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( nameRegEx == null ) {
-			throw new IllegalArgumentException("null regular expression given");
+			throw new IllegalArgumentException("argument <nameRegEx> is null");
 		}
 		
 		if ( nameRegEx.trim().equals("") ) {
-			throw new IllegalArgumentException("empty regular expression given");
+			throw new IllegalArgumentException("argument <nameRegEx> is empty");
 		}
 		
 		if ( acctMap == null ) {
@@ -274,19 +274,19 @@ public class FileAccountManager {
 	public GnuCashAccount getAccountByIDorName(final GCshID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( acctID == null ) {
-			throw new IllegalArgumentException("null account ID given");
+			throw new IllegalArgumentException("argument <acctID> is null");
 		}
 		
 		if ( ! acctID.isSet() ) {
-			throw new IllegalArgumentException("unset account ID given");
+			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
 		
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		GnuCashAccount retval = getAccountByID(acctID);
@@ -304,19 +304,19 @@ public class FileAccountManager {
 	public GnuCashAccount getAccountByIDorNameEx(final GCshID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( acctID == null ) {
-			throw new IllegalArgumentException("null account ID given");
+			throw new IllegalArgumentException("argument <acctID> is null");
 		}
 		
 		if ( ! acctID.isSet() ) {
-			throw new IllegalArgumentException("unset account ID given");
+			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
 		
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		GnuCashAccount retval = getAccountByID(acctID);
@@ -343,11 +343,11 @@ public class FileAccountManager {
 
 	public List<GnuCashAccount> getAccountsByTypeAndName(Type type, String expr, boolean qualif, boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
@@ -367,11 +367,11 @@ public class FileAccountManager {
 
 	public GCshAccountLot getAccountLotByID(final GCshID lotID) {
 		if ( lotID == null ) {
-			throw new IllegalArgumentException("null lot ID given");
+			throw new IllegalArgumentException("argument <lotID> is null");
 		}
 		
 		if ( ! lotID.isSet() ) {
-			throw new IllegalArgumentException("unset lot ID given");
+			throw new IllegalArgumentException("argument <lotID> is not set");
 		}
 		
 		if ( acctLotMap == null ) {

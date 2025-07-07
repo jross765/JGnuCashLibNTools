@@ -21,7 +21,7 @@ public abstract class FileInvoiceManager_Customer {
 	public static List<GnuCashCustomerInvoice> getInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashCustomerInvoice> retval = new ArrayList<GnuCashCustomerInvoice>();
@@ -37,7 +37,7 @@ public abstract class FileInvoiceManager_Customer {
 
 	public static List<GnuCashJobInvoice> getInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
@@ -54,7 +54,7 @@ public abstract class FileInvoiceManager_Customer {
 	public static List<GnuCashCustomerInvoice> getPaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashCustomerInvoice> retval = new ArrayList<GnuCashCustomerInvoice>();
@@ -70,7 +70,7 @@ public abstract class FileInvoiceManager_Customer {
 
 	public static List<GnuCashJobInvoice> getPaidInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
@@ -87,7 +87,7 @@ public abstract class FileInvoiceManager_Customer {
 	public static List<GnuCashCustomerInvoice> getUnpaidInvoices_direct(final FileInvoiceManager invcMgr,
 			final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashCustomerInvoice> retval = new ArrayList<GnuCashCustomerInvoice>();
@@ -103,7 +103,7 @@ public abstract class FileInvoiceManager_Customer {
 
 	public static List<GnuCashJobInvoice> getUnpaidInvoices_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();

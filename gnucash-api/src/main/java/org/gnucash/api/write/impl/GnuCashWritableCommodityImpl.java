@@ -100,11 +100,11 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     		final GnuCashWritableFileImpl file,
     		final GCshCmdtyID cmdtyID) {
 		if ( cmdtyID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <cmdtyID> is null");
 		}
 
 		if ( ! cmdtyID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <cmdtyID> is not set");
 		}
 
 	GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
@@ -143,7 +143,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     @Override
     public void setQualifID(GCshCmdtyCurrID qualifId) {
 	if ( qualifId == null ) {
-	    throw new IllegalArgumentException("null qualif-ID given!");
+	    throw new IllegalArgumentException("argument <qualifID> is null");
 	}
 
 	getJwsdpPeer().setCmdtySpace(qualifId.getNameSpace());
@@ -155,11 +155,11 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     @Override
     public void setSymbol(String symb) {
 	if ( symb == null ) {
-	    throw new IllegalArgumentException("null symbol given!");
+	    throw new IllegalArgumentException("argument <symb> is null");
 	}
 
 	if ( symb.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty symbol given!");
+	    throw new IllegalArgumentException("argument <symb> is empty");
 	}
 
 	try {
@@ -172,11 +172,11 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     @Override
     public void setXCode(String xCode) {
 	if ( xCode == null ) {
-	    throw new IllegalArgumentException("null x-code given!");
+	    throw new IllegalArgumentException("argument <xCode> is null");
 	}
 
 	if ( xCode.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty x-code given!");
+	    throw new IllegalArgumentException("argument <xCode> is empty");
 	}
 
 	getJwsdpPeer().setCmdtyXcode(xCode);
@@ -186,11 +186,11 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     @Override
     public void setName(String name) {
 	if ( name == null ) {
-	    throw new IllegalArgumentException("null name given!");
+	    throw new IllegalArgumentException("argument <name> is null");
 	}
 
 	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty name given!");
+	    throw new IllegalArgumentException("argument <name> is empty");
 	}
 
 	getJwsdpPeer().setCmdtyName(name);

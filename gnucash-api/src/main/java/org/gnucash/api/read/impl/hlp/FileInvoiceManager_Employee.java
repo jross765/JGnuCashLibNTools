@@ -19,7 +19,7 @@ public abstract class FileInvoiceManager_Employee {
 	public static List<GnuCashEmployeeVoucher> getVouchers(final FileInvoiceManager invcMgr,
 			final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
@@ -36,7 +36,7 @@ public abstract class FileInvoiceManager_Employee {
 	public static List<GnuCashEmployeeVoucher> getPaidVouchers(final FileInvoiceManager invcMgr,
 			final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();
@@ -53,7 +53,7 @@ public abstract class FileInvoiceManager_Employee {
 	public static List<GnuCashEmployeeVoucher> getUnpaidVouchers(final FileInvoiceManager invcMgr,
 			final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		List<GnuCashEmployeeVoucher> retval = new ArrayList<GnuCashEmployeeVoucher>();

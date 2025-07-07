@@ -539,11 +539,11 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     public void setDate(final LocalDate date) {
 	if ( date == null ) {
-	    throw new IllegalArgumentException( "null date given!");
+	    throw new IllegalArgumentException("argument <date> is null");
 	}
 	
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable");
 	}
 	ZonedDateTime oldDate = getDate();
 	ZonedDateTime dateTime = ZonedDateTime.of(LocalDateTime.of(date, LocalTime.MIN),
@@ -562,16 +562,16 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     public void setDescription(final String descr) {
 	if ( descr == null ) {
-	    throw new IllegalArgumentException("null description given!");
+	    throw new IllegalArgumentException("argument <descr> is null");
 	}
 
 	
 //	if ( descr.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty description given!");
+//	    throw new IllegalArgumentException("argument <descr> is null");
 //	}
 
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This Invoice has payments and is not modifiable");
 	}
 	String oldDescr = getDescription();
 	getJwsdpPeer().setEntryDescription(descr);
@@ -887,7 +887,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    throw new WrongInvoiceTypeException();
 
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This customer invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This customer invoice has payments and is not modifiable");
 	}
 
 	FixedPointNumber oldPrice = getCustInvcPrice();
@@ -936,7 +936,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    throw new WrongInvoiceTypeException();
 
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This vendor bill has payments and is not modifiable!");
+	    throw new IllegalStateException("This vendor bill has payments and is not modifiable");
 	}
 
 	FixedPointNumber oldPrice = getVendBllPrice();
@@ -985,7 +985,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 	    throw new WrongInvoiceTypeException();
 
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This employee voucher has payments and is not modifiable!");
+	    throw new IllegalStateException("This employee voucher has payments and is not modifiable");
 	}
 
 	FixedPointNumber oldPrice = getEmplVchPrice();
@@ -1068,7 +1068,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     public void setAction(final Action act) {
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable");
 	}
 
 	Action oldAction = getAction();
@@ -1111,7 +1111,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     public void setQuantity(final FixedPointNumber qty)
 	    throws TaxTableNotFoundException {
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This Invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable");
 	}
 
 	FixedPointNumber oldQty = getQuantity();
@@ -1134,7 +1134,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
      */
     public void remove() throws TaxTableNotFoundException {
 	if (!this.getGenerInvoice().isModifiable()) {
-	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable!");
+	    throw new IllegalStateException("This (generic) invoice has payments and is not modifiable");
 	}
 	GnuCashWritableGenerInvoiceImpl gcshWrtblInvcImpl = ((GnuCashWritableGenerInvoiceImpl) getGenerInvoice());
 

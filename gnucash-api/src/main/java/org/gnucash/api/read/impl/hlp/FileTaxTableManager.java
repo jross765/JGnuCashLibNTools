@@ -61,11 +61,11 @@ public class FileTaxTableManager {
 
 	public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
 		if ( taxTabID == null ) {
-			throw new IllegalArgumentException("null tax table ID given");
+			throw new IllegalArgumentException("argument <taxTabID> is null");
 		}
 		
 		if ( ! taxTabID.isSet() ) {
-			throw new IllegalArgumentException("unset tax table ID given");
+			throw new IllegalArgumentException("argument <taxTabID> is not set");
 		}
 		
 		if ( taxTabMap == null ) {
@@ -82,11 +82,11 @@ public class FileTaxTableManager {
 
 	public GCshTaxTable getTaxTableByName(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		if ( taxTabMap == null ) {

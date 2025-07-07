@@ -75,11 +75,11 @@ public class FileInvoiceManager {
 
 	public GnuCashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
 		if ( invcID == null ) {
-			throw new IllegalArgumentException("null invoice ID given");
+			throw new IllegalArgumentException("argument <invcID> is null");
 		}
 		
 		if ( ! invcID.isSet() ) {
-			throw new IllegalArgumentException("unset invoice ID given");
+			throw new IllegalArgumentException("argument <invcID> is not set");
 		}
 		
 		if ( invcMap == null ) {
@@ -192,7 +192,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		return FileInvoiceManager_Customer.getInvoices_viaAllJobs(cust);
@@ -200,7 +200,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashCustomerInvoice> getPaidInvoicesForCustomer_direct(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		return FileInvoiceManager_Customer.getPaidInvoices_direct(this, cust);
@@ -208,7 +208,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getPaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		return FileInvoiceManager_Customer.getPaidInvoices_viaAllJobs(cust);
@@ -216,7 +216,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		return FileInvoiceManager_Customer.getUnpaidInvoices_direct(this, cust);
@@ -224,7 +224,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForCustomer_viaAllJobs(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		return FileInvoiceManager_Customer.getUnpaidInvoices_viaAllJobs(cust);
@@ -234,7 +234,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashVendorBill> getBillsForVendor_direct(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getBills_direct(this, vend);
@@ -242,7 +242,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getBillsForVendor_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getBills_viaAllJobs(vend);
@@ -250,7 +250,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashVendorBill> getPaidBillsForVendor_direct(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getPaidBills_direct(this, vend);
@@ -258,7 +258,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getPaidBillsForVendor_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getPaidBills_viaAllJobs(vend);
@@ -266,7 +266,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashVendorBill> getUnpaidBillsForVendor_direct(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getUnpaidBills_direct(this, vend);
@@ -274,7 +274,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getUnpaidBillsForVendor_viaAllJobs(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		return FileInvoiceManager_Vendor.getUnpaidBills_viaAllJobs(vend);
@@ -284,7 +284,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashEmployeeVoucher> getVouchersForEmployee(final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		return FileInvoiceManager_Employee.getVouchers(this, empl);
@@ -292,7 +292,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashEmployeeVoucher> getPaidVouchersForEmployee(final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		return FileInvoiceManager_Employee.getPaidVouchers(this, empl);
@@ -300,7 +300,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashEmployeeVoucher> getUnpaidVouchersForEmployee(final GnuCashEmployee empl) {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null employee given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 		
 		return FileInvoiceManager_Employee.getUnpaidVouchers(this, empl);
@@ -310,7 +310,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getInvoicesForJob(final GnuCashGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		return FileInvoiceManager_Job.getInvoices(this, job);
@@ -318,7 +318,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getPaidInvoicesForJob(final GnuCashGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		return FileInvoiceManager_Job.getPaidInvoices(this, job);
@@ -326,7 +326,7 @@ public class FileInvoiceManager {
 
 	public List<GnuCashJobInvoice> getUnpaidInvoicesForJob(final GnuCashGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		return FileInvoiceManager_Job.getUnpaidInvoices(this, job);

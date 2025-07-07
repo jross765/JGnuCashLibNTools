@@ -190,7 +190,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 */
 	protected void setFile(final File pFile) {
 		if ( pFile == null ) {
-			throw new IllegalArgumentException("null not allowed for field this.file");
+			throw new IllegalArgumentException("argument <pFile> is null");
 		}
 		file = pFile;
 	}
@@ -210,11 +210,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		long start = System.currentTimeMillis();
 
 		if ( pFile == null ) {
-			throw new IllegalArgumentException("null not allowed for field this.file");
+			throw new IllegalArgumentException("argument <pFile> is null");
 		}
 
 		if ( !pFile.exists() ) {
-			throw new IllegalArgumentException("Given file '" + pFile.getAbsolutePath() + "' does not exist!");
+			throw new IllegalArgumentException("File '" + pFile.getAbsolutePath() + "' does not exist");
 		}
 
 		setFile(pFile);
@@ -278,11 +278,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	public int getCountDataFor(final String type) {
 
 		if ( type == null ) {
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		}
 
 		if ( type.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty type given");
+			throw new IllegalArgumentException("argument <type> is empty");
 		}
 
 		List<GncCountData> cdList = getRootElement().getGncBook().getGncCountData();
@@ -518,11 +518,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
 		if ( spltID == null ) {
-			throw new IllegalArgumentException("null split ID given");
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 
 		if ( ! spltID.isSet() ) {
-			throw new IllegalArgumentException("unset split ID given");
+			throw new IllegalArgumentException("argument <spltID> is not set");
 		}
 
 		return trxMgr.getTransactionSplitByID(spltID);
@@ -538,11 +538,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
 		if ( trxID == null ) {
-			throw new IllegalArgumentException("null transaction ID given");
+			throw new IllegalArgumentException("argument <trxID> is null");
 		}
 
 		if ( ! trxID.isSet() ) {
-			throw new IllegalArgumentException("unset transaction ID given");
+			throw new IllegalArgumentException("argument <trxID> is not set");
 		}
 
 		return trxMgr.getTransactionSplits_readAfresh(trxID);
@@ -1163,7 +1163,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 */
 	protected void setRootElement(final GncV2 pRootElement) {
 		if ( pRootElement == null ) {
-			throw new IllegalArgumentException("null not allowed for field this.rootElement");
+			throw new IllegalArgumentException("argument <pRootElement> is null");
 		}
 
 		LOGGER.debug("setRootElement (read-version)");

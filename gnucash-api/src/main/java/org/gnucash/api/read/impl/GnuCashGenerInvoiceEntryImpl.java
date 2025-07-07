@@ -338,7 +338,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	    if (myInvcTaxTable == null) {
 		LOGGER.error("getInvcTaxTable: Customer invoice with id '" + getID() + 
 			"' is i-taxable but has an unknown "
-			+ "i-taxtable-id '" + taxTableId + "'!");
+			+ "i-taxtable-id '" + taxTableId + "'");
 	    }
 	} // myInvcTaxtable == null
 
@@ -378,7 +378,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	    if (myBillTaxTable == null) {
 		LOGGER.error("getBillTaxTable: Vendor bill with id '" + getID() + 
 			"' is b-taxable but has an unknown "
-			+ "b-taxtable-id '" + taxTableId + "'!");
+			+ "b-taxtable-id '" + taxTableId + "'");
 	    }
 	} // myBillTaxtable == null
 
@@ -413,7 +413,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	    if (myBillTaxTable == null) {
 		LOGGER.error("getVoucherTaxTable: Employee voucher with id '" + getID() + 
 			"' is b-taxable but has an unknown "
-			+ "b-taxtable-id '" + taxTableId + "'!");
+			+ "b-taxtable-id '" + taxTableId + "'");
 	    }
 	} // myBillTaxtable == null
 
@@ -1330,7 +1330,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		// "2001-09-18 00:00:00 +0200"
 		date = ZonedDateTime.parse(dateStr, DATE_FORMAT);
 	    } catch (Exception e) {
-		IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' in invoice!");
+		IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' in invoice");
 		ex.initCause(e);
 		throw ex;
 	    }

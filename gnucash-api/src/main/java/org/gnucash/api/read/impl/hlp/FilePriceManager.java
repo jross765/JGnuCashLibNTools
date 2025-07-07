@@ -93,11 +93,11 @@ public class FilePriceManager {
 
 	public GnuCashPrice getPriceByID(GCshID prcID) {
 		if ( prcID == null ) {
-			throw new IllegalArgumentException("null prive ID given");
+			throw new IllegalArgumentException("argument <prcID> is null");
 		}
 		
 		if ( ! prcID.isSet() ) {
-			throw new IllegalArgumentException("unset price ID given");
+			throw new IllegalArgumentException("argument <prcID> is not set");
 		}
 		
 		if ( prcMap == null ) {
@@ -124,7 +124,7 @@ public class FilePriceManager {
 	
 	public GnuCashPrice getPriceByCurrDate(final Currency curr, final LocalDate date) {
 		if ( curr == null ) {
-			throw new IllegalArgumentException("null currency ID given");
+			throw new IllegalArgumentException("argument <curr> is null");
 		}
 		
 		GCshCurrID currID = new GCshCurrID(curr);
@@ -133,15 +133,15 @@ public class FilePriceManager {
 
 	public GnuCashPrice getPriceByCmdtyCurrIDDate(final GCshCmdtyCurrID cmdtyCurrID, final LocalDate date) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
 		}
 		
 		if ( ! cmdtyCurrID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
 		}
 		
 		if ( date == null ) {
-			throw new IllegalArgumentException("null date given");
+			throw new IllegalArgumentException("argument <date> is null");
 		}
 		
 		for ( GnuCashPrice prc : getPricesByCmdtyCurrID(cmdtyCurrID) ) {
@@ -165,11 +165,11 @@ public class FilePriceManager {
 	
 	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyID cmdtyID) {
 		if ( cmdtyID == null ) {
-			throw new IllegalArgumentException("null commodity ID given");
+			throw new IllegalArgumentException("argument <cmdtyID> is null");
 		}
 		
 		if ( ! cmdtyID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity ID given");
+			throw new IllegalArgumentException("argument <cmdtyID> is not set");
 		}
 		
 		return getPricesByCmdtyCurrID(cmdtyID);
@@ -177,11 +177,11 @@ public class FilePriceManager {
 	
 	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCurrID currID) {
 		if ( currID == null ) {
-			throw new IllegalArgumentException("null currency ID given");
+			throw new IllegalArgumentException("argument <currID> is null");
 		}
 		
 		if ( ! currID.isSet() ) {
-			throw new IllegalArgumentException("unset currency ID given");
+			throw new IllegalArgumentException("argument <currID> is not set");
 		}
 		
 		return getPricesByCmdtyCurrID(currID);
@@ -189,7 +189,7 @@ public class FilePriceManager {
 	
 	public List<GnuCashPrice> getPricesByCmdtyCurr(final Currency curr) {
 		if ( curr == null ) {
-			throw new IllegalArgumentException("null currency ID given");
+			throw new IllegalArgumentException("argument <curr> is null");
 		}
 		
 		GCshCurrID currID = new GCshCurrID(curr);
@@ -198,11 +198,11 @@ public class FilePriceManager {
 	
 	public List<GnuCashPrice> getPricesByCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
 		}
 		
 		if ( ! cmdtyCurrID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
 		}
 		
 		List<GnuCashPrice> result = new ArrayList<GnuCashPrice>();
@@ -233,11 +233,11 @@ public class FilePriceManager {
 
 	public FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
 		}
 		
 		if ( ! cmdtyCurrID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
 		}
 
 		return getLatestPrice(cmdtyCurrID, 0);
@@ -245,19 +245,19 @@ public class FilePriceManager {
 
 	public FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId) {
 		if ( pCmdtySpace == null ) {
-			throw new IllegalArgumentException("null commodity space given");
+			throw new IllegalArgumentException("argument <pCmdtySpace> is null");
 		}
 		
 		if ( pCmdtySpace.trim().equals("") ) {
-			throw new IllegalArgumentException("empty commodity space given");
+			throw new IllegalArgumentException("argument <pCmdtySpace> is empty");
 		}
 		
 		if ( pCmdtyId == null ) {
-			throw new IllegalArgumentException("null commodity ID given");
+			throw new IllegalArgumentException("argument <pCmdtyId> is null");
 		}
 		
 		if ( pCmdtyId.trim().equals("") ) {
-			throw new IllegalArgumentException("empty commodity ID given");
+			throw new IllegalArgumentException("argument <pCmdtyId> is empty");
 		}
 		
 		return getLatestPrice(new GCshCmdtyCurrID(pCmdtySpace, pCmdtyId), 0);
@@ -265,11 +265,11 @@ public class FilePriceManager {
 
 	private FixedPointNumber getLatestPrice(final GCshCmdtyCurrID cmdtyCurrID, final int depth) {
 		if ( cmdtyCurrID == null ) {
-			throw new IllegalArgumentException("null commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
 		}
 		
 		if ( ! cmdtyCurrID.isSet() ) {
-			throw new IllegalArgumentException("unset commodity/currency ID given");
+			throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
 		}
 
 		// System.err.println("depth: " + depth);

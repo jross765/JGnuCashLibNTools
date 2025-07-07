@@ -91,11 +91,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     		final GnuCashWritableFileImpl file,
             final GCshID newID) {
 		if ( newID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <newID> is not set");
 		}
     
         ObjectFactory factory = file.getObjectFactory();
@@ -205,33 +205,33 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      * @see GnuCashWritableEmployee#setNumber(java.lang.String)
      */
     @Override
-    public void setNumber(final String number) {
-	if ( number == null ) {
-	    throw new IllegalArgumentException("null number given!");
+    public void setNumber(final String numStr) {
+	if ( numStr == null ) {
+	    throw new IllegalArgumentException("argument <numStr> is null");
 	}
 
-	if ( number.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty number given!");
+	if ( numStr.trim().length() == 0 ) {
+	    throw new IllegalArgumentException("argument <numStr> is empty");
 	}
 
 	String oldNumber = getNumber();
-	getJwsdpPeer().setEmployeeId(number);
+	getJwsdpPeer().setEmployeeId(numStr);
 	getGnuCashFile().setModified(true);
 
 	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("employeeNumber", oldNumber, number);
+	    propertyChangeSupport.firePropertyChange("employeeNumber", oldNumber, numStr);
 	}
     }
 
     @Override
     public void setUserName(final String userName) {
 	if ( userName == null ) {
-	    throw new IllegalArgumentException("null user name given!");
+	    throw new IllegalArgumentException("argument <userName> is null");
 	}
 
 	if ( userName.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty user name given!");
+	    throw new IllegalArgumentException("argument <userName> is empty");
 	}
 
 	String oldUserName = getUserName();
@@ -279,7 +279,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     @Override
     public void setAddress(final GCshAddress adr) {
 	if ( adr == null ) {
-	    throw new IllegalArgumentException("null address given!");
+	    throw new IllegalArgumentException("argument <adr> is null");
 	}
 
         /*

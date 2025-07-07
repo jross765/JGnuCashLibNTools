@@ -163,7 +163,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 */
 	public void setVendor(GnuCashVendor vend) {
     	if ( vend == null ) {
-    	    throw new IllegalArgumentException("null vendor given!");
+    	    throw new IllegalArgumentException("argument <vend> is null");
     	}
     	
 		GnuCashVendor oldVend = getVendor();
@@ -309,7 +309,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	protected void attemptChange() {
 		if ( !isModifiable() ) {
 			throw new IllegalStateException(
-					"this vendor bill is NOT changeable because there are already payment for it made!");
+					"this vendor bill is NOT modifiable because there are already payment for it made");
 		}
 	}
 

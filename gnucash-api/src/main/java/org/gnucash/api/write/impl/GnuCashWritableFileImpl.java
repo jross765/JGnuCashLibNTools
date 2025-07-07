@@ -296,11 +296,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public void writeFile(final File file, CompressMode compMode) throws IOException {
 
 		if ( file == null ) {
-			throw new IllegalArgumentException("null not allowed for field this file");
+			throw new IllegalArgumentException("argument <file> is null");
 		}
 
 		if ( file.exists() ) {
-			throw new IllegalArgumentException("Given file '" + file.getAbsolutePath() + "' already exists!");
+			throw new IllegalArgumentException("File '" + file.getAbsolutePath() + "' already exists");
 		}
 
 		checkAllCountData();
@@ -359,15 +359,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	protected void setCountDataFor(final String type, final int val) {
 	
 		if ( type == null ) {
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		}
 	
 		if ( type.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty type given");
+			throw new IllegalArgumentException("argument <type> is empty");
 		}
 
 		if ( val < 0 ) {
-			throw new IllegalArgumentException("val < 0 given");
+			throw new IllegalArgumentException("argument <val> is < 0");
 		}
 	
 		List<GncCountData> cdList = getRootElement().getGncBook().getGncCountData();
@@ -390,11 +390,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	protected void incrementCountDataFor(final String type) {
 
 		if ( type == null ) {
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		}
 
 		if ( type.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty type given");
+			throw new IllegalArgumentException("argument <type> is empty");
 		}
 		
 		incrementCountDataForCore(type, 1);
@@ -410,11 +410,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	protected void decrementCountDataFor(final String type) {
 
 		if ( type == null ) {
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		}
 
 		if ( type.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty type given");
+			throw new IllegalArgumentException("argument <type> is empty");
 		}
 		
 		incrementCountDataForCore(type, -1);
@@ -423,11 +423,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	private void incrementCountDataForCore(final String type, final int val) {
 
 		if ( type == null ) {
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		}
 
 		if ( type.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty type given");
+			throw new IllegalArgumentException("argument <type> is empty");
 		}
 		
 		for ( GncCountData gncCountData : getRootElement().getGncBook().getGncCountData() ) {
@@ -591,11 +591,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableAccount getWritableAccountByID(final GCshID acctID) {
 		if ( acctID == null ) {
-			throw new IllegalArgumentException("null account ID given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 
 		if ( !acctID.isSet() ) {
-			throw new IllegalArgumentException("account ID is not set");
+			throw new IllegalArgumentException("argument <name> is not set");
 		}
 
 		try {
@@ -741,7 +741,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeAccount(final GnuCashWritableAccount acct) {
 		if ( acct.hasTransactions() ) {
-			throw new IllegalStateException("cannot remove account while it contains transaction-splits!");
+			throw new IllegalStateException("cannot remove account while it contains transaction-splits");
 		}
 
 		// 1) Remove avatar in account manager
@@ -764,11 +764,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableTransaction getWritableTransactionByID(final GCshID trxID) {
 		if ( trxID == null ) {
-			throw new IllegalArgumentException("null transaction ID given");
+			throw new IllegalArgumentException("argument <trxID> is null");
 		}
 
 		if ( !trxID.isSet() ) {
-			throw new IllegalArgumentException("transaction ID is not set");
+			throw new IllegalArgumentException("argument <trxID> is null");
 		}
 
 		try {
@@ -889,11 +889,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID) {
 		if ( spltID == null ) {
-			throw new IllegalArgumentException("null transaction split ID given");
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 
 		if ( !spltID.isSet() ) {
-			throw new IllegalArgumentException("transaction split ID is not set");
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 
 		GnuCashTransactionSplit splt = super.getTransactionSplitByID(spltID);
@@ -930,11 +930,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(final GCshID invcID) {
 		if ( invcID == null ) {
-			throw new IllegalArgumentException("null invoice ID given");
+			throw new IllegalArgumentException("argument <invcID> is null");
 		}
 
 		if ( !invcID.isSet() ) {
-			throw new IllegalArgumentException("invoice ID is not set");
+			throw new IllegalArgumentException("argument <invcID> is null");
 		}
 
 		GnuCashGenerInvoice invc = super.getGenerInvoiceByID(invcID);
@@ -976,15 +976,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 
 		if ( incomeAcct == null ) {
-			throw new IllegalArgumentException("null income account given");
+			throw new IllegalArgumentException("argument <incomeAcct> is null");
 		}
 
 		if ( receivableAcct == null ) {
-			throw new IllegalArgumentException("null receivable account given");
+			throw new IllegalArgumentException("argument <receivableAcct> is null");
 		}
 
 		GnuCashWritableCustomerInvoice retval = 
@@ -1013,15 +1013,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 
 		if ( expensesAcct == null ) {
-			throw new IllegalArgumentException("null income account given");
+			throw new IllegalArgumentException("argument <expensesAcct> is null");
 		}
 
 		if ( payableAcct == null ) {
-			throw new IllegalArgumentException("null receivable account given");
+			throw new IllegalArgumentException("argument <payableAcct> is null");
 		}
 
 		GnuCashWritableVendorBill retval = 
@@ -1049,15 +1049,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( empl == null ) {
-			throw new IllegalArgumentException("null empl given");
+			throw new IllegalArgumentException("argument <empl> is null");
 		}
 
 		if ( expensesAcct == null ) {
-			throw new IllegalArgumentException("null income account given");
+			throw new IllegalArgumentException("argument <expensesAcct> is null");
 		}
 
 		if ( payableAcct == null ) {
-			throw new IllegalArgumentException("null receivable account given");
+			throw new IllegalArgumentException("argument <payableAcct> is null");
 		}
 
 		GnuCashWritableEmployeeVoucher retval = 
@@ -1085,15 +1085,15 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throws WrongOwnerTypeException,
 			IllegalTransactionSplitActionException {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 
 		if ( incExpAcct == null ) {
-			throw new IllegalArgumentException("null income/expenses account given");
+			throw new IllegalArgumentException("argument <incExpAcct> is null");
 		}
 
 		if ( recvblPayblAcct == null ) {
-			throw new IllegalArgumentException("null receivable/payable account given");
+			throw new IllegalArgumentException("argument <recvblPayblAcct> is null");
 		}
 
 		GnuCashWritableJobInvoice retval = new GnuCashWritableJobInvoiceImpl(this, number, job,
@@ -1110,7 +1110,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeGenerInvoice(final GnuCashWritableGenerInvoice invc, boolean withEntries) {
 		if ( invc.getPayingTransactions().size() > 0 ) {
-			throw new IllegalStateException("cannot remove this invoice! It has payments!");
+			throw new IllegalStateException("cannot remove this invoice! It has payments");
 		}
 
 		GCshID invcID = invc.getID();
@@ -1166,11 +1166,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(final GCshID invcEntrID) {
 		if ( invcEntrID == null ) {
-			throw new IllegalArgumentException("null invoice entry ID given");
+			throw new IllegalArgumentException("argument <invcEntrID> is null");
 		}
 
 		if ( !invcEntrID.isSet() ) {
-			throw new IllegalArgumentException("invoice entry ID is not set");
+			throw new IllegalArgumentException("argument <invcEntrID> is not set");
 		}
 
 		GnuCashGenerInvoiceEntry invcEntr = super.getGenerInvoiceEntryByID(invcEntrID);
@@ -1198,21 +1198,21 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableCustomerInvoiceEntry createWritableCustomerInvoiceEntry(
 			final GnuCashWritableCustomerInvoiceImpl invc,
-			final GnuCashAccount account, 
-			final FixedPointNumber quantity, 
-			final FixedPointNumber price) throws TaxTableNotFoundException {
+			final GnuCashAccount acct, 
+			final FixedPointNumber quant, 
+			final FixedPointNumber prc) throws TaxTableNotFoundException {
 		if ( invc == null ) {
-			throw new IllegalArgumentException("null customer invoice given");
+			throw new IllegalArgumentException("argument <invc> is null");
 		}
 
-		if ( account == null ) {
-			throw new IllegalArgumentException("null account given");
+		if ( acct == null ) {
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 
 		GnuCashWritableCustomerInvoiceEntry retval = 
 				new GnuCashWritableCustomerInvoiceEntryImpl(invc,
-															account,
-															quantity, price);
+															acct,
+															quant, prc);
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
@@ -1222,21 +1222,21 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableVendorBillEntry createWritableVendorBillEntry(
 			final GnuCashWritableVendorBillImpl bll, 
-			final GnuCashAccount account,
-			final FixedPointNumber quantity, 
-			final FixedPointNumber price) throws TaxTableNotFoundException {
+			final GnuCashAccount acct,
+			final FixedPointNumber quant, 
+			final FixedPointNumber prc) throws TaxTableNotFoundException {
 		if ( bll == null ) {
-			throw new IllegalArgumentException("null vendor bill given");
+			throw new IllegalArgumentException("argument <bll> null");
 		}
 
-		if ( account == null ) {
-			throw new IllegalArgumentException("null account given");
+		if ( acct == null ) {
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 
 		GnuCashWritableVendorBillEntry retval = 
 				new GnuCashWritableVendorBillEntryImpl(bll,
-													   account,
-													   quantity, price);
+													   acct,
+													   quant, prc);
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
@@ -1246,21 +1246,21 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableEmployeeVoucherEntry createWritableEmployeeVoucher(
 			final GnuCashWritableEmployeeVoucherImpl vch,
-			final GnuCashAccount account, 
-			final FixedPointNumber quantity, 
-			final FixedPointNumber price) throws TaxTableNotFoundException {
+			final GnuCashAccount acct, 
+			final FixedPointNumber quant, 
+			final FixedPointNumber prc) throws TaxTableNotFoundException {
 		if ( vch == null ) {
-			throw new IllegalArgumentException("null vendor bill given");
+			throw new IllegalArgumentException("argument <vch> is null");
 		}
 
-		if ( account == null ) {
-			throw new IllegalArgumentException("null account given");
+		if ( acct == null ) {
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 
 		GnuCashWritableEmployeeVoucherEntry retval = 
 				new GnuCashWritableEmployeeVoucherEntryImpl(vch,
-															account,
-															quantity, price);
+															acct,
+															quant, prc);
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
@@ -1270,21 +1270,21 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableJobInvoiceEntry createWritableJobInvoice(
 			final GnuCashWritableJobInvoiceImpl invc, 
-			final GnuCashAccount account,
-			final FixedPointNumber quantity, 
-			final FixedPointNumber price) throws TaxTableNotFoundException {
+			final GnuCashAccount acct,
+			final FixedPointNumber quant, 
+			final FixedPointNumber prc) throws TaxTableNotFoundException {
 		if ( invc == null ) {
-			throw new IllegalArgumentException("null customer invoice given");
+			throw new IllegalArgumentException("argument <invc> is null");
 		}
 
-		if ( account == null ) {
-			throw new IllegalArgumentException("null account given");
+		if ( acct == null ) {
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 
 		GnuCashWritableJobInvoiceEntry retval = 
 				new GnuCashWritableJobInvoiceEntryImpl(invc,
-													   account,
-													   quantity, price);
+													   acct,
+													   quant, prc);
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
@@ -1294,7 +1294,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeGenerInvoiceEntry(GnuCashWritableGenerInvoiceEntry entr) {
 		if ( entr.getGenerInvoice().getPayingTransactions().size() > 0 ) {
-			throw new IllegalStateException("cannot remove this (generic) invoice entry! It belongs to an invoice that has payments!");
+			throw new IllegalStateException("cannot remove this (generic) invoice entry! It belongs to an invoice that has payments");
 		}
 
 		GnuCashTransaction postTransaction = entr.getGenerInvoice().getPostTransaction();
@@ -1341,11 +1341,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableCustomer getWritableCustomerByID(final GCshID custID) {
 		if ( custID == null ) {
-			throw new IllegalArgumentException("null customer ID given");
+			throw new IllegalArgumentException("argument <custID> is null");
 		}
 
 		if ( !custID.isSet() ) {
-			throw new IllegalArgumentException("customer ID is not set");
+			throw new IllegalArgumentException("argument <custID> is not set");
 		}
 
 		GnuCashCustomer cust = super.getCustomerByID(custID);
@@ -1397,11 +1397,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableVendor getWritableVendorByID(final GCshID vendID) {
 		if ( vendID == null ) {
-			throw new IllegalArgumentException("null vendor ID given");
+			throw new IllegalArgumentException("argument <vendID> is null");
 		}
 
 		if ( !vendID.isSet() ) {
-			throw new IllegalArgumentException("vendor ID is not set");
+			throw new IllegalArgumentException("argument <vendID> is not set");
 		}
 
 		GnuCashVendor vend = super.getVendorByID(vendID);
@@ -1453,11 +1453,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableEmployee getWritableEmployeeByID(final GCshID emplID) {
 		if ( emplID == null ) {
-			throw new IllegalArgumentException("null employee ID given");
+			throw new IllegalArgumentException("argument <emplID> is null");
 		}
 
 		if ( !emplID.isSet() ) {
-			throw new IllegalArgumentException("employee ID is not set");
+			throw new IllegalArgumentException("argument <emplID> is not set");
 		}
 
 		GnuCashEmployee empl = super.getEmployeeByID(emplID);
@@ -1512,11 +1512,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableGenerJob getWritableGenerJobByID(final GCshID jobID) {
 		if ( jobID == null ) {
-			throw new IllegalArgumentException("null job ID given");
+			throw new IllegalArgumentException("argument <jobID> is null");
 		}
 
 		if ( !jobID.isSet() ) {
-			throw new IllegalArgumentException("job ID is not set");
+			throw new IllegalArgumentException("argument <jobID> is not set");
 		}
 
 		GnuCashGenerJob generJob = super.getGenerJobByID(jobID);
@@ -1573,7 +1573,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			final String number,
 			final String name) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 
 		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(this, cust, number, name);
@@ -1588,7 +1588,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			final String number,
 			final String name) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> null");
 		}
 
 		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(this, vend, number, name);
@@ -1606,7 +1606,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeGenerJob(final GnuCashWritableGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		if ( job.getInvoices().size() > 0 ) {
@@ -1634,7 +1634,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableCommodity getWritableCommodityByQualifID(final GCshCmdtyCurrID cmdtyID) {
 		if ( cmdtyID == null ) {
-			throw new IllegalArgumentException("null commodity ID given");
+			throw new IllegalArgumentException("argument <cmdtID> is null");
 		}
 
 //	if ( ! cmdtyID.isSet() ) {
@@ -1745,7 +1745,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public void removeCommodity(final GnuCashWritableCommodity cmdty) throws ObjectCascadeException {
 		if ( cmdty == null ) {
-			throw new IllegalArgumentException("null commodity given");
+			throw new IllegalArgumentException("argument <cmdty> is null");
 		}
 
 		if ( cmdty.getQualifID().toString().startsWith(GCshCmdtyCurrNameSpace.CURRENCY + GCshCmdtyCurrID.SEPARATOR) ) {
@@ -1778,35 +1778,35 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * If the currency already exists, add a new price-quote for it.
 	 *
 	 * @param pCmdtySpace        the name space (e.g. "GOODS" or "CURRENCY")
-	 * @param pCmdtyId           the currency-name
+	 * @param pCmdtyID           the currency-name
 	 * @param conversionFactor   the conversion-factor from the base-currency (EUR).
 	 * @param pCmdtyNameFraction number of decimal-places after the comma
 	 * @param pCmdtyName         common name of the new currency
 	 */
 	@Override
-	public void addCurrency(final String pCmdtySpace, final String pCmdtyId, final FixedPointNumber conversionFactor,
+	public void addCurrency(final String pCmdtySpace, final String pCmdtyID, final FixedPointNumber conversionFactor,
 			final int pCmdtyNameFraction, final String pCmdtyName) {
 
 		if ( conversionFactor == null ) {
-			throw new IllegalArgumentException("null conversionFactor given");
+			throw new IllegalArgumentException("argument <conversionFactor> is null");
 		}
 		if ( pCmdtySpace == null ) {
-			throw new IllegalArgumentException("null comodity-space given");
+			throw new IllegalArgumentException("argument <pCmdtySpace> is null");
 		}
-		if ( pCmdtyId == null ) {
-			throw new IllegalArgumentException("null comodity-id given");
+		if ( pCmdtyID == null ) {
+			throw new IllegalArgumentException("argument <pCmdtyID> is null");
 		}
 		if ( pCmdtyName == null ) {
-			throw new IllegalArgumentException("null comodity-name given");
+			throw new IllegalArgumentException("argument <pCmdtyName> is null");
 		}
-		if ( getCurrencyTable().getConversionFactor(pCmdtySpace, pCmdtyId) == null ) {
+		if ( getCurrencyTable().getConversionFactor(pCmdtySpace, pCmdtyID) == null ) {
 
 			// GncCommodity newCurrency =
 			// getObjectFactory().createGncV2GncBookGncCommodity();
 			GncCommodity newCurrency = createGncGncCommodityType();
 			newCurrency.setCmdtyFraction(pCmdtyNameFraction);
 			newCurrency.setCmdtySpace(pCmdtySpace);
-			newCurrency.setCmdtyId(pCmdtyId);
+			newCurrency.setCmdtyId(pCmdtyID);
 			newCurrency.setCmdtyName(pCmdtyName);
 			newCurrency.setVersion(Const.XML_FORMAT_VERSION);
 			getRootElement().getGncBook().getBookElements().add(newCurrency);
@@ -1815,7 +1815,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		// add price-quote
 		Price.PriceCommodity currency = new Price.PriceCommodity();
 		currency.setCmdtySpace(pCmdtySpace);
-		currency.setCmdtyId(pCmdtyId);
+		currency.setCmdtyId(pCmdtyID);
 
 		Price.PriceCurrency baseCurrency = getObjectFactory().createPricePriceCurrency();
 		baseCurrency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
@@ -1838,7 +1838,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			if ( element instanceof GncPricedb ) {
 				GncPricedb prices = (GncPricedb) element;
 				prices.getPrice().add(newQuote);
-				getCurrencyTable().setConversionFactor(pCmdtySpace, pCmdtyId, conversionFactor);
+				getCurrencyTable().setConversionFactor(pCmdtySpace, pCmdtyID, conversionFactor);
 				return;
 			}
 		}
@@ -1850,11 +1850,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritablePrice getWritablePriceByID(final GCshID prcID) {
 		if ( prcID == null ) {
-			throw new IllegalArgumentException("null price ID given");
+			throw new IllegalArgumentException("argument <prcID> is null");
 		}
 
 		if ( !prcID.isSet() ) {
-			throw new IllegalArgumentException("price ID is not set");
+			throw new IllegalArgumentException("argument <prcID> is not set");
 		}
 
 		GnuCashPrice prc = super.getPriceByID(prcID);
@@ -1930,11 +1930,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GCshWritableTaxTable getWritableTaxTableByID(GCshID taxTabID) {
 		if ( taxTabID == null ) {
-			throw new IllegalArgumentException("null tax table ID given");
+			throw new IllegalArgumentException("argument <taxTabID> is null");
 		}
 
 		if ( !taxTabID.isSet() ) {
-			throw new IllegalArgumentException("tax table ID is not set");
+			throw new IllegalArgumentException("argument <taxTabID> is not set");
 		}
 
 		GCshTaxTable taxTab = super.getTaxTableByID(taxTabID);
@@ -1968,11 +1968,11 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GCshWritableBillTerms getWritableBillTermsByID(GCshID bllTrmID) {
 		if ( bllTrmID == null ) {
-			throw new IllegalArgumentException("null bill terms ID given");
+			throw new IllegalArgumentException("argument <bllTrmID> is null");
 		}
 
 		if ( !bllTrmID.isSet() ) {
-			throw new IllegalArgumentException("tax bill terms ID is not set");
+			throw new IllegalArgumentException("argument <bllTrmID> is not set");
 		}
 
 		GCshBillTerms bllTrm = super.getBillTermsByID(bllTrmID);

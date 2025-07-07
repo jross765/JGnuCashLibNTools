@@ -181,7 +181,7 @@ public class ComplexPriceTable implements Serializable {
     public FixedPointNumber getConversionFactor(final String nameSpace, final String code) {
     
         if (code == null) {
-            throw new IllegalArgumentException("null code!");
+            throw new IllegalArgumentException("argument <code> is null");
         }
     
         SimplePriceTable table = getByNamespace(nameSpace);
@@ -205,10 +205,10 @@ public class ComplexPriceTable implements Serializable {
     								final FixedPointNumber pFactor) {
 
 	if (code == null) {
-	    throw new IllegalArgumentException("null code given!");
+	    throw new IllegalArgumentException("argument <code> is null");
 	}
 	if (pFactor == null) {
-	    throw new IllegalArgumentException("null conversion-factor given!");
+	    throw new IllegalArgumentException("argument <pFactor> is null");
 	}
 
 	SimplePriceTable table = getByNamespace(nameSpace);
@@ -224,7 +224,7 @@ public class ComplexPriceTable implements Serializable {
 
     public void setConversionFactor(final GCshCmdtyCurrID cmdtyCurrID, final FixedPointNumber pFactor) {
 	if (cmdtyCurrID == null) {
-	    throw new IllegalArgumentException("null code given!");
+	    throw new IllegalArgumentException("argument <code> is null");
 	}
 	
 	setConversionFactor(cmdtyCurrID.getNameSpace(), cmdtyCurrID.getCode(),

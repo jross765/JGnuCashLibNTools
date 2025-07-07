@@ -94,11 +94,11 @@ public class FileJobManager {
 
 	public GnuCashGenerJob getGenerJobByID(final GCshID jobID) {
 		if ( jobID == null ) {
-			throw new IllegalArgumentException("null job ID given");
+			throw new IllegalArgumentException("argument <jobID> is null");
 		}
 		
 		if ( ! jobID.isSet() ) {
-			throw new IllegalArgumentException("unset job ID given");
+			throw new IllegalArgumentException("argument <jobID> is not set");
 		}
 		
 		if ( jobMap == null ) {
@@ -134,11 +134,11 @@ public class FileJobManager {
 
 	public List<GnuCashGenerJob> getGenerJobsByName(String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getGenerJobsByName(name, true);
@@ -146,11 +146,11 @@ public class FileJobManager {
 
 	public List<GnuCashGenerJob> getGenerJobsByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		if ( jobMap == null ) {
@@ -177,11 +177,11 @@ public class FileJobManager {
 	public GnuCashGenerJob getGenerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashGenerJob> jobList = getGenerJobsByName(name, false);
@@ -205,11 +205,11 @@ public class FileJobManager {
 
 	public GnuCashCustomerJob getCustomerJobByID(final GCshID jobID) {
 		if ( jobID == null ) {
-			throw new IllegalArgumentException("null job ID given");
+			throw new IllegalArgumentException("argument <jobID> is null");
 		}
 		
 		if ( ! jobID.isSet() ) {
-			throw new IllegalArgumentException("unset job ID given");
+			throw new IllegalArgumentException("argument <jobID> is not set");
 		}
 		
 		if ( jobMap == null ) {
@@ -227,11 +227,11 @@ public class FileJobManager {
 
 	public List<GnuCashCustomerJob> getCustomerJobsByName(String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getCustomerJobsByName(name, true);
@@ -239,11 +239,11 @@ public class FileJobManager {
 
 	public List<GnuCashCustomerJob> getCustomerJobsByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( jobMap == null ) {
@@ -270,11 +270,11 @@ public class FileJobManager {
 	public GnuCashCustomerJob getCustomerJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashCustomerJob> jobList = getCustomerJobsByName(name, false);
@@ -307,11 +307,11 @@ public class FileJobManager {
 
 	public GnuCashVendorJob getVendorJobByID(final GCshID jobID) {
 		if ( jobID == null ) {
-			throw new IllegalArgumentException("null job ID given");
+			throw new IllegalArgumentException("argument <jobID> is null");
 		}
 		
 		if ( ! jobID.isSet() ) {
-			throw new IllegalArgumentException("unset job ID given");
+			throw new IllegalArgumentException("argument <jobID> is not set");
 		}
 		
 		if ( jobMap == null ) {
@@ -329,11 +329,11 @@ public class FileJobManager {
 
 	public List<GnuCashVendorJob> getVendorJobsByName(String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		return getVendorJobsByName(name, true);
@@ -341,11 +341,11 @@ public class FileJobManager {
 
 	public List<GnuCashVendorJob> getVendorJobsByName(final String expr, final boolean relaxed) {
 		if ( expr == null ) {
-			throw new IllegalArgumentException("null expression given");
+			throw new IllegalArgumentException("argument <expr> is null");
 		}
 		
 		if ( expr.trim().equals("") ) {
-			throw new IllegalArgumentException("empty expression given");
+			throw new IllegalArgumentException("argument <expr> is empty");
 		}
 		
 		if ( jobMap == null ) {
@@ -372,11 +372,11 @@ public class FileJobManager {
 	public GnuCashVendorJob getVendorJobByNameUniq(final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
 		if ( name.trim().equals("") ) {
-			throw new IllegalArgumentException("empty name given");
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 		
 		List<GnuCashVendorJob> jobList = getVendorJobsByName(name, false);
@@ -411,7 +411,7 @@ public class FileJobManager {
 
 	public List<GnuCashCustomerJob> getJobsByCustomer(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 		
 		if ( jobMap == null ) {
@@ -423,7 +423,7 @@ public class FileJobManager {
 
 	public List<GnuCashVendorJob> getJobsByVendor(final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		if ( jobMap == null ) {

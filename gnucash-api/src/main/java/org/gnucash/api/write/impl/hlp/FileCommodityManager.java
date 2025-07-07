@@ -35,7 +35,7 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 
 	public void addCommodity(GnuCashCommodity cmdty) {
 		if ( cmdty == null ) {
-			throw new IllegalArgumentException("null commodity given");
+			throw new IllegalArgumentException("argument <cmdty> is null");
 		}
 		
 		cmdtyMap.put(cmdty.getQualifID().toString(), cmdty);
@@ -48,7 +48,7 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 
 	public void removeCommodity(GnuCashCommodity cmdty) {
 		if ( cmdty == null ) {
-			throw new IllegalArgumentException("null commodity given");
+			throw new IllegalArgumentException("argument <cmdty> is null");
 		}
 		
 		cmdtyMap.remove(cmdty.getQualifID().toString());

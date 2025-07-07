@@ -34,29 +34,29 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 												   final GnuCashWritableFile gcshFile,
 												   final String type, final String name, final String value) {
 		if ( slots == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slots> is null");
 		
 		if ( gcshFile == null )
-			throw new IllegalArgumentException("null GnuCash file given");
+			throw new IllegalArgumentException("argument <gcshFile> is null");
 		
 		if ( type == null )
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		
-		if ( type.isEmpty() )
-			throw new IllegalArgumentException("empty type given");
+		if ( type.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <type> is empty");
 		
 		if ( name == null )
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		
-		if ( name.isEmpty() )
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <vend> is empty");
 
 		if ( value == null )
-			throw new IllegalArgumentException("null value given");
+			throw new IllegalArgumentException("argument <value> is null");
 		
 		// CAUTION: Yes, that's valid
-//		if ( value.isEmpty() )
-//			throw new IllegalArgumentException("empty value given");
+//		if ( value.trim().length() == 0 )
+//			throw new IllegalArgumentException("argument <value> is empty");
 		
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
@@ -71,16 +71,16 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 													  final GnuCashWritableFile gcshFile,
 													  final String name) {
 		if ( slots == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slots> null");
 
 		if ( gcshFile == null )
-			throw new IllegalArgumentException("null GnuCash file given");
+			throw new IllegalArgumentException("argument <gcshFile> is null");
 
 		if ( name == null )
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 
-		if ( name.isEmpty() )
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <vend> is empty");
 
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
@@ -94,7 +94,7 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
             									   final GnuCashWritableFile gcshFile,
             									   final String name, final String value) {
 		if ( slots == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slots> is null");
 		
 		// This makes sure that the slots list is initialized
 		// in case it had has been null.
@@ -111,29 +111,29 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
 			                                        final String type, final String name, 
 			                                        final String value) {
 		if ( slotList == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slotList> is null");
 		
 		if ( gcshFile == null )
-			throw new IllegalArgumentException("null GnuCash file given");
+			throw new IllegalArgumentException("argument <gcshFile> is null");
 		
 		if ( type == null )
-			throw new IllegalArgumentException("null type given");
+			throw new IllegalArgumentException("argument <type> is null");
 		
-		if ( type.isEmpty() )
-			throw new IllegalArgumentException("empty type given");
+		if ( type.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <slotList> is empty");
 		
 		if ( name == null )
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		
-		if ( name.isEmpty() )
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <slotList> is empty");
 
 		if ( value == null )
-			throw new IllegalArgumentException("null value given");
+			throw new IllegalArgumentException("argument <values> is null");
 		
 		// CAUTION: Yes, that's valid
-//		if ( value.isEmpty() )
-//			throw new IllegalArgumentException("empty value given");
+//		if ( value.trim().length() == 0 )
+//			throw new IllegalArgumentException("argument <value> is null");
 
 		if ( getUserDefinedAttributeKeysCore(slotList).contains(name) )
 			throw new SlotListAlreadyContainsKeyException();
@@ -156,16 +156,16 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
             										   final GnuCashWritableFile gcshFile,
             										   final String name) {
 		if ( slotList == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slotList> is null");
 
 		if ( gcshFile == null )
-			throw new IllegalArgumentException("null GnuCash file given");
+			throw new IllegalArgumentException("argument <gcshFile> is null");
 
 		if ( name == null )
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 
-		if ( name.isEmpty() )
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <name> is empty");
 
 		if ( ! getUserDefinedAttributeKeysCore(slotList).contains(name) )
 			throw new SlotListDoesNotContainKeyException();
@@ -187,23 +187,24 @@ public class HasWritableUserDefinedAttributesImpl extends HasUserDefinedAttribut
             									    final GnuCashWritableFile gcshFile,
             									    final String name, final String value) {
 		if ( slotList == null )
-			throw new IllegalArgumentException("null slot list given");
+			throw new IllegalArgumentException("argument <slotList> is null");
 
 		if ( gcshFile == null )
-			throw new IllegalArgumentException("null GnuCash file given");
+			throw new IllegalArgumentException("argument <gcshFile> is null");
 
 		if ( name == null )
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		
-		if ( name.isEmpty() )
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <slotList> is empty");
 
 		if ( value == null )
-			throw new IllegalArgumentException("null value given");
+			throw new IllegalArgumentException("argument <value> is null");
 		
 		// CAUTION: Yes, that's valid
-//		if ( value.isEmpty() )
-//			throw new IllegalArgumentException("empty value given");
+//		if ( value.trim().length() == 0 )
+//			throw new IllegalArgumentException("argument <value> is null");
+		
 		if ( ! getUserDefinedAttributeKeysCore(slotList).contains(name) )
 			throw new SlotListDoesNotContainKeyException();
 

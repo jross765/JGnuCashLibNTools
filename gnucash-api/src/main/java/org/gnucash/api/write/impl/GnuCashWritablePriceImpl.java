@@ -97,11 +97,11 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
 	    final GCshID newID) {
 	
 		if ( newID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <newID> is not set");
 		}
 		
         ObjectFactory factory = file.getObjectFactory();

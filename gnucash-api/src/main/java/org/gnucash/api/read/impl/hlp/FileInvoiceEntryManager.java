@@ -67,11 +67,11 @@ public class FileInvoiceEntryManager {
 
 	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID entrID) {
 		if ( entrID == null ) {
-			throw new IllegalArgumentException("null invoice entry ID given");
+			throw new IllegalArgumentException("argument <entrID> is null");
 		}
 		
 		if ( ! entrID.isSet() ) {
-			throw new IllegalArgumentException("unset invoice entry ID given");
+			throw new IllegalArgumentException("argument <entrID> is not set");
 		}
 		
 		if ( invcEntrMap == null ) {

@@ -84,11 +84,11 @@ public class GnuCashAccountImpl extends SimpleAccount
 //  }
 
 	if (peer == null) {
-	    throw new IllegalArgumentException("null jwsdpPeer given");
+	    throw new IllegalArgumentException("argument <peer> is null");
 	}
 
 	if (gcshFile == null) {
-	    throw new IllegalArgumentException("null file given");
+	    throw new IllegalArgumentException("argument <gcshFile> is null");
 	}
 
 	jwsdpPeer = peer;
@@ -244,7 +244,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     		final GnuCashTransactionSplit splt,
     		final GnuCashTransactionSplitImpl impl) {
     	if ( ! mySplits.remove(splt) ) {
-    		throw new IllegalArgumentException("old object not found!");
+    		throw new IllegalArgumentException("Could not remove split from local list");
     	}
 
     	mySplits.add(impl);
@@ -321,7 +321,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     		final GCshAccountLot lot,
     		final GCshAccountLot impl) {
     	if ( ! myLots.remove(lot) ) {
-    		throw new IllegalArgumentException("old object not found!");
+    		throw new IllegalArgumentException("Could not remove lot from local list");
     	}
 
     	myLots.add(impl);

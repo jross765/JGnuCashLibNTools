@@ -18,7 +18,7 @@ public abstract class FileJobManager_Vendor {
 
 	public static List<GnuCashVendorJob> getJobsByVendor(final FileJobManager jobMgr, final GnuCashVendor vend) {
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 		
 		List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();

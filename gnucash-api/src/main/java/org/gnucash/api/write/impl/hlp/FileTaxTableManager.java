@@ -34,7 +34,7 @@ public class FileTaxTableManager extends org.gnucash.api.read.impl.hlp.FileTaxTa
 
 	public void addTaxTable(GCshTaxTable taxTab) {
 		if ( taxTab == null ) {
-			throw new IllegalArgumentException("null tax table given");
+			throw new IllegalArgumentException("argument <taxTab> is null");
 		}
 		
 		taxTabMap.put(taxTab.getID(), taxTab);
@@ -43,7 +43,7 @@ public class FileTaxTableManager extends org.gnucash.api.read.impl.hlp.FileTaxTa
 
 	public void removeTaxTable(GCshTaxTable taxTab) {
 		if ( taxTab == null ) {
-			throw new IllegalArgumentException("null tax table given");
+			throw new IllegalArgumentException("argument <taxTab> is null");
 		}
 		
 		taxTabMap.remove(taxTab.getID());

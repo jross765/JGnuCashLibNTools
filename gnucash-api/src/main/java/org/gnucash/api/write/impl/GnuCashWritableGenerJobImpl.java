@@ -96,15 +96,19 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 			final String name) {
 
 		if ( file == null ) {
-			throw new IllegalArgumentException("null file given");
+			throw new IllegalArgumentException("argument <file> is null");
+		}
+
+		if ( jobID == null ) {
+			throw new IllegalArgumentException("argument <kjobID> is null");
 		}
 
 		if ( !jobID.isSet() ) {
-			throw new IllegalArgumentException("GUID not set!");
+			throw new IllegalArgumentException("argument <kjobID> is not set");
 		}
 
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null customer given");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 
 		ObjectFactory factory = file.getObjectFactory();
@@ -158,15 +162,19 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 			final String name) {
 
 		if ( file == null ) {
-			throw new IllegalArgumentException("null file given");
+			throw new IllegalArgumentException("argument <file> is null");
+		}
+
+		if ( jobID == null ) {
+			throw new IllegalArgumentException("argument <jobID> is null");
 		}
 
 		if ( !jobID.isSet() ) {
-			throw new IllegalArgumentException("GUID not set!");
+			throw new IllegalArgumentException("argument <jobID> is not set");
 		}
 
 		if ( vend == null ) {
-			throw new IllegalArgumentException("null vendor given");
+			throw new IllegalArgumentException("argument <vend> is null");
 		}
 
 		ObjectFactory factory = file.getObjectFactory();
@@ -225,7 +233,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this invoice is NOT changeable because there already have been made payments for it!");
+		    "this invoice is NOT changeable because there already have been made payments for it");
 	}
     }
 
@@ -234,15 +242,15 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     @Override
 	public void setOwnerID(GCshID ownID) {
     	if ( ownID == null ) {
-    	    throw new IllegalArgumentException("null owner ID given!");
+    	    throw new IllegalArgumentException("argument <ownID> is null");
     	}
     	
     	if ( ! ownID.isSet() ) {
-    	    throw new IllegalArgumentException("unset owner ID given!");
+    	    throw new IllegalArgumentException("argument <ownID> is not set");
     	}
     	
 		if ( ! getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot change owner of a job that has invoices!");
+			throw new IllegalStateException("cannot change owner of a job that has invoices");
 		}
 
 		GCshOwner oldOwner = new GCshOwnerImpl(getOwnerID(), GCshOwner.JIType.JOB, getGnuCashFile());
@@ -274,14 +282,14 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     @Override
 	public void setOwner(GCshOwner own) {
     	if ( own == null ) {
-    	    throw new IllegalArgumentException("null owner given!");
+    	    throw new IllegalArgumentException("argument <own> is null");
     	}
     	
     	if ( own.getJIType() != GCshOwner.JIType.JOB )
-    		throw new IllegalArgumentException("Wrong GCshOwner JI-type");
+    		throw new IllegalArgumentException("argument <jobID> has wrong GCshOwner JI-type");
 
     	if ( ! own.getID().isSet() ) {
-    	    throw new IllegalArgumentException("unset owner ID given!");
+    	    throw new IllegalArgumentException("unset owner ID given");
     	}
     	
     	if ( getType() != own.getJobType() )
@@ -293,34 +301,34 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     // ---------------------------------------------------------------
 
 	@Override
-	public void setNumber(final String jobNumber) {
-		if ( jobNumber == null ) {
-			throw new IllegalArgumentException("null job-number given!");
+	public void setNumber(final String jobNum) {
+		if ( jobNum == null ) {
+			throw new IllegalArgumentException("argument <jobNum> is null");
 		}
 
-		if ( jobNumber.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty job-number given!");
+		if ( jobNum.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <jobNum> is empty");
 		}
 
-		GnuCashGenerJob otherJob = getWritableGnuCashFile().getWritableGenerJobByNumber(jobNumber);
+		GnuCashGenerJob otherJob = getWritableGnuCashFile().getWritableGenerJobByNumber(jobNum);
 		if ( otherJob != null ) {
 			if ( !otherJob.getID().equals(getID()) ) {
 				throw new IllegalArgumentException("another job (id='" + otherJob.getID()
-						+ "' already exists with given job number '" + jobNumber + "')");
+						+ "' already exists with given job number '" + jobNum + "')");
 			}
 		}
 
 		String oldJobNumber = getJwsdpPeer().getJobId();
-		if ( oldJobNumber.equals(jobNumber) ) {
+		if ( oldJobNumber.equals(jobNum) ) {
 			return; // nothing has changed
 		}
 
-		getJwsdpPeer().setJobId(jobNumber);
+		getJwsdpPeer().setJobId(jobNum);
 		getWritableGnuCashFile().setModified(true);
 		// <<insert code to react further to this change here
 		PropertyChangeSupport propertyChangeFirer = helper.getPropertyChangeSupport();
 		if ( propertyChangeFirer != null ) {
-			propertyChangeFirer.firePropertyChange("id", oldJobNumber, jobNumber);
+			propertyChangeFirer.firePropertyChange("id", oldJobNumber, jobNum);
 		}
 
 	}
@@ -328,11 +336,11 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 	@Override
 	public void setName(final String jobName) {
 		if ( jobName == null ) {
-			throw new IllegalArgumentException("null job-name given!");
+			throw new IllegalArgumentException("argument <jobName> is null");
 		}
 
 		if ( jobName.trim().length() == 0 ) {
-			throw new IllegalArgumentException("empty job-name given!");
+			throw new IllegalArgumentException("argument <jobName> is empty");
 		}
 
 		String oldJobName = getJwsdpPeer().getJobName();

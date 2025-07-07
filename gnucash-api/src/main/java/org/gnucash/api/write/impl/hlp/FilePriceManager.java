@@ -38,7 +38,7 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
 
 	public void addPrice(GnuCashPrice prc) {
 		if ( prc == null ) {
-			throw new IllegalArgumentException("null prc given");
+			throw new IllegalArgumentException("argument <prc> is null");
 		}
 		
 		prcMap.put(prc.getID(), prc);
@@ -47,7 +47,7 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
 
 	public void removePrice(GnuCashPrice prc) {
 		if ( prc == null ) {
-			throw new IllegalArgumentException("null prc given");
+			throw new IllegalArgumentException("argument <prc> is null");
 		}
 		
 		prcMap.remove(prc.getID());

@@ -95,11 +95,11 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 //	}
 
 	if (peer == null) {
-	    throw new IllegalArgumentException("null jwsdpPeer given");
+	    throw new IllegalArgumentException("argument <peer> is null");
 	}
 
 	if (gcshFile == null) {
-	    throw new IllegalArgumentException("null file given");
+	    throw new IllegalArgumentException("argument <gcshFile> is null");
 	}
 
 	jwsdpPeer = peer;
@@ -434,7 +434,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 		// "2001-09-18 00:00:00 +0200"
 		dateEntered = ZonedDateTime.parse(s, DATE_ENTERED_FORMAT);
 	    } catch (Exception e) {
-		IllegalStateException ex = new IllegalStateException("unparsable date '" + s + "' in transaction!");
+		IllegalStateException ex = new IllegalStateException("unparsable date '" + s + "' in transaction");
 		ex.initCause(e);
 		throw ex;
 	    }
@@ -482,7 +482,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 		datePosted = ZonedDateTime.parse(s, DATE_POSTED_FORMAT);
 	    } catch (Exception e) {
 		IllegalStateException ex = new IllegalStateException(
-			"unparsable date '" + s + "' in transaction with id='" + getID() + "'!");
+			"unparsable date '" + s + "' in transaction with id='" + getID() + "'");
 		ex.initCause(e);
 		throw ex;
 	    }

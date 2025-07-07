@@ -173,7 +173,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	@Override
 	public void setGenerJob(GnuCashGenerJob job) {
     	if ( job == null ) {
-    	    throw new IllegalArgumentException("null job given!");
+    	    throw new IllegalArgumentException("argument <job> is null");
     	}
     	
 		GnuCashGenerJob oldJob = getJob();
@@ -334,7 +334,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	protected void attemptChange() {
 		if ( !isModifiable() ) {
 			throw new IllegalStateException(
-					"this job invoice is NOT changeable because there are already payment for it made!");
+					"this job invoice is NOT modifiable because there are already payment for it made");
 		}
 	}
 

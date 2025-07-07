@@ -61,7 +61,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
 	// repair a broken file
 	if (jwsdpPeer.getTrnDatePosted() == null) {
-	    LOGGER.warn("Repairing broken transaction " + jwsdpPeer.getTrnId() + " with no date-posted!");
+	    LOGGER.warn("Repairing broken transaction " + jwsdpPeer.getTrnId() + " with no date-posted");
 	    // we use our own ObjectFactory because: Exception in thread "AWT-EventQueue-0"
 	    // java.lang.IllegalAccessError: tried to access
 	    // method org.gnucash.write.jwsdpimpl.GnuCashFileImpl.getObjectFactory()
@@ -139,11 +139,11 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
             final GnuCashWritableFileImpl file, 
             final GCshID newID) {
 		if ( newID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <newID> is not set");
 		}
     
         ObjectFactory factory = file.getObjectFactory();
@@ -215,7 +215,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      */
     public GnuCashWritableTransactionSplit createWritableSplit(final GnuCashAccount acct) {
 		if ( acct == null ) {
-			throw new IllegalArgumentException("null account given");
+			throw new IllegalArgumentException("argument <acct> is null");
 		}
 
 	GnuCashWritableTransactionSplitImpl splt = new GnuCashWritableTransactionSplitImpl(this, acct);
@@ -337,22 +337,22 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     /**
      * @see GnuCashWritableTransaction#setNumber(java.lang.String)
      */
-    public void setNumber(final String number) {
-        if ( number == null ) {
-            throw new IllegalArgumentException("null number given!");
+    public void setNumber(final String numStr) {
+        if ( numStr == null ) {
+            throw new IllegalArgumentException("argument <numStr> is null");
         }
     
-        if ( number.trim().length() == 0 ) {
-            throw new IllegalArgumentException("empty number given!");
+        if ( numStr.trim().length() == 0 ) {
+            throw new IllegalArgumentException("argument <numStr> is empty");
         }
     
         String old = getJwsdpPeer().getTrnNum();
-        getJwsdpPeer().setTrnNum(number);
+        getJwsdpPeer().setTrnNum(numStr);
         getWritableFile().setModified(true);
     
-        if (old == null || !old.equals(number)) {
+        if (old == null || !old.equals(numStr)) {
             if (helper.getPropertyChangeSupport() != null) {
-            	helper.getPropertyChangeSupport().firePropertyChange("transactionNumber", old, number);
+            	helper.getPropertyChangeSupport().firePropertyChange("transactionNumber", old, numStr);
             }
         }
     }
@@ -373,7 +373,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      */
     public void setDateEntered(final ZonedDateTime dateEntered) {
 	if ( dateEntered == null ) {
-	    throw new IllegalArgumentException("null date given!");
+	    throw new IllegalArgumentException("argument <dateEntered> is null");
 	}
 
 	this.dateEntered = dateEntered;
@@ -390,7 +390,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     
     public void setDatePosted(final LocalDate datePosted) {
 	if ( datePosted == null ) {
-	    throw new IllegalArgumentException("null date given!");
+	    throw new IllegalArgumentException("argument <datePosted> is null");
 	}
 
 	this.datePosted = ZonedDateTime.of(datePosted, LocalTime.MIN, ZoneId.systemDefault());
@@ -401,12 +401,12 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
 
     public void setDescription(final String descr) {
 	if ( descr == null) {
-	    throw new IllegalArgumentException("null description given!");
+	    throw new IllegalArgumentException("argument <descr> is null");
 	}
 
 	// Caution: empty string allowed here
 //	if ( descr.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("empty description given!");
+//	    throw new IllegalArgumentException("argument <descr> is empty");
 //	}
 
 	String old = getJwsdpPeer().getTrnDescription();

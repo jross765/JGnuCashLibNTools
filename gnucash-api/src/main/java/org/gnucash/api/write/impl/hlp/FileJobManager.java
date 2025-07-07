@@ -72,7 +72,7 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 
 	public void addGenerJob(GnuCashGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		jobMap.put(job.getID(), job);
@@ -82,7 +82,7 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 
 	public void removeGenerJob(GnuCashGenerJob job) {
 		if ( job == null ) {
-			throw new IllegalArgumentException("null job given");
+			throw new IllegalArgumentException("argument <job> is null");
 		}
 		
 		jobMap.remove(job.getID());

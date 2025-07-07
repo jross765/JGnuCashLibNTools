@@ -37,11 +37,11 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     @Override
     public void setDueDay(final Integer dueDay) {
 	if ( dueDay == null ) {
-	    throw new IllegalArgumentException("null due day given!");
+	    throw new IllegalArgumentException("argument <dueDay> is null");
 	}
 	
 	if ( dueDay <= 0 ) {
-	    throw new IllegalArgumentException("due day <= 0 given!");
+	    throw new IllegalArgumentException("argument <prntID> is <= 0");
 	}
 
 	jwsdpPeer.setBtProxDueDay(dueDay);
@@ -50,11 +50,11 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     @Override
     public void getDiscountDay(final Integer dscntDay) {
 	if ( dscntDay == null ) {
-	    throw new IllegalArgumentException("null discount day given!");
+	    throw new IllegalArgumentException("argument <dscntDay> is null");
 	}
 	
 	if ( dscntDay <= 0 ) {
-	    throw new IllegalArgumentException("discount day <= 0 given!");
+	    throw new IllegalArgumentException("argument <dscntDay> is <= 0");
 	}
 
 	jwsdpPeer.setBtProxDiscDay(dscntDay);
@@ -63,11 +63,11 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     @Override
     public void setDiscount(final FixedPointNumber dscnt) {
 	if ( dscnt == null ) {
-	    throw new IllegalArgumentException("null discount given!");
+	    throw new IllegalArgumentException("argument <dscnt> is null");
 	}
 	
 	if ( dscnt.getBigDecimal().doubleValue() <= 0 ) {
-	    throw new IllegalArgumentException("discount <= 0 given!");
+	    throw new IllegalArgumentException("argument <dscnt> is <= 0");
 	}
 
 	jwsdpPeer.setBtProxDiscount(dscnt.toGnuCashString());

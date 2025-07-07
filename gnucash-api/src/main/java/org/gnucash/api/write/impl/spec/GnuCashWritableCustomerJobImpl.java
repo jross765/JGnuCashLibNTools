@@ -78,8 +78,8 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	 * @see GnuCashWritableCustomerJob#remove()
 	 */
 	public void remove() {
-		if ( !getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot remove a job that has invoices!");
+		if ( ! getInvoices().isEmpty() ) {
+			throw new IllegalStateException("cannot remove a job that has invoices");
 		}
 		GnuCashWritableFileImpl writableFile = (GnuCashWritableFileImpl) getGnuCashFile();
 		writableFile.getRootElement().getGncBook().getBookElements().remove(getJwsdpPeer());
@@ -109,7 +109,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 //     */
 //    public void setCustomerType(final String customerType) {
 //	if (customerType == null) {
-//	    throw new IllegalArgumentException("null 'customerType' given!");
+//	    throw new IllegalArgumentException("argument <customerType> is null");
 //	}
 //
 //	Object old = getJwsdpPeer().getJobOwner().getOwnerType();
@@ -130,11 +130,11 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	 */
 	public void setCustomer(final GnuCashCustomer cust) {
 		if ( cust == null ) {
-			throw new IllegalArgumentException("null 'customer' given!");
+			throw new IllegalArgumentException("argument <cust> is null");
 		}
 
 		if ( ! getInvoices().isEmpty() ) {
-			throw new IllegalStateException("cannot change customer of a job that has invoices!");
+			throw new IllegalStateException("cannot change customer of a job that has invoices");
 		}
 
 		GnuCashCustomer oldCust = getCustomer();

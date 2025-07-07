@@ -1187,7 +1187,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 				// "2001-09-18 00:00:00 +0200"
 				dateOpened = ZonedDateTime.parse(dateStr, DATE_OPENED_FORMAT);
 			} catch (Exception e) {
-				IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' in invoice!");
+				IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' in invoice");
 				ex.initCause(e);
 				throw ex;
 			}
@@ -1235,7 +1235,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 				datePosted = ZonedDateTime.parse(dateStr, DATE_OPENED_FORMAT);
 			} catch (Exception e) {
 				IllegalStateException ex = new IllegalStateException(
-						"unparsable date '" + dateStr + "' in invoice entry!");
+						"unparsable date '" + dateStr + "' in invoice entry");
 				ex.initCause(e);
 				throw ex;
 			}

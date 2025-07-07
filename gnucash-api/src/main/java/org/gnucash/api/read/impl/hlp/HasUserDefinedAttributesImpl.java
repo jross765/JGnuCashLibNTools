@@ -186,7 +186,7 @@ public class HasUserDefinedAttributesImpl // implements HasUserDefinedAttributes
 			SlotsType currSlots,
 			final SlotsType newSlots) {
 		if ( newSlots == null ) {
-			throw new IllegalArgumentException("null 'slots' given!");
+			throw new IllegalArgumentException("argument <newSlots> is null");
 		}
 
 		if ( currSlots == newSlots ) {

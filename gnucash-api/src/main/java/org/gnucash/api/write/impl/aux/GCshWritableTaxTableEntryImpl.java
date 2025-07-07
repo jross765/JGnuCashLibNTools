@@ -45,11 +45,11 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @Override
     public void setTypeStr(final String typeStr) {
 	if ( typeStr == null ) {
-	    throw new IllegalArgumentException("null type given!");
+	    throw new IllegalArgumentException("argument <typeStr> is null");
 	}
 	
 	if ( typeStr.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("empty type given!");
+	    throw new IllegalArgumentException("argument <typeStr> is empty");
 	}
 
 	getJwsdpPeer().setTteType(typeStr);
@@ -59,19 +59,19 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
      * @param acctId ID of the account to set.
      */
     @Override
-    public void setAccountID(final GCshID acctId) {
-	if ( acctId == null ) {
-	    throw new IllegalArgumentException("null account-ID given!");
+    public void setAccountID(final GCshID acctID) {
+	if ( acctID == null ) {
+	    throw new IllegalArgumentException("argument <typeStr> is null");
 	}
 	
-	if ( ! acctId.isSet() ) {
-	    throw new IllegalArgumentException("unset account-ID given!");
+	if ( ! acctID.isSet() ) {
+	    throw new IllegalArgumentException("argument <typeStr> is not set");
 	}
 
-	myAccountID = acctId;
+	myAccountID = acctID;
 	
 	getJwsdpPeer().getTteAcct().setType(Const.XML_DATA_TYPE_GUID);
-	getJwsdpPeer().getTteAcct().setValue(acctId.toString());
+	getJwsdpPeer().getTteAcct().setValue(acctID.toString());
     }
 
     /**
@@ -80,7 +80,7 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
     @Override
     public void setAccount(final GnuCashAccount acct) {
 	if ( acct == null ) {
-	    throw new IllegalArgumentException("null account given!");
+	    throw new IllegalArgumentException("argument <acct> is null");
 	}
 
 	myAccount = acct;

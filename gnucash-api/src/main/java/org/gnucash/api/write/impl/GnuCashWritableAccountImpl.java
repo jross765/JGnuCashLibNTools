@@ -119,11 +119,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     		final GnuCashWritableFileImpl file, 
     		final GCshID newID) {
     	if ( newID == null ) {
-			throw new IllegalArgumentException("null ID given");
+			throw new IllegalArgumentException("argument <mewID> is null");
 		}
 
 		if ( ! newID.isSet() ) {
-			throw new IllegalArgumentException("unset ID given");
+			throw new IllegalArgumentException("argument <newID> is not set");
 		}
 
 	ObjectFactory factory = file.getObjectFactory();
@@ -240,7 +240,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     public void remove(final GCshWritableAccountLot impl) {
     	if ( impl.hasTransactions() ) {
-    		throw new IllegalStateException("This account has transaction splits and cannot be deleted!");
+    		throw new IllegalStateException("This account has transaction splits and cannot be deleted");
     	}
 
     	((GnuCashWritableFileImpl) getGnuCashFile()).removeAccount(this);
@@ -318,17 +318,17 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     public void remove() {
 	if ( hasTransactions() ) {
-	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits!");
+	    throw new IllegalStateException("Cannot remove account while it contains transaction-splits");
 	}
 	
 	if ( getLots() != null ) { // important / ::TODO
 		if ( getLots().size() > 0 ) {
-			throw new IllegalStateException("Cannot remove account while it contains lots!");
+			throw new IllegalStateException("Cannot remove account while it contains lots");
 		}
 	}
 	
 	if ( this.getChildren().size() > 0 ) {
-	    throw new IllegalStateException("Cannot remove account while it contains child-accounts!");
+	    throw new IllegalStateException("Cannot remove account while it contains child-accounts");
 	}
 
 	getWritableGnuCashFile().getRootElement().getGncBook().getBookElements().remove(getJwsdpPeer());
@@ -365,7 +365,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     @Override
     public void addTransactionSplit(final GnuCashTransactionSplit splt) {
 		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
+			throw new IllegalArgumentException("argument <splt> is null");
 		}
 		
 		if ( ! splt.getAccountID().equals(getID()) ) {
@@ -393,7 +393,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     protected void removeTransactionSplit(final GnuCashWritableTransactionSplit splt) {
 		if ( splt == null ) {
-			throw new IllegalArgumentException("null split given");
+			throw new IllegalArgumentException("argument <splt> is null");
 		}
 		
 		if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -428,11 +428,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     public void setName(final String name) {
     	if ( name == null ) {
-    		throw new IllegalArgumentException("null name given!");
+    		throw new IllegalArgumentException("argument <name> is null");
     	}
 
     	if ( name.trim().length() == 0 ) {
-    		throw new IllegalArgumentException("empty name given!");
+    		throw new IllegalArgumentException("argument <name> is empty");
     	}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -461,11 +461,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     public void setAccountCode(final String code) {
     	if ( code == null ) {
-    		throw new IllegalArgumentException("null code given!");
+    		throw new IllegalArgumentException("argument <code> is null");
     	}
 
     	if ( code.trim().length() == 0 ) {
-    		throw new IllegalArgumentException("empty code given!");
+    		throw new IllegalArgumentException("argument <code> is empty");
     	}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -495,11 +495,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     private void setCmdtyCurrNameSpace(final String currNameSpace) {
     	if ( currNameSpace == null ) {
-    		throw new IllegalArgumentException("null currencyNameSpace given!");
+    		throw new IllegalArgumentException("argument <currNameSpace> is null");
     	}
 
     	if ( currNameSpace.trim().length() == 0 ) {
-    		throw new IllegalArgumentException("empty currencyNameSpace given!");
+    		throw new IllegalArgumentException("argument <currNameSpace> is empty");
     	}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -525,11 +525,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
     public void setCmdtyCurrID(final GCshCmdtyCurrID cmdtyCurrID) {
     	if ( cmdtyCurrID == null ) {
-    		throw new IllegalArgumentException("null commodity/currency ID given!");
+    		throw new IllegalArgumentException("argument <cmdtyCurrID> is null");
     	}
 
     	if ( ! cmdtyCurrID.isSet() ) {
-    		throw new IllegalArgumentException("unset commodity/currency ID given!");
+    		throw new IllegalArgumentException("argument <cmdtyCurrID> is not set");
     	}
 
 //    	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -549,11 +549,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     private void setCmdtyCurrCode(final String currID) {
     	if ( currID == null ) {
-    		throw new IllegalArgumentException("null currencyID given!");
+    		throw new IllegalArgumentException("argument <currID> is null");
     	}
 
     	if ( currID.trim().length() == 0 ) {
-    		throw new IllegalArgumentException("empty currencyID given!");
+    		throw new IllegalArgumentException("argument <currID> is null");
     	}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -590,12 +590,12 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     public void setDescription(final String descr) {
     	if ( descr == null ) {
-    		throw new IllegalArgumentException("null description given!");
+    		throw new IllegalArgumentException("argument <descr> is null");
     	}
 
     	// Caution: empty string allowed here
     	//	if ( descr.trim().length() == 0 ) {
-    	//	    throw new IllegalArgumentException("empty description given!");
+    	//	    throw new IllegalArgumentException("argument <descr> is null");
     	//	}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -621,7 +621,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 
     public void setType(final Type type) {
     	if ( type == null ) {
-    		throw new IllegalArgumentException("null type given!");
+    		throw new IllegalArgumentException("argument <type> is null");
     	}
 
     	if ( type == Type.ROOT ) {
@@ -670,7 +670,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     	} 
 
 		if ( ! prntAcctID.isSet() ) {
-			throw new IllegalArgumentException("unset account ID given!");
+			throw new IllegalArgumentException("argument <prntAcctID> is not set");
 		}
 
 		// check if new parent is a child-account recursively
@@ -717,7 +717,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     	}
 
     	if (prntAcct == this) {
-    		throw new IllegalArgumentException("I cannot be my own parent!");
+    		throw new IllegalArgumentException("I cannot be my own parent");
     	}
 
 		setParentAccountID(prntAcct.getID());
@@ -829,19 +829,19 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	@Override
 	public void addUserDefinedAttribute(final String type, final String name, final String value) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
-		if ( name.isEmpty() ) {
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 
 		if ( value == null ) {
-			throw new IllegalArgumentException("null value given");
+			throw new IllegalArgumentException("argument <value> is null");
 		}
 		
-		if ( value.isEmpty() ) {
-			throw new IllegalArgumentException("empty value given");
+		if ( value.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <value> is empty");
 		}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -865,11 +865,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	@Override
 	public void removeUserDefinedAttribute(final String name) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
-		if ( name.isEmpty() ) {
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
@@ -891,11 +891,11 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	@Override
 	public void setUserDefinedAttribute(final String name, final String value) {
 		if ( name == null ) {
-			throw new IllegalArgumentException("null name given");
+			throw new IllegalArgumentException("argument <name> is null");
 		}
 		
-		if ( name.isEmpty() ) {
-			throw new IllegalArgumentException("empty name given");
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
 		}
 
     	if ( getGnuCashFile().getTopAccountIDs().contains(getID()) ||
