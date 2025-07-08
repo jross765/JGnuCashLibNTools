@@ -36,13 +36,6 @@ echo "Building JavaDoc"
 echo "=============================================================="
 echo "=============================================================="
   
-# CAUTION: Currently, it is not possible to generate JavaDoc documentation
-# because there are too many consistency errors in the JavaDoc comments
-# all over the code.
-# It will take some time and iterations to resolve this.
-echo "OMITTING"
-exit 0
-
 JAVADOC_STATUS_ALL=0
 
 for module in gnucash-base \
