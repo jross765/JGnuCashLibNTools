@@ -293,15 +293,15 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	protected void attemptChange() {
 		if ( !isModifiable() ) {
 			throw new IllegalStateException(
-					"this customer invoice is NOT changeable because there are already payment for it made");
+					"this customer invoice is NOT modifiable because there are already payment for it made");
 		}
 	}
 
 	/**
 	 * @see #getGenerEntryByID(GCshID)
 	 */
-	public GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID id) {
-		return new GnuCashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID entrID) {
+		return new GnuCashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	// ---------------------------------------------------------------
@@ -339,8 +339,8 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID id) {
-		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID entrID) {
+		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

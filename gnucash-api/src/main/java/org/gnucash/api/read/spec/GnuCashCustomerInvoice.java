@@ -29,20 +29,24 @@ public interface GnuCashCustomerInvoice extends GnuCashGenerInvoice,
 
     /**
      * @return ID of customer this invoice has been sent to.
+     * 
+     * @see #getCustomer()
      */
     GCshID getCustomerID();
 
     /**
      * @return Customer this invoice has been sent to.
+     * 
+     * @see #getCustomerID()
      */
     GnuCashCustomer getCustomer();
 	
     // ---------------------------------------------------------------
 
-    GnuCashCustomerInvoiceEntry getEntryByID(GCshID id);
+    GnuCashCustomerInvoiceEntry getEntryByID(GCshID entrID);
 
     Collection<GnuCashCustomerInvoiceEntry> getEntries();
 
-    void addEntry(GnuCashCustomerInvoiceEntry entry);
+    void addEntry(GnuCashCustomerInvoiceEntry entr);
     
 }

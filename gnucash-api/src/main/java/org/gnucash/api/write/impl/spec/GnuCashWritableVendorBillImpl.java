@@ -316,8 +316,8 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	/**
 	 * @see #getGenerEntryByID(GCshID)
 	 */
-	public GnuCashWritableVendorBillEntry getWritableEntryByID(final GCshID id) {
-		return new GnuCashWritableVendorBillEntryImpl(getGenerEntryByID(id));
+	public GnuCashWritableVendorBillEntry getWritableEntryByID(final GCshID entrID) {
+		return new GnuCashWritableVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	// ---------------------------------------------------------------
@@ -355,8 +355,8 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashVendorBillEntry getEntryByID(GCshID id) {
-		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(id));
+	public GnuCashVendorBillEntry getEntryByID(GCshID entrID) {
+		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

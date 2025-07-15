@@ -98,8 +98,8 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID id) {
-		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID entrID) {
+		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

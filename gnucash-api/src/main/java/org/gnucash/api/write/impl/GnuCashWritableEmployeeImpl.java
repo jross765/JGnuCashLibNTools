@@ -24,7 +24,6 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
-import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +35,7 @@ import org.slf4j.LoggerFactory;
 public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl 
                                          implements GnuCashWritableEmployee 
 {
-    /**
-     * Automatically created logger for debug and error-output.
-     */
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableEmployeeImpl.class);
 
     // ---------------------------------------------------------------

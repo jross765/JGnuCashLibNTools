@@ -2,6 +2,7 @@ package org.gnucash.api.read.impl;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Currency;
@@ -191,20 +192,47 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 
 		String dateStr = jwsdpPeer.getPriceTime().getTsDate();
 		try {
-			return ZonedDateTime.parse(dateStr, DATE_FORMAT).toLocalDate();
-		} catch (Exception e) {
-			LOGGER.error("unparsable date '" + dateStr + "' (1st try)");
+			return getZonedDateTime().toLocalDate();
+		} catch (Exception exc) {
+			LOGGER.error("getDate: unparsable date '" + dateStr + "' (1st try)");
 //	    IllegalStateException ex = new IllegalStateException("unparsable date '" + dateStr + "' (1st try)");
 //	    ex.initCause(e);
 //	    throw ex;
 			try {
 				return LocalDate.parse(dateStr, DATE_FORMAT_FALLBACK);
-			} catch (Exception e2) {
-				LOGGER.error("unparsable date '" + dateStr + "' (2nd try)");
+			} catch (Exception exc2) {
+				LOGGER.error("getDate: unparsable date '" + dateStr + "' (2nd try)");
 				IllegalStateException ex2 = new IllegalStateException("unparsable date '" + dateStr + "' (2nd try)");
-				ex2.initCause(e2);
+				ex2.initCause(exc2);
 				throw ex2;
 			}
+		}
+	}
+
+	@Override
+	public LocalDateTime getDateTime() {
+		if ( jwsdpPeer.getPriceTime() == null )
+			return null;
+
+		// String dateStr = jwsdpPeer.getPriceTime().getTsDate();
+		try {
+			return getZonedDateTime().toLocalDateTime();
+		} catch (Exception exc) {
+			// LOGGER.error("getDateTime: unparsable date-time '" + dateStr + "'");
+			throw exc;
+		}
+	}
+
+	private ZonedDateTime getZonedDateTime() {
+		if ( jwsdpPeer.getPriceTime() == null )
+			return null;
+
+		String dateStr = jwsdpPeer.getPriceTime().getTsDate();
+		try {
+			return ZonedDateTime.parse(dateStr, DATE_FORMAT);
+		} catch (Exception exc) {
+			LOGGER.error("getZonedDateTime: unparsable zoned date-time '" + dateStr + "'");
+			throw exc;
 		}
 	}
 
@@ -294,7 +322,6 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 		try {
 			result += ", value=" + getValueFormatted();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			result += ", value=" + "ERROR";
 		}
 

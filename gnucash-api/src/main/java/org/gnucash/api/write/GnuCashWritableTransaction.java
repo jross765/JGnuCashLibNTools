@@ -28,9 +28,10 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
 {
 
     /**
+     * @param cmdtyCurrID 
      * @param id the new currency
-     * @see #setCurrencyNameSpace(String)
-     * @see {@link GnuCashTransaction#getCurrencyID()}
+
+     * @see #getCmdtyCurrID()
      */
     void setCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 
@@ -38,71 +39,109 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
      * The GnuCash file is the top-level class to contain everything.
      * 
      * @return the file we are associated with
+     * 
+     * @see #getGnuCashFile()
      */
     GnuCashWritableFile getWritableFile();
 
     /**
      * @param dateEntered the day (time is ignored) that this transaction has been
      *                    entered into the system
-     * @see {@link #setDatePosted(LocalDateTime)}
+     *              
+     * @see #getDateEntered()
+     * @see #setDatePosted(LocalDate)
      */
     void setDateEntered(LocalDateTime dateEntered); // sic, not LocalDate
 
     /**
      * @param datePosted the day (time is ignored) that the money was transfered
-     * @see {@link #setDateEntered(LocalDateTime)}
+     * 
+     * @see #getDatePosted()
+     * @see #setDateEntered(LocalDateTime)
      */
     void setDatePosted(LocalDate datePosted);
 
+    /**
+     * 
+     * @param desc
+     * 
+     * @see #getDescription()
+     */
     void setDescription(String desc);
 
+    /**
+     * 
+     * @param string
+     * 
+     * @see #getNumber()
+     */
     void setNumber(String string);
 
     /**
      * @return 
      * @throws TransactionSplitNotFoundException 
      *  
-     * @see GnuCashTransaction#getFirstSplit()
+     * @see #getFirstSplit()
      */
     GnuCashWritableTransactionSplit getWritableFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return 
-     * @throws SplitNotFoundException 
+     * @throws TransactionSplitNotFoundException 
      *  
-     * @see GnuCashTransaction#getSecondSplit()
+     * @see #getSecondSplit()
      */
     GnuCashWritableTransactionSplit getWritableSecondSplit() throws TransactionSplitNotFoundException;
 
     /**
      *  
-     * @return 
-     * @see GnuCashTransaction#getSplitByID(GCshID)
+     * @param spltID 
+     * @return
+     * 
+     * @see #getSplitByID(GCshID)
      */
-    GnuCashWritableTransactionSplit getWritableSplitByID(GCshID id);
+    GnuCashWritableTransactionSplit getWritableSplitByID(GCshID spltID);
 
     /**
      *
      * @return the first split of this transaction or null.
+     * <br>
+     * <em>Caution</em>: This only makes sense for simple transactions
+     * that consist of only two splits. 
+     * By no means is that guaranteed or even "normal"!
+     * 
+     * @see #getSecondSplit()
+     * @see #getSplits()
+     * @see #getSplitsCount()
      */
     GnuCashWritableTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
+     * <br>
+     * <em>Caution</em>: This only makes sense for simple transactions
+     * that consist of only two splits. 
+     * By no means is that guaranteed or even "normal"!
+     * 
+     * @see #getFirstSplit()
+     * @see #getSplits()
+     * @see #getSplitsCount()
      */
     GnuCashWritableTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException;
 
     /**
      *  
-     * @see GnuCashTransaction#getSplits()
+     * @return
+     *  
+     * @see #getSplits()
      */
     List<GnuCashWritableTransactionSplit> getWritableSplits();
 
     /**
-     * Create a new split, already atached to this transaction.
+     * Create a new split, already attached to this transaction.
      * 
      * @param account the account for the new split
-     * @return a new split, already atached to this transaction
+     * @return a new split, already attached to this transaction
      *  
      */
     GnuCashWritableTransactionSplit createWritableSplit(GnuCashAccount account);

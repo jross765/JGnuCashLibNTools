@@ -1,13 +1,8 @@
 package org.gnucash.api.read.spec.hlp;
 
-import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
-import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.api.read.spec.GnuCashVendorBill;
-
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
-/**
+/*
  * Methods common to all specialized variants of invoices (and only those).
  *
  * @see GnuCashCustomerInvoice

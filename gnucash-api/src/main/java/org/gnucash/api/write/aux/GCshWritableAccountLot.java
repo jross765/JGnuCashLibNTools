@@ -19,8 +19,20 @@ public interface GCshWritableAccountLot extends GCshAccountLot,
 
     // -----------------------------------------------------------------
 
+	/**
+	 * 
+	 * @param title
+	 * 
+	 * @see #getTitle()
+	 */
     void setTitle(String title);
 
+    /**
+     * 
+     * @param notes
+     * 
+     * @see #getNotes()
+     */
     void setNotes(String notes);
 
     // -----------------------------------------------------------------
@@ -34,8 +46,20 @@ public interface GCshWritableAccountLot extends GCshAccountLot,
 
     void clearTransactionSplits();
 
+    /**
+     * 
+     * @param split
+     * 
+     * @see #getTransactionSplits()
+     */
     void addTransactionSplit(GnuCashWritableTransactionSplit split);
 
+    /**
+     * 
+     * @param splitList
+     * 
+     * @see #getTransactionSplits()
+     */
     void setTransactionSplits(List<GnuCashWritableTransactionSplit> splitList);
 
 }

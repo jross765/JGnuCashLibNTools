@@ -36,7 +36,6 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
      * 
      * Note that a job may lead to multiple o no invoices.
      * (e.g. a monthly payment for a long lasting contract.)
-     * @return the ID of the job this invoice is for.
      */
     GCshID getJobID();
 
@@ -46,11 +45,15 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
 
     /**
      * @return ID of customer this invoice has been sent to.
+     * 
+     * @see #getGenerJob()
      */
     GCshID getCustomerID();
 
     /**
      * @return ID of vendor this bill has been sent from.
+     * 
+     * @see #getGenerJob()
      */
     GCshID getVendorID();
     
@@ -85,10 +88,10 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
 	
     // ---------------------------------------------------------------
 
-    GnuCashJobInvoiceEntry getEntryByID(GCshID id);
+    GnuCashJobInvoiceEntry getEntryByID(GCshID entrID);
 
     Collection<GnuCashJobInvoiceEntry> getEntries();
 
-    void addEntry(GnuCashJobInvoiceEntry entry);
+    void addEntry(GnuCashJobInvoiceEntry entr);
     
 }

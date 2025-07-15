@@ -31,8 +31,8 @@ public interface GnuCashWritableVendorJob extends GnuCashWritableGenerJob,
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param newVendor the vendor who issued this job.
-* 
-     *  
+     * 
+     * @see #getVendor()
      */
     void setVendor(GnuCashVendor newVendor);
 

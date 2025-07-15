@@ -30,6 +30,8 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
      * @see {@link GnuCashVendor#getNumber()}
      * @param number the user-assigned number of this vendor (may contain
      *               non-digits)
+     *               
+     * @see #getNumber()
      */
     void setNumber(String number);
 
@@ -37,6 +39,8 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
      * Sets the vendor's name.
      * 
      * @param name
+     * 
+     * @see #getName()
      */
     void setName(String name);
 
@@ -46,6 +50,8 @@ public interface GnuCashWritableVendor extends GnuCashVendor,
      * Sets the vendor's notes.
      * 
      * @param notes user-defined notes about the vendor (may be null)
+     * 
+     * @see #getNotes()
      */
     void setNotes(String notes);
 

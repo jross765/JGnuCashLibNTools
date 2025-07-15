@@ -32,7 +32,7 @@ public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice,
 												   GnuCashWritableObject
 {
 
-    GnuCashWritableJobInvoiceEntry getWritableEntryByID(GCshID id);
+    GnuCashWritableJobInvoiceEntry getWritableEntryByID(GCshID entrID);
     
     // ---------------------------------------------------------------
 
@@ -40,7 +40,8 @@ public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice,
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param job the customer/vendor job that we link this invoice to.
-* 
+     *
+     * @see #getGenerJob()
      */
     void setGenerJob(GnuCashGenerJob job);
 
@@ -48,17 +49,21 @@ public interface GnuCashWritableJobInvoice extends GnuCashWritableGenerInvoice,
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param job the customer job that we link this invoice to.
-* 
+     *
+     * @see #getGenerJob()
+     * @see #getCustJob()
      */
-    void setCustomerJob(GnuCashCustomerJob job);
+    void setCustJob(GnuCashCustomerJob job);
 
     /**
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param job the vendor job that we link this invoice to.
-* 
+     *
+     * @see #getGenerJob()
+     * @see #getVendJob()
      */
-    void setVendorJob(GnuCashVendorJob job);
+    void setVendJob(GnuCashVendorJob job);
 
     // ---------------------------------------------------------------
 

@@ -29,7 +29,7 @@ public interface GnuCashWritableVendorBill extends GnuCashWritableGenerInvoice,
 												   GnuCashWritableObject
 {
 
-    GnuCashWritableVendorBillEntry getWritableEntryByID(GCshID id);
+    GnuCashWritableVendorBillEntry getWritableEntryByID(GCshID entrID);
     
     // ---------------------------------------------------------------
 
@@ -37,7 +37,9 @@ public interface GnuCashWritableVendorBill extends GnuCashWritableGenerInvoice,
      * Will throw an IllegalStateException if there are bills for this vendor.<br/>
      * 
      * @param vend the vendor who sent an invoice to us.
-* 
+     *
+     * @see #getVendor()
+     * @see #getVendorID()
      */
     void setVendor(GnuCashVendor vend);
 

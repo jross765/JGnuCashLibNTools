@@ -24,14 +24,52 @@ public interface GnuCashWritableJobInvoiceEntry extends GnuCashWritableGenerInvo
                                                         GnuCashWritableObject 
 {
 
+	/**
+	 * 
+	 * @param val
+	 * @throws TaxTableNotFoundException
+	 * @throws UnknownInvoiceTypeException
+	 * @throws IllegalTransactionSplitActionException
+	 * 
+	 * @see #isTaxable()
+	 */
     void setTaxable(boolean val) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
+    /**
+     * 
+     * @param taxTab
+     * @throws TaxTableNotFoundException
+     * @throws UnknownInvoiceTypeException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getTaxTable()
+     */
     void setTaxTable(GCshTaxTable taxTab) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
     // ---------------------------------------------------------------
 
+    /**
+     * 
+     * @param price
+     * @throws TaxTableNotFoundException
+     * @throws UnknownInvoiceTypeException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getPrice()
+     * @see #setPrice(String)
+     */
     void setPrice(String price) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
+    /**
+     * 
+     * @param price
+     * @throws TaxTableNotFoundException
+     * @throws UnknownInvoiceTypeException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getPrice()
+     * @see #setPrice(FixedPointNumber)
+     */
     void setPrice(FixedPointNumber price) throws TaxTableNotFoundException, UnknownInvoiceTypeException, IllegalTransactionSplitActionException;
 
 }

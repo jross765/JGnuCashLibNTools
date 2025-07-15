@@ -69,9 +69,9 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
     void setType(Type type);
 
     /**
+     * @param cmdtyCurrID 
      * @param id the new currency
-     * @see #setCurrencyNameSpace(String)
-     * @see {@link GnuCashAccount#getCurrencyID()}
+     * @see #getCmdtyCurrID()
      */
     void setCmdtyCurrID(GCshCmdtyCurrID cmdtyCurrID);
 
@@ -82,7 +82,9 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
 
     /**
      * If the accountId is invalid, make this a top-level-account.
+     * @param newParentID 
      *
+     * @see #getParentAccountID()
      * @see {@link #setParentAccount(GnuCashAccount)}
      */
     void setParentAccountID(GCshID newParentID);
@@ -90,20 +92,25 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
     // ---------------------------------------------------------------
 
     /**
+     * @param spltID 
+     * @return 
      *  
+     * @see #getTransactionSplitByID(GCshID)
      */
     GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshID spltID);
 
     /**
-     *  
+     * @return 
+     * 
+     * @see #getTransactionSplits()
      */
     List<GnuCashWritableTransactionSplit> getWritableTransactionSplits();
 
     /**
-     * Create a new split, already atached to this transaction.
+     * Create a new split, already attached to this transaction.
      * 
      * @param account the account for the new split
-     * @return a new split, already atached to this transaction
+     * @return a new split, already attached to this transaction
      *  
      */
 //    GCshWritableAccountLot createWritableTransactionSplit();
@@ -112,22 +119,28 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
 
     /**
      *  
+     * @param lotID 
      * @return 
+     * 
+     * @see #getLotByID(GCshID)
      * @see GnuCashAccount#getLotByID(GCshID)
      */
     GCshWritableAccountLot getWritableLotByID(GCshID lotID);
 
     /**
      *  
+     * @return 
+     * 
+     * @see #getLots()
      * @see GnuCashAccount#getLots()
      */
     List<GCshWritableAccountLot> getWritableLots();
 
     /**
-     * Create a new split, already atached to this transaction.
+     * Create a new split, already attached to this transaction.
      * 
      * @param account the account for the new split
-     * @return a new split, already atached to this transaction
+     * @return a new split, already attached to this transaction
      *  
      */
     GCshWritableAccountLot createWritableLot();
@@ -136,6 +149,7 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
 
     /**
      * Removes the given lot from this account.
+     * @param lot 
      * 
      * @param impl the lot to be removed from this account
      *  

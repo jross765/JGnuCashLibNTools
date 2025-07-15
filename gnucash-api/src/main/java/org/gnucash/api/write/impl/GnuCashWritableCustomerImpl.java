@@ -37,9 +37,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl 
                                          implements GnuCashWritableCustomer 
 {
-    /**
-     * Automatically created logger for debug and error-output.
-     */
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableCustomerImpl.class);
 
     // ---------------------------------------------------------------

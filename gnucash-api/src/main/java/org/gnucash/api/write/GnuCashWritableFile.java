@@ -50,7 +50,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 /**
  * Extension of GnuCashFile that allows writing.
  * 
- * æsee {@link GnuCashFile}
+ * @see {@link GnuCashFile}
  */
 public interface GnuCashWritableFile extends GnuCashFile, 
                                              GnuCashWritableObject,
@@ -114,7 +114,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     /**
      * @param type the type to look for
-     * @return A changeable version of all accounts of that type.
+     * @return A modifiable version of all accounts of the given type.
      */
     Collection<GnuCashWritableAccount> getWritableAccountsByType(GnuCashAccount.Type type);
 
@@ -188,11 +188,15 @@ public interface GnuCashWritableFile extends GnuCashFile,
     /**
      * @param spltID
      * @return
+     * 
+     * #see {@link #getTransactionSplitByID(GCshID)}
      */
     GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshID spltID);
 
     /**
      * @return
+     * 
+     * @see #getTransactionSplits()
      */
     Collection<GnuCashWritableTransactionSplit> getWritableTransactionSplits();
 
@@ -200,12 +204,19 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     /**
      * @param invcID 
-     * @see GnuCashFile#getGenerInvoiceByID(GCshID)
      * @param id the id to look for
-     * @return A changeable version of the invoice.
+     * @return A modifiable version of the invoice.
+     *
+     * @see #getGenerInvoiceByID(GCshID)
      */
     GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(GCshID invcID);
 
+    /**
+     * 
+     * @return
+     * 
+     * @see #getGenerInvoices()
+     */
     Collection<GnuCashWritableGenerInvoice> getWritableGenerInvoices();
 
     // ----------------------------
@@ -330,7 +341,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @param invcEntrID 
      * @see GnuCashFile#getGenerInvoiceEntryByID(GCshID)
      * @param id the id to look for
-     * @return A changeable version of the invoice entry.
+     * @return A modifiable version of the invoice entry.
      */
     GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(GCshID invcEntrID);
 
@@ -413,7 +424,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
     /**
      * @see GnuCashFile#getGenerJobByID(GCshID)
      * @param jobID the id of the job to fetch
-     * @return A changeable version of the job or null of not found.
+     * @return A modifiable version of the job or null of not found.
      */
     GnuCashWritableGenerJob getWritableGenerJobByID(GCshID jobID);
 
@@ -513,7 +524,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * Add a new currency.<br/>
      * If the currency already exists, add a new price-quote for it.
      * 
-     * @param pCmdtySpace        the namespace (e.g. "GOODS" or "CURRENCY")
+     * @param pCmdtySpace        the name space (e.g. "GOODS" or "CURRENCY")
      * @param pCmdtyId           the currency-name
      * @param conversionFactor   the conversion-factor from the base-currency (EUR).
      * @param pCmdtyNameFraction number of decimal-places after the comma
@@ -539,6 +550,9 @@ public interface GnuCashWritableFile extends GnuCashFile,
     // ----------------------------
 
     /**
+     * @param fromCmdtyCurrID 
+     * @param toCurrID 
+     * @param date 
      * @return a new price object with no values that is already added to this file
      */
     GnuCashWritablePrice createWritablePrice(GCshCmdtyCurrID fromCmdtyCurrID, GCshCurrID toCurrID,

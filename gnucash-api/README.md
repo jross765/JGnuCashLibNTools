@@ -1,6 +1,8 @@
 # Notes on the Module "API"
 
-This is the core module of the project, providing all low-level read-/write access functions to a GnuCash file.
+This is the core module of the project, providing all low-level read-/write access functions to a 
+GnuCash 
+file.
 
 ## Major Changes 
 ### V. 1.5 &rarr; 1.6
@@ -11,10 +13,13 @@ This is the core module of the project, providing all low-level read-/write acce
   This is needed to report on lots in securities (stock) accounts,
   and that, in turn, is needed to prepare German tax filings (so-called "FIFO principle").
 
-* `GnuCashWritableTransactionSplitImpl`: Fixed bug in `setQuantiy()`.
+* `GnuCashWritableTransactionSplitImpl`: Fixed bug in `setQuantity()`.
 
 * `GnuCashWritableAccount(Impl)`, `GnuCash(Writable)File(Impl)`: Expanded interface and implemented it.
     
+* `GnuCash(Writable)TransactionSplit(Impl)`: 
+   Removed "formatted for HTML" methods -- don't see a real need for it, and even if there was one, then it would belong elsewhere (still thinking of removing the "formatted (without HTML)" methods as well; I see them in the grey area).
+
 * Significantly improved overall test coverage, esp. in write-branch.
 
 * Various minor changes, cleaning and improving code.
@@ -195,6 +200,18 @@ Further improvements:
 It should go without saying, but the following items are of course subject to change and by no means a promise that they will actually be implemented soon:
 
 * Invoices and bills: Support more variants, such as choosing the terms of payment or the "tax included" flag for entries.
+
+* Introduce special variant of transaction: Simple transaction (with just two splits).
+
+* (Here and in base, obviously): Improve type safety and overall robustness by introducing kind-of-dummy classes derived from `GCshID`, one per relevant entity. E.g.: `GCshAcctID` for accounts, `GCshTrxID` for transactions, etc. The really important part, then, is to then take those new types into the interfaces, e.g.: 
+
+  `getAccountByID(GCshID acctID)` --> `getAccountByID(GCshAcctID acctID)`
+
+  This will then look much like the according types in the sister project, but in contrast to there, there won't actually be any internal  difference between those types. 
+
+  In order to facilitate the transition, we also might keep the old methods in the interfaces for a while, marking them as deprecated (not necessarily, however, for it does not seem that many people are actually using this lib apart from the current author at this point).
+
+  I have been weighing over the pros and cons of this step for quite a while now (I admit, it seems exaggerated at first glance) and finally came to the conclusion: Yes, it should be done -- not so much for the symmetry between the two sister projects (one can also over-emphasize that), but for the (pseudo-)type safety and thus in order to significantly reduce the probability of making certain kinds of mistakes (and also to reduce the time finding them), fully leveraging Java's static type safety -- both for the developer(s) of this lib and for its users (after all, that was the rationale behind the introduction of GCshID in the first place, the original author handling e.t. just with strings -- yes, it works, but it's far too error-prone).
 
 * Get rid of ugly code redundancies here and there, esp. in the class `Gnucash(Writable)GenerInvoiceImpl`.
 

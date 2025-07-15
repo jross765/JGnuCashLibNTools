@@ -304,7 +304,7 @@ public class FilePriceManager {
 			try {
 				if ( fromCmdtyCurr.getCmdtySpace() == null ) {
 					LOGGER.warn(
-							"getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without namespace: id='"
+							"getLatestPrice: GnuCash file contains price-quotes with from-commodity/currency without name space: id='"
 									+ priceQuote.getPriceId().getValue() + "'");
 					continue;
 				}
@@ -318,7 +318,7 @@ public class FilePriceManager {
 
 				if ( toCurr.getCmdtySpace() == null ) {
 					LOGGER.warn(
-							"getLatestPrice: GnuCash file contains price-quotes with to-currency without namespace: id='"
+							"getLatestPrice: GnuCash file contains price-quotes with to-currency without name space: id='"
 									+ priceQuote.getPriceId().getValue() + "'");
 					continue;
 				}

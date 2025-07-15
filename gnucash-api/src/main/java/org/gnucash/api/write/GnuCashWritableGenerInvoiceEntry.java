@@ -33,25 +33,69 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
      */
     GnuCashWritableGenerInvoice getGenerInvoice();
 
+    /**
+     * 
+     * @param date
+     * 
+     * @see #getDate()
+     */
     void setDate(LocalDate date);
 
     /**
      * Set the description-text.
      *
      * @param desc the new description
+     * 
+     * @see #getDescription()
      */
     void setDescription(String desc);
 
     // ---------------------------------------------------------------
 
+    /**
+     * 
+     * @param act
+     * 
+     * @see #getAction()
+     */
     void setAction(Action act);
 
+    /**
+     * 
+     * @param quantity
+     * @throws TaxTableNotFoundException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getQuantity()
+     * @see #setQuantity(FixedPointNumber)
+     * @see #setQuantityFormatted(String)
+     */
     void setQuantity(String quantity)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
+    /**
+     * 
+     * @param quantity
+     * @throws TaxTableNotFoundException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getQuantity()
+     * @see #setQuantity(String)
+     * @see #setQuantityFormatted(String)
+     */
     void setQuantity(FixedPointNumber quantity)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 
+    /**
+     * 
+     * @param n
+     * @throws TaxTableNotFoundException
+     * @throws IllegalTransactionSplitActionException
+     * 
+     * @see #getQuantity()
+     * @see #setQuantity(FixedPointNumber)
+     * @see #setQuantity(String)
+     */
     void setQuantityFormatted(String n)
 	    throws TaxTableNotFoundException, IllegalTransactionSplitActionException;
 

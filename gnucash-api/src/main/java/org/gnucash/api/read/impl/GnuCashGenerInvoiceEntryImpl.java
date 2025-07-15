@@ -105,6 +105,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      *
      * @param invc The invoice we belong to.
      * @param peer    the JWSDP-Object we are wrapping.
+     * @param addEntrToInvc 
      */
     @SuppressWarnings("exports")
     public GnuCashGenerInvoiceEntryImpl(
@@ -132,6 +133,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      *
      * @param gcshFile the file we belong to
      * @param peer    the JWSDP-object we are facading.
+     * @param addEntrToInvc 
      */
     @SuppressWarnings("exports")
     public GnuCashGenerInvoiceEntryImpl(
@@ -444,6 +446,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     	return getCustInvcApplicableTaxPercent_int();
     }
     
+    // Important separate it from public variant for
+    // getJobInvcApplicableTaxPercent().
+    // Else, we would have funny effects.
     private FixedPointNumber getCustInvcApplicableTaxPercent_int() {
 	if ( getType() != GnuCashGenerInvoice.TYPE_CUSTOMER && 
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
@@ -471,23 +476,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	    return new FixedPointNumber("0");
 	}
 
-	// ::TODO ::CHECK
-	// Overly specific code / pseudo-improvement
-	// Reasons: 
-	// - We should not correct data errors -- why only check here?
-	//   There are hundreds of instances where we could check...
-	// - For this lib, the data in the GnuCash file is the truth. 
-	//   If it happens to be wrong, then it should be corrected, period.
-	// - This is not the way GnuCash works. It never just takes a 
-	//   tax rate directly, but rather goes via a tax table (entry).
-	// - Assuming standard German VAT is overly specific.
-//	if (taxTab == null) {
-//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
-//		    "' is taxable but has an unknown i-taxtable! "
-//		    + "Assuming 19%");
-//	    return new FixedPointNumber("1900000/10000000");
-//	}
-	// Instead:
+	// ::CHECK: Still necessary?
 	if (taxTab == null) {
 	    LOGGER.error("getCustInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
 		    "' is taxable but has an unknown i-taxtable! "
@@ -496,23 +485,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	}
 
 	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-	// ::TODO ::CHECK
-	// Overly specific code / pseudo-improvement
-	// Reasons: 
-	// - We should not correct data errors -- why only check here?
-	//   There are hundreds of instances where we could check...
-	// - Assuming standard German VAT is overly specific.
-//	if ( ! taxTabEntr.getType().equals(GCshTaxTableEntry.TYPE_PERCENT) ) {
-//	    LOGGER.error("getInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
-//		    "' is taxable but has a i-taxtable "
-//		    + "that is not in percent but in '" + taxTabEntr.getType() + "'! Assuming 19%");
-//	    return new FixedPointNumber("1900000/10000000");
-//	}
-	// Instead:
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getCustInvcApplicableTaxPercent: Customer invoice entry with id '" + getID() + 
-		    "' is taxable but has a i-taxtable of type '" + taxTabEntr.getType() + "'! " + 
+		    "' is taxable but has a i-taxtable of type '" + taxTabEntr.getType() + "' " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -533,6 +509,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     	return getVendBllApplicableTaxPercent_int();
     }
     
+    // Important separate it from public variant for
+    // getJobInvcApplicableTaxPercent().
+    // Else, we would have funny effects.
     private FixedPointNumber getVendBllApplicableTaxPercent_int() {
 	if ( getType() != GnuCashGenerInvoice.TYPE_VENDOR && 
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
@@ -568,12 +547,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	}
 
 	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-	// ::TODO ::CHECK
-	// Cf. getInvcApplicableTaxPercent()
+
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getVendBllApplicableTaxPercent: Vendor bill entry with id '" + getID() + 
-		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
+		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "' " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
 	    return new FixedPointNumber("0");
@@ -625,12 +603,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	}
 
 	GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-	// ::TODO ::CHECK
-	// Cf. getInvcApplicableTaxPercent()
+
 	// ::TODO
 	if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 	    LOGGER.error("getEmplVchApplicableTaxPercent: Employee voucher entry with id '" + getID() + 
-		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "'! " + 
+		    "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "' " + 
 		    "NOT IMPLEMENTED YET " +
 	            "Assuming 0%");
 	    return new FixedPointNumber("0");

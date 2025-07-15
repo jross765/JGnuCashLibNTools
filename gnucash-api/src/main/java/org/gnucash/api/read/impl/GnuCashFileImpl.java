@@ -757,8 +757,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID id) {
-		return invcEntrMgr.getGenerInvoiceEntryByID(id);
+	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID entrID) {
+		return invcEntrMgr.getGenerInvoiceEntryByID(entrID);
 	}
 
 	public Collection<GnuCashGenerInvoiceEntry> getGenerInvoiceEntries() {

@@ -184,10 +184,10 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     List<GCshAccountLot> getLots();
 
     /**
-     * @param id the lot-id to look for
+     * @param acctLotID the lot-id to look for
      * @return the identified lot or null
      */
-    GCshAccountLot getLotByID(final GCshID id);
+    GCshAccountLot getLotByID(final GCshID acctLotID);
 
     // -----------------------------------------------------------------
 

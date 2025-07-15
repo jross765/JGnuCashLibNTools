@@ -6,15 +6,11 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
-import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
-import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
-import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
-/**
+/*
  * Methods common to all specialized variants of invoices (and only those).
  *
  * @see GnuCashCustomerInvoiceEntry

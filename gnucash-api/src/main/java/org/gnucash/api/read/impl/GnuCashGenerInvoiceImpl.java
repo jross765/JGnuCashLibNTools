@@ -1150,9 +1150,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GnuCashGenerInvoiceEntry getGenerEntryByID(final GCshID id) {
+	public GnuCashGenerInvoiceEntry getGenerEntryByID(final GCshID entrID) {
 		for ( GnuCashGenerInvoiceEntry element : getGenerEntries() ) {
-			if ( element.getID().equals(id) ) {
+			if ( element.getID().equals(entrID) ) {
 				return element;
 			}
 
@@ -1351,7 +1351,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		try {
 			buffer.append(getOwnerType(ReadVariant.DIRECT));
 		} catch (WrongInvoiceTypeException e) {
-			// TODO Auto-generated catch block
 			buffer.append("ERROR");
 		}
 

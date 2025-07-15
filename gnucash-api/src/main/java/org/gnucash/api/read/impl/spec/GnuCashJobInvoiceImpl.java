@@ -203,8 +203,8 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshID id) {
-		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashJobInvoiceEntry getEntryByID(GCshID entrID) {
+		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

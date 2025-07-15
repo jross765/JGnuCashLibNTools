@@ -294,10 +294,10 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @see {@link #getSplitByID(GCshID)}
+     * @see #getSplitByID(GCshID)
      */
-    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshID id) {
-	return (GnuCashWritableTransactionSplit) super.getSplitByID(id);
+    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshID spltID) {
+	return (GnuCashWritableTransactionSplit) super.getSplitByID(spltID);
     }
 
     /**

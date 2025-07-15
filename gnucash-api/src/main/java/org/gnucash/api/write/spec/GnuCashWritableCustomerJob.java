@@ -31,8 +31,8 @@ public interface GnuCashWritableCustomerJob extends GnuCashWritableGenerJob,
      * Will throw an IllegalStateException if there are invoices for this job.<br/>
      * 
      * @param newCustomer the customer who issued this job.
-* 
-     *  
+     * 
+     * @see #getCustomer()
      */
     void setCustomer(GnuCashCustomer newCustomer);
 

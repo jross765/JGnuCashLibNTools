@@ -16,12 +16,15 @@ public interface GnuCashCustomerJob extends GnuCashGenerJob {
 	/**
 	 *
 	 * @return the customer this job is from.
+	 * 
+	 * @see #getCustomerID()
 	 */
 	GnuCashCustomer getCustomer();
 
 	/**
 	 *
 	 * @return the id of the customer this job is from.
+	 * 
 	 * @see #getCustomer()
 	 */
 	GCshID getCustomerID();

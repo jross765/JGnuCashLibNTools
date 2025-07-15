@@ -228,20 +228,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     }
 
     /**
-     * @see GnuCashTransactionSplit#getValueFormattedForHTML()
-     */
-    public String getValueFormattedForHTML() {
-	return getValueFormatted().replaceFirst("€", "&euro;");
-    }
-
-    /**
-     * @see GnuCashTransactionSplit#getValueFormattedForHTML(java.util.Locale)
-     */
-    public String getValueFormattedForHTML(final Locale lcl) {
-	return getValueFormatted(lcl).replaceFirst("€", "&euro;");
-    }
-
-    /**
      * @see GnuCashTransactionSplit#getAccountBalance()
      */
     public FixedPointNumber getAccountBalance() {
@@ -291,20 +277,6 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 	else {
 	    return nf.format(getQuantity()) + " " + getAccount().getCmdtyCurrID().toString(); 
 	}
-    }
-
-    /**
-     * The value is in the currency of the account!
-     */
-    public String getQuantityFormattedForHTML() {
-	return getQuantityFormatted().replaceFirst("€", "&euro;");
-    }
-
-    /**
-     * The value is in the currency of the account!
-     */
-    public String getQuantityFormattedForHTML(final Locale lcl) {
-	return getQuantityFormatted(lcl).replaceFirst("€", "&euro;");
     }
 
     /**

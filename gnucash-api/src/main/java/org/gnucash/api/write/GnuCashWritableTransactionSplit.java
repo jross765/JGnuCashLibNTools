@@ -34,8 +34,10 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * Does not convert the quantity to another
 	 * currency if the new account has another
 	 * one then the old!
-	 * @param accountId the new account to give this
-	 *        money to/take it from.
+	 * @param acctID the new account to give this money to/take it from.
+	 * 
+	 * @see #getAccountID()
+	 * @see #setAccount(GnuCashAccount)
 	 */
 	void setAccountID(GCshID acctID);
 
@@ -45,6 +47,9 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * one then the old!
 	 * @param account the new account to give this
 	 *        money to/take it from.
+	 *        
+	 * @see #getAccount()
+	 * @see #setAccountID(GCshID)
 	 */
 	void setAccount(GnuCashAccount account);
 
@@ -64,15 +69,24 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * 
 	 * @param lotID the ID of the account lot this transaction split
      * shall reference to..
+     * 
+     * @see #getLotID()
+     * @see #unsetLotID()
 	 */
 	void setLotID(GCshID lotID);
 
+	/**
+	 * @see #setLotID(GCshID)
+	 */
 	void unsetLotID();
 
 	/**
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setQuantity(FixedPointNumber)}.
 	 * @param n the new quantity (in the currency of the account)
+	 * 
+	 * @see #getQuantity()
+	 * @see #setQuantity(String)
 	 */
 	void setQuantity(FixedPointNumber n);
 
@@ -80,19 +94,19 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setQuantity(FixedPointNumber)}.
 	 * @param n the new quantity (in the currency of the account)
+	 * 
+	 * @see #getQuantity()
+	 * @see #setQuantity(FixedPointNumber)
 	 */
 	void setQuantity(String n);
-
-	/**
-	 * Same as ${@link #setQuantity(String)}.
-	 * @param n the new quantity (in the currency of the account)
-	 */
-	void setQuantityFormattedForHTML(String n);
 
 	/**
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setValue(FixedPointNumber)}.
 	 * @param n the new value (in the currency of the transaction)
+	 * 
+	 * @see #getValue()
+	 * @see #setValue(FixedPointNumber)
 	 */
 	void setValue(FixedPointNumber n);
 
@@ -100,18 +114,17 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * If the currencies of transaction and account match, this also does
 	 * ${@link #setValue(FixedPointNumber)}.
 	 * @param n the new value (in the currency of the transaction)
+	 * 
+	 * @see #getValue()
+	 * @see #setValue(FixedPointNumber)
 	 */
 	void setValue(String n);
 
 	/**
-	 * Same as ${@link #setValue(String)}.
-	 * @param n the new value (in the currency of the transaction)
-	 */
-	void setValueFormattedForHTML(String n);
-
-	/**
 	 * Set the description-text.
 	 * @param desc the new description
+	 * 
+	 * @see #getDescription()
 	 */
 	void setDescription(String desc);
 
@@ -119,10 +132,22 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * Set the type of association this split has with
 	 * an invoice's lot.
 	 * @param action null, or one of the ACTION_xyz values defined
-	 * @throws IllegalTransactionSplitActionException 
+	 * @throws IllegalTransactionSplitActionException
+	 * 
+	 * @see #getAction()
+	 * @see #setActionStr(String)
 	 */
 	void setAction(Action action);
 
+	/**
+	 * 
+	 * @param action
+	 * 
+	 * @throws IllegalTransactionSplitActionException
+	 * 
+	 * @see #getActionStr()
+	 * @see #setAction(org.gnucash.api.read.GnuCashTransactionSplit.Action)
+	 */
 	void setActionStr(String action) throws IllegalTransactionSplitActionException;
 
 }

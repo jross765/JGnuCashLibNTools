@@ -86,6 +86,26 @@ public class SecuritiesAccountTransactionManager {
 
     // ---------------------------------------------------------------
     
+    /**
+     * Generates a transaction that buys a given number of stocks  
+     * for a specific security's stock account at a given price, 
+     * and generates additional splits for taxes/fees
+     * (simple variant).
+     * 
+     * @param gcshFile KMyMoney file
+     * @param stockAcctID ID the the stock account
+     * @param taxFeeAcctID ID of the expenses account for the taxes/fees
+     * @param offsetAcctID ID of the offsetting account
+     * (the account that the gross amount will be debited to).
+     * @param nofStocks no. of stocks bought
+     * @param stockPrc stock price (net)
+     * @param taxesFees taxes/fees
+     * @param postDate post date for transaction
+     * @param descr description of the transaction
+     * @return a newly generated, modifiable transaction object
+     * 
+     * @see #genBuyStockTrx(GnuCashWritableFileImpl, GCshID, Collection, GCshID, FixedPointNumber, FixedPointNumber, LocalDate, String)
+     */
     public static GnuCashWritableTransaction genBuyStockTrx(
     		final GnuCashWritableFileImpl gcshFile,
     		final GCshID stockAcctID,
@@ -107,6 +127,28 @@ public class SecuritiesAccountTransactionManager {
     			      postDate, descr);	
     }
     
+    /**
+     * Generates a transaction that buys a given number of stocks
+     * for a specific security's stock account at a given price, 
+     * and generates additional splits for taxes/fees
+     * (general variant).
+     * 
+     * @param gcshFile KMyMoney file
+     * @param stockAcctID ID the the stock account
+     * @param expensesAcctAmtList list of pairs (acctID/amount)
+     * that represents all taxes / fees for this transaction
+     * (the account-IDs being the IDs of the according expenses
+     * accounts)  
+     * @param offsetAcctID ID of the offsetting account
+     * (the account that the gross amount will be debited to).
+     * @param nofStocks no. of stocks bought
+     * @param stockPrc stock price (net)
+     * @param postDate post date for transaction
+     * @param descr description of the transaction
+     * @return a newly generated, modifiable transaction object
+     * 
+     * @see #genBuyStockTrx(GnuCashWritableFileImpl, GCshID, GCshID, GCshID, FixedPointNumber, FixedPointNumber, FixedPointNumber, LocalDate, String)
+     */
     public static GnuCashWritableTransaction genBuyStockTrx(
     		final GnuCashWritableFileImpl gcshFile,
     		final GCshID stockAcctID,
@@ -249,6 +291,26 @@ public class SecuritiesAccountTransactionManager {
     
     // ---------------------------------------------------------------
     
+    /**
+     * Generates a transaction for a dividend or distribution
+     * from a specific security's stock account, and generates additional 
+     * splits for taxes/fees.
+     * (simple variant).
+     * 
+     * @param gcshFile KMyMoney file
+     * @param stockAcctID ID of the stock account
+     * @param incomeAcctID ID of the income account
+     * @param taxFeeAcctID ID of the expenses account for the taxes/fees
+     * @param offsetAcctID ID of the offsetting account (the one that
+     * the net amount will be credited to)
+     * @param spltAct action type of the split that will point to the 
+     * stock account (dividend or distribution)
+     * @param divDistrGross gross dividend / distribution
+     * @param taxesFees taxes/fees
+     * @param postDate post date of the transaction
+     * @param descr description of the transaction
+     * @return a newly generated, modifiable transaction object
+     */
     public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,
@@ -271,6 +333,28 @@ public class SecuritiesAccountTransactionManager {
     			      postDate, descr);
     }
     
+    /**
+     * Generates a transaction for a dividend or distribution
+     * from a specific security's stock account, and generates additional 
+     * splits for taxes/fees.
+     * (general variant).
+     * 
+     * @param gcshFile KMyMoney file
+     * @param stockAcctID ID of the stock account
+     * @param incomeAcctID ID of the income account
+     * @param expensesAcctAmtList list of pairs (acctID/amount) 
+     * that represents all taxes / fees for this transaction
+     * (the account-IDs being the IDs of the according expenses
+     * accounts)  
+     * @param offsetAcctID ID of the offsetting account (the one that
+     * the net amount will be credited to)
+     * @param spltAct action type of the split that will point to the 
+     * stock account (dividend or distribution)
+     * @param divDistrGross gross dividend / distribution
+     * @param postDate post date of the transaction
+     * @param descr description of the transaction
+     * @return a newly generated, modifiable transaction object
+     */
     public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
     	    final GCshID stockAcctID,

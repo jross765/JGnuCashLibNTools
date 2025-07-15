@@ -305,8 +305,8 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	 * @see #getGenerEntryByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableEmployeeVoucherEntry getWritableEntryByID(final GCshID id) {
-		return new GnuCashWritableEmployeeVoucherEntryImpl(getGenerEntryByID(id));
+	public GnuCashWritableEmployeeVoucherEntry getWritableEntryByID(final GCshID entrID) {
+		return new GnuCashWritableEmployeeVoucherEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	// ---------------------------------------------------------------
@@ -344,8 +344,8 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashEmployeeVoucherEntry getEntryByID(GCshID id) {
-		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(id));
+	public GnuCashEmployeeVoucherEntry getEntryByID(GCshID entrID) {
+		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

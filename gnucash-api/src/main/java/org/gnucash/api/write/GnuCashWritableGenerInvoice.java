@@ -46,24 +46,78 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
 
     // -----------------------------------------------------------
 
+    /**
+     * 
+     * @param ownID
+     * 
+     * @see #getOwnerID(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
+     */
     void setOwnerID(GCshID ownID);
 
+    /**
+     * 
+     * @param own
+     * 
+     * @see #getOwner()
+     */
     void setOwner(GCshOwner own);
 
     // -----------------------------------------------------------
 
-    void setDatePosted(LocalDate d);
+    /**
+     * 
+     * @param ddat
+     * 
+     * @see #getDatePosted()
+     * @see #setDatePosted(String)
+     */
+    void setDatePosted(LocalDate ddat);
 
-    void setDatePosted(String d) throws java.text.ParseException;
+    /**
+     * 
+     * @param dat
+     * @throws java.text.ParseException
+     * 
+     * @see #getDatePosted()
+     * @see #setDatePosted(LocalDate)
+     */
+    void setDatePosted(String dat) throws java.text.ParseException;
 
-    void setDateOpened(LocalDate d);
+    /**
+     * 
+     * @param dat
+     * 
+     * @see #getDateOpened()
+     * @see #setDateOpened(String)
+     */
+    void setDateOpened(LocalDate dat);
 
-    void setDateOpened(String d) throws java.text.ParseException;
+    /**
+     * 
+     * @param dat
+     * @throws java.text.ParseException
+     * 
+     * @see #getDateOpened()
+     * @see #setDateOpened(LocalDate)
+     */
+    void setDateOpened(String dat) throws java.text.ParseException;
 
     // -----------------------------------------------------------
 
+    /**
+     * 
+     * @param number
+     * 
+     * @see #getNumber()
+     */
     void setNumber(String number);
 
+    /**
+     * 
+     * @param descr
+     * 
+     * @see #getDescription()
+     */
     void setDescription(String descr);
 
     // -----------------------------------------------------------
@@ -75,12 +129,18 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
 
     // -----------------------------------------------------------
 
+    /**
+     * 
+     * @return
+     * 
+     * @see #getGenerEntries()
+     */
     List<GnuCashWritableGenerInvoiceEntry> getWritableGenerEntries();
 
     /**
      * @param entrID the id to look for
      * @return the modifiable version of the entry
-     * @see GnuCashGenerInvoice#getGenerInvcEntryByID(GCshID)
+     * @see #getGenerEntryByID(GCshID)
      */
     GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshID entrID);
 
@@ -94,7 +154,7 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
 
     /**
      * remove this invoice from the system.
-     * 
+     * @param withEntries 
      * 
      * @throws TaxTableNotFoundException
      * @throws IllegalTransactionSplitActionException
@@ -111,7 +171,6 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
      * @param quantity 
      * @return 
      * 
-* 
      * @throws TaxTableNotFoundException
      * 
      */

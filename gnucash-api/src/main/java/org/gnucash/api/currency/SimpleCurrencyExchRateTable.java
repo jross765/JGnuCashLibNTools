@@ -15,7 +15,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class SimpleCurrencyExchRateTable implements SimplePriceTable,
                                                     Serializable
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCurrencyExchRateTable.class);
+    @SuppressWarnings("unused")
+	private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCurrencyExchRateTable.class);
 
     private static final long serialVersionUID = -1650896703880682721L;
 

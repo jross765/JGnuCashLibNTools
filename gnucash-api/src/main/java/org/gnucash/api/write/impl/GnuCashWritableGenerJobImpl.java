@@ -233,7 +233,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this invoice is NOT changeable because there already have been made payments for it");
+		    "this invoice is NOT modifiable because there already have been made payments for it");
 	}
     }
 

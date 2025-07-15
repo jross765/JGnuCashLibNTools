@@ -2244,7 +2244,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     protected void attemptChange() {
 	if (!isModifiable()) {
 	    throw new IllegalStateException(
-		    "this invoice is NOT changeable because there already have been made payments for it");
+		    "this invoice is NOT modifiable because there already have been made payments for it");
 	}
     }
 
@@ -2454,8 +2454,8 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     /**
      * @see #getGenerEntryByID(GCshID)
      */
-    public GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(final GCshID id) {
-	return new GnuCashWritableGenerInvoiceEntryImpl(super.getGenerEntryByID(id));
+    public GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(final GCshID entrID) {
+	return new GnuCashWritableGenerInvoiceEntryImpl(super.getGenerEntryByID(entrID));
     }
 
     // ---------------------------------------------------------------
@@ -2558,7 +2558,6 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	try {
 	    buffer.append(getOwnerType(ReadVariant.DIRECT));
 	} catch (WrongInvoiceTypeException e) {
-	    // TODO Auto-generated catch block
 	    buffer.append("ERROR");
 	}
 

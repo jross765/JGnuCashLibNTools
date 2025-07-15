@@ -30,15 +30,45 @@ public interface GnuCashWritableCommodity extends GnuCashCommodity,
 
 	// ---------------------------------------------------------------
 
+    /**
+     * 
+     * @param symb
+     * 
+     * @see #getSymbol()
+     */
 	void setSymbol(String symb);
 
+	/**
+	 * 
+	 * @param xCode
+	 * 
+	 * @see #getXCode()
+	 */
     void setXCode(String xCode);
 
     // ---------------------------------------------------------------
 
-    void setQualifID(GCshCmdtyCurrID qualifId);
+    /**
+     * 
+     * @param qualifID
+     * 
+     * @see #getQualifID()
+     */
+    void setQualifID(GCshCmdtyCurrID qualifID);
 
+    /**
+     * 
+     * @param name
+     * 
+     * @see #getName()
+     */
     void setName(String name);
 
+    /**
+     * 
+     * @param fract
+     * 
+     * @see #getFraction()
+     */
     void setFraction(Integer fract);
 }

@@ -107,24 +107,36 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
 
     /**
      * Get a split of this transaction it's id.
-     * @param id the id to look for
+     * @param spltID the id to look for
      * @return null if not found
      *  
      */
-    GnuCashTransactionSplit getSplitByID(GCshID id);
+    GnuCashTransactionSplit getSplitByID(GCshID spltID);
 
     /**
      *
      * @return the first split of this transaction or null.
+     * <br>
+     * <em>Caution</em>: This only makes sense for simple transactions
+     * that consist of only two splits. 
+     * By no means is that guaranteed or even "normal"!
+     * 
      * @throws TransactionSplitNotFoundException 
      *  
+     * @see #getSplitsCount()
      */
     GnuCashTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException;
 
     /**
      * @return the second split of this transaction or null.
+     * <br>
+     * <em>Caution</em>: This only makes sense for simple transactions
+     * that consist of only two splits. 
+     * By no means is that guaranteed or even "normal"!
+     * 
      * @throws TransactionSplitNotFoundException 
-     *  
+     * 
+     * @see #getSplitsCount()
      */
     GnuCashTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException;
 
@@ -144,19 +156,24 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
     /**
      *
      * @return the date the transaction happened
+     * 
+     * @see #getDatePostedFormatted()
      */
     ZonedDateTime getDatePosted();
 
     /**
      *
      * @return date the transaction happened
+     * 
+     * @see #getDatePosted()
      */
     String getDatePostedFormatted();
 
     /**
      *
      * @return true if the sum of all splits adds up to zero.
-     *  
+     * 
+     * @see #getBalance()
      */
     boolean isBalanced();
 
@@ -167,6 +184,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * if the transaction is unbalanced, get sum of all split-values.
      * @return the sum of all splits
      *  
+     * @see #getBalanceFormatted()
+     * @see #getBalanceFormatted(Locale)
      * @see #isBalanced()
      */
     FixedPointNumber getBalance();
@@ -174,7 +193,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * The result is in the currency of the transaction.
      * @return 
      *  
-     * @see GnuCashTransaction#getBalance()
+     * @see #getBalance()
+     * @see #getBalanceFormatted(Locale)
      */
     String getBalanceFormatted();
     
@@ -183,7 +203,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @param lcl 
      * @return 
      *  
-     * @see GnuCashTransaction#getBalance()
+     * @see #getBalance()
+     * @see #getBalanceFormatted()
      */
     String getBalanceFormatted(Locale lcl);
 
@@ -192,6 +213,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * if the transaction is unbalanced, get the missing split-value to balance it.
      * @return the sum of all splits
      *  
+     * @see #getNegatedBalanceFormatted()
+     * @see #getNegatedBalanceFormatted(Locale)
      * @see #isBalanced()
      */
     FixedPointNumber getNegatedBalance();
@@ -200,7 +223,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * The result is in the currency of the transaction.
      * @return 
      *  
-     * @see GnuCashTransaction#getNegatedBalance()
+     * @see #getNegatedBalance()
+     * @see #getNegatedBalanceFormatted(Locale)
      */
     String getNegatedBalanceFormatted();
     
@@ -209,7 +233,8 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @param lcl 
      * @return 
      *  
-     * @see GnuCashTransaction#getNegatedBalance()
+     * @see #getNegatedBalance()
+     * @see #getNegatedBalanceFormatted()
      */
     String getNegatedBalanceFormatted(Locale lcl);
 

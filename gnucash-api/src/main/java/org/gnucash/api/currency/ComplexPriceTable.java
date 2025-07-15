@@ -174,7 +174,7 @@ public class ComplexPriceTable implements Serializable {
     /**
      * @param nameSpace 
      * @param code 
-     * @return the factor to convert the price specified by the namespace-code-pair
+     * @return the factor to convert the price specified by the name-space-code-pair
      *   to 
      * @see SimplePriceTable#setConversionFactor(java.lang.String, FixedPointNumber)
      */

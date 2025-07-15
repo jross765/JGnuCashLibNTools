@@ -577,9 +577,6 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     	}
     }
 
-    /**
-     * set getWritableFile().setModified(true).
-     */
     protected void setIsModified() {
     	GnuCashWritableFile writableFile = getWritableGnuCashFile();
     	writableFile.setModified(true);

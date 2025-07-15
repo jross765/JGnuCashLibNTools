@@ -28,9 +28,11 @@ public interface GnuCashWritableEmployee extends GnuCashEmployee,
     /**
      * Sets the employee's number.
      *  
-     * @see {@link GnuCashCustomer#getNumber()}
      * @param number the user-assigned number of this employee (may contain
      *               non-digits)
+     *               
+     * @see #getNumber()
+     * @see {@link GnuCashCustomer#getNumber()}
      */
     void setNumber(String number);
 
@@ -38,6 +40,8 @@ public interface GnuCashWritableEmployee extends GnuCashEmployee,
      * Sets the employee's user name.
      * 
      * @param userName
+     * 
+     * @see #getUserName()
      */
     void setUserName(String userName);
 

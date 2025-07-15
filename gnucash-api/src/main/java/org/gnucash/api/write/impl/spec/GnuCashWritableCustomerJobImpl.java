@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl 
                                             implements GnuCashWritableCustomerJob 
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableCustomerJobImpl.class);
 
 	// ---------------------------------------------------------------

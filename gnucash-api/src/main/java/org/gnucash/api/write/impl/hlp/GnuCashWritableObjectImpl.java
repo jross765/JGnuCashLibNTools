@@ -17,9 +17,6 @@ public class GnuCashWritableObjectImpl extends GnuCashObjectImpl
 		                               implements GnuCashWritableObject 
 {
 
-	/**
-	 * Automatically created logger for debug and error-output.
-	 */
 	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableObjectImpl.class);
 

@@ -14,7 +14,7 @@ Currently, the module consists of two sub-modules:
 This sub-module contains classes that provide a simplified, high-level interface for...
 
 * ...generating and maintaining stock accounts,
-* ...generating buy- and dividend transactions in a securities account (brokerage account),
+* ...generating buy- and dividend/distribution transactions in a securities account (brokerage account),
 * ...handling and tracking account lots for stock accounts (needed, e.g., to prepare German tax filings).
 
 ### TrxMgr
@@ -33,6 +33,9 @@ This sub-module contains classes that help to...
 
 * Extended sub-module SecAcct:
   * New: `SecuritiesAccountLotManager`
+  * `SecuritiesAccountTransactionManager`: new type "distribution" (as opposed to "dividend"). 
+    This leads to a subtle, but importance difference in the generated transaction: 
+    One of the splits generated will have another split action.
 
 ### V. 1.4 &rarr; 1.5
 * Sub-module SecAcct:

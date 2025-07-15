@@ -458,17 +458,17 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID id) {
-		if ( id == null ) {
-			throw new IllegalArgumentException("argument <id> is null");
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+		if ( spltID == null ) {
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 
-		if ( ! id.isSet() ) {
-			throw new IllegalArgumentException("argument <id> is not set");
+		if ( ! spltID.isSet() ) {
+			throw new IllegalArgumentException("argument <spltID> is not set");
 		}
 
 		for ( GnuCashTransactionSplit split : getTransactionSplits() ) {
-			if ( id.equals(split.getID()) ) {
+			if ( spltID.equals(split.getID()) ) {
 				return split;
 			}
 
@@ -478,17 +478,17 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshAccountLot getLotByID(final GCshID id) {
-		if ( id == null ) {
-			throw new IllegalArgumentException("argument <id> is null");
+	public GCshAccountLot getLotByID(final GCshID spltID) {
+		if ( spltID == null ) {
+			throw new IllegalArgumentException("argument <spltID> is null");
 		}
 
-		if ( ! id.isSet() ) {
-			throw new IllegalArgumentException("argument <id> is not set");
+		if ( ! spltID.isSet() ) {
+			throw new IllegalArgumentException("argument <spltID> is not set");
 		}
 
 		for ( GCshAccountLot lot : getLots() ) {
-			if ( id.equals(lot.getID()) ) {
+			if ( spltID.equals(lot.getID()) ) {
 				return lot;
 			}
 

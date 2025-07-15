@@ -29,20 +29,24 @@ public interface GnuCashEmployeeVoucher extends GnuCashGenerInvoice,
 
     /**
      * @return ID of employee this invoice has been sent from 
+     * 
+     * @see #getEmployee()
      */
     GCshID getEmployeeID();
 
     /**
      * @return Customer this invoice has been sent to.
+     * 
+     * @see #getEmployeeID()
      */
     GnuCashEmployee getEmployee();
 	
     // ---------------------------------------------------------------
 
-    GnuCashEmployeeVoucherEntry getEntryByID(GCshID id);
+    GnuCashEmployeeVoucherEntry getEntryByID(GCshID entrID);
 
     Collection<GnuCashEmployeeVoucherEntry> getEntries();
 
-    void addEntry(GnuCashEmployeeVoucherEntry entry);
+    void addEntry(GnuCashEmployeeVoucherEntry entr);
 
 }

@@ -9,7 +9,6 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.UnknownInvoiceTypeException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
@@ -36,6 +35,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvoiceEntryImpl 
                                                 implements GnuCashWritableJobInvoiceEntry
 {
+	@SuppressWarnings("unused")
 	private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableJobInvoiceEntryImpl.class);
 
 	// ---------------------------------------------------------------

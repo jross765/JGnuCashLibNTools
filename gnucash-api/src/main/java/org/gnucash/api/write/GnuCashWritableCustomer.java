@@ -29,9 +29,11 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
     /**
      * Sets the customer's number.
      * 
-     * @see {@link GnuCashCustomer#getNumber()}
      * @param number the user-assigned number of this customer (may contain
      *               non-digits)
+     *               
+     * @see #getNumber()
+     * @see {@link GnuCashCustomer#getNumber()}
      */
     void setNumber(String number);
 
@@ -39,6 +41,8 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
      * Sets the customer's name.
      *  
      * @param name
+     * 
+     * @see #getName()
      */
     void setName(String name);
 
@@ -46,6 +50,8 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
      * Sets the customer's discount.
      * 
      * @param discount
+     * 
+     * @see #getDiscount()
      */
     void setDiscount(FixedPointNumber discount);
 
@@ -53,6 +59,8 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
      * Sets the customer's credit.
      * 
      * @param credit
+     * 
+     * #getCredit()
      */
     void setCredit(FixedPointNumber credit);
 
@@ -60,13 +68,17 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
      * Sets the customer's notes.
      * 
      * @param notes user-defined notes about the customer (may be null)
+     * 
+     * @see #getNotes()
      */
     void setNotes(String notes);
 
     // ---------------------------------------------------------------
 
     /**
-     * @return the customer's shipping address (rw-object) 
+     * @return the customer's shipping address (rw-object)
+     * 
+     * @see #getShippingAddress()
      */
     GCshWritableAddress getWritableShippingAddress();
     

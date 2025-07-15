@@ -194,12 +194,12 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	}
 
 	@Override
-	public void setCustomerJob(GnuCashCustomerJob job) {
+	public void setCustJob(GnuCashCustomerJob job) {
 		setGenerJob(job);
 	}
 
 	@Override
-	public void setVendorJob(GnuCashVendorJob job) {
+	public void setVendJob(GnuCashVendorJob job) {
 		setGenerJob(job);
 	}
 
@@ -341,8 +341,8 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	/**
 	 * @see #getGenerEntryByID(GCshID)
 	 */
-	public GnuCashWritableJobInvoiceEntry getWritableEntryByID(final GCshID id) {
-		return new GnuCashWritableJobInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashWritableJobInvoiceEntry getWritableEntryByID(final GCshID entrID) {
+		return new GnuCashWritableJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	// ---------------------------------------------------------------
@@ -446,8 +446,8 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshID id) {
-		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(id));
+	public GnuCashJobInvoiceEntry getEntryByID(GCshID entrID) {
+		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

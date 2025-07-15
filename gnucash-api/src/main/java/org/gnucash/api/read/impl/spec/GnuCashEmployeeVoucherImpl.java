@@ -93,8 +93,8 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashEmployeeVoucherEntry getEntryByID(GCshID id) {
-		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(id));
+	public GnuCashEmployeeVoucherEntry getEntryByID(GCshID entrID) {
+		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package org.gnucash.api.read;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -131,6 +132,8 @@ public interface GnuCashPrice extends Comparable<GnuCashPrice>,
     // ----------------------------
 
     LocalDate getDate();
+    
+    LocalDateTime getDateTime();
 
     Source getSource();
 

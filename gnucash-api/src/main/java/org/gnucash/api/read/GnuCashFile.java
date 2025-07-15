@@ -24,7 +24,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
@@ -125,7 +124,7 @@ public interface GnuCashFile extends GnuCashObject,
      * First try to fetch the account by id, then fall back to traversing all
      * accounts to get if by it's name.
      *
-     * @param id   the id to look for
+     * @param acctID   the id to look for
      * @param name the name to look for if nothing is found for the id
      * @return null if not found
      * @throws TooManyEntriesFoundException 
@@ -133,7 +132,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @see #getAccountByID(GCshID)
      * @see #getAccountsByName(String)
      */
-    GnuCashAccount getAccountByIDorName(GCshID id, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnuCashAccount getAccountByIDorName(GCshID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * First try to fetch the account by id, then fall back to traversing all
@@ -175,12 +174,16 @@ public interface GnuCashFile extends GnuCashObject,
     Collection<GnuCashAccount> getAccounts();
 
     /**
-     * @return
+     * @return ID of the root account
+     * 
+     * @see #getRootAccount()
      */
     GCshID getRootAccountID();
 
     /**
      * @return
+     * 
+     * @see #getRootAccountID()
      */
     GnuCashAccount getRootAccount();
 
@@ -213,9 +216,19 @@ public interface GnuCashFile extends GnuCashObject,
     /**
      * @return a (possibly read-only) collection of all transactions Do not modify
      *         the returned collection!
+     * 
+     * @see #getTransactions(LocalDate, LocalDate)
      */
     Collection<? extends GnuCashTransaction> getTransactions();
 
+    /**
+     * 
+     * @param fromDate
+     * @param toDate
+     * @return
+     * 
+     * @see #getTransactions()
+     */
     Collection<? extends GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
 
     // ---------------------------------------------------------------
@@ -223,6 +236,8 @@ public interface GnuCashFile extends GnuCashObject,
     /**
      * @param spltID the unique ID of the transaction split to look for
      * @return the transaction split or null if it's not found
+     * 
+     * @see #getTransactionSplits()
      */
     GnuCashTransactionSplit getTransactionSplitByID(GCshID spltID);
 
@@ -453,7 +468,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
      * @see #getGenerInvoiceByID(GCshID)
-     * @see #getUnpaidBillsForVendor_viaJob(GnuCashVendor)
+     * @see #getPaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashJobInvoice>      getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor vend);
 
@@ -545,12 +560,12 @@ public interface GnuCashFile extends GnuCashObject,
     // ---------------------------------------------------------------
 
     /**
-     * @param id the unique ID of the (generic) invoice entry to look for
+     * @param entrID the unique ID of the (generic) invoice entry to look for
      * @return the invoice entry or null if it's not found
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
      */
-    GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshID id);
+    GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshID entrID);
 
     /**
      * @return list of all (generic) invoices (ro-objects)

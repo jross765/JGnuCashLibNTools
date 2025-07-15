@@ -16,12 +16,15 @@ public interface GnuCashVendorJob extends GnuCashGenerJob {
 	/**
 	 *
 	 * @return the vendor this job is from.
+	 * 
+	 * @see #getVendorID()
 	 */
 	GnuCashVendor getVendor();
 
 	/**
 	 *
 	 * @return the id of the vendor this job is from.
+	 * 
 	 * @see #getVendor()
 	 */
 	GCshID getVendorID();

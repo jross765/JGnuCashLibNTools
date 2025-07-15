@@ -169,11 +169,11 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
      * {@inheritDoc}
      */
     public GCshTaxTable getTaxTable() {
-	GCshID id = getTaxTableID();
-	if (id == null) {
+	GCshID taxTabID = getTaxTableID();
+	if (taxTabID == null) {
 	    return null;
 	}
-	return getGnuCashFile().getTaxTableByID(id);
+	return getGnuCashFile().getTaxTableByID(taxTabID);
     }
 
     // ---------------------------------------------------------------
@@ -194,11 +194,11 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
      * {@inheritDoc}
      */
     public GCshBillTerms getTerms() {
-	GCshID id = getTermsID();
-	if (id == null) {
+	GCshID termsID = getTermsID();
+	if (termsID == null) {
 	    return null;
 	}
-	return getGnuCashFile().getBillTermsByID(id);
+	return getGnuCashFile().getBillTermsByID(termsID);
     }
 
     // ---------------------------------------------------------------

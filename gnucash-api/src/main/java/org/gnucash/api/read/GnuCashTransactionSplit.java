@@ -218,17 +218,6 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @return the value-transfer this represents
      */
     String getValueFormatted(Locale lcl);
-    /**
-     * The value is in the currency of the transaction!
-     * @return the value-transfer this represents
-     */
-    String getValueFormattedForHTML();
-    /**
-     * The value is in the currency of the transaction!
-     * @param locale the locale to use
-     * @return the value-transfer this represents
-     */
-    String getValueFormattedForHTML(Locale locale);
 
     /**
      * @return the balance of the account (in the account's currency)
@@ -267,19 +256,6 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      * @return the number of items added to the account
      */
     String getQuantityFormatted(Locale lcl);
-
-    /**
-     * The quantity is in the currency of the account!
-     * @return the number of items added to the account
-     */
-    String getQuantityFormattedForHTML();
-
-    /**
-     * The quantity is in the currency of the account!
-     * @param lcl the locale to use
-     * @return the number of items added to the account
-     */
-    String getQuantityFormattedForHTML(Locale lcl);
 
     /**
      * @return the user-defined description for this object

@@ -30,9 +30,7 @@ import org.slf4j.LoggerFactory;
 public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl 
                                           implements GnuCashWritableCommodity
 {
-    /**
-     * Automatically created logger for debug and error-output.
-     */
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GnuCashWritableCommodityImpl.class);
     
     // ---------------------------------------------------------------

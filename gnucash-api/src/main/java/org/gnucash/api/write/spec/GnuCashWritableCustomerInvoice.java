@@ -29,7 +29,7 @@ public interface GnuCashWritableCustomerInvoice extends GnuCashWritableGenerInvo
 													    GnuCashWritableObject
 {
 
-    GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(GCshID id);
+    GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(GCshID entrID);
     
     // ---------------------------------------------------------------
 
@@ -37,7 +37,9 @@ public interface GnuCashWritableCustomerInvoice extends GnuCashWritableGenerInvo
      * Will throw an IllegalStateException if there are invoices for this customer.<br/>
      * 
      * @param cust the customer to whom we send an invoice to
-* 
+     *
+     * @see #getCustomer()
+     * @see #getCustomerID()
      */
     void setCustomer(GnuCashCustomer cust);
 

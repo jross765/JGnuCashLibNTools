@@ -349,9 +349,9 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 	return getSplits().size();
     }
 
-    public GnuCashTransactionSplit getSplitByID(final GCshID id) {
+    public GnuCashTransactionSplit getSplitByID(final GCshID spltID) {
 	for (GnuCashTransactionSplit split : getSplits()) {
-	    if (split.getID().equals(id)) {
+	    if (split.getID().equals(spltID)) {
 		return split;
 	    }
 

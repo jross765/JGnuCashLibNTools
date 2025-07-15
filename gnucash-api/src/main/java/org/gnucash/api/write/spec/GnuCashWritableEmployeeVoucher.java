@@ -29,7 +29,7 @@ public interface GnuCashWritableEmployeeVoucher extends GnuCashWritableGenerInvo
 														GnuCashWritableObject
 {
 
-    GnuCashWritableEmployeeVoucherEntry getWritableEntryByID(GCshID id);
+    GnuCashWritableEmployeeVoucherEntry getWritableEntryByID(GCshID entrID);
     
     // ---------------------------------------------------------------
 
@@ -37,7 +37,9 @@ public interface GnuCashWritableEmployeeVoucher extends GnuCashWritableGenerInvo
      * Will throw an IllegalStateException if there are bills for this employee.<br/>
      * 
      * @param empl the employee who sent an invoice to us.
-* 
+     *
+     * @see #getEmployee()
+     * @see #getEmployeeID()
      */
     void setEmployee(GnuCashEmployee empl);
 

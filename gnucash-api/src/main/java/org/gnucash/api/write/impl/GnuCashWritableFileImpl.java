@@ -561,7 +561,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param type the type to look for
-	 * @return A changeable version of all accounts of that type.
+	 * @return A modifiable version of all accounts of that type.
 	 * 
 	 * @see #getAccountsByTypeAndName(org.gnucash.api.read.GnuCashAccount.Type, String, boolean, boolean)
 	 */
@@ -584,7 +584,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param acctID the unique account-id
-	 * @return A changeable version of the account or null if not found.
+	 * @return A modifiable version of the account or null if not found.
 	 * 
 	 * @see #getAccountByID(GCshID)
 	 */
@@ -612,7 +612,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param name the name of the account
-	 * @return A changeable version of the first account with that name.
+	 * @return A modifiable version of the first account with that name.
 	 * 
 	 * @see #getAccountByNameUniq(String, boolean)
 	 */
@@ -924,7 +924,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param invcID the unique invoice-id
-	 * @return A changeable version of the Invoice or null if not found.
+	 * @return A modifiable version of the Invoice or null if not found.
 	 * @see GnuCashFile#getGenerInvoiceByID(GCshID)
 	 */
 	@Override
@@ -1505,7 +1505,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	/**
 	 * @param jobID the id of the job to fetch
-	 * @return A changeable version of the job or null of not found.
+	 * @return A modifiable version of the job or null of not found.
 	 * 
 	 * @see #getGenerJobByID(GCshID)
 	 */

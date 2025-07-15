@@ -28,20 +28,24 @@ public interface GnuCashVendorBill extends GnuCashGenerInvoice,
 
     /**
      * @return ID of vendor this invoice has been sent from 
+     * 
+     * @see #getVendor()
      */
     GCshID getVendorID();
 
     /**
      * @return Customer this invoice has been sent to.
+     * 
+     * @see #getVendorID()
      */
     GnuCashVendor getVendor();
 	
     // ---------------------------------------------------------------
 
-    GnuCashVendorBillEntry getEntryByID(GCshID id);
+    GnuCashVendorBillEntry getEntryByID(GCshID entrID);
 
     Collection<GnuCashVendorBillEntry> getEntries();
 
-    void addEntry(GnuCashVendorBillEntry entry);
+    void addEntry(GnuCashVendorBillEntry entr);
 
 }

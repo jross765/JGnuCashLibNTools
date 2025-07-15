@@ -296,7 +296,6 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
 	try {
 	    result += ", value=" + getValueFormatted();
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    result += ", value=" + "ERROR";
 	}
 	

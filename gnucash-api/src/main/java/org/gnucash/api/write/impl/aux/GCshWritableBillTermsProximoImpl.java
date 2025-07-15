@@ -48,7 +48,7 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     }
 
     @Override
-    public void getDiscountDay(final Integer dscntDay) {
+    public void setDiscountDay(final Integer dscntDay) {
 	if ( dscntDay == null ) {
 	    throw new IllegalArgumentException("argument <dscntDay> is null");
 	}

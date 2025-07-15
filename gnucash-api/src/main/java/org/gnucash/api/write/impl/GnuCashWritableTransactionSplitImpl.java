@@ -456,22 +456,6 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     // --------------------- support for propertyChangeListeners ---------------
 
     /**
-     * @see GnuCashWritableTransactionSplit#setQuantityFormattedForHTML(java.lang.String)
-     */
-    public void setQuantityFormattedForHTML(final String n) {
-	this.setQuantity(n);
-    }
-
-    /**
-     * @see GnuCashWritableTransactionSplit#setValueFormattedForHTML(java.lang.String)
-     */
-    public void setValueFormattedForHTML(final String n) {
-	this.setValue(n);
-    }
-
-    // ---------------------------------------------------------------
-
-    /**
      * The GnuCash file is the top-level class to contain everything.
      *
      * @return the file we are associated with

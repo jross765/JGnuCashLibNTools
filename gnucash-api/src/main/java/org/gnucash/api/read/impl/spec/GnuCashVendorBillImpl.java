@@ -96,8 +96,8 @@ public class GnuCashVendorBillImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashVendorBillEntry getEntryByID(GCshID id) {
-		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(id));
+	public GnuCashVendorBillEntry getEntryByID(GCshID entrID) {
+		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 
 	@Override

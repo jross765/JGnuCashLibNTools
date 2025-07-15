@@ -12,7 +12,7 @@ public interface HasTransactions
 	
     List<GnuCashTransactionSplit> getTransactionSplits();
 
-    GnuCashTransactionSplit getTransactionSplitByID(final GCshID id);
+    GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID);
 
     void addTransactionSplit(final GnuCashTransactionSplit splt);
 
