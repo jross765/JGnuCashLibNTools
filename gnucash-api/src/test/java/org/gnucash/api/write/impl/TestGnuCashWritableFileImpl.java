@@ -140,8 +140,8 @@ public class TestGnuCashWritableFileImpl {
 	public void test01_05() throws Exception {
 		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2,
-				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
+				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR,
 				gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 	}

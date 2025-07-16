@@ -190,9 +190,9 @@ public class TestGnuCashWritableGenerInvoiceEntryImpl {
 	public void test04_1() throws Exception {
 		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 
 		GnuCashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(GENER_INVC_2_ID);
 		GnuCashWritableGenerInvoiceEntry entr = gcshInFile.getWritableGenerInvoiceEntryByID(GENER_INVCENTR_1_ID);
@@ -224,9 +224,9 @@ public class TestGnuCashWritableGenerInvoiceEntryImpl {
 	public void test04_2_var1() throws Exception {
 		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 
 		GnuCashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(GENER_INVC_13_ID);
 		GnuCashWritableGenerInvoiceEntry entr = gcshInFile.getWritableGenerInvoiceEntryByID(GENER_INVCENTR_6_ID);
@@ -265,9 +265,9 @@ public class TestGnuCashWritableGenerInvoiceEntryImpl {
 	public void test04_2_var2() throws Exception {
 		gcshInFileStats = new GCshFileStats(gcshInFile);
 
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 
 		GnuCashWritableGenerInvoice invc = gcshInFile.getWritableGenerInvoiceByID(GENER_INVC_13_ID);
 		GnuCashWritableGenerInvoiceEntry entr = gcshInFile.getWritableGenerInvoiceEntryByID(GENER_INVCENTR_6_ID);
@@ -306,9 +306,9 @@ public class TestGnuCashWritableGenerInvoiceEntryImpl {
 
 	private void test04_2_check_memory(GnuCashWritableGenerInvoiceEntry entr, 
 									   GnuCashGenerInvoice invc) throws Exception {
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR     - 1, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR + 2    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER)); // sic
-		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR     - 1, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR - 1, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR    , gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.COUNTER));
+		assertEquals(ConstTest.Stats.NOF_GENER_INVC_ENTR - 1, gcshInFileStats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.CACHE));
 
 		GnuCashWritableGenerInvoice invcNow = gcshInFile.getWritableGenerInvoiceByID(GENER_INVC_13_ID);
 		// CAUTION / ::TODO
