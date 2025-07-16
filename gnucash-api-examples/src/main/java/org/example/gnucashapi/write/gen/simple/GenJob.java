@@ -3,16 +3,15 @@ package org.example.gnucashapi.write.gen.simple;
 import java.io.File;
 import java.time.LocalDateTime;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.OwnerNotFoundException;
 import org.gnucash.api.read.TaxTableNotFoundException;
-import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
+import org.gnucash.base.basetypes.simple.GCshID;
 
 public class GenJob {
     enum JobType {
