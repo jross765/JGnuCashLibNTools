@@ -149,6 +149,7 @@
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
+				
 				<xs:element name="book_slots" type="slots_type" minOccurs="0" maxOccurs="1"/>
 				<xs:element ref="gnc_count-data" minOccurs="0" maxOccurs="unbounded"/>
 
@@ -1186,16 +1187,17 @@
 								<xs:enumeration value="account"/>
 								<xs:enumeration value="book"/>
 								<xs:enumeration value="commodity"/>
-								<xs:enumeration value="gnc:GncCustomer"/>
-								<xs:enumeration value="gnc:GncEntry"/>
-								<xs:enumeration value="gnc:GncEmployee"/>
+								<xs:enumeration value="price"/>
+								<xs:enumeration value="transaction"/>
+								<xs:enumeration value="schedxaction"/>
 								<xs:enumeration value="gnc:GncBillTerm"/>
+								<xs:enumeration value="gnc:GncCustomer"/>
+								<xs:enumeration value="gnc:GncEmployee"/>
+								<xs:enumeration value="gnc:GncEntry"/>
 								<xs:enumeration value="gnc:GncInvoice"/>
-								<xs:enumeration value="gnc:GncVendor"/>
 								<xs:enumeration value="gnc:GncJob"/>
 								<xs:enumeration value="gnc:GncTaxTable"/>
-								<xs:enumeration value="schedxaction"/>
-								<xs:enumeration value="transaction"/>
+								<xs:enumeration value="gnc:GncVendor"/>
 							</xs:restriction>
 						</xs:simpleType>
 					</xs:attribute>
