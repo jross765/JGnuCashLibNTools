@@ -4,7 +4,7 @@ import javax.security.auth.login.AccountNotFoundException;
 
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -16,7 +16,7 @@ public interface GnuCashGenerInvoiceEntry_Vend {
 
     // ---------------------------------------------------------------
     
-    GCshID getVendBllAccountID() throws AccountNotFoundException;
+    GCshAcctID getVendBllAccountID() throws AccountNotFoundException;
 
     // ---------------------------------------------------------------
 

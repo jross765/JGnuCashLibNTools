@@ -6,19 +6,20 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashGenerJobImpl {
-	public static final GCshID GENER_JOB_1_ID = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c");
-	public static final GCshID GENER_JOB_2_ID = new GCshID("028cfb5993ef4d6b83206bc844e2fe56");
-	public static final GCshID GENER_JOB_3_ID = new GCshID("e1ffc66e574447de963c13c0465e74e8");
-	public static final GCshID GENER_JOB_4_ID = new GCshID("bdb7cfdd002b4ea28c8c0080f051479b");
+	public static final GCshGenerJobID GENER_JOB_1_ID = new GCshGenerJobID("e91b99cd6fbb48a985cbf1e8041f378c");
+	public static final GCshGenerJobID GENER_JOB_2_ID = new GCshGenerJobID("028cfb5993ef4d6b83206bc844e2fe56");
+	public static final GCshGenerJobID GENER_JOB_3_ID = new GCshGenerJobID("e1ffc66e574447de963c13c0465e74e8");
+	public static final GCshGenerJobID GENER_JOB_4_ID = new GCshGenerJobID("bdb7cfdd002b4ea28c8c0080f051479b");
 	
 	// -----------------------------------------------------------------
 

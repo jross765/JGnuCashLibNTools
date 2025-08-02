@@ -23,7 +23,17 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
@@ -68,14 +78,14 @@ public interface GnuCashFile extends GnuCashObject,
      * @param acctID the unique ID of the account to look for
      * @return the account or null if it's not found
      */
-    GnuCashAccount getAccountByID(GCshID acctID);
+    GnuCashAccount getAccountByID(GCshAcctID acctID);
 
     /**
      *
      * @param prntAcctID if null, gives all account that have no parent
      * @return all accounts with that parent in no particular order
      */
-    List<GnuCashAccount> getAccountsByParentID(GCshID prntAcctID);
+    List<GnuCashAccount> getAccountsByParentID(GCshAcctID prntAcctID);
 
     /**
      * warning: this function has to traverse all accounts. If it much faster to try
@@ -85,7 +95,7 @@ public interface GnuCashFile extends GnuCashObject,
      *
      * @param name the UNQUaLIFIED name to look for
      * @return null if not found
-     * @see #getAccountByID(GCshID)
+     * @see #getAccountByID(GCshAcctID)
      */
     Collection<GnuCashAccount> getAccountsByName(String expr);
 
@@ -115,7 +125,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
+     * @see #getAccountByID(GCshAcctID)
      * @see #getAccountsByName(String)
      */
     GnuCashAccount getAccountByNameEx(String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -129,7 +139,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
+     * @see #getAccountByID(GCshAcctID)
      * @see #getAccountsByName(String)
      */
     GnuCashAccount getAccountByIDorName(GCshID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -144,7 +154,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return null if not found
      * @throws TooManyEntriesFoundException 
      * @throws NoEntryFoundException 
-     * @see #getAccountByID(GCshID)
+     * @see #getAccountByID(GCshAcctID)
      * @see #getAccountsByName(String)
      */
     GnuCashAccount getAccountByIDorNameEx(GCshID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -211,7 +221,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param trxID the unique ID of the transaction to look for
      * @return the transaction or null if it's not found
      */
-    GnuCashTransaction getTransactionByID(GCshID trxID);
+    GnuCashTransaction getTransactionByID(GCshTrxID trxID);
 
     /**
      * @return a (possibly read-only) collection of all transactions Do not modify
@@ -239,7 +249,7 @@ public interface GnuCashFile extends GnuCashObject,
      * 
      * @see #getTransactionSplits()
      */
-    GnuCashTransactionSplit getTransactionSplitByID(GCshID spltID);
+    GnuCashTransactionSplit getTransactionSplitByID(GCshSpltID spltID);
 
     /**
      * @return list of all transaction splits (ro-objects)
@@ -266,10 +276,10 @@ public interface GnuCashFile extends GnuCashObject,
      * @return the invoice or null if it's not found
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
-    GnuCashGenerInvoice getGenerInvoiceByID(GCshID invcID);
+    GnuCashGenerInvoice getGenerInvoiceByID(GCshGenerInvcID invcID);
 
     /**
      * 
@@ -283,7 +293,7 @@ public interface GnuCashFile extends GnuCashObject,
      *         returned collection!
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashGenerInvoice> getGenerInvoices();
@@ -296,7 +306,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getUnpaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashGenerInvoice> getPaidGenerInvoices();
@@ -307,7 +317,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashGenerInvoice> getUnpaidGenerInvoices();
@@ -322,7 +332,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashCustomerInvoice> getInvoicesForCustomer_direct(GnuCashCustomer cust);
@@ -335,7 +345,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashJobInvoice>      getInvoicesForCustomer_viaAllJobs(GnuCashCustomer cust);
@@ -348,7 +358,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashCustomerInvoice> getPaidInvoicesForCustomer_direct(GnuCashCustomer cust);
@@ -361,7 +371,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashJobInvoice>      getPaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer cust);
@@ -374,7 +384,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashCustomerInvoice> getUnpaidInvoicesForCustomer_direct(GnuCashCustomer cust);
@@ -387,7 +397,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer)
      */
     List<GnuCashJobInvoice>      getUnpaidInvoicesForCustomer_viaAllJobs(GnuCashCustomer cust);
@@ -402,7 +412,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashVendorBill>      getBillsForVendor_direct(GnuCashVendor vend);
@@ -415,7 +425,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashJobInvoice>      getBillsForVendor_viaAllJobs(GnuCashVendor vend);
@@ -428,7 +438,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashVendorBill>      getPaidBillsForVendor_direct(GnuCashVendor vend);
@@ -441,7 +451,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashJobInvoice>      getPaidBillsForVendor_viaAllJobs(GnuCashVendor vend);
@@ -454,7 +464,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashVendorBill>      getUnpaidBillsForVendor_direct(GnuCashVendor vend);
@@ -467,7 +477,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidBillsForVendor_viaAllJobs(GnuCashVendor)
      */
     List<GnuCashJobInvoice>      getUnpaidBillsForVendor_viaAllJobs(GnuCashVendor vend);
@@ -482,7 +492,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidVouchersForEmployee(GnuCashEmployee)
      * @see #getUnpaidVouchersForEmployee(GnuCashEmployee)
      */
@@ -496,7 +506,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidVouchersForEmployee(GnuCashEmployee)
      */
     List<GnuCashEmployeeVoucher> getPaidVouchersForEmployee(GnuCashEmployee empl);
@@ -509,7 +519,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidVouchersForEmployee(GnuCashEmployee)
      */
     List<GnuCashEmployeeVoucher> getUnpaidVouchersForEmployee(GnuCashEmployee empl);
@@ -524,7 +534,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidInvoicesForJob(GnuCashGenerJob)
      * @see #getUnpaidInvoicesForJob(GnuCashGenerJob)
      */
@@ -538,7 +548,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getUnpaidInvoicesForJob(GnuCashGenerJob)
      */
 
@@ -552,7 +562,7 @@ public interface GnuCashFile extends GnuCashObject,
      *  
      * @see #getPaidGenerInvoices()
      * @see #getGenerInvoices()
-     * @see #getGenerInvoiceByID(GCshID)
+     * @see #getGenerInvoiceByID(GCshGenerInvcID)
      * @see #getPaidInvoicesForJob(GnuCashGenerJob)
      */
     List<GnuCashJobInvoice>      getUnpaidInvoicesForJob(GnuCashGenerJob job);
@@ -565,7 +575,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @see #getUnpaidGenerInvoices()
      * @see #getPaidGenerInvoices()
      */
-    GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshID entrID);
+    GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(GCshGenerInvcEntrID entrID);
 
     /**
      * @return list of all (generic) invoices (ro-objects)
@@ -578,7 +588,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param jobID the unique ID of the job to look for
      * @return the job or null if it's not found
      */
-    GnuCashGenerJob getGenerJobByID(GCshID jobID);
+    GnuCashGenerJob getGenerJobByID(GCshGenerJobID jobID);
 
     /**
      * @param type 
@@ -622,7 +632,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param custID the unique ID of the customer job to look for
      * @return the job or null if it's not found
      */
-    GnuCashCustomerJob getCustomerJobByID(GCshID custID);
+    GnuCashCustomerJob getCustomerJobByID(GCshGenerJobID custID);
 
     /**
      * @param expr search expression
@@ -657,7 +667,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param vendID the unique ID of the vendor job to look for
      * @return the job or null if it's not found
      */
-    GnuCashVendorJob getVendorJobByID(GCshID vendID);
+    GnuCashVendorJob getVendorJobByID(GCshGenerJobID vendID);
 
     /**
      * @param expr search expression
@@ -692,7 +702,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param custID the unique ID of the customer to look for
      * @return the customer or null if it's not found
      */
-    GnuCashCustomer getCustomerByID(GCshID custID);
+    GnuCashCustomer getCustomerByID(GCshCustID custID);
 
     /**
      * warning: this function has to traverse all customers. If it much faster to
@@ -700,7 +710,7 @@ public interface GnuCashFile extends GnuCashObject,
      * does not have the right name.
      * @param expr  search expression
      * @return null if not found
-     * @see #getCustomerByID(GCshID)
+     * @see #getCustomerByID(GCshCustID)
      */
     Collection<GnuCashCustomer> getCustomersByName(String expr);
 
@@ -731,7 +741,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param vendID the unique ID of the vendor to look for
      * @return the vendor or null if it's not found
      */
-    GnuCashVendor getVendorByID(GCshID vendID);
+    GnuCashVendor getVendorByID(GCshVendID vendID);
 
     /**
      * warning: this function has to traverse all vendors. If it much faster to try
@@ -739,7 +749,7 @@ public interface GnuCashFile extends GnuCashObject,
      * not have the right name.
      * @param expr  search expression
      * @return null if not found
-     * @see #getVendorByID(GCshID)
+     * @see #getVendorByID(GCshVendID)
      */
     Collection<GnuCashVendor> getVendorsByName(String expr);
 
@@ -770,7 +780,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param emplID the unique ID of the employee to look for
      * @return the employee or null if it's not found
      */
-    GnuCashEmployee getEmployeeByID(GCshID emplID);
+    GnuCashEmployee getEmployeeByID(GCshEmplID emplID);
 
     /**
      * warning: this function has to traverse all employees. If it much faster to
@@ -778,7 +788,7 @@ public interface GnuCashFile extends GnuCashObject,
      * does not have the right name.
      * @param expr  search expression
      * @return null if not found
-     * @see #getEmployeeByID(GCshID)
+     * @see #getEmployeeByID(GCshEmplID)
      */
     Collection<GnuCashEmployee> getEmployeesByUserName(String expr);
 
@@ -859,7 +869,7 @@ public interface GnuCashFile extends GnuCashObject,
      * not have the right name.
      * @param expr search expression
      * @return null if not found
-     * @see #getCommodityByID(GCshID)
+     * @see #getCommodityByQualifID(GCshCmdtyCurrID)
      */
     List<GnuCashCommodity> getCommoditiesByName(String expr);
 
@@ -932,7 +942,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param prcID id of a price
      * @return the identified price or null
      */
-    GnuCashPrice getPriceByID(GCshID prcID);
+    GnuCashPrice getPriceByID(GCshPrcID prcID);
 
 	GnuCashPrice getPriceByCmdtyIDDate(GCshCmdtyID cmdtyID, LocalDate date);
 	

@@ -10,6 +10,7 @@ import org.gnucash.api.read.hlp.HasAttachment;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -78,7 +79,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      *
      * @return the unique-id to identify this object with across name- and hirarchy-changes
      */
-    GCshID getID();
+    GCshTrxID getID();
 
     /**
      * @return the user-defined description for this object (may contain multiple lines and non-ascii-characters)

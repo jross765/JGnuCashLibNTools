@@ -82,7 +82,17 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -340,7 +350,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see #getAccountsByParentID(GCshID)
 	 */
 	@Override
-	public GnuCashAccount getAccountByID(final GCshID acctID) {
+	public GnuCashAccount getAccountByID(final GCshAcctID acctID) {
 		return acctMgr.getAccountByID(acctID);
 	}
 
@@ -348,10 +358,10 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @param prntAcctID if null, gives all account that have no parent
 	 * @return the sorted collection of children of that account
 	 * 
-	 * @see #getAccountByID(GCshID)
+	 * @see #getAccountByID(GCshAcctID)
 	 */
 	@Override
-	public List<GnuCashAccount> getAccountsByParentID(final GCshID prntAcctID) {
+	public List<GnuCashAccount> getAccountsByParentID(final GCshAcctID prntAcctID) {
 		return acctMgr.getAccountsByParentID(prntAcctID);
 	}
 
@@ -487,7 +497,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashTransaction getTransactionByID(final GCshID trxID) {
+	public GnuCashTransaction getTransactionByID(final GCshTrxID trxID) {
 		return trxMgr.getTransactionByID(trxID);
 	}
 
@@ -516,7 +526,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshSpltID spltID) {
 		if ( spltID == null ) {
 			throw new IllegalArgumentException("argument <spltID> is null");
 		}
@@ -561,7 +571,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
+	public GnuCashGenerInvoice getGenerInvoiceByID(final GCshGenerInvcID invcID) {
 		return invcMgr.getGenerInvoiceByID(invcID);
 	}
 
@@ -757,7 +767,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID entrID) {
+	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshGenerInvcEntrID entrID) {
 		return invcEntrMgr.getGenerInvoiceEntryByID(entrID);
 	}
 
@@ -768,7 +778,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomer getCustomerByID(final GCshID custID) {
+	public GnuCashCustomer getCustomerByID(final GCshCustID custID) {
 		return custMgr.getCustomerByID(custID);
 	}
 
@@ -796,7 +806,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashVendor getVendorByID(GCshID vendID) {
+	public GnuCashVendor getVendorByID(GCshVendID vendID) {
 		return vendMgr.getVendorByID(vendID);
 	}
 
@@ -824,7 +834,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashEmployee getEmployeeByID(final GCshID emplID) {
+	public GnuCashEmployee getEmployeeByID(final GCshEmplID emplID) {
 		return emplMgr.getEmployeeByID(emplID);
 	}
 
@@ -852,7 +862,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashGenerJob getGenerJobByID(final GCshID jobID) {
+	public GnuCashGenerJob getGenerJobByID(final GCshGenerJobID jobID) {
 		return jobMgr.getGenerJobByID(jobID);
 	}
 
@@ -885,7 +895,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ----------------------------
 
 	@Override
-	public GnuCashCustomerJob getCustomerJobByID(final GCshID custID) {
+	public GnuCashCustomerJob getCustomerJobByID(final GCshGenerJobID custID) {
 		return jobMgr.getCustomerJobByID(custID);
 	}
 
@@ -921,7 +931,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	// ----------------------------
 
 	@Override
-	public GnuCashVendorJob getVendorJobByID(final GCshID vendID) {
+	public GnuCashVendorJob getVendorJobByID(final GCshGenerJobID vendID) {
 		return jobMgr.getVendorJobByID(vendID);
 	}
 
@@ -1073,7 +1083,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GnuCashPrice getPriceByID(GCshID prcID) {
+	public GnuCashPrice getPriceByID(GCshPrcID prcID) {
 		return prcMgr.getPriceByID(prcID);
 	}
 	

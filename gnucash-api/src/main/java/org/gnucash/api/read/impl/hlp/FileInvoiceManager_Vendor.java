@@ -27,7 +27,9 @@ public abstract class FileInvoiceManager_Vendor {
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
 		for ( GnuCashGenerInvoice invc : invMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(vend.getID().toString()) ) {
 					retval.add(new GnuCashVendorBillImpl(invc));
 			}
 		}
@@ -60,7 +62,9 @@ public abstract class FileInvoiceManager_Vendor {
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
 		for ( GnuCashGenerInvoice invc : invMgr.getPaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(vend.getID().toString()) ) {
 					retval.add(new GnuCashVendorBillImpl(invc));
 			}
 		}
@@ -93,7 +97,9 @@ public abstract class FileInvoiceManager_Vendor {
 		List<GnuCashVendorBill> retval = new ArrayList<GnuCashVendorBill>();
 
 		for ( GnuCashGenerInvoice invc : invMgr.getUnpaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(vend.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(vend.getID().toString()) ) {
 					retval.add(new GnuCashVendorBillImpl(invc));
 			}
 		}

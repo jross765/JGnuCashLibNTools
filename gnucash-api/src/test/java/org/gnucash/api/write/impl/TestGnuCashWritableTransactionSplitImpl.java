@@ -15,7 +15,10 @@ import org.gnucash.api.read.impl.TestGnuCashTransactionSplitImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,15 +28,15 @@ import junit.framework.JUnit4TestAdapter;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritableTransactionSplitImpl {
-	public static final GCshID ACCT_1_ID = TestGnuCashTransactionSplitImpl.ACCT_1_ID;
-	public static final GCshID ACCT_2_ID = TestGnuCashAccountImpl.ACCT_2_ID;
-	public static final GCshID ACCT_8_ID = TestGnuCashTransactionSplitImpl.ACCT_8_ID;
+	public static final GCshAcctID ACCT_1_ID = TestGnuCashTransactionSplitImpl.ACCT_1_ID;
+	public static final GCshAcctID ACCT_2_ID = TestGnuCashAccountImpl.ACCT_2_ID;
+	public static final GCshAcctID ACCT_8_ID = TestGnuCashTransactionSplitImpl.ACCT_8_ID;
 
-	public static final GCshID TRX_4_ID = TestGnuCashTransactionSplitImpl.TRX_4_ID;
-	public static final GCshID TRX_5_ID = TestGnuCashTransactionSplitImpl.TRX_5_ID;
+	public static final GCshTrxID TRX_4_ID = TestGnuCashTransactionSplitImpl.TRX_4_ID;
+	public static final GCshTrxID TRX_5_ID = TestGnuCashTransactionSplitImpl.TRX_5_ID;
 
-	public static final GCshID TRXSPLT_1_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_1_ID;
-	public static final GCshID TRXSPLT_2_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_2_ID;
+	public static final GCshSpltID TRXSPLT_1_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_1_ID;
+	public static final GCshSpltID TRXSPLT_2_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_2_ID;
 
 	public static final GCshID ACCTLOT_1_ID = TestGnuCashTransactionSplitImpl.ACCTLOT_1_ID;
 

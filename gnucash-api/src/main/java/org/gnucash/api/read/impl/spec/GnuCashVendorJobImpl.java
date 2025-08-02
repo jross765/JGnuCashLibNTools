@@ -7,7 +7,7 @@ import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +51,8 @@ public class GnuCashVendorJobImpl extends GnuCashGenerJobImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getVendorID() {
-		return getOwnerID();
+	public GCshVendID getVendorID() {
+		return new GCshVendID( getOwnerID() );
 	}
 
 	/**

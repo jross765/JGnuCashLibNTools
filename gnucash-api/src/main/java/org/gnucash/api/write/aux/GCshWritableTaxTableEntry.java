@@ -1,5 +1,6 @@
 package org.gnucash.api.write.aux;
 
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -33,14 +34,14 @@ public interface GCshWritableTaxTableEntry extends GCshTaxTableEntry {
      * @see #getAccountID()
      * @see #setAccount(GnuCashAccount)
      */
-    void setAccountID(GCshID acctID);
+    void setAccountID(GCshAcctID acctID);
 
     /**
      * 
      * @param acct
      * 
      * @see #getAccount()
-     * @see #setAccountID(GCshID)
+     * @see #setAccountID(GCshAcctID)
      */
     void setAccount(GnuCashAccount acct);
 

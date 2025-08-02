@@ -1,6 +1,7 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.Const;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnuCashAccount;
@@ -59,7 +60,7 @@ public class GCshWritableTaxTableEntryImpl extends GCshTaxTableEntryImpl
      * @param acctId ID of the account to set.
      */
     @Override
-    public void setAccountID(final GCshID acctID) {
+    public void setAccountID(final GCshAcctID acctID) {
 	if ( acctID == null ) {
 	    throw new IllegalArgumentException("argument <typeStr> is null");
 	}

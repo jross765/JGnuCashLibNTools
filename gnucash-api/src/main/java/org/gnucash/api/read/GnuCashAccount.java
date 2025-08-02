@@ -10,6 +10,7 @@ import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.hlp.HasTransactions;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -89,7 +90,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     /**
      * @return the unique id for that account (not meaningfull to human users)
      */
-    GCshID getID();
+    GCshAcctID getID();
 
     /**
      * @return a user-defined description to acompany the name of the account. Can
@@ -118,7 +119,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     /**
      * @return null if the account is below the root
      */
-    GCshID getParentAccountID();
+    GCshAcctID getParentAccountID();
     
     /**
      * @return the parent-account we are a child of or null if we are a top-level

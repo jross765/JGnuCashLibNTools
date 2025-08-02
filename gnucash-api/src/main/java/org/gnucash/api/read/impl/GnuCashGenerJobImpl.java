@@ -12,6 +12,7 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +67,7 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 	 * @return the unique-id to identify this object with across name- and
 	 *         hirarchy-changes
 	 */
-	public GCshID getID() {
+	public GCshGenerJobID getID() {
 		assert jwsdpPeer.getJobGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 		String guid = jwsdpPeer.getJobGuid().getValue();
@@ -74,7 +75,7 @@ public class GnuCashGenerJobImpl extends GnuCashObjectImpl
 			throw new IllegalStateException("job has a null guid-value! guid-type=" + jwsdpPeer.getJobGuid().getType());
 		}
 
-		return new GCshID(guid);
+		return new GCshGenerJobID(guid);
 	}
 
 	/**

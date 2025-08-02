@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
@@ -19,9 +20,9 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashCustomerImpl {
-	public static final GCshID CUST_1_ID = new GCshID("5d1dd9afa7554553988669830cc1f696"); // Unfug und Quatsch GmbH
-	public static final GCshID CUST_2_ID = new GCshID("f44645d2397946bcac90dff68cc03b76"); // Is That So Ltd.
-	public static final GCshID CUST_3_ID = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d"); // N'importe Quoi S.A.
+	public static final GCshCustID CUST_1_ID = new GCshCustID("5d1dd9afa7554553988669830cc1f696"); // Unfug und Quatsch GmbH
+	public static final GCshCustID CUST_2_ID = new GCshCustID("f44645d2397946bcac90dff68cc03b76"); // Is That So Ltd.
+	public static final GCshCustID CUST_3_ID = new GCshCustID("1d2081e8a10e4d5e9312d9fff17d470d"); // N'importe Quoi S.A.
 
 	private static final GCshID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
 

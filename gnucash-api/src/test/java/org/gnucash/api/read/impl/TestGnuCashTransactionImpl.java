@@ -6,18 +6,18 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashTransactionImpl {
-	public static final GCshID TRX_1_ID = new GCshID("32b216aa73a44137aa5b041ab8739058");
-	public static final GCshID TRX_2_ID = new GCshID("c97032ba41684b2bb5d1391c9d7547e9");
-	public static final GCshID TRX_3_ID = new GCshID("d465b802d5c940c9bba04b87b63ba23f");
+	public static final GCshTrxID TRX_1_ID = new GCshTrxID("32b216aa73a44137aa5b041ab8739058");
+	public static final GCshTrxID TRX_2_ID = new GCshTrxID("c97032ba41684b2bb5d1391c9d7547e9");
+	public static final GCshTrxID TRX_3_ID = new GCshTrxID("d465b802d5c940c9bba04b87b63ba23f");
 
 	// -----------------------------------------------------------------
 

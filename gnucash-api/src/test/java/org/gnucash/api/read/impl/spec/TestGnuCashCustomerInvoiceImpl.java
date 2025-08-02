@@ -17,15 +17,15 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashCustomerInvoiceImpl {
-	private static final GCshID CUST_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
-	private static final GCshID CUST_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+	private static final GCshGenerInvcID CUST_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	private static final GCshGenerInvcID CUST_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
 
 	// -----------------------------------------------------------------
 

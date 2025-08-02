@@ -19,6 +19,7 @@ import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -92,8 +93,8 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	/**
 	 * @return the ID of the vendor who/that owns the bill
 	 */
-	public GCshID getVendorID() {
-		return getOwnerID();
+	public GCshVendID getVendorID() {
+		return new GCshVendID( getOwnerID() );
 	}
 
 	/**

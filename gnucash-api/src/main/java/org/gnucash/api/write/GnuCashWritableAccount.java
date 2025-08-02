@@ -8,7 +8,9 @@ import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -54,7 +56,7 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      * time-frame.
      *
      * @param from when to start, inclusive
-     * @param to   when to stop, exlusive.
+     * @param to   when to stop, exclusive.
      * @return the sum of all transaction-splits affecting this account in the given
      *         time-frame.
      */
@@ -87,7 +89,7 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      * @see #getParentAccountID()
      * @see {@link #setParentAccount(GnuCashAccount)}
      */
-    void setParentAccountID(GCshID newParentID);
+    void setParentAccountID(GCshAcctID newParentID);
     
     // ---------------------------------------------------------------
 
@@ -97,7 +99,7 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      *  
      * @see #getTransactionSplitByID(GCshID)
      */
-    GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshID spltID);
+    GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshSpltID spltID);
 
     /**
      * @return 

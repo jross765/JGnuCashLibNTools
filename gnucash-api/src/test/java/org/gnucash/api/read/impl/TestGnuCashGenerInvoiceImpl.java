@@ -14,26 +14,26 @@ import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashGenerInvoiceImpl {
-	public static final GCshID GENER_INVC_1_ID  = new GCshID("d9967c10fdf1465e9394a3e4b1e7bd79");
-	public static final GCshID GENER_INVC_2_ID  = new GCshID("286fc2651a7848038a23bb7d065c8b67");
-	public static final GCshID GENER_INVC_3_ID  = new GCshID("b1e981f796b94ca0b17a9dccb91fedc0");
-	public static final GCshID GENER_INVC_4_ID  = new GCshID("4eb0dc387c3f4daba57b11b2a657d8a4");
-	public static final GCshID GENER_INVC_5_ID  = new GCshID("169331c9860642cf84b04f3e3151058a");
-	public static final GCshID GENER_INVC_6_ID  = new GCshID("6588f1757b9e4e24b62ad5b37b8d8e07");
-	public static final GCshID GENER_INVC_7_ID  = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
-	public static final GCshID GENER_INVC_8_ID  = new GCshID("8de4467c17e04bb2895fb68cc07fc4df");
-	public static final GCshID GENER_INVC_9_ID  = new GCshID("b1e981f796b94ca0b17a9dccb91fedc0");
-	public static final GCshID GENER_INVC_10_ID = new GCshID("980706f1ead64460b8205f093472c855");
-	public static final GCshID GENER_INVC_11_ID = new GCshID("22e449ac0a864d4fae7c58171bdcfcfc");
-	public static final GCshID GENER_INVC_12_ID = new GCshID("75e5e943505a4272ab2bcf75b03bd6fd"); // gg8nixlos
-	public static final GCshID GENER_INVC_13_ID = new GCshID("d1e64a86c4004ef7b87e2610d762456d"); // gg9nixlos
+	public static final GCshGenerInvcID GENER_INVC_1_ID  = new GCshGenerInvcID("d9967c10fdf1465e9394a3e4b1e7bd79");
+	public static final GCshGenerInvcID GENER_INVC_2_ID  = new GCshGenerInvcID("286fc2651a7848038a23bb7d065c8b67");
+	public static final GCshGenerInvcID GENER_INVC_3_ID  = new GCshGenerInvcID("b1e981f796b94ca0b17a9dccb91fedc0");
+	public static final GCshGenerInvcID GENER_INVC_4_ID  = new GCshGenerInvcID("4eb0dc387c3f4daba57b11b2a657d8a4");
+	public static final GCshGenerInvcID GENER_INVC_5_ID  = new GCshGenerInvcID("169331c9860642cf84b04f3e3151058a");
+	public static final GCshGenerInvcID GENER_INVC_6_ID  = new GCshGenerInvcID("6588f1757b9e4e24b62ad5b37b8d8e07");
+	public static final GCshGenerInvcID GENER_INVC_7_ID  = new GCshGenerInvcID("8de4467c17e04bb2895fb68cc07fc4df");
+	public static final GCshGenerInvcID GENER_INVC_8_ID  = new GCshGenerInvcID("8de4467c17e04bb2895fb68cc07fc4df");
+	public static final GCshGenerInvcID GENER_INVC_9_ID  = new GCshGenerInvcID("b1e981f796b94ca0b17a9dccb91fedc0");
+	public static final GCshGenerInvcID GENER_INVC_10_ID = new GCshGenerInvcID("980706f1ead64460b8205f093472c855");
+	public static final GCshGenerInvcID GENER_INVC_11_ID = new GCshGenerInvcID("22e449ac0a864d4fae7c58171bdcfcfc");
+	public static final GCshGenerInvcID GENER_INVC_12_ID = new GCshGenerInvcID("75e5e943505a4272ab2bcf75b03bd6fd"); // gg8nixlos
+	public static final GCshGenerInvcID GENER_INVC_13_ID = new GCshGenerInvcID("d1e64a86c4004ef7b87e2610d762456d"); // gg9nixlos
 
 	// -----------------------------------------------------------------
 

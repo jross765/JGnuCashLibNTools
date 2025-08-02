@@ -12,6 +12,7 @@ import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -36,7 +37,7 @@ public interface GnuCashCustomer extends GnuCashObject,
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getID();
+    GCshCustID getID();
 
     /**
      * @return Returns the user-assigned number of this customer (may contain non-digits)

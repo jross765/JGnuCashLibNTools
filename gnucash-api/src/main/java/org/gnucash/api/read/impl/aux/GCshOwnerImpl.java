@@ -11,7 +11,11 @@ import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,7 +114,7 @@ public class GCshOwnerImpl implements GCshOwner {
     
     private void mapJIType_Var1(org.gnucash.api.generated.OwnerId ownerID) {
     	try {
-    		job = myFile.getGenerJobByID(new GCshID(ownerID.getValue()));
+    		job = myFile.getGenerJobByID(new GCshGenerJobID(ownerID.getValue()));
     		jiType = JIType.JOB;
 //    		jwsdpInvcOwner = null;
 //    		jwsdpJobOwner.setOwnerId(ownerID);
@@ -136,19 +140,19 @@ public class GCshOwnerImpl implements GCshOwner {
     
     private void mapInvcType_Var2() {
     	try {
-    		cust = myFile.getCustomerByID(ownerID);
+    		cust = myFile.getCustomerByID(new GCshCustID(ownerID));
     		if ( cust != null )
     			invcType = GnuCashGenerInvoice.TYPE_CUSTOMER;
     		else {
-        		vend = myFile.getVendorByID(ownerID);
+        		vend = myFile.getVendorByID(new GCshVendID(ownerID));
         		if ( vend != null )
         			invcType = GnuCashGenerInvoice.TYPE_VENDOR;
         		else {
-            		empl = myFile.getEmployeeByID(ownerID);
+            		empl = myFile.getEmployeeByID(new GCshEmplID(ownerID));
             		if ( empl != null )
             			invcType = GnuCashGenerInvoice.TYPE_EMPLOYEE;
             		else {
-                		job = myFile.getGenerJobByID(ownerID);
+                		job = myFile.getGenerJobByID(new GCshGenerJobID(ownerID));
                 		if ( job != null )
                 			invcType = GnuCashGenerInvoice.TYPE_JOB;
                 		else
@@ -177,11 +181,11 @@ public class GCshOwnerImpl implements GCshOwner {
     
     private void mapJobType_Var2() {
     	try {
-    		cust = myFile.getCustomerByID(ownerID);
+    		cust = myFile.getCustomerByID(new GCshCustID(ownerID));
     		if ( cust != null )
     			jobType = GnuCashGenerJob.TYPE_CUSTOMER;
     		else {
-        		vend = myFile.getVendorByID(ownerID);
+        		vend = myFile.getVendorByID(new GCshVendID(ownerID));
         		if ( vend != null )
         			jobType = GnuCashGenerJob.TYPE_VENDOR;
         		else {
@@ -200,28 +204,28 @@ public class GCshOwnerImpl implements GCshOwner {
     	if ( jiType == JIType.INVOICE ) {
         	try {
         		if ( invcType == GnuCashGenerInvoice.TYPE_CUSTOMER ) {
-        			cust = myFile.getCustomerByID(ownerID);
+        			cust = myFile.getCustomerByID(new GCshCustID(ownerID));
         			vend = null;
         			empl = null;
         			job  = null;
         		}
         		else if ( invcType == GnuCashGenerInvoice.TYPE_VENDOR ) {
         			cust = null;
-        			vend = myFile.getVendorByID(ownerID);
+        			vend = myFile.getVendorByID(new GCshVendID(ownerID));
         			empl = null;
         			job  = null;
         		}
         		else if ( invcType == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
         			cust = null;
         			vend = null;
-        			empl = myFile.getEmployeeByID(ownerID);
+        			empl = myFile.getEmployeeByID(new GCshEmplID(ownerID));
         			job  = null;
         		}
         		else if ( invcType == GnuCashGenerInvoice.TYPE_JOB ) {
         			cust = null;
         			vend = null;
         			empl = null;
-        			job = myFile.getGenerJobByID(ownerID);
+        			job = myFile.getGenerJobByID(new GCshGenerJobID(ownerID));
         		}
         	} catch ( Exception exc ) {
         		throw new MappingException("Owner ID '" + ownerID + "' cannot be mapped to API object");
@@ -229,14 +233,14 @@ public class GCshOwnerImpl implements GCshOwner {
     	}
     	else if ( jiType == JIType.JOB ) {
     		if ( jobType == GnuCashGenerJob.TYPE_CUSTOMER ) {
-    			cust = myFile.getCustomerByID(ownerID);
+    			cust = myFile.getCustomerByID(new GCshCustID(ownerID));
     			vend = null;
     			empl = null;
     			job  = null;
     		}
     		else if ( jobType ==  GnuCashGenerJob.TYPE_VENDOR ) {
     			cust = null;
-    			vend = myFile.getVendorByID(ownerID);
+    			vend = myFile.getVendorByID(new GCshVendID(ownerID));
     			empl = null;
     			job  = null;
     		}
@@ -278,7 +282,7 @@ public class GCshOwnerImpl implements GCshOwner {
     		   invcType == GnuCashGenerInvoice.TYPE_CUSTOMER ) ||
     		 ( jiType == JIType.JOB &&
      		   jobType == GnuCashGenerJob.TYPE_CUSTOMER ) ) {
-    		return myFile.getCustomerByID(ownerID);
+    		return myFile.getCustomerByID(new GCshCustID(ownerID));
     	} else {
     		throw new UnsupportedOperationException("Owner ID does not belong to customer");
     	}
@@ -289,7 +293,7 @@ public class GCshOwnerImpl implements GCshOwner {
      		   invcType == GnuCashGenerInvoice.TYPE_VENDOR ) ||
      		 ( jiType == JIType.JOB &&
       		   jobType == GnuCashGenerJob.TYPE_VENDOR ) ) {
-     		return myFile.getVendorByID(ownerID);
+     		return myFile.getVendorByID(new GCshVendID(ownerID));
      	} else {
      		throw new UnsupportedOperationException("Owner ID does not belong to vendor");
      	}
@@ -298,7 +302,7 @@ public class GCshOwnerImpl implements GCshOwner {
     public GnuCashEmployee    getEmployee() {
     	if ( jiType == JIType.INVOICE &&
      		 invcType == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
-     		return myFile.getEmployeeByID(ownerID);
+     		return myFile.getEmployeeByID(new GCshEmplID(ownerID));
      	} else {
      		throw new UnsupportedOperationException("Owner ID does not belong to employee");
      	}
@@ -309,7 +313,7 @@ public class GCshOwnerImpl implements GCshOwner {
     public GnuCashGenerJob    getGenerJob() {
     	if ( jiType == JIType.INVOICE &&
       		 invcType == GnuCashGenerInvoice.TYPE_JOB ) {
-      		return myFile.getGenerJobByID(ownerID);
+      		return myFile.getGenerJobByID(new GCshGenerJobID(ownerID));
       	} else {
       		throw new UnsupportedOperationException("Owner ID does not belong to job");
       	}
@@ -318,7 +322,7 @@ public class GCshOwnerImpl implements GCshOwner {
     public GnuCashCustomerJob getCustomerJob() {
     	GnuCashGenerJob generJob = getGenerJob();
     	if ( generJob.getOwnerType() == GnuCashGenerJob.TYPE_CUSTOMER ) {
-    		return myFile.getCustomerJobByID(ownerID);
+    		return myFile.getCustomerJobByID(new GCshGenerJobID(ownerID));
     	} else {
       		throw new UnsupportedOperationException("Owner ID does not belong to job or job owner is not a customer");
     	}
@@ -327,7 +331,7 @@ public class GCshOwnerImpl implements GCshOwner {
     public GnuCashVendorJob   getVendorJob() {
     	GnuCashGenerJob generJob = getGenerJob();
     	if ( generJob.getOwnerType() == GnuCashGenerJob.TYPE_CUSTOMER ) {
-    		return myFile.getVendorJobByID(ownerID);
+    		return myFile.getVendorJobByID(new GCshGenerJobID(ownerID));
     	} else {
       		throw new UnsupportedOperationException("Owner ID does not belong to job or job owner is not a vendor");
     	}

@@ -9,21 +9,24 @@ import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.aux.TestGCshAccountLotImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashTransactionSplitImpl {
-	public static final GCshID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
-	public static final GCshID ACCT_8_ID = TestGnuCashAccountImpl.ACCT_8_ID;
+	public static final GCshAcctID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
+	public static final GCshAcctID ACCT_8_ID = TestGnuCashAccountImpl.ACCT_8_ID;
 
-	public static final GCshID TRX_4_ID = new GCshID("cc9fe6a245df45ba9b494660732a7755");
-	public static final GCshID TRX_5_ID = new GCshID("4307689faade47d8aab4db87c8ce3aaf");
+	public static final GCshTrxID TRX_4_ID = new GCshTrxID("cc9fe6a245df45ba9b494660732a7755");
+	public static final GCshTrxID TRX_5_ID = new GCshTrxID("4307689faade47d8aab4db87c8ce3aaf");
 
-	public static final GCshID TRXSPLT_1_ID = new GCshID("b6a88c1d918e465892488c561e02831a");
-	public static final GCshID TRXSPLT_2_ID = new GCshID("c3ae14400ec843f9bf63f5ef69a31528");
+	public static final GCshSpltID TRXSPLT_1_ID = new GCshSpltID("b6a88c1d918e465892488c561e02831a");
+	public static final GCshSpltID TRXSPLT_2_ID = new GCshSpltID("c3ae14400ec843f9bf63f5ef69a31528");
 
 	public static final GCshID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
 

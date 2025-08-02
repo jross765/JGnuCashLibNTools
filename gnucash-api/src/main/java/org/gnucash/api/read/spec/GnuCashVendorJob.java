@@ -1,8 +1,8 @@
 package org.gnucash.api.read.spec;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 /**
  * A {@link GnuCashGenerJob} that belongs to a {@link GnuCashVendor}
@@ -27,6 +27,6 @@ public interface GnuCashVendorJob extends GnuCashGenerJob {
 	 * 
 	 * @see #getVendor()
 	 */
-	GCshID getVendorID();
+	GCshVendID getVendorID();
 	
 }

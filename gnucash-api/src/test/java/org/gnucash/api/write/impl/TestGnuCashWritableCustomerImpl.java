@@ -22,6 +22,7 @@ import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
@@ -36,8 +37,8 @@ import junit.framework.JUnit4TestAdapter;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritableCustomerImpl {
-	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
-	//    private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
+	private static final GCshCustID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
+	//    private static final GCshCustID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
 
 	//    private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
 	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
@@ -50,7 +51,7 @@ public class TestGnuCashWritableCustomerImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newID = null;
+	private GCshCustID newCustID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")
@@ -304,7 +305,7 @@ public class TestGnuCashWritableCustomerImpl {
 		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshInFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-		newID = cust.getID();
+		newCustID = cust.getID();
 		assertEquals("Frederic Austerlitz", cust.getName());
 	}
 
@@ -316,10 +317,10 @@ public class TestGnuCashWritableCustomerImpl {
 		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_CUST + 1, gcshOutFileStats.getNofEntriesCustomers(GCshFileStats.Type.CACHE));
 
-		GnuCashCustomer cust = gcshOutFile.getCustomerByID(newID);
+		GnuCashCustomer cust = gcshOutFile.getCustomerByID(newCustID);
 		assertNotEquals(null, cust);
 
-		assertEquals(newID, cust.getID());
+		assertEquals(newCustID, cust.getID());
 		assertEquals("Frederic Austerlitz", cust.getName());
 	}
 

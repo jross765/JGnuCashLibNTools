@@ -118,8 +118,18 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -589,7 +599,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getAccountByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableAccount getWritableAccountByID(final GCshID acctID) {
+	public GnuCashWritableAccount getWritableAccountByID(final GCshAcctID acctID) {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <name> is null");
 		}
@@ -705,7 +715,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
 														GCshCmdtyCurrID cmdtyCurrID,
-														GCshID parentID,
+														GCshAcctID parentID,
 														String name) {
 		GnuCashWritableAccount acct = new GnuCashWritableAccountImpl(this);
 		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
@@ -722,7 +732,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
     public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
     													GCshCmdtyID cmdtyID,
-    													GCshID parentID,
+    													GCshAcctID parentID,
     													String name) {
 		return createWritableAccount(type, (GCshCmdtyCurrID) cmdtyID, parentID, name);
 	}
@@ -730,7 +740,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
 														GCshCurrID currID,
-														GCshID parentID,
+														GCshAcctID parentID,
 														String name) {
 		return createWritableAccount(type, (GCshCmdtyCurrID) currID, parentID, name);
 	}
@@ -762,7 +772,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getTransactionByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableTransaction getWritableTransactionByID(final GCshID trxID) {
+	public GnuCashWritableTransaction getWritableTransactionByID(final GCshTrxID trxID) {
 		if ( trxID == null ) {
 			throw new IllegalArgumentException("argument <trxID> is null");
 		}
@@ -887,7 +897,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getTransactionSplitByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID) {
+	public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshSpltID spltID) {
 		if ( spltID == null ) {
 			throw new IllegalArgumentException("argument <spltID> is null");
 		}
@@ -925,10 +935,10 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	/**
 	 * @param invcID the unique invoice-id
 	 * @return A modifiable version of the Invoice or null if not found.
-	 * @see GnuCashFile#getGenerInvoiceByID(GCshID)
+	 * @see GnuCashFile#getGenerInvoiceByID(GCshGenerInvcID)
 	 */
 	@Override
-	public GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(final GCshID invcID) {
+	public GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(final GCshGenerInvcID invcID) {
 		if ( invcID == null ) {
 			throw new IllegalArgumentException("argument <invcID> is null");
 		}
@@ -1164,7 +1174,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(final GCshID invcEntrID) {
+	public GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(final GCshGenerInvcEntrID invcEntrID) {
 		if ( invcEntrID == null ) {
 			throw new IllegalArgumentException("argument <invcEntrID> is null");
 		}
@@ -1339,7 +1349,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getCustomerByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableCustomer getWritableCustomerByID(final GCshID custID) {
+	public GnuCashWritableCustomer getWritableCustomerByID(final GCshCustID custID) {
 		if ( custID == null ) {
 			throw new IllegalArgumentException("argument <custID> is null");
 		}
@@ -1395,7 +1405,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getVendorByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableVendor getWritableVendorByID(final GCshID vendID) {
+	public GnuCashWritableVendor getWritableVendorByID(final GCshVendID vendID) {
 		if ( vendID == null ) {
 			throw new IllegalArgumentException("argument <vendID> is null");
 		}
@@ -1451,7 +1461,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getEmployeeByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableEmployee getWritableEmployeeByID(final GCshID emplID) {
+	public GnuCashWritableEmployee getWritableEmployeeByID(final GCshEmplID emplID) {
 		if ( emplID == null ) {
 			throw new IllegalArgumentException("argument <emplID> is null");
 		}
@@ -1510,7 +1520,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see #getGenerJobByID(GCshID)
 	 */
 	@Override
-	public GnuCashWritableGenerJob getWritableGenerJobByID(final GCshID jobID) {
+	public GnuCashWritableGenerJob getWritableGenerJobByID(final GCshGenerJobID jobID) {
 		if ( jobID == null ) {
 			throw new IllegalArgumentException("argument <jobID> is null");
 		}
@@ -1848,7 +1858,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashWritablePrice getWritablePriceByID(final GCshID prcID) {
+	public GnuCashWritablePrice getWritablePriceByID(final GCshPrcID prcID) {
 		if ( prcID == null ) {
 			throw new IllegalArgumentException("argument <prcID> is null");
 		}

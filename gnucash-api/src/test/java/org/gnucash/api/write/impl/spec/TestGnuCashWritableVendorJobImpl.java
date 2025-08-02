@@ -13,7 +13,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -36,11 +38,11 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableVendorJobImpl {
-	private static final GCshID VEND_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
+	private static final GCshGenerJobID VEND_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
-	private static final GCshID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
-	//    private static final GCshID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
-	//    private static final GCshID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
+	private static final GCshVendID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
+	//    private static final GCshVendID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
+	//    private static final GCshVendID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
 
 	// ----------------------------
 
@@ -141,8 +143,8 @@ public class TestGnuCashWritableVendorJobImpl {
 		// Note: That the following three return the same result
 		// is *not* trivial (in fact, a serious implementation error was
 		// found with this test)
-		GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-		assertEquals(vendID, jobSpec.getOwnerID());
+		GCshVendID vendID = new GCshVendID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+		assertEquals(vendID.getRawID(), jobSpec.getOwnerID());
 		// ::TODO
 		//    assertEquals(vendID, jobSpec.getVendorID());
 	}
@@ -174,7 +176,7 @@ public class TestGnuCashWritableVendorJobImpl {
 		GnuCashWritableVendorJob job = gcshInFile.createWritableVendorJob(vend1, "J456", "New job for vendor 1");
 
 		assertNotEquals(null, job);
-		GCshID newJobID = job.getID();
+		GCshGenerJobID newJobID = job.getID();
 		//      System.out.println("New Job ID (1): " + newJobID);
 
 		assertEquals("J456", job.getNumber());
@@ -238,23 +240,23 @@ public class TestGnuCashWritableVendorJobImpl {
 		assertEquals(newJobID.toString(), locNewJobID);
 	}
 
-	private void test03_4(File outFile, GCshID newInvcID) throws Exception {
+	private void test03_4(File outFile, GCshGenerJobID newJobID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 
 		gcshOutFile = new GnuCashFileImpl(outFile);
 
 		//      System.out.println("New Job ID (3): " + newJobID);
-		GnuCashGenerJob jobGener = gcshOutFile.getGenerJobByID(newInvcID);
+		GnuCashGenerJob jobGener = gcshOutFile.getGenerJobByID(newJobID);
 		assertNotEquals(null, jobGener);
 		GnuCashVendorJob jobSpec = new GnuCashVendorJobImpl(jobGener);
 		assertNotEquals(null, jobSpec);
 
-		assertEquals(newInvcID, jobGener.getID());
-		assertEquals(newInvcID, jobSpec.getID());
+		assertEquals(newJobID, jobGener.getID());
+		assertEquals(newJobID, jobSpec.getID());
 
-		assertEquals(VEND_1_ID, jobGener.getOwnerID());
-		assertEquals(VEND_1_ID, jobSpec.getOwnerID());
+		assertEquals(VEND_1_ID.getRawID(), jobGener.getOwnerID());
+		assertEquals(VEND_1_ID.getRawID(), jobSpec.getOwnerID());
 		assertEquals(VEND_1_ID, jobSpec.getVendorID());
 
 		assertEquals("J456", jobGener.getNumber());

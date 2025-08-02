@@ -15,6 +15,7 @@ import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
@@ -24,14 +25,14 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableAccountImpl {
-	private static final GCshID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
-	private static final GCshID ACCT_2_ID = TestGnuCashAccountImpl.ACCT_2_ID;
-	//    private static final GCshID ACCT_3_ID = TestGnuCashAccountImpl.ACCT_3_ID;
-	//    private static final GCshID ACCT_4_ID = TestGnuCashAccountImpl.ACCT_4_ID;
-	//    private static final GCshID ACCT_5_ID = TestGnuCashAccountImpl.ACCT_5_ID;
-	//    private static final GCshID ACCT_6_ID = TestGnuCashAccountImpl.ACCT_6_ID;
-	//    private static final GCshID ACCT_7_ID = TestGnuCashAccountImpl.ACCT_7_ID;
-	private static final GCshID ACCT_9_ID = TestGnuCashAccountImpl.ACCT_9_ID;
+	private static final GCshAcctID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
+	private static final GCshAcctID ACCT_2_ID = TestGnuCashAccountImpl.ACCT_2_ID;
+	//    private static final GCshAcctID ACCT_3_ID = TestGnuCashAccountImpl.ACCT_3_ID;
+	//    private static final GCshAcctID ACCT_4_ID = TestGnuCashAccountImpl.ACCT_4_ID;
+	//    private static final GCshAcctID ACCT_5_ID = TestGnuCashAccountImpl.ACCT_5_ID;
+	//    private static final GCshAcctID ACCT_6_ID = TestGnuCashAccountImpl.ACCT_6_ID;
+	//    private static final GCshAcctID ACCT_7_ID = TestGnuCashAccountImpl.ACCT_7_ID;
+	private static final GCshAcctID ACCT_9_ID = TestGnuCashAccountImpl.ACCT_9_ID;
 
 	// -----------------------------------------------------------------
 
@@ -41,7 +42,7 @@ public class TestGnuCashWritableAccountImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newAcctID = null;
+	private GCshAcctID newAcctID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")
@@ -299,7 +300,7 @@ public class TestGnuCashWritableAccountImpl {
 		// Modify the object
 
 		acct.setType(GnuCashAccount.Type.BANK);
-		acct.setParentAccountID(new GCshID("fdffaa52f5b04754901dfb1cf9221494")); // Root Account:Aktiva:Sichteinlagen:KK
+		acct.setParentAccountID(new GCshAcctID("fdffaa52f5b04754901dfb1cf9221494")); // Root Account:Aktiva:Sichteinlagen:KK
 		acct.setName("Giro Rhumba");
 		acct.setDescription("Cha-cha-cha");
 		acct.setCmdtyCurrID(new GCshCurrID("JPY"));

@@ -7,19 +7,20 @@ import static org.junit.Assert.assertTrue;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashCustomerJobImpl {
-	private static final GCshID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshGenerJobID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
 
 	// -----------------------------------------------------------------
 
@@ -110,9 +111,9 @@ public class TestGnuCashCustomerJobImpl {
 		// Note: That the following three return the same result
 		// is *not* trivial (in fact, a serious implementation error was
 		// found with this test)
-		GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-		assertEquals(custID, jobGener.getOwnerID());
-		assertEquals(custID, jobSpec.getOwnerID());
+		GCshCustID custID = new GCshCustID("f44645d2397946bcac90dff68cc03b76");
+		assertEquals(custID.getRawID(), jobGener.getOwnerID());
+		assertEquals(custID.getRawID(), jobSpec.getOwnerID());
 		assertEquals(custID, jobSpec.getCustomerID());
 	}
 }

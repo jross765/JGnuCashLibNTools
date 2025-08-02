@@ -24,6 +24,7 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -69,7 +70,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableCustomerImpl(final GnuCashWritableFileImpl file) {
-	super(createCustomer_int(file, GCshID.getNew()), file);
+	super(createCustomer_int(file, new GCshCustID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritableCustomerImpl(final GnuCashCustomerImpl cust) {
@@ -88,7 +89,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     protected static GncGncCustomer createCustomer_int(
     		final GnuCashWritableFileImpl file,
-            final GCshID newID) {
+            final GCshCustID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("argument <newID> is null");
 		}

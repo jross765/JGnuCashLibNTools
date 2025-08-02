@@ -12,6 +12,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +28,7 @@ public class FileEmployeeManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    protected Map<GCshID, GnuCashEmployee> emplMap;
+    protected Map<GCshEmplID, GnuCashEmployee> emplMap;
 
     // ---------------------------------------------------------------
     
@@ -39,7 +40,7 @@ public class FileEmployeeManager {
     // ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		emplMap = new HashMap<GCshID, GnuCashEmployee>();
+		emplMap = new HashMap<GCshEmplID, GnuCashEmployee>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncEmployee) ) {

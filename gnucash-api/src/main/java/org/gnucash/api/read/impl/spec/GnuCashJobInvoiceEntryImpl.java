@@ -1,7 +1,5 @@
 package org.gnucash.api.read.impl.spec;
 
-import org.gnucash.base.basetypes.simple.GCshID;
-
 import javax.security.auth.login.AccountNotFoundException;
 
 import org.gnucash.api.generated.GncGncEntry;
@@ -16,6 +14,8 @@ import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +71,7 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 
 	// ---------------------------------------------------------------
 
-	public GCshID getInvoiceID() {
+	public GCshGenerInvcID getInvoiceID() {
 		return getGenerInvoiceID();
 	}
 
@@ -94,7 +94,7 @@ public class GnuCashJobInvoiceEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshID getAccountID() throws AccountNotFoundException {
+	public GCshAcctID getAccountID() throws AccountNotFoundException {
 		return getJobInvcAccountID();
 	}
 

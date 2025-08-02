@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashPrice;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,7 +68,7 @@ public class TestFilePriceManager {
 		mgr = gcshFile.getPriceManager();
 		
 		Collection<GnuCashPrice> prcColl = mgr.getPrices();
-		GCshID prcID = new GCshID("037c268b47fb46d385360b1c9788a459");
+		GCshPrcID prcID = new GCshPrcID("037c268b47fb46d385360b1c9788a459");
 		GnuCashPrice prc = mgr.getPriceByID(prcID);
 		assertTrue(prcColl.contains(prc));
 	}

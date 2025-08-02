@@ -20,6 +20,8 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +33,8 @@ public class FileTransactionManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshID, GnuCashTransaction>      trxMap;
-	protected Map<GCshID, GnuCashTransactionSplit> trxSpltMap;
+	protected Map<GCshTrxID, GnuCashTransaction>      trxMap;
+	protected Map<GCshSpltID, GnuCashTransactionSplit> trxSpltMap;
 
 	// ---------------------------------------------------------------
 
@@ -49,7 +51,7 @@ public class FileTransactionManager {
 	}
 
 	private void init1(final GncV2 pRootElement) {
-		trxMap = new HashMap<GCshID, GnuCashTransaction>();
+		trxMap = new HashMap<GCshTrxID, GnuCashTransaction>();
 
 		for ( GnuCashTransactionImpl trx : getTransactions_readAfresh() ) {
 			trxMap.put(trx.getID(), trx);
@@ -59,7 +61,7 @@ public class FileTransactionManager {
 	}
 
 	private void init2(final GncV2 pRootElement) {
-		trxSpltMap = new HashMap<GCshID, GnuCashTransactionSplit>();
+		trxSpltMap = new HashMap<GCshSpltID, GnuCashTransactionSplit>();
 
 		for ( GnuCashTransaction trx : trxMap.values() ) {
 			try {

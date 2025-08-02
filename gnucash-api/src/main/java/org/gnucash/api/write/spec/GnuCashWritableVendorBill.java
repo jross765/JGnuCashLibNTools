@@ -10,7 +10,7 @@ import org.gnucash.api.read.impl.aux.WrongOwnerTypeException;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -29,7 +29,7 @@ public interface GnuCashWritableVendorBill extends GnuCashWritableGenerInvoice,
 												   GnuCashWritableObject
 {
 
-    GnuCashWritableVendorBillEntry getWritableEntryByID(GCshID entrID);
+    GnuCashWritableVendorBillEntry getWritableEntryByID(GCshGenerInvcEntrID entrID);
     
     // ---------------------------------------------------------------
 

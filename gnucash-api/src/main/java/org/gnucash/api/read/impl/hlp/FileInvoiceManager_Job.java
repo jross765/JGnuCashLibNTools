@@ -24,7 +24,9 @@ public abstract class FileInvoiceManager_Job {
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(job.getID().toString()) ) {
 					retval.add(new GnuCashJobInvoiceImpl(invc));
 			}
 		}
@@ -41,7 +43,9 @@ public abstract class FileInvoiceManager_Job {
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getPaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(job.getID().toString()) ) {
 					retval.add(new GnuCashJobInvoiceImpl(invc));
 			}
 		}
@@ -58,7 +62,9 @@ public abstract class FileInvoiceManager_Job {
 		List<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getUnpaidGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(job.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(job.getID().toString()) ) {
 					retval.add(new GnuCashJobInvoiceImpl(invc));
 			}
 		}

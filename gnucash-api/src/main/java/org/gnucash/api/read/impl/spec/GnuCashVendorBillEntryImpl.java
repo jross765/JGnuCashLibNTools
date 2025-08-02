@@ -1,5 +1,7 @@
 package org.gnucash.api.read.impl.spec;
 
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import javax.security.auth.login.AccountNotFoundException;
@@ -71,7 +73,7 @@ public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
 
 	// ---------------------------------------------------------------
 
-	public GCshID getBillID() {
+	public GCshGenerInvcID getBillID() {
 		return getGenerInvoiceID();
 	}
 
@@ -94,7 +96,7 @@ public class GnuCashVendorBillEntryImpl extends GnuCashGenerInvoiceEntryImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshID getAccountID() throws AccountNotFoundException {
+	public GCshAcctID getAccountID() throws AccountNotFoundException {
 		return getVendBllAccountID();
 	}
 

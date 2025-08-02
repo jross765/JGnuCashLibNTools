@@ -18,6 +18,8 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +59,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 			final GnuCashCustomer owner,
 			final String number, 
 			final String name) {
-		super(createCustomerJob_int(file, GCshID.getNew(), owner, number, name), file);
+		super(createCustomerJob_int(file, new GCshGenerJobID( GCshID.getNew() ), owner, number, name), file);
 	}
 
 	public GnuCashWritableCustomerJobImpl(GnuCashWritableGenerJobImpl job) {
@@ -92,8 +94,8 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	/**
 	 * @return the ID of the customer who/that owns the Job 
 	 */
-	public GCshID getCustomerID() {
-		return getOwnerID();
+	public GCshCustID getCustomerID() {
+		return new GCshCustID( getOwnerID() );
 	}
 
 	/**

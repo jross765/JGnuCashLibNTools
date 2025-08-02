@@ -8,7 +8,11 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 /**
  * A special variant of a customer invoice or a vendor bill 
@@ -37,7 +41,7 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
      * Note that a job may lead to multiple o no invoices.
      * (e.g. a monthly payment for a long lasting contract.)
      */
-    GCshID getJobID();
+    GCshGenerJobID getJobID();
 
     GCshOwner.Type getJobType();
 
@@ -48,14 +52,14 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
      * 
      * @see #getGenerJob()
      */
-    GCshID getCustomerID();
+    GCshCustID getCustomerID();
 
     /**
      * @return ID of vendor this bill has been sent from.
      * 
      * @see #getGenerJob()
      */
-    GCshID getVendorID();
+    GCshVendID getVendorID();
     
     // ----------------------------
 
@@ -88,7 +92,7 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
 	
     // ---------------------------------------------------------------
 
-    GnuCashJobInvoiceEntry getEntryByID(GCshID entrID);
+    GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID);
 
     Collection<GnuCashJobInvoiceEntry> getEntries();
 

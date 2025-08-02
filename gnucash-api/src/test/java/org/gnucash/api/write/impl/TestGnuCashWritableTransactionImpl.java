@@ -20,7 +20,8 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,11 +31,11 @@ import junit.framework.JUnit4TestAdapter;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritableTransactionImpl {
-	private static final GCshID TRX_1_ID = TestGnuCashTransactionImpl.TRX_1_ID;
-	private static final GCshID TRX_2_ID = TestGnuCashTransactionImpl.TRX_2_ID;
+	private static final GCshTrxID TRX_1_ID = TestGnuCashTransactionImpl.TRX_1_ID;
+	private static final GCshTrxID TRX_2_ID = TestGnuCashTransactionImpl.TRX_2_ID;
 
-	private static final GCshID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
-	private static final GCshID ACCT_20_ID = new GCshID("b88e9eca9c73411b947b882d0bf8ec6f"); // Root Account::Aktiva::Sichteinlagen::nicht-KK::Sparkonto
+	private static final GCshAcctID ACCT_1_ID = TestGnuCashAccountImpl.ACCT_1_ID;
+	private static final GCshAcctID ACCT_20_ID = new GCshAcctID("b88e9eca9c73411b947b882d0bf8ec6f"); // Root Account::Aktiva::Sichteinlagen::nicht-KK::Sparkonto
 
 	// -----------------------------------------------------------------
 
@@ -44,7 +45,7 @@ public class TestGnuCashWritableTransactionImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newTrxID = null;
+	private GCshTrxID newTrxID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")

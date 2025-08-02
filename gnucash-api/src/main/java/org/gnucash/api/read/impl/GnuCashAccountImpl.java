@@ -15,6 +15,7 @@ import org.gnucash.api.read.impl.hlp.SimpleAccount;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,8 +110,8 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getID()
      */
-    public GCshID getID() {
-	return new GCshID(jwsdpPeer.getActId().getValue());
+    public GCshAcctID getID() {
+	return new GCshAcctID(jwsdpPeer.getActId().getValue());
     }
 
     // ---------------------------------------------------------------
@@ -118,13 +119,13 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getParentAccountID()
      */
-    public GCshID getParentAccountID() {
+    public GCshAcctID getParentAccountID() {
 	GncAccount.ActParent parent = jwsdpPeer.getActParent();
 	if (parent == null) {
 	    return null;
 	}
 
-	return new GCshID(parent.getValue());
+	return new GCshAcctID(parent.getValue());
     }
 
     /**

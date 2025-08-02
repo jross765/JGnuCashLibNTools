@@ -27,6 +27,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class FilePriceManager {
     protected GnuCashFileImpl gcshFile;
 
     protected GncPricedb                priceDB = null;
-    protected Map<GCshID, GnuCashPrice> prcMap  = null;
+    protected Map<GCshPrcID, GnuCashPrice> prcMap  = null;
 
     // ---------------------------------------------------------------
     
@@ -57,7 +58,7 @@ public class FilePriceManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		prcMap = new HashMap<GCshID, GnuCashPrice>();
+		prcMap = new HashMap<GCshPrcID, GnuCashPrice>();
 
 		initPriceDB(pRootElement);
 		List<Price> prices = priceDB.getPrice();

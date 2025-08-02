@@ -40,7 +40,17 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
@@ -107,7 +117,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ---------------------------------------------------------------
 
-    GnuCashWritableAccount getWritableAccountByID(GCshID acctID);
+    GnuCashWritableAccount getWritableAccountByID(GCshAcctID acctID);
 
     GnuCashWritableAccount getWritableAccountByNameUniq(String name, boolean qualif)
 	    throws NoEntryFoundException, TooManyEntriesFoundException;
@@ -141,17 +151,17 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type,
 			  									 GCshCmdtyCurrID cmdtyCurrID,
-			  									 GCshID parentID,
+			  									 GCshAcctID parentID,
 			  									 String name);
 
     GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type, 
     											 GCshCmdtyID cmdtyID,
-    											 GCshID parentID,
+    											 GCshAcctID parentID,
     											 String name);
 
     GnuCashWritableAccount createWritableAccount(GnuCashAccount.Type type, 
     											 GCshCurrID currID,
-    											 GCshID parentID,
+    											 GCshAcctID parentID,
     											 String name);
     /**
      * @param acct the account to remove
@@ -160,7 +170,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // -----------------------------------------------------------
 
-    GnuCashWritableTransaction getWritableTransactionByID(GCshID trxID);
+    GnuCashWritableTransaction getWritableTransactionByID(GCshTrxID trxID);
 
     /**
      * @see GnuCashFile#getTransactions()
@@ -191,7 +201,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * 
      * #see {@link #getTransactionSplitByID(GCshID)}
      */
-    GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshID spltID);
+    GnuCashWritableTransactionSplit getWritableTransactionSplitByID(GCshSpltID spltID);
 
     /**
      * @return
@@ -209,7 +219,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      *
      * @see #getGenerInvoiceByID(GCshID)
      */
-    GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(GCshID invcID);
+    GnuCashWritableGenerInvoice getWritableGenerInvoiceByID(GCshGenerInvcID invcID);
 
     /**
      * 
@@ -343,7 +353,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @param id the id to look for
      * @return A modifiable version of the invoice entry.
      */
-    GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(GCshID invcEntrID);
+    GnuCashWritableGenerInvoiceEntry getWritableGenerInvoiceEntryByID(GCshGenerInvcEntrID invcEntrID);
 
     Collection<GnuCashWritableGenerInvoiceEntry> getWritableGenerInvoiceEntries();
 
@@ -385,7 +395,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ---------------------------------------------------------------
 
-    GnuCashWritableCustomer getWritableCustomerByID(GCshID custID);
+    GnuCashWritableCustomer getWritableCustomerByID(GCshCustID custID);
 
     Collection<GnuCashWritableCustomer> getWritableCustomers();
 
@@ -397,7 +407,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ---------------------------------------------------------------
 
-    GnuCashWritableVendor getWritableVendorByID(GCshID vendID);
+    GnuCashWritableVendor getWritableVendorByID(GCshVendID vendID);
 
     Collection<GnuCashWritableVendor> getWritableVendors();
 
@@ -409,7 +419,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ---------------------------------------------------------------
 
-    GnuCashWritableEmployee getWritableEmployeeByID(GCshID emplID);
+    GnuCashWritableEmployee getWritableEmployeeByID(GCshEmplID emplID);
 
     Collection<GnuCashWritableEmployee> getWritableEmployees();
 
@@ -426,7 +436,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
      * @param jobID the id of the job to fetch
      * @return A modifiable version of the job or null of not found.
      */
-    GnuCashWritableGenerJob getWritableGenerJobByID(GCshID jobID);
+    GnuCashWritableGenerJob getWritableGenerJobByID(GCshGenerJobID jobID);
 
     /**
      * @param jnr the job-number to look for.
@@ -535,7 +545,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // ---------------------------------------------------------------
 
-    GnuCashWritablePrice getWritablePriceByID(GCshID prcID);
+    GnuCashWritablePrice getWritablePriceByID(GCshPrcID prcID);
 
     GnuCashWritablePrice getWritablePriceByCmdtyIDDate(GCshCmdtyID cmdtyID, LocalDate date);
 	

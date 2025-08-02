@@ -23,7 +23,9 @@ import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -248,8 +250,8 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     /**
      * @see GnuCashTransaction#getID()
      */
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getTrnId().getValue() );
+    public GCshTrxID getID() {
+	return new GCshTrxID( jwsdpPeer.getTrnId().getValue() );
     }
 
     /**
@@ -257,10 +259,10 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *         transaction belonging to handing out the invoice)
      */
     public List<GnuCashGenerInvoice> getInvoices() {
-    	List<GCshID> invoiceIDs = getInvoiceIDs();
+    	List<GCshGenerInvcID> invoiceIDs = getInvoiceIDs();
 	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-	for (GCshID invoiceID : invoiceIDs) {
+	for (GCshGenerInvcID invoiceID : invoiceIDs) {
 
 	    GnuCashGenerInvoice invoice = getGnuCashFile().getGenerInvoiceByID(invoiceID);
 	    if (invoice == null) {
@@ -279,9 +281,9 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @return the invoices this transaction belongs to (not payments but the
      *         transaction belonging to handing out the invoice)
      */
-    public List<GCshID> getInvoiceIDs() {
+    public List<GCshGenerInvcID> getInvoiceIDs() {
 
-	List<GCshID> retval = new ArrayList<GCshID>();
+	List<GCshGenerInvcID> retval = new ArrayList<GCshGenerInvcID>();
 
 	SlotsType slots = jwsdpPeer.getTrnSlots();
 	if (slots == null) {
@@ -310,7 +312,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 		continue;
 	    }
 
-	    retval.add(new GCshID( (String) subSlot.getSlotValue().getContent().get(0) ));
+	    retval.add(new GCshGenerInvcID( (String) subSlot.getSlotValue().getContent().get(0) ));
 
 	}
 

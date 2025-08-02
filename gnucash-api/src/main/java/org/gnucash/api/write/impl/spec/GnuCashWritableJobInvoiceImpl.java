@@ -38,7 +38,12 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -320,7 +325,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -339,9 +344,9 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	}
 
 	/**
-	 * @see #getGenerEntryByID(GCshID)
+	 * @see #getGenerEntryByID(GCshGenerInvcEntrID)
 	 */
-	public GnuCashWritableJobInvoiceEntry getWritableEntryByID(final GCshID entrID) {
+	public GnuCashWritableJobInvoiceEntry getWritableEntryByID(final GCshGenerInvcEntrID entrID) {
 		return new GnuCashWritableJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
@@ -350,8 +355,8 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	/**
 	 * @return the ID of the job that owns the invoice
 	 */
-	public GCshID getJobID() {
-		return getOwnerID();
+	public GCshGenerJobID getJobID() {
+		return new GCshGenerJobID( getOwnerID() );
 	}
 
 	/**
@@ -387,19 +392,19 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	// ----------------------------
 
 	@Override
-	public GCshID getCustomerID() {
+	public GCshCustID getCustomerID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
-		return getOwnerId_viaJob();
+		return (GCshCustID) getOwnerId_viaJob();
 	}
 
 	@Override
-	public GCshID getVendorID() {
+	public GCshVendID getVendorID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
-		return getOwnerId_viaJob();
+		return (GCshVendID) getOwnerId_viaJob();
 	}
 
 	// ----------------------------
@@ -446,7 +451,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshID entrID) {
+	public GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
 		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

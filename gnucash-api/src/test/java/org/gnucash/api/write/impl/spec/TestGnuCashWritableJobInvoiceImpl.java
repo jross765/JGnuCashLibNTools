@@ -13,6 +13,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoice;
@@ -37,13 +40,13 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableJobInvoiceImpl {
-	private static final GCshID GENER_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
-	private static final GCshID GENER_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
+	private static final GCshGenerJobID GENER_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshGenerJobID GENER_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
-	private static final GCshID INCOME_ACCT_ID = TestGnuCashWritableCustomerInvoiceImpl.INCOME_ACCT_ID;
-	private static final GCshID EXPENSES_ACCT_ID = TestGnuCashWritableVendorBillImpl.EXPENSES_ACCT_ID;
-	private static final GCshID RECEIVABLE_ACCT_ID = TestGnuCashWritableCustomerInvoiceImpl.RECEIVABLE_ACCT_ID;
-	private static final GCshID PAYABLE_ACCT_ID = TestGnuCashWritableVendorBillImpl.PAYABLE_ACCT_ID;
+	private static final GCshAcctID INCOME_ACCT_ID = TestGnuCashWritableCustomerInvoiceImpl.INCOME_ACCT_ID;
+	private static final GCshAcctID EXPENSES_ACCT_ID = TestGnuCashWritableVendorBillImpl.EXPENSES_ACCT_ID;
+	private static final GCshAcctID RECEIVABLE_ACCT_ID = TestGnuCashWritableCustomerInvoiceImpl.RECEIVABLE_ACCT_ID;
+	private static final GCshAcctID PAYABLE_ACCT_ID = TestGnuCashWritableVendorBillImpl.PAYABLE_ACCT_ID;
 
 	// ----------------------------
 
@@ -122,7 +125,7 @@ public class TestGnuCashWritableJobInvoiceImpl {
 		//                                                                  new FixedPointNumber(13));
 
 		assertNotEquals(null, invc);
-		GCshID newInvcID = invc.getID();
+		GCshGenerInvcID newInvcID = invc.getID();
 		//      System.out.println("New Invoice ID (1): " + newInvcID);
 
 		assertEquals("19327", invc.getNumber());
@@ -196,7 +199,7 @@ public class TestGnuCashWritableJobInvoiceImpl {
 	}
 
 	// Before post
-	private void test01_4(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_4(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 
@@ -214,7 +217,7 @@ public class TestGnuCashWritableJobInvoiceImpl {
 	}
 
 	// After post
-	private void test01_5(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_5(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 

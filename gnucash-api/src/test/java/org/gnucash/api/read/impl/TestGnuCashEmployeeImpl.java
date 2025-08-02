@@ -11,14 +11,14 @@ import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashEmployeeImpl {
-	public static final GCshID EMPL_1_ID = new GCshID("7f70b352dcf44a5d8085767a53a9bc37");
+	public static final GCshEmplID EMPL_1_ID = new GCshEmplID("7f70b352dcf44a5d8085767a53a9bc37");
 
 	// -----------------------------------------------------------------
 

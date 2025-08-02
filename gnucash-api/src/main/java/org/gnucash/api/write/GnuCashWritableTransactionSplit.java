@@ -3,6 +3,7 @@ package org.gnucash.api.write;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
@@ -39,7 +40,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 * @see #getAccountID()
 	 * @see #setAccount(GnuCashAccount)
 	 */
-	void setAccountID(GCshID acctID);
+	void setAccountID(GCshAcctID acctID);
 
 	/**
 	 * Does not convert the quantity to another
@@ -49,7 +50,7 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	 *        money to/take it from.
 	 *        
 	 * @see #getAccount()
-	 * @see #setAccountID(GCshID)
+	 * @see #setAccountID(GCshAcctID)
 	 */
 	void setAccount(GnuCashAccount account);
 

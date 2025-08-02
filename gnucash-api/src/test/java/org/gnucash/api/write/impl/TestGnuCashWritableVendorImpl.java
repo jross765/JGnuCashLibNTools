@@ -23,7 +23,9 @@ import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,9 +38,9 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableVendorImpl {
-	public static final GCshID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
-	//  public static final GCshID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
-	//  public static final GCshID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
+	public static final GCshVendID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
+	//  public static final GCshVendID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
+	//  public static final GCshVendID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
 
 	//  private static final GCshID TAXTABLE_UK_1_ID   = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 	//
@@ -46,10 +48,10 @@ public class TestGnuCashWritableVendorImpl {
 	//  private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 	//  private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 	
-	private static final GCshID VEND_BLL_2_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
-	private static final GCshID VEND_BLL_4_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
-	private static final GCshID VEND_BLL_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
-	private static final GCshID VEND_BLL_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
+	private static final GCshGenerInvcID VEND_BLL_2_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	private static final GCshGenerInvcID VEND_BLL_4_ID  = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	private static final GCshGenerInvcID VEND_BLL_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
+	private static final GCshGenerInvcID VEND_BLL_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
 
 	// -----------------------------------------------------------------
 
@@ -59,7 +61,7 @@ public class TestGnuCashWritableVendorImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newID = null;
+	private GCshVendID newVendID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")
@@ -307,7 +309,7 @@ public class TestGnuCashWritableVendorImpl {
 		assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshInFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
 
-		newID = vend.getID();
+		newVendID = vend.getID();
 		assertEquals("Norma Jean Baker", vend.getName());
 	}
 
@@ -319,10 +321,10 @@ public class TestGnuCashWritableVendorImpl {
 		assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshOutFileStats.getNofEntriesVendors(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_VEND + 1, gcshOutFileStats.getNofEntriesVendors(GCshFileStats.Type.CACHE));
 
-		GnuCashVendor vend = gcshOutFile.getVendorByID(newID);
+		GnuCashVendor vend = gcshOutFile.getVendorByID(newVendID);
 		assertNotEquals(null, vend);
 
-		assertEquals(newID, vend.getID());
+		assertEquals(newVendID, vend.getID());
 		assertEquals("Norma Jean Baker", vend.getName());
 	}
 

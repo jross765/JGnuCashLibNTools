@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -16,6 +15,8 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +35,7 @@ public class TestGCshWritableTaxTableImpl {
 	public static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 	private static final GCshID TAXTABLE_UK_2_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
-	private static final GCshID TAX_ACCT_ID = TestGCshTaxTableImpl.TAX_ACCT_ID;
+	private static final GCshAcctID TAX_ACCT_ID = TestGCshTaxTableImpl.TAX_ACCT_ID;
 
 	// -----------------------------------------------------------------
 

@@ -12,6 +12,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
@@ -21,9 +22,9 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableGenerJobImpl {
-	private static final GCshID GENER_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
-	private static final GCshID GENER_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
-	private static final GCshID GENER_JOB_3_ID = TestGnuCashGenerJobImpl.GENER_JOB_3_ID;
+	private static final GCshGenerJobID GENER_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshGenerJobID GENER_JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
+	private static final GCshGenerJobID GENER_JOB_3_ID = TestGnuCashGenerJobImpl.GENER_JOB_3_ID;
 
 	// -----------------------------------------------------------------
 

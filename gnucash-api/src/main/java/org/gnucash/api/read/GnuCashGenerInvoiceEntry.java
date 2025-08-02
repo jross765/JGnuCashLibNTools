@@ -15,6 +15,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.MappingException;
@@ -104,7 +106,7 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
    * @return the unique-id to identify this object with across name- and
    *         hirarchy-changes
    */
-  GCshID getID();
+  GCshGenerInvcEntrID getID();
 
   /**
    * @return the type of the customer/vendor invoice entry, i.e. the owner type of
@@ -117,7 +119,7 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
    * @return the unique-id of the invoice we belong to to
    * @see GnuCashGenerInvoice#getID()
    */
-  GCshID getGenerInvoiceID();
+  GCshGenerInvcID getGenerInvoiceID();
 
   /**
    * @return the invoice this entry belongs to

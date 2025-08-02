@@ -11,13 +11,14 @@ import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
-import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +69,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     		final GnuCashWritableTransactionImpl trx, 
     		final GnuCashAccount acct) {
 	super(createTransactionSplit_int(trx, acct,
-									 GCshID.getNew()), 
+									 new GCshSpltID( GCshID.getNew()) ), 
 		  trx, 
 		  true, true);
 
@@ -108,7 +109,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	protected static GncTransaction.TrnSplits.TrnSplit createTransactionSplit_int(
 	    final GnuCashWritableTransactionImpl trx, 
 	    final GnuCashAccount acct, 
-	    final GCshID newID) {
+	    final GCshSpltID newID) {
 	if ( trx == null ) {
 	    throw new IllegalArgumentException("argument <trx> is null");
 	}
@@ -182,7 +183,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     /**
      * @see GnuCashWritableTransactionSplit#setAccount(GnuCashAccount)
      */
-    public void setAccountID(final GCshID acctID) {
+    public void setAccountID(final GCshAcctID acctID) {
 	setAccount(getTransaction().getGnuCashFile().getAccountByID(acctID));
     }
 

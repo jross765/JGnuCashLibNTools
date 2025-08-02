@@ -5,7 +5,10 @@ import java.util.Locale;
 
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 import xyz.schnorxoborx.base.beanbase.MappingException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -176,13 +179,13 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      *
      * @return the unique-id to identify this object with across name- and hirarchy-changes
      */
-    GCshID getID();
+    GCshSpltID getID();
 
     /**
      *
      * @return the id of the account we transfer from/to.
      */
-    GCshID getAccountID();
+    GCshAcctID getAccountID();
 
     /**
      * This may be null if an account-id is specified in
@@ -194,7 +197,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
     /**
      * @return the ID of the transaction this is a split of.
      */
-    GCshID getTransactionID();
+    GCshTrxID getTransactionID();
 
     /**
      * @return the transaction this is a split of.

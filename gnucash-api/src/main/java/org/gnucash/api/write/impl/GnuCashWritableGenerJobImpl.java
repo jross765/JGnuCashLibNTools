@@ -3,7 +3,6 @@ package org.gnucash.api.write.impl;
 import java.beans.PropertyChangeSupport;
 
 import org.gnucash.api.Const;
-import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.OwnerId;
@@ -12,12 +11,12 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
-import org.gnucash.api.read.impl.GnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.aux.GCshOwnerImpl;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
@@ -90,7 +89,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 	 */
 	protected static GncGncJob createCustomerJob_int(
 			final GnuCashWritableFileImpl file, 
-			final GCshID jobID,
+			final GCshGenerJobID jobID,
 			final GnuCashCustomer cust, 
 			final String number, 
 			final String name) {

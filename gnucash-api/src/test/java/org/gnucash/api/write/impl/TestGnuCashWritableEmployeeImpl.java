@@ -20,7 +20,7 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.write.GnuCashWritableEmployee;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,7 +33,7 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableEmployeeImpl {
-	private static final GCshID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	private static final GCshEmplID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
 
 	// -----------------------------------------------------------------
 
@@ -43,7 +43,7 @@ public class TestGnuCashWritableEmployeeImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newID;
+	private GCshEmplID newEmplID;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")
@@ -261,7 +261,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshInFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-		newID = empl.getID();
+		newEmplID = empl.getID();
 		assertEquals("Émilie Chauchoin", empl.getUserName());
 	}
 
@@ -273,10 +273,10 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_EMPL + 1, gcshOutFileStats.getNofEntriesEmployees(GCshFileStats.Type.CACHE));
 
-		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(newID);
+		GnuCashEmployee empl = gcshOutFile.getEmployeeByID(newEmplID);
 		assertNotEquals(null, empl);
 
-		assertEquals(newID, empl.getID());
+		assertEquals(newEmplID, empl.getID());
 		assertEquals("Émilie Chauchoin", empl.getUserName());
 	}
 

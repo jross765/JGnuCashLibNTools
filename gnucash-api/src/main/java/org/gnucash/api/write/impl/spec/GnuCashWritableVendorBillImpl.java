@@ -29,7 +29,10 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -279,7 +282,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getCustInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getCustInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -287,7 +290,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -295,7 +298,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -314,9 +317,9 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	}
 
 	/**
-	 * @see #getGenerEntryByID(GCshID)
+	 * @see #getGenerEntryByID(GCshGenerInvcEntrID)
 	 */
-	public GnuCashWritableVendorBillEntry getWritableEntryByID(final GCshID entrID) {
+	public GnuCashWritableVendorBillEntry getWritableEntryByID(final GCshGenerInvcEntrID entrID) {
 		return new GnuCashWritableVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 
@@ -325,8 +328,8 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	/**
 	 * @return the ID of the vendor who/that owns the bill
 	 */
-	public GCshID getVendorID() {
-		return getOwnerID();
+	public GCshVendID getVendorID() {
+		return new GCshVendID( getOwnerID() );
 	}
 
 	/**
@@ -355,7 +358,7 @@ public class GnuCashWritableVendorBillImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashVendorBillEntry getEntryByID(GCshID entrID) {
+	public GnuCashVendorBillEntry getEntryByID(GCshGenerInvcEntrID entrID) {
 		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 

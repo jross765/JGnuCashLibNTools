@@ -9,6 +9,7 @@ import java.util.Locale;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,13 +24,13 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 	// private static final GCshID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
 	private static final GCshID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
 
-	public static final GCshID GENER_INVCENTR_1_ID = new GCshID("513589a11391496cbb8d025fc1e87eaa"); // vendor bill entry
-	public static final GCshID GENER_INVCENTR_2_ID = new GCshID("0041b8d397f04ae4a2e9e3c7f991c4ec"); // vendor bill entry
-	public static final GCshID GENER_INVCENTR_3_ID = new GCshID("83e78ce224d94c3eafc55e33d3d5f3e6"); // customer invoice entry
-	public static final GCshID GENER_INVCENTR_4_ID = new GCshID("fa483972d10a4ce0abf2a7e1319706e7"); // job invoice entry
-	public static final GCshID GENER_INVCENTR_5_ID = new GCshID("b6e2313e32d44bb4a8a701c1063e03a7"); // employee voucher entry
-	public static final GCshID GENER_INVCENTR_6_ID = new GCshID("220af9aa331947078954cd8ad31916c2"); // vendor bill entry (gg9nixlos)
-	public static final GCshID GENER_INVCENTR_7_ID = new GCshID("d1e64a86c4004ef7b87e2610d762456d");
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_1_ID = new GCshGenerInvcEntrID("513589a11391496cbb8d025fc1e87eaa"); // vendor bill entry
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_2_ID = new GCshGenerInvcEntrID("0041b8d397f04ae4a2e9e3c7f991c4ec"); // vendor bill entry
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_3_ID = new GCshGenerInvcEntrID("83e78ce224d94c3eafc55e33d3d5f3e6"); // customer invoice entry
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_4_ID = new GCshGenerInvcEntrID("fa483972d10a4ce0abf2a7e1319706e7"); // job invoice entry
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_5_ID = new GCshGenerInvcEntrID("b6e2313e32d44bb4a8a701c1063e03a7"); // employee voucher entry
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_6_ID = new GCshGenerInvcEntrID("220af9aa331947078954cd8ad31916c2"); // vendor bill entry (gg9nixlos)
+	public static final GCshGenerInvcEntrID GENER_INVCENTR_7_ID = new GCshGenerInvcEntrID("d1e64a86c4004ef7b87e2610d762456d");
 	
 	// -----------------------------------------------------------------
 

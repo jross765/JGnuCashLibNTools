@@ -16,14 +16,14 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashEmployeeVoucherImpl {
-	private static final GCshID EMPL_VCH_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
+	private static final GCshGenerInvcID EMPL_VCH_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
 
 	// -----------------------------------------------------------------
 

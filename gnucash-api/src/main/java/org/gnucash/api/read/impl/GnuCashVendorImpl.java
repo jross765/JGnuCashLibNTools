@@ -21,6 +21,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,8 +80,8 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getID() {
-	return new GCshID(jwsdpPeer.getVendorGuid().getValue());
+    public GCshVendID getID() {
+	return new GCshVendID(jwsdpPeer.getVendorGuid().getValue());
     }
 
     /**

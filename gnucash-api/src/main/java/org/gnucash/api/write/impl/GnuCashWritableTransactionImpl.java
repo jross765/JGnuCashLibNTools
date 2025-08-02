@@ -26,6 +26,7 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -83,7 +84,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      * @param file the file we belong to
      */
     public GnuCashWritableTransactionImpl(final GnuCashWritableFileImpl file) {
-	super(createTransaction_int(file, GCshID.getNew()), file, true);
+	super(createTransaction_int(file, new GCshTrxID( GCshID.getNew()) ), file, true);
 	file.addTransaction(this);
     }
 
@@ -137,7 +138,7 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
      */
     protected static GncTransaction createTransaction_int(
             final GnuCashWritableFileImpl file, 
-            final GCshID newID) {
+            final GCshTrxID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("argument <newID> is null");
 		}

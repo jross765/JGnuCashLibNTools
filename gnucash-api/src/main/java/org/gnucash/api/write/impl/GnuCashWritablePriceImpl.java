@@ -22,6 +22,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
     }
 
     public GnuCashWritablePriceImpl(final GnuCashWritableFileImpl file) {
-	super(createPrice_int(file, GCshID.getNew()), file);
+	super(createPrice_int(file, new GCshPrcID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritablePriceImpl(GnuCashPriceImpl prc) {
@@ -94,7 +95,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
 
     private static Price createPrice_int(
 	    final GnuCashWritableFileImpl file, 
-	    final GCshID newID) {
+	    final GCshPrcID newID) {
 	
 		if ( newID == null ) {
 			throw new IllegalArgumentException("argument <newID> is null");

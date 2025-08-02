@@ -15,23 +15,25 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestHasUserDefinedAttributesImpl {
-	public static final GCshID ACCT_1_ID = new GCshID( "b3741e92e3b9475b9d5a2dc8254a8111" ); // SAP
-	public static final GCshID ACCT_2_ID = new GCshID( "7ee6fe4de6db46fd957f3513c9c6f983" ); // Depots
-	public static final GCshID ACCT_3_ID = new GCshID( "3b0e56552514420da0e2cec300f64ce6" ); // Aktiva
+	public static final GCshAcctID ACCT_1_ID = new GCshAcctID( "b3741e92e3b9475b9d5a2dc8254a8111" ); // SAP
+	public static final GCshAcctID ACCT_2_ID = new GCshAcctID( "7ee6fe4de6db46fd957f3513c9c6f983" ); // Depots
+	public static final GCshAcctID ACCT_3_ID = new GCshAcctID( "3b0e56552514420da0e2cec300f64ce6" ); // Aktiva
 
-	public static final GCshID TRX_1_ID = new GCshID( "18a45dfc8a6868c470438e27d6fe10b2" );
-	public static final GCshID TRX_2_ID = new GCshID( "cc9fe6a245df45ba9b494660732a7755" );
-	public static final GCshID TRX_3_ID = new GCshID( "d465b802d5c940c9bba04b87b63ba23f" );
+	public static final GCshTrxID TRX_1_ID = new GCshTrxID( "18a45dfc8a6868c470438e27d6fe10b2" );
+	public static final GCshTrxID TRX_2_ID = new GCshTrxID( "cc9fe6a245df45ba9b494660732a7755" );
+	public static final GCshTrxID TRX_3_ID = new GCshTrxID( "d465b802d5c940c9bba04b87b63ba23f" );
 
-	public static final GCshID INVC_2_ID = new GCshID( "8de4467c17e04bb2895fb68cc07fc4df" );
-	public static final GCshID INVC_3_ID = new GCshID( "169331c9860642cf84b04f3e3151058a" );
+	public static final GCshGenerInvcID INVC_2_ID = new GCshGenerInvcID( "8de4467c17e04bb2895fb68cc07fc4df" );
+	public static final GCshGenerInvcID INVC_3_ID = new GCshGenerInvcID( "169331c9860642cf84b04f3e3151058a" );
 
 	public static final GCshCmdtyID_Exchange  CMDTY_1_ID = new GCshCmdtyID_Exchange( GCshCmdtyCurrNameSpace.Exchange.EURONEXT, "MBG" );
 	public static final GCshCmdtyID_SecIdType CMDTY_2_ID = new GCshCmdtyID_SecIdType( GCshCmdtyCurrNameSpace.SecIdType.ISIN, "DE000BASF111" );

@@ -21,6 +21,7 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class FileInvoiceManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshID, GnuCashGenerInvoice> invcMap;
+	protected Map<GCshGenerInvcID, GnuCashGenerInvoice> invcMap;
 
 	// ---------------------------------------------------------------
 
@@ -45,7 +46,7 @@ public class FileInvoiceManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		invcMap = new HashMap<GCshID, GnuCashGenerInvoice>();
+		invcMap = new HashMap<GCshGenerInvcID, GnuCashGenerInvoice>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncInvoice) ) {

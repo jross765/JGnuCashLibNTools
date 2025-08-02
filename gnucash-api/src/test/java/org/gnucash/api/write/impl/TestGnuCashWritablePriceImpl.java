@@ -28,6 +28,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,22 +38,22 @@ import junit.framework.JUnit4TestAdapter;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGnuCashWritablePriceImpl {
-	private static final GCshID PRC_1_ID = TestGnuCashPriceImpl.PRC_1_ID;
-	private static final GCshID PRC_2_ID = TestGnuCashPriceImpl.PRC_2_ID;
-	private static final GCshID PRC_3_ID = TestGnuCashPriceImpl.PRC_3_ID;
-	private static final GCshID PRC_4_ID = TestGnuCashPriceImpl.PRC_4_ID;
+	private static final GCshPrcID PRC_1_ID = TestGnuCashPriceImpl.PRC_1_ID;
+	private static final GCshPrcID PRC_2_ID = TestGnuCashPriceImpl.PRC_2_ID;
+	private static final GCshPrcID PRC_3_ID = TestGnuCashPriceImpl.PRC_3_ID;
+	private static final GCshPrcID PRC_4_ID = TestGnuCashPriceImpl.PRC_4_ID;
 
-	private static final GCshID PRC_10_ID = TestGnuCashPriceImpl.PRC_10_ID;
-	private static final GCshID PRC_11_ID = TestGnuCashPriceImpl.PRC_11_ID;
-	private static final GCshID PRC_12_ID = TestGnuCashPriceImpl.PRC_12_ID;
-	private static final GCshID PRC_13_ID = TestGnuCashPriceImpl.PRC_13_ID;
+	private static final GCshPrcID PRC_10_ID = TestGnuCashPriceImpl.PRC_10_ID;
+	private static final GCshPrcID PRC_11_ID = TestGnuCashPriceImpl.PRC_11_ID;
+	private static final GCshPrcID PRC_12_ID = TestGnuCashPriceImpl.PRC_12_ID;
+	private static final GCshPrcID PRC_13_ID = TestGnuCashPriceImpl.PRC_13_ID;
 
-	public static final GCshID PRC_14_ID = TestGnuCashPriceImpl.PRC_14_ID;
-	public static final GCshID PRC_15_ID = TestGnuCashPriceImpl.PRC_15_ID;
-	public static final GCshID PRC_16_ID = TestGnuCashPriceImpl.PRC_16_ID;
-	public static final GCshID PRC_17_ID = TestGnuCashPriceImpl.PRC_17_ID;
-	public static final GCshID PRC_18_ID = TestGnuCashPriceImpl.PRC_18_ID;
-	public static final GCshID PRC_19_ID = TestGnuCashPriceImpl.PRC_19_ID;
+	public static final GCshPrcID PRC_14_ID = TestGnuCashPriceImpl.PRC_14_ID;
+	public static final GCshPrcID PRC_15_ID = TestGnuCashPriceImpl.PRC_15_ID;
+	public static final GCshPrcID PRC_16_ID = TestGnuCashPriceImpl.PRC_16_ID;
+	public static final GCshPrcID PRC_17_ID = TestGnuCashPriceImpl.PRC_17_ID;
+	public static final GCshPrcID PRC_18_ID = TestGnuCashPriceImpl.PRC_18_ID;
+	public static final GCshPrcID PRC_19_ID = TestGnuCashPriceImpl.PRC_19_ID;
 	
 	public static final String CMDTY_2_ID = TestGnuCashPriceImpl.CMDTY_2_ID;
 	public static final String CMDTY_2_ISIN = TestGnuCashPriceImpl.CMDTY_2_ISIN;
@@ -67,7 +68,7 @@ public class TestGnuCashWritablePriceImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newID;
+	private GCshPrcID newPrcID;
 
 	GCshCmdtyID cmdtyID11 = null;
 	GCshCmdtyID_Exchange cmdtyID12 = null;
@@ -592,7 +593,7 @@ public class TestGnuCashWritablePriceImpl {
 		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshInFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
-		newID = prc.getID();
+		newPrcID = prc.getID();
 		assertEquals(LocalDate.of(1910, 5, 1), prc.getDate());
 		assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
 		assertEquals(currID1, prc.getToCurrencyQualifID());
@@ -606,10 +607,10 @@ public class TestGnuCashWritablePriceImpl {
 		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_PRC + 1, gcshOutFileStats.getNofEntriesPrices(GCshFileStats.Type.CACHE));
 
-		GnuCashPrice prc = gcshOutFile.getPriceByID(newID);
+		GnuCashPrice prc = gcshOutFile.getPriceByID(newPrcID);
 		assertNotEquals(null, prc);
 
-		assertEquals(newID, prc.getID());
+		assertEquals(newPrcID, prc.getID());
 		assertEquals(LocalDate.of(1910, 5, 1), prc.getDate());
 		assertEquals(cmdtyID11.toString(), prc.getFromCmdtyCurrQualifID().toString());
 		assertEquals(currID1, prc.getToCurrencyQualifID());

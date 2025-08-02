@@ -14,6 +14,7 @@ import org.gnucash.api.read.impl.aux.GCshAddressImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,8 +74,8 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getID() {
-	return new GCshID(jwsdpPeer.getEmployeeGuid().getValue());
+    public GCshEmplID getID() {
+	return new GCshEmplID(jwsdpPeer.getEmployeeGuid().getValue());
     }
 
     /**

@@ -21,7 +21,8 @@ public abstract class FileJobManager_Customer {
 		List<GnuCashWritableCustomerJob> retval = new ArrayList<GnuCashWritableCustomerJob>();
 
 		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
-			if ( job.getOwnerID().equals(cust.getID()) ) {
+			// Important: compare strings, not objects
+			if ( job.getOwnerID().toString().equals(cust.getID().toString()) ) {
 					GnuCashWritableCustomerJobImpl wrtblJob = new GnuCashWritableCustomerJobImpl((GnuCashWritableGenerJobImpl) job);
 					retval.add(wrtblJob);
 			}

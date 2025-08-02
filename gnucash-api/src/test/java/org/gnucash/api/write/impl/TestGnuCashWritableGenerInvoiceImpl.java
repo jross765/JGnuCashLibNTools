@@ -20,6 +20,7 @@ import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableTransaction;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,13 +30,13 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableGenerInvoiceImpl {
-	public static final GCshID GENER_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
-	public static final GCshID GENER_INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
-	public static final GCshID GENER_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
-	public static final GCshID GENER_INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
-	public static final GCshID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
-	public static final GCshID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
-	public static final GCshID GENER_INVC_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
+	public static final GCshGenerInvcID GENER_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	public static final GCshGenerInvcID GENER_INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	public static final GCshGenerInvcID GENER_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	public static final GCshGenerInvcID GENER_INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	public static final GCshGenerInvcID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
+	public static final GCshGenerInvcID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+	public static final GCshGenerInvcID GENER_INVC_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
 
 	// -----------------------------------------------------------------
 
@@ -447,7 +448,7 @@ public class TestGnuCashWritableGenerInvoiceImpl {
 		// However, the transaction cannot newly be instantiated any more,
 		// just as you would expect.
 		try {
-			GnuCashWritableTransaction invcNow1 = gcshInFile.getWritableTransactionByID(GENER_INVC_4_ID);
+			GnuCashWritableGenerInvoice invcNow1 = gcshInFile.getWritableGenerInvoiceByID(GENER_INVC_4_ID);
 			assertEquals(1, 0);
 		} catch ( Exception exc ) {
 			assertEquals(0, 0);

@@ -14,16 +14,18 @@ import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashVendorImpl {
-	public static final GCshID VEND_1_ID = new GCshID("087e1a3d43fa4ef9a9bdd4b4797c4231");
-	public static final GCshID VEND_2_ID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-	public static final GCshID VEND_3_ID = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
+	public static final GCshVendID VEND_1_ID = new GCshVendID("087e1a3d43fa4ef9a9bdd4b4797c4231");
+	public static final GCshVendID VEND_2_ID = new GCshVendID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+	public static final GCshVendID VEND_3_ID = new GCshVendID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
 
 	private static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
@@ -31,10 +33,10 @@ public class TestGnuCashVendorImpl {
 	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 	private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
-	private static final GCshID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
-	private static final GCshID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
-	private static final GCshID INVC_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
-	private static final GCshID INVC_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
+	private static final GCshGenerInvcID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	private static final GCshGenerInvcID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	private static final GCshGenerInvcID INVC_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
+	private static final GCshGenerInvcID INVC_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
 
 	// -----------------------------------------------------------------
 

@@ -20,6 +20,7 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -126,7 +127,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 
 	@Override
 	public GnuCashAccount getParentAccount() {
-		GCshID parentID = getParentAccountID();
+		GCshAcctID parentID = getParentAccountID();
 		if ( parentID == null ) {
 			return null;
 		}

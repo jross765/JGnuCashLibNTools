@@ -24,6 +24,7 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +68,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableEmployeeImpl(final GnuCashWritableFileImpl file) {
-	super(createEmployee_int(file, GCshID.getNew()), file);
+	super(createEmployee_int(file, new GCshEmplID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritableEmployeeImpl(final GnuCashEmployeeImpl empl) {
@@ -86,7 +87,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      */
     protected static GncGncEmployee createEmployee_int(
     		final GnuCashWritableFileImpl file,
-            final GCshID newID) {
+            final GCshEmplID newID) {
 		if ( newID == null ) {
 			throw new IllegalArgumentException("argument <newID> is null");
 		}

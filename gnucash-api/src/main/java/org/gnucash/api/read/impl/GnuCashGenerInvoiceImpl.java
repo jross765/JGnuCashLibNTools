@@ -25,7 +25,12 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -305,9 +310,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getPostAccountID() {
+	public GCshAcctID getPostAccountID() {
 		try {
-			return new GCshID(jwsdpPeer.getInvoicePostacc().getValue());
+			return new GCshAcctID(jwsdpPeer.getInvoicePostacc().getValue());
 		} catch (NullPointerException exc) {
 			return null;
 		}
@@ -316,9 +321,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getPostTransactionID() {
+	public GCshTrxID getPostTransactionID() {
 		try {
-			return new GCshID(jwsdpPeer.getInvoicePosttxn().getValue());
+			return new GCshTrxID(jwsdpPeer.getInvoicePosttxn().getValue());
 		} catch (NullPointerException exc) {
 			return null;
 		}
@@ -841,9 +846,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			throw new WrongInvoiceTypeException();
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(this);
-		if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_CUSTOMER) )
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
 			return getCustInvcAmountUnpaidWithTaxes_int();
-		else if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_VENDOR) )
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
 			return getVendBllAmountUnpaidWithTaxes_int();
 
 		return null; // Compiler happy
@@ -858,9 +863,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			throw new WrongInvoiceTypeException();
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(this);
-		if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_CUSTOMER) )
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
 			return getCustInvcAmountPaidWithTaxes_int();
-		else if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_VENDOR) )
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
 			return getVendBllAmountPaidWithTaxes_int();
 
 		return null; // Compiler happy
@@ -875,9 +880,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			throw new WrongInvoiceTypeException();
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(this);
-		if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_CUSTOMER) )
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
 			return getCustInvcAmountPaidWithoutTaxes_int();
-		else if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_VENDOR) )
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
 			return getVendBllAmountPaidWithoutTaxes_int();
 
 		return null; // Compiler happy
@@ -892,9 +897,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			throw new WrongInvoiceTypeException();
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(this);
-		if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_CUSTOMER) )
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
 			return getCustInvcAmountWithTaxes_int();
-		else if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_VENDOR) )
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
 			return getVendBllAmountWithTaxes_int();
 
 		return null; // Compiler happy
@@ -909,9 +914,9 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 			throw new WrongInvoiceTypeException();
 
 		GnuCashJobInvoice jobInvc = new GnuCashJobInvoiceImpl(this);
-		if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_CUSTOMER) )
+		if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_CUSTOMER )
 			return getCustInvcAmountWithoutTaxes_int();
-		else if ( jobInvc.getJobType().equals(GnuCashGenerJob.TYPE_VENDOR) )
+		else if ( jobInvc.getJobType() == GnuCashGenerJob.TYPE_VENDOR )
 			return getVendBllAmountWithoutTaxes_int();
 
 		return null; // Compiler happy
@@ -1101,8 +1106,8 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getID() {
-		return new GCshID(getJwsdpPeer().getInvoiceGuid().getValue());
+	public GCshGenerInvcID getID() {
+		return new GCshGenerInvcID(getJwsdpPeer().getInvoiceGuid().getValue());
 	}
 
 	/**
@@ -1150,7 +1155,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GnuCashGenerInvoiceEntry getGenerEntryByID(final GCshID entrID) {
+	public GnuCashGenerInvoiceEntry getGenerEntryByID(final GCshGenerInvcEntrID entrID) {
 		for ( GnuCashGenerInvoiceEntry element : getGenerEntries() ) {
 			if ( element.getID().equals(entrID) ) {
 				return element;
@@ -1276,7 +1281,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID(getOwnerID());
+		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID((GCshGenerJobID) getOwnerID());
 		return job.getOwnerID();
 	}
 
@@ -1305,7 +1310,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID(getOwnerID());
+		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID((GCshGenerJobID) getOwnerID());
 		return job.getOwnerType();
 	}
 

@@ -12,6 +12,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -35,7 +36,7 @@ public interface GnuCashVendor extends GnuCashObject,
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getID();
+    GCshVendID getID();
 
     /**
      * @return Returns the user-assigned number of this vendor (may contain non-digits)

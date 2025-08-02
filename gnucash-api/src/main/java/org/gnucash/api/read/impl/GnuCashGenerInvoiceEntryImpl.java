@@ -30,6 +30,9 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,8 +71,8 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     protected ZonedDateTime date;
 
-    private GCshID myInvcAcctID;
-    private GCshID myBllAcctID;
+    private GCshAcctID myInvcAcctID;
+    private GCshAcctID myBllAcctID;
 
     /**
      * The tax table in the GnuCash XML file. It defines what sales-tax-rates are
@@ -182,8 +185,8 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getEntryGuid().getValue() );
+    public GCshGenerInvcEntrID getID() {
+	return new GCshGenerInvcEntrID( jwsdpPeer.getEntryGuid().getValue() );
     }
 
     /**
@@ -196,7 +199,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     /**
      * MAY RETURN NULL. {@inheritDoc}
      */
-    public GCshID getGenerInvoiceID() {
+    public GCshGenerInvcID getGenerInvoiceID() {
 	EntryInvoice entrInvc = null;
 	EntryBill entrBill = null;
 
@@ -217,9 +220,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		    + " without an invoice-element (customer) AND " + "without a bill-element (vendor)");
 	    return null;
 	} else if (entrInvc != null && entrBill == null) {
-	    return new GCshID(entrInvc.getValue());
+	    return new GCshGenerInvcID(entrInvc.getValue());
 	} else if (entrInvc == null && entrBill != null) {
-	    return new GCshID(entrBill.getValue());
+	    return new GCshGenerInvcID(entrBill.getValue());
 	} else if (entrInvc != null && entrBill != null) {
 	    LOGGER.error("file contains an invoice-entry with GUID=" + getID()
 		    + " with BOTH an invoice-element (customer) and " + "a bill-element (vendor)");
@@ -239,7 +242,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      */
     public GnuCashGenerInvoice getGenerInvoice() {
 	if (myInvoice == null) {
-	    GCshID invcId = getGenerInvoiceID();
+	    GCshGenerInvcID invcId = getGenerInvoiceID();
 	    if (invcId != null) {
 		myInvoice = getGnuCashFile().getGenerInvoiceByID(invcId);
 		if (myInvoice == null) {
@@ -806,11 +809,11 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     // ---------------------------------------------------------------
     
 	@Override
-	public GCshID getCustInvcAccountID() throws AccountNotFoundException {
+	public GCshAcctID getCustInvcAccountID() throws AccountNotFoundException {
 		return getCustInvcAccountID_int();
 	}
 	
-	private GCshID getCustInvcAccountID_int() throws AccountNotFoundException {
+	private GCshAcctID getCustInvcAccountID_int() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.CUSTOMER && 
 			 getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
@@ -828,18 +831,18 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 				return null;
 			}
 			
-			myInvcAcctID = new GCshID(acctIdStr);
+			myInvcAcctID = new GCshAcctID(acctIdStr);
 		}
 
 		return myInvcAcctID;
 	}
 
 	@Override
-	public GCshID getVendBllAccountID() throws AccountNotFoundException {
+	public GCshAcctID getVendBllAccountID() throws AccountNotFoundException {
 		return getVendBllAccountID_int();
 	}
 	
-	private GCshID getVendBllAccountID_int() throws AccountNotFoundException {
+	private GCshAcctID getVendBllAccountID_int() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.VENDOR && 
 			 getType() != GCshOwner.Type.EMPLOYEE && 
 			 getType() != GCshOwner.Type.JOB )
@@ -858,14 +861,14 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 					return null;
 				}
 				
-				myBllAcctID = new GCshID(acctIdStr);
+				myBllAcctID = new GCshAcctID(acctIdStr);
 			}
 
 			return myBllAcctID;
 	}
 
 	@Override
-	public GCshID getEmplVchAccountID() throws AccountNotFoundException {
+	public GCshAcctID getEmplVchAccountID() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.EMPLOYEE )
 		    throw new WrongInvoiceTypeException();
 
@@ -873,7 +876,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshID getJobInvcAccountID() throws AccountNotFoundException {
+	public GCshAcctID getJobInvcAccountID() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.JOB )
 		    throw new WrongInvoiceTypeException();
 

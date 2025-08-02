@@ -18,6 +18,7 @@ import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class FileAccountManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshID, GnuCashAccount> acctMap;
+	protected Map<GCshAcctID, GnuCashAccount> acctMap;
 	protected Map<GCshID, GCshAccountLot> acctLotMap;
 
 	// ---------------------------------------------------------------
@@ -51,7 +52,7 @@ public class FileAccountManager {
 	}
 
 	private void init1(final GncV2 pRootElement) {
-		acctMap = new HashMap<GCshID, GnuCashAccount>();
+		acctMap = new HashMap<GCshAcctID, GnuCashAccount>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			acctMap.put(acct.getID(), acct);

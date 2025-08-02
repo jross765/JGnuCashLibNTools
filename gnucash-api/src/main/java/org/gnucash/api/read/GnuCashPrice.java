@@ -8,6 +8,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -105,7 +106,7 @@ public interface GnuCashPrice extends Comparable<GnuCashPrice>,
 	
     // ---------------------------------------------------------------
 	
-    GCshID getID();
+    GCshPrcID getID();
 
     // ----------------------------
 

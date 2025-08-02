@@ -22,7 +22,9 @@ import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,16 +33,16 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestHasWritableUserDefinedAttributesImpl {
-	public static final GCshID ACCT_1_ID = TestHasUserDefinedAttributesImpl.ACCT_1_ID;
-	public static final GCshID ACCT_2_ID = TestHasUserDefinedAttributesImpl.ACCT_2_ID;
-	public static final GCshID ACCT_3_ID = TestHasUserDefinedAttributesImpl.ACCT_3_ID;
+	public static final GCshAcctID ACCT_1_ID = TestHasUserDefinedAttributesImpl.ACCT_1_ID;
+	public static final GCshAcctID ACCT_2_ID = TestHasUserDefinedAttributesImpl.ACCT_2_ID;
+	public static final GCshAcctID ACCT_3_ID = TestHasUserDefinedAttributesImpl.ACCT_3_ID;
 
-	public static final GCshID TRX_1_ID = TestHasUserDefinedAttributesImpl.TRX_1_ID;
-	public static final GCshID TRX_2_ID = TestHasUserDefinedAttributesImpl.TRX_2_ID;
-	public static final GCshID TRX_3_ID = TestHasUserDefinedAttributesImpl.TRX_3_ID;
+	public static final GCshTrxID TRX_1_ID = TestHasUserDefinedAttributesImpl.TRX_1_ID;
+	public static final GCshTrxID TRX_2_ID = TestHasUserDefinedAttributesImpl.TRX_2_ID;
+	public static final GCshTrxID TRX_3_ID = TestHasUserDefinedAttributesImpl.TRX_3_ID;
 
-	public static final GCshID INVC_2_ID = TestHasUserDefinedAttributesImpl.INVC_2_ID;
-	public static final GCshID INVC_3_ID = TestHasUserDefinedAttributesImpl.INVC_3_ID;
+	public static final GCshGenerInvcID INVC_2_ID = TestHasUserDefinedAttributesImpl.INVC_2_ID;
+	public static final GCshGenerInvcID INVC_3_ID = TestHasUserDefinedAttributesImpl.INVC_3_ID;
 
 	public static final GCshCmdtyID_Exchange  CMDTY_1_ID = TestHasUserDefinedAttributesImpl.CMDTY_1_ID;
 	public static final GCshCmdtyID_SecIdType CMDTY_2_ID = TestHasUserDefinedAttributesImpl.CMDTY_2_ID;

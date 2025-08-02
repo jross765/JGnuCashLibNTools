@@ -13,7 +13,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerInvoice;
@@ -39,20 +44,20 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableCustomerInvoiceImpl {
-	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
-	private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
-	private static final GCshID CUST_3_ID = TestGnuCashCustomerImpl.CUST_3_ID;
+	private static final GCshCustID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
+	private static final GCshCustID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
+	private static final GCshCustID CUST_3_ID = TestGnuCashCustomerImpl.CUST_3_ID;
 
-	private static final GCshID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
-	private static final GCshID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
-	private static final GCshID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
+	private static final GCshVendID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
+	private static final GCshVendID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
+	private static final GCshVendID VEND_3_ID = TestGnuCashVendorImpl.VEND_3_ID;
 
-	private static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
-	private static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
+	private static final GCshGenerJobID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshGenerJobID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
-	static final GCshID INCOME_ACCT_ID = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root
+	static final GCshAcctID INCOME_ACCT_ID = new GCshAcctID("fed745c4da5c49ebb0fde0f47222b35b"); // Root
 	// Account::Erträge::Sonstiges
-	static final GCshID RECEIVABLE_ACCT_ID = new GCshID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root
+	static final GCshAcctID RECEIVABLE_ACCT_ID = new GCshAcctID("7e223ee2260d4ba28e8e9e19ce291f43"); // Root
 	// Account::Aktiva::Forderungen::Unfug_Quatsch
 
 	// ----------------------------
@@ -126,7 +131,7 @@ public class TestGnuCashWritableCustomerInvoiceImpl {
 		//                                                                  new FixedPointNumber(13));
 
 		assertNotEquals(null, invc);
-		GCshID newInvcID = invc.getID();
+		GCshGenerInvcID newInvcID = invc.getID();
 		//      System.out.println("New Invoice ID (1): " + newInvcID);
 
 		assertEquals("19327", invc.getNumber());
@@ -200,7 +205,7 @@ public class TestGnuCashWritableCustomerInvoiceImpl {
 	}
 
 	// Before post
-	private void test01_4(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_4(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 
@@ -218,7 +223,7 @@ public class TestGnuCashWritableCustomerInvoiceImpl {
 	}
 
 	// After post
-	private void test01_5(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_5(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 

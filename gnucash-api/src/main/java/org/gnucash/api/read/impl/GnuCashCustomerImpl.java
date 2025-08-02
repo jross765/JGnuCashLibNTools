@@ -20,6 +20,7 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,8 +80,8 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getID() {
-	return new GCshID(jwsdpPeer.getCustGuid().getValue());
+    public GCshCustID getID() {
+	return new GCshCustID(jwsdpPeer.getCustGuid().getValue());
     }
 
     /**

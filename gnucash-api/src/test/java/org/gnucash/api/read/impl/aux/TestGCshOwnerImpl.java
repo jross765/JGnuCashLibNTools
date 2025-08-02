@@ -19,7 +19,12 @@ import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,18 +32,18 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshOwnerImpl {
 
-	public static final GCshID INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
-	public static final GCshID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
-	public static final GCshID INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
-	public static final GCshID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
-	public static final GCshID INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
-	public static final GCshID INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
-	public static final GCshID INVC_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
-	public static final GCshID INVC_8_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_8_ID;
-	public static final GCshID INVC_9_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_9_ID;
+	public static final GCshGenerInvcID INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	public static final GCshGenerInvcID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	public static final GCshGenerInvcID INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	public static final GCshGenerInvcID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	public static final GCshGenerInvcID INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
+	public static final GCshGenerInvcID INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+	public static final GCshGenerInvcID INVC_7_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_7_ID;
+	public static final GCshGenerInvcID INVC_8_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_8_ID;
+	public static final GCshGenerInvcID INVC_9_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_9_ID;
 
-	public static final GCshID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
-	public static final GCshID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
+	public static final GCshGenerJobID JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	public static final GCshGenerJobID JOB_2_ID = TestGnuCashGenerJobImpl.GENER_JOB_2_ID;
 
 	public static final GCshID OWN_1_ID = new GCshID("5d1dd9afa7554553988669830cc1f696");
 	public static final GCshID OWN_2_ID = new GCshID("087e1a3d43fa4ef9a9bdd4b4797c4231");
@@ -140,7 +145,7 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generInvc);
 
 		own = new GCshOwnerImpl(OWN_1_ID, GCshOwner.JIType.INVOICE, gcshFile);
-		cust = gcshFile.getCustomerByID(OWN_1_ID);
+		cust = gcshFile.getCustomerByID(new GCshCustID(OWN_1_ID));
 		
 		assertEquals(OWN_1_ID, own.getID());
 		assertEquals(GCshOwner.JIType.INVOICE, own.getJIType());
@@ -189,7 +194,7 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generInvc);
 
 		own = new GCshOwnerImpl(OWN_2_ID, GCshOwner.JIType.INVOICE, gcshFile);
-		vend = gcshFile.getVendorByID(OWN_2_ID);
+		vend = gcshFile.getVendorByID(new GCshVendID(OWN_2_ID));
 		
 		assertEquals(OWN_2_ID, own.getID());
 		assertEquals(GCshOwner.JIType.INVOICE, own.getJIType());
@@ -238,7 +243,7 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generInvc);
 
 		own = new GCshOwnerImpl(OWN_3_ID, GCshOwner.JIType.INVOICE, gcshFile);
-		empl = gcshFile.getEmployeeByID(OWN_3_ID);
+		empl = gcshFile.getEmployeeByID(new GCshEmplID(OWN_3_ID));
 		
 		assertEquals(OWN_3_ID, own.getID());
 		assertEquals(GCshOwner.JIType.INVOICE, own.getJIType());
@@ -287,8 +292,8 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generInvc);
 
 		own = new GCshOwnerImpl(OWN_4_ID, GCshOwner.JIType.INVOICE, gcshFile);
-		generJob = gcshFile.getGenerJobByID(OWN_4_ID);
-		custJob = gcshFile.getCustomerJobByID(OWN_4_ID);
+		generJob = gcshFile.getGenerJobByID(new GCshGenerJobID(OWN_4_ID));
+		custJob = gcshFile.getCustomerJobByID(new GCshGenerJobID(OWN_4_ID));
 		
 		assertEquals(OWN_4_ID, own.getID());
 		assertEquals(GCshOwner.JIType.INVOICE, own.getJIType());
@@ -348,7 +353,7 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generJob);
 		
 		own = new GCshOwnerImpl(OWN_5_ID, GCshOwner.JIType.JOB, gcshFile);
-		cust = gcshFile.getCustomerByID(OWN_5_ID);
+		cust = gcshFile.getCustomerByID(new GCshCustID(OWN_5_ID));
 		
 		assertEquals(OWN_5_ID, own.getID());
 		assertEquals(GCshOwner.JIType.JOB, own.getJIType());
@@ -397,7 +402,7 @@ public class TestGCshOwnerImpl {
 		assertNotEquals(null, generJob);
 		
 		own = new GCshOwnerImpl(OWN_6_ID, GCshOwner.JIType.JOB, gcshFile);
-		vend = gcshFile.getVendorByID(OWN_6_ID);
+		vend = gcshFile.getVendorByID(new GCshVendID(OWN_6_ID));
 		
 		assertEquals(OWN_6_ID, own.getID());
 		assertEquals(GCshOwner.JIType.JOB, own.getJIType());

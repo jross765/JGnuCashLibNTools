@@ -11,6 +11,7 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshAccountLotImpl {
-	public static final GCshID ACCT_8_ID = TestGnuCashAccountImpl.ACCT_8_ID; // stocck account SAP
+	public static final GCshAcctID ACCT_8_ID = TestGnuCashAccountImpl.ACCT_8_ID; // stocck account SAP
 	public static final GCshID ACCTLOT_1_ID = new GCshID("ef15827f413a4eeeaf8a7b492252b443"); // bei Aktienkonto SAP
 
 	// -----------------------------------------------------------------

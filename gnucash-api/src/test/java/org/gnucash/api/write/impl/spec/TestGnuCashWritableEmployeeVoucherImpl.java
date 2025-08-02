@@ -13,6 +13,9 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.api.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashEmployee;
@@ -37,12 +40,12 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableEmployeeVoucherImpl {
-	private static final GCshID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
-	//    private static final GCshID EMPL_2_ID = TestGnuCashEmployeeImpl.EMPL_2_ID;
-	//    private static final GCshID EMPL_3_ID = TestGnuCashEmployeeImpl.EMPL_3_ID;
+	private static final GCshEmplID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	//    private static final GCshEmplID EMPL_2_ID = TestGnuCashEmployeeImpl.EMPL_2_ID;
+	//    private static final GCshEmplID EMPL_3_ID = TestGnuCashEmployeeImpl.EMPL_3_ID;
 
-	static final GCshID EXPENSES_ACCT_ID = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
-	static final GCshID PAYABLE_ACCT_ID = new GCshID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige
+	static final GCshAcctID EXPENSES_ACCT_ID = new GCshAcctID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
+	static final GCshAcctID PAYABLE_ACCT_ID = new GCshAcctID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige
 
 	// ----------------------------
 
@@ -115,7 +118,7 @@ public class TestGnuCashWritableEmployeeVoucherImpl {
 		//                                                                  new FixedPointNumber(13));
 
 		assertNotEquals(null, vch);
-		GCshID newInvcID = vch.getID();
+		GCshGenerInvcID newInvcID = vch.getID();
 		//      System.out.println("New Invoice ID (1): " + newInvcID);
 
 		assertEquals("19431", vch.getNumber());
@@ -189,7 +192,7 @@ public class TestGnuCashWritableEmployeeVoucherImpl {
 	}
 
 	// Before post
-	private void test01_4(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_4(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 
@@ -207,7 +210,7 @@ public class TestGnuCashWritableEmployeeVoucherImpl {
 	}
 
 	// After post
-	private void test01_5(File outFile, GCshID newInvcID) throws Exception {
+	private void test01_5(File outFile, GCshGenerInvcID newInvcID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 

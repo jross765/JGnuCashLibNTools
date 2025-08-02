@@ -26,6 +26,7 @@ import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +69,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableVendorImpl(final GnuCashWritableFileImpl file) {
-	super(createVendor_int(file, GCshID.getNew()), file);
+	super(createVendor_int(file, new GCshVendID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritableVendorImpl(final GnuCashVendorImpl vend) {
@@ -87,7 +88,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     protected static GncGncVendor createVendor_int(
     		final GnuCashWritableFileImpl file, 
-    		final GCshID vendID) {
+    		final GCshVendID vendID) {
 	if ( ! vendID.isSet() ) {
 	    throw new IllegalArgumentException("argument <vendID> is null");
 	}

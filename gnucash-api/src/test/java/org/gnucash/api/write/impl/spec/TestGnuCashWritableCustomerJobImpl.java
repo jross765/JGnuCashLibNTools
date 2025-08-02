@@ -13,7 +13,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
@@ -23,6 +22,9 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
+import org.gnucash.base.basetypes.simple.GCshID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,11 +38,11 @@ import org.xml.sax.SAXException;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableCustomerJobImpl {
-	private static final GCshID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
+	private static final GCshGenerJobID CUST_JOB_1_ID = TestGnuCashGenerJobImpl.GENER_JOB_1_ID;
 
-	private static final GCshID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
-	//    private static final GCshID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
-	//    private static final GCshID CUST_3_ID = TestGnuCashCustomerImpl.CUST_3_ID;
+	private static final GCshCustID CUST_1_ID = TestGnuCashCustomerImpl.CUST_1_ID;
+	//    private static final GCshCustID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
+	//    private static final GCshCustID CUST_3_ID = TestGnuCashCustomerImpl.CUST_3_ID;
 
 	// ----------------------------
 
@@ -138,8 +140,11 @@ public class TestGnuCashWritableCustomerJobImpl {
 		GnuCashWritableCustomerJob jobSpec = (GnuCashWritableCustomerJob) gcshInFile.getWritableGenerJobByID(CUST_JOB_1_ID);
 		assertNotEquals(null, jobSpec);
 
-		GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-		assertEquals(custID, jobSpec.getOwnerID());
+		// Note: That the following three return the same result
+		// is *not* trivial (in fact, a serious implementation error was
+		// found with this test)
+		GCshCustID custID = new GCshCustID("f44645d2397946bcac90dff68cc03b76");
+		assertEquals(custID.getRawID(), jobSpec.getOwnerID());
 		// ::TODO
 		// assertEquals(custID, jobSpec.getCustomerID());
 	}
@@ -171,7 +176,7 @@ public class TestGnuCashWritableCustomerJobImpl {
 		GnuCashWritableCustomerJob job = gcshInFile.createWritableCustomerJob(cust1, "J123", "New job for customer 1");
 
 		assertNotEquals(null, job);
-		GCshID newJobID = job.getID();
+		GCshGenerJobID newJobID = job.getID();
 		//      System.out.println("New Job ID (1): " + newJobID);
 
 		assertEquals("J123", job.getNumber());
@@ -236,23 +241,23 @@ public class TestGnuCashWritableCustomerJobImpl {
 		assertEquals(newJobID.toString(), locNewJobID);
 	}
 
-	private void test03_4(File outFile, GCshID newInvcID) throws Exception {
+	private void test03_4(File outFile, GCshGenerJobID newJobID) throws Exception {
 		//      assertNotEquals(null, outFileGlob);
 		//      assertEquals(true, outFileGlob.exists());
 
 		gcshOutFile = new GnuCashFileImpl(outFile);
 
 		//      System.out.println("New Job ID (3): " + newJobID);
-		GnuCashGenerJob jobGener = gcshOutFile.getGenerJobByID(newInvcID);
+		GnuCashGenerJob jobGener = gcshOutFile.getGenerJobByID(newJobID);
 		assertNotEquals(null, jobGener);
 		GnuCashCustomerJob jobSpec = new GnuCashCustomerJobImpl(jobGener);
 		assertNotEquals(null, jobSpec);
 
-		assertEquals(newInvcID, jobGener.getID());
-		assertEquals(newInvcID, jobSpec.getID());
+		assertEquals(newJobID, jobGener.getID());
+		assertEquals(newJobID, jobSpec.getID());
 
-		assertEquals(CUST_1_ID, jobGener.getOwnerID());
-		assertEquals(CUST_1_ID, jobSpec.getOwnerID());
+		assertEquals(CUST_1_ID.getRawID(), jobGener.getOwnerID());
+		assertEquals(CUST_1_ID.getRawID(), jobSpec.getOwnerID());
 		assertEquals(CUST_1_ID, jobSpec.getCustomerID());
 
 		assertEquals("J123", jobGener.getNumber());

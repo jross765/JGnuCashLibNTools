@@ -24,7 +24,9 @@ public abstract class FileInvoiceManager_Employee {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashGenerInvoice invc : invcMgr.getGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(empl.getID().toString()) ) {
 					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 			}
@@ -38,7 +40,9 @@ public abstract class FileInvoiceManager_Employee {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getPaidWritableGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(empl.getID().toString()) ) {
 					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 			}
@@ -52,7 +56,9 @@ public abstract class FileInvoiceManager_Employee {
 		List<GnuCashWritableEmployeeVoucher> retval = new ArrayList<GnuCashWritableEmployeeVoucher>();
 
 		for ( GnuCashWritableGenerInvoice invc : invcMgr.getUnpaidWritableGenerInvoices() ) {
-			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).equals(empl.getID()) ) {
+			// Important: compare strings, not objects
+			if ( invc.getOwnerID(GnuCashGenerInvoice.ReadVariant.DIRECT).toString()
+					.equals(empl.getID().toString()) ) {
 					GnuCashWritableEmployeeVoucherImpl wrtblVch = new GnuCashWritableEmployeeVoucherImpl((GnuCashWritableGenerInvoiceImpl) invc);
 					retval.add(wrtblVch);
 			}

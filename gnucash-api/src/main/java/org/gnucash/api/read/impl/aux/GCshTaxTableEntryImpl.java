@@ -2,6 +2,7 @@ package org.gnucash.api.read.impl.aux;
 
 import java.util.Objects;
 
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnuCashAccount;
@@ -31,7 +32,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     
     // ----------------------------
     
-    protected GCshID myAccountID;
+    protected GCshAcctID myAccountID;
     protected GnuCashAccount myAccount;
 
     // ---------------------------------------------------------------
@@ -78,9 +79,9 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      * @return Returns the accountID.
      */
     @Override
-    public GCshID getAccountID() {
+    public GCshAcctID getAccountID() {
 	if (myAccountID == null) {
-	    myAccountID = new GCshID(getJwsdpPeer().getTteAcct().getValue());
+	    myAccountID = new GCshAcctID(getJwsdpPeer().getTteAcct().getValue());
 	}
 
 	return myAccountID;

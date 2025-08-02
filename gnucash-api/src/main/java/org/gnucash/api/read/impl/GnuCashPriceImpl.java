@@ -21,6 +21,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,11 +71,11 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
 	// -----------------------------------------------------------
 
 	@Override
-	public GCshID getID() {
+	public GCshPrcID getID() {
 		if ( jwsdpPeer.getPriceId() == null )
 			return null;
 
-		return new GCshID(jwsdpPeer.getPriceId().getValue());
+		return new GCshPrcID(jwsdpPeer.getPriceId().getValue());
 	}
 
 	// ----------------------------

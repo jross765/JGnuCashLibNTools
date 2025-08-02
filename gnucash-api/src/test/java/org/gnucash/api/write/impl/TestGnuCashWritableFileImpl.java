@@ -22,7 +22,10 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,10 +35,10 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableFileImpl {
 
-	private static final GCshID ACCT_1_ID     = TestGnuCashAccountImpl.ACCT_1_ID;
-	private static final GCshID TRX_1_ID      = TestGnuCashTransactionImpl.TRX_1_ID;
-	private static final GCshID INVC_1_ID     = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
-	private static final String CMDTY_4_ISIN  = "DE000BASF111";
+	private static final GCshAcctID ACCT_1_ID      = TestGnuCashAccountImpl.ACCT_1_ID;
+	private static final GCshTrxID TRX_1_ID        = TestGnuCashTransactionImpl.TRX_1_ID;
+	private static final GCshGenerInvcID INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	private static final String CMDTY_4_ISIN       = "DE000BASF111";
 	
 	// -----------------------------------------------------------------
 

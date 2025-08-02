@@ -35,7 +35,9 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -251,7 +253,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     /**
      * 
      */
-    public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshID spltID) {
+    public GnuCashWritableTransactionSplit getWritableTransactionSplitByID(final GCshSpltID spltID) {
 	return (GnuCashWritableTransactionSplit) super.getTransactionSplitByID(spltID);
     }
 
@@ -280,7 +282,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     // ---------------------------------------------------------------
 
     /**
-     * @see {@link #getSplitByID(GCshID)}
+     * @see {@link #getSplitByID(GCshSpltID)}
      */
     public GCshWritableAccountLot getWritableLotByID(final GCshID lotID) {
 	return (GCshWritableAccountLot) super.getLotByID(lotID);
@@ -660,7 +662,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     /**
      * @see GnuCashWritableAccount#setParentAccount(GnuCashAccount)
      */
-    public void setParentAccountID(final GCshID prntAcctID) {
+    public void setParentAccountID(final GCshAcctID prntAcctID) {
     	if (prntAcctID == null) {
     		setParentAccount(null);
     		return;

@@ -24,7 +24,11 @@ import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,8 +95,8 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GCshID getJobID() {
-		return getOwnerId_direct();
+	public GCshGenerJobID getJobID() {
+		return new GCshGenerJobID( getOwnerId_direct() );
 	}
 
 	/**
@@ -126,22 +130,22 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GCshID getCustomerID() {
+	public GCshCustID getCustomerID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
-		return getOwnerId_viaJob();
+		return (GCshCustID) getOwnerId_viaJob();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GCshID getVendorID() {
+	public GCshVendID getVendorID() {
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
-		return getOwnerId_viaJob();
+		return (GCshVendID) getOwnerId_viaJob();
 	}
 
 	// ----------------------------
@@ -203,7 +207,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshID entrID) {
+	public GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
 		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

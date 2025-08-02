@@ -14,7 +14,10 @@ import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -104,8 +107,8 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     /**
      * @see GnuCashTransactionSplit#getID()
      */
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getSplitId().getValue() );
+    public GCshSpltID getID() {
+	return new GCshSpltID( jwsdpPeer.getSplitId().getValue() );
     }
 
     /**
@@ -148,11 +151,11 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     /**
      * @see GnuCashTransactionSplit#getAccountID()
      */
-    public GCshID getAccountID() {
+    public GCshAcctID getAccountID() {
     	assert jwsdpPeer.getSplitAccount().getType().equals(Const.XML_DATA_TYPE_GUID);
     	String acctID = jwsdpPeer.getSplitAccount().getValue();
     	assert acctID != null;
-    	return new GCshID(acctID);
+    	return new GCshAcctID(acctID);
     }
 
     /**
@@ -165,7 +168,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     /**
      * @see GnuCashTransactionSplit#getAccountID()
      */
-    public GCshID getTransactionID() {
+    public GCshTrxID getTransactionID() {
     	return myTrx.getID();
     }
 

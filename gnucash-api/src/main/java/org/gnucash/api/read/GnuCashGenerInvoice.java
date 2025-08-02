@@ -17,7 +17,11 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 /**
  * This class represents a generic invoice.
@@ -96,7 +100,7 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getID();
+    GCshGenerInvcID getID();
 
     GCshOwner.Type getType();
 
@@ -159,7 +163,7 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
     /**
      * @return the id of the {@link GnuCashAccount} the payment is made to.
      */
-    GCshID getPostAccountID();
+    GCshAcctID getPostAccountID();
 
     /**
      * @return ID of the (generic) invoice's posting transaction (if it exists)
@@ -168,7 +172,7 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
      * @see #getPostTransactionID()
      * @see #getPostTransaction()
      */
-    GCshID getPostTransactionID();
+    GCshTrxID getPostTransactionID();
 
     // ---------------------------------------------------------------
 
@@ -218,7 +222,7 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
      * @param entrID the id to look for
      * @return the Entry found or null
      */
-    GnuCashGenerInvoiceEntry getGenerEntryByID(GCshID entrID);
+    GnuCashGenerInvoiceEntry getGenerEntryByID(GCshGenerInvcEntrID entrID);
 
     /**
      *

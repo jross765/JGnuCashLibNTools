@@ -6,7 +6,7 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshTaxTable;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -20,7 +20,7 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
  */
 public interface SpecInvoiceEntryCommon extends GnuCashGenerInvoiceEntry {
 	
-	GCshID getAccountID() throws AccountNotFoundException;
+	GCshAcctID getAccountID() throws AccountNotFoundException;
 
 	GnuCashAccount getAccount() throws AccountNotFoundException;
 

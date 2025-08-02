@@ -15,7 +15,8 @@ import org.gnucash.api.read.impl.TestGnuCashGenerInvoiceImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,22 +25,22 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableGenerInvoiceEntryImpl {
-	// private static final GCshID GENER_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
-	private static final GCshID GENER_INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
-	// private static final GCshID GENER_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
-	private static final GCshID GENER_INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
-	// private static final GCshID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
-	private static final GCshID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
+	// private static final GCshGenerInvcID GENER_INVC_1_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_1_ID;
+	private static final GCshGenerInvcID GENER_INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
+	// private static final GCshGenerInvcID GENER_INVC_3_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_3_ID;
+	private static final GCshGenerInvcID GENER_INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;
+	// private static final GCshGenerInvcID GENER_INVC_5_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_5_ID;
+	private static final GCshGenerInvcID GENER_INVC_6_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_6_ID;
 	
-	// private static final GCshID GENER_INVC_10_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_10_ID;
-	// private static final GCshID GENER_INVC_11_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_11_ID;
-	public  static final GCshID GENER_INVC_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
-	public  static final GCshID GENER_INVC_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
+	// private static final GCshGenerInvcID GENER_INVC_10_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_10_ID;
+	// private static final GCshGenerInvcID GENER_INVC_11_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_11_ID;
+	public  static final GCshGenerInvcID GENER_INVC_12_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_12_ID;
+	public  static final GCshGenerInvcID GENER_INVC_13_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_13_ID;
 
-	private static final GCshID GENER_INVCENTR_1_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_1_ID;
-	private static final GCshID GENER_INVCENTR_2_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_2_ID;
-	private static final GCshID GENER_INVCENTR_3_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_3_ID;
-	private static final GCshID GENER_INVCENTR_6_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_6_ID;
+	private static final GCshGenerInvcEntrID GENER_INVCENTR_1_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_1_ID;
+	private static final GCshGenerInvcEntrID GENER_INVCENTR_2_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_2_ID;
+	private static final GCshGenerInvcEntrID GENER_INVCENTR_3_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_3_ID;
+	private static final GCshGenerInvcEntrID GENER_INVCENTR_6_ID = TestGnuCashGenerInvoiceEntryImpl.GENER_INVCENTR_6_ID;
 	// private static final GCshID INVCENTR_7_ID = TestGnuCashGenerInvoiceEntryImpl.INVCENTR_7_ID;
 
 	// -----------------------------------------------------------------

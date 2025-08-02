@@ -1,6 +1,5 @@
 package org.gnucash.api.read.impl.spec;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
@@ -8,6 +7,7 @@ import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +51,8 @@ public class GnuCashCustomerJobImpl extends GnuCashGenerJobImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getCustomerID() {
-		return getOwnerID();
+	public GCshCustID getCustomerID() {
+		return new GCshCustID( getOwnerID() );
 	}
 
 	/**

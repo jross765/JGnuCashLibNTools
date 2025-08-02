@@ -29,6 +29,9 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoiceEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -263,7 +266,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getVendBllPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getVendBllPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -271,7 +274,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -279,7 +282,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	 * Do not use
 	 */
 	@Override
-	protected GCshID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+	protected GCshAcctID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 		throw new WrongInvoiceTypeException();
 	}
 
@@ -298,9 +301,9 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	}
 
 	/**
-	 * @see #getGenerEntryByID(GCshID)
+	 * @see #getGenerEntryByID(GCshGenerInvcEntrID)
 	 */
-	public GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshID entrID) {
+	public GnuCashWritableCustomerInvoiceEntry getWritableEntryByID(final GCshGenerInvcEntrID entrID) {
 		return new GnuCashWritableCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
@@ -309,8 +312,8 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	/**
 	 * @return the ID of the customer who/that owns the invoice
 	 */
-	public GCshID getCustomerID() {
-		return getOwnerID();
+	public GCshCustID getCustomerID() {
+		return new GCshCustID( getOwnerID() );
 	}
 
 	/**
@@ -339,7 +342,7 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID entrID) {
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
 		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

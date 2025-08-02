@@ -12,7 +12,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ public class FileInvoiceEntryManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    protected Map<GCshID, GnuCashGenerInvoiceEntry> invcEntrMap;
+    protected Map<GCshGenerInvcEntrID, GnuCashGenerInvoiceEntry> invcEntrMap;
     
     // ---------------------------------------------------------------
     
@@ -36,7 +36,7 @@ public class FileInvoiceEntryManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		invcEntrMap = new HashMap<GCshID, GnuCashGenerInvoiceEntry>();
+		invcEntrMap = new HashMap<GCshGenerInvcEntrID, GnuCashGenerInvoiceEntry>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncEntry) ) {
@@ -65,7 +65,7 @@ public class FileInvoiceEntryManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshID entrID) {
+	public GnuCashGenerInvoiceEntry getGenerInvoiceEntryByID(final GCshGenerInvcEntrID entrID) {
 		if ( entrID == null ) {
 			throw new IllegalArgumentException("argument <entrID> is null");
 		}
@@ -77,7 +77,7 @@ public class FileInvoiceEntryManager {
 		if ( invcEntrMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
-
+		
 		GnuCashGenerInvoiceEntry retval = invcEntrMap.get(entrID);
 		if ( retval == null ) {
 			LOGGER.error("getGenerInvoiceEntryByID: No (generic) Invoice-Entry with id '" + entrID + "'. " + "We know "

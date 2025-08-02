@@ -16,6 +16,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,8 +80,8 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshID getCustomerID() {
-		return getOwnerID();
+	public GCshCustID getCustomerID() {
+		return new GCshCustID( getOwnerID() );
 	}
 
 	@Override
@@ -91,14 +93,14 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
 		if ( !getJwsdpPeer().getInvoiceOwner().getOwnerType().equals(GnuCashGenerInvoice.TYPE_CUSTOMER.getCode()) )
 			throw new WrongInvoiceTypeException();
 
-		GCshID ownerID = new GCshID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
+		GCshCustID ownerID = new GCshCustID(getJwsdpPeer().getInvoiceOwner().getOwnerId().getValue());
 		return getGnuCashFile().getCustomerByID(ownerID);
 	}
 
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomerInvoiceEntry getEntryByID(GCshID entrID) {
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
 		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

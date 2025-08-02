@@ -69,8 +69,11 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1704,7 +1707,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = generInvcEntr.getCustInvcSumExclTaxes();
 	FixedPointNumber sumInclTaxes = generInvcEntr.getCustInvcSumInclTaxes();
 	
-	GCshID postAcctID = getCustInvcPostAccountID(generInvcEntr);
+	GCshAcctID postAcctID = getCustInvcPostAccountID(generInvcEntr);
 
 	GCshTaxTable taxTab = null;
 
@@ -1749,7 +1752,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = generInvcEntr.getVendBllSumExclTaxes();
 	FixedPointNumber sumInclTaxes = generInvcEntr.getVendBllSumInclTaxes();
 	
-	GCshID postAcctID = getVendBllPostAccountID(generInvcEntr);
+	GCshAcctID postAcctID = getVendBllPostAccountID(generInvcEntr);
 
 	GCshTaxTable taxTab = null;
 
@@ -1793,7 +1796,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = generInvcEntr.getEmplVchSumExclTaxes();
 	FixedPointNumber sumInclTaxes = generInvcEntr.getEmplVchSumInclTaxes();
 	
-	GCshID postAcctID = getEmplVchPostAccountID(generInvcEntr);
+	GCshAcctID postAcctID = getEmplVchPostAccountID(generInvcEntr);
 
 	GCshTaxTable taxTab = null;
 
@@ -1837,7 +1840,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = generInvcEntr.getJobInvcSumExclTaxes();
 	FixedPointNumber sumInclTaxes = generInvcEntr.getJobInvcSumInclTaxes();
 	
-	GCshID postAcctID = getJobInvcPostAccountID(generInvcEntr);
+	GCshAcctID postAcctID = getJobInvcPostAccountID(generInvcEntr);
 
 	GCshTaxTable taxTab = null;
 
@@ -1874,7 +1877,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = entry.getCustInvcSumExclTaxes().copy().negate();
 	FixedPointNumber sumInclTaxes = entry.getCustInvcSumInclTaxes().copy().negate();
 	
-	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryIAcct().getValue());
+	GCshAcctID postAcctID = new GCshAcctID(entry.getJwsdpPeer().getEntryIAcct().getValue());
 
 	GCshTaxTable taxTab = null;
 
@@ -1905,7 +1908,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = entry.getVendBllSumExclTaxes().copy().negate();
 	FixedPointNumber sumInclTaxes = entry.getVendBllSumInclTaxes().copy().negate();
 	
-	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
+	GCshAcctID postAcctID = new GCshAcctID(entry.getJwsdpPeer().getEntryBAcct().getValue());
 
 	GCshTaxTable taxTab = null;
 
@@ -1936,7 +1939,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = entry.getEmplVchSumExclTaxes().copy().negate();
 	FixedPointNumber sumInclTaxes = entry.getEmplVchSumInclTaxes().copy().negate();
 	
-	GCshID postAcctID = new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
+	GCshAcctID postAcctID = new GCshAcctID(entry.getJwsdpPeer().getEntryBAcct().getValue());
 
 	GCshTaxTable taxTab = null;
 
@@ -1966,7 +1969,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	FixedPointNumber sumExclTaxes = entry.getJobInvcSumExclTaxes().copy().negate();
 	FixedPointNumber sumInclTaxes = entry.getJobInvcSumInclTaxes().copy().negate();
 	
-	GCshID postAcctID = new GCshID();
+	GCshAcctID postAcctID = new GCshAcctID();
 	if ( entry.getGenerInvoice().getOwnerType(GnuCashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.CUSTOMER )
 	    postAcctID.set(entry.getJwsdpPeer().getEntryIAcct().getValue());
 	else if ( entry.getGenerInvoice().getOwnerType(GnuCashGenerInvoice.ReadVariant.VIA_JOB) == GCshOwner.Type.VENDOR )
@@ -1994,40 +1997,40 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     /**
      * @return the AccountID of the Account to transfer the money from
      */
-    protected GCshID getCustInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+    protected GCshAcctID getCustInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 	if ( getType() != GnuCashGenerInvoice.TYPE_CUSTOMER &&
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
-	return new GCshID(entry.getJwsdpPeer().getEntryIAcct().getValue());
+	return new GCshAcctID(entry.getJwsdpPeer().getEntryIAcct().getValue());
     }
 
     /**
      * @return the AccountID of the Account to transfer the money from
      */
-    protected GCshID getVendBllPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+    protected GCshAcctID getVendBllPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 	if ( getType() != GnuCashGenerInvoice.TYPE_VENDOR &&
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 	
-	return new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
+	return new GCshAcctID(entry.getJwsdpPeer().getEntryBAcct().getValue());
     }
 
     /**
      * @return the AccountID of the Account to transfer the money from
      */
-    protected GCshID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+    protected GCshAcctID getEmplVchPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 	if ( getType() != GnuCashGenerInvoice.TYPE_EMPLOYEE &&
 	     getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 	
-	return new GCshID(entry.getJwsdpPeer().getEntryBAcct().getValue());
+	return new GCshAcctID(entry.getJwsdpPeer().getEntryBAcct().getValue());
     }
 
     /**
      * @return the AccountID of the Account to transfer the money from
 *    */
-    protected GCshID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
+    protected GCshAcctID getJobInvcPostAccountID(final GnuCashGenerInvoiceEntryImpl entry) {
 	if ( getType() != GnuCashGenerInvoice.TYPE_JOB )
 	    throw new WrongInvoiceTypeException();
 
@@ -2049,7 +2052,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    final boolean isTaxable, 
 	    final FixedPointNumber sumExclTaxes,
 	    final FixedPointNumber sumInclTaxes, 
-	    final GCshID postAcctID) {
+	    final GCshAcctID postAcctID) {
 	LOGGER.debug("GnuCashWritableGenerInvoiceImpl.updateEntry " 
 		+ "isTaxable=" + isTaxable + " "
 		+ "post-acct=" + postAcctID + " ");
@@ -2074,7 +2077,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    final GCshTaxTable taxtable, 
 	    final FixedPointNumber sumExclTaxes, 
 	    final FixedPointNumber sumInclTaxes,
-	    final GCshID postAcctID, 
+	    final GCshAcctID postAcctID, 
 	    GnuCashWritableTransactionImpl postTrx) throws IllegalTransactionSplitActionException {
 	// get the first account of the taxTable
 	GCshTaxTableEntry taxTableEntry = taxtable.getEntries().get(0);
@@ -2143,7 +2146,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     private void updateNonTaxableEntry(
 	    final FixedPointNumber sumExclTaxes, 
 	    final FixedPointNumber sumInclTaxes,
-	    final GCshID accountToTransferMoneyFrom) {
+	    final GCshAcctID accountToTransferMoneyFrom) {
 
 //	System.err.println("GnuCashWritableGenerInvoiceImpl.updateNonTaxableEntry " 
 //		+ "accountToTransferMoneyFrom=" + accountToTransferMoneyFrom);
@@ -2157,7 +2160,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// update transaction-split that transferes the sum incl. taxes from the
 	// incomeAccount
 	// (e.g. "Umsatzerloese 19%")
-	GCshID accountToTransferMoneyTo = getPostAccountID();
+	GCshAcctID accountToTransferMoneyTo = getPostAccountID();
 	boolean postTransactionSumUpdated = false;
 
 	LOGGER.debug("GnuCashWritableGenerInvoiceImpl.updateNonTaxableEntry #splits=" + postTransaction.getSplits().size());
@@ -2434,7 +2437,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    return null; // invoice may not be posted
 	}
 	
-	GCshID invcPostTrxID = new GCshID( invoicePosttxn.getValue() );
+	GCshTrxID invcPostTrxID = new GCshTrxID( invoicePosttxn.getValue() );
 	return getGnuCashFile().getWritableTransactionByID(invcPostTrxID);
     }
     
@@ -2452,9 +2455,9 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
     }
 
     /**
-     * @see #getGenerEntryByID(GCshID)
+     * @see #getGenerEntryByID(GCshGenerInvcEntrID)
      */
-    public GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(final GCshID entrID) {
+    public GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(final GCshGenerInvcEntrID entrID) {
 	return new GnuCashWritableGenerInvoiceEntryImpl(super.getGenerEntryByID(entrID));
     }
 

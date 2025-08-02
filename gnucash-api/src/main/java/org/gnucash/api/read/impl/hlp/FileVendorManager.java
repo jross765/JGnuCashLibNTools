@@ -13,6 +13,7 @@ import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class FileVendorManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    protected Map<GCshID, GnuCashVendor> vendMap;
+    protected Map<GCshVendID, GnuCashVendor> vendMap;
 
     // ---------------------------------------------------------------
     
@@ -39,7 +40,7 @@ public class FileVendorManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		vendMap = new HashMap<GCshID, GnuCashVendor>();
+		vendMap = new HashMap<GCshVendID, GnuCashVendor>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncVendor) ) {

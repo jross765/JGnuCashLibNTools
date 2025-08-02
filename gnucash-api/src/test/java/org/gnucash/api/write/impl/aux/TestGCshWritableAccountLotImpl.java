@@ -18,7 +18,9 @@ import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,7 +29,7 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshWritableAccountLotImpl {
-	public  static final GCshID ACCT_8_ID = TestGCshAccountLotImpl.ACCT_8_ID;
+	public  static final GCshAcctID ACCT_8_ID = TestGCshAccountLotImpl.ACCT_8_ID;
 	public  static final GCshID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
 
 	// -----------------------------------------------------------------
@@ -131,14 +133,14 @@ public class TestGCshWritableAccountLotImpl {
 		lot.setNotes("Buale, Buale, Buale... mein Gott, ist unser Buale sueass!");
 		
 		try {
-			GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshID("980706f1ead64460b8205f093472c855"));
+			GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshSpltID("980706f1ead64460b8205f093472c855"));
 			lot.addTransactionSplit(splt); // illegal arg.
 			assertEquals(0, 1);
 		} catch ( Exception exc ) {
 			assertEquals(0, 0);
 		}
 
-		GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshID("c3ae14400ec843f9bf63f5ef69a31528"));
+		GnuCashWritableTransactionSplit splt = gcshInFile.getWritableTransactionSplitByID(new GCshSpltID("c3ae14400ec843f9bf63f5ef69a31528"));
 		lot.addTransactionSplit(splt); // valid arg.
 
 		// ----------------------------

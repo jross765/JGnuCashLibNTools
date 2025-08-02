@@ -24,7 +24,8 @@ public abstract class FileJobManager_Vendor {
 		List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();
 
 		for ( GnuCashGenerJob job : jobMgr.getGenerJobs() ) {
-			if ( job.getOwnerID().equals(vend.getID()) ) {
+			// Important: compare strings, not objects
+			if ( job.getOwnerID().toString().equals(vend.getID().toString()) ) {
 					retval.add(new GnuCashVendorJobImpl(job));
 			}
 		}

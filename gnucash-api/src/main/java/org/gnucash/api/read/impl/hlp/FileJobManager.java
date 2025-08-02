@@ -19,6 +19,7 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class FileJobManager {
     
     protected GnuCashFileImpl gcshFile;
 
-    protected Map<GCshID, GnuCashGenerJob> jobMap;
+    protected Map<GCshGenerJobID, GnuCashGenerJob> jobMap;
 
     // ---------------------------------------------------------------
     
@@ -46,7 +47,7 @@ public class FileJobManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		jobMap = new HashMap<GCshID, GnuCashGenerJob>();
+		jobMap = new HashMap<GCshGenerJobID, GnuCashGenerJob>();
 
 		for ( Object bookElement : pRootElement.getGncBook().getBookElements() ) {
 			if ( !(bookElement instanceof GncGncJob) ) {
@@ -56,11 +57,11 @@ public class FileJobManager {
 
 			try {
 				GnuCashGenerJobImpl generJob = createGenerJob(jwsdpJob);
-				GCshID jobID = generJob.getID();
+				GCshGenerJobID jobID = generJob.getID();
 				if ( jobID == null ) {
 					LOGGER.error("init: File contains a (generic) Job w/o an ID. indexing it with the Null-ID '"
 							+ GCshID.NULL_ID + "'");
-					jobID = new GCshID(GCshID.NULL_ID);
+					jobID = new GCshGenerJobID(GCshID.NULL_ID);
 				}
 				jobMap.put(jobID, generJob);
 			} catch (RuntimeException e) {

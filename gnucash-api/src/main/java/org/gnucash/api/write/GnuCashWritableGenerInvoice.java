@@ -15,6 +15,7 @@ import org.gnucash.api.write.hlp.GnuCashWritableGenerInvoice_Vend;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
@@ -140,9 +141,9 @@ public interface GnuCashWritableGenerInvoice extends GnuCashGenerInvoice,
     /**
      * @param entrID the id to look for
      * @return the modifiable version of the entry
-     * @see #getGenerEntryByID(GCshID)
+     * @see #getGenerEntryByID(GCshGenerInvcEntrID)
      */
-    GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshID entrID);
+    GnuCashWritableGenerInvoiceEntry getWritableGenerEntryByID(GCshGenerInvcEntrID entrID);
 
     /**
      * Deletes this invoice.
