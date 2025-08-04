@@ -19,6 +19,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class GetCustInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      custID       = null;
+  private static GCshCustID  custID       = null;
   private static String      custName     = null;
   
   private static boolean showJobs      = false;
@@ -432,7 +433,7 @@ public class GetCustInfo extends CommandLineTool
       
       try
       {
-        custID = new GCshID( cmdLine.getOptionValue("customer-id") );
+        custID = new GCshCustID( cmdLine.getOptionValue("customer-id") );
       }
       catch ( Exception exc )
       {

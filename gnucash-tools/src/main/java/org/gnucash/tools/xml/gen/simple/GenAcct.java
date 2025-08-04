@@ -15,7 +15,7 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,7 @@ public class GenAcct extends CommandLineTool
   private static String               name        = null;
   private static GnuCashAccount.Type  type        = null;
   private static GCshCmdtyCurrID      cmdtyCurrID = null;
-  private static GCshID               parentID    = null;
+  private static GCshAcctID           parentID    = null;
   
   // -----------------------------------------------------------------
 
@@ -275,7 +275,7 @@ public class GenAcct extends CommandLineTool
     // <parent>
     try
     {
-      parentID = new GCshID( cmdLine.getOptionValue("parent") );
+      parentID = new GCshAcctID( cmdLine.getOptionValue("parent") );
     }
     catch ( Exception exc )
     {

@@ -16,6 +16,7 @@ import org.gnucash.api.read.GnuCashCommodity;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class GetStockAcct extends CommandLineTool
   private static String                gcshFileName = null;
   
   private static Helper.Mode           acctMode     = null;
-  private static GCshID                acctID       = null;
+  private static GCshAcctID            acctID       = null;
   private static String                acctName     = null;
   
   private static Helper.CmdtySecMode   cmdtyMode    = null;
@@ -339,7 +340,7 @@ public class GetStockAcct extends CommandLineTool
       
       try
       {
-        acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+        acctID = new GCshAcctID( cmdLine.getOptionValue("account-id") );
       }
       catch ( Exception exc )
       {

@@ -18,6 +18,7 @@ import org.gnucash.api.write.GnuCashWritableEmployee;
 import org.gnucash.api.write.impl.GnuCashWritableEmployeeImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucher;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 
@@ -37,7 +38,7 @@ public class TestGetEmplInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      emplID       = null;
+  private static GCshEmplID  emplID       = null;
   private static String      emplName     = null;
   
   private static boolean showVouchers  = false;
@@ -309,7 +310,7 @@ public class TestGetEmplInfo extends CommandLineTool
       
       try
       {
-        emplID = new GCshID( cmdLine.getOptionValue("employee-id") );
+        emplID = new GCshEmplID( cmdLine.getOptionValue("employee-id") );
       }
       catch ( Exception exc )
       {

@@ -14,6 +14,7 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,8 @@ public class GetTrxSpltInfo extends CommandLineTool
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String  gcshFileName = null;
-  private static GCshID  spltID = null;
+  private static String     gcshFileName = null;
+  private static GCshSpltID spltID = null;
   
   private static boolean scriptMode = false; // ::TODO
 
@@ -230,7 +231,7 @@ public class GetTrxSpltInfo extends CommandLineTool
     // <split-id>
     try
     {
-      spltID = new GCshID( cmdLine.getOptionValue("split-id") );
+      spltID = new GCshSpltID( cmdLine.getOptionValue("split-id") );
     }
     catch ( Exception exc )
     {

@@ -24,6 +24,7 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 import org.gnucash.tools.CommandLineTool;
@@ -70,10 +71,10 @@ public class GenDepotTrx extends CommandLineTool
 
   private static SecuritiesAccountTransactionManager.Type type = null;
   
-  private static GCshID            stockAcctID = null;
-  private static GCshID            incomeAcctID = null;
+  private static GCshAcctID        stockAcctID = null;
+  private static GCshAcctID        incomeAcctID = null;
   private static Collection<AcctIDAmountPair> expensesAcctAmtList = null;
-  private static GCshID            offsetAcctID = null;
+  private static GCshAcctID        offsetAcctID = null;
   
   private static FixedPointNumber  nofStocks = null;
   private static FixedPointNumber  stockPrc = null;
@@ -820,7 +821,7 @@ public class GenDepotTrx extends CommandLineTool
     	{
             try
             {
-              stockAcctID = new GCshID( tuple.stockAcctID );
+              stockAcctID = new GCshAcctID( tuple.stockAcctID );
             }
             catch ( Exception exc )
             {
@@ -862,7 +863,7 @@ public class GenDepotTrx extends CommandLineTool
         	
             try
             {
-                incomeAcctID = new GCshID( tuple.incomeAcctID );
+                incomeAcctID = new GCshAcctID( tuple.incomeAcctID );
             }
             catch ( Exception exc )
             {
@@ -988,7 +989,7 @@ public class GenDepotTrx extends CommandLineTool
                  	
         	try
         	{
-        		offsetAcctID = new GCshID( tuple.offsetAcctID );
+        		offsetAcctID = new GCshAcctID( tuple.offsetAcctID );
         	}
         	catch ( Exception exc )
         	{

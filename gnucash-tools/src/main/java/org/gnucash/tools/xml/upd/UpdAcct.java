@@ -14,6 +14,7 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -35,7 +36,8 @@ public class UpdAcct extends CommandLineTool
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
-  private static GCshID acctID = null;
+  
+  private static GCshAcctID acctID = null;
 
   private static String              name = null;
   private static String              descr = null;
@@ -239,7 +241,7 @@ public class UpdAcct extends CommandLineTool
     // <account-id>
     try
     {
-      acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+      acctID = new GCshAcctID( cmdLine.getOptionValue("account-id") );
     }
     catch ( Exception exc )
     {

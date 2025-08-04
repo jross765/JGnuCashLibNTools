@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.apiext.Const;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -24,7 +25,7 @@ public class TransactionSplitFilter {
 	// ::TODO -- not supported yet
 	// public GnuCashTransactionSplit.ReconStatus reconStatus;
 	
-	public GCshID              acctID;
+	public GCshAcctID          acctID;
 	public GnuCashAccount.Type acctType;
 	
 	public FixedPointNumber valueFrom;
@@ -48,7 +49,7 @@ public class TransactionSplitFilter {
 		action = null;
 		// reconStatus = null;
 		
-		acctID = new GCshID();
+		acctID = new GCshAcctID();
 		acctType = null;
 		
 		valueFrom = new FixedPointNumber(BigDecimal.valueOf(Const.UNSET_VALUE));

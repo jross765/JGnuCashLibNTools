@@ -23,6 +23,7 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableVendorImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.tools.CommandLineTool;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
@@ -41,7 +42,7 @@ public class TestGetVendInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      vendID       = null;
+  private static GCshVendID  vendID       = null;
   private static String      vendName     = null;
   
   private static boolean showJobs      = false;
@@ -420,7 +421,7 @@ public class TestGetVendInfo extends CommandLineTool
       
       try
       {
-        vendID = new GCshID( cmdLine.getOptionValue("vendor-id") );
+        vendID = new GCshVendID( cmdLine.getOptionValue("vendor-id") );
       }
       catch ( Exception exc )
       {

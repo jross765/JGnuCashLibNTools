@@ -15,7 +15,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.tools.CommandLineTool;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
@@ -40,8 +40,8 @@ public class GenTrx extends CommandLineTool
   
   private static String           gcshInFileName = null;
   private static String           gcshOutFileName = null;
-  private static GCshID           fromAcctID = null;
-  private static GCshID           toAcctID = null;
+  private static GCshAcctID       fromAcctID = null;
+  private static GCshAcctID       toAcctID = null;
   private static FixedPointNumber amount = null;
   private static FixedPointNumber quantity = null;
   private static LocalDate        datePosted = null;
@@ -229,7 +229,7 @@ public class GenTrx extends CommandLineTool
     // <from-account-id>
     try
     {
-      fromAcctID = new GCshID( cmdLine.getOptionValue("from-account-id") );
+      fromAcctID = new GCshAcctID( cmdLine.getOptionValue("from-account-id") );
     }
     catch ( Exception exc )
     {
@@ -241,7 +241,7 @@ public class GenTrx extends CommandLineTool
     // <to-account-id>
     try
     {
-      toAcctID = new GCshID( cmdLine.getOptionValue("to-account-id") );
+      toAcctID = new GCshAcctID( cmdLine.getOptionValue("to-account-id") );
     }
     catch ( Exception exc )
     {

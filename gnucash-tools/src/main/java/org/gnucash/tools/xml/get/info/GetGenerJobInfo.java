@@ -17,6 +17,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -38,10 +39,10 @@ public class GetGenerJobInfo extends CommandLineTool
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String      gcshFileName = null;
-  private static Helper.Mode mode         = null;
-  private static GCshID      jobID        = null;
-  private static String      jobName      = null;
+  private static String         gcshFileName = null;
+  private static Helper.Mode    mode         = null;
+  private static GCshGenerJobID jobID        = null;
+  private static String         jobName      = null;
   
   private static boolean showInvoices = false;
   
@@ -343,7 +344,7 @@ public class GetGenerJobInfo extends CommandLineTool
       
       try
       {
-          jobID = new GCshID( cmdLine.getOptionValue("job-id") );
+          jobID = new GCshGenerJobID( cmdLine.getOptionValue("job-id") );
       }
       catch ( Exception exc )
       {

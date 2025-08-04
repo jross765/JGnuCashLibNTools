@@ -30,6 +30,7 @@ import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableEmployeeVoucherImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 
@@ -45,7 +46,7 @@ public class TestGetGenerInvcInfo extends CommandLineTool
   private static Options options;
   
   private static String  gcshFileName     = null;
-  private static GCshID  invcID           = null;
+  private static GCshGenerInvcID invcID   = null;
   
   private static boolean showEntries      = false;
   private static boolean showTransactions = false;
@@ -477,7 +478,7 @@ public class TestGetGenerInvcInfo extends CommandLineTool
     // <invoice-id>
     try
     {
-      invcID = new GCshID( cmdLine.getOptionValue("invoice-id") );
+      invcID = new GCshGenerInvcID( cmdLine.getOptionValue("invoice-id") );
     }
     catch ( Exception exc )
     {

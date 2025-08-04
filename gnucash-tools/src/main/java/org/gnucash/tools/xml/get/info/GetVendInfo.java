@@ -20,6 +20,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +43,7 @@ public class GetVendInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      vendID       = null;
+  private static GCshVendID  vendID       = null;
   private static String      vendName     = null;
   
   private static boolean showJobs   = false;
@@ -404,7 +405,7 @@ public class GetVendInfo extends CommandLineTool
       
       try
       {
-        vendID = new GCshID( cmdLine.getOptionValue("vendor-id") );
+        vendID = new GCshVendID( cmdLine.getOptionValue("vendor-id") );
       }
       catch ( Exception exc )
       {

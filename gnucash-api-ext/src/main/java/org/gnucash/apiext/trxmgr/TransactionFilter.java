@@ -211,7 +211,7 @@ public class TransactionFilter {
 				    "datePostedTo=" + datePostedTo + ", " +
 	                 "nofSpltFrom=" + nofSpltFrom + ", " +
 				       "nofSpltTo=" + nofSpltTo + ", " +
-	                   "descrPart='" + descrPart + "', " +
+	                  "descrPart='" + descrPart + "', " +
 				        "spltFilt=" + spltFilt + "]";
 	}
 

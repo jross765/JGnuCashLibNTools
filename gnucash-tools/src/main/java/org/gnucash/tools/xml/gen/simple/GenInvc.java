@@ -30,7 +30,12 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.tools.CommandLineTool;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
@@ -263,7 +268,7 @@ public class GenInvc extends CommandLineTool
     {
       if ( mode == Mode.ID )
       {
-        incExpAcct = gcshFile.getAccountByID(new GCshID(incExpAcctIDOrName));
+        incExpAcct = gcshFile.getAccountByID(new GCshAcctID(incExpAcctIDOrName));
       }
       else if ( mode == Mode.NAME )
       {
@@ -291,7 +296,7 @@ public class GenInvc extends CommandLineTool
     {
       if ( mode == Mode.ID )
       {
-        recvblPayblAcct = gcshFile.getAccountByID(new GCshID(recvblPayblAcctIDOrName));
+        recvblPayblAcct = gcshFile.getAccountByID(new GCshAcctID(recvblPayblAcctIDOrName));
       }
       else if ( mode == Mode.NAME )
       {
@@ -333,7 +338,7 @@ public class GenInvc extends CommandLineTool
     GnuCashCustomer cust = null;
     try
     {
-      cust = gcshFile.getWritableCustomerByID(ownerID);
+      cust = gcshFile.getWritableCustomerByID(new GCshCustID(ownerID));
       System.err.println("Customer: " + cust.getNumber() + " (" + cust.getName() + ")");
     }
     catch ( Exception exc )
@@ -377,7 +382,7 @@ public class GenInvc extends CommandLineTool
     GnuCashVendor vend = null;
     try
     {
-      vend = gcshFile.getVendorByID(ownerID);
+      vend = gcshFile.getVendorByID(new GCshVendID(ownerID));
       System.err.println("Vendor: " + vend.getNumber() + " (" + vend.getName() + ")");
     }
     catch ( Exception exc )
@@ -421,7 +426,7 @@ public class GenInvc extends CommandLineTool
     GnuCashEmployee empl = null;
     try
     {
-      empl = gcshFile.getEmployeeByID(ownerID);
+      empl = gcshFile.getEmployeeByID(new GCshEmplID(ownerID));
       System.err.println("Employee: " + empl.getNumber() + " (" + empl.getUserName() + ")");
     }
     catch ( Exception exc )
@@ -453,7 +458,7 @@ public class GenInvc extends CommandLineTool
     GnuCashGenerJob job = null;
     try
     {
-      job = gcshFile.getGenerJobByID(ownerID);
+      job = gcshFile.getGenerJobByID(new GCshGenerJobID(ownerID));
       System.err.println("(Gener.) job: " + job.getNumber() + " (" + job.getName() + ")");
     }
     catch ( Exception exc )

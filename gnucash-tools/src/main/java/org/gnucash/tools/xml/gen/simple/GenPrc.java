@@ -39,12 +39,12 @@ public class GenPrc extends CommandLineTool
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
 
-  private static GCshCmdtyCurrID   fromCmdtyCurrID = null;
-  private static GCshCurrID        toCurrID = null;
-  private static Helper.DateFormat dateFormat    = null;
-  private static LocalDate         date = null;
-  private static FixedPointNumber  value = null;
-  private static GnuCashPrice.Source  source = null;
+  private static GCshCmdtyCurrID     fromCmdtyCurrID = null;
+  private static GCshCurrID          toCurrID = null;
+  private static Helper.DateFormat   dateFormat    = null;
+  private static LocalDate           date = null;
+  private static FixedPointNumber    value = null;
+  private static GnuCashPrice.Source source = null;
 
   // -----------------------------------------------------------------
 

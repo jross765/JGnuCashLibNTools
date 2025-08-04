@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -33,7 +34,8 @@ public class UpdCust extends CommandLineTool
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
-  private static GCshID custID = null;
+  
+  private static GCshCustID custID = null;
 
   private static String number = null;
   private static String name = null;
@@ -224,7 +226,7 @@ public class UpdCust extends CommandLineTool
     // <customer-id>
     try
     {
-      custID = new GCshID( cmdLine.getOptionValue("customer-id") );
+      custID = new GCshCustID( cmdLine.getOptionValue("customer-id") );
     }
     catch ( Exception exc )
     {

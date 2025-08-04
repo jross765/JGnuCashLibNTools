@@ -14,6 +14,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class GetEmplInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      emplID       = null;
+  private static GCshEmplID  emplID       = null;
   private static String      emplName     = null;
   
   private static boolean showVouchers  = false;
@@ -311,7 +312,7 @@ public class GetEmplInfo extends CommandLineTool
       
       try
       {
-        emplID = new GCshID( cmdLine.getOptionValue("employee-id") );
+        emplID = new GCshEmplID( cmdLine.getOptionValue("employee-id") );
       }
       catch ( Exception exc )
       {

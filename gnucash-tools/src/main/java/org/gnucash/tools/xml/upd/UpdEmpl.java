@@ -12,6 +12,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.write.GnuCashWritableEmployee;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -33,7 +34,8 @@ public class UpdEmpl extends CommandLineTool
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
-  private static GCshID emplID = null;
+  
+  private static GCshEmplID emplID = null;
 
   private static String number = null;
   private static String name = null;
@@ -209,7 +211,7 @@ public class UpdEmpl extends CommandLineTool
     // <employee-id>
     try
     {
-      emplID = new GCshID( cmdLine.getOptionValue("employee-id") );
+      emplID = new GCshEmplID( cmdLine.getOptionValue("employee-id") );
     }
     catch ( Exception exc )
     {

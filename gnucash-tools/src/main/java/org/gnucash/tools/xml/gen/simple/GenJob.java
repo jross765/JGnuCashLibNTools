@@ -18,7 +18,9 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -165,7 +167,7 @@ public class GenJob extends CommandLineTool
     GnuCashCustomer cust = null;
     try
     {
-      cust = gcshFile.getWritableCustomerByID(ownerID);
+      cust = gcshFile.getWritableCustomerByID(new GCshCustID(ownerID));
       System.err.println("Customer: " + cust.getNumber() + " (" + cust.getName() + ")");
     }
     catch ( Exception exc )
@@ -187,7 +189,7 @@ public class GenJob extends CommandLineTool
     GnuCashVendor vend = null;
     try
     {
-      vend = gcshFile.getVendorByID(ownerID);
+      vend = gcshFile.getVendorByID(new GCshVendID(ownerID));
       System.err.println("Vendor: " + vend.getNumber() + " (" + vend.getName() + ")");
     }
     catch ( Exception exc )

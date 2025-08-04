@@ -20,7 +20,9 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.ConstTest;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,12 +34,12 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestSecuritiesAccountTransactionManager {
 
-	private static GCshID STOCK_ACCT_ID  = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111");
-	private static GCshID INCOME_ACCT_ID = new GCshID("d7c384bfc136464490965f3f254313b1"); // only for dividend, not for
-																						   // buy/sell
+	private static GCshAcctID STOCK_ACCT_ID  = new GCshAcctID("b3741e92e3b9475b9d5a2dc8254a8111");
+	private static GCshAcctID INCOME_ACCT_ID = new GCshAcctID("d7c384bfc136464490965f3f254313b1"); // only for dividend, not for
+																						           // buy/sell
 	private static List<AcctIDAmountPair> EXPENSES_ACCT_AMT_LIST = new ArrayList<AcctIDAmountPair>(); // only for dividend,
 																									// not for buy/sell
-	private static GCshID OFFSET_ACCT_ID = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c");
+	private static GCshAcctID OFFSET_ACCT_ID = new GCshAcctID("bbf77a599bd24a3dbfec3dd1d0bb9f5c");
 
 	private static FixedPointNumber NOF_STOCKS = new FixedPointNumber(15);          // only for buy/sell, not for dividend
 	private static FixedPointNumber STOCK_PRC  = new FixedPointNumber("23080/100"); // only for buy/sell, not for dividend
@@ -48,14 +50,14 @@ public class TestSecuritiesAccountTransactionManager {
 
 	// ----------------------------
 
-	private static GCshID STOCK_BUY_EXP_ACCT_1_ID = new GCshID( "7d4b851a3f704c4695d5d466b28cdc55" ); // Bankprovision
+	private static GCshAcctID STOCK_BUY_EXP_ACCT_1_ID = new GCshAcctID( "7d4b851a3f704c4695d5d466b28cdc55" ); // Bankprovision
 
 	FixedPointNumber STOCK_BUY_EXP_1 = new FixedPointNumber("945/100");
 	
 	// ----------------------------
 
-	private static GCshID DIVIDEND_EXP_ACCT_1_ID = new GCshID( "2a195872e24048a0a6228107ca8b6a52" ); // Kapitalertragsteuer
-	private static GCshID DIVIDEND_EXP_ACCT_2_ID = new GCshID( "41e998de2af144c7a9db5049fb677f8a" ); // Soli
+	private static GCshAcctID DIVIDEND_EXP_ACCT_1_ID = new GCshAcctID( "2a195872e24048a0a6228107ca8b6a52" ); // Kapitalertragsteuer
+	private static GCshAcctID DIVIDEND_EXP_ACCT_2_ID = new GCshAcctID( "41e998de2af144c7a9db5049fb677f8a" ); // Soli
 
 	FixedPointNumber DIVIDEND_EXP_1 = DIV_GROSS.copy().multiply(new FixedPointNumber("25/100"));
 	FixedPointNumber DIVIDEND_EXP_2 = STOCK_BUY_EXP_1.copy().multiply(new FixedPointNumber("55/100"));
@@ -65,7 +67,7 @@ public class TestSecuritiesAccountTransactionManager {
 	private GnuCashWritableFileImpl gcshInFile = null;
 	private GnuCashFileImpl gcshOutFile = null;
 
-	private GCshID newTrxID = null;
+	private GCshTrxID newTrxID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")
@@ -105,7 +107,7 @@ public class TestSecuritiesAccountTransactionManager {
 		
 		// ---
 		
-		newTrxID = new GCshID();
+		newTrxID = new GCshTrxID();
 	}
 
 	@Test

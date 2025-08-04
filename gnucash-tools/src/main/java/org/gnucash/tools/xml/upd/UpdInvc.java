@@ -17,6 +17,8 @@ import org.gnucash.api.read.InvoiceNotFoundException;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -40,9 +42,10 @@ public class UpdInvc extends CommandLineTool
   
   private static String           gcshInFileName = null;
   private static String           gcshOutFileName = null;
-  private static GCshID           invcID = null;
-  private static GCshID           incExpAcctID = null;
-  private static GCshID           recvblPayblAcctID = null;
+  
+  private static GCshGenerInvcID  invcID = null;
+  private static GCshAcctID       incExpAcctID = null;
+  private static GCshAcctID       recvblPayblAcctID = null;
   private static String           number = null;
   private static String           descr = null;
   private static GCshID           ownerID = null;
@@ -312,7 +315,7 @@ public class UpdInvc extends CommandLineTool
     // <invoice-id>
     try
     {
-      invcID = new GCshID( cmdLine.getOptionValue("invoice-id") );
+      invcID = new GCshGenerInvcID( cmdLine.getOptionValue("invoice-id") );
     }
     catch ( Exception exc )
     {
@@ -326,7 +329,7 @@ public class UpdInvc extends CommandLineTool
     {
       try
       {
-        incExpAcctID = new GCshID( cmdLine.getOptionValue("income-expense-account-id") );
+        incExpAcctID = new GCshAcctID( cmdLine.getOptionValue("income-expense-account-id") );
       }
       catch ( Exception exc )
       {
@@ -341,7 +344,7 @@ public class UpdInvc extends CommandLineTool
     {
       try
       {
-        recvblPayblAcctID = new GCshID( cmdLine.getOptionValue("receivable-payable-account-id") );
+        recvblPayblAcctID = new GCshAcctID( cmdLine.getOptionValue("receivable-payable-account-id") );
       }
       catch ( Exception exc )
       {

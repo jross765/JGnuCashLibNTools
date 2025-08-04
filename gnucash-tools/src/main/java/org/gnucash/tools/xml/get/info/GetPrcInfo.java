@@ -14,6 +14,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,7 @@ public class GetPrcInfo extends CommandLineTool
   private static Options options;
   
   private static String     gcshFileName   = null;
-  private static GCshID     prcID         = null;
+  private static GCshPrcID  prcID         = null;
   private static LocalDate  date          = null;
   
   private static boolean showQuotes = false;
@@ -214,7 +215,7 @@ public class GetPrcInfo extends CommandLineTool
     // <price-id>
     try
     {
-      prcID = new GCshID( cmdLine.getOptionValue("price-id") ); 
+      prcID = new GCshPrcID( cmdLine.getOptionValue("price-id") ); 
       System.err.println("price-ID: " + prcID);
     }
     catch ( Exception exc )

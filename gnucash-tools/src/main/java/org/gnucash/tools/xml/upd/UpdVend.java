@@ -13,6 +13,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.write.GnuCashWritableVendor;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,8 @@ public class UpdVend extends CommandLineTool
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
-  private static GCshID vendID = null;
+  
+  private static GCshVendID vendID = null;
 
   private static String number = null;
   private static String name = null;
@@ -224,7 +226,7 @@ public class UpdVend extends CommandLineTool
     // <vendor-id>
     try
     {
-      vendID = new GCshID( cmdLine.getOptionValue("vendor-id") );
+      vendID = new GCshVendID( cmdLine.getOptionValue("vendor-id") );
     }
     catch ( Exception exc )
     {

@@ -8,7 +8,7 @@ import java.io.InputStream;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,7 +18,7 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestSecuritiesAccountLotManager {
 
-	private static GCshID STOCK_ACCT_ID  = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // SAP
+	private static GCshAcctID STOCK_ACCT_ID  = new GCshAcctID("b3741e92e3b9475b9d5a2dc8254a8111"); // SAP
 
 	// -----------------------------------------------------------------
 

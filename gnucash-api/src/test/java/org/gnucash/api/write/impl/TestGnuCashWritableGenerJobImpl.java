@@ -12,8 +12,10 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -109,8 +111,8 @@ public class TestGnuCashWritableGenerJobImpl {
 		GnuCashWritableGenerJob job = gcshInFile.getWritableGenerJobByID(GENER_JOB_1_ID);
 		assertNotEquals(null, job);
 
-		GCshID custID = new GCshID("f44645d2397946bcac90dff68cc03b76");
-		assertEquals(custID, job.getOwnerID());
+		GCshCustID custID = new GCshCustID("f44645d2397946bcac90dff68cc03b76");
+		assertEquals(custID.getRawID(), job.getOwnerID());
 	}
 
 	// -----------------------------------------------------------------
@@ -140,8 +142,8 @@ public class TestGnuCashWritableGenerJobImpl {
 		GnuCashWritableGenerJob job = gcshInFile.getWritableGenerJobByID(GENER_JOB_2_ID);
 		assertNotEquals(null, job);
 
-		GCshID vendID = new GCshID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
-		assertEquals(vendID, job.getOwnerID());
+		GCshVendID vendID = new GCshVendID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
+		assertEquals(vendID.getRawID(), job.getOwnerID());
 	}
 
 	// -----------------------------------------------------------------

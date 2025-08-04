@@ -27,6 +27,7 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -45,8 +46,8 @@ public class GetGenerInvcInfo extends CommandLineTool
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String  gcshFileName     = null;
-  private static GCshID  invcID           = null;
+  private static String          gcshFileName  = null;
+  private static GCshGenerInvcID invcID        = null;
   
   private static boolean showEntries      = false;
   private static boolean showTransactions = false;
@@ -479,7 +480,7 @@ public class GetGenerInvcInfo extends CommandLineTool
     // <invoice-id>
     try
     {
-      invcID = new GCshID( cmdLine.getOptionValue("invoice-id") );
+      invcID = new GCshGenerInvcID( cmdLine.getOptionValue("invoice-id") );
     }
     catch ( Exception exc )
     {

@@ -8,7 +8,8 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.apiext.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,18 +18,18 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestTransactionSplitFilter {
 	
-	public static final GCshID TRXSPLT_1_ID = new GCshID("b6a88c1d918e465892488c561e02831a");
-	public static final GCshID TRXSPLT_2_ID = new GCshID("980706f1ead64460b8205f093472c855");
-//	public static final GCshID TRXSPLT_3_ID = new GCshID("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+	public static final GCshSpltID TRXSPLT_1_ID = new GCshSpltID("b6a88c1d918e465892488c561e02831a");
+	public static final GCshSpltID TRXSPLT_2_ID = new GCshSpltID("980706f1ead64460b8205f093472c855");
+//	public static final GCshSpltID TRXSPLT_3_ID = new GCshSpltID("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
-    private static final GCshID ACCT_1_ID = TestTransactionFilter.ACCT_1_ID;
-    private static final GCshID ACCT_2_ID = TestTransactionFilter.ACCT_2_ID;
-    private static final GCshID ACCT_3_ID = TestTransactionFilter.ACCT_3_ID;
-    private static final GCshID ACCT_4_ID = TestTransactionFilter.ACCT_4_ID;
-    private static final GCshID ACCT_5_ID = TestTransactionFilter.ACCT_5_ID;
-    private static final GCshID ACCT_6_ID = TestTransactionFilter.ACCT_6_ID;
-    private static final GCshID ACCT_7_ID = TestTransactionFilter.ACCT_7_ID;
-    private static final GCshID ACCT_8_ID = TestTransactionFilter.ACCT_8_ID;
+    private static final GCshAcctID ACCT_1_ID = TestTransactionFilter.ACCT_1_ID;
+    private static final GCshAcctID ACCT_2_ID = TestTransactionFilter.ACCT_2_ID;
+    private static final GCshAcctID ACCT_3_ID = TestTransactionFilter.ACCT_3_ID;
+    private static final GCshAcctID ACCT_4_ID = TestTransactionFilter.ACCT_4_ID;
+    private static final GCshAcctID ACCT_5_ID = TestTransactionFilter.ACCT_5_ID;
+    private static final GCshAcctID ACCT_6_ID = TestTransactionFilter.ACCT_6_ID;
+    private static final GCshAcctID ACCT_7_ID = TestTransactionFilter.ACCT_7_ID;
+    private static final GCshAcctID ACCT_8_ID = TestTransactionFilter.ACCT_8_ID;
 
 	// -----------------------------------------------------------------
 

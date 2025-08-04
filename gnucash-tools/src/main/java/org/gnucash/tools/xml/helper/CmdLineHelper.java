@@ -11,6 +11,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 
@@ -204,7 +205,7 @@ public class CmdLineHelper
 	String amtStr    = pairStr.substring(pos + 1);
 	// System.err.println(" - elt1: '" + acctIDStr + "'/'" + amtStr + "'");
         		
-	GCshID acctID = new GCshID(acctIDStr);
+	GCshAcctID acctID = new GCshAcctID(acctIDStr);
 	Double amtDbl = Double.valueOf(amtStr);
 	// System.err.println(" - elt2: " + acctIDStr + " / " + amtStr);
         		

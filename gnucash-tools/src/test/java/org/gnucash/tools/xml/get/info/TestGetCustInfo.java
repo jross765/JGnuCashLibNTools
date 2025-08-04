@@ -22,6 +22,7 @@ import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.impl.GnuCashWritableCustomerImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 
@@ -41,7 +42,7 @@ public class TestGetCustInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      custID       = null;
+  private static GCshCustID  custID       = null;
   private static String      custName     = null;
   
   private static boolean showJobs      = false;
@@ -429,7 +430,7 @@ public class TestGetCustInfo extends CommandLineTool
       
       try
       {
-        custID = new GCshID( cmdLine.getOptionValue("customer-id") );
+        custID = new GCshCustID( cmdLine.getOptionValue("customer-id") );
       }
       catch ( Exception exc )
       {

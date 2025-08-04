@@ -14,6 +14,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -37,7 +38,7 @@ public class GetAcctInfo extends CommandLineTool
   
   private static String      gcshFileName = null;
   private static Helper.Mode mode         = null;
-  private static GCshID      acctID       = null;
+  private static GCshAcctID  acctID       = null;
   private static String      acctName     = null;
   
   private static boolean showParents  = false;
@@ -374,7 +375,7 @@ public class GetAcctInfo extends CommandLineTool
       
       try
       {
-        acctID = new GCshID( cmdLine.getOptionValue("account-id") );
+        acctID = new GCshAcctID( cmdLine.getOptionValue("account-id") );
       }
       catch ( Exception exc )
       {

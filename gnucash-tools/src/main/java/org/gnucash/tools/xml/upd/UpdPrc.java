@@ -14,6 +14,7 @@ import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,8 @@ public class UpdPrc extends CommandLineTool
   
   private static String gcshInFileName = null;
   private static String gcshOutFileName = null;
-  private static GCshID prcID = null;
+  
+  private static GCshPrcID prcID = null;
 
   private static GnuCashPrice.Type   type = null;
   private static GnuCashPrice.Source source = null;
@@ -233,7 +235,7 @@ public class UpdPrc extends CommandLineTool
     // <price-id>
     try
     {
-      prcID = new GCshID( cmdLine.getOptionValue("price-id") );
+      prcID = new GCshPrcID( cmdLine.getOptionValue("price-id") );
     }
     catch ( Exception exc )
     {
