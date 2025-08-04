@@ -1,10 +1,10 @@
 package org.gnucash.base.tuples;
 
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
-public record AcctIDAmountPair(GCshID accountID, FixedPointNumber amount) {
+public record AcctIDAmountPair(GCshAcctID accountID, FixedPointNumber amount) {
 
 	private final static double UNSET_VALUE = -999999;
 	private final static int    SCALE       = 2;
