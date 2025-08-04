@@ -11,6 +11,7 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
@@ -19,7 +20,7 @@ public class GetCustInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static GCshID custID       = new GCshID("xyz");
+    private static GCshCustID custID   = new GCshCustID("xyz");
     private static String custName     = "abc";
     // END Example data
 

@@ -12,6 +12,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
@@ -19,7 +20,7 @@ public class GetVendInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static GCshID vendID       = new GCshID("xyz");
+    private static GCshVendID vendID   = new GCshVendID("xyz");
     private static String vendName     = "abc";
     // END Example data
 

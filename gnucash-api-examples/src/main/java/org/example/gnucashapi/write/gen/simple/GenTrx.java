@@ -8,6 +8,7 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -19,8 +20,8 @@ public class GenTrx {
     
     // ---
     
-    private static GCshID           fromAcct1ID = new GCshID("e617cfd1317b4e318caf5dfba51b172e"); // Root Account:Aktiva:Kassen:Kasse Ada
-    private static GCshID           toAcct1ID   = new GCshID("0c405f3669a14606be3c1a62ac5455a9"); // Root Account:Aufwendungen:Bildung:Zeitungen
+    private static GCshAcctID       fromAcct1ID = new GCshAcctID("e617cfd1317b4e318caf5dfba51b172e"); // Root Account:Aktiva:Kassen:Kasse Ada
+    private static GCshAcctID       toAcct1ID   = new GCshAcctID("0c405f3669a14606be3c1a62ac5455a9"); // Root Account:Aufwendungen:Bildung:Zeitungen
     private static GnuCashTransactionSplit.Action act1 = null;                                    // Do not set here
     private static FixedPointNumber amt1        = new FixedPointNumber("1234/100");
     private static FixedPointNumber qty1        = amt1;
@@ -29,9 +30,9 @@ public class GenTrx {
     
     // ---
     
-    private static GCshID           fromAcct2ID  = new GCshID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account:Aktiva:Sichteinlagen:KK:Giro RaiBa
-    private static GCshID           toAcct21ID   = new GCshID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
-    private static GCshID           toAcct22ID   = new GCshID("d3f947fdfbf54240b0cfb09fea4963ca"); // Root Account:Aufwendungen:Sonstiges:Bankgebühren
+    private static GCshAcctID       fromAcct2ID  = new GCshAcctID("bbf77a599bd24a3dbfec3dd1d0bb9f5c"); // Root Account:Aktiva:Sichteinlagen:KK:Giro RaiBa
+    private static GCshAcctID       toAcct21ID   = new GCshAcctID("b3741e92e3b9475b9d5a2dc8254a8111"); // Root Account:Aktiva:Depots:Depot RaiBa:DE0007164600 SAP
+    private static GCshAcctID       toAcct22ID   = new GCshAcctID("d3f947fdfbf54240b0cfb09fea4963ca"); // Root Account:Aufwendungen:Sonstiges:Bankgebühren
     private static GnuCashTransactionSplit.Action act2 = GnuCashTransactionSplit.Action.BUY;
     private static FixedPointNumber qty22        = new FixedPointNumber("15");
     // private static FixedPointNumber prc1         = new FixedPointNumber("1/1");       // optional

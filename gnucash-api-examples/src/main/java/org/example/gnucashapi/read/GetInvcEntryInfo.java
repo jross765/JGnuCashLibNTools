@@ -2,18 +2,18 @@ package org.example.gnucashapi.read;
 
 import java.io.File;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillEntryImpl;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 
 public class GetInvcEntryInfo {
     // BEGIN Example data -- adapt to your needs
-    private static String gcshFileName = "example_in.gnucash";
-    private static GCshID invcEntrID   = new GCshID("xyz");
+    private static String gcshFileName            = "example_in.gnucash";
+    private static GCshGenerInvcEntrID invcEntrID = new GCshGenerInvcEntrID("xyz");
     // END Example data
 
     // -----------------------------------------------------------------

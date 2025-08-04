@@ -6,16 +6,16 @@ import java.util.Collection;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
 public class GetJobInfo {
     // BEGIN Example data -- adapt to your needs
-    private static String gcshFileName = "example_in.gnucash";
-    private static Helper.Mode mode    = Helper.Mode.ID;
-    private static GCshID jobID        = new GCshID("xyz");
-    private static String jobName      = "abc";
+    private static String gcshFileName  = "example_in.gnucash";
+    private static Helper.Mode mode     = Helper.Mode.ID;
+    private static GCshGenerJobID jobID = new GCshGenerJobID("xyz");
+    private static String jobName       = "abc";
     // END Example data
 
     // -----------------------------------------------------------------

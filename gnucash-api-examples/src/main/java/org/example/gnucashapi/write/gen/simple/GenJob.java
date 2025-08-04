@@ -11,7 +11,9 @@ import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
+import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 public class GenJob {
     enum JobType {
@@ -25,8 +27,8 @@ public class GenJob {
     private static String gcshInFileName  = "example_in.gnucash";
     private static String gcshOutFileName = "example_out.gnucash";
     private static JobType type           = JobType.CUSTOMER;
-    private static GCshID custID          = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
-    private static GCshID vendID          = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
+    private static GCshCustID custID      = new GCshCustID("1d2081e8a10e4d5e9312d9fff17d470d");
+    private static GCshVendID vendID      = new GCshVendID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
     private static String number          = "1234";
     private static String name            = "Jobbo McJob";
     // END Example data

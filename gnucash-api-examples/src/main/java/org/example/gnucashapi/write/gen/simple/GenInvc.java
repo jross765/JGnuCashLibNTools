@@ -22,7 +22,12 @@ import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoiceEntry;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBillEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshVendID;
 
 import xyz.schnorxoborx.base.beanbase.AccountNotFoundException;
 import xyz.schnorxoborx.base.beanbase.WrongAccountTypeException;
@@ -43,15 +48,15 @@ public class GenInvc {
     private static String gcshInFileName    = "example_in.gnucash";
     private static String gcshOutFileName   = "example_out.gnucash";
     private static InvoiceType type         = InvoiceType.CUSTOMER;
-    private static GCshID custID            = new GCshID("1d2081e8a10e4d5e9312d9fff17d470d");
-    private static GCshID vendID            = new GCshID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
-    private static GCshID emplID            = new GCshID("7f70b352dcf44a5d8085767a53a9bc37");
-    private static GCshID job1ID            = new GCshID("e91b99cd6fbb48a985cbf1e8041f378c"); // customer job
-    private static GCshID job2ID            = new GCshID("028cfb5993ef4d6b83206bc844e2fe56"); // vendor job
-    private static GCshID incAcctID         = new GCshID("fed745c4da5c49ebb0fde0f47222b35b"); // Root Account:Erträge:Sonstiges
-    private static GCshID expAcctID         = new GCshID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
-    private static GCshID recvblAcctID      = new GCshID("ee7561449e61448fb8fefdc27a35d559"); // Root Account:Aktiva:Forderungen:sonstige
-    private static GCshID paybleAcctID      = new GCshID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige
+    private static GCshCustID custID        = new GCshCustID("1d2081e8a10e4d5e9312d9fff17d470d");
+    private static GCshVendID vendID        = new GCshVendID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
+    private static GCshEmplID emplID        = new GCshEmplID("7f70b352dcf44a5d8085767a53a9bc37");
+    private static GCshGenerJobID job1ID    = new GCshGenerJobID("e91b99cd6fbb48a985cbf1e8041f378c"); // customer job
+    private static GCshGenerJobID job2ID    = new GCshGenerJobID("028cfb5993ef4d6b83206bc844e2fe56"); // vendor job
+    private static GCshAcctID incAcctID     = new GCshAcctID("fed745c4da5c49ebb0fde0f47222b35b"); // Root Account:Erträge:Sonstiges
+    private static GCshAcctID expAcctID     = new GCshAcctID("7d4c7bf08901493ab346cc24595fdb97"); // Root Account:Aufwendungen:Sonstiges
+    private static GCshAcctID recvblAcctID  = new GCshAcctID("ee7561449e61448fb8fefdc27a35d559"); // Root Account:Aktiva:Forderungen:sonstige
+    private static GCshAcctID paybleAcctID  = new GCshAcctID("55711b4e6f564709bf880f292448237a"); // Root Account:Fremdkapital:Lieferanten:sonstige
     private static String number            = "1234";
     private static LocalDate dateOpen       = LocalDate.now();
     private static LocalDate datePost       = LocalDate.now();

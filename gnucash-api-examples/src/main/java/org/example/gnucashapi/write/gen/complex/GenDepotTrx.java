@@ -11,7 +11,7 @@ import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager.Type;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -23,10 +23,10 @@ public class GenDepotTrx {
 
 	private static SecuritiesAccountTransactionManager.Type type = Type.DIVIDEND;
 
-	private static GCshID stockAcctID  = new GCshID( "b3741e92e3b9475b9d5a2dc8254a8111" );
-	private static GCshID incomeAcctID = new GCshID( "d7c384bfc136464490965f3f254313b1" ); // only for dividend, not for buy/sell
+	private static GCshAcctID stockAcctID  = new GCshAcctID( "b3741e92e3b9475b9d5a2dc8254a8111" );
+	private static GCshAcctID incomeAcctID = new GCshAcctID( "d7c384bfc136464490965f3f254313b1" ); // only for dividend, not for buy/sell
 	private static List<AcctIDAmountPair> expensesAcctAmtList = new ArrayList<AcctIDAmountPair>(); // only for dividend, not for buy/sell
-	private static GCshID offsetAcctID = new GCshID( "bbf77a599bd24a3dbfec3dd1d0bb9f5c" );
+	private static GCshAcctID offsetAcctID = new GCshAcctID( "bbf77a599bd24a3dbfec3dd1d0bb9f5c" );
 	
 	private static FixedPointNumber nofStocks      = new FixedPointNumber(15); // only for buy/sell, not for dividend
 	private static FixedPointNumber stockPrc       = new FixedPointNumber("23080/100"); // only for buy/sell, not for dividend
@@ -123,12 +123,12 @@ public class GenDepotTrx {
 	// third entry to the list: "Auslaend. Quellensteuer" (that 
 	// account is not in the test file yet).
 	private void initExpAccts() {
-		GCshID expAcct1 = new GCshID( "2a195872e24048a0a6228107ca8b6a52" ); // Kapitalertragsteuer
+		GCshAcctID expAcct1 = new GCshAcctID( "2a195872e24048a0a6228107ca8b6a52" ); // Kapitalertragsteuer
 		FixedPointNumber amt1 = divDistrGross.copy().multiply(new FixedPointNumber("25/100"));
 		AcctIDAmountPair acctAmtPr1 = new AcctIDAmountPair(expAcct1, amt1);
 		expensesAcctAmtList.add(acctAmtPr1);
 		
-		GCshID expAcct2 = new GCshID( "41e998de2af144c7a9db5049fb677f8a" ); // Soli
+		GCshAcctID expAcct2 = new GCshAcctID( "41e998de2af144c7a9db5049fb677f8a" ); // Soli
 		FixedPointNumber amt2 = amt1.copy().multiply(new FixedPointNumber("55/100"));
 		AcctIDAmountPair acctAmtPr2 = new AcctIDAmountPair(expAcct2, amt2);
 		expensesAcctAmtList.add(acctAmtPr2);

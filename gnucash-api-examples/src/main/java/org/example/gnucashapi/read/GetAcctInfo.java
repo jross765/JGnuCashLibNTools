@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
@@ -14,7 +14,7 @@ public class GetAcctInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static GCshID acctID       = new GCshID("xyz");
+    private static GCshAcctID acctID   = new GCshAcctID("xyz");
     private static String acctName     = "abc";
     // END Example data
 

@@ -8,7 +8,7 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace.SecIdType;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 public class GenAcct
 {
@@ -19,12 +19,12 @@ public class GenAcct
     private static String                name1        = "FlixIt";
     private static GnuCashAccount.Type   type1        = GnuCashAccount.Type.EXPENSE;
     private static GCshCurrID            currID1      = new GCshCurrID("EUR");
-    private static GCshID                parentID1    = new GCshID("aa8e4dac1bd141468c1eca045598a52b"); // Fernsehen
+    private static GCshAcctID            parentID1    = new GCshAcctID("aa8e4dac1bd141468c1eca045598a52b"); // Fernsehen
     
     private static String                name2        = "Depot Sparkasse";
     private static GnuCashAccount.Type   type2        = GnuCashAccount.Type.STOCK;
     private static GCshCmdtyID_SecIdType cmdtyID2     = new GCshCmdtyID_SecIdType(SecIdType.ISIN, "DE9876543210");
-    private static GCshID                parentID2    = new GCshID("7ee6fe4de6db46fd957f3513c9c6f983"); // Depots
+    private static GCshAcctID            parentID2    = new GCshAcctID("7ee6fe4de6db46fd957f3513c9c6f983"); // Depots
     // END Example data
 
     // -----------------------------------------------------------------

@@ -52,7 +52,7 @@ not just code snippets, but complete, self-contained programs that you can actua
 
 Thus, the suggested workflow is:
 
-1. Copy copy one of them into your own project.
+1. Copy one of them into your own project.
 2. Adapt the data to the GnuCash file that you are using.
 3. Compile.
 4. Do a test run and see whether it actually does what you expect.

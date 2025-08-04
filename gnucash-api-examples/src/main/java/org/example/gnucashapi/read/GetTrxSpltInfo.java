@@ -2,14 +2,14 @@ package org.example.gnucashapi.read;
 
 import java.io.File;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 
 public class GetTrxSpltInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
-    private static GCshID spltID       = new GCshID("xyz");
+    private static GCshSpltID spltID   = new GCshSpltID("xyz");
     // END Example data
 
     // -----------------------------------------------------------------

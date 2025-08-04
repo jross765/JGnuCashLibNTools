@@ -6,7 +6,7 @@ import java.util.Collection;
 import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshEmplID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 
@@ -14,7 +14,7 @@ public class GetEmplInfo {
     // BEGIN Example data -- adapt to your needs
     private static String gcshFileName = "example_in.gnucash";
     private static Helper.Mode mode    = Helper.Mode.ID;
-    private static GCshID emplID       = new GCshID("xyz");
+    private static GCshEmplID emplID   = new GCshEmplID("xyz");
     private static String emplName     = "abc";
     // END Example data
 
