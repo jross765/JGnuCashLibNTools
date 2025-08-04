@@ -11,6 +11,7 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 import org.slf4j.Logger;
@@ -108,9 +109,9 @@ public class SecuritiesAccountTransactionManager {
      */
     public static GnuCashWritableTransaction genBuyStockTrx(
     		final GnuCashWritableFileImpl gcshFile,
-    		final GCshID stockAcctID,
-    		final GCshID taxFeeAcctID,
-    		final GCshID offsetAcctID,
+    		final GCshAcctID stockAcctID,
+    		final GCshAcctID taxFeeAcctID,
+    		final GCshAcctID offsetAcctID,
     		final FixedPointNumber nofStocks,
     		final FixedPointNumber stockPrc,
     		final FixedPointNumber taxesFees,
@@ -147,13 +148,13 @@ public class SecuritiesAccountTransactionManager {
      * @param descr description of the transaction
      * @return a newly generated, modifiable transaction object
      * 
-     * @see #genBuyStockTrx(GnuCashWritableFileImpl, GCshID, GCshID, GCshID, FixedPointNumber, FixedPointNumber, FixedPointNumber, LocalDate, String)
+     * @see #genBuyStockTrx(GnuCashWritableFileImpl, GCshAcctID, GCshAcctID, GCshAcctID, FixedPointNumber, FixedPointNumber, FixedPointNumber, LocalDate, String)
      */
     public static GnuCashWritableTransaction genBuyStockTrx(
     		final GnuCashWritableFileImpl gcshFile,
-    		final GCshID stockAcctID,
+    		final GCshAcctID stockAcctID,
     		final Collection<AcctIDAmountPair> expensesAcctAmtList,
-    		final GCshID offsetAcctID,
+    		final GCshAcctID offsetAcctID,
     		final FixedPointNumber nofStocks,
     		final FixedPointNumber stockPrc,
     		final LocalDate postDate,
@@ -313,10 +314,10 @@ public class SecuritiesAccountTransactionManager {
      */
     public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
-    	    final GCshID stockAcctID,
-    	    final GCshID incomeAcctID,
-    	    final GCshID taxFeeAcctID,
-    	    final GCshID offsetAcctID,
+    	    final GCshAcctID stockAcctID,
+    	    final GCshAcctID incomeAcctID,
+    	    final GCshAcctID taxFeeAcctID,
+    	    final GCshAcctID offsetAcctID,
     	    final GnuCashTransactionSplit.Action spltAct,
     	    final FixedPointNumber divDistrGross,
     	    final FixedPointNumber taxesFees,
@@ -357,10 +358,10 @@ public class SecuritiesAccountTransactionManager {
      */
     public static GnuCashWritableTransaction genDividDistribTrx(
     	    final GnuCashWritableFileImpl gcshFile,
-    	    final GCshID stockAcctID,
-    	    final GCshID incomeAcctID,
+    	    final GCshAcctID stockAcctID,
+    	    final GCshAcctID incomeAcctID,
     	    final Collection<AcctIDAmountPair> expensesAcctAmtList,
-    	    final GCshID offsetAcctID,
+    	    final GCshAcctID offsetAcctID,
     	    final GnuCashTransactionSplit.Action spltAct,
     	    final FixedPointNumber divDistrGross,
     	    final LocalDate postDate,
@@ -513,7 +514,7 @@ public class SecuritiesAccountTransactionManager {
     
     public static GnuCashWritableTransaction genStockSplitTrx(
     		final GnuCashWritableFileImpl gcshFile,
-    		final GCshID stockAcctID,
+    		final GCshAcctID stockAcctID,
     		final StockSplitVar var,
     		final FixedPointNumber factorOfNofAddShares,
     		final LocalDate postDate,
@@ -550,12 +551,12 @@ public class SecuritiesAccountTransactionManager {
      * @param descr
      * @return a new share-(reverse-)split transaction
      * 
-     * @see #genStockSplitTrx_nofShares(GnuCashWritableFileImpl, GCshID, FixedPointNumber, LocalDate, String)
-     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshID, StockSplitVar, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx_nofShares(GnuCashWritableFileImpl, GCshAcctID, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshAcctID, StockSplitVar, FixedPointNumber, LocalDate, String)
      */
     public static GnuCashWritableTransaction genStockSplitTrx_factor(
     		final GnuCashWritableFileImpl gcshFile,
-    		final GCshID stockAcctID,
+    		final GCshAcctID stockAcctID,
     		final FixedPointNumber factor,
     		final LocalDate postDate,
     		final String descr) {
@@ -642,12 +643,12 @@ public class SecuritiesAccountTransactionManager {
      * @param descr
      * @return a new share-(reverse-)split transaction
      * 
-     * @see #genStockSplitTrx_factor(GnuCashWritableFileImpl, GCshID, FixedPointNumber, LocalDate, String)
-     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshID, StockSplitVar, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx_factor(GnuCashWritableFileImpl, GCshAcctID, FixedPointNumber, LocalDate, String)
+     * @see #genStockSplitTrx(GnuCashWritableFileImpl, GCshAcctID, StockSplitVar, FixedPointNumber, LocalDate, String)
      */
     public static GnuCashWritableTransaction genStockSplitTrx_nofShares(
     	    final GnuCashWritableFileImpl gcshFile,
-    	    final GCshID stockAcctID,
+    	    final GCshAcctID stockAcctID,
     	    final FixedPointNumber nofAddShares, // use neg. number in case of reverse stock-split
     	    final LocalDate postDate,
     	    final String descr) {

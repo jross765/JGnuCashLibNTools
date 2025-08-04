@@ -6,6 +6,8 @@ import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,8 +49,8 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 	private GnuCashTransactionSplit zDierTrxBankSplt = null; // "ZS Split/before"
 	private GnuCashTransactionSplit zSurvTrxBankSpltBefore = null; // "ZS Split/before"
 	
-	private GCshID zDierTrxBankSpltID = null;       // cf. above
-	private GCshID zSurvTrxBankSpltBeforeID = null; // dto.
+	private GCshSpltID zDierTrxBankSpltID = null;       // cf. above
+	private GCshSpltID zSurvTrxBankSpltBeforeID = null; // dto.
 
     // ---------------------------------------------------------------
 	
@@ -63,7 +65,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 		return zDierTrxBankSpltID;
 	}
     
-	public void setZDierTrxBankSpltID(GCshID spltID) {
+	public void setZDierTrxBankSpltID(GCshSpltID spltID) {
 		this.zDierTrxBankSpltID = spltID;
 		
 		zDierTrxBankSplt = gcshFile.getTransactionSplitByID(spltID);
@@ -75,7 +77,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 		return zSurvTrxBankSpltBeforeID;
 	}
     
-	public void setZSurvTrxBankSpltBeforeID(GCshID spltID) {
+	public void setZSurvTrxBankSpltBeforeID(GCshSpltID spltID) {
 		this.zSurvTrxBankSpltBeforeID = spltID;
 		
 		zSurvTrxBankSpltBefore = gcshFile.getTransactionSplitByID(spltID);
@@ -93,7 +95,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
     
     // ---------------------------------------------------------------
     
-	public void merge(GCshID survivorID, GCshID dierID) throws MergePlausiCheckException {
+	public void merge(GCshTrxID survivorID, GCshTrxID dierID) throws MergePlausiCheckException {
 		GnuCashTransaction survivor = gcshFile.getTransactionByID(survivorID);
 		GnuCashWritableTransaction dier = gcshFile.getWritableTransactionByID(dierID);
 		merge(survivor, dier);

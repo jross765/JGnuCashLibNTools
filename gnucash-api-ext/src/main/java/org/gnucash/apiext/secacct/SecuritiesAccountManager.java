@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +25,7 @@ public class SecuritiesAccountManager {
     public SecuritiesAccountManager() {
     }
     
-    public SecuritiesAccountManager(GnuCashFile gcshFile, GCshID acctID) {
+    public SecuritiesAccountManager(GnuCashFile gcshFile, GCshAcctID acctID) {
     	if ( acctID == null ) {
     		throw new IllegalArgumentException("null account ID given");
     	}

@@ -7,7 +7,7 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.apiext.Const;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +30,7 @@ public class TransactionManager {
     
     // ---------------------------------------------------------------
     
-	public boolean isSane(GCshID trxID) {
+	public boolean isSane(GCshTrxID trxID) {
 		GnuCashTransaction trx = gcshFile.getTransactionByID(trxID);
 		return isSane(trx);
 	}

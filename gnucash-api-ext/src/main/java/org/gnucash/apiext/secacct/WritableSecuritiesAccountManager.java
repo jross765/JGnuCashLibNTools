@@ -8,7 +8,7 @@ import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ public class WritableSecuritiesAccountManager extends SecuritiesAccountManager
     	super();
     }
     
-    public WritableSecuritiesAccountManager(GnuCashWritableFile gcshFile, GCshID acctID) {
+    public WritableSecuritiesAccountManager(GnuCashWritableFile gcshFile, GCshAcctID acctID) {
     	super(gcshFile, acctID);
     	
     	if ( acctID == null ) {
