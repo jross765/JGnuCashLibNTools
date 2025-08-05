@@ -15,6 +15,7 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
@@ -75,10 +76,10 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 	}
 
 	if ( addSpltToInvc ) {
-	    GCshID spltLotID = getLotID();
+	    GCshLotID spltLotID = getLotID();
 	    if ( spltLotID != null ) {
 		for ( GnuCashGenerInvoice invc : getTransaction().getGnuCashFile().getGenerInvoices() ) {
-		    GCshID invcPostLotID = invc.getLotID();
+		    GCshLotID invcPostLotID = invc.getLotID();
 		    if ( invcPostLotID != null && 
 			 invcPostLotID.equals(spltLotID) ) {
 			// Check if it's a payment transaction.
@@ -115,12 +116,12 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @return the lot-id that identifies this transaction to belong to an invoice
      *         with that lot-id.
      */
-    public GCshID getLotID() {
+    public GCshLotID getLotID() {
 	if (getJwsdpPeer().getSplitLot() == null) {
 	    return null;
 	}
 
-	return new GCshID( getJwsdpPeer().getSplitLot().getValue() );
+	return new GCshLotID( getJwsdpPeer().getSplitLot().getValue() );
 
     }
 

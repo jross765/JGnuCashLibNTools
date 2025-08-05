@@ -19,6 +19,7 @@ import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.junit.Before;
@@ -30,7 +31,7 @@ import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshWritableAccountLotImpl {
 	public  static final GCshAcctID ACCT_8_ID = TestGCshAccountLotImpl.ACCT_8_ID;
-	public  static final GCshID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
+	public  static final GCshLotID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
 
 	// -----------------------------------------------------------------
 

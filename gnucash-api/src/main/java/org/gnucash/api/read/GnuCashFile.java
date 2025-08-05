@@ -24,6 +24,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
@@ -257,10 +258,11 @@ public interface GnuCashFile extends GnuCashObject,
     Collection<GnuCashTransactionSplit> getTransactionSplits();
 
     /**
+     * @param acctLotID 
      * @return list of all transaction splits (ro-objects)
      *   referencing the given account lot ID (not account ID!).
      */
-    List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(GCshID acctLotID);
+    List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(GCshLotID acctLotID);
 
     /**
      * @param cmdtyCurrID 

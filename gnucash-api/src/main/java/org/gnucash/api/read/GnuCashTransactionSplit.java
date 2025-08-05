@@ -6,6 +6,7 @@ import java.util.Locale;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
@@ -266,7 +267,7 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
      */
     String getDescription();
 
-    public GCshID getLotID();
+    public GCshLotID getLotID();
 
     /**
      * Get the type of association this split has with

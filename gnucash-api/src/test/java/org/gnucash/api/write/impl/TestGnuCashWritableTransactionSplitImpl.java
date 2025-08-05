@@ -16,7 +16,7 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 	public static final GCshSpltID TRXSPLT_1_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_1_ID;
 	public static final GCshSpltID TRXSPLT_2_ID = TestGnuCashTransactionSplitImpl.TRXSPLT_2_ID;
 
-	public static final GCshID ACCTLOT_1_ID = TestGnuCashTransactionSplitImpl.ACCTLOT_1_ID;
+	public static final GCshLotID ACCTLOT_1_ID = TestGnuCashTransactionSplitImpl.ACCTLOT_1_ID;
 
 	// -----------------------------------------------------------------
 
@@ -48,7 +48,7 @@ public class TestGnuCashWritableTransactionSplitImpl {
 	private GCshFileStats gcshInFileStats = null;
 	private GCshFileStats gcshOutFileStats = null;
 
-	private GCshID newTrxID = null;
+	private GCshTrxID newTrxID = null;
 
 	// https://stackoverflow.com/questions/11884141/deleting-file-and-directory-in-junit
 	@SuppressWarnings("exports")

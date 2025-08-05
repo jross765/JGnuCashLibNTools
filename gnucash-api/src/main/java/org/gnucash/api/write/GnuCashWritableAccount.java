@@ -9,6 +9,7 @@ import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 
@@ -124,10 +125,10 @@ public interface GnuCashWritableAccount extends GnuCashAccount,
      * @param lotID 
      * @return 
      * 
-     * @see #getLotByID(GCshID)
-     * @see GnuCashAccount#getLotByID(GCshID)
+     * @see #getLotByID(GCshLotID)
+     * @see GnuCashAccount#getLotByID(GCshLotID)
      */
-    GCshWritableAccountLot getWritableLotByID(GCshID lotID);
+    GCshWritableAccountLot getWritableLotByID(GCshLotID lotID);
 
     /**
      *  

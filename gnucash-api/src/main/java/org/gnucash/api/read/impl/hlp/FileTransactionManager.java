@@ -18,6 +18,7 @@ import org.gnucash.api.read.impl.GnuCashTransactionImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
@@ -152,7 +153,7 @@ public class FileTransactionManager {
 		return retval;
 	}
 
-	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
+	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshLotID acctLotID) {
 		if ( acctLotID == null ) {
 			throw new IllegalArgumentException("argument <acctLotID> is null");
 		}

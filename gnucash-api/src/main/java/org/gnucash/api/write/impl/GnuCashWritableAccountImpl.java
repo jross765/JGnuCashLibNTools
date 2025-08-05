@@ -36,6 +36,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.slf4j.Logger;
@@ -284,7 +285,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
     /**
      * @see {@link #getSplitByID(GCshSpltID)}
      */
-    public GCshWritableAccountLot getWritableLotByID(final GCshID lotID) {
+    public GCshWritableAccountLot getWritableLotByID(final GCshLotID lotID) {
 	return (GCshWritableAccountLot) super.getLotByID(lotID);
     }
 

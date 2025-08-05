@@ -11,7 +11,7 @@ import org.gnucash.api.read.hlp.HasTransactions;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -188,7 +188,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @param acctLotID the lot-id to look for
      * @return the identified lot or null
      */
-    GCshAccountLot getLotByID(final GCshID acctLotID);
+    GCshAccountLot getLotByID(final GCshLotID acctLotID);
 
     // -----------------------------------------------------------------
 

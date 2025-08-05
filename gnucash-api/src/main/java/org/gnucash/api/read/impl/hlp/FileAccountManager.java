@@ -19,6 +19,7 @@ import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,8 @@ public class FileAccountManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshAcctID, GnuCashAccount> acctMap;
-	protected Map<GCshID, GCshAccountLot> acctLotMap;
+	protected Map<GCshAcctID, GnuCashAccount>    acctMap;
+	protected Map<GCshLotID, GCshAccountLot> acctLotMap;
 
 	// ---------------------------------------------------------------
 
@@ -62,7 +63,7 @@ public class FileAccountManager {
 	}
 
 	private void init2(final GncV2 pRootElement) {
-		acctLotMap = new HashMap<GCshID, GCshAccountLot>();
+		acctLotMap = new HashMap<GCshLotID, GCshAccountLot>();
 
 		for ( GnuCashAccount acct : acctMap.values() ) {
 			try {
@@ -469,7 +470,7 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public List<GCshAccountLotImpl> getAccountLots_readAfresh(final GCshID acctID) {
+	public List<GCshAccountLotImpl> getAccountLots_readAfresh(final GCshAcctID acctID) {
 		List<GCshAccountLotImpl> result = new ArrayList<GCshAccountLotImpl>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
@@ -503,7 +504,7 @@ public class FileAccountManager {
 		return result;
 	}
 
-	private List<GncAccount.ActLots.GncLot> getAccountLots_raw(final GCshID acctID) {
+	private List<GncAccount.ActLots.GncLot> getAccountLots_raw(final GCshAcctID acctID) {
 		List<GncAccount.ActLots.GncLot> result = new ArrayList<GncAccount.ActLots.GncLot>();
 
 		for ( GncAccount jwsdpAcct : getAccounts_raw() ) {

@@ -30,6 +30,7 @@ import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1125,12 +1126,12 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	/**
 	 * {@inheritDoc}
 	 */
-	public GCshID getLotID() {
+	public GCshLotID getLotID() {
 		if ( getJwsdpPeer().getInvoicePostlot() == null ) {
 			return null; // unposted invoices have no postlot
 		}
 
-		return new GCshID(getJwsdpPeer().getInvoicePostlot().getValue());
+		return new GCshLotID(getJwsdpPeer().getInvoicePostlot().getValue());
 	}
 
 	/**

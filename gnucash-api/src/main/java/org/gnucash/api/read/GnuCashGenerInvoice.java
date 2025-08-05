@@ -21,6 +21,7 @@ import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 /**
@@ -141,7 +142,7 @@ public interface GnuCashGenerInvoice extends Comparable<GnuCashGenerInvoice>,
      * @return the lot-id that identifies transactions to belong to an invoice with
      *         that lot-id.
      */
-    GCshID getLotID();
+    GCshLotID getLotID();
 
     /**
      *

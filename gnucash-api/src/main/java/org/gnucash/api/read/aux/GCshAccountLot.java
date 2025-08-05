@@ -9,7 +9,8 @@ import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 
 /**
@@ -32,7 +33,7 @@ public interface GCshAccountLot extends GnuCashObject,
     /**
      * @return the unique id for that account (not meaningfull to human users)
      */
-    GCshID getID();
+    GCshLotID getID();
 
     /**
      * @return user-readable title of this account lot 
@@ -50,7 +51,7 @@ public interface GCshAccountLot extends GnuCashObject,
     /**
      * @return null if the account is below the root
      */
-    GCshID getAccountID();
+    GCshAcctID getAccountID();
     
     /**
      * @return the account this lot belongs to.

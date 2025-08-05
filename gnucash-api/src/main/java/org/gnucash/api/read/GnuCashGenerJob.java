@@ -135,6 +135,7 @@ public interface GnuCashGenerJob extends GnuCashObject {
 
     /**
      *
+     * @param lcl 
      * @return 
      *  
      * @see #getOutstandingValue() Formatted according to the given locale's

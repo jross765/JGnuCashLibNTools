@@ -130,7 +130,7 @@ public class TestGnuCashWritableVendorImpl {
 	}
 
 	@Test
-	public void test01_2_1() throws Exception {
+	public void test01_1_2() throws Exception {
 		GnuCashWritableVendor vend = gcshInFile.getWritableVendorByID(VEND_1_ID);
 		assertNotEquals(null, vend);
 

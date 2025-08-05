@@ -14,6 +14,7 @@ import org.gnucash.api.write.impl.GnuCashWritableAccountImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +53,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
      */
     public GCshWritableAccountLotImpl(
     		final GnuCashWritableAccountImpl acct) {
-	super(createAccountLot_int(acct, GCshID.getNew()), 
+	super(createAccountLot_int(acct, new GCshLotID( GCshID.getNew()) ), 
 		  acct);
 
 	acct.addLot(this);
@@ -70,7 +71,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	 */
 	protected static GncAccount.ActLots.GncLot createAccountLot_int(
 	    final GnuCashWritableAccountImpl acct, 
-	    final GCshID newID) {
+	    final GCshLotID newID) {
 	if ( acct == null ) {
 	    throw new IllegalArgumentException("argument <acct> is null");
 	}

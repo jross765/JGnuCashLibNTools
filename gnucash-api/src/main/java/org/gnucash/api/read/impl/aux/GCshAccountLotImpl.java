@@ -12,7 +12,8 @@ import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,8 +64,8 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
     // ---------------------------------------------------------------
 
     @Override
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getLotId().getValue() );
+    public GCshLotID getID() {
+	return new GCshLotID( jwsdpPeer.getLotId().getValue() );
     }
 
     @Override
@@ -88,7 +89,7 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
 	// ----------------------------
 
 	@Override
-	public GCshID getAccountID() {
+	public GCshAcctID getAccountID() {
     	return myAccount.getID();
 	}
 

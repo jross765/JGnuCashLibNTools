@@ -83,6 +83,7 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
@@ -560,7 +561,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 	// ----------------------------
 
-	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshID acctLotID) {
+	public List<GnuCashTransactionSplit> getTransactionSplitsByAccountLotID(final GCshLotID acctLotID) {
 		return trxMgr.getTransactionSplitsByAccountLotID(acctLotID);
 	}
 

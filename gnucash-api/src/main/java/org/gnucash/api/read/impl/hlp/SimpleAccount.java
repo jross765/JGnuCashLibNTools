@@ -21,7 +21,9 @@ import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -459,7 +461,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshSpltID spltID) {
 		if ( spltID == null ) {
 			throw new IllegalArgumentException("argument <spltID> is null");
 		}
@@ -479,17 +481,17 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshAccountLot getLotByID(final GCshID spltID) {
-		if ( spltID == null ) {
-			throw new IllegalArgumentException("argument <spltID> is null");
+	public GCshAccountLot getLotByID(final GCshLotID acctLotID) {
+		if ( acctLotID == null ) {
+			throw new IllegalArgumentException("argument <acctLotID> is null");
 		}
 
-		if ( ! spltID.isSet() ) {
-			throw new IllegalArgumentException("argument <spltID> is not set");
+		if ( ! acctLotID.isSet() ) {
+			throw new IllegalArgumentException("argument <acctLotID> is not set");
 		}
 
 		for ( GCshAccountLot lot : getLots() ) {
-			if ( spltID.equals(lot.getID()) ) {
+			if ( acctLotID.equals(lot.getID()) ) {
 				return lot;
 			}
 

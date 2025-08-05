@@ -10,7 +10,7 @@ import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.aux.TestGCshAccountLotImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class TestGnuCashTransactionSplitImpl {
 	public static final GCshSpltID TRXSPLT_1_ID = new GCshSpltID("b6a88c1d918e465892488c561e02831a");
 	public static final GCshSpltID TRXSPLT_2_ID = new GCshSpltID("c3ae14400ec843f9bf63f5ef69a31528");
 
-	public static final GCshID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
+	public static final GCshLotID ACCTLOT_1_ID = TestGCshAccountLotImpl.ACCTLOT_1_ID;
 
 	// -----------------------------------------------------------------
 
