@@ -12,7 +12,6 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +67,7 @@ public class FileVendorManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashVendor getVendorByID(GCshID vendID) {
+	public GnuCashVendor getVendorByID(GCshVendID vendID) {
 		if ( vendID == null ) {
 			throw new IllegalArgumentException("argument <vendID> is null");
 		}

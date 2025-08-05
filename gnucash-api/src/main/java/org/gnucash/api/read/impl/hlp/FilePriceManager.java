@@ -92,7 +92,7 @@ public class FilePriceManager {
 		return priceDB;
 	}
 
-	public GnuCashPrice getPriceByID(GCshID prcID) {
+	public GnuCashPrice getPriceByID(GCshPrcID prcID) {
 		if ( prcID == null ) {
 			throw new IllegalArgumentException("argument <prcID> is null");
 		}

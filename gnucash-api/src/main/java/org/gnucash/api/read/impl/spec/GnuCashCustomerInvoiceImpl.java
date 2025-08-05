@@ -18,7 +18,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,10 +60,10 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
 
 		for ( GnuCashTransaction trx : invc.getPayingTransactions() ) {
 			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-				GCshID lot = splt.getLotID();
+				GCshLotID lot = splt.getLotID();
 				if ( lot != null ) {
 					for ( GnuCashGenerInvoice invc1 : splt.getTransaction().getGnuCashFile().getGenerInvoices() ) {
-						GCshID lotID = invc1.getLotID();
+						GCshLotID lotID = invc1.getLotID();
 						if ( lotID != null && lotID.equals(lot) ) {
 							// Check if it's a payment transaction.
 							// If so, add it to the invoice's list of payment transactions.

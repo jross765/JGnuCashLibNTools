@@ -155,7 +155,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 	 */
 	protected static GncGncJob createVendorJob_int(
 			final GnuCashWritableFileImpl file, 
-			final GCshID jobID,
+			final GCshGenerJobID jobID,
 			final GnuCashVendor vend, 
 			final String number, 
 			final String name) {

@@ -28,6 +28,7 @@ import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +73,10 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 
 		for ( GnuCashTransaction trx : invc.getPayingTransactions() ) {
 			for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
-				GCshID lot = splt.getLotID();
+				GCshLotID lot = splt.getLotID();
 				if ( lot != null ) {
 					for ( GnuCashGenerInvoice invc1 : splt.getTransaction().getGnuCashFile().getGenerInvoices() ) {
-						GCshID lotID = invc1.getLotID();
+						GCshLotID lotID = invc1.getLotID();
 						if ( lotID != null && lotID.equals(lot) ) {
 							// Check if it's a payment transaction.
 							// If so, add it to the invoice's list of payment transactions.
@@ -134,7 +135,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongInvoiceTypeException();
 
-		return (GCshCustID) getOwnerId_viaJob();
+		return new GCshCustID( getOwnerId_viaJob() );
 	}
 
 	/**
@@ -145,7 +146,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 		if ( getGenerJob().getOwnerType() != GnuCashGenerJob.TYPE_VENDOR )
 			throw new WrongInvoiceTypeException();
 
-		return (GCshVendID) getOwnerId_viaJob();
+		return new GCshVendID( getOwnerId_viaJob() );
 	}
 
 	// ----------------------------

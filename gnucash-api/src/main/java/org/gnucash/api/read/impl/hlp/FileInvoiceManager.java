@@ -22,7 +22,6 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucher;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,7 +73,7 @@ public class FileInvoiceManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashGenerInvoice getGenerInvoiceByID(final GCshID invcID) {
+	public GnuCashGenerInvoice getGenerInvoiceByID(final GCshGenerInvcID invcID) {
 		if ( invcID == null ) {
 			throw new IllegalArgumentException("argument <invcID> is null");
 		}

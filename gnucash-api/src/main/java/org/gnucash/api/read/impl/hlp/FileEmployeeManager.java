@@ -13,7 +13,6 @@ import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +67,7 @@ public class FileEmployeeManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashEmployee getEmployeeByID(final GCshID emplID) {
+	public GnuCashEmployee getEmployeeByID(final GCshEmplID emplID) {
 		if ( emplID == null ) {
 			throw new IllegalArgumentException("argument <emplID> is null");
 		}

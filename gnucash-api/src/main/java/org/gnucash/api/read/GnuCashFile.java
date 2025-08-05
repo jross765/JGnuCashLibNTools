@@ -143,7 +143,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @see #getAccountByID(GCshAcctID)
      * @see #getAccountsByName(String)
      */
-    GnuCashAccount getAccountByIDorName(GCshID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnuCashAccount getAccountByIDorName(GCshAcctID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * First try to fetch the account by id, then fall back to traversing all
@@ -158,7 +158,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @see #getAccountByID(GCshAcctID)
      * @see #getAccountsByName(String)
      */
-    GnuCashAccount getAccountByIDorNameEx(GCshID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
+    GnuCashAccount getAccountByIDorNameEx(GCshAcctID acctID, String name) throws NoEntryFoundException, TooManyEntriesFoundException;
 
     /**
      * @param type
@@ -189,7 +189,7 @@ public interface GnuCashFile extends GnuCashObject,
      * 
      * @see #getRootAccount()
      */
-    GCshID getRootAccountID();
+    GCshAcctID getRootAccountID();
 
     /**
      * @return
@@ -208,7 +208,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return collection of the IDs of all top-level accounts (i.e., 
      * one level under root) 
      */
-    Collection<GCshID> getTopAccountIDs();
+    Collection<GCshAcctID> getTopAccountIDs();
 
     /**
      * @return collection of all top-level accounts (ro-objects) (i.e., 

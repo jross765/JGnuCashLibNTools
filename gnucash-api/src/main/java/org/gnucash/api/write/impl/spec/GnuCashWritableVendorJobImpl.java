@@ -18,6 +18,7 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
+import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.slf4j.Logger;
@@ -58,7 +59,7 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 			final GnuCashVendor owner,
 			final String number, 
 			final String name) {
-		super(createVendorJob_int(file, GCshID.getNew(), owner, number, name), file);
+		super(createVendorJob_int(file, new GCshGenerJobID( GCshID.getNew() ), owner, number, name), file);
 	}
 
 	public GnuCashWritableVendorJobImpl(GnuCashWritableGenerJobImpl job) {

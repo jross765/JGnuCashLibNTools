@@ -1,9 +1,5 @@
 package org.gnucash.api.read.impl.spec;
 
-import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
-
 import javax.security.auth.login.AccountNotFoundException;
 
 import org.gnucash.api.generated.GncGncEntry;
@@ -18,6 +14,8 @@ import org.gnucash.api.read.impl.GnuCashGenerInvoiceEntryImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

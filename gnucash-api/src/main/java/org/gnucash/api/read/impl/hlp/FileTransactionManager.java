@@ -18,9 +18,8 @@ import org.gnucash.api.read.impl.GnuCashTransactionImpl;
 import org.gnucash.api.read.impl.GnuCashTransactionSplitImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
@@ -109,7 +108,7 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashTransaction getTransactionByID(final GCshID trxID) {
+	public GnuCashTransaction getTransactionByID(final GCshTrxID trxID) {
 		if ( trxID == null ) {
 			throw new IllegalArgumentException("argument <trxID> is null");
 		}
@@ -132,7 +131,7 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashTransactionSplit getTransactionSplitByID(final GCshID spltID) {
+	public GnuCashTransactionSplit getTransactionSplitByID(final GCshSpltID spltID) {
 		if ( spltID == null ) {
 			throw new IllegalArgumentException("argument <spltID> is null");
 		}
@@ -289,7 +288,7 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
+	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshTrxID trxID) {
 		List<GnuCashTransactionSplitImpl> result = new ArrayList<GnuCashTransactionSplitImpl>();
 
 		for ( GnuCashTransaction trx : getTransactions_readAfresh() ) {
@@ -324,7 +323,7 @@ public class FileTransactionManager {
 		return result;
 	}
 
-	private List<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GCshID trxID) {
+	private List<GncTransaction.TrnSplits.TrnSplit> getTransactionSplits_raw(final GCshTrxID trxID) {
 		List<GncTransaction.TrnSplits.TrnSplit> result = new ArrayList<GncTransaction.TrnSplits.TrnSplit>();
 
 		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
@@ -340,7 +339,7 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 	
-	protected GncTransaction getTransaction_raw(final GCshID trxID) {
+	protected GncTransaction getTransaction_raw(final GCshTrxID trxID) {
 		for ( GncTransaction jwsdpTrx : getTransactions_raw() ) {
 			if ( jwsdpTrx.getTrnId().getValue().equals(trxID.toString()) ) {
 				return jwsdpTrx;

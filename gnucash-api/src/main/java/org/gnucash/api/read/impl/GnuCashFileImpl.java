@@ -83,13 +83,13 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrIDException;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
@@ -412,11 +412,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @return null if not found
 	 * @throws TooManyEntriesFoundException
 	 * @throws NoEntryFoundException
-	 * @see #getAccountByID(GCshID)
+	 * @see #getAccountByID(GCshAcctID)
 	 * @see #getAccountsByName(String)
 	 */
 	@Override
-	public GnuCashAccount getAccountByIDorName(final GCshID acctID, final String name)
+	public GnuCashAccount getAccountByIDorName(final GCshAcctID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		return acctMgr.getAccountByIDorName(acctID, name);
 	}
@@ -431,11 +431,11 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @return null if not found
 	 * @throws TooManyEntriesFoundException
 	 * @throws NoEntryFoundException
-	 * @see #getAccountByID(GCshID)
+	 * @see #getAccountByID(GCshAcctID)
 	 * @see #getAccountsByName(String)
 	 */
 	@Override
-	public GnuCashAccount getAccountByIDorNameEx(final GCshID acctID, final String name)
+	public GnuCashAccount getAccountByIDorNameEx(final GCshAcctID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		return acctMgr.getAccountByIDorNameEx(acctID, name);
 	}
@@ -464,7 +464,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 *         result is sorted)
 	 */
 	@Override
-	public GCshID getRootAccountID() {
+	public GCshAcctID getRootAccountID() {
 		return acctMgr.getRootAccountID();
 	}
 
@@ -487,7 +487,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
-	public Collection<GCshID> getTopAccountIDs() {
+	public Collection<GCshAcctID> getTopAccountIDs() {
 		return acctMgr.getTopAccountIDs();
 	}
 
@@ -547,7 +547,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return trxMgr.getTransactionSplits_readAfresh();
 	}
 
-	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshID trxID) {
+	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshTrxID trxID) {
 		if ( trxID == null ) {
 			throw new IllegalArgumentException("argument <trxID> is null");
 		}

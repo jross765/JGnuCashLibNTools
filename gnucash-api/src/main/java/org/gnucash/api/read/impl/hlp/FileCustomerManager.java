@@ -13,7 +13,6 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +67,7 @@ public class FileCustomerManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashCustomer getCustomerByID(final GCshID custID) {
+	public GnuCashCustomer getCustomerByID(final GCshCustID custID) {
 		if ( custID == null ) {
 			throw new IllegalArgumentException("argument <custID> is null");
 		}

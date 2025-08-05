@@ -1,8 +1,5 @@
 package org.gnucash.api.write.impl.hlp;
 
-import java.util.List;
-
-import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.generated.Price;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashPriceImpl;

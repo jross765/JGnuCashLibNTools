@@ -10,7 +10,8 @@ import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableTransactionImpl;
 import org.gnucash.api.write.impl.GnuCashWritableTransactionSplitImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +101,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	// ----------------------------
 	
-	public void removeTransaction_raw(final GCshID trxID) {
+	public void removeTransaction_raw(final GCshTrxID trxID) {
 		GncV2 pRootElement = gcshFile.getRootElement();
 
 		for ( int i = 0; i < pRootElement.getGncBook().getBookElements().size(); i++ ) {
@@ -154,7 +155,7 @@ public class FileTransactionManager extends org.gnucash.api.read.impl.hlp.FileTr
 
 	// ----------------------------
 	
-	public void removeTransactionSplit_raw(final GCshID trxID, final GCshID spltID) {
+	public void removeTransactionSplit_raw(final GCshTrxID trxID, final GCshSpltID spltID) {
 		GncTransaction trxRaw = getTransaction_raw(trxID);
 		
 		for ( int i = 0; i < trxRaw.getTrnSplits().getTrnSplit().size(); i++ ) {

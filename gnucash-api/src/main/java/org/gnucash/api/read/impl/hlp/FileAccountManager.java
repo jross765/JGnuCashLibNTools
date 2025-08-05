@@ -19,8 +19,8 @@ import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +35,8 @@ public class FileAccountManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshAcctID, GnuCashAccount>    acctMap;
-	protected Map<GCshLotID, GCshAccountLot> acctLotMap;
+	protected Map<GCshAcctID, GnuCashAccount> acctMap;
+	protected Map<GCshLotID, GCshAccountLot>  acctLotMap;
 
 	// ---------------------------------------------------------------
 
@@ -103,7 +103,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashAccount getAccountByID(final GCshID acctID) {
+	public GnuCashAccount getAccountByID(final GCshAcctID acctID) {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
 		}
@@ -124,7 +124,7 @@ public class FileAccountManager {
 		return retval;
 	}
 
-	public List<GnuCashAccount> getAccountsByParentID(final GCshID acctID) {
+	public List<GnuCashAccount> getAccountsByParentID(final GCshAcctID acctID) {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
 		}
@@ -273,7 +273,7 @@ public class FileAccountManager {
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
-	public GnuCashAccount getAccountByIDorName(final GCshID acctID, final String name)
+	public GnuCashAccount getAccountByIDorName(final GCshAcctID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
@@ -303,7 +303,7 @@ public class FileAccountManager {
 	 * First try to fetch the account by id, then fall back to traversing all
 	 * accounts to get if by it's name.
 	 */
-	public GnuCashAccount getAccountByIDorNameEx(final GCshID acctID, final String name)
+	public GnuCashAccount getAccountByIDorNameEx(final GCshAcctID acctID, final String name)
 			throws NoEntryFoundException, TooManyEntriesFoundException {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
@@ -367,7 +367,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshAccountLot getAccountLotByID(final GCshID lotID) {
+	public GCshAccountLot getAccountLotByID(final GCshLotID lotID) {
 		if ( lotID == null ) {
 			throw new IllegalArgumentException("argument <lotID> is null");
 		}
@@ -520,7 +520,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshID getRootAccountID()  {
+	public GCshAcctID getRootAccountID()  {
 		if ( getRootAccount() == null )
 			return null;
 		
@@ -561,10 +561,10 @@ public class FileAccountManager {
 		}
 	}
 
-	public List<GCshID> getTopAccountIDs() {
-		List<GCshID> result = new ArrayList<GCshID>();
+	public List<GCshAcctID> getTopAccountIDs() {
+		List<GCshAcctID> result = new ArrayList<GCshAcctID>();
 
-		GCshID rootAcctID = getRootAccount().getID();
+		GCshAcctID rootAcctID = getRootAccount().getID();
 		for ( GnuCashAccount acct : getAccounts() ) {
 			if ( acct.getParentAccountID() != null ) {
 				if ( acct.getParentAccountID().equals(rootAcctID) &&
@@ -586,7 +586,7 @@ public class FileAccountManager {
 	public List<GnuCashAccount> getTopAccounts() {
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
-		for ( GCshID acctID : getTopAccountIDs() ) {
+		for ( GCshAcctID acctID : getTopAccountIDs() ) {
 			GnuCashAccount acct = getAccountByID(acctID);
 			result.add(acct);
 		}

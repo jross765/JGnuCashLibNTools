@@ -93,7 +93,7 @@ public class FileJobManager {
 
 	// ---------------------------------------------------------------
 
-	public GnuCashGenerJob getGenerJobByID(final GCshID jobID) {
+	public GnuCashGenerJob getGenerJobByID(final GCshGenerJobID jobID) {
 		if ( jobID == null ) {
 			throw new IllegalArgumentException("argument <jobID> is null");
 		}
@@ -204,7 +204,7 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashCustomerJob getCustomerJobByID(final GCshID jobID) {
+	public GnuCashCustomerJob getCustomerJobByID(final GCshGenerJobID jobID) {
 		if ( jobID == null ) {
 			throw new IllegalArgumentException("argument <jobID> is null");
 		}
@@ -306,7 +306,7 @@ public class FileJobManager {
 
 	// ----------------------------
 
-	public GnuCashVendorJob getVendorJobByID(final GCshID jobID) {
+	public GnuCashVendorJob getVendorJobByID(final GCshGenerJobID jobID) {
 		if ( jobID == null ) {
 			throw new IllegalArgumentException("argument <jobID> is null");
 		}
