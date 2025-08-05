@@ -23,7 +23,8 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GenCust extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GenCust.class);
+  @SuppressWarnings("unused")
+private static final Logger LOGGER = LoggerFactory.getLogger(GenCust.class);
   
   // -----------------------------------------------------------------
 

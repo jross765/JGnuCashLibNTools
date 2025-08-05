@@ -12,7 +12,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyID_Exchange;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_MIC;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID_SecIdType;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 
 import xyz.schnorxoborx.base.cmdlinetools.Helper;

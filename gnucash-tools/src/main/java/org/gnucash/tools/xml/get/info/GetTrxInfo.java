@@ -13,7 +13,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
@@ -25,6 +24,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetTrxInfo extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetTrxInfo.class);
   
   // -----------------------------------------------------------------

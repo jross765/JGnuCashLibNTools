@@ -28,7 +28,6 @@ import org.gnucash.api.read.spec.GnuCashJobInvoiceEntry;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +38,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetGenerInvcInfo extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerInvcInfo.class);
   
   // -----------------------------------------------------------------

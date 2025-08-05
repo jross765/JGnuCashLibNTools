@@ -24,6 +24,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetEmplList extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetEmplList.class);
   
   // -----------------------------------------------------------------
@@ -33,7 +34,8 @@ public class GetEmplList extends CommandLineTool
   
   private static String               gcshFileName = null;
   private static Helper.CustEmplVendListMode mode = null; 
-  private static String               isin         = null;
+  @SuppressWarnings("unused")
+private static String               isin         = null;
   private static String               name         = null;
   
   private static boolean scriptMode = false; // ::TODO

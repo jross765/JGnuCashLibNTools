@@ -13,7 +13,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.write.GnuCashWritablePrice;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;

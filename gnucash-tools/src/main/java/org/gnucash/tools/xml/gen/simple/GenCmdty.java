@@ -24,7 +24,8 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GenCmdty extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GenCmdty.class);
+  @SuppressWarnings("unused")
+private static final Logger LOGGER = LoggerFactory.getLogger(GenCmdty.class);
   
   // -----------------------------------------------------------------
 

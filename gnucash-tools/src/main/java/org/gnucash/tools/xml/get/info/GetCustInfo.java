@@ -34,6 +34,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetCustInfo extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetCustInfo.class);
   
   // -----------------------------------------------------------------

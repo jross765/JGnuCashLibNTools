@@ -37,7 +37,8 @@ public class GenJob extends CommandLineTool
   }
   
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GenJob.class);
+  @SuppressWarnings("unused")
+private static final Logger LOGGER = LoggerFactory.getLogger(GenJob.class);
   
   // -----------------------------------------------------------------
 

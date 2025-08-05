@@ -18,7 +18,6 @@ import org.gnucash.api.read.impl.spec.GnuCashEmployeeVoucherEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceEntryImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillEntryImpl;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +28,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetGenerInvcEntryInfo extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerInvcEntryInfo.class);
   
   // -----------------------------------------------------------------

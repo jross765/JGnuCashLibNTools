@@ -18,7 +18,6 @@ import org.gnucash.api.read.impl.spec.GnuCashCustomerJobImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,7 @@ import xyz.schnorxoborx.base.cmdlinetools.InvalidCommandLineArgsException;
 public class GetGenerJobInfo extends CommandLineTool
 {
   // Logger
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(GetGenerJobInfo.class);
   
   // -----------------------------------------------------------------

@@ -67,7 +67,8 @@ public class GenInvc extends CommandLineTool
   }
   
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GenInvc.class);
+  @SuppressWarnings("unused")
+private static final Logger LOGGER = LoggerFactory.getLogger(GenInvc.class);
   
   // -----------------------------------------------------------------
 

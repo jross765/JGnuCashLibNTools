@@ -31,7 +31,8 @@ import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 public class GenTrx extends CommandLineTool
 {
   // Logger
-  private static final Logger LOGGER = LoggerFactory.getLogger(GenTrx.class);
+  @SuppressWarnings("unused")
+private static final Logger LOGGER = LoggerFactory.getLogger(GenTrx.class);
   
   // -----------------------------------------------------------------
 

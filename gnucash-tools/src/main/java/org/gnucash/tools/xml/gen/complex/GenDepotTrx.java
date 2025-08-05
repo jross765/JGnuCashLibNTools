@@ -26,6 +26,7 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.apiext.secacct.SecuritiesAccountTransactionManager;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.tuples.AcctIDAmountPair;
 import org.gnucash.tools.CommandLineTool;
 import org.gnucash.tools.xml.helper.CmdLineHelper;
@@ -337,7 +338,7 @@ public class GenDepotTrx extends CommandLineTool
 	  // ---
 
 	  bookSingleTrxPrep();
-	  GCshID newID = bookSingleTrxCore(outFile);
+	  GCshTrxID newID = bookSingleTrxCore(outFile);
 	  
 	  // ---
 
@@ -465,7 +466,7 @@ public class GenDepotTrx extends CommandLineTool
 	}
   }
   
-  private GCshID bookSingleTrxCore(BufferedWriter outFile) throws IOException
+  private GCshTrxID bookSingleTrxCore(BufferedWriter outFile) throws IOException
   {
     GnuCashWritableTransaction trx = null;
 	if ( type == SecuritiesAccountTransactionManager.Type.BUY_STOCK ) 
@@ -506,7 +507,7 @@ public class GenDepotTrx extends CommandLineTool
     if ( ! silent )
     	System.out.println("Transaction to write: " + trx.toString());
 
-    GCshID newID = trx.getID();
+    GCshTrxID newID = trx.getID();
     LOGGER.info( "Generated new Transaction: " + newID);
 
     if ( batch )
