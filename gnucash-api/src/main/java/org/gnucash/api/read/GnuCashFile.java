@@ -979,5 +979,9 @@ public interface GnuCashFile extends GnuCashObject,
 
     @Deprecated
     FixedPointNumber getLatestPrice(final String pCmdtySpace, final String pCmdtyId);
+    
+    // ---------------------------------------------------------------
+    
+    void dump();
 
 }

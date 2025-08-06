@@ -1653,6 +1653,123 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return bllTrmMgr;
 	}
 
+    // ---------------------------------------------------------------
+    
+    public void dump() {
+    	System.out.println("GNUCASH FILE");
+    	
+    	// ------------------------
+
+    	System.out.println("");
+    	System.out.println("META INFO:"); 
+    	GCshFileMetaInfo metaInfo;
+    	try {
+    		metaInfo = new GCshFileMetaInfo(this);
+
+    		System.out.println("  Schema version: " + metaInfo.getSchemaVersion()); 
+    		System.out.println("  Book version:   " + metaInfo.getBookVersion()); 
+    		System.out.println("  Book ID:        " + metaInfo.getBookID()); 
+    	} catch (Exception e) {
+    		System.out.println("ERROR"); 
+    	}
+
+    	System.out.println("");
+    	System.out.println("Stats (raw):"); 
+		GCshFileStats stats;
+    	try {
+			stats = new GCshFileStats(this);
+
+    		System.out.println("  No. of accounts:                  " + stats.getNofEntriesAccounts(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of account lots:              " + stats.getNofEntriesAccountLots(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of transactions:              " + stats.getNofEntriesTransactions(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of transaction splits:        " + stats.getNofEntriesTransactionSplits(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of (generic) invoices:        " + stats.getNofEntriesGenerInvoices(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of (generic) invoice entries: " + stats.getNofEntriesGenerInvoiceEntries(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of customers:                 " + stats.getNofEntriesCustomers(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of vendors:                   " + stats.getNofEntriesVendors(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of employees:                 " + stats.getNofEntriesEmployees(GCshFileStats.Type.RAW));
+    		System.out.println("  No. of (generic) jobs:            " + stats.getNofEntriesGenerJobs(GCshFileStats.Type.RAW));
+			System.out.println("  No. of commodities:               " + stats.getNofEntriesCommodities(GCshFileStats.Type.RAW));
+			System.out.println("  No. of tax tables:                " + stats.getNofEntriesTaxTables(GCshFileStats.Type.RAW));
+			System.out.println("  No. of bill terms:                " + stats.getNofEntriesBillTerms(GCshFileStats.Type.RAW));
+			System.out.println("  No. of prices:                    " + stats.getNofEntriesPrices(GCshFileStats.Type.RAW));
+    	} catch (Exception e) {
+    		System.out.println("ERROR"); 
+    	}
+    	
+    	// ------------------------
+
+    	System.out.println("");
+    	System.out.println("CONTENTS:"); 
+
+    	System.out.println("");
+    	System.out.println("Accounts:");
+    	for ( GnuCashAccount acct : getAccounts() ) {
+    		System.out.println(" - " + acct.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Transactions:");
+    	for ( GnuCashTransaction trx : getTransactions() ) {
+    		System.out.println(" - " + trx.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("(Generic) Invoices:");
+    	for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
+    		System.out.println(" - " + invc.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Customers:");
+    	for ( GnuCashCustomer cust : getCustomers() ) {
+    		System.out.println(" - " + cust.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Vendors:");
+    	for ( GnuCashVendor vend : getVendors() ) {
+    		System.out.println(" - " + vend.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Employees:");
+    	for ( GnuCashEmployee empl : getEmployees() ) {
+    		System.out.println(" - " + empl.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("(Generic) Jobs:");
+    	for ( GnuCashGenerJob job : getGenerJobs() ) {
+    		System.out.println(" - " + job.toString());
+    	}
+
+
+    	System.out.println("");
+    	System.out.println("Commodities:");
+    	for ( GnuCashCommodity cmdty : getCommodities() ) {
+    		System.out.println(" - " + cmdty.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Tax Tables:");
+    	for ( GCshTaxTable taxTab : getTaxTables() ) {
+    		System.out.println(" - " + taxTab.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Bill Terms:");
+    	for ( GCshBillTerms bllTrm : getBillTerms() ) {
+    		System.out.println(" - " + bllTrm.toString());
+    	}
+
+    	System.out.println("");
+    	System.out.println("Prices:");
+    	for ( GnuCashPrice prc : getPrices() ) {
+    		System.out.println(" - " + prc.toString());
+    	}
+    }
+
 	// ---------------------------------------------------------------
 
 	public String toString() {
