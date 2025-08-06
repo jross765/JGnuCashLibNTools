@@ -61,12 +61,24 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
     }
 
     public void setConversionFactor(final GCshCmdtyID cmdtyID, final FixedPointNumber factor) {
-	mCmdtyID2Factor.put(cmdtyID.toString(), factor);
+		if ( cmdtyID == null ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is null");
+		}
+
+		if ( ! cmdtyID.isSet() ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is not set");
+		}
+
+		if ( factor == null ) {
+			throw new IllegalArgumentException("argument <factor> is null");
+		}
+
+		mCmdtyID2Factor.put(cmdtyID.toString(), factor);
     }
 
     public void setConversionFactor(final String nameSpace, final String code, 
 	                            final FixedPointNumber factor) {
-	mCmdtyID2Factor.put(new GCshCmdtyID(nameSpace, code).toString(), factor);
+		mCmdtyID2Factor.put(new GCshCmdtyID(nameSpace, code).toString(), factor);
     }
 
     // ---------------------------------------------------------------
@@ -78,10 +90,23 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
      */
     @Override
     public boolean convertFromBaseCurrency(FixedPointNumber value, final String cmdtyID) {
+		if ( value == null ) {
+			throw new IllegalArgumentException("argument <value> is null");
+		}
+
+		if ( cmdtyID == null ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is null");
+		}
+
+		if ( cmdtyID.trim().equals("") ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is empty");
+		}
+
         FixedPointNumber factor = getConversionFactor(cmdtyID);
         if (factor == null) {
             return false;
         }
+        
         value.divide(factor);
         return true;
     }
@@ -93,12 +118,25 @@ public class SimpleCommodityQuoteTable implements SimplePriceTable,
      */
     @Override
     public boolean convertToBaseCurrency(FixedPointNumber value, final String cmdtyID) {
-	FixedPointNumber factor = getConversionFactor(cmdtyID);
-	if (factor == null) {
-	    return false;
-	}
-	value.multiply(factor);
-	return true;
+		if ( value == null ) {
+			throw new IllegalArgumentException("argument <value> is null");
+		}
+
+		if ( cmdtyID == null ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is null");
+		}
+
+		if ( cmdtyID.trim().equals("") ) {
+			throw new IllegalArgumentException("argument <cmdtyID> is empty");
+		}
+
+		FixedPointNumber factor = getConversionFactor(cmdtyID);
+		if (factor == null) {
+			return false;
+		}
+		
+		value.multiply(factor);
+		return true;
     }
 
     // ---------------------------------------------------------------
