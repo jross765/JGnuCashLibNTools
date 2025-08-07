@@ -20,7 +20,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -235,7 +236,7 @@ public class GetCustInfo extends CommandLineTool
     System.out.println("");
     try
     {
-      GCshID taxTabID = cust.getTaxTableID();
+      GCshTaxTabID taxTabID = cust.getTaxTableID();
       System.out.println("Tax table ID:      " + taxTabID);
       
       if ( cust.getTaxTableID() != null )
@@ -259,7 +260,7 @@ public class GetCustInfo extends CommandLineTool
     System.out.println("");
     try
     {
-      GCshID bllTrmID = cust.getTermsID();
+      GCshBllTrmID bllTrmID = cust.getTermsID();
       System.out.println("Bill terms ID:     " + bllTrmID);
       
       if ( cust.getTermsID() != null )

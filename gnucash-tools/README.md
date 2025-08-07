@@ -5,6 +5,11 @@ This module is a collection of various ready-to-use tools reading and manipulati
 You will notice that the tools partially pull on the examples in the "Examples" module, and thus we have a *logical* dependency here. Currently, there are many similarties between the two modules, but expect those two modules to deviate from one another in the course of the future releases to come.
 
 ## Major Changes 
+### V. 1.6 &rarr; 1.7
+* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+* New tools: 
+  * Dump
+
 ### V. 1.5 &rarr; 1.6
 * New tools: 
   * UpdCmdty, GenAcct (finally!), GetPrcList

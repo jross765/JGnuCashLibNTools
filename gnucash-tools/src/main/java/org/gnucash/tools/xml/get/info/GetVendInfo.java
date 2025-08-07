@@ -21,6 +21,8 @@ import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.gnucash.tools.CommandLineTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,7 +209,7 @@ public class GetVendInfo extends CommandLineTool
     System.out.println("");
     try
     {
-      GCshID taxTabID = vend.getTaxTableID();
+      GCshTaxTabID taxTabID = vend.getTaxTableID();
       System.out.println("Tax table ID:      " + taxTabID);
       
       if ( vend.getTaxTableID() != null )
@@ -231,7 +233,7 @@ public class GetVendInfo extends CommandLineTool
     System.out.println("");
     try
     {
-      GCshID bllTrmID = vend.getTermsID();
+      GCshBllTrmID bllTrmID = vend.getTermsID();
       System.out.println("Bill terms ID:     " + bllTrmID);
       
       if ( vend.getTermsID() != null )
