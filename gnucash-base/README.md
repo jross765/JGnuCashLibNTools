@@ -5,6 +5,9 @@ This module is a small helper library that has been spun off from the API module
 This might seem overly complicated, but in fact, it was necessary, because the author uses it in another, external project as well, without using the API there.
 
 ## Major Changes 
+### V. 1.6 &rarr; 1.7
+* Introduced new (dummy) ID types for type safety and better symmetry with sister project: `GCshAcctID`, `GCshTrxID`, etc.
+
 ### V. 1.5 &rarr; 1.6
 * `GCshID`: Added constructor with UUID (this comes naturally).
 

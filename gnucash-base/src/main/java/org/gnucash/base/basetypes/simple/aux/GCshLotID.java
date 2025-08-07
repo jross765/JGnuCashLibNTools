@@ -1,6 +1,9 @@
-package org.gnucash.base.basetypes.simple;
+package org.gnucash.base.basetypes.simple.aux;
 
 import java.util.UUID;
+
+import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.InvalidGCshIDException;
 
 public class GCshLotID extends GCshID {
 
@@ -24,7 +27,7 @@ public class GCshLotID extends GCshID {
     		// We do not want to throw an exception here, 
     		// and it is unnecessary anyway.
     		// This branch can only be reached theoretically.
-    		System.err.println("GCshAcctLotID: Severe error: Copy constructor");
+    		System.err.println("GCshLotID: Severe error: Copy constructor");
     	}
     }
 
