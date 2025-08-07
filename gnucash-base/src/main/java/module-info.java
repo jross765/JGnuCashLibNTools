@@ -5,6 +5,7 @@ module gnucash.base {
 	requires transitive schnorxoborx.schnorxolib;
 
 	exports org.gnucash.base.basetypes.simple;
+	exports org.gnucash.base.basetypes.simple.aux;
 	exports org.gnucash.base.basetypes.complex;
 	exports org.gnucash.base.tuples;
 }
