@@ -25,6 +25,9 @@ This sub-module contains classes that help to...
 * ...generally manipulate transactions in a more convenient way than by using the pure API.
 
 ## Major Changes
+### V. 1.6 &rarr; 1.7
+* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+
 ### V. 1.5 &rarr; 1.6
 * Added sub-module TrxMgr.
   * New: `Transaction(Split)Filter`

@@ -5,7 +5,6 @@ import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
@@ -61,7 +60,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
     
     // ---------------------------------------------------------------
 	
-	public GCshID getZDierTrxBankSpltID() {
+	public GCshSpltID getZDierTrxBankSpltID() {
 		return zDierTrxBankSpltID;
 	}
     
@@ -73,7 +72,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 	
 	// ---
     
-	public GCshID getZSurvTrxBankSpltBeforeID() {
+	public GCshSpltID getZSurvTrxBankSpltBeforeID() {
 		return zSurvTrxBankSpltBeforeID;
 	}
     
@@ -145,7 +144,7 @@ public class TransactionMergerVar2 extends TransactionMergerBase
 		survTrx.remove(zSurvBankTrxSpltBefore);
 		LOGGER.info("merge: Removed Transaction Split " + zSurvTrxBankSpltBeforeID);
 
-		GCshID dierID = dier.getID();
+		GCshTrxID dierID = dier.getID();
 		gcshFile.removeTransaction(dier);
 		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
 	}

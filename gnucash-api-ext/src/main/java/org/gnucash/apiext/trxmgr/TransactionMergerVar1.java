@@ -3,7 +3,6 @@ package org.gnucash.apiext.trxmgr;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableTransaction;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +36,7 @@ public class TransactionMergerVar1 extends TransactionMergerBase
 		}
 		
 		// 2) If OK, remove dier
-		GCshID dierID = dier.getID();
+		GCshTrxID dierID = dier.getID();
 		gcshFile.removeTransaction(dier);
 		LOGGER.info("merge: Transaction " + dierID + " (dier) removed");
 	}

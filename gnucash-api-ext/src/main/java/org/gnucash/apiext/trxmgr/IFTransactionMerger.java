@@ -2,7 +2,6 @@ package org.gnucash.apiext.trxmgr;
 
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.write.GnuCashWritableTransaction;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 interface IFTransactionMerger {
