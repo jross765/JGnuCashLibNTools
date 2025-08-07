@@ -9,7 +9,7 @@ import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.api.read.hlp.HasAttachment;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 
 import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
@@ -112,7 +112,7 @@ public interface GnuCashTransaction extends Comparable<GnuCashTransaction>,
      * @return null if not found
      *  
      */
-    GnuCashTransactionSplit getSplitByID(GCshID spltID);
+    GnuCashTransactionSplit getSplitByID(GCshSpltID spltID);
 
     /**
      *

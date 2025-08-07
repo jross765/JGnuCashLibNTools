@@ -74,6 +74,7 @@ import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1057,7 +1058,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	}
 	
 	// post lot
-	GCshID acctLotID = new GCshID();
+	GCshLotID acctLotID = new GCshLotID();
 	{
 	    GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
 	    postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1126,7 +1127,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	GCshID acctLotID = new GCshID();
+        GCshLotID acctLotID = new GCshLotID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1193,7 +1194,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	GCshID acctLotID = new GCshID();
+        GCshLotID acctLotID = new GCshLotID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1260,7 +1261,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
         }
         
         // post lot
-	GCshID acctLotID = new GCshID();
+        GCshLotID acctLotID = new GCshLotID();
         {
             GncGncInvoice.InvoicePostlot postLotRef = fact.createGncGncInvoiceInvoicePostlot();
             postLotRef.setType(Const.XML_DATA_TYPE_GUID);
@@ -1313,7 +1314,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	    final String descr,
 	    final GnuCashAccount fromAcct, // receivable/payable account
 	    final GnuCashAccount toAcct,   // income/expense account
-	    final GCshID acctLotID,
+	    final GCshLotID acctLotID,
 	    final FixedPointNumber amount,
 	    final FixedPointNumber quantity,
 	    final LocalDate postDate,

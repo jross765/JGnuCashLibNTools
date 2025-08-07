@@ -24,7 +24,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
@@ -35,6 +34,9 @@ import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
 import xyz.schnorxoborx.base.beanbase.TooManyEntriesFoundException;
@@ -902,7 +904,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param taxTabID id of a tax table
      * @return the identified tax table or null
      */
-    GCshTaxTable getTaxTableByID(GCshID taxTabID);
+    GCshTaxTable getTaxTableByID(GCshTaxTabID taxTabID);
 
     /**
      * @param name 
@@ -912,7 +914,7 @@ public interface GnuCashFile extends GnuCashObject,
     GCshTaxTable getTaxTableByName(String name);
 
     /**
-     * @return all TaxTables defined in the book
+     * @return all tax tables defined in the book
      * @link GnuCashTaxTable
      */
     Collection<GCshTaxTable> getTaxTables();
@@ -921,20 +923,20 @@ public interface GnuCashFile extends GnuCashObject,
 
     /**
      * @param bllTrmID id of a tax table
-     * @return the identified tax table or null
+     * @return the identified bill terms or null
      */
-    GCshBillTerms getBillTermsByID(GCshID bllTrmID);
+    GCshBillTerms getBillTermsByID(GCshBllTrmID bllTrmID);
 
     /**
      * @param name 
-     * @param id name of a tax table
-     * @return the identified tax table or null
+     * @param id name of a bill term
+     * @return the identified bill term or null
      */
     GCshBillTerms getBillTermsByName(String name);
 
     /**
-     * @return all TaxTables defined in the book
-     * @link GnuCashTaxTable
+     * @return all bill terms defined in the book
+     * @link GnuCashBillTerms
      */
     Collection<GCshBillTerms> getBillTerms();
 

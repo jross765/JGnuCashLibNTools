@@ -36,9 +36,9 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.InvalidCmdtyCurrTypeException;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,7 +91,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @see GnuCashAccountImpl#GnuCashAccountImpl(GncAccount, GnuCashFile) )
      */
     public GnuCashWritableAccountImpl(final GnuCashWritableFileImpl file) {
-	super(createAccount_int(file, GCshID.getNew()), file);
+	super(createAccount_int(file, new GCshAcctID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritableAccountImpl(
@@ -120,7 +120,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      */
     private static GncAccount createAccount_int(
     		final GnuCashWritableFileImpl file, 
-    		final GCshID newID) {
+    		final GCshAcctID newID) {
     	if ( newID == null ) {
 			throw new IllegalArgumentException("argument <mewID> is null");
 		}

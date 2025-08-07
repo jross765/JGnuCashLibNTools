@@ -33,7 +33,7 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -337,7 +337,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 			"' is i-taxable but has empty id for the i-taxtable");
 		return null;
 	    }
-	    GCshID taxTableId = new GCshID( taxTableIdStr );
+	    GCshTaxTabID taxTableId = new GCshTaxTabID( taxTableIdStr );
 	    myInvcTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
 	    if (myInvcTaxTable == null) {
@@ -377,7 +377,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
-	    GCshID taxTableId = new GCshID( taxTableIdStr );
+	    GCshTaxTabID taxTableId = new GCshTaxTabID( taxTableIdStr );
 	    myBillTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxTable == null) {
@@ -412,7 +412,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 			"' is b-taxable but has empty id for the b-taxtable");
 		return null;
 	    }
-	    GCshID taxTableId = new GCshID( taxTableIdStr );
+	    GCshTaxTabID taxTableId = new GCshTaxTabID( taxTableIdStr );
 	    myBillTaxTable = getGnuCashFile().getTaxTableByID(taxTableId);
 
 	    if (myBillTaxTable == null) {

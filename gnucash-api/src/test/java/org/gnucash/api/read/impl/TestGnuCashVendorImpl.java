@@ -15,8 +15,9 @@ import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,11 +28,11 @@ public class TestGnuCashVendorImpl {
 	public static final GCshVendID VEND_2_ID = new GCshVendID("4f16fd55c0d64ebe82ffac0bb25fe8f5");
 	public static final GCshVendID VEND_3_ID = new GCshVendID("bc1c7a6d0a6c4b4ea7dd9f8eb48f79f7");
 
-	private static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+	private static final GCshTaxTabID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
-	private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
-	private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+	private static final GCshBllTrmID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+	private static final GCshBllTrmID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+	private static final GCshBllTrmID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
 	private static final GCshGenerInvcID INVC_2_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_2_ID;
 	private static final GCshGenerInvcID INVC_4_ID = TestGnuCashGenerInvoiceImpl.GENER_INVC_4_ID;

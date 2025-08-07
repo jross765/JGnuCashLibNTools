@@ -2,9 +2,9 @@ package org.gnucash.api.read.aux;
 
 import java.util.List;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 
 /**
  * Billing Terms can be used to determine the payment due date and be a guide for determining discount for early 
@@ -19,15 +19,15 @@ import org.gnucash.api.read.spec.GnuCashVendorBill;
 public interface GCshBillTerms {
 
     public enum Type {
-	DAYS,
-	PROXIMO,
+    	DAYS,
+    	PROXIMO,
 	
-	UNSET
+    	UNSET
     }
 
     // -----------------------------------------------------------
 
-    GCshID getID();
+    GCshBllTrmID getID();
 
     int getRefcount();
 
@@ -47,7 +47,7 @@ public interface GCshBillTerms {
 
     // ----------------------------
 
-    GCshID getParentID();
+    GCshBllTrmID getParentID();
 
     List<String> getChildren();
 

@@ -1,6 +1,5 @@
 package org.gnucash.api.write.impl.aux;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
@@ -8,6 +7,7 @@ import org.gnucash.api.read.impl.aux.GCshTaxTableEntryImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -50,7 +50,7 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     }
 
     @Override
-    public void setParentID(final GCshID prntID) {
+    public void setParentID(final GCshTaxTabID prntID) {
 	if ( prntID == null ) {
 	    throw new IllegalArgumentException("argument <prntID> is null");
 	}

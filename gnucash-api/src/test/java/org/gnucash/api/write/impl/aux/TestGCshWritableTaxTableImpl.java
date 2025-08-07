@@ -17,6 +17,7 @@ import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,15 +26,15 @@ import org.junit.rules.TemporaryFolder;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshWritableTaxTableImpl {
-	private static final GCshID TAXTABLE_DE_1_1_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_1_ID;
-	private static final GCshID TAXTABLE_DE_1_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_2_ID;
-	private static final GCshID TAXTABLE_DE_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_2_ID;
+	private static final GCshTaxTabID TAXTABLE_DE_1_1_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_1_ID;
+	private static final GCshTaxTabID TAXTABLE_DE_1_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_1_2_ID;
+	private static final GCshTaxTabID TAXTABLE_DE_2_ID = TestGCshTaxTableImpl.TAXTABLE_DE_2_ID;
 
-	public static final GCshID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
-	private static final GCshID TAXTABLE_FR_2_ID = TestGCshTaxTableImpl.TAXTABLE_FR_2_ID;
+	public static final GCshTaxTabID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
+	private static final GCshTaxTabID TAXTABLE_FR_2_ID = TestGCshTaxTableImpl.TAXTABLE_FR_2_ID;
 
-	public static final GCshID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
-	private static final GCshID TAXTABLE_UK_2_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+	public static final GCshTaxTabID TAXTABLE_UK_1_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
+	private static final GCshTaxTabID TAXTABLE_UK_2_ID = TestGCshTaxTableImpl.TAXTABLE_UK_1_ID;
 
 	private static final GCshAcctID TAX_ACCT_ID = TestGCshTaxTableImpl.TAX_ACCT_ID;
 

@@ -5,6 +5,10 @@ GnuCash
 file.
 
 ## Major Changes 
+### V. 1.6 &rarr; 1.7
+* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+* `GnuCashFile(Impl)`: New method `dump()`.
+
 ### V. 1.5 &rarr; 1.6
 * Fixed a couple of bugs in write-branch of API (for various entities), esp. in object-deleting code.
 

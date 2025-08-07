@@ -51,6 +51,8 @@ import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.beanbase.NoEntryFoundException;
@@ -575,7 +577,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // -----------------------------------------------------------
 
-    GCshWritableTaxTable getWritableTaxTableByID(GCshID taxTabID);
+    GCshWritableTaxTable getWritableTaxTableByID(GCshTaxTabID taxTabID);
 
     GCshWritableTaxTable getWritableTaxTableByName(String name);
 
@@ -587,7 +589,7 @@ public interface GnuCashWritableFile extends GnuCashFile,
 
     // -----------------------------------------------------------
 
-    GCshWritableBillTerms getWritableBillTermsByID(GCshID bllTrmID);
+    GCshWritableBillTerms getWritableBillTermsByID(GCshBllTrmID bllTrmID);
 
     GCshWritableBillTerms getWritableBillTermsByName(String name);
 

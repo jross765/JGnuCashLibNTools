@@ -7,7 +7,6 @@ import org.gnucash.api.read.hlp.GnuCashObject;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;

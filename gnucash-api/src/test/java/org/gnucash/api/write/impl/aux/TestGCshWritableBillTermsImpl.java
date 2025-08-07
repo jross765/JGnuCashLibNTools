@@ -9,6 +9,7 @@ import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -27,9 +28,9 @@ import junit.framework.JUnit4TestAdapter;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public class TestGCshWritableBillTermsImpl {
-	public  static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-	public  static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
-	public  static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+	public  static final GCshBllTrmID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+	public  static final GCshBllTrmID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+	public  static final GCshBllTrmID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
 	// -----------------------------------------------------------------
 

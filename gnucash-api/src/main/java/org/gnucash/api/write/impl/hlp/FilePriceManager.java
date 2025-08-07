@@ -5,7 +5,7 @@ import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashPriceImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritablePriceImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +53,7 @@ public class FilePriceManager extends org.gnucash.api.read.impl.hlp.FilePriceMan
 
 	// ----------------------------
 	
-	public void removePrice_raw(final GCshID prcID) {
+	public void removePrice_raw(final GCshPrcID prcID) {
 		for ( int i = 0; i < priceDB.getPrice().size(); i++ ) {
 			Price jwsdpPrc = priceDB.getPrice().get(i); 
 			if ( jwsdpPrc.getPriceId().getValue().equals(prcID.toString()) ) {

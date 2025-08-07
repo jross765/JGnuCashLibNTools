@@ -1,7 +1,7 @@
 package org.gnucash.api.read.aux;
 
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -22,7 +22,7 @@ public interface GCshTaxTableEntry {
     /**
      * @return Returns the accountID.
      */
-    GCshID getAccountID();
+    GCshAcctID getAccountID();
 
     /**
      * @return Returns the account.

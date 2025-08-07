@@ -13,7 +13,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -84,7 +85,7 @@ public interface GnuCashCustomer extends GnuCashObject,
      * 
      * @see #getTaxTable()
      */
-    GCshID getTaxTableID();
+    GCshTaxTabID getTaxTableID();
 
     /**
      * @returns Returns The default tax table to use with this customer (may be null). 
@@ -101,7 +102,7 @@ public interface GnuCashCustomer extends GnuCashObject,
      * 
      * @see #getTaxTable()
      */
-    GCshID getTermsID();
+    GCshBllTrmID getTermsID();
 
     /**
      * @return Returns the default terms to use with this customer (may be null). 
@@ -169,7 +170,6 @@ public interface GnuCashCustomer extends GnuCashObject,
     /**
      * @param readVar 
      * @return the sum of left to pay Unpaid invoiced
-     *  
      */
     FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar);
 
@@ -181,7 +181,6 @@ public interface GnuCashCustomer extends GnuCashObject,
 
     /**
      * @return the sum of left to pay Unpaid invoiced
-     *  
      */
     FixedPointNumber getOutstandingValue_viaAllJobs();
 

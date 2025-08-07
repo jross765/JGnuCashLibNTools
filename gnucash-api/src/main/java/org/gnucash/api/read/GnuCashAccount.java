@@ -11,7 +11,7 @@ import org.gnucash.api.read.hlp.HasTransactions;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 

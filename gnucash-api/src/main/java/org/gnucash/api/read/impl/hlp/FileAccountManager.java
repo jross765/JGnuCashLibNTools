@@ -19,8 +19,7 @@ import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -140,7 +139,7 @@ public class FileAccountManager {
 		List<GnuCashAccount> retval = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : acctMap.values() ) {
-			GCshID prntID = acct.getParentAccountID();
+			GCshAcctID prntID = acct.getParentAccountID();
 			if ( prntID == null ) {
 				if ( acctID == null ) {
 					retval.add((GnuCashAccount) acct);

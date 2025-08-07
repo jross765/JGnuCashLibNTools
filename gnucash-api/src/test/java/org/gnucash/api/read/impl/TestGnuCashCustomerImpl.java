@@ -6,14 +6,15 @@ import static org.junit.Assert.assertNotEquals;
 import java.io.InputStream;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.base.basetypes.simple.GCshCustID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,11 +25,11 @@ public class TestGnuCashCustomerImpl {
 	public static final GCshCustID CUST_2_ID = new GCshCustID("f44645d2397946bcac90dff68cc03b76"); // Is That So Ltd.
 	public static final GCshCustID CUST_3_ID = new GCshCustID("1d2081e8a10e4d5e9312d9fff17d470d"); // N'importe Quoi S.A.
 
-	private static final GCshID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
+	private static final GCshTaxTabID TAXTABLE_FR_1_ID = TestGCshTaxTableImpl.TAXTABLE_FR_1_ID;
 
-	private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
-	private static final GCshID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
+	private static final GCshBllTrmID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
+	private static final GCshBllTrmID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+	private static final GCshBllTrmID BLLTRM_3_ID = TestGCshBillTermsImpl.BLLTRM_3_ID;
 
 	// -----------------------------------------------------------------
 

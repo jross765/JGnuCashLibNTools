@@ -19,6 +19,7 @@ import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -399,7 +400,7 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 	}
     }
 
-    public void setLotID(final GCshID lotID) {
+    public void setLotID(final GCshLotID lotID) {
 	if ( lotID == null ) {
 	    throw new IllegalArgumentException("argument <lotID> is null");
 	}

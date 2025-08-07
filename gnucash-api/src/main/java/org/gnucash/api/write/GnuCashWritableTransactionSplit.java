@@ -4,7 +4,7 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 
 import xyz.schnorxoborx.base.beanbase.IllegalTransactionSplitActionException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
@@ -74,10 +74,10 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
      * @see #getLotID()
      * @see #unsetLotID()
 	 */
-	void setLotID(GCshID lotID);
+	void setLotID(GCshLotID lotID);
 
 	/**
-	 * @see #setLotID(GCshID)
+	 * @see #setLotID(GCshLotID)
 	 */
 	void unsetLotID();
 

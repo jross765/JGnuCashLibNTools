@@ -1,7 +1,6 @@
 package org.gnucash.api.write.impl.aux;
 
 import org.gnucash.api.Const;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.generated.GncGncBillTerm;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -14,6 +13,7 @@ import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.aux.GCshWritableBillTermsDays;
 import org.gnucash.api.write.aux.GCshWritableBillTermsProximo;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -155,7 +155,7 @@ public class GCshWritableBillTermsImpl extends GCshBillTermsImpl
     // ---------------------------------------------------------------
 
     @Override
-    public void setParentID(final GCshID prntID) {
+    public void setParentID(final GCshBllTrmID prntID) {
 	if ( prntID == null ) {
 	    throw new IllegalArgumentException("argument <prntID> is null");
 	}

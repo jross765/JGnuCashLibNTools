@@ -130,6 +130,8 @@ import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1938,7 +1940,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshWritableTaxTable getWritableTaxTableByID(GCshID taxTabID) {
+	public GCshWritableTaxTable getWritableTaxTableByID(GCshTaxTabID taxTabID) {
 		if ( taxTabID == null ) {
 			throw new IllegalArgumentException("argument <taxTabID> is null");
 		}
@@ -1976,7 +1978,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshWritableBillTerms getWritableBillTermsByID(GCshID bllTrmID) {
+	public GCshWritableBillTerms getWritableBillTermsByID(GCshBllTrmID bllTrmID) {
 		if ( bllTrmID == null ) {
 			throw new IllegalArgumentException("argument <bllTrmID> is null");
 		}

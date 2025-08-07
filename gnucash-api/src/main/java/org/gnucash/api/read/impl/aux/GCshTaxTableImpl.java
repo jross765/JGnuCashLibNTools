@@ -8,7 +8,7 @@ import org.gnucash.api.generated.GncGncTaxTable;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,7 +79,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      *         hirarchy-changes
      */
     @Override
-    public GCshID getID() {
+    public GCshTaxTabID getID() {
 	assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
 	String guid = jwsdpPeer.getTaxtableGuid().getValue();
@@ -88,7 +88,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 		    "taxtable has a null guid-value! guid-type=" + jwsdpPeer.getTaxtableGuid().getType());
 	}
 
-	return new GCshID(guid);
+	return new GCshTaxTabID(guid);
     }
 
     /**
@@ -111,12 +111,12 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      * @see GCshTaxTable#getParentID()
      */
     @Override
-    public GCshID getParentID() {
+    public GCshTaxTabID getParentID() {
 	GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
 	if (parent == null) {
 	    return null;
 	}
-	return new GCshID( parent.getValue() );
+	return new GCshTaxTabID( parent.getValue() );
     }
 
     /**

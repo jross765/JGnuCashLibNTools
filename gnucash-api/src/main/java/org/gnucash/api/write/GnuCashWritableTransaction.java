@@ -10,7 +10,7 @@ import org.gnucash.api.write.hlp.GnuCashWritableObject;
 import org.gnucash.api.write.hlp.HasWritableAttachment;
 import org.gnucash.api.write.hlp.HasWritableUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 
 import xyz.schnorxoborx.base.beanbase.TransactionSplitNotFoundException;
 
@@ -98,9 +98,9 @@ public interface GnuCashWritableTransaction extends GnuCashTransaction,
      * @param spltID 
      * @return
      * 
-     * @see #getSplitByID(GCshID)
+     * @see #getSplitByID(GCshSpltID)
      */
-    GnuCashWritableTransactionSplit getWritableSplitByID(GCshID spltID);
+    GnuCashWritableTransactionSplit getWritableSplitByID(GCshSpltID spltID);
 
     /**
      *

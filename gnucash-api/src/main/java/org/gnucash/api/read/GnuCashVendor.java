@@ -11,8 +11,9 @@ import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -66,7 +67,7 @@ public interface GnuCashVendor extends GnuCashObject,
      * 
      * @see #getTaxTable()
      */
-    GCshID getTaxTableID();
+    GCshTaxTabID getTaxTableID();
 
     /**
      * @returns Returns The default tax table to use with this vendor (may be null). 
@@ -83,7 +84,7 @@ public interface GnuCashVendor extends GnuCashObject,
      * 
      * @see #getTaxTable()
      */
-    GCshID getTermsID();
+    GCshBllTrmID getTermsID();
 
     /**
      * @return Returns the default terms to use with this vendor (may be null). 
@@ -190,28 +191,49 @@ public interface GnuCashVendor extends GnuCashObject,
     /**
      * @return Returns all bills sent to this vendor, both with
      *         and without job, both paid and unpaid.
+     * 
+     * @see #getPaidBills_direct()
+     * @see #getPaidBills_viaAllJobs()
      */
     List<GnuCashGenerInvoice> getBills();
 
     /**
      * @return Returns all paid bills sent from this vendor (only those
      *         that were assigned to a job).
+     * 
+     * @see #getUnpaidBills_direct()
+     * @see #getPaidBills_viaAllJobs()
+     * @see #getBills()
      */
     List<GnuCashVendorBill>   getPaidBills_direct();
 
     /**
-     * @return Returns all paid bills sent from this vendor (only those
-     *         that were assigned directly to that vendor, not to a job).
+     * @return Returns all paid invoices sent to this customer (only those
+     *         that were assigned directly to that customer, not to a job).
+     * 
+     * @see #getUnpaidBills_viaAllJobs()
+     * @see #getPaidBills_direct()
+     * @see #getBills()
      */
     List<GnuCashJobInvoice>   getPaidBills_viaAllJobs();
 
     /**
-     * @return
+     * @return Returns all unpaid bills sent by this vendor (only those
+     *         that were assigned to a job).
+     * 
+     * @see #getPaidBills_direct()
+     * @see #getUnpaidBills_viaAllJobs()
+     * @see #getBills()
      */
     List<GnuCashVendorBill>   getUnpaidBills_direct();
 
     /**
-     * @return
+     * @return Returns all unpaid bills sent by this vendor (only those
+     *         that were assigned directly to that vendor, not to a job).
+     * 
+     * @see #getPaidBills_viaAllJobs()
+     * @see #getUnpaidBills_direct()
+     * @see #getBills()
      */
     List<GnuCashJobInvoice>   getUnpaidBills_viaAllJobs();
 

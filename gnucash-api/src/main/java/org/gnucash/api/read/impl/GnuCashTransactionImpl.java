@@ -24,7 +24,7 @@ import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -351,7 +351,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 	return getSplits().size();
     }
 
-    public GnuCashTransactionSplit getSplitByID(final GCshID spltID) {
+    public GnuCashTransactionSplit getSplitByID(final GCshSpltID spltID) {
 	for (GnuCashTransactionSplit split : getSplits()) {
 	    if (split.getID().equals(spltID)) {
 		return split;

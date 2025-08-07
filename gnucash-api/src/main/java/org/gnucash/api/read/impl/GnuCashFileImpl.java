@@ -89,11 +89,13 @@ import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -1030,7 +1032,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @return the identified tax table or null
 	 */
 	@Override
-	public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
+	public GCshTaxTable getTaxTableByID(final GCshTaxTabID taxTabID) {
 		return taxTabMgr.getTaxTableByID(taxTabID);
 	}
 
@@ -1058,7 +1060,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @return the identified bill terms item or null
 	 */
 	@Override
-	public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
+	public GCshBillTerms getBillTermsByID(final GCshBllTrmID bllTrmID) {
 		return bllTrmMgr.getBillTermsByID(bllTrmID);
 	}
 
@@ -1712,12 +1714,18 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
     	System.out.println("Transactions:");
     	for ( GnuCashTransaction trx : getTransactions() ) {
     		System.out.println(" - " + trx.toString());
+        	for ( GnuCashTransactionSplit splt : trx.getSplits() ) {
+        		System.out.println("   o " + splt.toString());
+        	}
     	}
 
     	System.out.println("");
     	System.out.println("(Generic) Invoices:");
     	for ( GnuCashGenerInvoice invc : getGenerInvoices() ) {
     		System.out.println(" - " + invc.toString());
+        	for ( GnuCashGenerInvoiceEntry entr : invc.getGenerEntries() ) {
+        		System.out.println("   o " + entr.toString());
+        	}
     	}
 
     	System.out.println("");

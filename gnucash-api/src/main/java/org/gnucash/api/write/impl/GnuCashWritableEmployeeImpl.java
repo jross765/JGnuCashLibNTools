@@ -68,7 +68,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableEmployeeImpl(final GnuCashWritableFileImpl file) {
-	super(createEmployee_int(file, new GCshEmplID( GCshID.getNew()) ), file);
+	super(createEmployee_int(file, new GCshEmplID( new GCshEmplID( GCshID.getNew()) )), file);
     }
 
     public GnuCashWritableEmployeeImpl(final GnuCashEmployeeImpl empl) {

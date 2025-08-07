@@ -83,7 +83,6 @@ public interface GnuCashGenerJob extends GnuCashObject {
     /**
      *
      * @return the id of the customer this job is from.
-     * @see #getCustomer()
      */
     GCshID getOwnerID();
     

@@ -21,7 +21,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashCustomerJob;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,20 +158,20 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getTaxTableID() {
+    public GCshTaxTabID getTaxTableID() {
 	GncGncCustomer.CustTaxtable custTaxtable = jwsdpPeer.getCustTaxtable();
 	if (custTaxtable == null) {
 	    return null;
 	}
 
-	return new GCshID( custTaxtable.getValue() );
+	return new GCshTaxTabID( custTaxtable.getValue() );
     }
 
     /**
      * {@inheritDoc}
      */
     public GCshTaxTable getTaxTable() {
-	GCshID taxTabID = getTaxTableID();
+    	GCshTaxTabID taxTabID = getTaxTableID();
 	if (taxTabID == null) {
 	    return null;
 	}
@@ -182,20 +183,20 @@ public class GnuCashCustomerImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshID getTermsID() {
+    public GCshBllTrmID getTermsID() {
 	GncGncCustomer.CustTerms custTerms = jwsdpPeer.getCustTerms();
 	if (custTerms == null) {
 	    return null;
 	}
 
-	return new GCshID( custTerms.getValue() );
+	return new GCshBllTrmID( custTerms.getValue() );
     }
 
     /**
      * {@inheritDoc}
      */
     public GCshBillTerms getTerms() {
-	GCshID termsID = getTermsID();
+    	GCshBllTrmID termsID = getTermsID();
 	if (termsID == null) {
 	    return null;
 	}

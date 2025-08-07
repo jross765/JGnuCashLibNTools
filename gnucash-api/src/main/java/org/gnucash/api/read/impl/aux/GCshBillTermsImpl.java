@@ -10,7 +10,7 @@ import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,8 +62,8 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 
     // -----------------------------------------------------------
 
-    public GCshID getID() {
-	return new GCshID( jwsdpPeer.getBilltermGuid().getValue() );
+    public GCshBllTrmID getID() {
+	return new GCshBllTrmID( jwsdpPeer.getBilltermGuid().getValue() );
     }
 
     public int getRefcount() {
@@ -114,11 +114,11 @@ public class GCshBillTermsImpl implements GCshBillTerms {
 
     // ------------------------
 
-    public GCshID getParentID() {
+    public GCshBllTrmID getParentID() {
 	if ( jwsdpPeer.getBilltermParent() == null )
 	    return null;
 
-	return new GCshID( jwsdpPeer.getBilltermParent().getValue() );
+	return new GCshBllTrmID( jwsdpPeer.getBilltermParent().getValue() );
     }
 
     public List<String> getChildren() {

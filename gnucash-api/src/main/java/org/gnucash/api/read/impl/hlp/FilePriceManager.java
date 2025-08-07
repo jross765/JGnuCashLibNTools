@@ -26,7 +26,6 @@ import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -437,7 +436,7 @@ public class FilePriceManager {
 		return result;
 	}
 
-	protected Price getPrice_raw(final GCshID prcID) {
+	protected Price getPrice_raw(final GCshPrcID prcID) {
 		for ( Price jwsdpPrc : getPrices_raw() ) {
 			if ( jwsdpPrc.getPriceId().getValue().equals(prcID.toString()) ) {
 				return jwsdpPrc;

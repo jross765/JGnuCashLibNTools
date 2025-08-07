@@ -26,6 +26,7 @@ import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.GCshSpltID;
 import org.gnucash.base.basetypes.simple.GCshTrxID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -295,9 +296,9 @@ public class GnuCashWritableTransactionImpl extends GnuCashTransactionImpl
     }
 
     /**
-     * @see #getSplitByID(GCshID)
+     * @see #getSplitByID(GCshSpltID)
      */
-    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshID spltID) {
+    public GnuCashWritableTransactionSplit getWritableSplitByID(final GCshSpltID spltID) {
 	return (GnuCashWritableTransactionSplit) super.getSplitByID(spltID);
     }
 

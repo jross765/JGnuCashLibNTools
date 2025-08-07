@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 
 /**
@@ -22,7 +22,7 @@ public interface GCshTaxTable {
      * @return the unique-id to identify this object with across name- and
      *         hirarchy-changes
      */
-    GCshID getID();
+    GCshTaxTabID getID();
 
     /**
      *
@@ -41,7 +41,7 @@ public interface GCshTaxTable {
     /**
      * @return id of the parent-taxtable
      */
-    GCshID getParentID();
+    GCshTaxTabID getParentID();
 
     /**
      * @return the parent-taxtable

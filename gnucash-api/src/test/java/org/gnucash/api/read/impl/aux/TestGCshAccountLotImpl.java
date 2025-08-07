@@ -12,7 +12,7 @@ import org.gnucash.api.read.aux.GCshAccountLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshLotID;
+import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.junit.Before;
 import org.junit.Test;
 

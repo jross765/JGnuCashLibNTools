@@ -1,12 +1,10 @@
 package org.gnucash.api.write.aux;
 
-import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
-
-import xyz.schnorxoborx.base.numbers.FixedPointNumber;
-
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
+import org.gnucash.base.basetypes.simple.GCshAcctID;
+
+import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 public interface GCshWritableTaxTableEntry extends GCshTaxTableEntry {
 

@@ -70,7 +70,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableCustomerImpl(final GnuCashWritableFileImpl file) {
-	super(createCustomer_int(file, new GCshCustID( GCshID.getNew()) ), file);
+	super(createCustomer_int(file, new GCshCustID( new GCshCustID( GCshID.getNew()) ) ), file);
     }
 
     public GnuCashWritableCustomerImpl(final GnuCashCustomerImpl cust) {

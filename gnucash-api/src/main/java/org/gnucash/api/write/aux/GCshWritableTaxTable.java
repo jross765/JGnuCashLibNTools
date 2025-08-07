@@ -1,8 +1,8 @@
 package org.gnucash.api.write.aux;
 
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.aux.GCshTaxTableEntry;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 
 public interface GCshWritableTaxTable extends GCshTaxTable {
     
@@ -19,9 +19,9 @@ public interface GCshWritableTaxTable extends GCshTaxTable {
      * @param prntID
      * 
      * @see #getParentID()
-     * @see #setParentID(GCshID)
+     * @see #setParentID(GCshTaxTabID)
      */
-    void setParentID(GCshID prntID);
+    void setParentID(GCshTaxTabID prntID);
 
     /**
      * 

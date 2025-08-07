@@ -23,7 +23,7 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,7 +41,7 @@ public class TestGnuCashWritableCustomerImpl {
 	//    private static final GCshCustID CUST_2_ID = TestGnuCashCustomerImpl.CUST_2_ID;
 
 	//    private static final GCshID BLLTRM_1_ID = TestGCshBillTermsImpl.BLLTRM_1_ID;
-	private static final GCshID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
+	private static final GCshBllTrmID BLLTRM_2_ID = TestGCshBillTermsImpl.BLLTRM_2_ID;
 
 	// -----------------------------------------------------------------
 

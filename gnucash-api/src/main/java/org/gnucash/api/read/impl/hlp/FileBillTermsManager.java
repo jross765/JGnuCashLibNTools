@@ -11,7 +11,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshBillTermsImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class FileBillTermsManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshID, GCshBillTerms> bllTrmMap = null;
+	protected Map<GCshBllTrmID, GCshBillTerms> bllTrmMap = null;
 
 	// ---------------------------------------------------------------
 
@@ -35,7 +35,7 @@ public class FileBillTermsManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		bllTrmMap = new HashMap<GCshID, GCshBillTerms>();
+		bllTrmMap = new HashMap<GCshBllTrmID, GCshBillTerms>();
 
 		List<Object> bookElements = pRootElement.getGncBook().getBookElements();
 		for ( Object bookElement : bookElements ) {
@@ -58,7 +58,7 @@ public class FileBillTermsManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshBillTerms getBillTermsByID(final GCshID bllTrmID) {
+	public GCshBillTerms getBillTermsByID(final GCshBllTrmID bllTrmID) {
 		if ( bllTrmID == null ) {
 			throw new IllegalArgumentException("argument <bllTrmID> is null");
 		}

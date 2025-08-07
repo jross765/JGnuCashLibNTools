@@ -11,7 +11,7 @@ import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.aux.GCshTaxTable;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshTaxTableImpl;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +23,7 @@ public class FileTaxTableManager {
 
 	protected GnuCashFileImpl gcshFile;
 
-	protected Map<GCshID, GCshTaxTable> taxTabMap;
+	protected Map<GCshTaxTabID, GCshTaxTable> taxTabMap;
 
 	// ---------------------------------------------------------------
 
@@ -35,7 +35,7 @@ public class FileTaxTableManager {
 	// ---------------------------------------------------------------
 
 	private void init(final GncV2 pRootElement) {
-		taxTabMap = new HashMap<GCshID, GCshTaxTable>();
+		taxTabMap = new HashMap<GCshTaxTabID, GCshTaxTable>();
 
 		List<Object> bookElements = pRootElement.getGncBook().getBookElements();
 		for ( Object bookElement : bookElements ) {
@@ -59,7 +59,7 @@ public class FileTaxTableManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshTaxTable getTaxTableByID(final GCshID taxTabID) {
+	public GCshTaxTable getTaxTableByID(final GCshTaxTabID taxTabID) {
 		if ( taxTabID == null ) {
 			throw new IllegalArgumentException("argument <taxTabID> is null");
 		}

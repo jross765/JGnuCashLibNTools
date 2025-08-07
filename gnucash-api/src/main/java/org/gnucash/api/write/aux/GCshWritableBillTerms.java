@@ -1,7 +1,7 @@
 package org.gnucash.api.write.aux;
 
 import org.gnucash.api.read.aux.GCshBillTerms;
-import org.gnucash.base.basetypes.simple.GCshID;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 
 public interface GCshWritableBillTerms extends GCshBillTerms {
 
@@ -89,7 +89,7 @@ public interface GCshWritableBillTerms extends GCshBillTerms {
      * 
      * @see #getParentID()
      */
-    void setParentID(GCshID prntID);
+    void setParentID(GCshBllTrmID prntID);
 
     /**
      * 

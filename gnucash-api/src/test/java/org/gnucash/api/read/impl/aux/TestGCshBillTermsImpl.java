@@ -7,21 +7,21 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
 import org.gnucash.api.read.aux.GCshBillTermsProximo;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGCshBillTermsImpl {
-	public static final GCshID BLLTRM_1_ID = new GCshID("599bfe3ab5b84a73bf3acabc5abd5bc7"); // "sofort" (5 Tage)
-	public static final GCshID BLLTRM_2_ID = new GCshID("f4310c65486a47a5a787348b7de6ca40"); // "30-10-3"
-	public static final GCshID BLLTRM_3_ID = new GCshID("f65a46140da94c81a4e1e3c0aa38c32b"); // "nächster-monat-mitte"
+	public static final GCshBllTrmID BLLTRM_1_ID = new GCshBllTrmID("599bfe3ab5b84a73bf3acabc5abd5bc7"); // "sofort" (5 Tage)
+	public static final GCshBllTrmID BLLTRM_2_ID = new GCshBllTrmID("f4310c65486a47a5a787348b7de6ca40"); // "30-10-3"
+	public static final GCshBllTrmID BLLTRM_3_ID = new GCshBllTrmID("f65a46140da94c81a4e1e3c0aa38c32b"); // "nächster-monat-mitte"
 
 	// -----------------------------------------------------------------
 
