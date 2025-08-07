@@ -53,6 +53,10 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 Here, only the top-level changes on module-level are mentioned. For more Details, 
 cf. the README files of the resp. modules (links above).
 
+### V. 1.6 &rarr; 1.7
+* Overall:
+  * Introduced new (dummy) ID types for type safety and better symmetry with sister project.
+
 ### V. 1.5 &rarr; 1.6
 * Module "API": 
  
