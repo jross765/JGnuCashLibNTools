@@ -9,9 +9,9 @@ import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
+import org.gnucash.base.basetypes.simple.spec.GCshJobInvcEntrID;
 
 /**
  * A special variant of a customer invoice or a vendor bill 
@@ -91,7 +91,7 @@ public interface GnuCashJobInvoice extends GnuCashGenerInvoice,
 	
     // ---------------------------------------------------------------
 
-    GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID);
+    GnuCashJobInvoiceEntry getEntryByID(GCshJobInvcEntrID entrID);
 
     Collection<GnuCashJobInvoiceEntry> getEntries();
 

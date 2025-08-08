@@ -25,11 +25,11 @@ import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.WrongJobTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshJobInvcEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -208,7 +208,7 @@ public class GnuCashJobInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashJobInvoiceEntry getEntryByID(GCshJobInvcEntrID entrID) {
 		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

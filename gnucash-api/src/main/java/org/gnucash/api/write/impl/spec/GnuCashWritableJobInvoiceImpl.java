@@ -44,6 +44,7 @@ import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshJobInvcEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -451,7 +452,7 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashJobInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashJobInvoiceEntry getEntryByID(GCshJobInvcEntrID entrID) {
 		return new GnuCashJobInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 
