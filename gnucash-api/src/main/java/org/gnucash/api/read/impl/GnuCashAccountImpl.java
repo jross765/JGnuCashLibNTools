@@ -2,6 +2,7 @@ package org.gnucash.api.read.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import org.gnucash.api.generated.GncAccount;
@@ -375,4 +376,20 @@ public class GnuCashAccountImpl extends SimpleAccount
 	return buffer.toString();
     }
 
+    // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
+    @Override
+    public void printTree(StringBuilder buffer, String prefix, String childrenPrefix) {
+        buffer.append(prefix);
+        buffer.append(toString());
+        buffer.append('\n');
+        
+        for ( Iterator<GnuCashAccount> it = getChildren().iterator(); it.hasNext(); ) {
+        	GnuCashAccount next = it.next();
+            if (it.hasNext()) {
+                next.printTree(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
+            } else {
+                next.printTree(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
+            }
+        }
+    }
 }

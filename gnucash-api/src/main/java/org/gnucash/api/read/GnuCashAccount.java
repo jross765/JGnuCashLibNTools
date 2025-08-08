@@ -307,4 +307,7 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      */
     String getBalanceRecursiveFormatted(final LocalDate date);
 
+    // ---------------------------------------------------------------
+
+    void printTree(StringBuilder buffer, String prefix, String childrenPrefix);
 }

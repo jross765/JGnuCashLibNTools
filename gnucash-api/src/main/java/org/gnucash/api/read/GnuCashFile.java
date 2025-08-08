@@ -1,6 +1,7 @@
 package org.gnucash.api.read;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Currency;
@@ -28,7 +29,6 @@ import org.gnucash.base.basetypes.simple.GCshCustID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.base.basetypes.simple.GCshSpltID;
@@ -984,6 +984,6 @@ public interface GnuCashFile extends GnuCashObject,
     
     // ---------------------------------------------------------------
     
-    void dump();
+    void dump(PrintStream strm);
 
 }
