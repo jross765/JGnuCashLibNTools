@@ -15,9 +15,9 @@ import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorBillEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshVendBllEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -98,7 +98,7 @@ public class GnuCashVendorBillImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashVendorBillEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashVendorBillEntry getEntryByID(GCshVendBllEntrID entrID) {
 		return new GnuCashVendorBillEntryImpl(getGenerEntryByID(entrID));
 	}
 

@@ -17,8 +17,8 @@ import org.gnucash.api.read.spec.GnuCashCustomerInvoiceEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshCustInvcEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -100,7 +100,7 @@ public class GnuCashCustomerInvoiceImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashCustomerInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashCustomerInvoiceEntry getEntryByID(GCshCustInvcEntrID entrID) {
 		return new GnuCashCustomerInvoiceEntryImpl(getGenerEntryByID(entrID));
 	}
 

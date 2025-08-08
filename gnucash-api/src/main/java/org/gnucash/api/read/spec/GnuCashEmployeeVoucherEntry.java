@@ -2,7 +2,7 @@ package org.gnucash.api.read.spec;
 
 import org.gnucash.api.read.GnuCashGenerInvoiceEntry;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceEntryCommon;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.spec.GCshEmplVchID;
 
 /**
  * One entry (line item) of a {@link GnuCashEmployeeVoucher}
@@ -16,7 +16,7 @@ public interface GnuCashEmployeeVoucherEntry extends GnuCashGenerInvoiceEntry,
 													 SpecInvoiceEntryCommon
 {
 	
-	GCshGenerInvcID getVoucherID();
+	GCshEmplVchID getVoucherID();
 
 	GnuCashEmployeeVoucher getVoucher();
 

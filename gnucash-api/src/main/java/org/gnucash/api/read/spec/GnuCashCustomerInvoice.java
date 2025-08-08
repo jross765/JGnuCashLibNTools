@@ -6,7 +6,7 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshCustID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.spec.GCshCustInvcEntrID;
 
 /**
  * An invoice that is sent to a customer so (s)he knows what to pay you. <br>
@@ -44,7 +44,7 @@ public interface GnuCashCustomerInvoice extends GnuCashGenerInvoice,
 	
     // ---------------------------------------------------------------
 
-    GnuCashCustomerInvoiceEntry getEntryByID(GCshGenerInvcEntrID entrID);
+    GnuCashCustomerInvoiceEntry getEntryByID(GCshCustInvcEntrID entrID);
 
     Collection<GnuCashCustomerInvoiceEntry> getEntries();
 

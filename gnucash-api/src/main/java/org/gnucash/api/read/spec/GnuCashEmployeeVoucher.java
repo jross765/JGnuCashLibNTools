@@ -6,7 +6,7 @@ import org.gnucash.api.read.GnuCashEmployee;
 import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
+import org.gnucash.base.basetypes.simple.spec.GCshEmplVchEntrID;
 
 /**
  * A voucher that is sent from an employee so you know what to pay him/her.<br>
@@ -44,7 +44,7 @@ public interface GnuCashEmployeeVoucher extends GnuCashGenerInvoice,
 	
     // ---------------------------------------------------------------
 
-    GnuCashEmployeeVoucherEntry getEntryByID(GCshGenerInvcEntrID entrID);
+    GnuCashEmployeeVoucherEntry getEntryByID(GCshEmplVchEntrID entrID);
 
     Collection<GnuCashEmployeeVoucherEntry> getEntries();
 

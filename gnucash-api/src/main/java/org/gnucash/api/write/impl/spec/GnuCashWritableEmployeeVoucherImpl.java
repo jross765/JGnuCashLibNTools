@@ -33,6 +33,7 @@ import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
 import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshEmplVchEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -347,7 +348,7 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashEmployeeVoucherEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashEmployeeVoucherEntry getEntryByID(GCshEmplVchEntrID entrID) {
 		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(entrID));
 	}
 

@@ -16,8 +16,8 @@ import org.gnucash.api.read.spec.GnuCashEmployeeVoucherEntry;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
 import org.gnucash.api.read.spec.hlp.SpecInvoiceCommon;
 import org.gnucash.base.basetypes.simple.GCshEmplID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcEntrID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
+import org.gnucash.base.basetypes.simple.spec.GCshEmplVchEntrID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -95,7 +95,7 @@ public class GnuCashEmployeeVoucherImpl extends GnuCashGenerInvoiceImpl
 	// ---------------------------------------------------------------
 
 	@Override
-	public GnuCashEmployeeVoucherEntry getEntryByID(GCshGenerInvcEntrID entrID) {
+	public GnuCashEmployeeVoucherEntry getEntryByID(GCshEmplVchEntrID entrID) {
 		return new GnuCashEmployeeVoucherEntryImpl(getGenerEntryByID(entrID));
 	}
 

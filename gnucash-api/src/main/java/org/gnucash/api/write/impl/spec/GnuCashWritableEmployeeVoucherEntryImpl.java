@@ -17,7 +17,7 @@ import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerInvoiceEntryImpl;
 import org.gnucash.api.write.spec.GnuCashWritableEmployeeVoucherEntry;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshGenerInvcID;
+import org.gnucash.base.basetypes.simple.spec.GCshEmplVchID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -192,8 +192,8 @@ public class GnuCashWritableEmployeeVoucherEntryImpl extends GnuCashWritableGene
 	// ---------------------------------------------------------------
 
 	@Override
-	public GCshGenerInvcID getVoucherID() {
-		return getGenerInvoiceID();
+	public GCshEmplVchID getVoucherID() {
+		return new GCshEmplVchID( getGenerInvoiceID() );
 	}
 
 	@Override

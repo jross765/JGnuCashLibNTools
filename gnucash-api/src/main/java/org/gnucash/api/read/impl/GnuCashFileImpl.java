@@ -1658,6 +1658,10 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
     // ---------------------------------------------------------------
     
+    public void dump() {
+    	dump(System.out);
+    }
+    
     public void dump(PrintStream strm) {
     	strm.println("GNUCASH FILE");
     	
