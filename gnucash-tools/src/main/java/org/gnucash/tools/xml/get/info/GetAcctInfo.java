@@ -13,6 +13,7 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
+import org.gnucash.api.read.aux.GCshAcctReconInfo;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.tools.CommandLineTool;
@@ -44,6 +45,7 @@ public class GetAcctInfo extends CommandLineTool
   private static boolean showParents  = false;
   private static boolean showChildren = false;
   private static boolean showTrx      = false;
+  private static boolean showRcn   = false;
   
   private static boolean scriptMode = false; // ::TODO
 
@@ -118,6 +120,11 @@ public class GetAcctInfo extends CommandLineTool
       .longOpt("show-transactions")
       .build();
           
+    Option optShowRcn = Option.builder("srcn")
+      .desc("Show reconciliation info")
+      .longOpt("show-recon-info")
+      .build();
+    	          
     options = new Options();
     options.addOption(optFile);
     options.addOption(optMode);
@@ -126,6 +133,7 @@ public class GetAcctInfo extends CommandLineTool
     options.addOption(optShowPrnt);
     options.addOption(optShowChld);
     options.addOption(optShowTrx);
+    options.addOption(optShowRcn);
   }
 
   @Override
@@ -266,6 +274,9 @@ public class GetAcctInfo extends CommandLineTool
     
     if ( showTrx )
       showTransactions(acct);
+    
+    if ( showRcn )
+      showReconInfo(acct);
   }
 
   // -----------------------------------------------------------------
@@ -317,6 +328,15 @@ public class GetAcctInfo extends CommandLineTool
     }
   }
 
+  private void showReconInfo(GnuCashAccount acct)
+  {
+    System.out.println("");
+    System.out.println("Reconciliation Info:");
+    
+    GCshAcctReconInfo rcnInfo = acct.getReconcileInfo();
+    System.out.println(rcnInfo.toString());
+  }
+
   // -----------------------------------------------------------------
 
   @Override
@@ -348,7 +368,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("GnuCash file:      '" + gcshFileName + "'");
+      System.err.println("GnuCash file:             '" + gcshFileName + "'");
     
     // <mode>
     try
@@ -362,7 +382,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Mode:              " + mode);
+      System.err.println("Mode:                     " + mode);
 
     // <account-id>
     if ( cmdLine.hasOption("account-id") )
@@ -393,7 +413,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Account ID:        '" + acctID + "'");
+      System.err.println("Account ID:               '" + acctID + "'");
 
     // <name>
     if ( cmdLine.hasOption("account-name") )
@@ -424,7 +444,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Name:              '" + acctName + "'");
+      System.err.println("Name:                     '" + acctName + "'");
 
     // <show-parents>
     if ( cmdLine.hasOption("show-parents"))
@@ -437,7 +457,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Show parents:      " + showParents);
+      System.err.println("Show parents:             " + showParents);
 
     // <show-children>
     if ( cmdLine.hasOption("show-children"))
@@ -450,7 +470,7 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Show children:     " + showChildren);
+      System.err.println("Show children:            " + showChildren);
 
     // <show-transactions>
     if ( cmdLine.hasOption("show-transactions"))
@@ -463,7 +483,20 @@ public class GetAcctInfo extends CommandLineTool
     }
     
     if ( ! scriptMode )
-      System.err.println("Show transactions: " + showTrx);
+      System.err.println("Show transactions:        " + showTrx);
+
+    // <show-recon-info>
+    if ( cmdLine.hasOption("show-recon-info"))
+    {
+      showRcn = true;
+    }
+    else
+    {
+      showRcn = false;
+    }
+    
+    if ( ! scriptMode )
+      System.err.println("Show reconciliation info: " + showRcn);
   }
   
   @Override

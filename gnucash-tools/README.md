@@ -6,9 +6,11 @@ You will notice that the tools partially pull on the examples in the "Examples" 
 
 ## Major Changes 
 ### V. 1.6 &rarr; 1.7
-* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
 * New tools: 
   * Dump
+* Existing tools:
+  * Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+  * GetAccountInfo: Now lists newly-introduced account-reconciliation info.
 
 ### V. 1.5 &rarr; 1.6
 * New tools: 

@@ -7,6 +7,7 @@ file.
 ## Major Changes 
 ### V. 1.6 &rarr; 1.7
 * Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+* `GnuCashAccount(Impl)`: New method `getReconcileInfo()`.
 * `GnuCashFile(Impl)`: New method `dump()`.
 
 ### V. 1.5 &rarr; 1.6
