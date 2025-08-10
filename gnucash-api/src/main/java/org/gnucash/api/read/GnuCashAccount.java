@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctReconInfo;
 import org.gnucash.api.read.hlp.HasTransactions;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -306,6 +307,10 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      * @return the balance including all sub-accounts
      */
     String getBalanceRecursiveFormatted(final LocalDate date);
+
+    // ---------------------------------------------------------------
+    
+    GCshAcctReconInfo getReconcileInfo();
 
     // ---------------------------------------------------------------
 

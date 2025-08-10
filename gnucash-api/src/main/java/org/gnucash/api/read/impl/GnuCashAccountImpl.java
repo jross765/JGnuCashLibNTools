@@ -5,12 +5,16 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
+import org.gnucash.api.generated.Slot;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
 import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctReconInfo;
 import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.api.read.impl.aux.GCshAcctReconInfoImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SimpleAccount;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
@@ -326,6 +330,22 @@ public class GnuCashAccountImpl extends SimpleAccount
     	}
 
     	myLots.add(impl);
+    }
+
+    // ---------------------------------------------------------------
+    
+    public GCshAcctReconInfo getReconcileInfo() {
+    	if ( jwsdpPeer.getActSlots() == null )
+    		return null;
+    	
+    	for ( Slot slt : jwsdpPeer.getActSlots().getSlot() ) {
+    		if ( slt.getSlotKey().equals(Const.SLOT_KEY_ACCT_RECONCILE_INFO) ) {
+    			GCshAcctReconInfo rcnInf = new GCshAcctReconInfoImpl(slt, this);
+    			return rcnInf;
+    		}
+    	}
+    	
+    	return null;
     }
 
     // -----------------------------------------------------------------

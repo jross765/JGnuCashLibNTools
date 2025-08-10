@@ -25,8 +25,14 @@ public class Const {
   public static final String SLOT_KEY_BOOK_OPTIONS       = "options";
   public static final String SLOT_KEY_BOOK_REMOVE_COLOR_NOT_SETS_SLOTS = "remove-color-not-set-slots";
   
-  public static final String SLOT_KEY_ACCT_PLACEHOLDER   = "placeholder";
-  public static final String SLOT_KEY_ACCT_NOTES         = "notes";
+  public static final String SLOT_KEY_ACCT_PLACEHOLDER          = "placeholder";
+  public static final String SLOT_KEY_ACCT_NOTES                = "notes";
+  public static final String SLOT_KEY_ACCT_RECONCILE_INFO       = "reconcile-info";
+  public static final String SLOT_KEY_ACCT_INCLUDE_CHILDREN     = "include-children";
+  public static final String SLOT_KEY_ACCT_LAST_DATE            = "last-date";
+  public static final String SLOT_KEY_ACCT_LAST_INTERVAL        = "last-interval";
+  public static final String SLOT_KEY_ACCT_LAST_INTERVAL_DAYS   = "days";
+  public static final String SLOT_KEY_ACCT_LAST_INTERVAL_MONTHS = "months";
   
   public static final String SLOT_KEY_TRX_DATE_POSTED    = "date-posted";
   public static final String SLOT_KEY_TRX_TRX_TYPE       = "trans-txn-type";
