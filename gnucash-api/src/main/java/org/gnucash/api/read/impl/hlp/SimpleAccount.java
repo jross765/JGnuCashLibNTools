@@ -17,7 +17,7 @@ import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrID;
 import org.gnucash.base.basetypes.complex.GCshCurrID;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
@@ -480,7 +480,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 	}
 
 	@Override
-	public GCshAccountLot getLotByID(final GCshLotID acctLotID) {
+	public GCshAcctLot getLotByID(final GCshLotID acctLotID) {
 		if ( acctLotID == null ) {
 			throw new IllegalArgumentException("argument <acctLotID> is null");
 		}
@@ -489,7 +489,7 @@ public abstract class SimpleAccount extends GnuCashObjectImpl
 			throw new IllegalArgumentException("argument <acctLotID> is not set");
 		}
 
-		for ( GCshAccountLot lot : getLots() ) {
+		for ( GCshAcctLot lot : getLots() ) {
 			if ( acctLotID.equals(lot.getID()) ) {
 				return lot;
 			}

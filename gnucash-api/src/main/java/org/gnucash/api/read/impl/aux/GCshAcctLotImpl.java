@@ -8,7 +8,7 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransaction;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.hlp.GnuCashObjectImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
@@ -17,11 +17,11 @@ import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GCshAccountLotImpl extends GnuCashObjectImpl 
-								implements GCshAccountLot 
+public class GCshAcctLotImpl extends GnuCashObjectImpl 
+								implements GCshAcctLot 
 {
     @SuppressWarnings("unused")
-	private static final Logger LOGGER = LoggerFactory.getLogger(GCshAccountLotImpl.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GCshAcctLotImpl.class);
 
     // ---------------------------------------------------------------
 
@@ -42,7 +42,7 @@ public class GCshAccountLotImpl extends GnuCashObjectImpl
      * @param acct  the acc ount this lot belongs to
      */
     @SuppressWarnings("exports")
-    public GCshAccountLotImpl(
+    public GCshAcctLotImpl(
 	    final GncAccount.ActLots.GncLot peer,
 	    final GnuCashAccountImpl acct) {
 	super(acct.getGnuCashFile());

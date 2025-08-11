@@ -14,10 +14,10 @@ import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncV2;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashAccount.Type;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
-import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.api.read.impl.aux.GCshAcctLotImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class FileAccountManager {
 	protected GnuCashFileImpl gcshFile;
 
 	protected Map<GCshAcctID, GnuCashAccount> acctMap;
-	protected Map<GCshLotID, GCshAccountLot>  acctLotMap;
+	protected Map<GCshLotID, GCshAcctLot>  acctLotMap;
 
 	// ---------------------------------------------------------------
 
@@ -62,14 +62,14 @@ public class FileAccountManager {
 	}
 
 	private void init2(final GncV2 pRootElement) {
-		acctLotMap = new HashMap<GCshLotID, GCshAccountLot>();
+		acctLotMap = new HashMap<GCshLotID, GCshAcctLot>();
 
 		for ( GnuCashAccount acct : acctMap.values() ) {
 			try {
-				List<GCshAccountLot> lotList = null;
+				List<GCshAcctLot> lotList = null;
 				lotList = ((GnuCashAccountImpl) acct).getLots();
 				if ( lotList != null ) { // yes, that happens
-					for ( GCshAccountLot lot : lotList ) {
+					for ( GCshAcctLot lot : lotList ) {
 						acctLotMap.put(lot.getID(), lot);
 					}
 				}
@@ -92,10 +92,10 @@ public class FileAccountManager {
 		return acct;
 	}
 
-	protected GCshAccountLotImpl createAccountLot(
+	protected GCshAcctLotImpl createAccountLot(
 			final GncAccount.ActLots.GncLot jwsdpAcctLot,
 			final GnuCashAccountImpl acct) {
-		GCshAccountLotImpl lot = new GCshAccountLotImpl(jwsdpAcctLot, acct);
+		GCshAcctLotImpl lot = new GCshAcctLotImpl(jwsdpAcctLot, acct);
 		LOGGER.debug("createAccountLot: Generated new account lot: " + lot.getID());
 		return lot;
 	}
@@ -366,7 +366,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public GCshAccountLot getAccountLotByID(final GCshLotID lotID) {
+	public GCshAcctLot getAccountLotByID(final GCshLotID lotID) {
 		if ( lotID == null ) {
 			throw new IllegalArgumentException("argument <lotID> is null");
 		}
@@ -379,7 +379,7 @@ public class FileAccountManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		GCshAccountLot retval = acctLotMap.get(lotID);
+		GCshAcctLot retval = acctLotMap.get(lotID);
 		if ( retval == null ) {
 			LOGGER.warn("getAccountLotByID: No Account-Lot with id '" + lotID + "'. We know " + acctLotMap.size() + " account lots.");
 		}
@@ -435,26 +435,26 @@ public class FileAccountManager {
 
 	// ----------------------------
 
-	public List<GCshAccountLot> getAccountLots() {
+	public List<GCshAcctLot> getAccountLots() {
 		if ( acctLotMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 		
-		List<GCshAccountLot> result = new ArrayList<GCshAccountLot>();
-		for ( GCshAccountLot elt : acctLotMap.values() ) {
+		List<GCshAcctLot> result = new ArrayList<GCshAcctLot>();
+		for ( GCshAcctLot elt : acctLotMap.values() ) {
 			result.add(elt);
 		}
 		
 		return Collections.unmodifiableList(result);
 	}
 
-	public List<GCshAccountLotImpl> getAccountLots_readAfresh() {
-		List<GCshAccountLotImpl> result = new ArrayList<GCshAccountLotImpl>();
+	public List<GCshAcctLotImpl> getAccountLots_readAfresh() {
+		List<GCshAcctLotImpl> result = new ArrayList<GCshAcctLotImpl>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 				try {
-					GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
+					GCshAcctLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
 					result.add(lot);
 				} catch (RuntimeException e) {
 					LOGGER.error("getAccountLots_readAfresh(1): [RuntimeException] Problem in "
@@ -469,14 +469,14 @@ public class FileAccountManager {
 		return result;
 	}
 
-	public List<GCshAccountLotImpl> getAccountLots_readAfresh(final GCshAcctID acctID) {
-		List<GCshAccountLotImpl> result = new ArrayList<GCshAccountLotImpl>();
+	public List<GCshAcctLotImpl> getAccountLots_readAfresh(final GCshAcctID acctID) {
+		List<GCshAcctLotImpl> result = new ArrayList<GCshAcctLotImpl>();
 
 		for ( GnuCashAccountImpl acct : getAccounts_readAfresh() ) {
 			if ( acct.getID().equals(acctID) ) {
 				for ( GncAccount.ActLots.GncLot jwsdpAcctLot : getAccountLots_raw(acct.getID()) ) {
 					try {
-						GCshAccountLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
+						GCshAcctLotImpl lot = createAccountLot(jwsdpAcctLot, acct);
 						result.add(lot);
 					} catch (RuntimeException e) {
 						LOGGER.error("getAccountLots_readAfresh(2): [RuntimeException] Problem in "

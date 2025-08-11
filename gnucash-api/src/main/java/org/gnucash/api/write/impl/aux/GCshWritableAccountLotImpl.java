@@ -6,7 +6,7 @@ import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
-import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.api.read.impl.aux.GCshAcctLotImpl;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.aux.GCshWritableAccountLot;
@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * Extension of GnuCashTransactionSplitImpl to allow read-write access instead of
  * read-only access.
  */
-public class GCshWritableAccountLotImpl extends GCshAccountLotImpl 
+public class GCshWritableAccountLotImpl extends GCshAcctLotImpl 
                                         implements GCshWritableAccountLot
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshWritableAccountLotImpl.class);
@@ -59,7 +59,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
 	acct.addLot(this);
     }
 
-    public GCshWritableAccountLotImpl(final GCshAccountLotImpl lot) {
+    public GCshWritableAccountLotImpl(final GCshAcctLotImpl lot) {
     	super(lot.getJwsdpPeer(), (GnuCashAccountImpl) lot.getAccount());
     }
 
@@ -112,7 +112,7 @@ public class GCshWritableAccountLotImpl extends GCshAccountLotImpl
     // ---------------------------------------------------------------
 
     /**
-     * @see GCshAccountLotImpl#getAccount()
+     * @see GCshAcctLotImpl#getAccount()
      */
     @Override
     public GnuCashWritableAccount getAccount() {

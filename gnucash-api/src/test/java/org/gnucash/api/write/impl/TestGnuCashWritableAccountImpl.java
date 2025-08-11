@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
@@ -118,7 +118,7 @@ public class TestGnuCashWritableAccountImpl {
 		assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(4).getID().toString());
 		assertEquals("18a45dfc8a6868c470438e27d6fe10b2", acct.getTransactions().get(5).getID().toString());
 
-    	List<GCshAccountLot> lotList = acct.getLots();
+    	List<GCshAcctLot> lotList = acct.getLots();
     	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
     	assertEquals(null, lotList);
     	// assertEquals(1, lotList.size());

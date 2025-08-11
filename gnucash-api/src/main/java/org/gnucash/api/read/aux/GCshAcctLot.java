@@ -16,8 +16,8 @@ import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 /**
  * ::TOOD
  */
-public interface GCshAccountLot extends GnuCashObject,
-                                        HasUserDefinedAttributes
+public interface GCshAcctLot extends GnuCashObject,
+                                     HasUserDefinedAttributes
 {
     // -----------------------------------------------------------------
     

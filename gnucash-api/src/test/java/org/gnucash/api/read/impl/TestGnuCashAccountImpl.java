@@ -10,7 +10,7 @@ import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransaction;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,7 +96,7 @@ public class TestGnuCashAccountImpl {
     	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", trxList.get(4).getID().toString());
     	assertEquals("18a45dfc8a6868c470438e27d6fe10b2", trxList.get(5).getID().toString());
 
-    	List<GCshAccountLot> lotList = acct.getLots();
+    	List<GCshAcctLot> lotList = acct.getLots();
     	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
     	assertEquals(null, lotList);
     	// assertEquals(1, lotList.size());
@@ -183,7 +183,7 @@ public class TestGnuCashAccountImpl {
     	assertEquals("aa64d862bb5e4d749eb41f198b28d73d", acct.getTransactions().get(0).getID().toString());
     	assertEquals("ccff780b18294435bf03c6cb1ac325c1", acct.getTransactions().get(1).getID().toString());
 
-    	List<GCshAccountLot> lotList = acct.getLots();
+    	List<GCshAcctLot> lotList = acct.getLots();
     	assertEquals(1, lotList.size());
     	assertEquals("ae4de9f6ba2941af94595a6b161795c7", lotList.get(0).getID().toString());
     	assertEquals("Lieferantenrechnung 2740921", lotList.get(0).getTitle());
@@ -213,7 +213,7 @@ public class TestGnuCashAccountImpl {
     	assertEquals("9e066e5f3081485ab08539e41bf85495", acct.getTransactions().get(2).getID().toString());
     	assertEquals("67796d4f7c924c1da38f7813dbc3a99d", acct.getTransactions().get(3).getID().toString());
 
-    	List<GCshAccountLot> lotList = acct.getLots();
+    	List<GCshAcctLot> lotList = acct.getLots();
     	// Collections.sort(trxList, Comparator.reverseOrder()); // not necessary
     	assertEquals(2, lotList.size());
     	// assertEquals(1, lotList.size());

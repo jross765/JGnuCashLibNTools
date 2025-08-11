@@ -11,9 +11,9 @@ import org.gnucash.api.generated.Slot;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.aux.GCshAcctReconInfo;
-import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.api.read.impl.aux.GCshAcctLotImpl;
 import org.gnucash.api.read.impl.aux.GCshAcctReconInfoImpl;
 import org.gnucash.api.read.impl.hlp.HasUserDefinedAttributesImpl;
 import org.gnucash.api.read.impl.hlp.SimpleAccount;
@@ -66,7 +66,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     
     // ----------------------------
     
-    protected /* final */ List<GCshAccountLot> myLots = null; // sic, null, i.Ggs. zu oben
+    protected /* final */ List<GCshAcctLot> myLots = null; // sic, null, i.Ggs. zu oben
 
     // ---------------------------------------------------------------
 
@@ -258,7 +258,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     // ----------------------------
 
     @Override
-    public List<GCshAccountLot> getLots() {
+    public List<GCshAcctLot> getLots() {
     	if (myLots == null) {
     	    initLots();
     	}
@@ -272,7 +272,7 @@ public class GnuCashAccountImpl extends SimpleAccount
     	
 		List<GncAccount.ActLots.GncLot> jwsdpLots = jwsdpPeer.getActLots().getGncLot();
 
-	myLots = new ArrayList<GCshAccountLot>();
+	myLots = new ArrayList<GCshAcctLot>();
 	for ( GncAccount.ActLots.GncLot elt : jwsdpLots ) {
 		myLots.add(createLot(elt));
 	}
@@ -284,16 +284,16 @@ public class GnuCashAccountImpl extends SimpleAccount
      * @param jwsdpSplt the jaxb-data
      * @return the new split-instance
      */
-    protected GCshAccountLotImpl createLot(
+    protected GCshAcctLotImpl createLot(
 	    final GncAccount.ActLots.GncLot jwsdpLot) {
-	return new GCshAccountLotImpl(jwsdpLot, this);
+	return new GCshAcctLotImpl(jwsdpLot, this);
     }
 
     /**
-     * @see GnuCashAccount#addLot(GCshAccountLot)
+     * @see GnuCashAccount#addLot(GCshAcctLot)
      */
-    public void addLot(final GCshAccountLot lot) {
-    	GCshAccountLot old = getLotByID(lot.getID());
+    public void addLot(final GCshAcctLot lot) {
+    	GCshAcctLot old = getLotByID(lot.getID());
 	if ( old != null ) {
 	    // There already is a lot with that ID
 	    if ( ! old.equals(lot) ) {
@@ -323,8 +323,8 @@ public class GnuCashAccountImpl extends SimpleAccount
      * @param lot
      */
     public void replaceLot(
-    		final GCshAccountLot lot,
-    		final GCshAccountLot impl) {
+    		final GCshAcctLot lot,
+    		final GCshAcctLot impl) {
     	if ( ! myLots.remove(lot) ) {
     		throw new IllegalArgumentException("Could not remove lot from local list");
     	}

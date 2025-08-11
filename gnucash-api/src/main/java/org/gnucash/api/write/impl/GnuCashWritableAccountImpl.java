@@ -19,10 +19,10 @@ import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
-import org.gnucash.api.read.impl.aux.GCshAccountLotImpl;
+import org.gnucash.api.read.impl.aux.GCshAcctLotImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.write.GnuCashWritableAccount;
 import org.gnucash.api.write.GnuCashWritableFile;
@@ -197,7 +197,7 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
      * @return the new split-instance
      */
     @Override
-    protected GCshAccountLotImpl createLot(final GncAccount.ActLots.GncLot lot) {
+    protected GCshAcctLotImpl createLot(final GncAccount.ActLots.GncLot lot) {
 	GCshWritableAccountLotImpl gcshAcctLot = 
 		new GCshWritableAccountLotImpl(lot, this);
 	if (helper.getPropertyChangeSupport() != null) {
@@ -296,8 +296,8 @@ public class GnuCashWritableAccountImpl extends GnuCashAccountImpl
 	List<GCshWritableAccountLot> result = new ArrayList<GCshWritableAccountLot>();
 	
 	if ( getLots() != null ) { // important / ::TODO
-		for ( GCshAccountLot lot : super.getLots() ) {
-			GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl((GCshAccountLotImpl) lot);
+		for ( GCshAcctLot lot : super.getLots() ) {
+			GCshWritableAccountLot newLot = new GCshWritableAccountLotImpl((GCshAcctLotImpl) lot);
 			result.add(newLot);
 		}
 	}

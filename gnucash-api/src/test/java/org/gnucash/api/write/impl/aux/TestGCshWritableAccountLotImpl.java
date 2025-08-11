@@ -10,7 +10,7 @@ import java.util.List;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshAccountLotImpl;
@@ -92,7 +92,7 @@ public class TestGCshWritableAccountLotImpl {
 	@Test
 	public void test01_1() throws Exception {
 		GnuCashWritableAccount stockAcct = gcshInFile.getWritableAccountByID(ACCT_8_ID);
-		List<GCshAccountLot> lotList = stockAcct.getLots();
+		List<GCshAcctLot> lotList = stockAcct.getLots();
 
 		assertEquals(1, lotList.size());
 	}
@@ -167,7 +167,7 @@ public class TestGCshWritableAccountLotImpl {
 
 	// ---------------------------------------------------------------
 
-	private void test02_1_check_memory(GCshAccountLot lot) throws Exception {
+	private void test02_1_check_memory(GCshAcctLot lot) throws Exception {
 		assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshInFileStats.getNofEntriesAccountLots(GCshFileStats.Type.RAW));
 		// assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshInFileStats.getNofEntriesAccountLots(GCshFileStats.Type.COUNTER));
 		assertEquals(ConstTest.Stats.NOF_ACCT_LOT, gcshInFileStats.getNofEntriesAccountLots(GCshFileStats.Type.CACHE));
@@ -189,7 +189,7 @@ public class TestGCshWritableAccountLotImpl {
 
 		GnuCashAccount stockAcct = gcshOutFile.getAccountByID(ACCT_8_ID);
 		assertNotEquals(null, stockAcct);
-		GCshAccountLot lot = stockAcct.getLotByID(ACCTLOT_1_ID);
+		GCshAcctLot lot = stockAcct.getLotByID(ACCTLOT_1_ID);
 		assertNotEquals(null, lot);
 
 		assertEquals(ACCTLOT_1_ID, lot.getID()); // unchanged

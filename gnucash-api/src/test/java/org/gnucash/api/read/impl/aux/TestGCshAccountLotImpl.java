@@ -8,7 +8,7 @@ import java.util.List;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashFile;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.impl.TestGnuCashAccountImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
@@ -64,7 +64,7 @@ public class TestGCshAccountLotImpl {
 	@Test
 	public void test01() throws Exception {
 		GnuCashAccount stockAcct = gcshFile.getAccountByID(ACCT_8_ID);
-		List<GCshAccountLot> lotList = stockAcct.getLots();
+		List<GCshAcctLot> lotList = stockAcct.getLots();
 
 		assertEquals(1, lotList.size());
 	}
@@ -72,7 +72,7 @@ public class TestGCshAccountLotImpl {
 	@Test
 	public void test02() throws Exception {
 		GnuCashAccount stockAcct = gcshFile.getAccountByID(ACCT_8_ID);
-		GCshAccountLot lot = stockAcct.getLotByID(ACCTLOT_1_ID);
+		GCshAcctLot lot = stockAcct.getLotByID(ACCTLOT_1_ID);
 
 		assertEquals("Charge 0", lot.getTitle());
 		assertEquals("Zur korrekten Vorbereitung des Jahresabschlusses ist ein vollständiges Abbilden der Posten-Logik notwendig.", lot.getNotes());

@@ -2,7 +2,7 @@ package org.gnucash.api.write.impl.hlp;
 
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.read.GnuCashAccount;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.api.read.impl.GnuCashAccountImpl;
 import org.gnucash.api.write.impl.GnuCashWritableAccountImpl;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
@@ -60,7 +60,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 
 		if ( withLot ) {
 			if ( acct.getLots() != null ) {
-				for ( GCshAccountLot lot : acct.getLots() ) {
+				for ( GCshAcctLot lot : acct.getLots() ) {
 					addAccountLot(lot, false);
 				}
 			}
@@ -80,7 +80,7 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 		
 		if ( withLot ) {
 			if ( acct.getLots() != null ) {
-				for ( GCshAccountLot lot : acct.getLots() ) {
+				for ( GCshAcctLot lot : acct.getLots() ) {
 					removeAccountLot(lot, false);
 				}
 			}
@@ -93,11 +93,11 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 	
 	// ---------------------------------------------------------------
 
-	public void addAccountLot(GCshAccountLot lot) {
+	public void addAccountLot(GCshAcctLot lot) {
 		addAccountLot(lot, true);
 	}
 
-	public void addAccountLot(GCshAccountLot lot, boolean withAcct) {
+	public void addAccountLot(GCshAcctLot lot, boolean withAcct) {
 		if ( lot == null ) {
 			throw new IllegalArgumentException("argument <lot> is null");
 		}
@@ -109,11 +109,11 @@ public class FileAccountManager extends org.gnucash.api.read.impl.hlp.FileAccoun
 		}
 	}
 
-	public void removeAccountLot(GCshAccountLot lot) {
+	public void removeAccountLot(GCshAcctLot lot) {
 		removeAccountLot(lot, true);
 	}
 
-	public void removeAccountLot(GCshAccountLot lot, boolean withAcct) {
+	public void removeAccountLot(GCshAcctLot lot, boolean withAcct) {
 		if ( lot == null ) {
 			throw new IllegalArgumentException("argument <lot> is null");
 		}
