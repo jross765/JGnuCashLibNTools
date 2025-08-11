@@ -60,21 +60,21 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
     // - TYPE_TRADING = "TRADING";
 
     public enum Type {
-	BANK,
-	CASH,
-	CREDIT,
-	ASSET,
-	LIABILITY,
-	STOCK,
-	MUTUAL,
-	CURRENCY,
-	INCOME,
-	EXPENSE,
-	EQUITY,
-	RECEIVABLE,
-	PAYABLE,
-	ROOT,
-	TRADING
+    	BANK,
+    	CASH,
+    	CREDIT,
+    	ASSET,
+    	LIABILITY,
+    	STOCK,
+    	MUTUAL,
+    	CURRENCY,
+    	INCOME,
+    	EXPENSE,
+    	EQUITY,
+    	RECEIVABLE,
+    	PAYABLE,
+    	ROOT,
+    	TRADING
     }
     
     // -----------------------------------------------------------------

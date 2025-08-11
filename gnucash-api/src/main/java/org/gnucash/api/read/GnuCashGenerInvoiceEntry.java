@@ -52,51 +52,51 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
     // https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
     public enum Action {
       
-	// ::MAGIC (actually kind of "half-magic")
-	JOB      ("INVC_ENTR_ACTION_JOB"),
-	MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
-	HOURS    ("INVC_ENTR_ACTION_HOURS");
+    	// ::MAGIC (actually kind of "half-magic")
+    	JOB      ("INVC_ENTR_ACTION_JOB"),
+    	MATERIAL ("INVC_ENTR_ACTION_MATERIAL"),
+    	HOURS    ("INVC_ENTR_ACTION_HOURS");
       
-	// ---
+    	// ---
 
-	private String code = "UNSET";
+    	private String code = "UNSET";
 	
-	// ---
+    	// ---
 	
-	Action(String code) {
-	    this.code = code;
-	}
+    	Action(String code) {
+    		this.code = code;
+    	}
 
-	// ---
+    	// ---
 	
-	public String getCode() {
-	    return code;
-	}
+    	public String getCode() {
+    		return code;
+    	}
 	
-	public String getLocaleString() {
-	    return getLocaleString(Locale.getDefault());
-	}
+    	public String getLocaleString() {
+    		return getLocaleString(Locale.getDefault());
+    	}
 
-	public String getLocaleString(Locale lcl) {
-	    try {
-		Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-		Field fld = cls.getDeclaredField(code);
-		return (String) fld.get(null);
-	    } catch ( Exception exc ) {
-		throw new MappingException("Could not map string '" + code + "' to locale-specific string");
-	    }
-	}
+    	public String getLocaleString(Locale lcl) {
+    		try {
+    			Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
+    			Field fld = cls.getDeclaredField(code);
+    			return (String) fld.get(null);
+    		} catch ( Exception exc ) {
+    			throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+    		}
+    	}
 		
-	// no typo!
-	public static Action valueOff(String code) {
-	    for ( Action val : values() ) {
-		if ( val.getLocaleString().equals(code) ) {
-		    return val;
-		}
-	    }
+    	// no typo!
+    	public static Action valueOff(String code) {
+    		for ( Action val : values() ) {
+    			if ( val.getLocaleString().equals(code) ) {
+    				return val;
+    			}
+    		}
 
-	    return null;
-	}
+    		return null;
+    	}
     }
   
   // -----------------------------------------------------------------

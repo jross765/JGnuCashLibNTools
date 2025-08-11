@@ -49,24 +49,24 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
       // ---
       
       ReconStatus(String code) {
-	  this.code = code;
+    	  this.code = code;
       }
       
       // ---
 	
       public String getCode() {
-	  return code;
+    	  return code;
       }
 	
       // no typo!
       public static ReconStatus valueOff(String code) {
-	  for ( ReconStatus reconStat : values() ) {
-	      if ( reconStat.getCode().equals(code) ) {
-		  return reconStat;
-	      }
-	  }
+    	  for ( ReconStatus reconStat : values() ) {
+    		  if ( reconStat.getCode().equals(code) ) {
+    			  return reconStat;
+    		  }
+    	  }
 	    
-	  return null;
+    	  return null;
       }
   }
     
@@ -110,38 +110,38 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
       // ---
 	
       Action(String code) {
-	  this.code = code;
+    	  this.code = code;
       }
 
       // ---
 	
       public String getCode() {
-	  return code;
+    	  return code;
       }
 	
       public String getLocaleString() {
-	  return getLocaleString(Locale.getDefault());
+    	  return getLocaleString(Locale.getDefault());
       }
 
       public String getLocaleString(Locale lcl) {
-	  try {
-	      Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-	      Field fld = cls.getDeclaredField(code);
-	      return (String) fld.get(null);
-	  } catch ( Exception exc ) {
-	      throw new MappingException("Could not map string '" + code + "' to locale-specific string");
-	  }
+    	  try {
+    		  Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
+    		  Field fld = cls.getDeclaredField(code);
+    		  return (String) fld.get(null);
+    	  } catch ( Exception exc ) {
+    		  throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+    	  }
       }
 		
       // no typo!
       public static Action valueOff(String code) {
-	  for ( Action val : values() ) {
-	      if ( val.getLocaleString().equals(code) ) {
-		  return val;
-	      }
-	  }
+    	  for ( Action val : values() ) {
+    		  if ( val.getLocaleString().equals(code) ) {
+    			  return val;
+    		  }
+    	  }
 	    
-	  return null;
+    	  return null;
       }
   }
   
