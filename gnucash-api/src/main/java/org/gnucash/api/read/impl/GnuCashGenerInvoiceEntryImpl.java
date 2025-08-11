@@ -810,6 +810,10 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     
 	@Override
 	public GCshAcctID getCustInvcAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.CUSTOMER && 
+			 getType() != GCshOwner.Type.JOB )
+			throw new WrongInvoiceTypeException();
+			
 		return getCustInvcAccountID_int();
 	}
 	
@@ -839,12 +843,16 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 
 	@Override
 	public GCshAcctID getVendBllAccountID() throws AccountNotFoundException {
+		if ( getType() != GCshOwner.Type.VENDOR && 
+			 getType() != GCshOwner.Type.JOB )
+			throw new WrongInvoiceTypeException();
+		
 		return getVendBllAccountID_int();
 	}
 	
 	private GCshAcctID getVendBllAccountID_int() throws AccountNotFoundException {
 		if ( getType() != GCshOwner.Type.VENDOR && 
-			 getType() != GCshOwner.Type.EMPLOYEE && 
+			 getType() != GCshOwner.Type.EMPLOYEE && // sic
 			 getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
 
@@ -872,7 +880,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		if ( getType() != GCshOwner.Type.EMPLOYEE )
 		    throw new WrongInvoiceTypeException();
 
-		return getVendBllAccountID();
+		return getVendBllAccountID_int(); // sic
 	}
 
 	@Override
