@@ -2,7 +2,7 @@ package org.gnucash.apiext.secacct;
 
 import org.gnucash.api.read.GnuCashAccount;
 import org.gnucash.api.read.GnuCashTransactionSplit;
-import org.gnucash.api.read.aux.GCshAccountLot;
+import org.gnucash.api.read.aux.GCshAcctLot;
 import org.gnucash.apiext.Const;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class SecuritiesAccountLotManager {
     	
     	boolean result = true;
     	LOGGER.debug("No. of lots to check for account " + acct.getID() + ": " + acct.getLots().size()); 
-    	for ( GCshAccountLot lot : acct.getLots() ) {
+    	for ( GCshAcctLot lot : acct.getLots() ) {
     		LOGGER.debug("Lot: ID " + lot.getID() + ", title: '" + lot.getTitle() + "'");
     		if ( isLotOK(lot) ) {
     			result = false;
@@ -52,7 +52,7 @@ public class SecuritiesAccountLotManager {
     	return result;
     }
 
-	public static boolean isLotOK(final GCshAccountLot lot) throws GCshIDNotSetException {
+	public static boolean isLotOK(final GCshAcctLot lot) throws GCshIDNotSetException {
     	if ( lot == null ) {
     		throw new IllegalArgumentException("argument <lot> is null");
     	}
