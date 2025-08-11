@@ -160,7 +160,11 @@ public class FilePriceManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return Collections.unmodifiableCollection(prcMap.values());
+		// Caution: Yes, sorting necessary.
+		// Cf. comment in FileAccountManager.getAccounts().
+		ArrayList<GnuCashPrice> temp = new ArrayList<GnuCashPrice>(prcMap.values());
+		Collections.sort(temp);
+		return Collections.unmodifiableCollection(temp);
 	}
 	
 	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyID cmdtyID) {

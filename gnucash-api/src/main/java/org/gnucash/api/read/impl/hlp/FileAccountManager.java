@@ -106,20 +106,20 @@ public class FileAccountManager {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
 		}
-		
+
 		if ( ! acctID.isSet() ) {
 			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
-		
+
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
 		GnuCashAccount retval = acctMap.get(acctID);
 		if ( retval == null ) {
-			LOGGER.error("getAccountByID: No Account with ID '" + acctID + "'. " + "We know " + acctMap.size() + " accounts.");
+			LOGGER.error("getAccountByID: No Account with ID '" + acctID + "'. We know " + acctMap.size() + " accounts.");
 		}
-		
+
 		return retval;
 	}
 
@@ -131,7 +131,7 @@ public class FileAccountManager {
 		if ( ! acctID.isSet() ) {
 			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
-		
+
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -166,7 +166,7 @@ public class FileAccountManager {
 		if ( name.trim().equals("") ) {
 			throw new IllegalArgumentException("argument <name> is empty");
 		}
-		
+
 		return getAccountsByName(name, true, true);
 	}
 
@@ -247,7 +247,7 @@ public class FileAccountManager {
 		if ( nameRegEx.trim().equals("") ) {
 			throw new IllegalArgumentException("argument <nameRegEx> is empty");
 		}
-		
+
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -277,15 +277,15 @@ public class FileAccountManager {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
 		}
-		
+
 		if ( ! acctID.isSet() ) {
 			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
-		
+
 		if ( name == null ) {
 			throw new IllegalArgumentException("argument <name> is null");
 		}
-		
+
 		if ( name.trim().equals("") ) {
 			throw new IllegalArgumentException("argument <name> is empty");
 		}
@@ -307,19 +307,19 @@ public class FileAccountManager {
 		if ( acctID == null ) {
 			throw new IllegalArgumentException("argument <acctID> is null");
 		}
-		
+
 		if ( ! acctID.isSet() ) {
 			throw new IllegalArgumentException("argument <acctID> is not set");
 		}
-		
+
 		if ( name == null ) {
 			throw new IllegalArgumentException("argument <name> is null");
 		}
-		
+
 		if ( name.trim().equals("") ) {
 			throw new IllegalArgumentException("argument <name> is empty");
 		}
-		
+
 		GnuCashAccount retval = getAccountByID(acctID);
 		if ( retval == null ) {
 			retval = getAccountByNameEx(name);
@@ -346,11 +346,11 @@ public class FileAccountManager {
 		if ( expr == null ) {
 			throw new IllegalArgumentException("argument <expr> is null");
 		}
-		
+
 		if ( expr.trim().equals("") ) {
 			throw new IllegalArgumentException("argument <expr> is empty");
 		}
-		
+
 		List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
 
 		for ( GnuCashAccount acct : getAccountsByName(expr, qualif, relaxed) ) {
@@ -394,7 +394,15 @@ public class FileAccountManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return Collections.unmodifiableCollection(acctMap.values());
+		// Caution: Although, originally, we defined a Collection and not a List
+		// for the accounts in the interface of KMyMoneyAccount, we recently
+		// found out that sorting -- thus a list -- is kind of necessary, 
+		// because else, the recently-introduced method dump() in KMyMoneyFile(Impl)
+		// is not of much use.
+		// Cf. comment in KMyMoneyAccount.
+		ArrayList<GnuCashAccount> temp = new ArrayList<GnuCashAccount>(acctMap.values());
+		Collections.sort(temp);
+		return Collections.unmodifiableCollection(temp);
 	}
 
 	public List<GnuCashAccountImpl> getAccounts_readAfresh() {

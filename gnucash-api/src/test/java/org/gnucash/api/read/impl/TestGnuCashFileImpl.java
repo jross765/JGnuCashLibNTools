@@ -1,9 +1,13 @@
 package org.gnucash.api.read.impl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.InputStream;
+import java.io.PrintStream;
 
+import org.apache.commons.io.FileUtils;
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.junit.Before;
@@ -17,6 +21,10 @@ public class TestGnuCashFileImpl {
 
 	private GCshFileStats gcshFileStats  = null;
 	private GCshFileStats gcshFileStats2 = null;
+
+	// ::MAGIC
+	private final String DUMP_OUT_FILE_NAME = "/home/xxx/Programme/finanzen/gnucash/test/out/dump.txt";
+	private final String DUMP_REF_FILE_NAME = "/home/xxx/Programme/finanzen/gnucash/test/ref/dump.txt";
 
 	// -----------------------------------------------------------------
 
@@ -233,5 +241,20 @@ public class TestGnuCashFileImpl {
 		assertEquals(gcshFile.getTaxTables().toString(), gcshFile2.getTaxTables().toString());
 		assertEquals(gcshFile.getBillTerms().toString(), gcshFile2.getBillTerms().toString());
 	}
+
+	// ---------------------------------------------------------------
+
+	/*
+	@Test
+	public void test30() throws Exception {
+		PrintStream dumpOutStream = new PrintStream(DUMP_OUT_FILE_NAME);
+		gcshFile.dump(dumpOutStream);
+		dumpOutStream.close();
+		
+		File dumpOutFile = new File(DUMP_OUT_FILE_NAME);
+		File dumpRefFile = new File(DUMP_REF_FILE_NAME);
+		assertTrue(FileUtils.contentEquals(dumpOutFile, dumpRefFile));
+	}
+	*/
 
 }
