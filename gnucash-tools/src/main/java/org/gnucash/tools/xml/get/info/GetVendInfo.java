@@ -19,7 +19,6 @@ import org.gnucash.api.read.impl.GnuCashFileImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshVendID;
 import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;

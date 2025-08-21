@@ -29,11 +29,17 @@ public class CmdLineHelper
     NAME
   }
 	  
-  public enum CmdtySelectSubMode // for <mode> = 'ID' only
+  public enum CmdtySelectSubMode // for <cmdty-select-mode> = 'ID' only
   {
     EXCHANGE_TICKER,
     MIC,
     SEC_ID_TYPE
+  }
+
+  public enum PrcSelectMode
+  {
+    ID,
+    CMDTY_DATE
   }
 
   // -----------------------------------------------------------------

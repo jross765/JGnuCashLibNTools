@@ -13,8 +13,10 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.gnucash.api.read.GnuCashPrice;
 import org.gnucash.api.read.impl.GnuCashFileImpl;
+import org.gnucash.base.basetypes.complex.GCshCmdtyID;
 import org.gnucash.base.basetypes.simple.GCshPrcID;
 import org.gnucash.tools.CommandLineTool;
+import org.gnucash.tools.xml.helper.CmdLineHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,13 +35,16 @@ public class GetPrcInfo extends CommandLineTool
   // private static PropertiesConfiguration cfg = null;
   private static Options options;
   
-  private static String     gcshFileName   = null;
-  private static GCshPrcID  prcID         = null;
-  private static LocalDate  date          = null;
+  private static String      gcshFileName  = null;
   
-  private static boolean showQuotes = false;
+  private static CmdLineHelper.PrcSelectMode mode = null;
   
-  private static boolean scriptMode = false; // ::TODO
+  private static GCshPrcID   prcID         = null;
+  // Provide for selecting a currency as well ==> GCshCurrID and/ord GCshCmdtyCurrID
+  private static GCshCmdtyID cmdtyID       = null;  
+  private static LocalDate   date          = null;
+  
+  private static boolean scriptMode = false;
 
   // -----------------------------------------------------------------
 
@@ -61,7 +66,8 @@ public class GetPrcInfo extends CommandLineTool
   @Override
   protected void init() throws Exception
   {
-    // acctID = UUID.randomUUID();
+  	prcID = new GCshPrcID();
+  	cmdtyID = new GCshCmdtyID();
 
 //    cfg = new PropertiesConfiguration(System.getProperty("config"));
 //    getConfigSettings(cfg);
@@ -76,20 +82,50 @@ public class GetPrcInfo extends CommandLineTool
       .longOpt("gnucash-file")
       .build();
       
-    Option optID = Option.builder("prc")
+    Option optMode = Option.builder("m")
       .required()
+      .hasArg()
+      .argName("mode")
+      .desc("Selection mode")
+      .longOpt("mode")
+      .build();
+    	      
+    Option optID = Option.builder("prc")
       .hasArg()
       .argName("UUID")
       .desc("Price-ID")
       .longOpt("price-id")
       .build();
     	          
+    // ::TODO:
+    //  - Provide for selecting a currency as well
+    //  - For commodity: This is a temporary solution.
+    //    We need the commodity-sub-selection mode here as well,
+    //    just as in GetCmdtyInfo.
+    //    (And, of course, do that with minimal code redundancies.)
+    Option optCmdtyID = Option.builder("cmdty")
+      .hasArg()
+      .argName("cmdtyid")
+      .desc("Commodity ID (qualified)")
+      .longOpt("commodity-id")
+      .build();
+    	    	          
+    Option optDate = Option.builder("dat")
+      .hasArg()
+      .argName("date")
+      .desc("Date")
+      .longOpt("date")
+      .build();
+    	    	          
     // The convenient ones
     // ::EMPTY
             
     options = new Options();
     options.addOption(optFile);
+    options.addOption(optMode);
     options.addOption(optID);
+    options.addOption(optCmdtyID);
+    options.addOption(optDate);
   }
 
   @Override
@@ -105,13 +141,25 @@ public class GetPrcInfo extends CommandLineTool
     
     GnuCashPrice prc = null;
     
-    prc = gcshFile.getPriceByID(prcID);
-    if ( prc == null )
+    if ( mode == CmdLineHelper.PrcSelectMode.ID )
     {
-      System.err.println("Could not find a cmdtyurity with this ID.");
-      throw new NoEntryFoundException();
+        prc = gcshFile.getPriceByID(prcID);
+        if ( prc == null )
+        {
+          System.err.println("Could not find a commodity with this ID.");
+          throw new NoEntryFoundException();
+        }
     }
-    
+    else if ( mode == CmdLineHelper.PrcSelectMode.CMDTY_DATE )
+    {
+        prc = gcshFile.getPriceByCmdtyIDDate(cmdtyID, date);
+        if ( prc == null )
+        {
+          System.err.println("Could not find a commodity matching this commodity-ID/date.");
+          throw new NoEntryFoundException();
+        }
+    }
+
     // ----------------------------
 
     try
@@ -212,18 +260,110 @@ public class GetPrcInfo extends CommandLineTool
     if (!scriptMode)
       System.err.println("GnuCash file: '" + gcshFileName + "'");
 
-    // <price-id>
+    // <mode>
     try
     {
-      prcID = new GCshPrcID( cmdLine.getOptionValue("price-id") ); 
-      System.err.println("price-ID: " + prcID);
+      mode = CmdLineHelper.PrcSelectMode.valueOf(cmdLine.getOptionValue("mode"));
     }
     catch ( Exception exc )
     {
-      System.err.println("Could not parse <price-id>");
+      System.err.println("Could not parse <mode>");
       throw new InvalidCommandLineArgsException();
     }
     
+    // <price-id>
+    if ( cmdLine.hasOption( "price-id" ) )
+    {
+    	if ( mode != CmdLineHelper.PrcSelectMode.ID )
+    	{
+            System.err.println("<price-id> may only be set with <mode> = " + CmdLineHelper.PrcSelectMode.ID);
+            throw new InvalidCommandLineArgsException();
+    	}
+    		
+        try
+        {
+          prcID = new GCshPrcID( cmdLine.getOptionValue("price-id") ); 
+        }
+        catch ( Exception exc )
+        {
+          System.err.println("Could not parse <price-id>");
+          throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	if ( mode == CmdLineHelper.PrcSelectMode.ID )
+    	{
+            System.err.println("<price-id> must be set with <mode> = " + CmdLineHelper.PrcSelectMode.ID);
+            throw new InvalidCommandLineArgsException();
+    	}
+    }
+    
+    if (!scriptMode)
+        System.err.println("Price ID:     " + prcID);
+
+    // <commodity-id>
+    if ( cmdLine.hasOption( "commodity-id" ) )
+    {
+    	if ( mode != CmdLineHelper.PrcSelectMode.CMDTY_DATE )
+    	{
+            System.err.println("<commodity-id> may only be set with <mode> = " + CmdLineHelper.PrcSelectMode.CMDTY_DATE);
+            throw new InvalidCommandLineArgsException();
+    	}
+    		
+        try
+        {
+          cmdtyID = GCshCmdtyID.parse( cmdLine.getOptionValue("commodity-id") ); 
+        }
+        catch ( Exception exc )
+        {
+          System.err.println("Could not parse <commodity-id>");
+          throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	if ( mode == CmdLineHelper.PrcSelectMode.CMDTY_DATE )
+    	{
+            System.err.println("<commodity-id> must be set with <mode> = " + CmdLineHelper.PrcSelectMode.CMDTY_DATE);
+            throw new InvalidCommandLineArgsException();
+    	}
+    }
+    
+    if (!scriptMode)
+        System.err.println("Commodity ID: " + cmdtyID);
+
+    // <date>
+    if ( cmdLine.hasOption( "date" ) )
+    {
+    	if ( mode != CmdLineHelper.PrcSelectMode.CMDTY_DATE )
+    	{
+            System.err.println("<date> may only be set with <mode> = " + CmdLineHelper.PrcSelectMode.CMDTY_DATE);
+            throw new InvalidCommandLineArgsException();
+    	}
+    		
+        try
+        {
+          date = LocalDate.parse( cmdLine.getOptionValue( "date" ) ); 
+        }
+        catch ( Exception exc )
+        {
+          System.err.println("Could not parse <date>");
+          throw new InvalidCommandLineArgsException();
+        }
+    }
+    else
+    {
+    	if ( mode == CmdLineHelper.PrcSelectMode.CMDTY_DATE )
+    	{
+            System.err.println("<date> must be set with <mode> = " + CmdLineHelper.PrcSelectMode.CMDTY_DATE);
+            throw new InvalidCommandLineArgsException();
+    	}
+    }
+    
+    if (!scriptMode)
+        System.err.println("Date:         " + date);
+
   }
 
   @Override
@@ -231,5 +371,10 @@ public class GetPrcInfo extends CommandLineTool
   {
     HelpFormatter formatter = new HelpFormatter();
     formatter.printHelp("GetPrcInfo", options);
+    
+    System.out.println("");
+    System.out.println("Valid values for <mode>:");
+    for ( CmdLineHelper.PrcSelectMode elt : CmdLineHelper.PrcSelectMode.values() )
+      System.out.println(" - " + elt);
   }
 }
