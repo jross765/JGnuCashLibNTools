@@ -58,38 +58,37 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
 	    final GnuCashTransaction trx,
 	    final boolean addSpltToAcct,
 	    final boolean addSpltToInvc) {
-	super(trx.getGnuCashFile());
+		super(trx.getGnuCashFile());
 
-	this.jwsdpPeer = peer;
-	this.myTrx = trx;
+		this.jwsdpPeer = peer;
+		this.myTrx = trx;
 
-	if ( addSpltToAcct ) {
-	    GnuCashAccount acct = getAccount();
-	    if (acct == null) {
-	    	LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getID()
-	    		+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getID()
-	    		+ "' description '" + getTransaction().getDescription() + "'");
-	    } else {
-	    	acct.addTransactionSplit(this);
-	    }
-	}
-
-	if ( addSpltToInvc ) {
-	    GCshLotID spltLotID = getLotID();
-	    if ( spltLotID != null ) {
-		for ( GnuCashGenerInvoice invc : getTransaction().getGnuCashFile().getGenerInvoices() ) {
-		    GCshLotID invcPostLotID = invc.getLotID();
-		    if ( invcPostLotID != null && 
-			 invcPostLotID.equals(spltLotID) ) {
-			// Check if it's a payment transaction.
-			// If so, add it to the invoice's list of payment transactions.
-			if ( getAction() == Action.PAYMENT ) {
-			    invc.addPayingTransaction(this);
+		if ( addSpltToAcct ) {
+			GnuCashAccount acct = getAccount();
+			if ( acct == null ) {
+				LOGGER.error("No such Account id='" + getAccountID() + "' for Transactions-Split with id '" + getID()
+						+ "' description '" + getDescription() + "' in transaction with id '" + getTransaction().getID()
+						+ "' description '" + getTransaction().getDescription() + "'");
+			} else {
+				acct.addTransactionSplit(this);
 			}
-		    }
-		} // for invc
-	    } // lot
-	} // addSpltToInvc
+		}
+
+		if ( addSpltToInvc ) {
+			GCshLotID spltLotID = getLotID();
+			if ( spltLotID != null ) {
+				for ( GnuCashGenerInvoice invc : getTransaction().getGnuCashFile().getGenerInvoices() ) {
+					GCshLotID invcPostLotID = invc.getLotID();
+					if ( invcPostLotID != null && invcPostLotID.equals(spltLotID) ) {
+						// Check if it's a payment transaction.
+						// If so, add it to the invoice's list of payment transactions.
+						if ( getAction() == Action.PAYMENT ) {
+							invc.addPayingTransaction(this);
+						}
+					}
+				} // for invc
+			} // lot
+		} // addSpltToInvc
     }
 
     // ---------------------------------------------------------------
@@ -108,7 +107,7 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @see GnuCashTransactionSplit#getID()
      */
     public GCshSpltID getID() {
-	return new GCshSpltID( jwsdpPeer.getSplitId().getValue() );
+    	return new GCshSpltID( jwsdpPeer.getSplitId().getValue() );
     }
 
     /**
@@ -116,12 +115,11 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      *         with that lot-id.
      */
     public GCshLotID getLotID() {
-	if (getJwsdpPeer().getSplitLot() == null) {
-	    return null;
-	}
+		if ( getJwsdpPeer().getSplitLot() == null ) {
+			return null;
+		}
 
-	return new GCshLotID( getJwsdpPeer().getSplitLot().getValue() );
-
+		return new GCshLotID(getJwsdpPeer().getSplitLot().getValue());
     }
 
     /**
@@ -218,44 +216,42 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @see GnuCashTransactionSplit#getValueFormatted(java.util.Locale)
      */
     public String getValueFormatted(final Locale lcl) {
-
-	NumberFormat nf = NumberFormat.getInstance(lcl);
-	if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    // redundant, but symmetry:
-	    nf.setCurrency(new GCshCurrID(getTransaction().getCmdtyCurrID()).getCurrency());
-	    return nf.format(getValue());
-	}
-	else {
-	    return nf.format(getValue()) + " " + getTransaction().getCmdtyCurrID().toString(); 
-	}
+		NumberFormat nf = NumberFormat.getInstance(lcl);
+		if ( getTransaction().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+			// redundant, but symmetry:
+			nf.setCurrency(new GCshCurrID(getTransaction().getCmdtyCurrID()).getCurrency());
+			return nf.format(getValue());
+		} else {
+			return nf.format(getValue()) + " " + getTransaction().getCmdtyCurrID().toString();
+		}
     }
 
     /**
      * @see GnuCashTransactionSplit#getAccountBalance()
      */
     public FixedPointNumber getAccountBalance() {
-	return getAccount().getBalance(this);
+    	return getAccount().getBalance(this);
     }
 
     /**
      * @see GnuCashTransactionSplit#getAccountBalanceFormatted()
      */
     public String getAccountBalanceFormatted() {
-	return ((GnuCashAccountImpl) getAccount()).getCurrencyFormat().format(getAccountBalance());
+    	return ((GnuCashAccountImpl) getAccount()).getCurrencyFormat().format(getAccountBalance());
     }
 
     /**
      * @see GnuCashTransactionSplit#getAccountBalanceFormatted(java.util.Locale)
      */
     public String getAccountBalanceFormatted(final Locale lcl) {
-	return getAccount().getBalanceFormatted(lcl);
+    	return getAccount().getBalanceFormatted(lcl);
     }
 
     /**
      * @see GnuCashTransactionSplit#getQuantity()
      */
     public FixedPointNumber getQuantity() {
-	return new FixedPointNumber(jwsdpPeer.getSplitQuantity());
+    	return new FixedPointNumber(jwsdpPeer.getSplitQuantity());
     }
 
     /**
@@ -273,13 +269,12 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      */
     public String getQuantityFormatted(final Locale lcl) {
 		NumberFormat nf = getQuantityCurrencyFormat();
-	if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
-	    return nf.format(getQuantity());
-	}
-	else {
-	    return nf.format(getQuantity()) + " " + getAccount().getCmdtyCurrID().toString(); 
-	}
+		if ( getAccount().getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+			nf.setCurrency(new GCshCurrID(getAccount().getCmdtyCurrID()).getCurrency());
+			return nf.format(getQuantity());
+		} else {
+			return nf.format(getQuantity()) + " " + getAccount().getCmdtyCurrID().toString();
+		}
     }
 
     /**
@@ -288,10 +283,11 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      * @see GnuCashTransactionSplit#getDescription()
      */
     public String getDescription() {
-	if (jwsdpPeer.getSplitMemo() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getSplitMemo();
+		if ( jwsdpPeer.getSplitMemo() == null ) {
+			return "";
+		}
+		
+		return jwsdpPeer.getSplitMemo();
     }
 
     // ---------------------------------------------------------------
@@ -312,74 +308,72 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashTransactionSplitImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashTransactionSplitImpl [");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	buffer.append(", action=");
-	try {
-	    buffer.append(getAction());
-	} catch (Exception e) {
-	    buffer.append("ERROR");
-	}
+		buffer.append(", action=");
+		try {
+			buffer.append(getAction());
+		} catch (Exception e) {
+			buffer.append("ERROR");
+		}
 
-	buffer.append(", transaction-id=");
-	buffer.append(getTransaction().getID());
+		buffer.append(", transaction-id=");
+		buffer.append(getTransaction().getID());
 
-	buffer.append(", accountID=");
-	buffer.append(getAccountID());
+		buffer.append(", accountID=");
+		buffer.append(getAccountID());
 
-//	buffer.append(", account=");
-//	GnuCashAccount account = getAccount();
-//	buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
+//		buffer.append(", account=");
+//		GnuCashAccount account = getAccount();
+//		buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
 
-	buffer.append(", description='");
-	buffer.append(getDescription() + "'");
+		buffer.append(", description='");
+		buffer.append(getDescription() + "'");
 
-	buffer.append(", transaction-description='");
-	buffer.append(getTransaction().getDescription() + "'");
+		buffer.append(", transaction-description='");
+		buffer.append(getTransaction().getDescription() + "'");
 
-	buffer.append(", value=");
-	buffer.append(getValue());
+		buffer.append(", value=");
+		buffer.append(getValue());
 
-	buffer.append(", quantity=");
-	buffer.append(getQuantity());
+		buffer.append(", quantity=");
+		buffer.append(getQuantity());
 
-	buffer.append("]");
-	return buffer.toString();
+		buffer.append("]");
+		return buffer.toString();
     }
 
     public int compareTo(final GnuCashTransactionSplit otherSplt) {
-	try {
-	    GnuCashTransaction otherTrans = otherSplt.getTransaction();
-	    int c = otherTrans.compareTo(getTransaction());
-	    if (c != 0) {
-		return c;
-	    }
+		try {
+			GnuCashTransaction otherTrans = otherSplt.getTransaction();
+			int c = otherTrans.compareTo(getTransaction());
+			if ( c != 0 ) {
+				return c;
+			}
 
-	    c = otherSplt.getID().toString().compareTo(getID().toString());
-	    if (c != 0) {
-		return c;
-	    }
+			c = otherSplt.getID().toString().compareTo(getID().toString());
+			if ( c != 0 ) {
+				return c;
+			}
 
-	    if (otherSplt != this) {
-		LOGGER.error("compareTo: Duplicate transaction-split-id!! " + 
-			otherSplt.getID() + "[" + otherSplt.getClass().getName() + "] and " + 
-			getID() + "[" + getClass().getName() + "]\n" + 
-			"split0=" + otherSplt.toString() + "\n" + 
-			"split1=" + toString());
-		IllegalStateException exc = new IllegalStateException("DEBUG");
-		exc.printStackTrace();
-	    }
+			if ( otherSplt != this ) {
+				LOGGER.error("compareTo: Duplicate transaction-split-id!! " + otherSplt.getID() + "["
+						+ otherSplt.getClass().getName() + "] and " + getID() + "[" + getClass().getName() + "]\n"
+						+ "split0=" + otherSplt.toString() + "\n" + "split1=" + toString());
+				IllegalStateException exc = new IllegalStateException("DEBUG");
+				exc.printStackTrace();
+			}
 
-	    return 0;
+			return 0;
 
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    return 0;
-	}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
     }
 
 }

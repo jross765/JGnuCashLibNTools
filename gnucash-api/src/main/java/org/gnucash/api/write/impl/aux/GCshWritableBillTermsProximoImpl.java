@@ -25,73 +25,73 @@ public class GCshWritableBillTermsProximoImpl extends GCshBillTermsProximoImpl
     public GCshWritableBillTermsProximoImpl(
 	    final GncGncBillTerm.BilltermProximo jwsdpPeer, 
 	    final GnuCashWritableFile gcshFile) {
-	super(jwsdpPeer, gcshFile);
+    	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableBillTermsProximoImpl(final GCshBillTermsProximoImpl bllTrm) {
-	super(bllTrm.getJwsdpPeer(), bllTrm.getGnuCashFile());
+    	super(bllTrm.getJwsdpPeer(), bllTrm.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public void setDueDay(final Integer dueDay) {
-	if ( dueDay == null ) {
-	    throw new IllegalArgumentException("argument <dueDay> is null");
-	}
-	
-	if ( dueDay <= 0 ) {
-	    throw new IllegalArgumentException("argument <prntID> is <= 0");
-	}
+		if ( dueDay == null ) {
+			throw new IllegalArgumentException("argument <dueDay> is null");
+		}
 
-	jwsdpPeer.setBtProxDueDay(dueDay);
+		if ( dueDay <= 0 ) {
+			throw new IllegalArgumentException("argument <prntID> is <= 0");
+		}
+
+		jwsdpPeer.setBtProxDueDay(dueDay);
     }
 
     @Override
     public void setDiscountDay(final Integer dscntDay) {
-	if ( dscntDay == null ) {
-	    throw new IllegalArgumentException("argument <dscntDay> is null");
-	}
-	
-	if ( dscntDay <= 0 ) {
-	    throw new IllegalArgumentException("argument <dscntDay> is <= 0");
-	}
+		if ( dscntDay == null ) {
+			throw new IllegalArgumentException("argument <dscntDay> is null");
+		}
 
-	jwsdpPeer.setBtProxDiscDay(dscntDay);
+		if ( dscntDay <= 0 ) {
+			throw new IllegalArgumentException("argument <dscntDay> is <= 0");
+		}
+
+		jwsdpPeer.setBtProxDiscDay(dscntDay);
     }
 
     @Override
     public void setDiscount(final FixedPointNumber dscnt) {
-	if ( dscnt == null ) {
-	    throw new IllegalArgumentException("argument <dscnt> is null");
-	}
-	
-	if ( dscnt.getBigDecimal().doubleValue() <= 0 ) {
-	    throw new IllegalArgumentException("argument <dscnt> is <= 0");
-	}
+		if ( dscnt == null ) {
+			throw new IllegalArgumentException("argument <dscnt> is null");
+		}
 
-	jwsdpPeer.setBtProxDiscount(dscnt.toGnuCashString());
+		if ( dscnt.getBigDecimal().doubleValue() <= 0 ) {
+			throw new IllegalArgumentException("argument <dscnt> is <= 0");
+		}
+
+		jwsdpPeer.setBtProxDiscount(dscnt.toGnuCashString());
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GCshWritableBillTermsProximoImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GCshWritableBillTermsProximoImpl [");
 
-	buffer.append("due-day=");
-	buffer.append(getDueDay());
+		buffer.append("due-day=");
+		buffer.append(getDueDay());
 
-	buffer.append(", discount-day=");
-	buffer.append(getDiscountDay());
+		buffer.append(", discount-day=");
+		buffer.append(getDiscountDay());
 
-	buffer.append(", discount=");
-	buffer.append(getDiscount());
+		buffer.append(", discount=");
+		buffer.append(getDiscount());
 
-	buffer.append("]");
+		buffer.append("]");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

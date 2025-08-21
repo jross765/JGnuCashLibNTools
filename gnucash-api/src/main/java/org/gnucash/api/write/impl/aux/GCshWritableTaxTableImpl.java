@@ -27,106 +27,106 @@ public class GCshWritableTaxTableImpl extends GCshTaxTableImpl
     public GCshWritableTaxTableImpl(
 	    final GncGncTaxTable jwsdpPeer, 
 	    final GnuCashWritableFile gcshFile) {
-	super(jwsdpPeer, gcshFile);
+    	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableTaxTableImpl(final GCshTaxTableImpl taxTab) {
-	super(taxTab.getJwsdpPeer(), taxTab.getGnuCashFile());
+    	super(taxTab.getJwsdpPeer(), taxTab.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public void setName(final String name) {
-	if ( name == null ) {
-	    throw new IllegalArgumentException("argument <name> is null");
-	}
-	
-	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <name> is empty");
-	}
+		if ( name == null ) {
+			throw new IllegalArgumentException("argument <name> is null");
+		}
 
-	getJwsdpPeer().setTaxtableName(name);
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
+		}
+
+		getJwsdpPeer().setTaxtableName(name);
     }
 
     @Override
     public void setParentID(final GCshTaxTabID prntID) {
-	if ( prntID == null ) {
-	    throw new IllegalArgumentException("argument <prntID> is null");
-	}
-	
-	if ( ! prntID.isSet() ) {
-	    throw new IllegalArgumentException("argument <prntID> is not set");
-	}
+		if ( prntID == null ) {
+			throw new IllegalArgumentException("argument <prntID> is null");
+		}
 
-	getJwsdpPeer().getTaxtableParent().setValue(prntID.toString());
+		if ( !prntID.isSet() ) {
+			throw new IllegalArgumentException("argument <prntID> is not set");
+		}
+
+		getJwsdpPeer().getTaxtableParent().setValue(prntID.toString());
     }
 
     @Override
     public void setParent(final GCshTaxTable prnt) {
-	if ( prnt == null ) {
-	    throw new IllegalArgumentException("argument <prnt> is null");
-	}
-	
-	setParentID(prnt.getID());
+		if ( prnt == null ) {
+			throw new IllegalArgumentException("argument <prnt> is null");
+		}
+
+		setParentID(prnt.getID());
     }
     
     // ---------------------------------------------------------------
 
     public void addEntry(final GCshTaxTableEntry entr) {
-	if ( entr == null ) {
-	    throw new IllegalArgumentException("argument <entr> is null");
-	}
-	
-	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
-	    throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
-	}
-	
-	if ( ! entries.contains(entr) ) {
-	    entries.add(entr);
-	}
+		if ( entr == null ) {
+			throw new IllegalArgumentException("argument <entr> is null");
+		}
+
+		if ( !(entr instanceof GCshTaxTableEntryImpl) ) {
+			throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
+		}
+
+		if ( !entries.contains(entr) ) {
+			entries.add(entr);
+		}
     }
 
     public void removeEntry(GCshTaxTableEntry entr) {
-	if ( entr == null ) {
-	    throw new IllegalArgumentException("argument <entr> is null");
-	}
+		if ( entr == null ) {
+			throw new IllegalArgumentException("argument <entr> is null");
+		}
 
-	if ( ! ( entr instanceof GCshTaxTableEntryImpl ) ) {
-	    throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
-	}
-	
-	for ( GCshTaxTableEntry elt : entries ) {
-	    if ( elt.equals(entr) ) {
-		entries.remove(elt);
-		return;
-	    }
-	}
+		if ( !(entr instanceof GCshTaxTableEntryImpl) ) {
+			throw new IllegalArgumentException("argument <entr> is not instance of GCshTaxTableEntryImpl");
+		}
+
+		for ( GCshTaxTableEntry elt : entries ) {
+			if ( elt.equals(entr) ) {
+				entries.remove(elt);
+				return;
+			}
+		}
     }
 
     // ---------------------------------------------------------------
 
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
 
-	buffer.append("GCshWritableTaxTableImpl [\n");
+		buffer.append("GCshWritableTaxTableImpl [\n");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
 
-	buffer.append(", parent-id=");
-	buffer.append(getParentID() + "\n");
+		buffer.append(", parent-id=");
+		buffer.append(getParentID() + "\n");
 
-	buffer.append("  Entries:\n");
-	for (GCshTaxTableEntry entry : getEntries()) {
-	    buffer.append("   - " + entry + "\n");
-	}
+		buffer.append("  Entries:\n");
+		for ( GCshTaxTableEntry entry : getEntries() ) {
+			buffer.append("   - " + entry + "\n");
+		}
 
-	buffer.append("]\n");
+		buffer.append("]\n");
 
-	return buffer.toString();
+		return buffer.toString();
     }
 }

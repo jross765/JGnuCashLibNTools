@@ -59,7 +59,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 	public GnuCashWritableVendorImpl(
 			final GncGncVendor jwsdpPeer,
 			final GnuCashWritableFileImpl file) {
-	super(jwsdpPeer, file);
+    	super(jwsdpPeer, file);
     }
 
     /**
@@ -69,11 +69,11 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableVendorImpl(final GnuCashWritableFileImpl file) {
-	super(createVendor_int(file, new GCshVendID( GCshID.getNew()) ), file);
+    	super(createVendor_int(file, new GCshVendID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritableVendorImpl(final GnuCashVendorImpl vend) {
-	super(vend.getJwsdpPeer(), vend.getGnuCashFile());
+    	super(vend.getJwsdpPeer(), vend.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -89,57 +89,57 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     protected static GncGncVendor createVendor_int(
     		final GnuCashWritableFileImpl file, 
     		final GCshVendID vendID) {
-	if ( ! vendID.isSet() ) {
-	    throw new IllegalArgumentException("argument <vendID> is null");
-	}
-    
-        ObjectFactory factory = file.getObjectFactory();
-    
-        GncGncVendor jwsdpVend = file.createGncGncVendorType();
-    
-        jwsdpVend.setVendorTaxincluded("USEGLOBAL");
-        jwsdpVend.setVersion(Const.XML_FORMAT_VERSION);
-        jwsdpVend.setVendorUseTt(0);
-        jwsdpVend.setVendorName("no name given");
-    
-        {
-            GncGncVendor.VendorGuid id = factory.createGncGncVendorVendorGuid();
-            id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(vendID.toString());
-            jwsdpVend.setVendorGuid(id);
-            jwsdpVend.setVendorId(id.getValue());
-        }
-    
-        {
-            org.gnucash.api.generated.Address addr = factory.createAddress();
-            addr.setAddrAddr1("");
-            addr.setAddrAddr2("");
-            addr.setAddrName("");
-            addr.setAddrAddr3("");
-            addr.setAddrAddr4("");
-            addr.setAddrName("");
-            addr.setAddrEmail("");
-            addr.setAddrFax("");
-            addr.setAddrPhone("");
-            addr.setVersion(Const.XML_FORMAT_VERSION);
-            jwsdpVend.setVendorAddr(addr);
-        }
-    
-        {
-            GncGncVendor.VendorCurrency currency = factory.createGncGncVendorVendorCurrency();
-            currency.setCmdtyId(file.getDefaultCurrencyID());
-            currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            jwsdpVend.setVendorCurrency(currency);
-        }
-    
-        jwsdpVend.setVendorActive(1);
-    
-        file.getRootElement().getGncBook().getBookElements().add(jwsdpVend);
-        file.setModified(true);
-    
-        LOGGER.debug("createVendor_int: Created new vendor (core): " + jwsdpVend.getVendorGuid().getValue());
-        
-        return jwsdpVend;
+		if ( !vendID.isSet() ) {
+			throw new IllegalArgumentException("argument <vendID> is null");
+		}
+
+		ObjectFactory factory = file.getObjectFactory();
+
+		GncGncVendor jwsdpVend = file.createGncGncVendorType();
+
+		jwsdpVend.setVendorTaxincluded("USEGLOBAL");
+		jwsdpVend.setVersion(Const.XML_FORMAT_VERSION);
+		jwsdpVend.setVendorUseTt(0);
+		jwsdpVend.setVendorName("no name given");
+
+		{
+			GncGncVendor.VendorGuid id = factory.createGncGncVendorVendorGuid();
+			id.setType(Const.XML_DATA_TYPE_GUID);
+			id.setValue(vendID.toString());
+			jwsdpVend.setVendorGuid(id);
+			jwsdpVend.setVendorId(id.getValue());
+		}
+
+		{
+			org.gnucash.api.generated.Address addr = factory.createAddress();
+			addr.setAddrAddr1("");
+			addr.setAddrAddr2("");
+			addr.setAddrName("");
+			addr.setAddrAddr3("");
+			addr.setAddrAddr4("");
+			addr.setAddrName("");
+			addr.setAddrEmail("");
+			addr.setAddrFax("");
+			addr.setAddrPhone("");
+			addr.setVersion(Const.XML_FORMAT_VERSION);
+			jwsdpVend.setVendorAddr(addr);
+		}
+
+		{
+			GncGncVendor.VendorCurrency currency = factory.createGncGncVendorVendorCurrency();
+			currency.setCmdtyId(file.getDefaultCurrencyID());
+			currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
+			jwsdpVend.setVendorCurrency(currency);
+		}
+
+		jwsdpVend.setVendorActive(1);
+
+		file.getRootElement().getGncBook().getBookElements().add(jwsdpVend);
+		file.setModified(true);
+
+		LOGGER.debug("createVendor_int: Created new vendor (core): " + jwsdpVend.getVendorGuid().getValue());
+
+		return jwsdpVend;
     }
 
     /**
@@ -149,9 +149,9 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public void remove() {
-	GncGncVendor peer = getJwsdpPeer();
-	(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
-	(getGnuCashFile()).removeVendor(this);
+		GncGncVendor peer = getJwsdpPeer();
+		(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
+		(getGnuCashFile()).removeVendor(this);
     }
 
     // ---------------------------------------------------------------
@@ -163,7 +163,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -173,7 +173,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -183,22 +183,22 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public void setNumber(final String numStr) {
-	if ( numStr == null ) {
-	    throw new IllegalArgumentException("argument <numStr> is null");
-	}
+		if ( numStr == null ) {
+			throw new IllegalArgumentException("argument <numStr> is null");
+		}
 
-	if ( numStr.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <numStr> is empty");
-	}
+		if ( numStr.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <numStr> is empty");
+		}
 
-	String oldNumber = getNumber();
-	getJwsdpPeer().setVendorId(numStr);
-	getGnuCashFile().setModified(true);
+		String oldNumber = getNumber();
+		getJwsdpPeer().setVendorId(numStr);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("VendorNumber", oldNumber, numStr);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("VendorNumber", oldNumber, numStr);
+		}
     }
 
     /**
@@ -206,22 +206,22 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public void setName(final String name) {
-	if ( name == null ) {
-	    throw new IllegalArgumentException("argument <name> is null");
-	}
+		if ( name == null ) {
+			throw new IllegalArgumentException("argument <name> is null");
+		}
 
-	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <name> is empty");
-	}
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
+		}
 
-	String oldName = getName();
-	getJwsdpPeer().setVendorName(name);
-	getGnuCashFile().setModified(true);
+		String oldName = getName();
+		getJwsdpPeer().setVendorName(name);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("name", oldName, name);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("name", oldName, name);
+		}
     }
 
     /**
@@ -230,23 +230,23 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public void setNotes(final String nts) {
-	if ( nts == null ) {
-	    throw new IllegalArgumentException("argument <nts> is null");
-	}
+		if ( nts == null ) {
+			throw new IllegalArgumentException("argument <nts> is null");
+		}
 
-	// Caution: empty string allowed here
-//	if ( notes.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("argument <nts> is empty");
-//	}
+		// Caution: empty string allowed here
+//		if ( notes.trim().length() == 0 ) {
+//	  	  throw new IllegalArgumentException("argument <nts> is empty");
+//		}
 
-	String oldNotes = getNotes();
-	getJwsdpPeer().setVendorNotes(nts);
-	getGnuCashFile().setModified(true);
+		String oldNotes = getNotes();
+		getJwsdpPeer().setVendorNotes(nts);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
+		}
     }
 
     // ---------------------------------------------------------------
@@ -256,7 +256,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public GCshWritableAddress getWritableAddress() {
-	return new GCshWritableAddressImpl(getJwsdpPeer().getVendorAddr(), getGnuCashFile());
+    	return new GCshWritableAddressImpl(getJwsdpPeer().getVendorAddr(), getGnuCashFile());
     }
 
     /**
@@ -264,7 +264,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
      */
     @Override
     public GCshWritableAddress getAddress() {
-	return getWritableAddress();
+    	return getWritableAddress();
     }
     
     // ----------------------------
@@ -278,37 +278,36 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 	@Override
 	public void removeAddress(GCshWritableAddress impl) {
 		// TODO Auto-generated method stub
-		
 	}
 
     @Override
     public void setAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("argument <adr> is null");
-	}
+		if ( adr == null ) {
+			throw new IllegalArgumentException("argument <adr> is null");
+		}
 
-	/*
-	 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-	 * getJwsdpPeer().setVendAddr(adrImpl.getJwsdpPeer()); } else
-	 */
-	
-	{
+		/*
+		 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+		 * getJwsdpPeer().setVendAddr(adrImpl.getJwsdpPeer()); } else
+		 */
 
-	    if (getJwsdpPeer().getVendorAddr() == null) {
-		getJwsdpPeer().setVendorAddr(getGnuCashFile().getObjectFactory().createAddress());
-	    }
+		{
 
-	    getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getAddressLine1());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getAddressLine2());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getAddressLine3());
-	    getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getAddressLine4());
-	    getJwsdpPeer().getVendorAddr().setAddrName(adr.getAddressName());
-	    getJwsdpPeer().getVendorAddr().setAddrEmail(adr.getEmail());
-	    getJwsdpPeer().getVendorAddr().setAddrFax(adr.getFax());
-	    getJwsdpPeer().getVendorAddr().setAddrPhone(adr.getTel());
-	}
+			if ( getJwsdpPeer().getVendorAddr() == null ) {
+				getJwsdpPeer().setVendorAddr(getGnuCashFile().getObjectFactory().createAddress());
+			}
 
-	getGnuCashFile().setModified(true);
+			getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getAddressLine1());
+			getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getAddressLine2());
+			getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getAddressLine3());
+			getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getAddressLine4());
+			getJwsdpPeer().getVendorAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getVendorAddr().setAddrEmail(adr.getEmail());
+			getJwsdpPeer().getVendorAddr().setAddrFax(adr.getFax());
+			getJwsdpPeer().getVendorAddr().setAddrPhone(adr.getTel());
+		}
+
+		getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------------
@@ -325,11 +324,11 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     @Override
     public int getNofOpenBills() {
-	try {
-	    return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this).size();
-	} catch (TaxTableNotFoundException e) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
+		try {
+			return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this).size();
+		} catch (TaxTableNotFoundException e) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
     }
 
     // ----------------------------
@@ -352,18 +351,19 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 //
     @Override
     public List<GnuCashVendorBill> getPaidBills_direct() {
-    	List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
-	
-	try {
-	    for ( GnuCashWritableVendorBill wrtblInvc : getPaidWritableBills_direct() ) {
-		GnuCashVendorBillImpl rdblInvc = GnuCashWritableVendorBillImpl.toReadable((GnuCashWritableVendorBillImpl) wrtblInvc);
-		result.add(rdblInvc);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
+
+		try {
+			for ( GnuCashWritableVendorBill wrtblInvc : getPaidWritableBills_direct() ) {
+				GnuCashVendorBillImpl rdblInvc = GnuCashWritableVendorBillImpl
+						.toReadable((GnuCashWritableVendorBillImpl) wrtblInvc);
+				result.add(rdblInvc);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     // ::TODO
@@ -373,18 +373,19 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     @Override
     public List<GnuCashVendorBill> getUnpaidBills_direct() {
-    	List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
-	
-	try {
-	    for ( GnuCashWritableVendorBill wrtblInvc : getUnpaidWritableBills_direct() ) {
-		GnuCashVendorBillImpl rdblInvc = GnuCashWritableVendorBillImpl.toReadable((GnuCashWritableVendorBillImpl) wrtblInvc);
-		result.add(rdblInvc);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();
+
+		try {
+			for ( GnuCashWritableVendorBill wrtblInvc : getUnpaidWritableBills_direct() ) {
+				GnuCashVendorBillImpl rdblInvc = GnuCashWritableVendorBillImpl
+						.toReadable((GnuCashWritableVendorBillImpl) wrtblInvc);
+				result.add(rdblInvc);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     // ::TODO
@@ -413,7 +414,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 //    }
 
     public List<GnuCashWritableVendorBill> getPaidWritableBills_direct() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getPaidWritableBillsForVendor_direct(this);
+    	return getWritableGnuCashFile().getPaidWritableBillsForVendor_direct(this);
     }
 
     // ::TODO
@@ -422,7 +423,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 //    }
 
     public List<GnuCashWritableVendorBill> getUnpaidWritableBills_direct() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this);
+    	return getWritableGnuCashFile().getUnpaidWritableBillsForVendor_direct(this);
     }
 
     // ::TODO
@@ -478,20 +479,20 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashWritableVendorImpl [");
-	
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number='");
-	buffer.append(getNumber() + "'");
-	
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
-	
-	buffer.append("]");
-	return buffer.toString();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashWritableVendorImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", number='");
+		buffer.append(getNumber() + "'");
+
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
+
+		buffer.append("]");
+		return buffer.toString();
     }
 
 }

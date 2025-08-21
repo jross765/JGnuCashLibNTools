@@ -16,7 +16,7 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
     // ---------------------------------------------------------------
     
     public FileCommodityManager(GnuCashWritableFileImpl gcshFile) {
-	super(gcshFile);
+    	super(gcshFile);
     }
 
     // ---------------------------------------------------------------
@@ -26,9 +26,9 @@ public class FileCommodityManager extends org.gnucash.api.read.impl.hlp.FileComm
 	 */
     @Override
     protected GnuCashCommodityImpl createCommodity(final GncCommodity jwsdpCmdty) {
-	GnuCashWritableCommodityImpl cmdty = new GnuCashWritableCommodityImpl(jwsdpCmdty, (GnuCashWritableFileImpl) gcshFile);
-	LOGGER.debug("createCommodity: Generated new writable commodity: " + cmdty.getQualifID());
-	return cmdty;
+    	GnuCashWritableCommodityImpl cmdty = new GnuCashWritableCommodityImpl(jwsdpCmdty, (GnuCashWritableFileImpl) gcshFile);
+    	LOGGER.debug("createCommodity: Generated new writable commodity: " + cmdty.getQualifID());
+    	return cmdty;
     }
 
 	// ---------------------------------------------------------------

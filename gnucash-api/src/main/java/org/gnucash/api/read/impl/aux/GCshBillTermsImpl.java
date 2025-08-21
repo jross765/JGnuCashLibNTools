@@ -39,10 +39,10 @@ public class GCshBillTermsImpl implements GCshBillTerms {
     public GCshBillTermsImpl(
 	    final GncGncBillTerm peer, 
 	    final GnuCashFile gcshFile) {
-	super();
+		super();
 
-	this.jwsdpPeer = peer;
-	this.myFile = gcshFile;
+		this.jwsdpPeer = peer;
+		this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -53,125 +53,140 @@ public class GCshBillTermsImpl implements GCshBillTerms {
      */
     @SuppressWarnings("exports")
     public GncGncBillTerm getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // -----------------------------------------------------------
 
-    public GCshBllTrmID getID() {
-	return new GCshBllTrmID( jwsdpPeer.getBilltermGuid().getValue() );
+    @Override
+	public GCshBllTrmID getID() {
+    	return new GCshBllTrmID( jwsdpPeer.getBilltermGuid().getValue() );
     }
 
-    public int getRefcount() {
-	return jwsdpPeer.getBilltermRefcount();
+    @Override
+	public int getRefcount() {
+    	return jwsdpPeer.getBilltermRefcount();
     }
 
-    public String getName() {
-	return jwsdpPeer.getBilltermName();
+    @Override
+	public String getName() {
+    	return jwsdpPeer.getBilltermName();
     }
 
-    public String getDescription() {
-	return jwsdpPeer.getBilltermDesc();
+    @Override
+	public String getDescription() {
+    	return jwsdpPeer.getBilltermDesc();
     }
 
-    public boolean isInvisible() {
-	if (jwsdpPeer.getBilltermInvisible() == 1)
-	    return true;
-	else
-	    return false;
+    @Override
+	public boolean isInvisible() {
+		if ( jwsdpPeer.getBilltermInvisible() == 1 ) {
+			return true;
+		} else {
+			return false;
+		}
     }
     
     // ------------------------
 
-    public Type getType() {
-	if ( getDays() != null )
-	    return Type.DAYS;
-	else if ( getProximo() != null )
-	    return Type.PROXIMO;
-	else
-	    throw new BillTermsTypeException("Cannot determine bill terms type");
+    @Override
+	public Type getType() {
+		if ( getDays() != null ) {
+			return Type.DAYS;
+		} else if ( getProximo() != null ) {
+			return Type.PROXIMO;
+		} else {
+			throw new BillTermsTypeException("Cannot determine bill terms type");
+		}
     }
 
-    public GCshBillTermsDays getDays() {
-	if ( jwsdpPeer.getBilltermDays() == null )
-	    return null;
-	
-	GCshBillTermsDays days = new GCshBillTermsDaysImpl(jwsdpPeer.getBilltermDays(), myFile);
-	return days;
+    @Override
+	public GCshBillTermsDays getDays() {
+		if ( jwsdpPeer.getBilltermDays() == null ) {
+			return null;
+		}
+
+		GCshBillTermsDays days = new GCshBillTermsDaysImpl(jwsdpPeer.getBilltermDays(), myFile);
+		return days;
     }
 
-    public GCshBillTermsProximo getProximo() {
-	if ( jwsdpPeer.getBilltermProximo() == null )
-	    return null;
-	
-	GCshBillTermsProximo prox = new GCshBillTermsProximoImpl(jwsdpPeer.getBilltermProximo(), myFile);
-	return prox;
+    @Override
+	public GCshBillTermsProximo getProximo() {
+		if ( jwsdpPeer.getBilltermProximo() == null ) {
+			return null;
+		}
+
+		GCshBillTermsProximo prox = new GCshBillTermsProximoImpl(jwsdpPeer.getBilltermProximo(), myFile);
+		return prox;
     }
 
     // ------------------------
 
-    public GCshBllTrmID getParentID() {
-	if ( jwsdpPeer.getBilltermParent() == null )
-	    return null;
+    @Override
+	public GCshBllTrmID getParentID() {
+		if ( jwsdpPeer.getBilltermParent() == null ) {
+			return null;
+		}
 
-	return new GCshBllTrmID( jwsdpPeer.getBilltermParent().getValue() );
+		return new GCshBllTrmID(jwsdpPeer.getBilltermParent().getValue());
     }
 
-    public List<String> getChildren() {
+    @Override
+	public List<String> getChildren() {
+		if ( jwsdpPeer.getBilltermChild() == null ) {
+			return null;
+		}
 
-	if ( jwsdpPeer.getBilltermChild() == null )
-	    return null;
-	
-	List<String> result = new ArrayList<String>();
+		List<String> result = new ArrayList<String>();
 
-	for (BilltermChild child : jwsdpPeer.getBilltermChild()) {
-	    result.add(new String(child.getValue()));
-	}
+		for ( BilltermChild child : jwsdpPeer.getBilltermChild() ) {
+			result.add(new String(child.getValue()));
+		}
 
-	return result;
+		return result;
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GCshBillTermsImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GCshBillTermsImpl [");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	buffer.append(", type=");
-	try {
-	    buffer.append(getType());
-	} catch (BillTermsTypeException e) {
-	    buffer.append("ERROR");
-	}
+		buffer.append(", type=");
+		try {
+			buffer.append(getType());
+		} catch (BillTermsTypeException e) {
+			buffer.append("ERROR");
+		}
 
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
 
-	buffer.append(", description='");
-	buffer.append(getDescription() + "'");
+		buffer.append(", description='");
+		buffer.append(getDescription() + "'");
 
-	buffer.append(", type=");
-	try {
-	    if ( getType() == Type.DAYS ) {
-		buffer.append(" " + getDays());
-	    } else if ( getType() == Type.PROXIMO ) {
-		buffer.append(" " + getProximo());
-	    }
-	} catch ( Exception exc ) {
-	    buffer.append("ERROR");
-	}
+		buffer.append(", type=");
+		try {
+			if ( getType() == Type.DAYS ) {
+				buffer.append(" " + getDays());
+			} else if ( getType() == Type.PROXIMO ) {
+				buffer.append(" " + getProximo());
+			}
+		} catch (Exception exc) {
+			buffer.append("ERROR");
+		}
 
-	buffer.append("]");
+		buffer.append("]");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

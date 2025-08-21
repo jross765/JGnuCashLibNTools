@@ -44,10 +44,10 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
     public GCshTaxTableEntryImpl(
 	    final GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry element,
 	    final GnuCashFile gcshFile) {
-	super();
-	
-	this.jwsdpPeer = element;
-	this.myFile = gcshFile;
+		super();
+
+		this.jwsdpPeer = element;
+		this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -57,11 +57,11 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @SuppressWarnings("exports")
     public GncGncTaxTable.TaxtableEntries.GncGncTaxTableEntry getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // ---------------------------------------------------------------
@@ -71,7 +71,7 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @Override
     public Type getType() {
-	return Type.valueOf( getJwsdpPeer().getTteType() );
+    	return Type.valueOf( getJwsdpPeer().getTteType() );
     }
 
     /**
@@ -79,11 +79,11 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @Override
     public GCshAcctID getAccountID() {
-	if (myAccountID == null) {
-	    myAccountID = new GCshAcctID(getJwsdpPeer().getTteAcct().getValue());
-	}
+		if ( myAccountID == null ) {
+			myAccountID = new GCshAcctID(getJwsdpPeer().getTteAcct().getValue());
+		}
 
-	return myAccountID;
+		return myAccountID;
     }
 
     /**
@@ -91,11 +91,11 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @Override
     public GnuCashAccount getAccount() {
-	if (myAccount == null) {
-	    myAccount = myFile.getAccountByID(getAccountID());
-	}
+		if ( myAccount == null ) {
+			myAccount = myFile.getAccountByID(getAccountID());
+		}
 
-	return myAccount;
+		return myAccount;
     }
 
     /**
@@ -103,41 +103,41 @@ public class GCshTaxTableEntryImpl implements GCshTaxTableEntry {
      */
     @Override
     public FixedPointNumber getAmount() {
-	return new FixedPointNumber(getJwsdpPeer().getTteAmount());
+    	return new FixedPointNumber(getJwsdpPeer().getTteAmount());
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public int hashCode() {
-	return Objects.hash(jwsdpPeer, myFile);
+    	return Objects.hash(jwsdpPeer, myFile);
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (!(obj instanceof GCshTaxTableEntryImpl)) {
-	    return false;
-	}
-	GCshTaxTableEntryImpl other = (GCshTaxTableEntryImpl) obj;
-	return Objects.equals(jwsdpPeer, other.jwsdpPeer) && Objects.equals(myFile, other.myFile);
+		if ( this == obj ) {
+			return true;
+		}
+		if ( !(obj instanceof GCshTaxTableEntryImpl) ) {
+			return false;
+		}
+		GCshTaxTableEntryImpl other = (GCshTaxTableEntryImpl) obj;
+		return Objects.equals(jwsdpPeer, other.jwsdpPeer) && Objects.equals(myFile, other.myFile);
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public String toString() {
-	String result = "GCshTaxTableEntryImpl [";
-	
-	result += "type=" + getType(); 
-	result += ", account-id=" + getAccountID(); 
-	result += ", amount=" + getAmount(); 
-		                          
-	result += "]";
-	
-	return result;
+		String result = "GCshTaxTableEntryImpl [";
+
+		result += "type=" + getType();
+		result += ", account-id=" + getAccountID();
+		result += ", amount=" + getAmount();
+
+		result += "]";
+
+		return result;
     }
 
 }

@@ -51,7 +51,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     @SuppressWarnings("exports")
     public GnuCashWritableCommodityImpl(final GncCommodity jwsdpPeer,
 	    final GnuCashWritableFileImpl file) {
-	super(jwsdpPeer, file);
+    	super(jwsdpPeer, file);
     }
 
     /**
@@ -63,11 +63,11 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
     protected GnuCashWritableCommodityImpl(
     		final GnuCashWritableFileImpl file,
     		final GCshCmdtyID cmdtyID) {
-	super(createCommodity_int(file, cmdtyID), file);
+    	super(createCommodity_int(file, cmdtyID), file);
     }
 
     public GnuCashWritableCommodityImpl(GnuCashCommodityImpl cmdty) {
-	super(cmdty.getJwsdpPeer(), cmdty.getGnuCashFile());
+    	super(cmdty.getJwsdpPeer(), cmdty.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -79,9 +79,9 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      * @see GnuCashWritableCommodity#remove()
      */
     public void remove() throws ObjectCascadeException {
-	GncCommodity peer = getJwsdpPeer();
-	(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
-	(getGnuCashFile()).removeCommodity(this);
+		GncCommodity peer = getJwsdpPeer();
+		(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
+		(getGnuCashFile()).removeCommodity(this);
     }
 
     // ---------------------------------------------------------------
@@ -101,25 +101,26 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
 			throw new IllegalArgumentException("argument <cmdtyID> is null");
 		}
 
-		if ( ! cmdtyID.isSet() ) {
+		if ( !cmdtyID.isSet() ) {
 			throw new IllegalArgumentException("argument <cmdtyID> is not set");
 		}
 
-	GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
+		GncCommodity jwsdpCmdty = file.createGncGncCommodityType();
 
-	jwsdpCmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
-	jwsdpCmdty.setVersion(Const.XML_FORMAT_VERSION);
-	jwsdpCmdty.setCmdtyName("no name given");
-	jwsdpCmdty.setCmdtySpace(cmdtyID.getNameSpace());
-	jwsdpCmdty.setCmdtyId(cmdtyID.getCode());
-	jwsdpCmdty.setCmdtyXcode(Const.CMDTY_XCODE_DEFAULT);
+		jwsdpCmdty.setCmdtyFraction(Const.CMDTY_FRACTION_DEFAULT);
+		jwsdpCmdty.setVersion(Const.XML_FORMAT_VERSION);
+		jwsdpCmdty.setCmdtyName("no name given");
+		jwsdpCmdty.setCmdtySpace(cmdtyID.getNameSpace());
+		jwsdpCmdty.setCmdtyId(cmdtyID.getCode());
+		jwsdpCmdty.setCmdtyXcode(Const.CMDTY_XCODE_DEFAULT);
 
-	file.getRootElement().getGncBook().getBookElements().add(jwsdpCmdty);
-	file.setModified(true);
-	
-        LOGGER.debug("createCommodity_int: Created new commodity (core): " + jwsdpCmdty.getCmdtySpace() + ":" + jwsdpCmdty.getCmdtyId());
-        
-	return jwsdpCmdty;
+		file.getRootElement().getGncBook().getBookElements().add(jwsdpCmdty);
+		file.setModified(true);
+
+		LOGGER.debug("createCommodity_int: Created new commodity (core): " + jwsdpCmdty.getCmdtySpace() + ":"
+				+ jwsdpCmdty.getCmdtyId());
+
+		return jwsdpCmdty;
     }
 
     // ---------------------------------------------------------------
@@ -140,69 +141,69 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
 
     @Override
     public void setQualifID(GCshCmdtyCurrID qualifId) {
-	if ( qualifId == null ) {
-	    throw new IllegalArgumentException("argument <qualifID> is null");
-	}
+		if ( qualifId == null ) {
+			throw new IllegalArgumentException("argument <qualifID> is null");
+		}
 
-	getJwsdpPeer().setCmdtySpace(qualifId.getNameSpace());
-	getJwsdpPeer().setCmdtyId(qualifId.getCode());
+		getJwsdpPeer().setCmdtySpace(qualifId.getNameSpace());
+		getJwsdpPeer().setCmdtyId(qualifId.getCode());
 
-	getGnuCashFile().setModified(true);
+		getGnuCashFile().setModified(true);
     }
 
     @Override
     public void setSymbol(String symb) {
-	if ( symb == null ) {
-	    throw new IllegalArgumentException("argument <symb> is null");
-	}
+		if ( symb == null ) {
+			throw new IllegalArgumentException("argument <symb> is null");
+		}
 
-	if ( symb.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <symb> is empty");
-	}
+		if ( symb.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <symb> is empty");
+		}
 
-	try {
-		setUserDefinedAttribute(Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
-	} catch ( SlotListDoesNotContainKeyException exc ) {
-		addUserDefinedAttribute(Const.XML_DATA_TYPE_STRING, Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
-	}
+		try {
+			setUserDefinedAttribute(Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
+		} catch (SlotListDoesNotContainKeyException exc) {
+			addUserDefinedAttribute(Const.XML_DATA_TYPE_STRING, Const.SLOT_KEY_CMDTY_USER_SYMBOL, symb);
+		}
     }
 
     @Override
     public void setXCode(String xCode) {
-	if ( xCode == null ) {
-	    throw new IllegalArgumentException("argument <xCode> is null");
-	}
+		if ( xCode == null ) {
+			throw new IllegalArgumentException("argument <xCode> is null");
+		}
 
-	if ( xCode.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <xCode> is empty");
-	}
+		if ( xCode.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <xCode> is empty");
+		}
 
-	getJwsdpPeer().setCmdtyXcode(xCode);
-	getGnuCashFile().setModified(true);
+		getJwsdpPeer().setCmdtyXcode(xCode);
+		getGnuCashFile().setModified(true);
     }
 
     @Override
     public void setName(String name) {
-	if ( name == null ) {
-	    throw new IllegalArgumentException("argument <name> is null");
-	}
+		if ( name == null ) {
+			throw new IllegalArgumentException("argument <name> is null");
+		}
 
-	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <name> is empty");
-	}
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
+		}
 
-	getJwsdpPeer().setCmdtyName(name);
-	getGnuCashFile().setModified(true);
+		getJwsdpPeer().setCmdtyName(name);
+		getGnuCashFile().setModified(true);
     }
 
     @Override
     public void setFraction(Integer fract) {
-	if ( fract <= 0 ) {
-	    throw new IllegalArgumentException("Fraction is <= 0");
-	}
-	
-	getJwsdpPeer().setCmdtyFraction(fract);
-	getGnuCashFile().setModified(true);
+		if ( fract <= 0 ) {
+			throw new IllegalArgumentException("Fraction is <= 0");
+		}
+
+		getJwsdpPeer().setCmdtyFraction(fract);
+		getGnuCashFile().setModified(true);
     }
 
     // ---------------------------------------------------------------
@@ -213,7 +214,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      * @return the file we are associated with
      */
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -223,7 +224,7 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -274,21 +275,20 @@ public class GnuCashWritableCommodityImpl extends GnuCashCommodityImpl
 
     @Override
     public String toString() {
-	
-	String result = "GnuCashWritableCommodityImpl [";
+		String result = "GnuCashWritableCommodityImpl [";
 
-	try {
-	    result += "qualif-id='" + getQualifID().toString() + "'";
-	} catch (InvalidCmdtyCurrTypeException e) {
-	    result += "qualif-id=" + "ERROR";
-	}
-	
-	result += ", namespace='" + getNameSpace() + "'"; 
-	result += ", name='" + getName() + "'"; 
-	result += ", x-code='" + getXCode() + "'"; 
-	result += ", fraction=" + getFraction() + "]";
-	
-	return result;
+		try {
+			result += "qualif-id='" + getQualifID().toString() + "'";
+		} catch (InvalidCmdtyCurrTypeException e) {
+			result += "qualif-id=" + "ERROR";
+		}
+
+		result += ", namespace='" + getNameSpace() + "'";
+		result += ", name='" + getName() + "'";
+		result += ", x-code='" + getXCode() + "'";
+		result += ", fraction=" + getFraction() + "]";
+
+		return result;
     }
 
 }

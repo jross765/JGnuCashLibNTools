@@ -57,13 +57,13 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnuCashVendorImpl(final GncGncVendor peer, final GnuCashFile gcshFile) {
-	super(gcshFile);
+    	super(gcshFile);
 
-//	if (peer.getVendorSlots() == null) {
-//	    peer.setVendorSlots(getJwsdpPeer().getVendorSlots());
-//	}
+//		if (peer.getVendorSlots() == null) {
+//	  	  peer.setVendorSlots(getJwsdpPeer().getVendorSlots());
+//		}
 
-	jwsdpPeer = peer;
+    	jwsdpPeer = peer;
     }
 
     // ---------------------------------------------------------------
@@ -73,7 +73,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      */
     @SuppressWarnings("exports")
     public GncGncVendor getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------
@@ -81,36 +81,41 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshVendID getID() {
-	return new GCshVendID(jwsdpPeer.getVendorGuid().getValue());
+    @Override
+	public GCshVendID getID() {
+    	return new GCshVendID(jwsdpPeer.getVendorGuid().getValue());
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getNumber() {
-	return jwsdpPeer.getVendorId();
+    @Override
+	public String getNumber() {
+    	return jwsdpPeer.getVendorId();
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getName() {
-	return jwsdpPeer.getVendorName();
+    @Override
+	public String getName() {
+    	return jwsdpPeer.getVendorName();
     }
 
     /**
      * {@inheritDoc}
      */
-    public GCshAddress getAddress() {
-	return new GCshAddressImpl(jwsdpPeer.getVendorAddr(), getGnuCashFile());
+    @Override
+	public GCshAddress getAddress() {
+    	return new GCshAddressImpl(jwsdpPeer.getVendorAddr(), getGnuCashFile());
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getNotes() {
-	return jwsdpPeer.getVendorNotes();
+    @Override
+	public String getNotes() {
+    	return jwsdpPeer.getVendorNotes();
     }
 
     // ---------------------------------------------------------------
@@ -119,11 +124,11 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      * @return the currency-format to use if no locale is given.
      */
     protected NumberFormat getCurrencyFormat() {
-	if (currencyFormat == null) {
-	    currencyFormat = NumberFormat.getCurrencyInstance();
-	}
+		if ( currencyFormat == null ) {
+			currencyFormat = NumberFormat.getCurrencyInstance();
+		}
 
-	return currencyFormat;
+		return currencyFormat;
     }
 
     // ---------------------------------------------------------------
@@ -131,24 +136,26 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshTaxTabID getTaxTableID() {
-	GncGncVendor.VendorTaxtable vendTaxtable = jwsdpPeer.getVendorTaxtable();
-	if (vendTaxtable == null) {
-	    return null;
-	}
+    @Override
+	public GCshTaxTabID getTaxTableID() {
+		GncGncVendor.VendorTaxtable vendTaxtable = jwsdpPeer.getVendorTaxtable();
+		if ( vendTaxtable == null ) {
+			return null;
+		}
 
-	return new GCshTaxTabID( vendTaxtable.getValue() );
+		return new GCshTaxTabID(vendTaxtable.getValue());
     }
 
     /**
      * {@inheritDoc}
      */
-    public GCshTaxTable getTaxTable() {
-    	GCshTaxTabID taxTabID = getTaxTableID();
-	if (taxTabID == null) {
-	    return null;
-	}
-	return getGnuCashFile().getTaxTableByID(taxTabID);
+    @Override
+	public GCshTaxTable getTaxTable() {
+		GCshTaxTabID taxTabID = getTaxTableID();
+		if ( taxTabID == null ) {
+			return null;
+		}
+		return getGnuCashFile().getTaxTableByID(taxTabID);
     }
 
     // ---------------------------------------------------------------
@@ -156,24 +163,26 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshBllTrmID getTermsID() {
-	GncGncVendor.VendorTerms vendTerms = jwsdpPeer.getVendorTerms();
-	if (vendTerms == null) {
-	    return null;
-	}
+    @Override
+	public GCshBllTrmID getTermsID() {
+		GncGncVendor.VendorTerms vendTerms = jwsdpPeer.getVendorTerms();
+		if ( vendTerms == null ) {
+			return null;
+		}
 
-	return new GCshBllTrmID( vendTerms.getValue() );
+		return new GCshBllTrmID(vendTerms.getValue());
     }
 
     /**
      * {@inheritDoc}
      */
-    public GCshBillTerms getTerms() {
-    	GCshBllTrmID termsID = getTermsID();
-	if (termsID == null) {
-	    return null;
-	}
-	return getGnuCashFile().getBillTermsByID(termsID);
+    @Override
+	public GCshBillTerms getTerms() {
+		GCshBllTrmID termsID = getTermsID();
+		if ( termsID == null ) {
+			return null;
+		}
+		return getGnuCashFile().getBillTermsByID(termsID);
     }
 
     // ---------------------------------------------------------------
@@ -186,7 +195,7 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      */
     @Override
     public int getNofOpenBills() {
-	return getGnuCashFile().getUnpaidBillsForVendor_direct(this).size();
+    	return getGnuCashFile().getUnpaidBillsForVendor_direct(this).size();
     }
 
     // -------------------------------------
@@ -194,51 +203,55 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @return the net sum of payments for invoices to this client
      */
-    public FixedPointNumber getExpensesGenerated(GnuCashGenerInvoice.ReadVariant readVar) {
-	if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT )
-	    return getExpensesGenerated_direct();
-	else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB )
-	    return getExpensesGenerated_viaAllJobs();
-	
-	return null; // Compiler happy
+    @Override
+	public FixedPointNumber getExpensesGenerated(GnuCashGenerInvoice.ReadVariant readVar) {
+		if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT ) {
+			return getExpensesGenerated_direct();
+		} else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB ) {
+			return getExpensesGenerated_viaAllJobs();
+		}
+
+		return null; // Compiler happy
     }
 
     /**
      * @return the net sum of payments for invoices to this client
      */
-    public FixedPointNumber getExpensesGenerated_direct() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getExpensesGenerated_direct() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashVendorBill bllSpec : getPaidBills_direct()) {
+		for ( GnuCashVendorBill bllSpec : getPaidBills_direct() ) {
 //		    if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //		      GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
-		GnuCashVendor vend = bllSpec.getVendor();
-		if (vend.getID().equals(this.getID())) {
-		    retval.add(bllSpec.getAmountWithoutTaxes());
-		}
+			GnuCashVendor vend = bllSpec.getVendor();
+			if ( vend.getID().equals(this.getID()) ) {
+				retval.add(bllSpec.getAmountWithoutTaxes());
+			}
 //            } // if invc type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
      * @return the net sum of payments for invoices to this client
      */
-    public FixedPointNumber getExpensesGenerated_viaAllJobs() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getExpensesGenerated_viaAllJobs() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashJobInvoice bllSpec : getPaidBills_viaAllJobs()) {
+		for ( GnuCashJobInvoice bllSpec : getPaidBills_viaAllJobs() ) {
 //		    if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //		      GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
-		GnuCashVendor vend = bllSpec.getVendor();
-		if (vend.getID().equals(this.getID())) {
-		    retval.add(bllSpec.getAmountWithoutTaxes());
-		}
+			GnuCashVendor vend = bllSpec.getVendor();
+			if ( vend.getID().equals(this.getID()) ) {
+				retval.add(bllSpec.getAmountWithoutTaxes());
+			}
 //            } // if invc type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -246,9 +259,9 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getExpensesGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
-	return getCurrencyFormat().format(getExpensesGenerated(readVar));
-
+    @Override
+	public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
+    	return getCurrencyFormat().format(getExpensesGenerated(readVar));
     }
 
     /**
@@ -257,8 +270,9 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getExpensesGenerated(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
-	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated(readVar));
+    @Override
+	public String getExpensesGeneratedFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
+    	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated(readVar));
     }
 
     // -------------------------------------
@@ -269,13 +283,15 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      * @see #getOutstandingValue_direct()
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) {
-	if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT )
-	    return getOutstandingValue_direct();
-	else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB )
-	    return getOutstandingValue_viaAllJobs();
-	
-	return null; // Compiler happy
+    @Override
+	public FixedPointNumber getOutstandingValue(GnuCashGenerInvoice.ReadVariant readVar) {
+		if ( readVar == GnuCashGenerInvoice.ReadVariant.DIRECT ) {
+			return getOutstandingValue_direct();
+		} else if ( readVar == GnuCashGenerInvoice.ReadVariant.VIA_JOB ) {
+			return getOutstandingValue_viaAllJobs();
+		}
+
+		return null; // Compiler happy
     }
 
     /**
@@ -283,20 +299,21 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue_viaAllJobs()
      */
-    public FixedPointNumber getOutstandingValue_direct() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getOutstandingValue_direct() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashVendorBill bllSpec : getUnpaidBills_direct()) {
+		for ( GnuCashVendorBill bllSpec : getUnpaidBills_direct() ) {
 //            if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //              GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
-		GnuCashVendor vend = bllSpec.getVendor();
-		if (vend.getID().equals(this.getID())) {
-		    retval.add(bllSpec.getAmountUnpaidWithTaxes());
-		}
+			GnuCashVendor vend = bllSpec.getVendor();
+			if ( vend.getID().equals(this.getID()) ) {
+				retval.add(bllSpec.getAmountUnpaidWithTaxes());
+			}
 //            } // if invc type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -304,20 +321,21 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue_direct()
      */
-    public FixedPointNumber getOutstandingValue_viaAllJobs() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getOutstandingValue_viaAllJobs() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashJobInvoice bllSpec : getUnpaidBills_viaAllJobs()) {
+		for ( GnuCashJobInvoice bllSpec : getUnpaidBills_viaAllJobs() ) {
 //            if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //              GnuCashVendorBill bllSpec = new GnuCashVendorBillImpl(invcGen); 
-		GnuCashVendor vend = bllSpec.getVendor();
-		if (vend.getID().equals(this.getID())) {
-		    retval.add(bllSpec.getAmountUnpaidWithTaxes());
-		}
+			GnuCashVendor vend = bllSpec.getVendor();
+			if ( vend.getID().equals(this.getID()) ) {
+				retval.add(bllSpec.getAmountUnpaidWithTaxes());
+			}
 //            } // if invc type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -325,15 +343,17 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
-	return getCurrencyFormat().format(getOutstandingValue(readVar));
+    @Override
+	public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar) {
+    	return getCurrencyFormat().format(getOutstandingValue(readVar));
     }
 
     /**
      * @see #getOutstandingValue(org.gnucash.api.read.GnuCashGenerInvoice.ReadVariant)
      */
-    public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
-	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
+    @Override
+	public String getOutstandingValueFormatted(GnuCashGenerInvoice.ReadVariant readVar, final Locale lcl) {
+    	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue(readVar));
     }
 
     // -----------------------------------------------------------------
@@ -341,57 +361,57 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     /**
      * @return the jobs that have this vendor associated with them.
      */
-    public List<GnuCashVendorJob> getJobs() {
+    @Override
+	public List<GnuCashVendorJob> getJobs() {
+		List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();
 
-	List<GnuCashVendorJob> retval = new ArrayList<GnuCashVendorJob>();
-
-	for ( GnuCashGenerJob jobGener : getGnuCashFile().getGenerJobs() ) {
-	    if ( jobGener.getOwnerType() == GnuCashGenerJob.TYPE_VENDOR ) {
-		GnuCashVendorJob jobSpec = new GnuCashVendorJobImpl(jobGener);
-		if ( jobSpec.getVendorID().equals(getID()) ) {
-		    retval.add(jobSpec);
+		for ( GnuCashGenerJob jobGener : getGnuCashFile().getGenerJobs() ) {
+			if ( jobGener.getOwnerType() == GnuCashGenerJob.TYPE_VENDOR ) {
+				GnuCashVendorJob jobSpec = new GnuCashVendorJobImpl(jobGener);
+				if ( jobSpec.getVendorID().equals(getID()) ) {
+					retval.add(jobSpec);
+				}
+			}
 		}
-	    }
-	}
 
-	return retval;
+		return retval;
     }
 
     // -----------------------------------------------------------------
 
     @Override
     public List<GnuCashGenerInvoice> getBills() {
-    	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-	for ( GnuCashVendorBill invc : getGnuCashFile().getBillsForVendor_direct(this) ) {
-	    retval.add(invc);
-	}
-	
-	for ( GnuCashJobInvoice invc : getGnuCashFile().getBillsForVendor_viaAllJobs(this) ) {
-	    retval.add(invc);
-	}
-	
-	return retval;
+		for ( GnuCashVendorBill invc : getGnuCashFile().getBillsForVendor_direct(this) ) {
+			retval.add(invc);
+		}
+
+		for ( GnuCashJobInvoice invc : getGnuCashFile().getBillsForVendor_viaAllJobs(this) ) {
+			retval.add(invc);
+		}
+
+		return retval;
     }
 
     @Override
     public List<GnuCashVendorBill> getPaidBills_direct() {
-	return getGnuCashFile().getPaidBillsForVendor_direct(this);
+    	return getGnuCashFile().getPaidBillsForVendor_direct(this);
     }
 
     @Override
     public List<GnuCashJobInvoice> getPaidBills_viaAllJobs() {
-	return getGnuCashFile().getPaidBillsForVendor_viaAllJobs(this);
+    	return getGnuCashFile().getPaidBillsForVendor_viaAllJobs(this);
     }
 
     @Override
     public List<GnuCashVendorBill> getUnpaidBills_direct() {
-	return getGnuCashFile().getUnpaidBillsForVendor_direct(this);
+    	return getGnuCashFile().getUnpaidBillsForVendor_direct(this);
     }
 
     @Override
     public List<GnuCashJobInvoice> getUnpaidBills_viaAllJobs() {
-	return getGnuCashFile().getUnpaidBillsForVendor_viaAllJobs(this);
+    	return getGnuCashFile().getUnpaidBillsForVendor_viaAllJobs(this);
     }
 
     // ------------------------------------------------------------
@@ -411,30 +431,31 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     // ------------------------------------------------------------
 
     public static int getHighestNumber(GnuCashVendor vend) {
-	return ((GnuCashFileImpl) vend.getGnuCashFile()).getHighestVendorNumber();
+    	return ((GnuCashFileImpl) vend.getGnuCashFile()).getHighestVendorNumber();
     }
 
     public static String getNewNumber(GnuCashVendor vend) {
-	return ((GnuCashFileImpl) vend.getGnuCashFile()).getNewVendorNumber();
+    	return ((GnuCashFileImpl) vend.getGnuCashFile()).getNewVendorNumber();
     }
 
     // -----------------------------------------------------------------
 
-    public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashVendorImpl [");
-	
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number='");
-	buffer.append(getNumber() + "'");
-	
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
-	
-	buffer.append("]");
-	return buffer.toString();
+    @Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashVendorImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", number='");
+		buffer.append(getNumber() + "'");
+
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
+
+		buffer.append("]");
+		return buffer.toString();
     }
     
 }

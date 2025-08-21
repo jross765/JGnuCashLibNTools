@@ -58,7 +58,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     public GnuCashWritableEmployeeImpl(
     		final GncGncEmployee jwsdpPeer,
     		final GnuCashWritableFileImpl file) {
-	super(jwsdpPeer, file);
+    	super(jwsdpPeer, file);
     }
 
     /**
@@ -68,11 +68,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableEmployeeImpl(final GnuCashWritableFileImpl file) {
-	super(createEmployee_int(file, new GCshEmplID( new GCshEmplID( GCshID.getNew()) )), file);
+    	super(createEmployee_int(file, new GCshEmplID( new GCshEmplID( GCshID.getNew()) )), file);
     }
 
     public GnuCashWritableEmployeeImpl(final GnuCashEmployeeImpl empl) {
-	super(empl.getJwsdpPeer(), empl.getGnuCashFile());
+    	super(empl.getJwsdpPeer(), empl.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -92,75 +92,75 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
-		if ( ! newID.isSet() ) {
+		if ( !newID.isSet() ) {
 			throw new IllegalArgumentException("argument <newID> is not set");
 		}
-    
-        ObjectFactory factory = file.getObjectFactory();
-    
-        GncGncEmployee jwsdpEmpl = file.createGncGncEmployeeType();
-    
-        jwsdpEmpl.setVersion(Const.XML_FORMAT_VERSION);
-        jwsdpEmpl.setEmployeeUsername("no user name given");
-    
-        {
-            GncGncEmployee.EmployeeGuid id = factory.createGncGncEmployeeEmployeeGuid();
-            id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(newID.toString());
-            jwsdpEmpl.setEmployeeGuid(id);
-            jwsdpEmpl.setEmployeeId(id.getValue());
-        }
-    
-        {
-            org.gnucash.api.generated.Address addr = factory.createAddress();
-            addr.setAddrAddr1("");
-            addr.setAddrAddr2("");
-            addr.setAddrName("no name given"); // not absolutely necessary, but recommendable,
-                                               // since it's an important part of the preview mask
-            addr.setAddrAddr3("");
-            addr.setAddrAddr4("");
-            addr.setAddrName("");
-            addr.setAddrEmail("");
-            addr.setAddrFax("");
-            addr.setAddrPhone("");
-            addr.setVersion(Const.XML_FORMAT_VERSION);
-            jwsdpEmpl.setEmployeeAddr(addr);
-        }
-    
-        {
-            org.gnucash.api.generated.Address saddr = factory.createAddress();
-            saddr.setAddrAddr1("");
-            saddr.setAddrAddr2("");
-            saddr.setAddrAddr3("");
-            saddr.setAddrAddr4("");
-            saddr.setAddrName("");
-            saddr.setAddrEmail("");
-            saddr.setAddrFax("");
-            saddr.setAddrPhone("");
-            saddr.setVersion(Const.XML_FORMAT_VERSION);
-        }
-    
-        // These two have to be set, else GnuCash runs into a parse error
-        {
-            jwsdpEmpl.setEmployeeWorkday("8"); // ::MAGIC
-            jwsdpEmpl.setEmployeeRate("1");    // ::MAGIC
-        }
-    
-        {
-            GncGncEmployee.EmployeeCurrency currency = factory.createGncGncEmployeeEmployeeCurrency();
-            currency.setCmdtyId(file.getDefaultCurrencyID());
-            currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            jwsdpEmpl.setEmployeeCurrency(currency);
-        }
-    
-        jwsdpEmpl.setEmployeeActive(1);
-    
-        file.getRootElement().getGncBook().getBookElements().add(jwsdpEmpl);
-        file.setModified(true);
-    
-        LOGGER.debug("createEmployee_int: Created new employee (core): " + jwsdpEmpl.getEmployeeGuid().getValue());
-        
-        return jwsdpEmpl;
+
+		ObjectFactory factory = file.getObjectFactory();
+
+		GncGncEmployee jwsdpEmpl = file.createGncGncEmployeeType();
+
+		jwsdpEmpl.setVersion(Const.XML_FORMAT_VERSION);
+		jwsdpEmpl.setEmployeeUsername("no user name given");
+
+		{
+			GncGncEmployee.EmployeeGuid id = factory.createGncGncEmployeeEmployeeGuid();
+			id.setType(Const.XML_DATA_TYPE_GUID);
+			id.setValue(newID.toString());
+			jwsdpEmpl.setEmployeeGuid(id);
+			jwsdpEmpl.setEmployeeId(id.getValue());
+		}
+
+		{
+			org.gnucash.api.generated.Address addr = factory.createAddress();
+			addr.setAddrAddr1("");
+			addr.setAddrAddr2("");
+			addr.setAddrName("no name given"); // not absolutely necessary, but recommendable,
+												// since it's an important part of the preview mask
+			addr.setAddrAddr3("");
+			addr.setAddrAddr4("");
+			addr.setAddrName("");
+			addr.setAddrEmail("");
+			addr.setAddrFax("");
+			addr.setAddrPhone("");
+			addr.setVersion(Const.XML_FORMAT_VERSION);
+			jwsdpEmpl.setEmployeeAddr(addr);
+		}
+
+		{
+			org.gnucash.api.generated.Address saddr = factory.createAddress();
+			saddr.setAddrAddr1("");
+			saddr.setAddrAddr2("");
+			saddr.setAddrAddr3("");
+			saddr.setAddrAddr4("");
+			saddr.setAddrName("");
+			saddr.setAddrEmail("");
+			saddr.setAddrFax("");
+			saddr.setAddrPhone("");
+			saddr.setVersion(Const.XML_FORMAT_VERSION);
+		}
+
+		// These two have to be set, else GnuCash runs into a parse error
+		{
+			jwsdpEmpl.setEmployeeWorkday("8"); // ::MAGIC
+			jwsdpEmpl.setEmployeeRate("1"); // ::MAGIC
+		}
+
+		{
+			GncGncEmployee.EmployeeCurrency currency = factory.createGncGncEmployeeEmployeeCurrency();
+			currency.setCmdtyId(file.getDefaultCurrencyID());
+			currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
+			jwsdpEmpl.setEmployeeCurrency(currency);
+		}
+
+		jwsdpEmpl.setEmployeeActive(1);
+
+		file.getRootElement().getGncBook().getBookElements().add(jwsdpEmpl);
+		file.setModified(true);
+
+		LOGGER.debug("createEmployee_int: Created new employee (core): " + jwsdpEmpl.getEmployeeGuid().getValue());
+
+		return jwsdpEmpl;
     }
 
     /**
@@ -170,9 +170,9 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      */
     @Override
     public void remove() {
-	GncGncEmployee peer = getJwsdpPeer();
-	(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
-	(getGnuCashFile()).removeEmployee(this);
+		GncGncEmployee peer = getJwsdpPeer();
+		(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
+		(getGnuCashFile()).removeEmployee(this);
     }
 
     // ---------------------------------------------------------------
@@ -184,7 +184,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -194,7 +194,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -204,42 +204,42 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
      */
     @Override
     public void setNumber(final String numStr) {
-	if ( numStr == null ) {
-	    throw new IllegalArgumentException("argument <numStr> is null");
-	}
+		if ( numStr == null ) {
+			throw new IllegalArgumentException("argument <numStr> is null");
+		}
 
-	if ( numStr.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <numStr> is empty");
-	}
+		if ( numStr.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <numStr> is empty");
+		}
 
-	String oldNumber = getNumber();
-	getJwsdpPeer().setEmployeeId(numStr);
-	getGnuCashFile().setModified(true);
+		String oldNumber = getNumber();
+		getJwsdpPeer().setEmployeeId(numStr);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("employeeNumber", oldNumber, numStr);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("employeeNumber", oldNumber, numStr);
+		}
     }
 
     @Override
     public void setUserName(final String userName) {
-	if ( userName == null ) {
-	    throw new IllegalArgumentException("argument <userName> is null");
-	}
+		if ( userName == null ) {
+			throw new IllegalArgumentException("argument <userName> is null");
+		}
 
-	if ( userName.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <userName> is empty");
-	}
+		if ( userName.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <userName> is empty");
+		}
 
-	String oldUserName = getUserName();
-	getJwsdpPeer().setEmployeeUsername(userName);
-	getGnuCashFile().setModified(true);
+		String oldUserName = getUserName();
+		getJwsdpPeer().setEmployeeUsername(userName);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("username", oldUserName, userName);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("username", oldUserName, userName);
+		}
     }
 
     // ---------------------------------------------------------------
@@ -271,37 +271,36 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 	@Override
 	public void removeAddress(GCshWritableAddress impl) {
 		// TODO Auto-generated method stub
-		
 	}
 
     @Override
     public void setAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("argument <adr> is null");
-	}
+		if ( adr == null ) {
+			throw new IllegalArgumentException("argument <adr> is null");
+		}
 
-        /*
-         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-         * getJwsdpPeer().setEmplAddr(adrImpl.getJwsdpPeer()); } else
-         */
-	
-        {
-    
-            if (getJwsdpPeer().getEmployeeAddr() == null) {
-        	getJwsdpPeer().setEmployeeAddr(getGnuCashFile().getObjectFactory().createAddress());
-            }
-    
-            getJwsdpPeer().getEmployeeAddr().setAddrAddr1(adr.getAddressLine1());
-            getJwsdpPeer().getEmployeeAddr().setAddrAddr2(adr.getAddressLine2());
-            getJwsdpPeer().getEmployeeAddr().setAddrAddr3(adr.getAddressLine3());
-            getJwsdpPeer().getEmployeeAddr().setAddrAddr4(adr.getAddressLine4());
-            getJwsdpPeer().getEmployeeAddr().setAddrName(adr.getAddressName());
-            getJwsdpPeer().getEmployeeAddr().setAddrEmail(adr.getEmail());
-            getJwsdpPeer().getEmployeeAddr().setAddrFax(adr.getFax());
-            getJwsdpPeer().getEmployeeAddr().setAddrPhone(adr.getTel());
-        }
-    
-        getGnuCashFile().setModified(true);
+		/*
+		 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+		 * getJwsdpPeer().setEmplAddr(adrImpl.getJwsdpPeer()); } else
+		 */
+
+		{
+
+			if ( getJwsdpPeer().getEmployeeAddr() == null ) {
+				getJwsdpPeer().setEmployeeAddr(getGnuCashFile().getObjectFactory().createAddress());
+			}
+
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr1(adr.getAddressLine1());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr2(adr.getAddressLine2());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr3(adr.getAddressLine3());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr4(adr.getAddressLine4());
+			getJwsdpPeer().getEmployeeAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getEmployeeAddr().setAddrEmail(adr.getEmail());
+			getJwsdpPeer().getEmployeeAddr().setAddrFax(adr.getFax());
+			getJwsdpPeer().getEmployeeAddr().setAddrPhone(adr.getTel());
+		}
+
+		getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------------
@@ -318,45 +317,47 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 
     @Override
     public int getNofOpenVouchers() {
-	try {
-	    return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this).size();
-	} catch (TaxTableNotFoundException e) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
+		try {
+			return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this).size();
+		} catch (TaxTableNotFoundException e) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
     }
 
     // ----------------------------
 
     @Override
     public List<GnuCashEmployeeVoucher> getPaidVouchers() {
-    	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
-	
-	try {
-	    for ( GnuCashWritableEmployeeVoucher wrtblVch : getPaidWritableVouchers() ) {
-		GnuCashEmployeeVoucherImpl rdblVch = GnuCashWritableEmployeeVoucherImpl.toReadable((GnuCashWritableEmployeeVoucherImpl) wrtblVch);
-		result.add(rdblVch);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
+
+		try {
+			for ( GnuCashWritableEmployeeVoucher wrtblVch : getPaidWritableVouchers() ) {
+				GnuCashEmployeeVoucherImpl rdblVch = GnuCashWritableEmployeeVoucherImpl
+						.toReadable((GnuCashWritableEmployeeVoucherImpl) wrtblVch);
+				result.add(rdblVch);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     @Override
     public List<GnuCashEmployeeVoucher> getUnpaidVouchers() {
-    	List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
-	
-	try {
-	    for ( GnuCashWritableEmployeeVoucher wrtblVch : getUnpaidWritableVouchers() ) {
-		GnuCashEmployeeVoucherImpl rdblVch = GnuCashWritableEmployeeVoucherImpl.toReadable((GnuCashWritableEmployeeVoucherImpl) wrtblVch);
-		result.add(rdblVch);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashEmployeeVoucher> result = new ArrayList<GnuCashEmployeeVoucher>();
+
+		try {
+			for ( GnuCashWritableEmployeeVoucher wrtblVch : getUnpaidWritableVouchers() ) {
+				GnuCashEmployeeVoucherImpl rdblVch = GnuCashWritableEmployeeVoucherImpl
+						.toReadable((GnuCashWritableEmployeeVoucherImpl) wrtblVch);
+				result.add(rdblVch);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     
@@ -365,11 +366,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // the according ones in the super class GnuCashEmployeeImpl.
 
     public List<GnuCashWritableEmployeeVoucher> getPaidWritableVouchers() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getPaidWritableVouchersForEmployee(this);
+    	return getWritableGnuCashFile().getPaidWritableVouchersForEmployee(this);
     }
 
     public List<GnuCashWritableEmployeeVoucher> getUnpaidWritableVouchers() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this);
+    	return getWritableGnuCashFile().getUnpaidWritableVouchersForEmployee(this);
     }
     
     // ---------------------------------------------------------------
@@ -420,20 +421,20 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashWritableEmployeeImpl [");
-	
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number='");
-	buffer.append(getNumber() + "'");
-	
-	buffer.append(", username='");
-	buffer.append(getUserName() + "'");
-	
-	buffer.append("]");
-	return buffer.toString();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashWritableEmployeeImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", number='");
+		buffer.append(getNumber() + "'");
+
+		buffer.append(", username='");
+		buffer.append(getUserName() + "'");
+
+		buffer.append("]");
+		return buffer.toString();
     }
 
 }

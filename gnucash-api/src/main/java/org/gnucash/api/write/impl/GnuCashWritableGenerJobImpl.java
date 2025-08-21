@@ -93,7 +93,6 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 			final GnuCashCustomer cust, 
 			final String number, 
 			final String name) {
-
 		if ( file == null ) {
 			throw new IllegalArgumentException("argument <file> is null");
 		}
@@ -159,7 +158,6 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 			final GnuCashVendor vend, 
 			final String number, 
 			final String name) {
-
 		if ( file == null ) {
 			throw new IllegalArgumentException("argument <file> is null");
 		}
@@ -221,7 +219,7 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
      * @see GnuCashWritableGenerInvoice#isModifiable()
      */
     public boolean isModifiable() {
-	return true; // ::TODO / ::CHECK
+    	return true; // ::TODO / ::CHECK
     }
 
     /**
@@ -230,10 +228,10 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
      * @see #isModifiable()
      */
     protected void attemptChange() {
-	if (!isModifiable()) {
-	    throw new IllegalStateException(
-		    "this invoice is NOT modifiable because there already have been made payments for it");
-	}
+		if ( !isModifiable() ) {
+			throw new IllegalStateException(
+					"this invoice is NOT modifiable because there already have been made payments for it");
+		}
     }
 
     // -----------------------------------------------------------

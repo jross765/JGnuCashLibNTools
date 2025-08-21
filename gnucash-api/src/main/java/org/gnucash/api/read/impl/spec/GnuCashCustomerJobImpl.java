@@ -40,10 +40,10 @@ public class GnuCashCustomerJobImpl extends GnuCashGenerJobImpl
 			throw new WrongJobTypeException();
 
 		// ::TODO
-//	for ( GnuCashGenerInvoice invc : job.getInvoices() )
-//	{
-//	    addInvoice(new GnuCashJobInvoiceImpl(invc));
-//	}
+//		for ( GnuCashGenerInvoice invc : job.getInvoices() )
+//		{
+//	    	addInvoice(new GnuCashJobInvoiceImpl(invc));
+//		}
 	}
 
 	// ---------------------------------------------------------------

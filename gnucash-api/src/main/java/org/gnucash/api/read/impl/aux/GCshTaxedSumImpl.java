@@ -30,17 +30,17 @@ public class GCshTaxedSumImpl {
      * @param pTaxsum     the sum of Paid taxes
      */
     public GCshTaxedSumImpl(final FixedPointNumber pTaxpercent, final FixedPointNumber pTaxsum) {
-	super();
-	myTaxpercent = pTaxpercent;
-	taxsum = pTaxsum.copy();
+    	super();
+    	myTaxpercent = pTaxpercent;
+    	taxsum = pTaxsum.copy();
     }
 
     /**
      * @param taxpercent How much tax it is.
      */
     public GCshTaxedSumImpl(final FixedPointNumber taxpercent) {
-	super();
-	myTaxpercent = taxpercent;
+    	super();
+    	myTaxpercent = taxpercent;
     }
 
     // -----------------------------------------------------------
@@ -50,7 +50,7 @@ public class GCshTaxedSumImpl {
      * @return How much tax it is.
      */
     public FixedPointNumber getTaxpercent() {
-	return myTaxpercent;
+    	return myTaxpercent;
     }
 
     /**
@@ -58,12 +58,11 @@ public class GCshTaxedSumImpl {
      * @param taxpercent How much tax it is.
      */
     public void setTaxpercent(final FixedPointNumber taxpercent) {
-	if (taxpercent.doubleValue() < 0.0) {
-	    throw new IllegalArgumentException(
-		    "negative value '" + taxpercent + "' not allowed for field this.taxpercent");
-	}
+		if ( taxpercent.doubleValue() < 0.0 ) {
+			throw new IllegalArgumentException("negative value '" + taxpercent + "' not allowed for field this.taxpercent");
+		}
 
-	myTaxpercent = taxpercent;
+		myTaxpercent = taxpercent;
     }
 
     /**
@@ -71,7 +70,7 @@ public class GCshTaxedSumImpl {
      * @return The sum of Paid taxes.
      */
     public FixedPointNumber getTaxsum() {
-	return taxsum;
+    	return taxsum;
     }
 
     /**
@@ -79,6 +78,6 @@ public class GCshTaxedSumImpl {
      * @param pTaxsum The sum of Paid taxes.
      */
     public void setTaxsum(final FixedPointNumber pTaxsum) {
-	taxsum = pTaxsum;
+    	taxsum = pTaxsum;
     }
 }

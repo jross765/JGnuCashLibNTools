@@ -92,7 +92,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -102,7 +102,7 @@ public class GnuCashWritableJobInvoiceEntryImpl extends GnuCashWritableGenerInvo
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
 	// -----------------------------------------------------------

@@ -22,11 +22,11 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     public GCshWritableAddressImpl(
 	    final org.gnucash.api.generated.Address jwsdpPeer,
 	    final GnuCashWritableFile gcshFile) {
-	super(jwsdpPeer, gcshFile);
+    	super(jwsdpPeer, gcshFile);
     }
 
     public GCshWritableAddressImpl(final GCshAddressImpl addr) {
-	super(addr.getJwsdpPeer(), addr.getGnuCashFile());
+    	super(addr.getJwsdpPeer(), addr.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -35,8 +35,8 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
      * @see GCshWritableAddress#setAddressName(java.lang.String)
      */
     public void setAddressName(final String a) {
-	getJwsdpPeer().setAddrName(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrName(a);
+    	// TODO: setModified()
     }
 
     /**
@@ -45,8 +45,8 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
      * @see #setAddressLine4(String)
      */
     public void setAddressLine1(final String a) {
-	getJwsdpPeer().setAddrAddr1(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrAddr1(a);
+    	// TODO: setModified()
     }
 
     /**
@@ -55,8 +55,8 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
      * @see #setAddressLine4(String)
      */
     public void setAddressLine2(final String a) {
-	getJwsdpPeer().setAddrAddr2(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrAddr2(a);
+    	// TODO: setModified()
     }
 
     /**
@@ -65,8 +65,8 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
      * @see #setAddressLine4(String)
      */
     public void setAddressLine3(final String a) {
-	getJwsdpPeer().setAddrAddr3(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrAddr3(a);
+    	// TODO: setModified()
     }
 
     /**
@@ -75,47 +75,47 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
      * @see #setAddressLine3(String)
      */
     public void setAddressLine4(final String a) {
-	getJwsdpPeer().setAddrAddr4(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrAddr4(a);
+    	// TODO: setModified()
     }
 
     public void setTel(final String a) {
-	getJwsdpPeer().setAddrPhone(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrPhone(a);
+    	// TODO: setModified()
     }
 
     public void setFax(final String a) {
-	getJwsdpPeer().setAddrFax(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrFax(a);
+    	// TODO: setModified()
     }
 
     public void setEmail(final String a) {
-	getJwsdpPeer().setAddrEmail(a);
-	// TODO: setModified()
+    	getJwsdpPeer().setAddrEmail(a);
+    	// TODO: setModified()
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
 
-	buffer.append("GCshWritableAddressImpl [\n");
+		buffer.append("GCshWritableAddressImpl [\n");
 
-	buffer.append(getAddressName() + "\n");
-	buffer.append("\n");
-	buffer.append(getAddressLine1() + "\n");
-	buffer.append(getAddressLine2() + "\n");
-	buffer.append(getAddressLine3() + "\n");
-	buffer.append(getAddressLine4() + "\n");
-	buffer.append("\n");
-	buffer.append("Tel.:   " + getTel() + "\n");
-	buffer.append("Fax:    " + getFax() + "\n");
-	buffer.append("eMail:  " + getEmail() + "\n");
+		buffer.append(getAddressName() + "\n");
+		buffer.append("\n");
+		buffer.append(getAddressLine1() + "\n");
+		buffer.append(getAddressLine2() + "\n");
+		buffer.append(getAddressLine3() + "\n");
+		buffer.append(getAddressLine4() + "\n");
+		buffer.append("\n");
+		buffer.append("Tel.:   " + getTel() + "\n");
+		buffer.append("Fax:    " + getFax() + "\n");
+		buffer.append("eMail:  " + getEmail() + "\n");
 
-	buffer.append("]\n");
+		buffer.append("]\n");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

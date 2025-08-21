@@ -33,10 +33,10 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
     public GCshBillTermsDaysImpl(
 	    final GncGncBillTerm.BilltermDays peer, 
 	    final GnuCashFile gcshFile) {
-	super();
+		super();
 
-	this.jwsdpPeer = peer;
-	this.myFile = gcshFile;
+		this.jwsdpPeer = peer;
+		this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -47,52 +47,53 @@ public class GCshBillTermsDaysImpl implements GCshBillTermsDays {
      */
     @SuppressWarnings("exports")
     public GncGncBillTerm.BilltermDays getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public Integer getDueDays() {
-	return jwsdpPeer.getBtDaysDueDays();
+    	return jwsdpPeer.getBtDaysDueDays();
     }
 
     @Override
     public Integer getDiscountDays() {
-	return jwsdpPeer.getBtDaysDiscDays();
+    	return jwsdpPeer.getBtDaysDiscDays();
     }
 
     @Override
     public FixedPointNumber getDiscount() {
-	if ( jwsdpPeer.getBtDaysDiscount() == null )
-	    return null;
-	
-	return new FixedPointNumber(jwsdpPeer.getBtDaysDiscount());
+		if ( jwsdpPeer.getBtDaysDiscount() == null ) {
+			return null;
+		}
+
+		return new FixedPointNumber(jwsdpPeer.getBtDaysDiscount());
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GCshBillTermsDaysImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GCshBillTermsDaysImpl [");
 
-	buffer.append(" due-days: ");
-	buffer.append(getDueDays());
+		buffer.append(" due-days: ");
+		buffer.append(getDueDays());
 
-	buffer.append(" discount-days: ");
-	buffer.append(getDiscountDays());
+		buffer.append(" discount-days: ");
+		buffer.append(getDiscountDays());
 
-	buffer.append(" discount: ");
-	buffer.append(getDiscount());
+		buffer.append(" discount: ");
+		buffer.append(getDiscount());
 
-	buffer.append("]");
+		buffer.append("]");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

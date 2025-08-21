@@ -46,10 +46,10 @@ public class GCshAcctReconInfoImpl extends GnuCashObjectImpl
     public GCshAcctReconInfoImpl(
 	    final Slot peer,
 	    final GnuCashAccountImpl acct) {
-	super(acct.getGnuCashFile());
+		super(acct.getGnuCashFile());
 
-	jwsdpPeer = peer;
-	myAccount = acct;
+		jwsdpPeer = peer;
+		myAccount = acct;
     }
 
     // ---------------------------------------------------------------
@@ -57,9 +57,10 @@ public class GCshAcctReconInfoImpl extends GnuCashObjectImpl
 	/**
      * @return the JWSDP-object we are wrapping.
      */
-    @SuppressWarnings("exports")
+    @Override
+	@SuppressWarnings("exports")
     public Slot getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------

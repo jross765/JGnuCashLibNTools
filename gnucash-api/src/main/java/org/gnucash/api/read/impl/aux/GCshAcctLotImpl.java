@@ -45,10 +45,10 @@ public class GCshAcctLotImpl extends GnuCashObjectImpl
     public GCshAcctLotImpl(
 	    final GncAccount.ActLots.GncLot peer,
 	    final GnuCashAccountImpl acct) {
-	super(acct.getGnuCashFile());
+		super(acct.getGnuCashFile());
 
-	jwsdpPeer = peer;
-	myAccount = acct;
+		jwsdpPeer = peer;
+		myAccount = acct;
     }
 
     // ---------------------------------------------------------------
@@ -56,16 +56,17 @@ public class GCshAcctLotImpl extends GnuCashObjectImpl
 	/**
      * @return the JWSDP-object we are wrapping.
      */
-    @SuppressWarnings("exports")
+    @Override
+	@SuppressWarnings("exports")
     public GncAccount.ActLots.GncLot getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public GCshLotID getID() {
-	return new GCshLotID( jwsdpPeer.getLotId().getValue() );
+    	return new GCshLotID( jwsdpPeer.getLotId().getValue() );
     }
 
     @Override

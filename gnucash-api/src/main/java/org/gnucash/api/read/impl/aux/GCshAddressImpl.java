@@ -26,10 +26,10 @@ public class GCshAddressImpl implements GCshAddress {
     public GCshAddressImpl(
 	    final org.gnucash.api.generated.Address newPeer,
 	    final GnuCashFile gcshFile) {
-	super();
+		super();
 
-	this.jwsdpPeer = newPeer;
-	this.myFile = gcshFile;
+		this.jwsdpPeer = newPeer;
+		this.myFile = gcshFile;
     }
 
     // -----------------------------------------------------------
@@ -39,11 +39,11 @@ public class GCshAddressImpl implements GCshAddress {
      */
     @SuppressWarnings("exports")
     public org.gnucash.api.generated.Address getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // -----------------------------------------------------------
@@ -51,105 +51,113 @@ public class GCshAddressImpl implements GCshAddress {
     /**
      * @see GnuCashVendor#getAddress()
      */
-    public String getAddressName() {
-	if (jwsdpPeer.getAddrName() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrName();
+    @Override
+	public String getAddressName() {
+		if ( jwsdpPeer.getAddrName() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrName();
     }
 
     /**
      * @see GnuCashVendor#getAddress
      */
-    public String getAddressLine1() {
-	if (jwsdpPeer.getAddrAddr1() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrAddr1();
+    @Override
+	public String getAddressLine1() {
+		if ( jwsdpPeer.getAddrAddr1() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrAddr1();
     }
 
     /**
      * @see GnuCashVendor#getAddress
      */
-    public String getAddressLine2() {
-	if (jwsdpPeer.getAddrAddr2() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrAddr2();
+    @Override
+	public String getAddressLine2() {
+		if ( jwsdpPeer.getAddrAddr2() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrAddr2();
     }
 
     /**
      * @return third and last line below the name
      */
-    public String getAddressLine3() {
-	if (jwsdpPeer.getAddrAddr3() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrAddr3();
+    @Override
+	public String getAddressLine3() {
+		if ( jwsdpPeer.getAddrAddr3() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrAddr3();
     }
 
     /**
      * @return fourth and last line below the name
      */
-    public String getAddressLine4() {
-	if (jwsdpPeer.getAddrAddr4() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrAddr4();
+    @Override
+	public String getAddressLine4() {
+		if ( jwsdpPeer.getAddrAddr4() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrAddr4();
     }
 
     /**
      * @return telephone
      */
-    public String getTel() {
-	if (jwsdpPeer.getAddrPhone() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrPhone();
+    @Override
+	public String getTel() {
+		if ( jwsdpPeer.getAddrPhone() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrPhone();
     }
 
     /**
      * @return Fax
      */
-    public String getFax() {
-	if (jwsdpPeer.getAddrFax() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrFax();
+    @Override
+	public String getFax() {
+		if ( jwsdpPeer.getAddrFax() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrFax();
     }
 
     /**
      * @return Email
      */
-    public String getEmail() {
-	if (jwsdpPeer.getAddrEmail() == null) {
-	    return "";
-	}
-	return jwsdpPeer.getAddrEmail();
+    @Override
+	public String getEmail() {
+		if ( jwsdpPeer.getAddrEmail() == null ) {
+			return "";
+		}
+		return jwsdpPeer.getAddrEmail();
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer();
 
-	buffer.append("GCshAddressImpl [\n");
+		buffer.append("GCshAddressImpl [\n");
 
-	buffer.append(getAddressName() + "\n");
-	buffer.append("\n");
-	buffer.append(getAddressLine1() + "\n");
-	buffer.append(getAddressLine2() + "\n");
-	buffer.append(getAddressLine3() + "\n");
-	buffer.append(getAddressLine4() + "\n");
-	buffer.append("\n");
-	buffer.append("Tel.:   " + getTel() + "\n");
-	buffer.append("Fax:    " + getFax() + "\n");
-	buffer.append("eMail:  " + getEmail() + "\n");
+		buffer.append(getAddressName() + "\n");
+		buffer.append("\n");
+		buffer.append(getAddressLine1() + "\n");
+		buffer.append(getAddressLine2() + "\n");
+		buffer.append(getAddressLine3() + "\n");
+		buffer.append(getAddressLine4() + "\n");
+		buffer.append("\n");
+		buffer.append("Tel.:   " + getTel() + "\n");
+		buffer.append("Fax:    " + getFax() + "\n");
+		buffer.append("eMail:  " + getEmail() + "\n");
 
-	buffer.append("]\n");
+		buffer.append("]\n");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

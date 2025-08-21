@@ -49,13 +49,13 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      */
     @SuppressWarnings("exports")
     public GnuCashEmployeeImpl(final GncGncEmployee peer, final GnuCashFile gcshFile) {
-	super(gcshFile);
+		super(gcshFile);
 
-//	if (peer.getEmployeeSlots() == null) {
-//	    peer.setEmployeeSlots(getJwsdpPeer().getEmployeeSlots());
-//	}
+//		if (peer.getEmployeeSlots() == null) {
+//	    	peer.setEmployeeSlots(getJwsdpPeer().getEmployeeSlots());
+//		}
 
-	jwsdpPeer = peer;
+		jwsdpPeer = peer;
     }
 
     // ---------------------------------------------------------------
@@ -65,7 +65,7 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      */
     @SuppressWarnings("exports")
     public GncGncEmployee getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------
@@ -73,36 +73,41 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     /**
      * {@inheritDoc}
      */
-    public GCshEmplID getID() {
-	return new GCshEmplID(jwsdpPeer.getEmployeeGuid().getValue());
+    @Override
+	public GCshEmplID getID() {
+    	return new GCshEmplID(jwsdpPeer.getEmployeeGuid().getValue());
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getNumber() {
-	return jwsdpPeer.getEmployeeId();
+    @Override
+	public String getNumber() {
+    	return jwsdpPeer.getEmployeeId();
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getUserName() {
-	return jwsdpPeer.getEmployeeUsername();
+    @Override
+	public String getUserName() {
+    	return jwsdpPeer.getEmployeeUsername();
     }
 
     /**
      * {@inheritDoc}
      */
-    public GCshAddress getAddress() {
-	return new GCshAddressImpl(jwsdpPeer.getEmployeeAddr(), getGnuCashFile());
+    @Override
+	public GCshAddress getAddress() {
+    	return new GCshAddressImpl(jwsdpPeer.getEmployeeAddr(), getGnuCashFile());
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getLanguage() {
-	return jwsdpPeer.getEmployeeLanguage();
+    @Override
+	public String getLanguage() {
+    	return jwsdpPeer.getEmployeeLanguage();
     }
 
     // ---------------------------------------------------------------
@@ -111,11 +116,11 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      * @return the currency-format to use if no locale is given.
      */
     protected NumberFormat getCurrencyFormat() {
-	if (currencyFormat == null) {
-	    currencyFormat = NumberFormat.getCurrencyInstance();
-	}
+    	if (currencyFormat == null) {
+    		currencyFormat = NumberFormat.getCurrencyInstance();
+    	}
 
-	return currencyFormat;
+    	return currencyFormat;
     }
 
     // ---------------------------------------------------------------
@@ -153,7 +158,7 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      */
     @Override
     public int getNofOpenVouchers() {
-	return getGnuCashFile().getUnpaidVouchersForEmployee(this).size();
+    	return getGnuCashFile().getUnpaidVouchersForEmployee(this).size();
     }
 
     // -------------------------------------
@@ -161,27 +166,29 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     /**
      * @return the net sum of payments for invoices to this client
      */
-    public FixedPointNumber getExpensesGenerated() {
-	return getExpensesGenerated_direct();
+    @Override
+	public FixedPointNumber getExpensesGenerated() {
+    	return getExpensesGenerated_direct();
     }
 
     /**
      * @return the net sum of payments for invoices to this client
      */
-    public FixedPointNumber getExpensesGenerated_direct() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getExpensesGenerated_direct() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashEmployeeVoucher vchSpec : getPaidVouchers()) {
+		for ( GnuCashEmployeeVoucher vchSpec : getPaidVouchers() ) {
 //		    if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_EMPLOYEE) ) {
 //		      GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
-		GnuCashEmployee empl = vchSpec.getEmployee();
-		if (empl.getID().equals(this.getID())) {
-		    retval.add(vchSpec.getAmountWithoutTaxes());
-		}
+			GnuCashEmployee empl = vchSpec.getEmployee();
+			if ( empl.getID().equals(this.getID()) ) {
+				retval.add(vchSpec.getAmountWithoutTaxes());
+			}
 //            } // if vch type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -189,9 +196,9 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      *  
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted() {
-	return getCurrencyFormat().format(getExpensesGenerated());
-
+    @Override
+	public String getExpensesGeneratedFormatted() {
+    	return getCurrencyFormat().format(getExpensesGenerated());
     }
 
     /**
@@ -200,8 +207,9 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      *  
      * @see #getExpensesGenerated()
      */
-    public String getExpensesGeneratedFormatted(final Locale lcl) {
-	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated());
+    @Override
+	public String getExpensesGeneratedFormatted(final Locale lcl) {
+    	return NumberFormat.getCurrencyInstance(lcl).format(getExpensesGenerated());
     }
 
     // -------------------------------------
@@ -211,27 +219,29 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      * 
      * @see #getOutstandingValue_direct()
      */
-    public FixedPointNumber getOutstandingValue() {
-	return getOutstandingValue_direct();
+    @Override
+	public FixedPointNumber getOutstandingValue() {
+    	return getOutstandingValue_direct();
     }
 
     /**
      * @return the sum of left to pay Unpaid invoiced
      */
-    public FixedPointNumber getOutstandingValue_direct() {
-	FixedPointNumber retval = new FixedPointNumber();
+    @Override
+	public FixedPointNumber getOutstandingValue_direct() {
+		FixedPointNumber retval = new FixedPointNumber();
 
-	    for (GnuCashEmployeeVoucher vchSpec : getUnpaidVouchers()) {
+		for ( GnuCashEmployeeVoucher vchSpec : getUnpaidVouchers() ) {
 //            if ( invcGen.getType().equals(GnuCashGenerInvoice.TYPE_VENDOR) ) {
 //              GnuCashEmployeeVoucher vchSpec = new GnuCashEmployeeVoucherImpl(invcGen); 
-		GnuCashEmployee empl = vchSpec.getEmployee();
-		if (empl.getID().equals(this.getID())) {
-		    retval.add(vchSpec.getAmountUnpaidWithTaxes());
-		}
+			GnuCashEmployee empl = vchSpec.getEmployee();
+			if ( empl.getID().equals(this.getID()) ) {
+				retval.add(vchSpec.getAmountUnpaidWithTaxes());
+			}
 //            } // if invc type
-	    } // for
+		} // for
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -239,16 +249,18 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
      *  
      * @see #getOutstandingValue()
      */
-    public String getOutstandingValueFormatted() {
-	return getCurrencyFormat().format(getOutstandingValue());
+    @Override
+	public String getOutstandingValueFormatted() {
+    	return getCurrencyFormat().format(getOutstandingValue());
     }
 
     /**
      * @see #getOutstandingValue() Formatted according to the given locale's
      *      currency-format
      */
-    public String getOutstandingValueFormatted(final Locale lcl) {
-	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
+    @Override
+	public String getOutstandingValueFormatted(final Locale lcl) {
+    	return NumberFormat.getCurrencyInstance(lcl).format(getOutstandingValue());
     }
 
     // -----------------------------------------------------------------
@@ -257,21 +269,21 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     public List<GnuCashGenerInvoice> getVouchers() {
     	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-	for ( GnuCashEmployeeVoucher invc : getGnuCashFile().getVouchersForEmployee(this) ) {
-	    retval.add(invc);
-	}
+    	for ( GnuCashEmployeeVoucher invc : getGnuCashFile().getVouchersForEmployee(this) ) {
+    		retval.add(invc);
+    	}
 	
-	return retval;
+    	return retval;
     }
 
     @Override
     public List<GnuCashEmployeeVoucher> getPaidVouchers() {
-	return getGnuCashFile().getPaidVouchersForEmployee(this);
+    	return getGnuCashFile().getPaidVouchersForEmployee(this);
     }
 
     @Override
     public List<GnuCashEmployeeVoucher> getUnpaidVouchers() {
-	return getGnuCashFile().getUnpaidVouchersForEmployee(this);
+    	return getGnuCashFile().getUnpaidVouchersForEmployee(this);
     }
 
     // ------------------------------------------------------------
@@ -291,30 +303,31 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     // ------------------------------------------------------------
 
     public static int getHighestNumber(GnuCashEmployee empl) {
-	return ((GnuCashFileImpl) empl.getGnuCashFile()).getHighestEmployeeNumber();
+    	return ((GnuCashFileImpl) empl.getGnuCashFile()).getHighestEmployeeNumber();
     }
 
     public static String getNewNumber(GnuCashEmployee empl) {
-	return ((GnuCashFileImpl) empl.getGnuCashFile()).getNewEmployeeNumber();
+    	return ((GnuCashFileImpl) empl.getGnuCashFile()).getNewEmployeeNumber();
     }
 
     // -----------------------------------------------------------------
 
-    public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashEmployeeImpl [");
-	
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number='");
-	buffer.append(getNumber() + "'");
-	
-	buffer.append(", username='");
-	buffer.append(getUserName() + "'");
-	
-	buffer.append("]");
-	return buffer.toString();
+    @Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashEmployeeImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", number='");
+		buffer.append(getNumber() + "'");
+
+		buffer.append(", username='");
+		buffer.append(getUserName() + "'");
+
+		buffer.append("]");
+		return buffer.toString();
     }
 
 }

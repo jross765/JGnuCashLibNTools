@@ -78,25 +78,25 @@ public class GnuCashAccountImpl extends SimpleAccount
     public GnuCashAccountImpl(
     		final GncAccount peer,
     		final GnuCashFile gcshFile) {
-	super(gcshFile);
+    	super(gcshFile);
 
-//	if (peer.getActSlots() == null) {
-//	    peer.setActSlots(new ObjectFactory().createSlotsType());
-//	}
+//		if (peer.getActSlots() == null) {
+//	    	peer.setActSlots(new ObjectFactory().createSlotsType());
+//		}
 
-//	if (peer.getActLots() == null) {
-//    peer.setActLots(new ObjectFactory().createGncAccountActLots());
-//  }
+//		if (peer.getActLots() == null) {
+//    	peer.setActLots(new ObjectFactory().createGncAccountActLots());
+//  	}
 
-	if (peer == null) {
-	    throw new IllegalArgumentException("argument <peer> is null");
-	}
+    	if (peer == null) {
+    		throw new IllegalArgumentException("argument <peer> is null");
+    	}
 
-	if (gcshFile == null) {
-	    throw new IllegalArgumentException("argument <gcshFile> is null");
-	}
+    	if (gcshFile == null) {
+    		throw new IllegalArgumentException("argument <gcshFile> is null");
+    	}
 
-	jwsdpPeer = peer;
+    	jwsdpPeer = peer;
     }
 
     // ---------------------------------------------------------------
@@ -104,9 +104,10 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @return the JWSDP-object we are wrapping.
      */
-    @SuppressWarnings("exports")
+    @Override
+	@SuppressWarnings("exports")
     public GncAccount getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------
@@ -114,8 +115,9 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getID()
      */
-    public GCshAcctID getID() {
-	return new GCshAcctID(jwsdpPeer.getActId().getValue());
+    @Override
+	public GCshAcctID getID() {
+    	return new GCshAcctID(jwsdpPeer.getActId().getValue());
     }
 
     // ---------------------------------------------------------------
@@ -123,19 +125,21 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getParentAccountID()
      */
-    public GCshAcctID getParentAccountID() {
-	GncAccount.ActParent parent = jwsdpPeer.getActParent();
-	if (parent == null) {
-	    return null;
-	}
+    @Override
+	public GCshAcctID getParentAccountID() {
+    	GncAccount.ActParent parent = jwsdpPeer.getActParent();
+    	if (parent == null) {
+    		return null;
+    	}
 
-	return new GCshAcctID(parent.getValue());
+    	return new GCshAcctID(parent.getValue());
     }
 
     /**
      * @see GnuCashAccount#getChildren()
      */
-    public List<GnuCashAccount> getChildren() {
+    @Override
+	public List<GnuCashAccount> getChildren() {
     	return getGnuCashFile().getAccountsByParentID(getID());
     }
 
@@ -144,21 +148,24 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getName()
      */
-    public String getName() {
+    @Override
+	public String getName() {
     	return jwsdpPeer.getActName();
     }
 
     /**
      * @see GnuCashAccount#getDescription()
      */
-    public String getDescription() {
+    @Override
+	public String getDescription() {
     	return jwsdpPeer.getActDescription();
     }
 
     /**
      * @see GnuCashAccount#getCode()
      */
-    public String getCode() {
+    @Override
+	public String getCode() {
     	return jwsdpPeer.getActCode();
     }
 
@@ -169,13 +176,14 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#getType()
      */
-    public Type getType() {
-	try {
-	    Type result = Type.valueOf( getTypeStr() );
-	    return result;
-	} catch ( Exception exc ) {
-	    throw new UnknownAccountTypeException();
-	}
+    @Override
+	public Type getType() {
+    	try {
+    		Type result = Type.valueOf( getTypeStr() );
+    		return result;
+    	} catch ( Exception exc ) {
+    		throw new UnknownAccountTypeException();
+    	}
     }
 
     /**
@@ -183,15 +191,15 @@ public class GnuCashAccountImpl extends SimpleAccount
 	 */
     @Override
 	public GCshCmdtyCurrID getCmdtyCurrID() {
-	if ( jwsdpPeer.getActCommodity() == null &&
-	     jwsdpPeer.getActType().equals(Type.ROOT.toString()) ) {
-	    return new GCshCurrID(); // default-currency because gnucash 2.2 has no currency on the root-account
-	}
+    	if ( jwsdpPeer.getActCommodity() == null &&
+    		 jwsdpPeer.getActType().equals(Type.ROOT.toString()) ) {
+    		return new GCshCurrID(); // default-currency because gnucash 2.2 has no currency on the root-account
+    	}
 	
-	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getActCommodity().getCmdtySpace(),
-		                             jwsdpPeer.getActCommodity().getCmdtyId()); 
+    	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getActCommodity().getCmdtySpace(),
+    												 jwsdpPeer.getActCommodity().getCmdtyId()); 
 	
-	return result;
+    	return result;
 	}
     
     // ----------------------------
@@ -213,31 +221,32 @@ public class GnuCashAccountImpl extends SimpleAccount
     /**
      * @see GnuCashAccount#addTransactionSplit(GnuCashTransactionSplit)
      */
-    public void addTransactionSplit(final GnuCashTransactionSplit splt) {
-	GnuCashTransactionSplit old = getTransactionSplitByID(splt.getID());
-	if ( old != null ) {
-	    // There already is a split with that ID
-	    if ( ! old.equals(splt) ) {
-	    	System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-	    			splt.getID() + " [" + splt.getClass().getName() + "] and " + 
-	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
-	    			"new = " + splt.toString() + "\n" + 
-	    			"old = " + old.toString());
-	    	LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
-	    			splt.getID() + " [" + splt.getClass().getName() + "] and " + 
-	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
-	    			"new=" + splt.toString() + "\n" + 
-	    			"old=" + old.toString());
-	    	// ::TODO
-	    	IllegalStateException exc = new IllegalStateException("DEBUG");
-	    	exc.printStackTrace();
-	    	replaceTransactionSplit(old, (GnuCashTransactionSplitImpl) splt);
-	    }
-	} else {
-	    // There is no split with that ID yet
-	    mySplits.add(splt);
-	    mySplitsNeedSorting = true;
-	}
+    @Override
+	public void addTransactionSplit(final GnuCashTransactionSplit splt) {
+    	GnuCashTransactionSplit old = getTransactionSplitByID(splt.getID());
+    	if ( old != null ) {
+    		// There already is a split with that ID
+    		if ( ! old.equals(splt) ) {
+    			System.err.println("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+    					splt.getID() + " [" + splt.getClass().getName() + "] and " + 
+    					old.getID() + " [" + old.getClass().getName() + "]\n" + 
+    					"new = " + splt.toString() + "\n" + 
+    					"old = " + old.toString());
+    			LOGGER.error("addTransactionSplit: New Transaction Split object with same ID, needs to be replaced: " + 
+    					splt.getID() + " [" + splt.getClass().getName() + "] and " + 
+    					old.getID() + " [" + old.getClass().getName() + "]\n" + 
+    					"new=" + splt.toString() + "\n" + 
+    					"old=" + old.toString());
+    			// ::TODO
+    			IllegalStateException exc = new IllegalStateException("DEBUG");
+    			exc.printStackTrace();
+    			replaceTransactionSplit(old, (GnuCashTransactionSplitImpl) splt);
+    		}
+    	} else {
+    		// There is no split with that ID yet
+    		mySplits.add(splt);
+    		mySplitsNeedSorting = true;
+    	}
     }
 
     /**
@@ -267,15 +276,16 @@ public class GnuCashAccountImpl extends SimpleAccount
     }
 
     private void initLots() {
-    	if ( jwsdpPeer.getActLots() == null )
-    		return;
+    	if ( jwsdpPeer.getActLots() == null ) {
+			return;
+		}
     	
 		List<GncAccount.ActLots.GncLot> jwsdpLots = jwsdpPeer.getActLots().getGncLot();
 
-	myLots = new ArrayList<GCshAcctLot>();
-	for ( GncAccount.ActLots.GncLot elt : jwsdpLots ) {
-		myLots.add(createLot(elt));
-	}
+		myLots = new ArrayList<GCshAcctLot>();
+		for ( GncAccount.ActLots.GncLot elt : jwsdpLots ) {
+			myLots.add(createLot(elt));
+		}
     }
 
     /**
@@ -286,35 +296,36 @@ public class GnuCashAccountImpl extends SimpleAccount
      */
     protected GCshAcctLotImpl createLot(
 	    final GncAccount.ActLots.GncLot jwsdpLot) {
-	return new GCshAcctLotImpl(jwsdpLot, this);
+    	return new GCshAcctLotImpl(jwsdpLot, this);
     }
 
     /**
      * @see GnuCashAccount#addLot(GCshAcctLot)
      */
-    public void addLot(final GCshAcctLot lot) {
+    @Override
+	public void addLot(final GCshAcctLot lot) {
     	GCshAcctLot old = getLotByID(lot.getID());
-	if ( old != null ) {
-	    // There already is a lot with that ID
-	    if ( ! old.equals(lot) ) {
-	    	System.err.println("addLot: New Account Lot object with same ID, needs to be replaced: " + 
-	    			lot.getID() + " [" + lot.getClass().getName() + "] and " + 
-	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
-	    			"new = " + lot.toString() + "\n" + 
-	    			"old = " + old.toString());
-	    	LOGGER.error("addLot: New Account Lot object with same ID, needs to be replaced: " + 
-	    			lot.getID() + " [" + lot.getClass().getName() + "] and " + 
-	    			old.getID() + " [" + old.getClass().getName() + "]\n" + 
-	    			"new = " + lot.toString() + "\n" + 
-	    			"old = " + old.toString());
-	    	IllegalStateException exc = new IllegalStateException("DEBUG");
-	    	exc.printStackTrace();
-	    	replaceLot(old, lot);
-	    }
-	} else {
-	    // There is no split with that ID yet
-	    myLots.add(lot);
-	}
+    	if ( old != null ) {
+    		// There already is a lot with that ID
+    		if ( ! old.equals(lot) ) {
+    			System.err.println("addLot: New Account Lot object with same ID, needs to be replaced: " + 
+    					lot.getID() + " [" + lot.getClass().getName() + "] and " + 
+    					old.getID() + " [" + old.getClass().getName() + "]\n" + 
+    					"new = " + lot.toString() + "\n" + 
+    					"old = " + old.toString());
+    			LOGGER.error("addLot: New Account Lot object with same ID, needs to be replaced: " + 
+    					lot.getID() + " [" + lot.getClass().getName() + "] and " + 
+    					old.getID() + " [" + old.getClass().getName() + "]\n" + 
+    					"new = " + lot.toString() + "\n" + 
+    					"old = " + old.toString());
+    			IllegalStateException exc = new IllegalStateException("DEBUG");
+    			exc.printStackTrace();
+    			replaceLot(old, lot);
+    		}
+    	} else {
+    		// There is no split with that ID yet
+    		myLots.add(lot);
+    	}
     }
 
     /**
@@ -334,9 +345,11 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     // ---------------------------------------------------------------
     
-    public GCshAcctReconInfo getReconcileInfo() {
-    	if ( jwsdpPeer.getActSlots() == null )
-    		return null;
+    @Override
+	public GCshAcctReconInfo getReconcileInfo() {
+    	if ( jwsdpPeer.getActSlots() == null ) {
+			return null;
+		}
     	
     	for ( Slot slt : jwsdpPeer.getActSlots().getSlot() ) {
     		if ( slt.getSlotKey().equals(Const.SLOT_KEY_ACCT_RECONCILE_INFO) ) {
@@ -364,36 +377,37 @@ public class GnuCashAccountImpl extends SimpleAccount
 
     // -----------------------------------------------------------------
 
-    public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashAccountImpl [");
+    @Override
+	public String toString() {
+    	StringBuffer buffer = new StringBuffer();
+    	buffer.append("GnuCashAccountImpl [");
 	
-	buffer.append("id=");
-	buffer.append(getID());
+    	buffer.append("id=");
+    	buffer.append(getID());
 	
-	buffer.append(", code='");
-	buffer.append(getCode() + "'");
+    	buffer.append(", code='");
+    	buffer.append(getCode() + "'");
 	
-	buffer.append(", type=");
-	try {
-	    buffer.append(getType());
-	} catch (UnknownAccountTypeException e) {
-	    buffer.append("ERROR");
-	}
+    	buffer.append(", type=");
+    	try {
+    		buffer.append(getType());
+    	} catch (UnknownAccountTypeException e) {
+    		buffer.append("ERROR");
+    	}
 	
-	buffer.append(", qualif-name='");
-	buffer.append(getQualifiedName() + "'");
+    	buffer.append(", qualif-name='");
+    	buffer.append(getQualifiedName() + "'");
 	
-	buffer.append(", commodity/currency='");
-	try {
-	    buffer.append(getCmdtyCurrID() + "'");
-	} catch (InvalidCmdtyCurrTypeException e) {
-	    buffer.append("ERROR");
-	}
+    	buffer.append(", commodity/currency='");
+    	try {
+    		buffer.append(getCmdtyCurrID() + "'");
+    	} catch (InvalidCmdtyCurrTypeException e) {
+    		buffer.append("ERROR");
+    	}
 	
-	buffer.append("]");
+    	buffer.append("]");
 	
-	return buffer.toString();
+    	return buffer.toString();
     }
 
     // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java

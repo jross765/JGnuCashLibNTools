@@ -362,7 +362,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getCustInvcAmountUnpaidWithTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -379,7 +378,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getCustInvcAmountPaidWithTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -404,7 +402,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getCustInvcAmountPaidWithoutTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -429,7 +426,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getCustInvcAmountWithTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -458,7 +454,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getCustInvcAmountWithoutTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -564,7 +559,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getVendBllAmountPaidWithTaxes_int() {
-
 		FixedPointNumber takenFromPayableAccount = new FixedPointNumber();
 		for ( GnuCashTransaction trx : getPayingTransactions() ) {
 			for ( GnuCashTransactionSplit split : trx.getSplits() ) {
@@ -607,7 +601,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getVendBllAmountWithTaxes_int() {
-
 		FixedPointNumber retval = new FixedPointNumber();
 
 		// TODO: we should sum them without taxes grouped by tax% and
@@ -632,7 +625,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private FixedPointNumber getVendBllAmountWithoutTaxes_int() {
-
 		FixedPointNumber retval = new FixedPointNumber();
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
@@ -713,7 +705,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public FixedPointNumber getEmplVchAmountUnpaidWithTaxes() {
-
 		// System.err.println("debug: GnuCashInvoiceImpl.getAmountUnpaid(): "
 		// + "getVoucherAmountUnpaid()="+getVoucherAmountWithoutTaxes()+"
 		// getVoucherAmountPaidWithTaxes()="+getAmountPaidWithTaxes() );
@@ -726,7 +717,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public FixedPointNumber getEmplVchAmountPaidWithTaxes() {
-
 		FixedPointNumber takenFromPayableAccount = new FixedPointNumber();
 		for ( GnuCashTransaction trx : getPayingTransactions() ) {
 			for ( GnuCashTransactionSplit split : trx.getSplits() ) {
@@ -761,7 +751,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public FixedPointNumber getEmplVchAmountWithTaxes() {
-
 		FixedPointNumber retval = new FixedPointNumber();
 
 		// TODO: we should sum them without taxes grouped by tax% and
@@ -782,7 +771,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public FixedPointNumber getEmplVchAmountWithoutTaxes() {
-
 		FixedPointNumber retval = new FixedPointNumber();
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
@@ -980,7 +968,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private GCshTaxedSumImpl[] getCustInvcTaxes_int() {
-
 		if ( getType() != TYPE_CUSTOMER && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -1019,7 +1006,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	}
 	
 	private GCshTaxedSumImpl[] getVendBllTaxes_int() {
-
 		if ( getType() != TYPE_VENDOR && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
@@ -1053,7 +1039,6 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	 */
 	@Override
 	public GCshTaxedSumImpl[] getEmplVchTaxes() {
-
 		if ( getType() != TYPE_EMPLOYEE && 
 			 getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();

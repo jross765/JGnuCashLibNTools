@@ -51,10 +51,10 @@ public class GCshTaxTableImpl implements GCshTaxTable {
     public GCshTaxTableImpl(
 	    final GncGncTaxTable peer, 
 	    final GnuCashFile gcshFile) {
-	super();
-	
-	this.jwsdpPeer = peer;
-	this.myFile = gcshFile;
+		super();
+
+		this.jwsdpPeer = peer;
+		this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -65,11 +65,11 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @SuppressWarnings("exports")
     public GncGncTaxTable getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // ---------------------------------------------------------------
@@ -80,15 +80,15 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public GCshTaxTabID getID() {
-	assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
+		assert jwsdpPeer.getTaxtableGuid().getType().equals(Const.XML_DATA_TYPE_GUID);
 
-	String guid = jwsdpPeer.getTaxtableGuid().getValue();
-	if (guid == null) {
-	    throw new IllegalStateException(
-		    "taxtable has a null guid-value! guid-type=" + jwsdpPeer.getTaxtableGuid().getType());
-	}
+		String guid = jwsdpPeer.getTaxtableGuid().getValue();
+		if ( guid == null ) {
+			throw new IllegalStateException(
+					"taxtable has a null guid-value! guid-type=" + jwsdpPeer.getTaxtableGuid().getType());
+		}
 
-	return new GCshTaxTabID(guid);
+		return new GCshTaxTabID(guid);
     }
 
     /**
@@ -96,7 +96,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public String getName() {
-	return jwsdpPeer.getTaxtableName();
+    	return jwsdpPeer.getTaxtableName();
     }
 
     /**
@@ -104,7 +104,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public boolean isInvisible() {
-	return jwsdpPeer.getTaxtableInvisible() != 0;
+    	return jwsdpPeer.getTaxtableInvisible() != 0;
     }
 
     /**
@@ -112,11 +112,11 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public GCshTaxTabID getParentID() {
-	GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
-	if (parent == null) {
-	    return null;
-	}
-	return new GCshTaxTabID( parent.getValue() );
+		GncGncTaxTable.TaxtableParent parent = jwsdpPeer.getTaxtableParent();
+		if ( parent == null ) {
+			return null;
+		}
+		return new GCshTaxTabID(parent.getValue());
     }
 
     /**
@@ -125,7 +125,7 @@ public class GCshTaxTableImpl implements GCshTaxTable {
      */
     @Override
     public GCshTaxTable getParent() {
-	return myFile.getTaxTableByID(getParentID());
+    	return myFile.getTaxTableByID(getParentID());
     }
 
     /**
@@ -148,28 +148,29 @@ public class GCshTaxTableImpl implements GCshTaxTable {
 
     // ---------------------------------------------------------------
 
-    public String toString() {
-	StringBuffer buffer = new StringBuffer();
+    @Override
+	public String toString() {
+		StringBuffer buffer = new StringBuffer();
 
-	buffer.append("GCshTaxTableImpl [\n");
+		buffer.append("GCshTaxTableImpl [\n");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
 
-	buffer.append(", parent-id=");
-	buffer.append(getParentID() + "\n");
+		buffer.append(", parent-id=");
+		buffer.append(getParentID() + "\n");
 
-	buffer.append("  Entries:\n");
-	for (GCshTaxTableEntry entry : getEntries()) {
-	    buffer.append("   - " + entry + "\n");
-	}
+		buffer.append("  Entries:\n");
+		for ( GCshTaxTableEntry entry : getEntries() ) {
+			buffer.append("   - " + entry + "\n");
+		}
 
-	buffer.append("]\n");
+		buffer.append("]\n");
 
-	return buffer.toString();
+		return buffer.toString();
     }
 
 }

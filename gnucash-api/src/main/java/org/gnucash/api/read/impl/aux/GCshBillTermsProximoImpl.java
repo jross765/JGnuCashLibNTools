@@ -33,10 +33,10 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
     public GCshBillTermsProximoImpl(
 	    final GncGncBillTerm.BilltermProximo peer, 
 	    final GnuCashFile gcshFile) {
-	super();
+		super();
 
-	this.jwsdpPeer = peer;
-	this.myFile = gcshFile;
+		this.jwsdpPeer = peer;
+		this.myFile = gcshFile;
     }
 
     // ---------------------------------------------------------------
@@ -47,52 +47,53 @@ public class GCshBillTermsProximoImpl implements GCshBillTermsProximo {
      */
     @SuppressWarnings("exports")
     public GncGncBillTerm.BilltermProximo getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     public GnuCashFile getGnuCashFile() {
-	return myFile;
+    	return myFile;
     }
 
     // ---------------------------------------------------------------
 
     @Override
     public Integer getDueDay() {
-	return jwsdpPeer.getBtProxDueDay();
+    	return jwsdpPeer.getBtProxDueDay();
     }
 
     @Override
     public Integer getDiscountDay() {
-	return jwsdpPeer.getBtProxDiscDay();
+    	return jwsdpPeer.getBtProxDiscDay();
     }
 
     @Override
     public FixedPointNumber getDiscount() {
-	if ( jwsdpPeer.getBtProxDiscount() == null )
-	    return null;
-	
-	return new FixedPointNumber(jwsdpPeer.getBtProxDiscount());
+		if ( jwsdpPeer.getBtProxDiscount() == null ) {
+			return null;
+		}
+
+		return new FixedPointNumber(jwsdpPeer.getBtProxDiscount());
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GCshBillTermsProximoImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GCshBillTermsProximoImpl [");
 
-	buffer.append("due-day=");
-	buffer.append(getDueDay());
+		buffer.append("due-day=");
+		buffer.append(getDueDay());
 
-	buffer.append(", discount-day=");
-	buffer.append(getDiscountDay());
+		buffer.append(", discount-day=");
+		buffer.append(getDiscountDay());
 
-	buffer.append(", discount=");
-	buffer.append(getDiscount());
+		buffer.append(", discount=");
+		buffer.append(getDiscount());
 
-	buffer.append("]");
+		buffer.append("]");
 
-	return buffer.toString();
+		return buffer.toString();
     }
     
 }

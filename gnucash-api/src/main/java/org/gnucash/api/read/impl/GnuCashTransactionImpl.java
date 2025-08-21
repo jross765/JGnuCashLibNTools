@@ -90,51 +90,50 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 	    final GncTransaction peer, 
 	    final GnuCashFile gcshFile,
 	    final boolean addTrxToInvc) {
-	super(gcshFile);
+    	super(gcshFile);
 
-//	if (peer.getTrnSlots() == null) {
-//	    peer.setTrnSlots(jwsdpPeer.getTrnSlots());
-//	}
+//		if (peer.getTrnSlots() == null) {
+//	   	 peer.setTrnSlots(jwsdpPeer.getTrnSlots());
+//		}
 
-	if (peer == null) {
-	    throw new IllegalArgumentException("argument <peer> is null");
-	}
+    	if (peer == null) {
+    		throw new IllegalArgumentException("argument <peer> is null");
+    	}
 
-	if (gcshFile == null) {
-	    throw new IllegalArgumentException("argument <gcshFile> is null");
-	}
+    	if (gcshFile == null) {
+    		throw new IllegalArgumentException("argument <gcshFile> is null");
+    	}
 
-	jwsdpPeer = peer;
+    	jwsdpPeer = peer;
 
-	if ( addTrxToInvc ) {
-	    for ( GnuCashGenerInvoice invc : getInvoices() ) {
-		invc.addTransaction(this);
-	    }
-	}
+    	if ( addTrxToInvc ) {
+    		for ( GnuCashGenerInvoice invc : getInvoices() ) {
+    			invc.addTransaction(this);
+    		}
+    	}
     }
 
     // Copy-constructor
     public GnuCashTransactionImpl(final GnuCashTransaction trx) {
-	super(trx.getGnuCashFile());
+    	super(trx.getGnuCashFile());
 
-//	if (trx.getJwsdpPeer().getTrnSlots() == null) {
-//	    trx.getJwsdpPeer().setTrnSlots(jwsdpPeer.getTrnSlots());
-//	}
+//		if (trx.getJwsdpPeer().getTrnSlots() == null) {
+//	   	 trx.getJwsdpPeer().setTrnSlots(jwsdpPeer.getTrnSlots());
+//		}
 
-	if (trx.getJwsdpPeer() == null) {
-	    throw new IllegalArgumentException("Transaction not correctly initialized: null jwsdpPeer given");
-	}
+    	if (trx.getJwsdpPeer() == null) {
+    		throw new IllegalArgumentException("Transaction not correctly initialized: null jwsdpPeer given");
+    	}
 
-	if (trx.getGnuCashFile() == null) {
-	    throw new IllegalArgumentException("Transaction not correctly initialized: null file given");
-	}
+    	if (trx.getGnuCashFile() == null) {
+    		throw new IllegalArgumentException("Transaction not correctly initialized: null file given");
+    	}
 
-	jwsdpPeer = trx.getJwsdpPeer();
+    	jwsdpPeer = trx.getJwsdpPeer();
 
-	for ( GnuCashGenerInvoice invc : getInvoices() ) {
-	    invc.addTransaction(this);
-	}
-
+    	for ( GnuCashGenerInvoice invc : getInvoices() ) {
+    		invc.addTransaction(this);
+    	}
     }
 
     // ---------------------------------------------------------------
@@ -144,7 +143,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      */
     @SuppressWarnings("exports")
     public GncTransaction getJwsdpPeer() {
-	return jwsdpPeer;
+    	return jwsdpPeer;
     }
 
     // ---------------------------------------------------------------
@@ -154,18 +153,15 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#isBalanced()
      */
     public boolean isBalanced() {
-
-	return getBalance().equals(new FixedPointNumber());
-
+    	return getBalance().equals(new FixedPointNumber());
     }
 
     /**
      */
     public GCshCmdtyCurrID getCmdtyCurrID() {
-
-	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getTrnCurrency().getCmdtySpace(), 
-		                             jwsdpPeer.getTrnCurrency().getCmdtyId());
-	return result;
+    	GCshCmdtyCurrID result = new GCshCmdtyCurrID(jwsdpPeer.getTrnCurrency().getCmdtySpace(), 
+    												 jwsdpPeer.getTrnCurrency().getCmdtyId());
+    	return result;
     }
 
     /**
@@ -176,14 +172,13 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getBalance()
      */
     public FixedPointNumber getBalance() {
+		FixedPointNumber fp = new FixedPointNumber();
 
-	FixedPointNumber fp = new FixedPointNumber();
+		for ( GnuCashTransactionSplit split : getSplits() ) {
+			fp.add(split.getValue());
+		}
 
-	for (GnuCashTransactionSplit split : getSplits()) {
-	    fp.add(split.getValue());
-	}
-
-	return fp;
+		return fp;
     }
 
     /**
@@ -201,15 +196,14 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getBalanceFormatted(java.util.Locale)
      */
     public String getBalanceFormatted(final Locale lcl) {
+		NumberFormat cf = NumberFormat.getInstance(lcl);
+		if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+			cf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
+		} else {
+			cf.setCurrency(null);
+		}
 
-	NumberFormat cf = NumberFormat.getInstance(lcl);
-	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    cf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
-	} else {
-	    cf.setCurrency(null);
-	}
-
-	return cf.format(getBalance());
+		return cf.format(getBalance());
     }
 
     /**
@@ -219,7 +213,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getNegatedBalance()
      */
     public FixedPointNumber getNegatedBalance() {
-	return getBalance().multiply(new FixedPointNumber("-100/100"));
+    	return getBalance().multiply(new FixedPointNumber("-100/100"));
     }
 
     /**
@@ -228,7 +222,7 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getNegatedBalanceFormatted()
      */
     public String getNegatedBalanceFormatted() {
-	return getCurrencyFormat().format(getNegatedBalance());
+    	return getCurrencyFormat().format(getNegatedBalance());
     }
 
     /**
@@ -237,21 +231,21 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getNegatedBalanceFormatted(java.util.Locale)
      */
     public String getNegatedBalanceFormatted(final Locale lcl) {
-	NumberFormat nf = NumberFormat.getInstance(lcl);
-	if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
-	    nf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
-	} else {
-	    nf.setCurrency(null);
-	}
+		NumberFormat nf = NumberFormat.getInstance(lcl);
+		if ( getCmdtyCurrID().getType() == GCshCmdtyCurrID.Type.CURRENCY ) {
+			nf.setCurrency(new GCshCurrID(getCmdtyCurrID()).getCurrency());
+		} else {
+			nf.setCurrency(null);
+		}
 
-	return nf.format(getNegatedBalance());
+		return nf.format(getNegatedBalance());
     }
 
     /**
      * @see GnuCashTransaction#getID()
      */
     public GCshTrxID getID() {
-	return new GCshTrxID( jwsdpPeer.getTrnId().getValue() );
+    	return new GCshTrxID( jwsdpPeer.getTrnId().getValue() );
     }
 
     /**
@@ -260,21 +254,21 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      */
     public List<GnuCashGenerInvoice> getInvoices() {
     	List<GCshGenerInvcID> invoiceIDs = getInvoiceIDs();
-	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-	for (GCshGenerInvcID invoiceID : invoiceIDs) {
+		for ( GCshGenerInvcID invoiceID : invoiceIDs ) {
 
-	    GnuCashGenerInvoice invoice = getGnuCashFile().getGenerInvoiceByID(invoiceID);
-	    if (invoice == null) {
-		LOGGER.error("No invoice with id='" + invoiceID + "' for transaction '" + getID() + 
-			     "' description '" + getDescription() + "'");
-	    } else {
-		retval.add(invoice);
-	    }
+			GnuCashGenerInvoice invoice = getGnuCashFile().getGenerInvoiceByID(invoiceID);
+			if ( invoice == null ) {
+				LOGGER.error("No invoice with id='" + invoiceID + "' for transaction '" + getID() + "' description '"
+						+ getDescription() + "'");
+			} else {
+				retval.add(invoice);
+			}
 
-	}
+		}
 
-	return retval;
+		return retval;
     }
 
     /**
@@ -282,48 +276,47 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      *         transaction belonging to handing out the invoice)
      */
     public List<GCshGenerInvcID> getInvoiceIDs() {
+		List<GCshGenerInvcID> retval = new ArrayList<GCshGenerInvcID>();
 
-	List<GCshGenerInvcID> retval = new ArrayList<GCshGenerInvcID>();
+		SlotsType slots = jwsdpPeer.getTrnSlots();
+		if ( slots == null ) {
+			return retval;
+		}
 
-	SlotsType slots = jwsdpPeer.getTrnSlots();
-	if (slots == null) {
-	    return retval;
-	}
+		for ( Slot slot : (List<Slot>) slots.getSlot() ) {
+			if ( !slot.getSlotKey().equals(Const.SLOT_KEY_INVC_TYPE) ) {
+				continue;
+			}
 
-	for (Slot slot : (List<Slot>) slots.getSlot()) {
-	    if (!slot.getSlotKey().equals(Const.SLOT_KEY_INVC_TYPE)) {
-		continue;
-	    }
+			SlotValue slotVal = slot.getSlotValue();
 
-	    SlotValue slotVal = slot.getSlotValue();
+			ObjectFactory objectFactory = new ObjectFactory();
+			Slot subSlot = objectFactory.createSlot();
+			subSlot.setSlotKey(slot.getSlotKey());
+			SlotValue subSlotVal = objectFactory.createSlotValue();
+			subSlotVal.setType(Const.XML_DATA_TYPE_STRING);
+			subSlotVal.getContent().add(slotVal.getContent().get(0));
+			subSlot.setSlotValue(subSlotVal);
+			if ( !subSlot.getSlotKey().equals("invoice-guid") ) {
+				continue;
+			}
 
-	    ObjectFactory objectFactory = new ObjectFactory();
-	    Slot subSlot = objectFactory.createSlot();
-	    subSlot.setSlotKey(slot.getSlotKey());
-	    SlotValue subSlotVal = objectFactory.createSlotValue();
-	    subSlotVal.setType(Const.XML_DATA_TYPE_STRING);
-	    subSlotVal.getContent().add(slotVal.getContent().get(0));
-	    subSlot.setSlotValue(subSlotVal);
-	    if (!subSlot.getSlotKey().equals("invoice-guid")) {
-		continue;
-	    }
+			if ( !subSlot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GUID) ) {
+				continue;
+			}
 
-	    if (!subSlot.getSlotValue().getType().equals(Const.XML_DATA_TYPE_GUID)) {
-		continue;
-	    }
+			retval.add(new GCshGenerInvcID((String) subSlot.getSlotValue().getContent().get(0)));
 
-	    retval.add(new GCshGenerInvcID( (String) subSlot.getSlotValue().getContent().get(0) ));
+		}
 
-	}
-
-	return retval;
+		return retval;
     }
 
     /**
      * @see GnuCashTransaction#getDescription()
      */
     public String getDescription() {
-	return jwsdpPeer.getTrnDescription();
+    	return jwsdpPeer.getTrnDescription();
     }
 
     // ----------------------------
@@ -332,15 +325,14 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @param impl the split to add to mySplits
      */
     protected void addSplit(final GnuCashTransactionSplitImpl impl) {
-	if (!jwsdpPeer.getTrnSplits().getTrnSplit().contains(impl.getJwsdpPeer())) {
-	    jwsdpPeer.getTrnSplits().getTrnSplit().add(impl.getJwsdpPeer());
-	}
+		if ( !jwsdpPeer.getTrnSplits().getTrnSplit().contains(impl.getJwsdpPeer()) ) {
+			jwsdpPeer.getTrnSplits().getTrnSplit().add(impl.getJwsdpPeer());
+		}
 
-	List<GnuCashTransactionSplit> splits = getSplits();
-	if (!splits.contains(impl)) {
-	    splits.add(impl);
-	}
-
+		List<GnuCashTransactionSplit> splits = getSplits();
+		if ( !splits.contains(impl) ) {
+			splits.add(impl);
+		}
     }
 
     /**
@@ -348,17 +340,18 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getSplitsCount()
      */
     public int getSplitsCount() {
-	return getSplits().size();
+    	return getSplits().size();
     }
 
     public GnuCashTransactionSplit getSplitByID(final GCshSpltID spltID) {
-	for (GnuCashTransactionSplit split : getSplits()) {
-	    if (split.getID().equals(spltID)) {
-		return split;
-	    }
+		for ( GnuCashTransactionSplit split : getSplits() ) {
+			if ( split.getID().equals(spltID) ) {
+				return split;
+			}
 
-	}
-	return null;
+		}
+		
+		return null;
     }
 
     /**
@@ -366,10 +359,10 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getFirstSplit()
      */
     public GnuCashTransactionSplit getFirstSplit() throws TransactionSplitNotFoundException {
-	if ( getSplits().size() == 0 )
-	    throw new TransactionSplitNotFoundException();
+    	if ( getSplits().size() == 0 )
+    		throw new TransactionSplitNotFoundException();
 	
-	return getSplits().get(0);
+    	return getSplits().get(0);
     }
 
     /**
@@ -377,10 +370,10 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getSecondSplit()
      */
     public GnuCashTransactionSplit getSecondSplit() throws TransactionSplitNotFoundException {
-	if ( getSplits().size() <= 1 )
-	    throw new TransactionSplitNotFoundException();
-	
-	return getSplits().get(1);
+		if ( getSplits().size() <= 1 )
+			throw new TransactionSplitNotFoundException();
+
+		return getSplits().get(1);
     }
 
     /**
@@ -389,27 +382,26 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      */
     @Override
     public List<GnuCashTransactionSplit> getSplits() {
-	return getSplits(false, false);
+    	return getSplits(false, false);
     }
 
     public List<GnuCashTransactionSplit> getSplits(final boolean addToAcct, final boolean addToInvc) {
-	if (mySplits == null) {
-	    initSplits(addToAcct, addToInvc);
-	}
-	return mySplits;
+		if ( mySplits == null ) {
+			initSplits(addToAcct, addToInvc);
+		}
+		return mySplits;
     }
 
     protected void initSplits(final boolean addToAcct, final boolean addToInvc) {
-    	if ( jwsdpPeer.getTrnSplits() == null )
-    		return;
-    	
-	List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
+		if ( jwsdpPeer.getTrnSplits() == null )
+			return;
 
-	mySplits = new ArrayList<GnuCashTransactionSplit>();
-	for ( GncTransaction.TrnSplits.TrnSplit elt : jwsdpSplits ) {
-	    mySplits.add(createSplit(elt, 
-		                         addToAcct, addToInvc));
-	}
+		List<GncTransaction.TrnSplits.TrnSplit> jwsdpSplits = jwsdpPeer.getTrnSplits().getTrnSplit();
+
+		mySplits = new ArrayList<GnuCashTransactionSplit>();
+		for ( GncTransaction.TrnSplits.TrnSplit elt : jwsdpSplits ) {
+			mySplits.add(createSplit(elt, addToAcct, addToInvc));
+		}
     }
 
     /**
@@ -422,27 +414,27 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
 	    final GncTransaction.TrnSplits.TrnSplit jwsdpSplt,
 	    final boolean addToAcct, 
 	    final boolean addToInvc) {
-	return new GnuCashTransactionSplitImpl(jwsdpSplt, this, 
-		                                   addToAcct, addToInvc);
+    	return new GnuCashTransactionSplitImpl(jwsdpSplt, this, 
+    										   addToAcct, addToInvc);
     }
 
     /**
      * @see GnuCashTransaction#getDateEntered()
      */
     public ZonedDateTime getDateEntered() {
-	if (dateEntered == null) {
-	    String s = jwsdpPeer.getTrnDateEntered().getTsDate();
-	    try {
-		// "2001-09-18 00:00:00 +0200"
-		dateEntered = ZonedDateTime.parse(s, DATE_ENTERED_FORMAT);
-	    } catch (Exception e) {
-		IllegalStateException ex = new IllegalStateException("unparsable date '" + s + "' in transaction");
-		ex.initCause(e);
-		throw ex;
-	    }
-	}
+		if ( dateEntered == null ) {
+			String s = jwsdpPeer.getTrnDateEntered().getTsDate();
+			try {
+				// "2001-09-18 00:00:00 +0200"
+				dateEntered = ZonedDateTime.parse(s, DATE_ENTERED_FORMAT);
+			} catch (Exception e) {
+				IllegalStateException ex = new IllegalStateException("unparsable date '" + s + "' in transaction");
+				ex.initCause(e);
+				throw ex;
+			}
+		}
 
-	return dateEntered;
+		return dateEntered;
     }
 
     /**
@@ -470,27 +462,27 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see GnuCashTransaction#getDatePostedFormatted()
      */
     public String getDatePostedFormatted() {
-	return DateFormat.getDateInstance().format(getDatePosted());
+    	return DateFormat.getDateInstance().format(getDatePosted());
     }
 
     /**
      * @see GnuCashTransaction#getDatePosted()
      */
     public ZonedDateTime getDatePosted() {
-	if (datePosted == null) {
-	    String s = jwsdpPeer.getTrnDatePosted().getTsDate();
-	    try {
-		// "2001-09-18 00:00:00 +0200"
-		datePosted = ZonedDateTime.parse(s, DATE_POSTED_FORMAT);
-	    } catch (Exception e) {
-		IllegalStateException ex = new IllegalStateException(
-			"unparsable date '" + s + "' in transaction with id='" + getID() + "'");
-		ex.initCause(e);
-		throw ex;
-	    }
-	}
+		if ( datePosted == null ) {
+			String s = jwsdpPeer.getTrnDatePosted().getTsDate();
+			try {
+				// "2001-09-18 00:00:00 +0200"
+				datePosted = ZonedDateTime.parse(s, DATE_POSTED_FORMAT);
+			} catch (Exception e) {
+				IllegalStateException ex = new IllegalStateException(
+						"unparsable date '" + s + "' in transaction with id='" + getID() + "'");
+				ex.initCause(e);
+				throw ex;
+			}
+		}
 
-	return datePosted;
+		return datePosted;
     }
 
 	// -----------------------------------------------------------
@@ -518,48 +510,48 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
     
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashTransactionImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashTransactionImpl [");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	// ::TODO: That only works in simple cases --
-	// need a more generic approach
-	buffer.append(", amount=");
-	try {
-	    buffer.append(getFirstSplit().getValueFormatted());
-	} catch (Exception e) {
-	    buffer.append("ERROR");
-	}
+		// ::TODO: That only works in simple cases --
+		// need a more generic approach
+		buffer.append(", amount=");
+		try {
+			buffer.append(getFirstSplit().getValueFormatted());
+		} catch (Exception e) {
+			buffer.append("ERROR");
+		}
 
-	buffer.append(", description='");
-	buffer.append(getDescription() + "'");
+		buffer.append(", description='");
+		buffer.append(getDescription() + "'");
 
-	buffer.append(", #splits=");
-	try {
-	    buffer.append(getSplitsCount());
-	} catch (Exception e) {
-	    buffer.append("ERROR");
-	}
+		buffer.append(", #splits=");
+		try {
+			buffer.append(getSplitsCount());
+		} catch (Exception e) {
+			buffer.append("ERROR");
+		}
 
-	buffer.append(", date-posted=");
-	try {
-	    buffer.append(getDatePosted().format(DATE_POSTED_FORMAT));
-	} catch (Exception e) {
-	    buffer.append(getDatePosted().toString());
-	}
+		buffer.append(", date-posted=");
+		try {
+			buffer.append(getDatePosted().format(DATE_POSTED_FORMAT));
+		} catch (Exception e) {
+			buffer.append(getDatePosted().toString());
+		}
 
-	buffer.append(", date-entered=");
-	try {
-	    buffer.append(getDateEntered().format(DATE_ENTERED_FORMAT));
-	} catch (Exception e) {
-	    buffer.append(getDateEntered().toString());
-	}
+		buffer.append(", date-entered=");
+		try {
+			buffer.append(getDateEntered().format(DATE_ENTERED_FORMAT));
+		} catch (Exception e) {
+			buffer.append(getDateEntered().toString());
+		}
 
-	buffer.append("]");
+		buffer.append("]");
 
-	return buffer.toString();
+		return buffer.toString();
     }
 
     /**
@@ -569,21 +561,21 @@ public class GnuCashTransactionImpl extends GnuCashObjectImpl
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     public int compareTo(final GnuCashTransaction otherTrx) {
-	try {
-	    int compare = otherTrx.getDatePosted().compareTo(getDatePosted());
-	    if (compare != 0) {
-		return compare;
-	    }
+		try {
+			int compare = otherTrx.getDatePosted().compareTo(getDatePosted());
+			if ( compare != 0 ) {
+				return compare;
+			}
 
-	    return otherTrx.getDateEntered().compareTo(getDateEntered());
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    return 0;
-	}
+			return otherTrx.getDateEntered().compareTo(getDateEntered());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
     }
 
     public String getNumber() {
-	return getJwsdpPeer().getTrnNum();
+    	return getJwsdpPeer().getTrnNum();
     }
 
 }

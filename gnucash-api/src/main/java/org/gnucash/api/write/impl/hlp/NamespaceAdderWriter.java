@@ -45,7 +45,6 @@ public class NamespaceAdderWriter extends Writer {
 
 	@Override
 	public void write(final char[] cbuf, final int off, final int len) throws IOException {
-
 		for ( int i = off; i < off + len; i++ ) {
 			if ( isInTag && 
 				 ( cbuf[i] == '"' || 
@@ -124,7 +123,6 @@ public class NamespaceAdderWriter extends Writer {
 					+ "     xmlns:tte=\"http://www.gnucash.org/XML/tte\"\n"
 					+ "     xmlns:vendor=\"http://www.gnucash.org/XML/vendor\"");
 		}
-
 	}
 
 	@Override

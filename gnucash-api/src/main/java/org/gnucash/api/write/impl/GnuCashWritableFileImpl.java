@@ -369,7 +369,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @param val the value
 	 */
 	protected void setCountDataFor(final String type, final int val) {
-	
 		if ( type == null ) {
 			throw new IllegalArgumentException("argument <type> is null");
 		}
@@ -400,7 +399,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @param type the type to set it for
 	 */
 	protected void incrementCountDataFor(final String type) {
-
 		if ( type == null ) {
 			throw new IllegalArgumentException("argument <type> is null");
 		}
@@ -420,7 +418,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @param type the type to set it for
 	 */
 	protected void decrementCountDataFor(final String type) {
-
 		if ( type == null ) {
 			throw new IllegalArgumentException("argument <type> is null");
 		}
@@ -433,7 +430,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	private void incrementCountDataForCore(final String type, final int val) {
-
 		if ( type == null ) {
 			throw new IllegalArgumentException("argument <type> is null");
 		}
@@ -459,7 +455,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * have the correct order.
 	 */
 	private void checkAllCountData() {
-
 		int cntAccount = 0;
 		int cntTransaction = 0;
 		int cntInvoice = 0;
@@ -580,6 +575,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	@Override
 	public Collection<GnuCashWritableAccount> getWritableAccountsByType(final GnuCashAccount.Type type) {
 		Collection<GnuCashWritableAccount> retval = new ArrayList<GnuCashWritableAccount>();
+		
 		for ( GnuCashWritableAccount acct : getWritableAccounts() ) {
 
 			if ( acct.getType() == null ) {
@@ -591,6 +587,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			}
 
 		}
+		
 		return retval;
 	}
 
@@ -670,6 +667,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public Collection<? extends GnuCashAccount> getParentlessAccounts() {
 		// TODO Auto-generated method stub
 		Collection<? extends GnuCashAccount> rootAcctList = super.getParentlessAccounts();
+		
 		if ( rootAcctList.size() > 1 ) {
 			GnuCashAccount root = null;
 			StringBuilder roots = new StringBuilder();
@@ -700,6 +698,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			}
 			rootAcctList = rootAccounts2;
 		}
+		
 		return rootAcctList;
 	}
 
@@ -711,6 +710,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		GnuCashWritableAccount acct = new GnuCashWritableAccountImpl(this);
 		((org.gnucash.api.write.impl.hlp.FileAccountManager) super.acctMgr)
 			.addAccount(acct);
+		
 		return acct;
 	}
 
@@ -833,8 +833,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public void removeTransaction(final GnuCashWritableTransaction trx) {
-
 		Collection<GnuCashWritableTransactionSplit> spltList = new ArrayList<GnuCashWritableTransactionSplit>();
+		
 		spltList.addAll(trx.getWritableSplits());
 		for ( GnuCashWritableTransactionSplit splt : spltList ) {
 			splt.remove();
@@ -1008,6 +1008,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
 			.addGenerInvoice(retval);
+		
 		return retval;
 	}
 
@@ -1044,6 +1045,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
 			.addGenerInvoice(retval);
+		
 		return retval;
 	}
 
@@ -1080,6 +1082,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
 			.addGenerInvoice(retval);
+		
 		return retval;
 	}
 
@@ -1113,6 +1116,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceManager) super.invcMgr)
 			.addGenerInvoice(retval);
+		
 		return retval;
 	}
 
@@ -1228,6 +1232,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
+		
 		return retval;
 	}
 
@@ -1252,6 +1257,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
+		
 		return retval;
 	}
 
@@ -1276,6 +1282,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
+		
 		return retval;
 	}
 
@@ -1300,6 +1307,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 		((org.gnucash.api.write.impl.hlp.FileInvoiceEntryManager) super.invcEntrMgr)
 			.addGenerInvcEntry(retval);
+		
 		return retval;
 	}
 
@@ -1443,6 +1451,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		vend.setName(name);
 		((org.gnucash.api.write.impl.hlp.FileVendorManager) super.vendMgr)
 			.addVendor(vend);
+		
 		return vend;
 	}
 
@@ -1499,6 +1508,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		empl.setUserName(userName);
 		((org.gnucash.api.write.impl.hlp.FileEmployeeManager) super.emplMgr)
 			.addEmployee(empl);
+		
 		return empl;
 	}
 
@@ -1564,7 +1574,6 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 */
 	@Override
 	public Collection<GnuCashWritableGenerJob> getWritableGenerJobs() {
-
 		Collection<GnuCashGenerJob> jobList = getGenerJobs();
 		if ( jobList == null ) {
 			throw new IllegalStateException("getGenerJobs() returned null");
@@ -1574,6 +1583,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		for ( GnuCashGenerJob job : jobList ) {
 			retval.add((GnuCashWritableGenerJob) job);
 		}
+		
 		return retval;
 	}
 
@@ -1591,6 +1601,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(this, cust, number, name);
 		((org.gnucash.api.write.impl.hlp.FileJobManager) super.jobMgr)
 			.addGenerJob(job);
+		
 		return job;
 	}
 
@@ -1606,6 +1617,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(this, vend, number, name);
 		((org.gnucash.api.write.impl.hlp.FileJobManager) super.jobMgr)
 			.addGenerJob(job);
+		
 		return job;
 	}
 
@@ -1649,9 +1661,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			throw new IllegalArgumentException("argument <cmdtID> is null");
 		}
 
-//	if ( ! cmdtyID.isSet() ) {
-//	    throw new IllegalArgumentException("commodity ID is not set");
-//	}
+//		if ( ! cmdtyID.isSet() ) {
+//	   	 throw new IllegalArgumentException("commodity ID is not set");
+//		}
 
 		GnuCashCommodity cmdty = super.getCommodityByQualifID(cmdtyID);
 		return new GnuCashWritableCommodityImpl((GnuCashCommodityImpl) cmdty);
@@ -1751,6 +1763,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		cmdty.setXCode(code);
 		((org.gnucash.api.write.impl.hlp.FileCommodityManager) super.cmdtyMgr)
 			.addCommodity(cmdty);
+		
 		return cmdty;
 	}
 
@@ -1802,15 +1815,19 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		if ( conversionFactor == null ) {
 			throw new IllegalArgumentException("argument <conversionFactor> is null");
 		}
+		
 		if ( pCmdtySpace == null ) {
 			throw new IllegalArgumentException("argument <pCmdtySpace> is null");
 		}
+		
 		if ( pCmdtyID == null ) {
 			throw new IllegalArgumentException("argument <pCmdtyID> is null");
 		}
+		
 		if ( pCmdtyName == null ) {
 			throw new IllegalArgumentException("argument <pCmdtyName> is null");
 		}
+		
 		if ( getCurrencyTable().getConversionFactor(pCmdtySpace, pCmdtyID) == null ) {
 
 			// GncCommodity newCurrency =
@@ -1824,6 +1841,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 			getRootElement().getGncBook().getBookElements().add(newCurrency);
 			// incrementCountDataFor("commodity");
 		}
+		
 		// add price-quote
 		Price.PriceCommodity currency = new Price.PriceCommodity();
 		currency.setCmdtySpace(pCmdtySpace);
@@ -1920,6 +1938,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		prc.setDate(date);
 		((org.gnucash.api.write.impl.hlp.FilePriceManager) super.prcMgr)
 			.addPrice(prc);
+		
 		return prc;
 	}
 

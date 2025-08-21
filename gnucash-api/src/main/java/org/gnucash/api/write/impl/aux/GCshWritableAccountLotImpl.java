@@ -53,10 +53,9 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
      */
     public GCshWritableAccountLotImpl(
     		final GnuCashWritableAccountImpl acct) {
-	super(createAccountLot_int(acct, new GCshLotID( GCshID.getNew()) ), 
-		  acct);
+		super(createAccountLot_int(acct, new GCshLotID(GCshID.getNew())), acct);
 
-	acct.addLot(this);
+		acct.addLot(this);
     }
 
     public GCshWritableAccountLotImpl(final GCshAcctLotImpl lot) {
@@ -72,41 +71,41 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
 	protected static GncAccount.ActLots.GncLot createAccountLot_int(
 	    final GnuCashWritableAccountImpl acct, 
 	    final GCshLotID newID) {
-	if ( acct == null ) {
-	    throw new IllegalArgumentException("argument <acct> is null");
-	}
-	
-	if ( newID == null ) {
-		throw new IllegalArgumentException("argument <newID> is null");
-	}
-	
-	if ( ! newID.isSet() ) {
-		throw new IllegalArgumentException("argument <newID> is not set");
-	}
-	
-	// This is needed because account.addLot() later
-	// must have an already built List of lots --
-	// if not, it will create the list from the JAXB-Data.
-	// Thus 2 instances of this GCshWritableAccountLotImpl
-	// will exist: One created in getLots() from this JAXB-Data
-	// the other is this object.
-	acct.getLots();
-	
-	GnuCashWritableFileImpl gnucashFileImpl = acct.getWritableGnuCashFile();
-	ObjectFactory factory = gnucashFileImpl.getObjectFactory();
-	
-	GncAccount.ActLots.GncLot jwsdpLot = gnucashFileImpl.createGncAccountLotType();
-	
-	{
-	    GncAccount.ActLots.GncLot.LotId id = factory.createGncAccountActLotsGncLotLotId();
-	    id.setType(Const.XML_DATA_TYPE_GUID);
-	    id.setValue(newID.toString());
-	    jwsdpLot.setLotId(id);
-	}
-	
-	LOGGER.debug("createAccountLot_int: Created new account lot (core): " + jwsdpLot.getLotId().getValue());
-	
-	return jwsdpLot;
+		if ( acct == null ) {
+			throw new IllegalArgumentException("argument <acct> is null");
+		}
+
+		if ( newID == null ) {
+			throw new IllegalArgumentException("argument <newID> is null");
+		}
+
+		if ( !newID.isSet() ) {
+			throw new IllegalArgumentException("argument <newID> is not set");
+		}
+
+		// This is needed because account.addLot() later
+		// must have an already built List of lots --
+		// if not, it will create the list from the JAXB-Data.
+		// Thus 2 instances of this GCshWritableAccountLotImpl
+		// will exist: One created in getLots() from this JAXB-Data
+		// the other is this object.
+		acct.getLots();
+
+		GnuCashWritableFileImpl gnucashFileImpl = acct.getWritableGnuCashFile();
+		ObjectFactory factory = gnucashFileImpl.getObjectFactory();
+
+		GncAccount.ActLots.GncLot jwsdpLot = gnucashFileImpl.createGncAccountLotType();
+
+		{
+			GncAccount.ActLots.GncLot.LotId id = factory.createGncAccountActLotsGncLotLotId();
+			id.setType(Const.XML_DATA_TYPE_GUID);
+			id.setValue(newID.toString());
+			jwsdpLot.setLotId(id);
+		}
+
+		LOGGER.debug("createAccountLot_int: Created new account lot (core): " + jwsdpLot.getLotId().getValue());
+
+		return jwsdpLot;
 	}
 
     // ---------------------------------------------------------------
@@ -116,14 +115,14 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
      */
     @Override
     public GnuCashWritableAccount getAccount() {
-	return (GnuCashWritableAccount) super.getAccount();
+    	return (GnuCashWritableAccount) super.getAccount();
     }
 
     /**
      * remove this lot from its account.
      */
     public void remove() {
-	getAccount().remove(this);
+    	getAccount().remove(this);
     }
 
 	// ---------------------------------------------------------------
@@ -178,7 +177,7 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -188,7 +187,7 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -208,30 +207,30 @@ public class GCshWritableAccountLotImpl extends GCshAcctLotImpl
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GCshWritableAccountLotImpl [");
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GCshWritableAccountLotImpl [");
 
-	buffer.append("id=");
-	buffer.append(getID());
+		buffer.append("id=");
+		buffer.append(getID());
 
-	buffer.append(", account-id=");
-	buffer.append(getAccount().getID());
+		buffer.append(", account-id=");
+		buffer.append(getAccount().getID());
 
 //		buffer.append(", account=");
 //		GnuCashAccount account = getAccount();
 //		buffer.append(account == null ? "null" : "'" + account.getQualifiedName() + "'");
 
-	buffer.append(", title='");
-	buffer.append(getTitle() + "'");
+		buffer.append(", title='");
+		buffer.append(getTitle() + "'");
 
-	buffer.append(", notes='");
-	buffer.append(getNotes() + "'");
+		buffer.append(", notes='");
+		buffer.append(getNotes() + "'");
 
-//	buffer.append(", account-description='");
-//	buffer.append(getAccount().getDescription() + "'");
+//		buffer.append(", account-description='");
+//		buffer.append(getAccount().getDescription() + "'");
 
-	buffer.append("]");
-	return buffer.toString();
+		buffer.append("]");
+		return buffer.toString();
     }
 
 }

@@ -51,15 +51,15 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
     public GnuCashWritablePriceImpl(
 	    final Price jwsdpPeer,
 	    final GnuCashWritableFile file) {
-	super(jwsdpPeer, file);
+    	super(jwsdpPeer, file);
     }
 
     public GnuCashWritablePriceImpl(final GnuCashWritableFileImpl file) {
-	super(createPrice_int(file, new GCshPrcID( GCshID.getNew()) ), file);
+    	super(createPrice_int(file, new GCshPrcID( GCshID.getNew()) ), file);
     }
 
     public GnuCashWritablePriceImpl(GnuCashPriceImpl prc) {
-	super(prc.getJwsdpPeer(), prc.getGnuCashFile());
+    	super(prc.getJwsdpPeer(), prc.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -71,7 +71,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -81,7 +81,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -96,7 +96,6 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
     private static Price createPrice_int(
 	    final GnuCashWritableFileImpl file, 
 	    final GCshPrcID newID) {
-	
 		if ( newID == null ) {
 			throw new IllegalArgumentException("argument <newID> is null");
 		}
@@ -143,7 +142,7 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
         
         // file.getRootElement().getGncBook().getBookElements().add(prc);
         GncPricedb priceDB = file.getPrcMgr().getPriceDB();
-	priceDB.getPrice().add(prc);
+        priceDB.getPrice().add(prc);
         file.setModified(true);
     
         return prc;
@@ -153,159 +152,159 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
 
     @Override
     public void setFromCmdtyCurrQualifID(GCshCmdtyCurrID qualifID) {
-	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
-	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
+    	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setFromCommodityQualifID(GCshCmdtyID qualifID) {
-	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
-	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
+    	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setFromCurrencyQualifID(GCshCurrID qualifID) {
-	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
-	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.getPriceCommodity().setCmdtySpace(qualifID.getNameSpace());
+    	jwsdpPeer.getPriceCommodity().setCmdtyId(qualifID.getCode());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setFromCommodity(GnuCashCommodity cmdty) {
-	setFromCmdtyCurrQualifID(cmdty.getQualifID());
+    	setFromCmdtyCurrQualifID(cmdty.getQualifID());
     }
 
     @Override
     public void setFromCurrencyCode(String code) {
-	setFromCurrencyQualifID(new GCshCurrID(code));
+    	setFromCurrencyQualifID(new GCshCurrID(code));
     }
 
     @Override
     public void setFromCurrency(GnuCashCommodity curr) {
-	setFromCommodity(curr);	
+    	setFromCommodity(curr);	
     }
     
     // ----------------------------
 
     @Override
     public void setToCurrencyQualifID(GCshCmdtyCurrID qualifID) {
-	if ( ! qualifID.getNameSpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) )
-	    throw new InvalidCmdtyCurrTypeException("Is not a currency: " + qualifID.toString());
+    	if ( ! qualifID.getNameSpace().equals(GCshCmdtyCurrNameSpace.CURRENCY) )
+    		throw new InvalidCmdtyCurrTypeException("Is not a currency: " + qualifID.toString());
 	
-	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
-	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
+    	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setToCurrencyQualifID(GCshCurrID qualifID) {
-	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
-	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.getPriceCurrency().setCmdtySpace(qualifID.getNameSpace());
+    	jwsdpPeer.getPriceCurrency().setCmdtyId(qualifID.getCode());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setToCurrencyCode(String code) {
-	setToCurrencyQualifID(new GCshCurrID(code));
+    	setToCurrencyQualifID(new GCshCurrID(code));
     }
 
     @Override
     public void setToCurrency(GnuCashCommodity curr) {
-	setToCurrencyQualifID(curr.getQualifID());
+    	setToCurrencyQualifID(curr.getQualifID());
     }
     
     // ----------------------------
 
     @Override
     public void setDate(LocalDate date) {
-	LocalDate oldDate = getDate();
-	this.dateTime = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault());
-	String datePostedStr = this.dateTime.format(DATE_FORMAT);
-	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
-	getWritableGnuCashFile().setModified(true);
+		LocalDate oldDate = getDate();
+		this.dateTime = ZonedDateTime.of(date, LocalTime.MIN, ZoneId.systemDefault());
+		String datePostedStr = this.dateTime.format(DATE_FORMAT);
+		jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
+		getWritableGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("price", oldDate, date);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("price", oldDate, date);
+		}
     }
 
     @Override
     public void setDateTime(LocalDateTime dateTime) {
-	LocalDate oldDate = getDate();
-	this.dateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault());
-	String datePostedStr = this.dateTime.format(DATE_FORMAT);
-	jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
-	getWritableGnuCashFile().setModified(true);
+		LocalDate oldDate = getDate();
+		this.dateTime = ZonedDateTime.of(dateTime, ZoneId.systemDefault());
+		String datePostedStr = this.dateTime.format(DATE_FORMAT);
+		jwsdpPeer.getPriceTime().setTsDate(datePostedStr);
+		getWritableGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("price", oldDate, dateTime);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("price", oldDate, dateTime);
+		}
     }
 
     @Override
     public void setSource(Source src) {
-	setSourceStr(src.getCode());
+    	setSourceStr(src.getCode());
     }
 
     public void setSourceStr(String str) {
-	jwsdpPeer.setPriceSource(str);
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.setPriceSource(str);
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setType(Type type) {
-	setTypeStr(type.getCode());
+    	setTypeStr(type.getCode());
     }
 
     public void setTypeStr(String typeStr) {
-	jwsdpPeer.setPriceType(typeStr);
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.setPriceType(typeStr);
+    	getWritableGnuCashFile().setModified(true);
     }
 
     @Override
     public void setValue(FixedPointNumber val) {
-	jwsdpPeer.setPriceValue(val.toGnuCashString());
-	getWritableGnuCashFile().setModified(true);
+    	jwsdpPeer.setPriceValue(val.toGnuCashString());
+    	getWritableGnuCashFile().setModified(true);
     }
 
     // ---------------------------------------------------------------
     
     @Override
     public String toString() {
-	String result = "GnuCashWritablePriceImpl [";
-	
-	result += "id=" + getID();
-	
-	try {
-	    result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifID() + "'";
-	} catch (InvalidCmdtyCurrTypeException e) {
-	    result += ", cmdty-qualif-id=" + "ERROR";
-	}
-	
-	try {
-	    result += ", curr-qualif-id='" + getToCurrencyQualifID() + "'";
-	} catch (Exception e) {
-	    result += ", curr-qualif-id=" + "ERROR";
-	}
-	
-	result += ", date=" + getDate(); 
-	
-	try {
-	    result += ", value=" + getValueFormatted();
-	} catch (Exception e) {
-	    result += ", value=" + "ERROR";
-	}
-	
-	result += ", type=" + getType();
-	result += ", source=" + getSource(); 
+		String result = "GnuCashWritablePriceImpl [";
 
-	result += "]"; 
+		result += "id=" + getID();
 
-	return result;
+		try {
+			result += ", cmdty-qualif-id='" + getFromCmdtyCurrQualifID() + "'";
+		} catch (InvalidCmdtyCurrTypeException e) {
+			result += ", cmdty-qualif-id=" + "ERROR";
+		}
+
+		try {
+			result += ", curr-qualif-id='" + getToCurrencyQualifID() + "'";
+		} catch (Exception e) {
+			result += ", curr-qualif-id=" + "ERROR";
+		}
+
+		result += ", date=" + getDate();
+
+		try {
+			result += ", value=" + getValueFormatted();
+		} catch (Exception e) {
+			result += ", value=" + "ERROR";
+		}
+
+		result += ", type=" + getType();
+		result += ", source=" + getSource();
+
+		result += "]";
+
+		return result;
     }
     
 }

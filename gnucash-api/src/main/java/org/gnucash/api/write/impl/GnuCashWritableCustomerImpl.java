@@ -60,7 +60,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     public GnuCashWritableCustomerImpl(
     		final GncGncCustomer jwsdpPeer,
     		final GnuCashWritableFileImpl file) {
-	super(jwsdpPeer, file);
+    	super(jwsdpPeer, file);
     }
 
     /**
@@ -70,11 +70,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      * @param id   the ID we shall have
      */
     protected GnuCashWritableCustomerImpl(final GnuCashWritableFileImpl file) {
-	super(createCustomer_int(file, new GCshCustID( new GCshCustID( GCshID.getNew()) ) ), file);
+    	super(createCustomer_int(file, new GCshCustID( new GCshCustID( GCshID.getNew()) ) ), file);
     }
 
     public GnuCashWritableCustomerImpl(final GnuCashCustomerImpl cust) {
-	super(cust.getJwsdpPeer(), cust.getGnuCashFile());
+    	super(cust.getJwsdpPeer(), cust.getGnuCashFile());
     }
 
     // ---------------------------------------------------------------
@@ -94,73 +94,73 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 			throw new IllegalArgumentException("argument <newID> is null");
 		}
 
-		if ( ! newID.isSet() ) {
+		if ( !newID.isSet() ) {
 			throw new IllegalArgumentException("argument <newID> is null");
 		}
-    
-        ObjectFactory factory = file.getObjectFactory();
-    
-        GncGncCustomer jwsdpCust = file.createGncGncCustomerType();
-    
-        jwsdpCust.setCustTaxincluded("USEGLOBAL");
-        jwsdpCust.setVersion(Const.XML_FORMAT_VERSION);
-        jwsdpCust.setCustDiscount("0/1");
-        jwsdpCust.setCustCredit("0/1");
-        jwsdpCust.setCustUseTt(0);
-        jwsdpCust.setCustName("no name given");
-    
-        {
-            GncGncCustomer.CustGuid id = factory.createGncGncCustomerCustGuid();
-            id.setType(Const.XML_DATA_TYPE_GUID);
-            id.setValue(newID.toString());
-            jwsdpCust.setCustGuid(id);
-            jwsdpCust.setCustId(id.getValue());
-        }
-    
-        {
-            org.gnucash.api.generated.Address addr = factory.createAddress();
-            addr.setAddrAddr1("");
-            addr.setAddrAddr2("");
-            addr.setAddrName("");
-            addr.setAddrAddr3("");
-            addr.setAddrAddr4("");
-            addr.setAddrName("");
-            addr.setAddrEmail("");
-            addr.setAddrFax("");
-            addr.setAddrPhone("");
-            addr.setVersion(Const.XML_FORMAT_VERSION);
-            jwsdpCust.setCustAddr(addr);
-        }
-    
-        {
-            org.gnucash.api.generated.Address saddr = factory.createAddress();
-            saddr.setAddrAddr1("");
-            saddr.setAddrAddr2("");
-            saddr.setAddrAddr3("");
-            saddr.setAddrAddr4("");
-            saddr.setAddrName("");
-            saddr.setAddrEmail("");
-            saddr.setAddrFax("");
-            saddr.setAddrPhone("");
-            saddr.setVersion(Const.XML_FORMAT_VERSION);
-            jwsdpCust.setCustShipaddr(saddr);
-        }
-    
-        {
-            GncGncCustomer.CustCurrency currency = factory.createGncGncCustomerCustCurrency();
-            currency.setCmdtyId(file.getDefaultCurrencyID());
-            currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
-            jwsdpCust.setCustCurrency(currency);
-        }
-    
-        jwsdpCust.setCustActive(1);
-    
-        file.getRootElement().getGncBook().getBookElements().add(jwsdpCust);
-        file.setModified(true);
-    
-        LOGGER.debug("createCustomer_int: Created new customer (core): " + jwsdpCust.getCustGuid().getValue());
-        
-        return jwsdpCust;
+
+		ObjectFactory factory = file.getObjectFactory();
+
+		GncGncCustomer jwsdpCust = file.createGncGncCustomerType();
+
+		jwsdpCust.setCustTaxincluded("USEGLOBAL");
+		jwsdpCust.setVersion(Const.XML_FORMAT_VERSION);
+		jwsdpCust.setCustDiscount("0/1");
+		jwsdpCust.setCustCredit("0/1");
+		jwsdpCust.setCustUseTt(0);
+		jwsdpCust.setCustName("no name given");
+
+		{
+			GncGncCustomer.CustGuid id = factory.createGncGncCustomerCustGuid();
+			id.setType(Const.XML_DATA_TYPE_GUID);
+			id.setValue(newID.toString());
+			jwsdpCust.setCustGuid(id);
+			jwsdpCust.setCustId(id.getValue());
+		}
+
+		{
+			org.gnucash.api.generated.Address addr = factory.createAddress();
+			addr.setAddrAddr1("");
+			addr.setAddrAddr2("");
+			addr.setAddrName("");
+			addr.setAddrAddr3("");
+			addr.setAddrAddr4("");
+			addr.setAddrName("");
+			addr.setAddrEmail("");
+			addr.setAddrFax("");
+			addr.setAddrPhone("");
+			addr.setVersion(Const.XML_FORMAT_VERSION);
+			jwsdpCust.setCustAddr(addr);
+		}
+
+		{
+			org.gnucash.api.generated.Address saddr = factory.createAddress();
+			saddr.setAddrAddr1("");
+			saddr.setAddrAddr2("");
+			saddr.setAddrAddr3("");
+			saddr.setAddrAddr4("");
+			saddr.setAddrName("");
+			saddr.setAddrEmail("");
+			saddr.setAddrFax("");
+			saddr.setAddrPhone("");
+			saddr.setVersion(Const.XML_FORMAT_VERSION);
+			jwsdpCust.setCustShipaddr(saddr);
+		}
+
+		{
+			GncGncCustomer.CustCurrency currency = factory.createGncGncCustomerCustCurrency();
+			currency.setCmdtyId(file.getDefaultCurrencyID());
+			currency.setCmdtySpace(GCshCmdtyCurrNameSpace.CURRENCY);
+			jwsdpCust.setCustCurrency(currency);
+		}
+
+		jwsdpCust.setCustActive(1);
+
+		file.getRootElement().getGncBook().getBookElements().add(jwsdpCust);
+		file.setModified(true);
+
+		LOGGER.debug("createCustomer_int: Created new customer (core): " + jwsdpCust.getCustGuid().getValue());
+
+		return jwsdpCust;
     }
 
     /**
@@ -170,9 +170,9 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void remove() {
-	GncGncCustomer peer = getJwsdpPeer();
-	(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
-	(getGnuCashFile()).removeCustomer(this);
+		GncGncCustomer peer = getJwsdpPeer();
+		(getGnuCashFile()).getRootElement().getGncBook().getBookElements().remove(peer);
+		(getGnuCashFile()).removeCustomer(this);
     }
 
     // ---------------------------------------------------------------
@@ -184,7 +184,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public GnuCashWritableFileImpl getWritableGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     /**
@@ -194,7 +194,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public GnuCashWritableFileImpl getGnuCashFile() {
-	return (GnuCashWritableFileImpl) super.getGnuCashFile();
+    	return (GnuCashWritableFileImpl) super.getGnuCashFile();
     }
 
     // ---------------------------------------------------------------
@@ -204,14 +204,14 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setNumber(final String number) {
-	String oldNumber = getNumber();
-	getJwsdpPeer().setCustId(number);
-	getGnuCashFile().setModified(true);
+		String oldNumber = getNumber();
+		getJwsdpPeer().setCustId(number);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("customerNumber", oldNumber, number);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("customerNumber", oldNumber, number);
+		}
     }
 
     /**
@@ -219,22 +219,22 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setName(final String name) {
-	if ( name == null ) {
-	    throw new IllegalArgumentException("argument <name> is null");
-	}
+		if ( name == null ) {
+			throw new IllegalArgumentException("argument <name> is null");
+		}
 
-	if ( name.trim().length() == 0 ) {
-	    throw new IllegalArgumentException("argument <name> is empty");
-	}
+		if ( name.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <name> is empty");
+		}
 
-	String oldName = getName();
-	getJwsdpPeer().setCustName(name);
-	getGnuCashFile().setModified(true);
+		String oldName = getName();
+		getJwsdpPeer().setCustName(name);
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("name", oldName, name);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("name", oldName, name);
+		}
     }
 
     /**
@@ -242,18 +242,18 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setDiscount(final FixedPointNumber dscnt) {
-	if ( dscnt == null ) {
-	    throw new IllegalArgumentException("argument <dscnt> is null");
-	}
+		if ( dscnt == null ) {
+			throw new IllegalArgumentException("argument <dscnt> is null");
+		}
 
-	FixedPointNumber oldDiscount = getDiscount();
-	getJwsdpPeer().setCustDiscount(dscnt.toGnuCashString());
-	getGnuCashFile().setModified(true);
+		FixedPointNumber oldDiscount = getDiscount();
+		getJwsdpPeer().setCustDiscount(dscnt.toGnuCashString());
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("discount", oldDiscount, dscnt);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("discount", oldDiscount, dscnt);
+		}
     }
 
     /**
@@ -261,18 +261,18 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setCredit(final FixedPointNumber cred) {
-	if ( cred == null ) {
-	    throw new IllegalArgumentException("argument <cred> is null");
-	}
+		if ( cred == null ) {
+			throw new IllegalArgumentException("argument <cred> is null");
+		}
 
-	FixedPointNumber oldCredit = getDiscount();
-	getJwsdpPeer().setCustCredit(cred.toGnuCashString());
-	getGnuCashFile().setModified(true);
+		FixedPointNumber oldCredit = getDiscount();
+		getJwsdpPeer().setCustCredit(cred.toGnuCashString());
+		getGnuCashFile().setModified(true);
 
-	PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-	if (propertyChangeSupport != null) {
-	    propertyChangeSupport.firePropertyChange("discount", oldCredit, cred);
-	}
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("discount", oldCredit, cred);
+		}
     }
 
     /**
@@ -281,23 +281,23 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setNotes(final String nts) {
-	if ( nts == null ) {
-	    throw new IllegalArgumentException("argument <nts> is null");
-	}
+		if ( nts == null ) {
+			throw new IllegalArgumentException("argument <nts> is null");
+		}
 
-	// Caution: empty string are allowed here
-//	if ( notes.trim().length() == 0 ) {
-//	    throw new IllegalArgumentException("argument <nts> is null");
-//	}
+		// Caution: empty string are allowed here
+//		if ( notes.trim().length() == 0 ) {
+//	    	throw new IllegalArgumentException("argument <nts> is null");
+//		}
 
-        String oldNotes = getNotes();
-        getJwsdpPeer().setCustNotes(nts);
-        getGnuCashFile().setModified(true);
-    
-        PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
-        if (propertyChangeSupport != null) {
-            propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
-        }
+		String oldNotes = getNotes();
+		getJwsdpPeer().setCustNotes(nts);
+		getGnuCashFile().setModified(true);
+
+		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
+		if ( propertyChangeSupport != null ) {
+			propertyChangeSupport.firePropertyChange("notes", oldNotes, nts);
+		}
     }
 
     // ---------------------------------------------------------------
@@ -327,7 +327,6 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 	@Override
 	public void removeAddress(GCshWritableAddress impl) {
 		// TODO Auto-generated method stub
-		
 	}
 
     /**
@@ -335,32 +334,32 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("argument <adr> is null");
-	}
+		if ( adr == null ) {
+			throw new IllegalArgumentException("argument <adr> is null");
+		}
 
-        /*
-         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-         * getJwsdpPeer().setCustAddr(adrImpl.getJwsdpPeer()); } else
-         */
-	
-        {
-    
-            if (getJwsdpPeer().getCustAddr() == null) {
-        	getJwsdpPeer().setCustAddr(getGnuCashFile().getObjectFactory().createAddress());
-            }
-    
-            getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getAddressLine1());
-            getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getAddressLine2());
-            getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getAddressLine3());
-            getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getAddressLine4());
-            getJwsdpPeer().getCustAddr().setAddrName(adr.getAddressName());
-            getJwsdpPeer().getCustAddr().setAddrEmail(adr.getEmail());
-            getJwsdpPeer().getCustAddr().setAddrFax(adr.getFax());
-            getJwsdpPeer().getCustAddr().setAddrPhone(adr.getTel());
-        }
-    
-        getGnuCashFile().setModified(true);
+		/*
+		 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+		 * getJwsdpPeer().setCustAddr(adrImpl.getJwsdpPeer()); } else
+		 */
+
+		{
+
+			if ( getJwsdpPeer().getCustAddr() == null ) {
+				getJwsdpPeer().setCustAddr(getGnuCashFile().getObjectFactory().createAddress());
+			}
+
+			getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getAddressLine1());
+			getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getAddressLine2());
+			getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getAddressLine3());
+			getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getAddressLine4());
+			getJwsdpPeer().getCustAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getCustAddr().setAddrEmail(adr.getEmail());
+			getJwsdpPeer().getCustAddr().setAddrFax(adr.getFax());
+			getJwsdpPeer().getCustAddr().setAddrPhone(adr.getTel());
+		}
+
+		getGnuCashFile().setModified(true);
     }
     
     // ----------------------------
@@ -390,7 +389,6 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 	@Override
 	public void removeShippingAddress(GCshWritableAddress impl) {
 		// TODO Auto-generated method stub
-		
 	}
 
     /**
@@ -398,31 +396,31 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
      */
     @Override
     public void setShippingAddress(final GCshAddress adr) {
-	if ( adr == null ) {
-	    throw new IllegalArgumentException("argument <adr> is null");
-	}
+		if ( adr == null ) {
+			throw new IllegalArgumentException("argument <adr> is null");
+		}
 
-        /*
-         * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
-         * getJwsdpPeer().setCustShipaddr(adrImpl.getJwsdpPeer()); } else
-         */
-	
-        {
-    
-            if (getJwsdpPeer().getCustShipaddr() == null) {
-        	getJwsdpPeer().setCustShipaddr(getGnuCashFile().getObjectFactory().createAddress());
-            }
-    
-            getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getAddressLine1());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getAddressLine2());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getAddressLine3());
-            getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getAddressLine4());
-            getJwsdpPeer().getCustShipaddr().setAddrName(adr.getAddressName());
-            getJwsdpPeer().getCustShipaddr().setAddrEmail(adr.getEmail());
-            getJwsdpPeer().getCustShipaddr().setAddrFax(adr.getFax());
-            getJwsdpPeer().getCustShipaddr().setAddrPhone(adr.getTel());
-        }
-        getGnuCashFile().setModified(true);
+		/*
+		 * if (adr instanceof AddressImpl) { AddressImpl adrImpl = (AddressImpl) adr;
+		 * getJwsdpPeer().setCustShipaddr(adrImpl.getJwsdpPeer()); } else
+		 */
+
+		{
+
+			if ( getJwsdpPeer().getCustShipaddr() == null ) {
+				getJwsdpPeer().setCustShipaddr(getGnuCashFile().getObjectFactory().createAddress());
+			}
+
+			getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getAddressLine1());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getAddressLine2());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getAddressLine3());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getAddressLine4());
+			getJwsdpPeer().getCustShipaddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getCustShipaddr().setAddrEmail(adr.getEmail());
+			getJwsdpPeer().getCustShipaddr().setAddrFax(adr.getFax());
+			getJwsdpPeer().getCustShipaddr().setAddrPhone(adr.getTel());
+		}
+		getGnuCashFile().setModified(true);
     }
 
     // -----------------------------------------------------------------
@@ -439,11 +437,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 
     @Override
     public int getNofOpenInvoices() {
-	try {
-	    return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_direct(this).size();
-	} catch (TaxTableNotFoundException e) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
+		try {
+			return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_direct(this).size();
+		} catch (TaxTableNotFoundException e) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
     }
 
     // ----------------------------
@@ -466,18 +464,19 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //
     @Override
     public List<GnuCashCustomerInvoice> getPaidInvoices_direct() {
-    	List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
-	
-	try {
-	    for ( GnuCashWritableCustomerInvoice wrtblInvc : getPaidWritableInvoices_direct() ) {
-		GnuCashCustomerInvoiceImpl rdblInvc = GnuCashWritableCustomerInvoiceImpl.toReadable((GnuCashWritableCustomerInvoiceImpl) wrtblInvc);
-		result.add(rdblInvc);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
+
+		try {
+			for ( GnuCashWritableCustomerInvoice wrtblInvc : getPaidWritableInvoices_direct() ) {
+				GnuCashCustomerInvoiceImpl rdblInvc = GnuCashWritableCustomerInvoiceImpl
+						.toReadable((GnuCashWritableCustomerInvoiceImpl) wrtblInvc);
+				result.add(rdblInvc);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     // ::TODO
@@ -487,18 +486,19 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 
     @Override
     public List<GnuCashCustomerInvoice> getUnpaidInvoices_direct() {
-    	List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
-	
-	try {
-	    for ( GnuCashWritableCustomerInvoice wrtblInvc : getUnpaidWritableInvoices_direct() ) {
-		GnuCashCustomerInvoiceImpl rdblInvc = GnuCashWritableCustomerInvoiceImpl.toReadable((GnuCashWritableCustomerInvoiceImpl) wrtblInvc);
-		result.add(rdblInvc);
-	    }
-	} catch ( TaxTableNotFoundException exc ) {
-	    throw new IllegalStateException("Encountered tax table exception");
-	}
-	
-	return result;
+		List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();
+
+		try {
+			for ( GnuCashWritableCustomerInvoice wrtblInvc : getUnpaidWritableInvoices_direct() ) {
+				GnuCashCustomerInvoiceImpl rdblInvc = GnuCashWritableCustomerInvoiceImpl
+						.toReadable((GnuCashWritableCustomerInvoiceImpl) wrtblInvc);
+				result.add(rdblInvc);
+			}
+		} catch (TaxTableNotFoundException exc) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+
+		return result;
     }
 
     // ::TODO
@@ -527,7 +527,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //    }
 
     public List<GnuCashWritableCustomerInvoice> getPaidWritableInvoices_direct() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_direct(this);
+    	return getWritableGnuCashFile().getPaidWritableInvoicesForCustomer_direct(this);
     }
 
     // ::TODO
@@ -536,12 +536,12 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 //    }
 
     public List<GnuCashWritableCustomerInvoice> getUnpaidWritableInvoices_direct() throws TaxTableNotFoundException {
-	return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_direct(this);
+    	return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_direct(this);
     }
 
     // ::TODO
 //    public List<GnuCashWritableJobInvoice>      getUnpaidWritableInvoices_viaAllJobs() {
-//	return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_viaAllJobs(this);
+//		return getWritableGnuCashFile().getUnpaidWritableInvoicesForCustomer_viaAllJobs(this);
 //    }
 
     // ---------------------------------------------------------------
@@ -592,20 +592,20 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 
     @Override
     public String toString() {
-	StringBuffer buffer = new StringBuffer();
-	buffer.append("GnuCashWritableCustomerImpl [");
-	
-	buffer.append("id=");
-	buffer.append(getID());
-	
-	buffer.append(", number='");
-	buffer.append(getNumber() + "'");
-	
-	buffer.append(", name='");
-	buffer.append(getName() + "'");
-	
-	buffer.append("]");
-	return buffer.toString();
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("GnuCashWritableCustomerImpl [");
+
+		buffer.append("id=");
+		buffer.append(getID());
+
+		buffer.append(", number='");
+		buffer.append(getNumber() + "'");
+
+		buffer.append(", name='");
+		buffer.append(getName() + "'");
+
+		buffer.append("]");
+		return buffer.toString();
     }
 
 }

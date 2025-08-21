@@ -220,7 +220,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see #setRootElement(GncV2)
 	 */
 	protected void loadFile(final File pFile) throws IOException {
-
 		long start = System.currentTimeMillis();
 
 		if ( pFile == null ) {
@@ -255,7 +254,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 		long end = System.currentTimeMillis();
 		LOGGER.info("loadFile: GnuCashFileImpl.loadFile took " + (end - start) + " ms (total) ");
-
 	}
 
 	protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException,
@@ -290,7 +288,6 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @param type the type to set it for
 	 */
 	public int getCountDataFor(final String type) {
-
 		if ( type == null ) {
 			throw new IllegalArgumentException("argument <type> is null");
 		}
@@ -1300,8 +1297,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	private void loadPriceDatabaseCore(GncPricedb priceDB) {
-//	getCurrencyTable().clear();
-//	getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
+//		getCurrencyTable().clear();
+//		getCurrencyTable().setConversionFactor(GCshCmdtyCurrNameSpace.CURRENCY, 
 //		                               getDefaultCurrencyID(), 
 //		                               new FixedPointNumber(1));
 
@@ -1309,8 +1306,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 
 		for ( Price price : priceDB.getPrice() ) {
 			Price.PriceCommodity fromCmdtyCurr = price.getPriceCommodity();
-//	    Price.PriceCurrency  toCurr = price.getPriceCurrency();
-//	    System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyID() + 
+//	    	Price.PriceCurrency  toCurr = price.getPriceCurrency();
+//	    	System.err.println("tt " + fromCmdtyCurr.getCmdtySpace() + ":" + fromCmdtyCurr.getCmdtyID() + 
 //	                       " --> " + toCurr.getCmdtySpace() + ":" + toCurr.getCmdtyID());
 
 			// Check if we already have a latest price for this commodity
