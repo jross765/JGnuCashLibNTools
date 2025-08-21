@@ -356,7 +356,6 @@ public class GetPrcInfo extends CommandLineTool
     	}
     	
     	dateFormat = CmdLineHelper.getDateFormat(cmdLine, "date-format");
-    	System.err.println("Date format: " + dateFormat);
     }
     else
     {
