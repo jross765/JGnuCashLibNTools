@@ -14,73 +14,73 @@ public class GetTrxSpltInfo {
 
     // -----------------------------------------------------------------
 
-    public static void main(String[] args) {
-	try {
-	    GetTrxSpltInfo tool = new GetTrxSpltInfo();
-	    tool.kernel();
-	} catch (Exception exc) {
-	    System.err.println("Execution exception. Aborting.");
-	    exc.printStackTrace();
-	    System.exit(1);
-	}
-    }
-
-    protected void kernel() throws Exception {
-	GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
-
-	// You normally would get the transaction-split-ID by first choosing
-	// a specific transaction (cf. GetTrxInfo), getting its list of splits
-	// and then choosing from them.
-	GnuCashTransactionSplit splt = gcshFile.getTransactionSplitByID(spltID);
-	
-	// ------------------------
-
-	try {
-	    System.out.println("ID:          " + splt.getID());
-	} catch (Exception exc) {
-	    System.out.println("ID:          " + "ERROR");
+	public static void main(String[] args) {
+		try {
+			GetTrxSpltInfo tool = new GetTrxSpltInfo();
+			tool.kernel();
+		} catch (Exception exc) {
+			System.err.println("Execution exception. Aborting.");
+			exc.printStackTrace();
+			System.exit(1);
+		}
 	}
 
-	try {
-	    System.out.println("Account ID:  " + splt.getAccountID());
-	} catch (Exception exc) {
-	    System.out.println("Account ID:  " + "ERROR");
-	}
+	protected void kernel() throws Exception {
+		GnuCashFileImpl gcshFile = new GnuCashFileImpl(new File(gcshFileName));
 
-	try {
-	    System.out.println("Lot:         " + splt.getLotID());
-	} catch (Exception exc) {
-	    System.out.println("Lot:         " + "ERROR");
-	}
+		// You normally would get the transaction-split-ID by first choosing
+		// a specific transaction (cf. GetTrxInfo), getting its list of splits
+		// and then choosing from them.
+		GnuCashTransactionSplit splt = gcshFile.getTransactionSplitByID(spltID);
 
-	try {
-	    System.out.println("Action (code): " + splt.getAction());
-	} catch (Exception exc) {
-	    System.out.println("Action (code): " + "ERROR");
-	}
+		// ------------------------
 
-	try {
-	    System.out.println("Action (str): " + splt.getActionStr());
-	} catch (Exception exc) {
-	    System.out.println("Action (str): " + "ERROR");
-	}
+		try {
+			System.out.println("ID:          " + splt.getID());
+		} catch (Exception exc) {
+			System.out.println("ID:          " + "ERROR");
+		}
 
-	try {
-	    System.out.println("Value:       " + splt.getValueFormatted());
-	} catch (Exception exc) {
-	    System.out.println("Value:       " + "ERROR");
-	}
+		try {
+			System.out.println("Account ID:  " + splt.getAccountID());
+		} catch (Exception exc) {
+			System.out.println("Account ID:  " + "ERROR");
+		}
 
-	try {
-	    System.out.println("Quantity:    " + splt.getQuantityFormatted());
-	} catch (Exception exc) {
-	    System.out.println("Quantity:    " + "ERROR");
-	}
+		try {
+			System.out.println("Lot:         " + splt.getLotID());
+		} catch (Exception exc) {
+			System.out.println("Lot:         " + "ERROR");
+		}
 
-	try {
-	    System.out.println("Description: '" + splt.getDescription() + "'");
-	} catch (Exception exc) {
-	    System.out.println("Description: " + "ERROR");
+		try {
+			System.out.println("Action (code): " + splt.getAction());
+		} catch (Exception exc) {
+			System.out.println("Action (code): " + "ERROR");
+		}
+
+		try {
+			System.out.println("Action (str): " + splt.getActionStr());
+		} catch (Exception exc) {
+			System.out.println("Action (str): " + "ERROR");
+		}
+
+		try {
+			System.out.println("Value:       " + splt.getValueFormatted());
+		} catch (Exception exc) {
+			System.out.println("Value:       " + "ERROR");
+		}
+
+		try {
+			System.out.println("Quantity:    " + splt.getQuantityFormatted());
+		} catch (Exception exc) {
+			System.out.println("Quantity:    " + "ERROR");
+		}
+
+		try {
+			System.out.println("Description: '" + splt.getDescription() + "'");
+		} catch (Exception exc) {
+			System.out.println("Description: " + "ERROR");
+		}
 	}
-    }
 }

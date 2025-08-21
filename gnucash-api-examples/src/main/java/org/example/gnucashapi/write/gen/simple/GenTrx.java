@@ -9,7 +9,6 @@ import org.gnucash.api.write.GnuCashWritableTransaction;
 import org.gnucash.api.write.GnuCashWritableTransactionSplit;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
 
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
@@ -49,104 +48,104 @@ public class GenTrx {
 
     // -----------------------------------------------------------------
 
-    public static void main(String[] args) {
-	try {
-	    GenTrx tool = new GenTrx();
-	    tool.kernel();
-	} catch (Exception exc) {
-	    System.err.println("Execution exception. Aborting.");
-	    exc.printStackTrace();
-	    System.exit(1);
+	public static void main(String[] args) {
+		try {
+			GenTrx tool = new GenTrx();
+			tool.kernel();
+		} catch (Exception exc) {
+			System.err.println("Execution exception. Aborting.");
+			exc.printStackTrace();
+			System.exit(1);
+		}
 	}
-    }
 
-    protected void kernel() throws Exception {
-	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
+	protected void kernel() throws Exception {
+		GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	System.out.println("---------------------------");
-	System.out.println("Generate transaction no. 1:");
-	System.out.println("---------------------------");
-	genTrx1(gcshFile);
+		System.out.println("---------------------------");
+		System.out.println("Generate transaction no. 1:");
+		System.out.println("---------------------------");
+		genTrx1(gcshFile);
 
-	System.out.println("");
-	System.out.println("---------------------------");
-	System.out.println("Generate transaction no. 2:");
-	System.out.println("---------------------------");
-	genTrx2(gcshFile);
-	
-	System.out.println("");
-	System.out.println("---------------------------");
-	System.out.println("Write file:");
-	System.out.println("---------------------------");
-	gcshFile.writeFile(new File(gcshOutFileName));
-	
-	System.out.println("OK");
-    }
+		System.out.println("");
+		System.out.println("---------------------------");
+		System.out.println("Generate transaction no. 2:");
+		System.out.println("---------------------------");
+		genTrx2(gcshFile);
 
-    private void genTrx1(GnuCashWritableFileImpl gcshFile) {
-	System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct1ID).getQualifiedName() + "'");
-	System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct1ID).getQualifiedName() + "'");
+		System.out.println("");
+		System.out.println("---------------------------");
+		System.out.println("Write file:");
+		System.out.println("---------------------------");
+		gcshFile.writeFile(new File(gcshOutFileName));
 
-	GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
-	trx.setDescription(descr1);
+		System.out.println("OK");
+	}
 
-	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct1ID));
-	splt1.setValue(new FixedPointNumber(amt1.copy().negate()));
-	splt1.setQuantity(new FixedPointNumber(qty1.copy().negate()));
+	private void genTrx1(GnuCashWritableFileImpl gcshFile) {
+		System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct1ID).getQualifiedName() + "'");
+		System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct1ID).getQualifiedName() + "'");
 
-	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct1ID));
-	splt2.setValue(new FixedPointNumber(amt1));
-	splt2.setQuantity(new FixedPointNumber(qty1));
+		GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
+		trx.setDescription(descr1);
 
-	trx.setDatePosted(datPst1);
-	trx.setDateEntered(LocalDateTime.now());
+		GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct1ID));
+		splt1.setValue(new FixedPointNumber(amt1.copy().negate()));
+		splt1.setQuantity(new FixedPointNumber(qty1.copy().negate()));
 
-	System.out.println("Transaction to write: " + trx.toString());
-    }
-    
-    private void genTrx2(GnuCashWritableFileImpl gcshFile) {
-	System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct2ID).getQualifiedName() + "'");
-	System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct21ID).getQualifiedName() + "'");
-	System.err.println("Account 3 name (to):   '" + gcshFile.getAccountByID(toAcct22ID).getQualifiedName() + "'");
+		GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct1ID));
+		splt2.setValue(new FixedPointNumber(amt1));
+		splt2.setQuantity(new FixedPointNumber(qty1));
 
-	// ---
+		trx.setDatePosted(datPst1);
+		trx.setDateEntered(LocalDateTime.now());
 
-	GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
-	trx.setDescription(descr2);
+		System.out.println("Transaction to write: " + trx.toString());
+	}
 
-	// ---
+	private void genTrx2(GnuCashWritableFileImpl gcshFile) {
+		System.err.println("Account 1 name (from): '" + gcshFile.getAccountByID(fromAcct2ID).getQualifiedName() + "'");
+		System.err.println("Account 2 name (to):   '" + gcshFile.getAccountByID(toAcct21ID).getQualifiedName() + "'");
+		System.err.println("Account 3 name (to):   '" + gcshFile.getAccountByID(toAcct22ID).getQualifiedName() + "'");
 
-	GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct2ID));
-	splt1.setValue(new FixedPointNumber(amt21.copy().negate()));
-	splt1.setQuantity(new FixedPointNumber(qty21.copy().negate()));
-	splt1.setDescription("Abrechnung");
-	System.out.println("Split 1 to write: " + splt1.toString());
+		// ---
 
-	// ---
+		GnuCashWritableTransaction trx = gcshFile.createWritableTransaction();
+		trx.setDescription(descr2);
 
-	GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct21ID));
-	splt2.setValue(new FixedPointNumber(amt22));
-	splt2.setQuantity(new FixedPointNumber(qty22));
-	splt2.setAction(act2);
-	splt2.setDescription("Kauf SAP");
-	System.out.println("Split 2 to write: " + splt2.toString());
+		// ---
 
-	// ---
+		GnuCashWritableTransactionSplit splt1 = trx.createWritableSplit(gcshFile.getAccountByID(fromAcct2ID));
+		splt1.setValue(new FixedPointNumber(amt21.copy().negate()));
+		splt1.setQuantity(new FixedPointNumber(qty21.copy().negate()));
+		splt1.setDescription("Abrechnung");
+		System.out.println("Split 1 to write: " + splt1.toString());
 
-	GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct22ID));
-	splt3.setValue(new FixedPointNumber(amt23));
-	splt3.setQuantity(new FixedPointNumber(qty23));
-	splt3.setDescription("Bankgebühren");
-	System.out.println("Split 3 to write: " + splt3.toString());
+		// ---
 
-	// ---
+		GnuCashWritableTransactionSplit splt2 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct21ID));
+		splt2.setValue(new FixedPointNumber(amt22));
+		splt2.setQuantity(new FixedPointNumber(qty22));
+		splt2.setAction(act2);
+		splt2.setDescription("Kauf SAP");
+		System.out.println("Split 2 to write: " + splt2.toString());
 
-	trx.setDatePosted(datPst2);
-	trx.setDateEntered(LocalDateTime.now());
+		// ---
 
-	// ---
+		GnuCashWritableTransactionSplit splt3 = trx.createWritableSplit(gcshFile.getAccountByID(toAcct22ID));
+		splt3.setValue(new FixedPointNumber(amt23));
+		splt3.setQuantity(new FixedPointNumber(qty23));
+		splt3.setDescription("Bankgebühren");
+		System.out.println("Split 3 to write: " + splt3.toString());
 
-	System.out.println("Transaction to write: " + trx.toString());
-    }
+		// ---
+
+		trx.setDatePosted(datPst2);
+		trx.setDateEntered(LocalDateTime.now());
+
+		// ---
+
+		System.out.println("Transaction to write: " + trx.toString());
+	}
     
 }

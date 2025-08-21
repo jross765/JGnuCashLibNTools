@@ -17,25 +17,25 @@ public class GenEmpl {
     // -----------------------------------------------------------------
 
     public static void main(String[] args) {
-	try {
-	    GenEmpl tool = new GenEmpl();
-	    tool.kernel();
-	} catch (Exception exc) {
-	    System.err.println("Execution exception. Aborting.");
-	    exc.printStackTrace();
-	    System.exit(1);
+		try {
+			GenEmpl tool = new GenEmpl();
+			tool.kernel();
+		} catch (Exception exc) {
+			System.err.println("Execution exception. Aborting.");
+			exc.printStackTrace();
+			System.exit(1);
+		}
 	}
-    }
 
-    protected void kernel() throws Exception {
-	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
+	protected void kernel() throws Exception {
+		GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableEmployee empl = gcshFile.createWritableEmployee(userName);
-	empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
-	empl.getAddress().setAddressName(name);
+		GnuCashWritableEmployee empl = gcshFile.createWritableEmployee(userName);
+		empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
+		empl.getAddress().setAddressName(name);
 
-	System.out.println("Employee to write: " + empl.toString());
-	gcshFile.writeFile(new File(gcshOutFileName));
-	System.out.println("OK");
+		System.out.println("Employee to write: " + empl.toString());
+		gcshFile.writeFile(new File(gcshOutFileName));
+		System.out.println("OK");
     }
 }

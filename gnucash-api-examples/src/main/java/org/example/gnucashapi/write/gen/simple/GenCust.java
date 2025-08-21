@@ -16,24 +16,24 @@ public class GenCust {
     // -----------------------------------------------------------------
 
     public static void main(String[] args) {
-	try {
-	    GenCust tool = new GenCust();
-	    tool.kernel();
-	} catch (Exception exc) {
-	    System.err.println("Execution exception. Aborting.");
-	    exc.printStackTrace();
-	    System.exit(1);
+		try {
+			GenCust tool = new GenCust();
+			tool.kernel();
+		} catch (Exception exc) {
+			System.err.println("Execution exception. Aborting.");
+			exc.printStackTrace();
+			System.exit(1);
+		}
 	}
-    }
 
-    protected void kernel() throws Exception {
-	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
+	protected void kernel() throws Exception {
+		GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableCustomer cust = gcshFile.createWritableCustomer(name);
-	cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
-	
-	System.out.println("Customer to write: " + cust.toString());
-	gcshFile.writeFile(new File(gcshOutFileName));
-	System.out.println("OK");
+		GnuCashWritableCustomer cust = gcshFile.createWritableCustomer(name);
+		cust.setNumber(GnuCashCustomerImpl.getNewNumber(cust));
+
+		System.out.println("Customer to write: " + cust.toString());
+		gcshFile.writeFile(new File(gcshOutFileName));
+		System.out.println("OK");
     }
 }

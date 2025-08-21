@@ -15,25 +15,25 @@ public class GenVend {
 
     // -----------------------------------------------------------------
 
-    public static void main(String[] args) {
-	try {
-	    GenVend tool = new GenVend();
-	    tool.kernel();
-	} catch (Exception exc) {
-	    System.err.println("Execution exception. Aborting.");
-	    exc.printStackTrace();
-	    System.exit(1);
+	public static void main(String[] args) {
+		try {
+			GenVend tool = new GenVend();
+			tool.kernel();
+		} catch (Exception exc) {
+			System.err.println("Execution exception. Aborting.");
+			exc.printStackTrace();
+			System.exit(1);
+		}
 	}
-    }
 
-    protected void kernel() throws Exception {
-	GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
+	protected void kernel() throws Exception {
+		GnuCashWritableFileImpl gcshFile = new GnuCashWritableFileImpl(new File(gcshInFileName));
 
-	GnuCashWritableVendor vend = gcshFile.createWritableVendor(name);
-	vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
+		GnuCashWritableVendor vend = gcshFile.createWritableVendor(name);
+		vend.setNumber(GnuCashVendorImpl.getNewNumber(vend));
 
-	System.out.println("Vendor to write: " + vend.toString());
-	gcshFile.writeFile(new File(gcshOutFileName));
-	System.out.println("OK");
-    }
+		System.out.println("Vendor to write: " + vend.toString());
+		gcshFile.writeFile(new File(gcshOutFileName));
+		System.out.println("OK");
+	}
 }
