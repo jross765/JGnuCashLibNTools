@@ -241,7 +241,7 @@ private void showLots(GnuCashTransaction trx)
     }
     
     if ( ! scriptMode )
-      System.err.println("Split ID: '" + spltID + "'");
+      System.err.println("Split ID: " + spltID);
   }
   
   @Override

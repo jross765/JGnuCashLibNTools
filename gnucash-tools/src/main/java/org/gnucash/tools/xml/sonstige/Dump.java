@@ -1,4 +1,4 @@
-package org.gnucash.tools.xml.get.sonstige;
+package org.gnucash.tools.xml.sonstige;
 
 import java.io.File;
 

@@ -1,2 +1,0 @@
-Prüfen: Können Cust/Empl/Vend. *direkt* Trx haben?
-Nö, oder? (Hintergrund: Vgl. Vendor/GCsh <-> Payee/KMM)

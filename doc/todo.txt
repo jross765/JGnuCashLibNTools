@@ -1,0 +1,26 @@
+Module "API"
+============
+
+Prüfen: Können Cust/Empl/Vend. *direkt* Trx haben?
+Nö, oder? (Hintergrund: Vgl. Vendor/GCsh <-> Payee/KMM)
+
+Antwort: nein, können sie nicht. Geht (nicht nur fachlich,
+sondern auch technisch) nur indirekt via Rechnungen.
+
+Kann man natürlich aber trotzdem machen; sollte dann 
+aber wohl eher unter "Extensions" sein.
+
+Module "Tools"
+==============
+
+UpdAcct: Noch nicht richtig symmetrisch mit Schwester
+  (AccountNotFoundException)
+
+UpdCmdty:
+  - Symmetrie verbessern
+  - [ OK ] Spez. Cmdty-ID: erweitern (vgl. GetCmdtyInfo)
+
+UpdPrc: Symmetrie kann bisschen verbessert werden.
+
+Set/UpdCmdty:
+ - Auswahl Cmdty-ID wie bei GetCmdtyInfo
