@@ -1,6 +1,7 @@
 package org.gnucash.api.read.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -141,6 +142,24 @@ public class GnuCashAccountImpl extends SimpleAccount
     @Override
 	public List<GnuCashAccount> getChildren() {
     	return getGnuCashFile().getAccountsByParentID(getID());
+    }
+
+    @Override
+    public List<GnuCashAccount> getChildrenRecursive() {
+    	return getChildrenRecursiveCore(getChildren());
+    }
+
+    private static List<GnuCashAccount> getChildrenRecursiveCore(Collection<GnuCashAccount> accts) {
+    	List<GnuCashAccount> result = new ArrayList<GnuCashAccount>();
+    	
+    	for ( GnuCashAccount acct : accts ) {
+    		result.add(acct);
+    		for ( GnuCashAccount childAcct : getChildrenRecursiveCore(acct.getChildren()) ) {
+    			result.add(childAcct);
+    		}
+    	}
+    	
+    	return result;
     }
 
     // ---------------------------------------------------------------
@@ -413,17 +432,65 @@ public class GnuCashAccountImpl extends SimpleAccount
     // https://stackoverflow.com/questions/4965335/how-to-print-binary-tree-diagram-in-java
     @Override
     public void printTree(StringBuilder buffer, String prefix, String childrenPrefix) {
-        buffer.append(prefix);
-        buffer.append(toString());
-        buffer.append('\n');
-        
+    	printTree(buffer, prefix, childrenPrefix, null);
+    }
+    
+    public void printTree(StringBuilder buffer, String prefix, String childrenPrefix,
+    					  GnuCashAccount.Type acctType) {
+    	// 1) Top node
+    	boolean hasChildrenMatchingRecurs = false;
+    	if ( acctType != null ) {
+    		hasChildrenMatchingRecurs = hasChildrenMatchingRecursive(this, acctType);
+    	}
+    	
+    	if ( acctType == null ||
+    		 this.getType() == acctType ||
+    	     hasChildrenMatchingRecurs ) {
+            buffer.append(prefix);
+            buffer.append(this.toString());
+            buffer.append('\n');
+    	}
+
+    	// 2) Children
         for ( Iterator<GnuCashAccount> it = getChildren().iterator(); it.hasNext(); ) {
-        	GnuCashAccount next = it.next();
-            if (it.hasNext()) {
-                next.printTree(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ");
-            } else {
-                next.printTree(buffer, childrenPrefix + "└── ", childrenPrefix + "    ");
-            }
+        	GnuCashAccountImpl next = (GnuCashAccountImpl) it.next();
+        	
+        	hasChildrenMatchingRecurs = false;
+        	if ( acctType != null ) {
+        		hasChildrenMatchingRecurs = hasChildrenMatchingRecursive(next, acctType);
+        	}
+        	
+        	if ( acctType == null ||
+        		 next.getType() == acctType ||
+        		 hasChildrenMatchingRecurs ) {
+        		if ( it.hasNext() ) {
+        			next.printTree(buffer, childrenPrefix + "├── ", childrenPrefix + "│   ",
+        					       acctType);
+                   } else {
+                	   next.printTree(buffer, childrenPrefix + "└── ", childrenPrefix + "    ",
+                			   		  acctType);
+               	}
+           	}
         }
     }
+    
+    public boolean hasChildrenMatching(GnuCashAccount acct, GnuCashAccount.Type acctType) {
+    	for ( GnuCashAccount chld : acct.getChildren() ) {
+    		if ( chld.getType() == acctType ) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+	}
+
+    public boolean hasChildrenMatchingRecursive(GnuCashAccount acct, GnuCashAccount.Type acctType) {
+    	for ( GnuCashAccount chld : acct.getChildrenRecursive() ) {
+    		if ( chld.getType() == acctType ) {
+    			return true;
+    		}
+    	}
+    	
+    	return false;
+	}
 }

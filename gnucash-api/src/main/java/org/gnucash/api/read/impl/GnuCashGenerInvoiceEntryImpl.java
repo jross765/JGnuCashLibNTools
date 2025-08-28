@@ -1315,10 +1315,9 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 	protected DateFormat getDateFormat() {
 		if ( dateFormat == null ) {
 		    if ( ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getDateFormat() != null ) {
-			dateFormat = ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getDateFormat();
-		    }
-		    else {
-			dateFormat = DateFormat.getDateInstance();
+		    	dateFormat = ((GnuCashGenerInvoiceImpl) getGenerInvoice()).getDateFormat();
+		    } else {
+		    	dateFormat = DateFormat.getDateInstance();
 		    }
 		}
 

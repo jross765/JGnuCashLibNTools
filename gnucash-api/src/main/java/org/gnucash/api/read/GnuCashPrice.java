@@ -63,6 +63,7 @@ public interface GnuCashPrice extends Comparable<GnuCashPrice>,
     }
 	
     public enum Source {
+    	
     	EDIT_DLG          ( "user:price-editor" ), 
     	FQ                ( "Finance::Quote" ),
     	USER_PRICE        ( "user:price" ),

@@ -141,22 +141,23 @@ public class GCshOwnerImpl implements GCshOwner {
     private void mapInvcType_Var2() {
     	try {
     		cust = myFile.getCustomerByID(new GCshCustID(ownerID));
-    		if ( cust != null )
+    		if ( cust != null ) {
     			invcType = GnuCashGenerInvoice.TYPE_CUSTOMER;
-    		else {
+    		} else {
         		vend = myFile.getVendorByID(new GCshVendID(ownerID));
-        		if ( vend != null )
+        		if ( vend != null ) {
         			invcType = GnuCashGenerInvoice.TYPE_VENDOR;
-        		else {
+        		} else {
             		empl = myFile.getEmployeeByID(new GCshEmplID(ownerID));
-            		if ( empl != null )
+            		if ( empl != null ) {
             			invcType = GnuCashGenerInvoice.TYPE_EMPLOYEE;
-            		else {
+            		} else {
                 		job = myFile.getGenerJobByID(new GCshGenerJobID(ownerID));
-                		if ( job != null )
+                		if ( job != null ) {
                 			invcType = GnuCashGenerInvoice.TYPE_JOB;
-                		else
+                		} else {
                     		throw new MappingException("Owner ID '" + ownerID + "' cannot be mapped to owner type");
+                		}
             		}
         		}
     		}
@@ -182,13 +183,13 @@ public class GCshOwnerImpl implements GCshOwner {
     private void mapJobType_Var2() {
     	try {
     		cust = myFile.getCustomerByID(new GCshCustID(ownerID));
-    		if ( cust != null )
+    		if ( cust != null ) {
     			jobType = GnuCashGenerJob.TYPE_CUSTOMER;
-    		else {
+    		} else {
         		vend = myFile.getVendorByID(new GCshVendID(ownerID));
-        		if ( vend != null )
+        		if ( vend != null ) {
         			jobType = GnuCashGenerJob.TYPE_VENDOR;
-        		else {
+        		} else {
             		throw new MappingException("Owner ID '" + ownerID + "' cannot be mapped to owner type");
         		}
     		}
@@ -208,20 +209,17 @@ public class GCshOwnerImpl implements GCshOwner {
         			vend = null;
         			empl = null;
         			job  = null;
-        		}
-        		else if ( invcType == GnuCashGenerInvoice.TYPE_VENDOR ) {
+        		} else if ( invcType == GnuCashGenerInvoice.TYPE_VENDOR ) {
         			cust = null;
         			vend = myFile.getVendorByID(new GCshVendID(ownerID));
         			empl = null;
         			job  = null;
-        		}
-        		else if ( invcType == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
+        		} else if ( invcType == GnuCashGenerInvoice.TYPE_EMPLOYEE ) {
         			cust = null;
         			vend = null;
         			empl = myFile.getEmployeeByID(new GCshEmplID(ownerID));
         			job  = null;
-        		}
-        		else if ( invcType == GnuCashGenerInvoice.TYPE_JOB ) {
+        		} else if ( invcType == GnuCashGenerInvoice.TYPE_JOB ) {
         			cust = null;
         			vend = null;
         			empl = null;
@@ -230,15 +228,13 @@ public class GCshOwnerImpl implements GCshOwner {
         	} catch ( Exception exc ) {
         		throw new MappingException("Owner ID '" + ownerID + "' cannot be mapped to API object");
         	}
-    	}
-    	else if ( jiType == JIType.JOB ) {
+    	} else if ( jiType == JIType.JOB ) {
     		if ( jobType == GnuCashGenerJob.TYPE_CUSTOMER ) {
     			cust = myFile.getCustomerByID(new GCshCustID(ownerID));
     			vend = null;
     			empl = null;
     			job  = null;
-    		}
-    		else if ( jobType ==  GnuCashGenerJob.TYPE_VENDOR ) {
+    		} else if ( jobType ==  GnuCashGenerJob.TYPE_VENDOR ) {
     			cust = null;
     			vend = myFile.getVendorByID(new GCshVendID(ownerID));
     			empl = null;

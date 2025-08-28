@@ -117,6 +117,8 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
      */
     String getQualifiedName();
 
+    // ---------------------------------------------------------------
+
     /**
      * @return null if the account is below the root
      */
@@ -130,12 +132,23 @@ public interface GnuCashAccount extends Comparable<GnuCashAccount>,
 
     boolean isRootAccount();
 
+    // ----------------------------
+
     /**
      * The returned collection is never null and is sorted by Account-Name.
      *
      * @return all child-accounts
      */
     List<GnuCashAccount> getChildren();
+
+    /**
+     * 
+     * @return all child accounts including their children, grand-children etc.
+     * 
+     * @see #getChildren()
+     * @see #isChildAccountRecursive(GnuCashAccount)
+     */
+    List<GnuCashAccount> getChildrenRecursive();
 
     /**
      * @param account the account to test
