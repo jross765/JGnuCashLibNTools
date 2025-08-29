@@ -78,8 +78,9 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 			 invc.getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
 
-		// TODO: keep count-data in file intact <gnc:count-data
-		// cd:type="gnc:GncEntry">18</gnc:count-data>
+		// Note: count-data is not updated here, but rather
+		// when the file is finally written.
+		// Cf. GnuCashWritableFileImpl.checkAllCountData().
 
 		if ( !invc.isModifiable() ) {
 			throw new IllegalArgumentException("The given customer invoice has payments and is thus not modifiable");
@@ -174,8 +175,9 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 			 invc.getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
 
-		// TODO: keep count-data in file intact <gnc:count-data
-		// cd:type="gnc:GncEntry">18</gnc:count-data>
+		// Note: count-data is not updated here, but rather
+		// when the file is finally written.
+		// Cf. GnuCashWritableFileImpl.checkAllCountData().
 
 		if ( !invc.isModifiable() ) {
 			throw new IllegalArgumentException("The given vendor bill has payments and is thus not modifiable");
@@ -266,8 +268,9 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 		if ( invc.getType() != GCshOwner.Type.EMPLOYEE )
 			throw new WrongInvoiceTypeException();
 
-		// TODO: keep count-data in file intact <gnc:count-data
-		// cd:type="gnc:GncEntry">18</gnc:count-data>
+		// Note: count-data is not updated here, but rather
+		// when the file is finally written.
+		// Cf. GnuCashWritableFileImpl.checkAllCountData().
 
 		if ( !invc.isModifiable() ) {
 			throw new IllegalArgumentException("The given employee voucher has payments and is thus not modifiable");
@@ -349,8 +352,9 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 		if ( invc.getType() != GCshOwner.Type.JOB )
 			throw new WrongInvoiceTypeException();
 		
-		// TODO: keep count-data in file intact <gnc:count-data
-		// cd:type="gnc:GncEntry">18</gnc:count-data>
+		// Note: count-data is not updated here, but rather
+		// when the file is finally written.
+		// Cf. GnuCashWritableFileImpl.checkAllCountData().
 
 		if ( !invc.isModifiable() ) {
 			throw new IllegalArgumentException("The given job invoice has payments and is thus not modifiable");
@@ -366,8 +370,9 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 
 	private static GncGncEntry createGenerInvoiceEntryCommon(final GnuCashWritableGenerInvoiceImpl invc,
 			final GnuCashWritableFileImpl gcshWrtblFile, final ObjectFactory factory) {
-		// TODO: keep count-data in file intact <gnc:count-data
-		// cd:type="gnc:GncEntry">18</gnc:count-data>
+		// Note: count-data is not updated here, but rather
+		// when the file is finally written.
+		// Cf. GnuCashWritableFileImpl.checkAllCountData().
 
 		if ( !invc.isModifiable() ) {
 			throw new IllegalArgumentException("The given invoice has payments and is" + " thus not modifiable");
