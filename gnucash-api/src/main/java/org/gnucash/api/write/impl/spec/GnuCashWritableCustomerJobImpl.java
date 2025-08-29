@@ -44,7 +44,9 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	 * @param gcshFile      the file we belong to
 	 */
 	@SuppressWarnings("exports")
-	public GnuCashWritableCustomerJobImpl(final GncGncJob jwsdpPeer, final GnuCashFile gcshFile) {
+	public GnuCashWritableCustomerJobImpl(
+			final GncGncJob jwsdpPeer, 
+			final GnuCashFile gcshFile) {
 		super(jwsdpPeer, gcshFile);
 	}
 
@@ -72,7 +74,7 @@ public class GnuCashWritableCustomerJobImpl extends GnuCashWritableGenerJobImpl
 	}
 
 	public GnuCashWritableCustomerJobImpl(GnuCashCustomerJobImpl job) {
-		super(job.getJwsdpPeer(), job.getGnuCashFile());
+		super(job.getJwsdpPeer(), job.getGnuCashFile() );
 	}
 
 	// ---------------------------------------------------------------

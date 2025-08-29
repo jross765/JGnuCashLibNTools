@@ -2,10 +2,13 @@ package org.gnucash.api.write.impl.hlp;
 
 import java.util.List;
 
+import org.gnucash.api.generated.GncGncJob;
 import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerJobImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableVendorJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerJob;
 import org.gnucash.api.write.spec.GnuCashWritableVendorJob;
 import org.slf4j.Logger;
@@ -26,29 +29,24 @@ public class FileJobManager extends org.gnucash.api.read.impl.hlp.FileJobManager
 	/*
 	 * Creates the writable version of the returned object.
 	 */
-	// ::TODO
-//    @Override
-//    protected GnuCashGenerJobImpl createGenerJob(final GncGncJob jwsdpJob) {
+	// CAUTION: This method cannot exist, because GnuCashWritableGenerJobImpl is abstract
+//    protected GnuCashWritableGenerJobImpl createWritableGenerJob(final GncGncJob jwsdpJob) {
 //    	GnuCashWritableGenerJobImpl job = new GnuCashWritableGenerJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
-//    	LOGGER.debug("Generated new generic job: " + job.getID());
+//    	LOGGER.debug("createWritableGenerJob: Generated new generic job: " + job.getID());
 //    	return job;
 //    }
 
-	// ::TODO
-//	@Override
-//	protected GnuCashCustomerJobImpl createCustomerJob(final GncGncJob jwsdpJob) {
-//		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
-//		LOGGER.debug("createCustomerJob: Generated new writable customer job: " + job.getID());
-//		return job;
-//	}
-//
-	// ::TODO
-//	@Override
-//	protected GnuCashVendorJobImpl createVendorJob(final GncGncJob jwsdpJob) {
-//		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
-//		LOGGER.debug("createVendorJob: Generated new writable vendor job: " + job.getID());
-//		return job;
-//	}
+	protected GnuCashWritableCustomerJobImpl createWritableCustomerJob(final GncGncJob jwsdpJob) {
+		GnuCashWritableCustomerJobImpl job = new GnuCashWritableCustomerJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
+		LOGGER.debug("createWritableCustomerJob: Generated new writable customer job: " + job.getID());
+		return job;
+	}
+
+	protected GnuCashWritableVendorJobImpl createWritableVendorJob(final GncGncJob jwsdpJob) {
+		GnuCashWritableVendorJobImpl job = new GnuCashWritableVendorJobImpl(jwsdpJob, (GnuCashWritableFileImpl) gcshFile);
+		LOGGER.debug("createWritableVendorJob: Generated new writable vendor job: " + job.getID());
+		return job;
+	}
 
 	// ---------------------------------------------------------------
 	

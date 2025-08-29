@@ -1426,7 +1426,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 				// We run into this exception even when we stick to the
 				// automatically generated numbers, because this API's
 				// createWritableCustomer() method at first generates
-				// an object whose number is equal to its GUID.
+				// an object the number of which is equal to its GUID.
 				// ==> ::TODO Adapt how a customer object is created.
 				LOGGER.warn("getHighestCustomerNumber: Found customer with non-numerical number");
 			}
@@ -1505,11 +1505,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 				if ( newNum > highest )
 					highest = newNum;
 			} catch (Exception exc) {
-				// We run into this exception even when we stick to the
-				// automatically generated numbers, because this API's
-				// createWritableCustomer() method at first generates
-				// an object whose number is equal to its GUID.
-				// ==> ::TODO Adapt how a job object is created.
+				// Cf. .getHighestCustomerNumber() above.
+				// ==> ::TODO Adapt how a employee object is created.
 				LOGGER.warn("getHighestJobNumber: Found job with non-numerical number");
 			}
 		}

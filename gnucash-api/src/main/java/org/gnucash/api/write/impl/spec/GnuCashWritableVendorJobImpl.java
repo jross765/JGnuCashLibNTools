@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.gnucash.api.generated.GncGncJob;
-import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
@@ -14,6 +13,7 @@ import org.gnucash.api.read.impl.spec.GnuCashVendorJobImpl;
 import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongJobTypeException;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.api.write.impl.GnuCashWritableGenerJobImpl;
 import org.gnucash.api.write.spec.GnuCashWritableJobInvoice;
@@ -44,7 +44,9 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	 * @param gcshFile      the file we belong to
 	 */
 	@SuppressWarnings("exports")
-	public GnuCashWritableVendorJobImpl(final GncGncJob jwsdpPeer, final GnuCashFile gcshFile) {
+	public GnuCashWritableVendorJobImpl(
+			final GncGncJob jwsdpPeer, 
+			final GnuCashWritableFile gcshFile) {
 		super(jwsdpPeer, gcshFile);
 	}
 
