@@ -32,7 +32,7 @@ public class GenEmpl {
 
 		GnuCashWritableEmployee empl = gcshFile.createWritableEmployee(userName);
 		empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
-		empl.getAddress().setAddressName(name);
+		empl.getAddress().setName(name);
 
 		System.out.println("Employee to write: " + empl.toString());
 		gcshFile.writeFile(new File(gcshOutFileName));
