@@ -16,7 +16,6 @@ import org.gnucash.api.read.impl.aux.TestGCshTaxTableImpl;
 import org.gnucash.api.write.aux.GCshWritableTaxTable;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
-import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.aux.GCshTaxTabID;
 import org.junit.Before;
 import org.junit.Rule;

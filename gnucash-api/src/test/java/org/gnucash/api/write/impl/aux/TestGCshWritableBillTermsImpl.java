@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.util.Collection;
 
 import org.gnucash.api.ConstTest;
-import org.gnucash.base.basetypes.simple.GCshID;
-import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.gnucash.api.read.aux.BillTermsTypeException;
 import org.gnucash.api.read.aux.GCshBillTerms;
 import org.gnucash.api.read.aux.GCshBillTermsDays;
@@ -19,6 +17,7 @@ import org.gnucash.api.read.impl.aux.GCshFileStats;
 import org.gnucash.api.read.impl.aux.TestGCshBillTermsImpl;
 import org.gnucash.api.write.aux.GCshWritableBillTerms;
 import org.gnucash.api.write.impl.GnuCashWritableFileImpl;
+import org.gnucash.base.basetypes.simple.aux.GCshBllTrmID;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

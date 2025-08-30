@@ -3799,8 +3799,9 @@
   <vendor:name>Lieferfanto AG</vendor:name>
   <vendor:id>000001</vendor:id>
   <vendor:addr version="2.0.0">
-    <addr:name>Über den Linden 81</addr:name>
-    <addr:addr1>12345 Berlin</addr:addr1>
+    <addr:name>Frau Schbörzel-Schnurrenburgen</addr:name>
+    <addr:addr1>Über den Linden 81</addr:addr1>
+    <addr:addr2>12345 Berlin</addr:addr2>
   </vendor:addr>
   <vendor:terms type="guid">599bfe3ab5b84a73bf3acabc5abd5bc7</vendor:terms>
   <vendor:taxincluded>USEGLOBAL</vendor:taxincluded>

@@ -163,6 +163,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	private final ComplexPriceTable currencyTable = new ComplexPriceTable();
 	protected FilePriceManager prcMgr = null;
 
+	public GnuCashCustomer getVendorByIDVEND_1_ID;
+
 	// ---------------------------------------------------------------
 
 	/**

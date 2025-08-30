@@ -1,8 +1,11 @@
 package org.gnucash.api.write.aux;
 
 import org.gnucash.api.read.aux.GCshAddress;
+import org.gnucash.api.write.hlp.GnuCashWritableObject;
 
-public interface GCshWritableAddress extends GCshAddress {
+public interface GCshWritableAddress extends GCshAddress,
+                                             GnuCashWritableObject 
+{
 
 	/**
 	 * 

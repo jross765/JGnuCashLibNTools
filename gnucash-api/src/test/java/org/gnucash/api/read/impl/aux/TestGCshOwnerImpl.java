@@ -125,7 +125,7 @@ public class TestGCshOwnerImpl {
 		assertEquals(GCshOwner.Type.EMPLOYEE, GCshOwner.Type.EMPLOYEE);
 		assertNotEquals(GCshOwner.Type.EMPLOYEE, GCshOwner.Type.VENDOR);
 
-		boolean areEqual = (GCshOwner.Type.EMPLOYEE == GCshOwner.Type.EMPLOYEE);
+		boolean areEqual = (GCshOwner.Type.EMPLOYEE == GCshOwner.Type.EMPLOYEE); // sic
 		assertEquals(true, areEqual);
 
 		areEqual = (GCshOwner.Type.EMPLOYEE.equals(GCshOwner.Type.EMPLOYEE));

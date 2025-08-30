@@ -318,17 +318,6 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
         return getWritableAddress();
     }
 
-	@Override
-	public GCshWritableAddress createWritableAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeAddress(GCshWritableAddress impl) {
-		// TODO Auto-generated method stub
-	}
-
     /**
      * @see #setShippingAddress(GCshAddress)
      */

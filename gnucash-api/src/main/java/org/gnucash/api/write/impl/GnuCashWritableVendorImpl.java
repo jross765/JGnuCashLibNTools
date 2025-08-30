@@ -269,17 +269,6 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     
     // ----------------------------
 
-	@Override
-	public GCshWritableAddress createWritableAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeAddress(GCshWritableAddress impl) {
-		// TODO Auto-generated method stub
-	}
-
     @Override
     public void setAddress(final GCshAddress adr) {
 		if ( adr == null ) {

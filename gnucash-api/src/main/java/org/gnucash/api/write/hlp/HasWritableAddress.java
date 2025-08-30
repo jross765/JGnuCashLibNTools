@@ -7,9 +7,11 @@ public interface HasWritableAddress {
 
     GCshWritableAddress getWritableAddress();
     
-    GCshWritableAddress createWritableAddress();
+    // sic, not necessary / counter-productive:
+    // GCshWritableAddress createWritableAddress();
     
-	void removeAddress(GCshWritableAddress impl);
+    // dto.
+	// void removeAddress(GCshWritableAddress impl);
 
     void setAddress(GCshAddress adr);
 }

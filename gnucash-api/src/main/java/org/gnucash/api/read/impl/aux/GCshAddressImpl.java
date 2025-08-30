@@ -155,7 +155,7 @@ public class GCshAddressImpl implements GCshAddress {
 		buffer.append("Fax:    " + getFax() + "\n");
 		buffer.append("eMail:  " + getEmail() + "\n");
 
-		buffer.append("]\n");
+		buffer.append("]");
 
 		return buffer.toString();
     }
