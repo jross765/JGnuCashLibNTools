@@ -12,6 +12,8 @@ file.
   * New mehood `printTree()`
   * New method `getChldrenRecursive()` (symmetry with sister project)
 * `GnuCashFile(Impl)`: New method `dump()`.
+* `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
+* Improved test coverage
 
 ### V. 1.5 &rarr; 1.6
 * Fixed a couple of bugs in write-branch of API (for various entities), esp. in object-deleting code.

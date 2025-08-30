@@ -55,10 +55,10 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     // ---------------------------------------------------------------
 
     /**
-     * @see GCshWritableAddress#setAddressName(java.lang.String)
+     * @see GCshWritableAddress#setName(java.lang.String)
      */
-    public void setAddressName(final String val) {
-    	if ( val == null ) {
+    public void setName(final String name) {
+    	if ( name == null ) {
     		throw new IllegalArgumentException("argument <val> is null");
     	}
 
@@ -67,16 +67,16 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
 //    		throw new IllegalArgumentException("argument <val> is empty");
 //    	}
     	
-    	getJwsdpPeer().setAddrName(val);
+    	getJwsdpPeer().setAddrName(name);
     	getWritableGnuCashFile().setModified(true);
     }
 
     /**
-     * @see #setAddressLine2(String)
-     * @see #setAddressLine3(String)
-     * @see #setAddressLine4(String)
+     * @see #setLine2(String)
+     * @see #setLine3(String)
+     * @see #setLine4(String)
      */
-    public void setAddressLine1(final String val) {
+    public void setLine1(final String val) {
     	if ( val == null ) {
     		throw new IllegalArgumentException("argument <val> is null");
     	}
@@ -91,11 +91,11 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see #setAddressLine1(String)
-     * @see #setAddressLine3(String)
-     * @see #setAddressLine4(String)
+     * @see #setLine1(String)
+     * @see #setLine3(String)
+     * @see #setLine4(String)
      */
-    public void setAddressLine2(final String val) {
+    public void setLine2(final String val) {
     	if ( val == null ) {
     		throw new IllegalArgumentException("argument <val> is null");
     	}
@@ -110,11 +110,11 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see #setAddressLine1(String)
-     * @see #setAddressLine2(String)
-     * @see #setAddressLine4(String)
+     * @see #setLine1(String)
+     * @see #setLine2(String)
+     * @see #setLine4(String)
      */
-    public void setAddressLine3(final String val) {
+    public void setLine3(final String val) {
     	if ( val == null ) {
     		throw new IllegalArgumentException("argument <val> is null");
     	}
@@ -129,11 +129,11 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     }
 
     /**
-     * @see #setAddressLine1(String)
-     * @see #setAddressLine2(String)
-     * @see #setAddressLine3(String)
+     * @see #setLine1(String)
+     * @see #setLine2(String)
+     * @see #setLine3(String)
      */
-    public void setAddressLine4(final String val) {
+    public void setLine4(final String val) {
     	if ( val == null ) {
     		throw new IllegalArgumentException("argument <val> is null");
     	}
@@ -147,46 +147,79 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
     	getWritableGnuCashFile().setModified(true);
     }
 
-    public void setTel(final String val) {
-    	if ( val == null ) {
-    		throw new IllegalArgumentException("argument <val> is null");
+    public void setTel(final String tel) {
+    	if ( tel == null ) {
+    		throw new IllegalArgumentException("argument <tel> is null");
     	}
 
 //    	// sic: empty is allowed
 //    	if ( val.trim().length() == 0 ) {
-//    		throw new IllegalArgumentException("argument <val> is empty");
+//    		throw new IllegalArgumentException("argument <tel> is empty");
 //    	}
     	
-    	getJwsdpPeer().setAddrPhone(val);
+    	getJwsdpPeer().setAddrPhone(tel);
     	getWritableGnuCashFile().setModified(true);
     }
 
-    public void setFax(final String val) {
-    	if ( val == null ) {
-    		throw new IllegalArgumentException("argument <val> is null");
+    public void setFax(final String fax) {
+    	if ( fax == null ) {
+    		throw new IllegalArgumentException("argument <fax> is null");
     	}
 
 //    	// sic: empty is allowed
 //    	if ( val.trim().length() == 0 ) {
-//    		throw new IllegalArgumentException("argument <val> is empty");
+//    		throw new IllegalArgumentException("argument <fax> is empty");
 //    	}
     	
-    	getJwsdpPeer().setAddrFax(val);
+    	getJwsdpPeer().setAddrFax(fax);
     	getWritableGnuCashFile().setModified(true);
     }
 
-    public void setEmail(final String val) {
-    	if ( val == null ) {
-    		throw new IllegalArgumentException("argument <val> is null");
+    public void setEmail(final String eml) {
+    	if ( eml == null ) {
+    		throw new IllegalArgumentException("argument <eml> is null");
     	}
 
 //    	// sic: empty is allowed
 //    	if ( val.trim().length() == 0 ) {
-//    		throw new IllegalArgumentException("argument <val> is empty");
+//    		throw new IllegalArgumentException("argument <eml> is empty");
 //    	}
     	
-    	getJwsdpPeer().setAddrEmail(val);
+    	getJwsdpPeer().setAddrEmail(eml);
     	getWritableGnuCashFile().setModified(true);
+    }
+
+    // ---------------------------------------------------------------
+    // Old names
+    
+    @Override
+    @Deprecated
+    public void setAddressName(String name) {
+    	setName(name);
+    }
+
+    @Override
+    @Deprecated
+    public void setAddressLine1(String val) {
+    	setLine1(val);
+    }
+
+    @Override
+    @Deprecated
+    public void setAddressLine2(String val) {
+    	setLine2(val);
+    }
+
+    @Override
+    @Deprecated
+    public void setAddressLine3(String val) {
+    	setLine3(val);
+    }
+
+    @Override
+    @Deprecated
+    public void setAddressLine4(String val) {
+    	setLine4(val);
     }
 
     // ---------------------------------------------------------------
@@ -197,12 +230,12 @@ public class GCshWritableAddressImpl extends GCshAddressImpl
 
 		buffer.append("GCshWritableAddressImpl [\n");
 
-		buffer.append(getAddressName() + "\n");
+		buffer.append(getName() + "\n");
 		buffer.append("\n");
-		buffer.append(getAddressLine1() + "\n");
-		buffer.append(getAddressLine2() + "\n");
-		buffer.append(getAddressLine3() + "\n");
-		buffer.append(getAddressLine4() + "\n");
+		buffer.append(getLine1() + "\n");
+		buffer.append(getLine2() + "\n");
+		buffer.append(getLine3() + "\n");
+		buffer.append(getLine4() + "\n");
 		buffer.append("\n");
 		buffer.append("Tel.:   " + getTel() + "\n");
 		buffer.append("Fax:    " + getFax() + "\n");

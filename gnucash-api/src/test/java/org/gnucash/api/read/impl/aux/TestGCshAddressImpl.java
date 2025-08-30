@@ -87,12 +87,12 @@ public class TestGCshAddressImpl {
 		addr = cust1.getAddress();
 		assertNotEquals(null, addr);
 		
-		assertEquals("Herr SchwervonBegriff", addr.getAddressName());
+		assertEquals("Herr SchwervonBegriff", addr.getName());
 		
-		assertEquals("Nixkapier-Str. 9", addr.getAddressLine1());
-		assertEquals("12345 Berlin", addr.getAddressLine2());
-		assertEquals("", addr.getAddressLine3());
-		assertEquals("", addr.getAddressLine4());
+		assertEquals("Nixkapier-Str. 9", addr.getLine1());
+		assertEquals("12345 Berlin", addr.getLine2());
+		assertEquals("", addr.getLine3());
+		assertEquals("", addr.getLine4());
 		
 		assertEquals("", addr.getTel());
 		assertEquals("", addr.getFax());
@@ -104,12 +104,12 @@ public class TestGCshAddressImpl {
 		addr = vend1.getAddress();
 		assertNotEquals(null, addr);
 		
-		assertEquals("Frau Schbörzel-Schnurrenburgen", addr.getAddressName());
+		assertEquals("Frau Schbörzel-Schnurrenburgen", addr.getName());
 		
-		assertEquals("Über den Linden 81", addr.getAddressLine1());
-		assertEquals("12345 Berlin", addr.getAddressLine2());
-		assertEquals("", addr.getAddressLine3());
-		assertEquals("", addr.getAddressLine4());
+		assertEquals("Über den Linden 81", addr.getLine1());
+		assertEquals("12345 Berlin", addr.getLine2());
+		assertEquals("", addr.getLine3());
+		assertEquals("", addr.getLine4());
 		
 		assertEquals("", addr.getTel());
 		assertEquals("", addr.getFax());

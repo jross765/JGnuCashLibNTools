@@ -11,41 +11,41 @@ public interface GCshWritableAddress extends GCshAddress,
 	 * 
 	 * @param a
 	 * 
-	 * @see #getAddressName()
+	 * @see #getName()
 	 */
-    void setAddressName(String a);
+    void setName(String name);
 
     /**
      * 
      * @param a
      * 
-     * @see #getAddressLine1()
+     * @see #getLine1()
      */
-    void setAddressLine1(String a);
+    void setLine1(String val);
 
     /**
      * 
      * @param a
      * 
-     * @see #getAddressLine2()
+     * @see #getLine2()
      */
-    void setAddressLine2(String a);
+    void setLine2(String val);
 
     /**
      * 
      * @param a
      * 
-     * @see #getAddressLine3()
+     * @see #getLine3()
      */
-    void setAddressLine3(String a);
+    void setLine3(String val);
 
     /**
      * 
      * @param a
      * 
-     * @see #getAddressLine4()
+     * @see #getLine4()
      */
-    void setAddressLine4(String a);
+    void setLine4(String val);
 
     /**
      * 
@@ -53,7 +53,7 @@ public interface GCshWritableAddress extends GCshAddress,
      * 
      * @see #getTel()
      */
-    void setTel(String a);
+    void setTel(String tel);
 
     /**
      * 
@@ -61,7 +61,7 @@ public interface GCshWritableAddress extends GCshAddress,
      * 
      * @see #getFax()
      */
-    void setFax(String a);
+    void setFax(String fax);
 
     /**
      * 
@@ -69,5 +69,39 @@ public interface GCshWritableAddress extends GCshAddress,
      * 
      * @see #getEmail()
      */
-    void setEmail(String a);
+    void setEmail(String eml);
+    
+    // ---------------------------------------------------------------
+    // Old names
+    
+	/**
+	 * @see #setName(String)
+	 */
+    @Deprecated
+    void setAddressName(String name);
+
+    /**
+     * @see #setLine1(String)
+     */
+    @Deprecated
+    void setAddressLine1(String val);
+
+    /**
+     * @see #setLine2(String)
+     */
+    @Deprecated
+    void setAddressLine2(String val);
+
+    /**
+     * @see #setLine3(String)
+     */
+    @Deprecated
+    void setAddressLine3(String val);
+
+    /**
+     * @see #setLine4(String)
+     */
+    @Deprecated
+    void setAddressLine4(String val);
+
 }

@@ -6,29 +6,29 @@ public interface GCshAddress {
      *
      * @return name as used in the address
      */
-    String getAddressName();
+    String getName();
 
     /**
      *
      * @return first line below the name
      */
-    String getAddressLine1();
+    String getLine1();
 
     /**
      *
      * @return second and last line below the name
      */
-    String getAddressLine2();
+    String getLine2();
     /**
      *
      * @return third and last line below the name
      */
-    String getAddressLine3();
+    String getLine3();
     /**
      *
      * @return fourth and last line below the name
      */
-    String getAddressLine4();
+    String getLine4();
 
     /**
      *
@@ -47,5 +47,38 @@ public interface GCshAddress {
      * @return Email
      */
     String getEmail();
+    
+    // ---------------------------------------------------------------
+    // Old names
+    
+    /**
+     * @see #getAddressName()
+     */
+    @Deprecated
+    String getAddressName();
+
+    /**
+     * @see #getLine1()
+     */
+    @Deprecated
+    String getAddressLine1();
+
+    /**
+     * @see #getLine2()
+     */
+    @Deprecated
+    String getAddressLine2();
+   
+    /**
+     * @see #getLine3()
+     */
+    @Deprecated
+    String getAddressLine3();
+   
+    /**
+     * @see #getLine4()
+     */
+    @Deprecated
+   String getAddressLine4();
     
 }

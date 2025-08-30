@@ -52,7 +52,7 @@ public class GCshAddressImpl implements GCshAddress {
      * @see GnuCashVendor#getAddress()
      */
     @Override
-	public String getAddressName() {
+	public String getName() {
 		if ( jwsdpPeer.getAddrName() == null ) {
 			return "";
 		}
@@ -63,7 +63,7 @@ public class GCshAddressImpl implements GCshAddress {
      * @see GnuCashVendor#getAddress
      */
     @Override
-	public String getAddressLine1() {
+	public String getLine1() {
 		if ( jwsdpPeer.getAddrAddr1() == null ) {
 			return "";
 		}
@@ -74,7 +74,7 @@ public class GCshAddressImpl implements GCshAddress {
      * @see GnuCashVendor#getAddress
      */
     @Override
-	public String getAddressLine2() {
+	public String getLine2() {
 		if ( jwsdpPeer.getAddrAddr2() == null ) {
 			return "";
 		}
@@ -85,7 +85,7 @@ public class GCshAddressImpl implements GCshAddress {
      * @return third and last line below the name
      */
     @Override
-	public String getAddressLine3() {
+	public String getLine3() {
 		if ( jwsdpPeer.getAddrAddr3() == null ) {
 			return "";
 		}
@@ -96,7 +96,7 @@ public class GCshAddressImpl implements GCshAddress {
      * @return fourth and last line below the name
      */
     @Override
-	public String getAddressLine4() {
+	public String getLine4() {
 		if ( jwsdpPeer.getAddrAddr4() == null ) {
 			return "";
 		}
@@ -137,6 +137,39 @@ public class GCshAddressImpl implements GCshAddress {
     }
 
     // ---------------------------------------------------------------
+    // Old names
+    
+    @Override
+    @Deprecated
+    public String getAddressName() {
+    	return getName();
+    }
+
+    @Override
+    @Deprecated
+    public String getAddressLine1() {
+    	return getLine1();
+    }
+
+    @Override
+    @Deprecated
+    public String getAddressLine2() {
+    	return getLine2();
+    }
+
+    @Override
+    @Deprecated
+    public String getAddressLine3() {
+    	return getLine3();
+    }
+
+    @Override
+    @Deprecated
+    public String getAddressLine4() {
+    	return getLine4();
+    }
+
+    // ---------------------------------------------------------------
 
     @Override
     public String toString() {
@@ -144,12 +177,12 @@ public class GCshAddressImpl implements GCshAddress {
 
 		buffer.append("GCshAddressImpl [\n");
 
-		buffer.append(getAddressName() + "\n");
+		buffer.append(getName() + "\n");
 		buffer.append("\n");
-		buffer.append(getAddressLine1() + "\n");
-		buffer.append(getAddressLine2() + "\n");
-		buffer.append(getAddressLine3() + "\n");
-		buffer.append(getAddressLine4() + "\n");
+		buffer.append(getLine1() + "\n");
+		buffer.append(getLine2() + "\n");
+		buffer.append(getLine3() + "\n");
+		buffer.append(getLine4() + "\n");
 		buffer.append("\n");
 		buffer.append("Tel.:   " + getTel() + "\n");
 		buffer.append("Fax:    " + getFax() + "\n");

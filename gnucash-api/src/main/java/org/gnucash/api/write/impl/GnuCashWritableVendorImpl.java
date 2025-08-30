@@ -286,11 +286,11 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 				getJwsdpPeer().setVendorAddr(getGnuCashFile().getObjectFactory().createAddress());
 			}
 
-			getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getAddressLine1());
-			getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getAddressLine2());
-			getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getAddressLine3());
-			getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getAddressLine4());
-			getJwsdpPeer().getVendorAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getVendorAddr().setAddrAddr1(adr.getLine1());
+			getJwsdpPeer().getVendorAddr().setAddrAddr2(adr.getLine2());
+			getJwsdpPeer().getVendorAddr().setAddrAddr3(adr.getLine3());
+			getJwsdpPeer().getVendorAddr().setAddrAddr4(adr.getLine4());
+			getJwsdpPeer().getVendorAddr().setAddrName(adr.getName());
 			getJwsdpPeer().getVendorAddr().setAddrEmail(adr.getEmail());
 			getJwsdpPeer().getVendorAddr().setAddrFax(adr.getFax());
 			getJwsdpPeer().getVendorAddr().setAddrPhone(adr.getTel());

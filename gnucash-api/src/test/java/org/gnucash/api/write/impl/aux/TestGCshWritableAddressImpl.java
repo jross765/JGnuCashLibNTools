@@ -123,12 +123,12 @@ public class TestGCshWritableAddressImpl {
 		GCshWritableAddress addr = cust1.getWritableAddress();
 		assertNotEquals(null, addr);
 		
-		assertEquals("Herr SchwervonBegriff", addr.getAddressName());
+		assertEquals("Herr SchwervonBegriff", addr.getName());
 		
-		assertEquals("Nixkapier-Str. 9", addr.getAddressLine1());
-		assertEquals("12345 Berlin", addr.getAddressLine2());
-		assertEquals("", addr.getAddressLine3());
-		assertEquals("", addr.getAddressLine4());
+		assertEquals("Nixkapier-Str. 9", addr.getLine1());
+		assertEquals("12345 Berlin", addr.getLine2());
+		assertEquals("", addr.getLine3());
+		assertEquals("", addr.getLine4());
 		
 		assertEquals("", addr.getTel());
 		assertEquals("", addr.getFax());
@@ -140,12 +140,12 @@ public class TestGCshWritableAddressImpl {
 		GCshWritableAddress addr = vend1.getWritableAddress();
 		assertNotEquals(null, addr);
 		
-		assertEquals("Frau Schbörzel-Schnurrenburgen", addr.getAddressName());
+		assertEquals("Frau Schbörzel-Schnurrenburgen", addr.getName());
 		
-		assertEquals("Über den Linden 81", addr.getAddressLine1());
-		assertEquals("12345 Berlin", addr.getAddressLine2());
-		assertEquals("", addr.getAddressLine3());
-		assertEquals("", addr.getAddressLine4());
+		assertEquals("Über den Linden 81", addr.getLine1());
+		assertEquals("12345 Berlin", addr.getLine2());
+		assertEquals("", addr.getLine3());
+		assertEquals("", addr.getLine4());
 		
 		assertEquals("", addr.getTel());
 		assertEquals("", addr.getFax());
@@ -157,12 +157,12 @@ public class TestGCshWritableAddressImpl {
 		GCshWritableAddress addr = empl1.getWritableAddress();
 		assertNotEquals(null, addr);
 		
-		assertEquals("Oliver Twist", addr.getAddressName());
+		assertEquals("Oliver Twist", addr.getName());
 		
-		assertEquals("Street Gang's Area", addr.getAddressLine1());
-		assertEquals("Bad Neighbourhood", addr.getAddressLine2());
-		assertEquals("London", addr.getAddressLine3());
-		assertEquals("United Kingdom", addr.getAddressLine4());
+		assertEquals("Street Gang's Area", addr.getLine1());
+		assertEquals("Bad Neighbourhood", addr.getLine2());
+		assertEquals("London", addr.getLine3());
+		assertEquals("United Kingdom", addr.getLine4());
 		
 		assertEquals("+44 - 12 - 345 678 9", addr.getTel());
 		assertEquals("", addr.getFax());
@@ -183,12 +183,12 @@ public class TestGCshWritableAddressImpl {
 		// ----------------------------
 		// Modify the object
 
-		addr.setAddressName("Herr Jetztdochkapiert");
+		addr.setName("Herr Jetztdochkapiert");
 		
-		addr.setAddressLine1("Zehnerl-g'rutscht-Str. 10");
-		addr.setAddressLine2("76543 Stuttgart");
-		addr.setAddressLine3("abc");
-		addr.setAddressLine4("def");
+		addr.setLine1("Zehnerl-g'rutscht-Str. 10");
+		addr.setLine2("76543 Stuttgart");
+		addr.setLine3("abc");
+		addr.setLine4("def");
 		
 		addr.setTel("+49-711-27 17 44 00");
 		addr.setFax("+49-711-27 17 44 11");
@@ -223,12 +223,12 @@ public class TestGCshWritableAddressImpl {
 		// ----------------------------
 		// Modify the object
 
-		addr.setAddressName("Frau Brüllaffe-Honigbär");
+		addr.setName("Frau Brüllaffe-Honigbär");
 		
-		addr.setAddressLine1("Unter der alten Brücke");
-		addr.setAddressLine2("12645 Berlin");
-		addr.setAddressLine3("ghi");
-		addr.setAddressLine4("jkl");
+		addr.setLine1("Unter der alten Brücke");
+		addr.setLine2("12645 Berlin");
+		addr.setLine3("ghi");
+		addr.setLine4("jkl");
 		
 		addr.setTel("+49-171-27349376409374934 + 1");
 		addr.setFax("+49-171-27349376409374934 + 2");
@@ -258,12 +258,12 @@ public class TestGCshWritableAddressImpl {
 	// ---------------------------------------------------------------
 
 	private void test02_1_check_memory(GCshWritableAddress addr) throws Exception {
-		assertEquals("Herr Jetztdochkapiert", addr.getAddressName()); // changed
+		assertEquals("Herr Jetztdochkapiert", addr.getName()); // changed
 		
-		assertEquals("Zehnerl-g'rutscht-Str. 10", addr.getAddressLine1()); // changed
-		assertEquals("76543 Stuttgart", addr.getAddressLine2()); // changed
-		assertEquals("abc", addr.getAddressLine3()); // changed
-		assertEquals("def", addr.getAddressLine4()); // changed
+		assertEquals("Zehnerl-g'rutscht-Str. 10", addr.getLine1()); // changed
+		assertEquals("76543 Stuttgart", addr.getLine2()); // changed
+		assertEquals("abc", addr.getLine3()); // changed
+		assertEquals("def", addr.getLine4()); // changed
 		
 		assertEquals("+49-711-27 17 44 00", addr.getTel()); // changed
 		assertEquals("+49-711-27 17 44 11", addr.getFax()); // changed
@@ -278,12 +278,12 @@ public class TestGCshWritableAddressImpl {
 		GCshAddress addr = cust11.getAddress();
 		assertNotEquals(null, addr);
 
-		assertEquals("Herr Jetztdochkapiert", addr.getAddressName()); // changed
+		assertEquals("Herr Jetztdochkapiert", addr.getName()); // changed
 		
-		assertEquals("Zehnerl-g'rutscht-Str. 10", addr.getAddressLine1()); // changed
-		assertEquals("76543 Stuttgart", addr.getAddressLine2()); // changed
-		assertEquals("abc", addr.getAddressLine3()); // changed
-		assertEquals("def", addr.getAddressLine4()); // changed
+		assertEquals("Zehnerl-g'rutscht-Str. 10", addr.getLine1()); // changed
+		assertEquals("76543 Stuttgart", addr.getLine2()); // changed
+		assertEquals("abc", addr.getLine3()); // changed
+		assertEquals("def", addr.getLine4()); // changed
 		
 		assertEquals("+49-711-27 17 44 00", addr.getTel()); // changed
 		assertEquals("+49-711-27 17 44 11", addr.getFax()); // changed
@@ -293,12 +293,12 @@ public class TestGCshWritableAddressImpl {
 	// ----------------------------
 
 	private void test02_2_check_memory(GCshWritableAddress addr) throws Exception {
-		assertEquals("Frau Brüllaffe-Honigbär", addr.getAddressName()); // changed
+		assertEquals("Frau Brüllaffe-Honigbär", addr.getName()); // changed
 		
-		assertEquals("Unter der alten Brücke", addr.getAddressLine1()); // changed
-		assertEquals("12645 Berlin", addr.getAddressLine2()); // changed
-		assertEquals("ghi", addr.getAddressLine3()); // changed
-		assertEquals("jkl", addr.getAddressLine4()); // changed
+		assertEquals("Unter der alten Brücke", addr.getLine1()); // changed
+		assertEquals("12645 Berlin", addr.getLine2()); // changed
+		assertEquals("ghi", addr.getLine3()); // changed
+		assertEquals("jkl", addr.getLine4()); // changed
 		
 		assertEquals("+49-171-27349376409374934 + 1", addr.getTel()); // changed
 		assertEquals("+49-171-27349376409374934 + 2", addr.getFax()); // changed
@@ -313,12 +313,12 @@ public class TestGCshWritableAddressImpl {
 		GCshAddress addr = vend11.getAddress();
 		assertNotEquals(null, addr);
 
-		assertEquals("Frau Brüllaffe-Honigbär", addr.getAddressName()); // changed
+		assertEquals("Frau Brüllaffe-Honigbär", addr.getName()); // changed
 		
-		assertEquals("Unter der alten Brücke", addr.getAddressLine1()); // changed
-		assertEquals("12645 Berlin", addr.getAddressLine2()); // changed
-		assertEquals("ghi", addr.getAddressLine3()); // changed
-		assertEquals("jkl", addr.getAddressLine4()); // changed
+		assertEquals("Unter der alten Brücke", addr.getLine1()); // changed
+		assertEquals("12645 Berlin", addr.getLine2()); // changed
+		assertEquals("ghi", addr.getLine3()); // changed
+		assertEquals("jkl", addr.getLine4()); // changed
 		
 		assertEquals("+49-171-27349376409374934 + 1", addr.getTel()); // changed
 		assertEquals("+49-171-27349376409374934 + 2", addr.getFax()); // changed
@@ -340,12 +340,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 
-		addr1.setAddressName("Roderich der Schreckliche");
+		addr1.setName("Roderich der Schreckliche");
 		
-		addr1.setAddressLine1("Am alten Burggemäuer 1");
-		addr1.setAddressLine2("Altburgen-Schnodderhausen, hinter dem Walde");
-		addr1.setAddressLine3("mno");
-		addr1.setAddressLine4("pqr");
+		addr1.setLine1("Am alten Burggemäuer 1");
+		addr1.setLine2("Altburgen-Schnodderhausen, hinter dem Walde");
+		addr1.setLine3("mno");
+		addr1.setLine4("pqr");
 		
 		addr1.setTel("Tele-was?");
 		addr1.setFax("Schick' er einen berittenen Boten!");
@@ -353,12 +353,12 @@ public class TestGCshWritableAddressImpl {
 		
 		// ---
 
-		addr2.setAddressName("Galvine die Liebliche");
+		addr2.setName("Galvine die Liebliche");
 		
-		addr2.setAddressLine1("Bergfried");
-		addr2.setAddressLine2("Neuenburgen-Schnodderhausen, auch hinter dem Walde");
-		addr2.setAddressLine3("stu");
-		addr2.setAddressLine4("vwx");
+		addr2.setLine1("Bergfried");
+		addr2.setLine2("Neuenburgen-Schnodderhausen, auch hinter dem Walde");
+		addr2.setLine3("stu");
+		addr2.setLine4("vwx");
 		
 		addr2.setTel("Er fragt merkwürd'ge Dinge");
 		addr2.setFax("Faxen geziemen sich nicht für ein Burgfräulein");
@@ -391,12 +391,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 
-		addr1.setAddressName("Capt'n Kork");
+		addr1.setName("Capt'n Kork");
 		
-		addr1.setAddressLine1("Traumschiff Surprise");
-		addr1.setAddressLine2("Irgendwo im WELTALL-all-all...");
-		addr1.setAddressLine3("H2O2");
-		addr1.setAddressLine4("ZPOx");
+		addr1.setLine1("Traumschiff Surprise");
+		addr1.setLine2("Irgendwo im WELTALL-all-all...");
+		addr1.setLine3("H2O2");
+		addr1.setLine4("ZPOx");
 		
 		addr1.setTel("1384315432841354384131514354422663184");
 		addr1.setFax("1384315432841354384131514354422663185");
@@ -429,12 +429,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 
-		addr1.setAddressName("Come-on baby, let's do the Oliver Twist!");
+		addr1.setName("Come-on baby, let's do the Oliver Twist!");
 		
-		addr1.setAddressLine1("sdfg");
-		addr1.setAddressLine2("aödslfkja");
-		addr1.setAddressLine3("aölkdjf");
-		addr1.setAddressLine4("asdöfk");
+		addr1.setLine1("sdfg");
+		addr1.setLine2("aödslfkja");
+		addr1.setLine3("aölkdjf");
+		addr1.setLine4("asdöfk");
 		
 		// ----------------------------
 		// Check whether the object can has actually be created
@@ -460,12 +460,12 @@ public class TestGCshWritableAddressImpl {
 	// ---------------------------------------------------------------
 
 	private void test03_1_check_memory(GCshWritableAddress addr1, GCshWritableAddress addr2) throws Exception {
-		assertEquals("Roderich der Schreckliche", addr1.getAddressName()); // changed
+		assertEquals("Roderich der Schreckliche", addr1.getName()); // changed
 		
-		assertEquals("Am alten Burggemäuer 1", addr1.getAddressLine1()); // changed
-		assertEquals("Altburgen-Schnodderhausen, hinter dem Walde", addr1.getAddressLine2()); // changed
-		assertEquals("mno", addr1.getAddressLine3()); // changed
-		assertEquals("pqr", addr1.getAddressLine4()); // changed
+		assertEquals("Am alten Burggemäuer 1", addr1.getLine1()); // changed
+		assertEquals("Altburgen-Schnodderhausen, hinter dem Walde", addr1.getLine2()); // changed
+		assertEquals("mno", addr1.getLine3()); // changed
+		assertEquals("pqr", addr1.getLine4()); // changed
 		
 		assertEquals("Tele-was?", addr1.getTel()); // changed
 		assertEquals("Schick' er einen berittenen Boten!", addr1.getFax()); // changed
@@ -473,12 +473,12 @@ public class TestGCshWritableAddressImpl {
 		
 		// ---
 		
-		assertEquals("Galvine die Liebliche", addr2.getAddressName()); // changed
+		assertEquals("Galvine die Liebliche", addr2.getName()); // changed
 		
-		assertEquals("Bergfried", addr2.getAddressLine1()); // changed
-		assertEquals("Neuenburgen-Schnodderhausen, auch hinter dem Walde", addr2.getAddressLine2()); // changed
-		assertEquals("stu", addr2.getAddressLine3()); // changed
-		assertEquals("vwx", addr2.getAddressLine4()); // changed
+		assertEquals("Bergfried", addr2.getLine1()); // changed
+		assertEquals("Neuenburgen-Schnodderhausen, auch hinter dem Walde", addr2.getLine2()); // changed
+		assertEquals("stu", addr2.getLine3()); // changed
+		assertEquals("vwx", addr2.getLine4()); // changed
 		
 		assertEquals("Er fragt merkwürd'ge Dinge", addr2.getTel()); // changed
 		assertEquals("Faxen geziemen sich nicht für ein Burgfräulein", addr2.getFax()); // changed
@@ -497,12 +497,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 		
-		assertEquals("Roderich der Schreckliche", addr1.getAddressName()); // changed
+		assertEquals("Roderich der Schreckliche", addr1.getName()); // changed
 		
-		assertEquals("Am alten Burggemäuer 1", addr1.getAddressLine1()); // changed
-		assertEquals("Altburgen-Schnodderhausen, hinter dem Walde", addr1.getAddressLine2()); // changed
-		assertEquals("mno", addr1.getAddressLine3()); // changed
-		assertEquals("pqr", addr1.getAddressLine4()); // changed
+		assertEquals("Am alten Burggemäuer 1", addr1.getLine1()); // changed
+		assertEquals("Altburgen-Schnodderhausen, hinter dem Walde", addr1.getLine2()); // changed
+		assertEquals("mno", addr1.getLine3()); // changed
+		assertEquals("pqr", addr1.getLine4()); // changed
 		
 		assertEquals("Tele-was?", addr1.getTel()); // changed
 		assertEquals("Schick' er einen berittenen Boten!", addr1.getFax()); // changed
@@ -510,12 +510,12 @@ public class TestGCshWritableAddressImpl {
 		
 		// ---
 		
-		assertEquals("Galvine die Liebliche", addr2.getAddressName()); // changed
+		assertEquals("Galvine die Liebliche", addr2.getName()); // changed
 		
-		assertEquals("Bergfried", addr2.getAddressLine1()); // changed
-		assertEquals("Neuenburgen-Schnodderhausen, auch hinter dem Walde", addr2.getAddressLine2()); // changed
-		assertEquals("stu", addr2.getAddressLine3()); // changed
-		assertEquals("vwx", addr2.getAddressLine4()); // changed
+		assertEquals("Bergfried", addr2.getLine1()); // changed
+		assertEquals("Neuenburgen-Schnodderhausen, auch hinter dem Walde", addr2.getLine2()); // changed
+		assertEquals("stu", addr2.getLine3()); // changed
+		assertEquals("vwx", addr2.getLine4()); // changed
 		
 		assertEquals("Er fragt merkwürd'ge Dinge", addr2.getTel()); // changed
 		assertEquals("Faxen geziemen sich nicht für ein Burgfräulein", addr2.getFax()); // changed
@@ -525,12 +525,12 @@ public class TestGCshWritableAddressImpl {
 	// ----------------------------
 
 	private void test03_2_check_memory(GCshWritableAddress addr1) throws Exception {
-		assertEquals("Capt'n Kork", addr1.getAddressName()); // changed
+		assertEquals("Capt'n Kork", addr1.getName()); // changed
 		
-		assertEquals("Traumschiff Surprise", addr1.getAddressLine1()); // changed
-		assertEquals("Irgendwo im WELTALL-all-all...", addr1.getAddressLine2()); // changed
-		assertEquals("H2O2", addr1.getAddressLine3()); // changed
-		assertEquals("ZPOx", addr1.getAddressLine4()); // changed
+		assertEquals("Traumschiff Surprise", addr1.getLine1()); // changed
+		assertEquals("Irgendwo im WELTALL-all-all...", addr1.getLine2()); // changed
+		assertEquals("H2O2", addr1.getLine3()); // changed
+		assertEquals("ZPOx", addr1.getLine4()); // changed
 		
 		assertEquals("1384315432841354384131514354422663184", addr1.getTel()); // changed
 		assertEquals("1384315432841354384131514354422663185", addr1.getFax()); // changed
@@ -547,12 +547,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 		
-		assertEquals("Capt'n Kork", addr1.getAddressName()); // changed
+		assertEquals("Capt'n Kork", addr1.getName()); // changed
 		
-		assertEquals("Traumschiff Surprise", addr1.getAddressLine1()); // changed
-		assertEquals("Irgendwo im WELTALL-all-all...", addr1.getAddressLine2()); // changed
-		assertEquals("H2O2", addr1.getAddressLine3()); // changed
-		assertEquals("ZPOx", addr1.getAddressLine4()); // changed
+		assertEquals("Traumschiff Surprise", addr1.getLine1()); // changed
+		assertEquals("Irgendwo im WELTALL-all-all...", addr1.getLine2()); // changed
+		assertEquals("H2O2", addr1.getLine3()); // changed
+		assertEquals("ZPOx", addr1.getLine4()); // changed
 		
 		assertEquals("1384315432841354384131514354422663184", addr1.getTel()); // changed
 		assertEquals("1384315432841354384131514354422663185", addr1.getFax()); // changed
@@ -562,12 +562,12 @@ public class TestGCshWritableAddressImpl {
 	// ----------------------------
 
 	private void test03_3_check_memory(GCshWritableAddress addr1) throws Exception {
-		assertEquals("Come-on baby, let's do the Oliver Twist!", addr1.getAddressName()); // changed
+		assertEquals("Come-on baby, let's do the Oliver Twist!", addr1.getName()); // changed
 		
-		assertEquals("sdfg", addr1.getAddressLine1()); // changed
-		assertEquals("aödslfkja", addr1.getAddressLine2()); // changed
-		assertEquals("aölkdjf", addr1.getAddressLine3()); // changed
-		assertEquals("asdöfk", addr1.getAddressLine4()); // changed
+		assertEquals("sdfg", addr1.getLine1()); // changed
+		assertEquals("aödslfkja", addr1.getLine2()); // changed
+		assertEquals("aölkdjf", addr1.getLine3()); // changed
+		assertEquals("asdöfk", addr1.getLine4()); // changed
 		
 		assertEquals("", addr1.getTel());
 		assertEquals("", addr1.getFax());
@@ -584,12 +584,12 @@ public class TestGCshWritableAddressImpl {
 
 		// ---
 		
-		assertEquals("Come-on baby, let's do the Oliver Twist!", addr1.getAddressName()); // changed
+		assertEquals("Come-on baby, let's do the Oliver Twist!", addr1.getName()); // changed
 		
-		assertEquals("sdfg", addr1.getAddressLine1()); // changed
-		assertEquals("aödslfkja", addr1.getAddressLine2()); // changed
-		assertEquals("aölkdjf", addr1.getAddressLine3()); // changed
-		assertEquals("asdöfk", addr1.getAddressLine4()); // changed
+		assertEquals("sdfg", addr1.getLine1()); // changed
+		assertEquals("aödslfkja", addr1.getLine2()); // changed
+		assertEquals("aölkdjf", addr1.getLine3()); // changed
+		assertEquals("asdöfk", addr1.getLine4()); // changed
 		
 		assertEquals("", addr1.getTel());
 		assertEquals("", addr1.getFax());

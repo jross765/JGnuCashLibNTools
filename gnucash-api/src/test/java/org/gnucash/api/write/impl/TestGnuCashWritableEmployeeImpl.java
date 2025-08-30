@@ -103,7 +103,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(EMPL_1_ID, empl.getID());
 		assertEquals("000001", empl.getNumber());
 		assertEquals("otwist", empl.getUserName());
-		assertEquals("Oliver Twist", empl.getAddress().getAddressName());
+		assertEquals("Oliver Twist", empl.getAddress().getName());
 	}
 
 	@Test
@@ -162,7 +162,7 @@ public class TestGnuCashWritableEmployeeImpl {
 
 		empl.setNumber("JOEDALTON01");
 		empl.setUserName("jdalton");
-		empl.getWritableAddress().setAddressName("Joe Dalon Sr.");
+		empl.getWritableAddress().setName("Joe Dalon Sr.");
 
 		// ----------------------------
 		// Check whether the object can has actually be modified
@@ -198,7 +198,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(EMPL_1_ID, empl.getID()); // unchanged
 		assertEquals("JOEDALTON01", empl.getNumber()); // changed
 		assertEquals("jdalton", empl.getUserName()); // changed
-		assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+		assertEquals("Joe Dalon Sr.", empl.getAddress().getName()); // changed
 	}
 
 	private void test02_1_check_persisted(File outFile) throws Exception {
@@ -215,7 +215,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(EMPL_1_ID, empl.getID()); // unchanged
 		assertEquals("JOEDALTON01", empl.getNumber()); // changed
 		assertEquals("jdalton", empl.getUserName()); // changed
-		assertEquals("Joe Dalon Sr.", empl.getAddress().getAddressName()); // changed
+		assertEquals("Joe Dalon Sr.", empl.getAddress().getName()); // changed
 	}
 
 	// -----------------------------------------------------------------
@@ -494,7 +494,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		// but it needs to be addressed at some point.
 		assertEquals("000001", empl.getNumber());
 		assertEquals("otwist", empl.getUserName());
-		assertEquals("Oliver Twist", empl.getAddress().getAddressName());
+		assertEquals("Oliver Twist", empl.getAddress().getName());
 		
 		// However, the employee cannot newly be instantiated any more,
 		// just as you would expect.

@@ -338,11 +338,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 				getJwsdpPeer().setCustAddr(getGnuCashFile().getObjectFactory().createAddress());
 			}
 
-			getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getAddressLine1());
-			getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getAddressLine2());
-			getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getAddressLine3());
-			getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getAddressLine4());
-			getJwsdpPeer().getCustAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getCustAddr().setAddrAddr1(adr.getLine1());
+			getJwsdpPeer().getCustAddr().setAddrAddr2(adr.getLine2());
+			getJwsdpPeer().getCustAddr().setAddrAddr3(adr.getLine3());
+			getJwsdpPeer().getCustAddr().setAddrAddr4(adr.getLine4());
+			getJwsdpPeer().getCustAddr().setAddrName(adr.getName());
 			getJwsdpPeer().getCustAddr().setAddrEmail(adr.getEmail());
 			getJwsdpPeer().getCustAddr().setAddrFax(adr.getFax());
 			getJwsdpPeer().getCustAddr().setAddrPhone(adr.getTel());
@@ -400,11 +400,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 				getJwsdpPeer().setCustShipaddr(getGnuCashFile().getObjectFactory().createAddress());
 			}
 
-			getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getAddressLine1());
-			getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getAddressLine2());
-			getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getAddressLine3());
-			getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getAddressLine4());
-			getJwsdpPeer().getCustShipaddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr1(adr.getLine1());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr2(adr.getLine2());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr3(adr.getLine3());
+			getJwsdpPeer().getCustShipaddr().setAddrAddr4(adr.getLine4());
+			getJwsdpPeer().getCustShipaddr().setAddrName(adr.getName());
 			getJwsdpPeer().getCustShipaddr().setAddrEmail(adr.getEmail());
 			getJwsdpPeer().getCustShipaddr().setAddrFax(adr.getFax());
 			getJwsdpPeer().getCustShipaddr().setAddrPhone(adr.getTel());

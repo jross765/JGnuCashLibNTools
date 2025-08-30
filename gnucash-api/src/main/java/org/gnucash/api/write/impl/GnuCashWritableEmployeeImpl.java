@@ -279,11 +279,11 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
 				getJwsdpPeer().setEmployeeAddr(getGnuCashFile().getObjectFactory().createAddress());
 			}
 
-			getJwsdpPeer().getEmployeeAddr().setAddrAddr1(adr.getAddressLine1());
-			getJwsdpPeer().getEmployeeAddr().setAddrAddr2(adr.getAddressLine2());
-			getJwsdpPeer().getEmployeeAddr().setAddrAddr3(adr.getAddressLine3());
-			getJwsdpPeer().getEmployeeAddr().setAddrAddr4(adr.getAddressLine4());
-			getJwsdpPeer().getEmployeeAddr().setAddrName(adr.getAddressName());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr1(adr.getLine1());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr2(adr.getLine2());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr3(adr.getLine3());
+			getJwsdpPeer().getEmployeeAddr().setAddrAddr4(adr.getLine4());
+			getJwsdpPeer().getEmployeeAddr().setAddrName(adr.getName());
 			getJwsdpPeer().getEmployeeAddr().setAddrEmail(adr.getEmail());
 			getJwsdpPeer().getEmployeeAddr().setAddrFax(adr.getFax());
 			getJwsdpPeer().getEmployeeAddr().setAddrPhone(adr.getTel());
