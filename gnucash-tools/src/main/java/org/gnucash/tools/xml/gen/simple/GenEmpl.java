@@ -118,7 +118,7 @@ private static final Logger LOGGER = LoggerFactory.getLogger(GenEmpl.class);
     GnuCashWritableEmployee empl = gcshFile.createWritableEmployee(userName);
     empl.setNumber(GnuCashEmployeeImpl.getNewNumber(empl));
     // empl.setUserName(userName);
-    empl.getAddress().setAddressName(name);
+    empl.getAddress().setName(name);
     
     System.out.println("Employee to write: " + empl.toString());
     gcshFile.writeFile(new File(gcshOutFileName));
