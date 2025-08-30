@@ -29,7 +29,7 @@ public class ConstTest extends Const {
 	
     	public static final int NOF_CUST       = 3;
     	public static final int NOF_VEND       = 3;
-    	public static final int NOF_EMPL       = 1;
+    	public static final int NOF_EMPL       = 2;
     	
     	public static final int NOF_CUST_JOB   = 2;
     	public static final int NOF_VEND_JOB   = 2;

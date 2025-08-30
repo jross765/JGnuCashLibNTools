@@ -39,7 +39,8 @@ public class TestGCshWritableAddressImpl {
 	public static final GCshVendID VEND_1_ID = TestGCshAddressImpl.VEND_1_ID;
 	public static final GCshVendID VEND_2_ID = TestGCshAddressImpl.VEND_2_ID;
 
-	public static final GCshEmplID EMPL_1_ID = TestGCshAddressImpl.EMPL_1ID;
+	public static final GCshEmplID EMPL_1_ID = TestGCshAddressImpl.EMPL_1_ID;
+	public static final GCshEmplID EMPL_2_ID = TestGCshAddressImpl.EMPL_2_ID;
 	
 	// -----------------------------------------------------------------
 
@@ -61,6 +62,7 @@ public class TestGCshWritableAddressImpl {
 	private GnuCashWritableVendor   vend2 = null;
 	
 	private GnuCashWritableEmployee empl1 = null;
+	private GnuCashWritableEmployee empl2 = null;
 	
 	// -----------------------------------------------------------------
 
@@ -102,6 +104,7 @@ public class TestGCshWritableAddressImpl {
 		vend2 = gcshInFile.getWritableVendorByID(VEND_2_ID);
 		
 		empl1 = gcshInFile.getWritableEmployeeByID(EMPL_1_ID);
+		empl2 = gcshInFile.getWritableEmployeeByID(EMPL_2_ID);
 	}
 
 	// -----------------------------------------------------------------
@@ -422,7 +425,7 @@ public class TestGCshWritableAddressImpl {
 	
 	@Test
 	public void test03_3() throws Exception {
-		GCshWritableAddress addr1 = empl1.getWritableAddress();
+		GCshWritableAddress addr1 = empl2.getWritableAddress();
 
 		// ---
 
@@ -566,16 +569,16 @@ public class TestGCshWritableAddressImpl {
 		assertEquals("aölkdjf", addr1.getAddressLine3()); // changed
 		assertEquals("asdöfk", addr1.getAddressLine4()); // changed
 		
-		assertEquals("+44 - 12 - 345 678 9", addr1.getTel()); // unchanged
-		assertEquals("", addr1.getFax()); // unchanged
-		assertEquals("otwist@myco.com", addr1.getEmail()); // unchanged
+		assertEquals("", addr1.getTel());
+		assertEquals("", addr1.getFax());
+		assertEquals("", addr1.getEmail());
 	}
 
 	private void test03_3_check_persisted(File outFile) throws Exception {
 		gcshOutFile = new GnuCashFileImpl(outFile);
 		gcshOutFileStats = new GCshFileStats(gcshOutFile);
 
-		GnuCashEmployee empl11 = gcshOutFile.getEmployeeByID(EMPL_1_ID);
+		GnuCashEmployee empl11 = gcshOutFile.getEmployeeByID(EMPL_2_ID);
 		GCshAddress addr1 = empl11.getAddress();
 		assertNotEquals(null, addr1);
 
@@ -588,9 +591,9 @@ public class TestGCshWritableAddressImpl {
 		assertEquals("aölkdjf", addr1.getAddressLine3()); // changed
 		assertEquals("asdöfk", addr1.getAddressLine4()); // changed
 		
-		assertEquals("+44 - 12 - 345 678 9", addr1.getTel()); // unchanged
-		assertEquals("", addr1.getFax()); // unchanged
-		assertEquals("otwist@myco.com", addr1.getEmail()); // unchanged
+		assertEquals("", addr1.getTel());
+		assertEquals("", addr1.getFax());
+		assertEquals("", addr1.getEmail());
 	}
 
 	// ------------------------------

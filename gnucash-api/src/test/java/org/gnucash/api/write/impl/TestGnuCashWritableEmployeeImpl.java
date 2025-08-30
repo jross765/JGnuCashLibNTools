@@ -33,7 +33,9 @@ import org.w3c.dom.NodeList;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashWritableEmployeeImpl {
+	
 	private static final GCshEmplID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	private static final GCshEmplID EMPL_2_ID = TestGnuCashEmployeeImpl.EMPL_2_ID;
 
 	// -----------------------------------------------------------------
 
@@ -370,7 +372,7 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(Node.ELEMENT_NODE, lastNode.getNodeType());
 		Element elt = (Element) lastNode;
 		assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-		assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 	}
 
 	// -----------------------------------------------------------------
@@ -417,19 +419,19 @@ public class TestGnuCashWritableEmployeeImpl {
 		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 		Element elt = (Element) node;
 		assertEquals("Émilie Chauchoin", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-		assertEquals("000002", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
 		node = nList.item(nList.getLength() - 2);
 		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 		elt = (Element) node;
 		assertEquals("Shirley Beaty", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-		assertEquals("000003", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 
 		node = nList.item(nList.getLength() - 1);
 		assertEquals(Node.ELEMENT_NODE, node.getNodeType());
 		elt = (Element) node;
 		assertEquals("Stefani Germanotta", elt.getElementsByTagName("employee:username").item(0).getTextContent());
-		assertEquals("000004", elt.getElementsByTagName("employee:id").item(0).getTextContent());
+		assertEquals("000005", elt.getElementsByTagName("employee:id").item(0).getTextContent());
 	}
 
 	// -----------------------------------------------------------------

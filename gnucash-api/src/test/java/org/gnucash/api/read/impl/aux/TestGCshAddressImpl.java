@@ -32,7 +32,8 @@ public class TestGCshAddressImpl {
 	public static final GCshVendID VEND_1_ID = TestGnuCashVendorImpl.VEND_1_ID;
 	public static final GCshVendID VEND_2_ID = TestGnuCashVendorImpl.VEND_2_ID;
 
-	public static final GCshEmplID EMPL_1ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	public static final GCshEmplID EMPL_1_ID = TestGnuCashEmployeeImpl.EMPL_1_ID;
+	public static final GCshEmplID EMPL_2_ID = TestGnuCashEmployeeImpl.EMPL_2_ID;
 
 	// -----------------------------------------------------------------
 

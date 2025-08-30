@@ -83,7 +83,7 @@
       </slot>
       <slot>
         <slot:key>gncEmployee</slot:key>
-        <slot:value type="integer">1</slot:value>
+        <slot:value type="integer">2</slot:value>
       </slot>
       <slot>
         <slot:key>gncExpVoucher</slot:key>
@@ -219,7 +219,7 @@
 <gnc:count-data cd:type="price">23</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncBillTerm">3</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncCustomer">3</gnc:count-data>
-<gnc:count-data cd:type="gnc:GncEmployee">1</gnc:count-data>
+<gnc:count-data cd:type="gnc:GncEmployee">2</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncEntry">15</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncInvoice">9</gnc:count-data>
 <gnc:count-data cd:type="gnc:GncJob">4</gnc:count-data>
@@ -3139,6 +3139,21 @@
   <employee:active>1</employee:active>
   <employee:workday>1400000/100000</employee:workday>
   <employee:rate>100/100</employee:rate>
+  <employee:currency>
+    <cmdty:space>CURRENCY</cmdty:space>
+    <cmdty:id>EUR</cmdty:id>
+  </employee:currency>
+</gnc:GncEmployee>
+<gnc:GncEmployee version="2.0.0">
+  <employee:guid type="guid">b7af86fc0f3e4b16a23424bc5d150cd1</employee:guid>
+  <employee:username>Herbert Blucksefuchs</employee:username>
+  <employee:id>000002</employee:id>
+  <employee:addr version="2.0.0">
+    <addr:name>Employee No. 2</addr:name>
+  </employee:addr>
+  <employee:active>1</employee:active>
+  <employee:workday>0/1</employee:workday>
+  <employee:rate>0/1</employee:rate>
   <employee:currency>
     <cmdty:space>CURRENCY</cmdty:space>
     <cmdty:id>EUR</cmdty:id>

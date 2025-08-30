@@ -18,7 +18,9 @@ import org.junit.Test;
 import junit.framework.JUnit4TestAdapter;
 
 public class TestGnuCashEmployeeImpl {
+	
 	public static final GCshEmplID EMPL_1_ID = new GCshEmplID("7f70b352dcf44a5d8085767a53a9bc37");
+	public static final GCshEmplID EMPL_2_ID = new GCshEmplID("b7af86fc0f3e4b16a23424bc5d150cd1");
 
 	// -----------------------------------------------------------------
 
