@@ -82,9 +82,11 @@ public interface GnuCashWritableCustomer extends GnuCashCustomer,
      */
     GCshWritableAddress getWritableShippingAddress();
     
-    GCshWritableAddress createWritableShippingAddress();
+//  sic, not necessary / counter-productive:
+//  GCshWritableAddress createWritableShippingAddress();
     
-	void removeShippingAddress(GCshWritableAddress impl);
+//  dto.:   
+//	void removeShippingAddress(GCshWritableAddress impl);
 
     void setShippingAddress(GCshAddress adr);
 }

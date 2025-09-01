@@ -482,7 +482,6 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		}
 
 		GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-		// ::TODO
 		if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 			LOGGER.error("getCustInvcApplicableTaxPercent: Customer invoice entry with id '" + getID()
 					+ "' is taxable but has a i-taxtable of type '" + taxTabEntr.getType() + "' "
@@ -540,8 +539,6 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		}
 
 		GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-
-		// ::TODO
 		if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 			LOGGER.error("getVendBllApplicableTaxPercent: Vendor bill entry with id '" + getID()
 					+ "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "' "
@@ -591,8 +588,6 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 		}
 
 		GCshTaxTableEntry taxTabEntr = taxTab.getEntries().get(0);
-
-		// ::TODO
 		if ( taxTabEntr.getType() == GCshTaxTableEntry.Type.VALUE ) {
 			LOGGER.error("getEmplVchApplicableTaxPercent: Employee voucher entry with id '" + getID()
 					+ "' is taxable but has a b-taxtable of type '" + taxTabEntr.getType() + "' "

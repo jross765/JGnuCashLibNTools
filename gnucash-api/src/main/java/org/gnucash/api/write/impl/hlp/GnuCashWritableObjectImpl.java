@@ -35,7 +35,6 @@ public class GnuCashWritableObjectImpl extends GnuCashObjectImpl
 
 	public GnuCashWritableObjectImpl(final GnuCashWritableFile myFile) {
 		super(myFile);
-		// TODO implement constructor for GnuCashWritableObjectHelper
 	}
 
 	/**
@@ -122,7 +121,7 @@ public class GnuCashWritableObjectImpl extends GnuCashObjectImpl
 
 	@Override
 	public String toString() {
-		return "GnuCashWritableObjectHelper@" + hashCode();
+		return "GnuCashWritableObjectImpl@" + hashCode();
 	}
 
 }

@@ -369,17 +369,6 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     	return getWritableShippingAddress();
     }
 
-	@Override
-	public GCshWritableAddress createWritableShippingAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeShippingAddress(GCshWritableAddress impl) {
-		// TODO Auto-generated method stub
-	}
-
     /**
      * @see #setAddress(GCshAddress)
      */
@@ -437,11 +426,11 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 
     // ::TODO
 //    @Override
-//    public Collection<GnuCashGenerInvoice> getInvoices() {
-//	Collection<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+//    public Collection<GnuCashWritableGenerInvoice> getWritableInvoices() {
+//	Collection<GnuCashWritableGenerInvoice> retval = new ArrayList<GnuCashWritableGenerInvoice>();
 //
 //	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
-//	    retval.add(invc);
+//	    retval.add(new GnuCashWritableCustomerInvoiceImpl(invc));
 //	}
 //	
 //	for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_viaAllJobs(this) ) {

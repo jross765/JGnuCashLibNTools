@@ -39,7 +39,6 @@ public class GnuCashCustomerJobImpl extends GnuCashGenerJobImpl
 		if ( job.getOwnerType() != GnuCashGenerJob.TYPE_CUSTOMER )
 			throw new WrongJobTypeException();
 
-		// ::TODO
 //		for ( GnuCashGenerInvoice invc : job.getInvoices() )
 //		{
 //	    	addInvoice(new GnuCashJobInvoiceImpl(invc));

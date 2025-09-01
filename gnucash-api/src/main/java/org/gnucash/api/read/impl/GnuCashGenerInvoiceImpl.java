@@ -432,9 +432,12 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 
 		FixedPointNumber retval = new FixedPointNumber();
 
-		// TODO: we should sum them without taxes grouped by tax% and
-		// multiply the sums with the tax% to be calculating
-		// correctly
+		// Note: On the one hand, good practice and experience mandates,
+		// in order to be calculating correctly, that the sums be computed 
+		// without taxes first (grouped by tax%) and then the sums be 
+		// multiplied by the resp. tax% values. 
+		// On the other hand: We are calculating with BigDecimal, i.e.
+		// with arbitrary precision, so it does not really matter.
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
 			if ( entry.getType() == getType() ) {
@@ -603,9 +606,12 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	private FixedPointNumber getVendBllAmountWithTaxes_int() {
 		FixedPointNumber retval = new FixedPointNumber();
 
-		// TODO: we should sum them without taxes grouped by tax% and
-		// multiply the sums with the tax% to be calculating
-		// correctly
+		// Note: On the one hand, good practice and experience mandates,
+		// in order to be calculating correctly, that the sums be computed 
+		// without taxes first (grouped by tax%) and then the sums be 
+		// multiplied by the resp. tax% values. 
+		// On the other hand: We are calculating with BigDecimal, i.e.
+		// with arbitrary precision, so it does not really matter.
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
 			if ( entry.getType() == getType() ) {
@@ -753,9 +759,12 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 	public FixedPointNumber getEmplVchAmountWithTaxes() {
 		FixedPointNumber retval = new FixedPointNumber();
 
-		// TODO: we should sum them without taxes grouped by tax% and
-		// multiply the sums with the tax% to be calculating
-		// correctly
+		// Note: On the one hand, good practice and experience mandates,
+		// in order to be calculating correctly, that the sums be computed 
+		// without taxes first (grouped by tax%) and then the sums be 
+		// multiplied by the resp. tax% values. 
+		// On the other hand: We are calculating with BigDecimal, i.e.
+		// with arbitrary precision, so it does not really matter.
 
 		for ( GnuCashGenerInvoiceEntry entry : getGenerEntries() ) {
 			if ( entry.getType() == getType() ) {
