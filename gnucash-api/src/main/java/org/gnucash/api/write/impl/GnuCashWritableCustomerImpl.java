@@ -9,12 +9,15 @@ import org.gnucash.api.generated.GncGncCustomer;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashCustomer;
+import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnuCashCustomerImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
 import org.gnucash.api.read.impl.spec.GnuCashCustomerInvoiceImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.spec.GnuCashCustomerInvoice;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.aux.GCshWritableAddress;
@@ -22,6 +25,7 @@ import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableCustomerInvoiceImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
 import org.gnucash.api.write.spec.GnuCashWritableCustomerInvoice;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
 import org.gnucash.base.basetypes.simple.GCshCustID;
@@ -406,7 +410,7 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
     // GnuCashCustomerImpl.
     // They are actually necessary -- if we used the according methods 
     // in the super class, the results would be incorrect.
-    // Admittedly, this is probably the most elegant solution, but it works.
+    // Admittedly, this is probably not the most elegant solution, but it works.
     // (In fact, I have been bug-hunting long hours before fixing it
     // by these overrides, and to this day, I have not fully understood
     // all the intricacies involved, to be honest. Moving on to other
@@ -424,22 +428,21 @@ public class GnuCashWritableCustomerImpl extends GnuCashCustomerImpl
 
     // ----------------------------
 
-    // ::TODO
-//    @Override
-//    public Collection<GnuCashWritableGenerInvoice> getWritableInvoices() {
-//	Collection<GnuCashWritableGenerInvoice> retval = new ArrayList<GnuCashWritableGenerInvoice>();
-//
-//	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
-//	    retval.add(new GnuCashWritableCustomerInvoiceImpl(invc));
-//	}
-//	
-//	for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_viaAllJobs(this) ) {
-//	    retval.add(invc);
-//	}
-//	
-//	return retval;
-//    }
-//
+    @Override
+    public List<GnuCashGenerInvoice> getInvoices() {
+		ArrayList<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+
+		for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
+			retval.add(new GnuCashWritableCustomerInvoiceImpl((GnuCashCustomerInvoiceImpl) invc));
+		}
+
+		for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_viaAllJobs(this) ) {
+			retval.add(new GnuCashWritableJobInvoiceImpl((GnuCashJobInvoiceImpl) invc));
+		}
+
+		return retval;
+    }
+
     @Override
     public List<GnuCashCustomerInvoice> getPaidInvoices_direct() {
 		List<GnuCashCustomerInvoice> result = new ArrayList<GnuCashCustomerInvoice>();

@@ -8,12 +8,15 @@ import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncGncVendor;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
+import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.GnuCashVendor;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnuCashVendorImpl;
 import org.gnucash.api.read.impl.hlp.SlotListDoesNotContainKeyException;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
 import org.gnucash.api.read.impl.spec.GnuCashVendorBillImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.write.GnuCashWritableCustomer;
 import org.gnucash.api.write.GnuCashWritableFile;
@@ -22,6 +25,7 @@ import org.gnucash.api.write.aux.GCshWritableAddress;
 import org.gnucash.api.write.impl.aux.GCshWritableAddressImpl;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
 import org.gnucash.api.write.impl.hlp.HasWritableUserDefinedAttributesImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
 import org.gnucash.api.write.impl.spec.GnuCashWritableVendorBillImpl;
 import org.gnucash.api.write.spec.GnuCashWritableVendorBill;
 import org.gnucash.base.basetypes.complex.GCshCmdtyCurrNameSpace;
@@ -304,7 +308,7 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
     // GnuCashCustomerImpl.
     // They are actually necessary -- if we used the according methods 
     // in the super class, the results would be incorrect.
-    // Admittedly, this is probably the most elegant solution, but it works.
+    // Admittedly, this is probably not the most elegant solution, but it works.
     // (In fact, I have been bug-hunting long hours before fixing it
     // by these overrides, and to this day, I have not fully understood
     // all the intricacies involved, to be honest. Moving on to other
@@ -322,22 +326,21 @@ public class GnuCashWritableVendorImpl extends GnuCashVendorImpl
 
     // ----------------------------
 
-    // ::TODO
-//    @Override
-//    public Collection<GnuCashGenerInvoice> getInvoices() {
-//	Collection<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
-//
-//	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_direct(this) ) {
-//	    retval.add(invc);
-//	}
-//	
-//	for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForCustomer_viaAllJobs(this) ) {
-//	    retval.add(invc);
-//	}
-//	
-//	return retval;
-//    }
-//
+    @Override
+    public List<GnuCashGenerInvoice> getBills() {
+		ArrayList<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+
+		for ( GnuCashVendorBill bll : getWritableGnuCashFile().getBillsForVendor_direct(this) ) {
+			retval.add(new GnuCashWritableVendorBillImpl((GnuCashVendorBillImpl) bll));
+		}
+
+		for ( GnuCashJobInvoice bll : getWritableGnuCashFile().getBillsForVendor_viaAllJobs(this) ) {
+			retval.add(new GnuCashWritableJobInvoiceImpl((GnuCashJobInvoiceImpl) bll));
+		}
+
+		return retval;
+    }
+
     @Override
     public List<GnuCashVendorBill> getPaidBills_direct() {
 		List<GnuCashVendorBill> result = new ArrayList<GnuCashVendorBill>();

@@ -9,6 +9,7 @@ import org.gnucash.api.generated.GncGncEmployee;
 import org.gnucash.api.generated.ObjectFactory;
 import org.gnucash.api.generated.SlotsType;
 import org.gnucash.api.read.GnuCashEmployee;
+import org.gnucash.api.read.GnuCashGenerInvoice;
 import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshAddress;
 import org.gnucash.api.read.impl.GnuCashEmployeeImpl;
@@ -297,7 +298,7 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     // GnuCashEmployeeImpl.
     // They are actually necessary -- if we used the according methods 
     // in the super class, the results would be incorrect.
-    // Admittedly, this is probably the most elegant solution, but it works.
+    // Admittedly, this is probably not the most elegant solution, but it works.
     // (In fact, I have been bug-hunting long hours before fixing it
     // by these overrides, and to this day, I have not fully understood
     // all the intricacies involved, to be honest. Moving on to other
@@ -314,6 +315,17 @@ public class GnuCashWritableEmployeeImpl extends GnuCashEmployeeImpl
     }
 
     // ----------------------------
+
+    @Override
+    public List<GnuCashGenerInvoice> getVouchers() {
+		ArrayList<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
+
+		for ( GnuCashEmployeeVoucher vch : getWritableGnuCashFile().getVouchersForEmployee(this) ) {
+			retval.add(new GnuCashWritableEmployeeVoucherImpl((GnuCashEmployeeVoucherImpl) vch));
+		}
+
+		return retval;
+    }
 
     @Override
     public List<GnuCashEmployeeVoucher> getPaidVouchers() {

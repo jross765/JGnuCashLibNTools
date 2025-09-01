@@ -152,6 +152,10 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 		}
     }
 
+    public GnuCashWritableGenerInvoiceImpl(final GnuCashGenerInvoiceImpl invc) {
+    	super(invc.getJwsdpPeer(), invc.getGnuCashFile());
+    }
+    
     // ---------------------------------------------------------------
 
     /**

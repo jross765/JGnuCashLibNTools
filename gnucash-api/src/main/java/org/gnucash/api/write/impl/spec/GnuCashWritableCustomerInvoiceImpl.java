@@ -146,6 +146,10 @@ public class GnuCashWritableCustomerInvoiceImpl extends GnuCashWritableGenerInvo
 		} // for trx
 	}
 
+    public GnuCashWritableCustomerInvoiceImpl(final GnuCashCustomerInvoiceImpl invc) {
+    	super(invc.getJwsdpPeer(), invc.getGnuCashFile());
+    }
+    
 	// ---------------------------------------------------------------
 
 	/**

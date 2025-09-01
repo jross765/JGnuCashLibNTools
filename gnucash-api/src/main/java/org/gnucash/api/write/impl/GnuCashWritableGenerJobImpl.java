@@ -1,6 +1,8 @@
 package org.gnucash.api.write.impl;
 
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.gnucash.api.Const;
 import org.gnucash.api.generated.GncGncJob;
@@ -10,12 +12,16 @@ import org.gnucash.api.read.GnuCashCustomer;
 import org.gnucash.api.read.GnuCashFile;
 import org.gnucash.api.read.GnuCashGenerJob;
 import org.gnucash.api.read.GnuCashVendor;
+import org.gnucash.api.read.TaxTableNotFoundException;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.impl.GnuCashGenerJobImpl;
 import org.gnucash.api.read.impl.aux.GCshOwnerImpl;
+import org.gnucash.api.read.impl.spec.GnuCashJobInvoiceImpl;
+import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerJob;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
+import org.gnucash.api.write.impl.spec.GnuCashWritableJobInvoiceImpl;
 import org.gnucash.base.basetypes.simple.GCshGenerJobID;
 import org.gnucash.base.basetypes.simple.GCshID;
 import org.gnucash.base.basetypes.simple.GCshIDNotSetException;
@@ -377,6 +383,40 @@ public abstract class GnuCashWritableGenerJobImpl extends GnuCashGenerJobImpl
 			propertyChangeFirer.firePropertyChange("active", oldJobActive, jobActive);
 		}
 	}
+
+    // -----------------------------------------------------------------
+    // The methods in this part are overridden methods from
+    // GnuCashCustomerImpl.
+    // They are actually necessary -- if we used the according methods 
+    // in the super class, the results would be incorrect.
+    // Admittedly, this is probably not the most elegant solution, but it works.
+    // (In fact, I have been bug-hunting long hours before fixing it
+    // by these overrides, and to this day, I have not fully understood
+    // all the intricacies involved, to be honest. Moving on to other
+    // to-dos...).
+    // Cf. comments in FileInvoiceManager (write-version).
+
+    @Override
+    public int getNofOpenInvoices() {
+		try {
+			return getWritableGnuCashFile().getUnpaidWritableInvoicesForJob(this).size();
+		} catch (TaxTableNotFoundException e) {
+			throw new IllegalStateException("Encountered tax table exception");
+		}
+    }
+
+    // ----------------------------
+
+	@Override
+	public List<GnuCashJobInvoice> getInvoices() {
+		ArrayList<GnuCashJobInvoice> retval = new ArrayList<GnuCashJobInvoice>();
+
+		for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForJob(this) ) {
+			retval.add(new GnuCashWritableJobInvoiceImpl((GnuCashJobInvoiceImpl) invc));
+		}
+
+		return retval;
+    }
 
     // ---------------------------------------------------------------
 

@@ -269,8 +269,8 @@ public class GnuCashEmployeeImpl extends GnuCashObjectImpl
     public List<GnuCashGenerInvoice> getVouchers() {
     	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-    	for ( GnuCashEmployeeVoucher invc : getGnuCashFile().getVouchersForEmployee(this) ) {
-    		retval.add(invc);
+    	for ( GnuCashEmployeeVoucher vch : getGnuCashFile().getVouchersForEmployee(this) ) {
+    		retval.add(vch);
     	}
 	
     	return retval;

@@ -383,12 +383,12 @@ public class GnuCashVendorImpl extends GnuCashObjectImpl
     public List<GnuCashGenerInvoice> getBills() {
 		List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
 
-		for ( GnuCashVendorBill invc : getGnuCashFile().getBillsForVendor_direct(this) ) {
-			retval.add(invc);
+		for ( GnuCashVendorBill bll : getGnuCashFile().getBillsForVendor_direct(this) ) {
+			retval.add(bll);
 		}
 
-		for ( GnuCashJobInvoice invc : getGnuCashFile().getBillsForVendor_viaAllJobs(this) ) {
-			retval.add(invc);
+		for ( GnuCashJobInvoice bll : getGnuCashFile().getBillsForVendor_viaAllJobs(this) ) {
+			retval.add(bll);
 		}
 
 		return retval;

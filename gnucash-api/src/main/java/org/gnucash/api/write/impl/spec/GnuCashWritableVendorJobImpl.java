@@ -255,17 +255,15 @@ public class GnuCashWritableVendorJobImpl extends GnuCashWritableGenerJobImpl
 	// The methods in this part are the "writable"-variants of
 	// the according ones in the super class GnuCashCustomerImpl.
 
-	// ::TODO
-//    @Override
-//    public List<GnuCashGenerInvoice> getWritableInvoices() {
-//	List<GnuCashGenerInvoice> retval = new ArrayList<GnuCashGenerInvoice>();
-//
-//	for ( GnuCashCustomerInvoice invc : getWritableGnuCashFile().getInvoicesForJob(this) ) {
-//	    retval.add(invc);
-//	}
-//	
-//	return retval;
-//    }
+    public List<GnuCashWritableJobInvoice> getWritableInvoices() {
+    	List<GnuCashWritableJobInvoice> retval = new ArrayList<GnuCashWritableJobInvoice>();
+
+    	for ( GnuCashJobInvoice invc : getWritableGnuCashFile().getInvoicesForJob(this) ) {
+    		retval.add(new GnuCashWritableJobInvoiceImpl((GnuCashJobInvoiceImpl) invc));
+    	}
+	
+    	return retval;
+    }
 
 	public List<GnuCashWritableJobInvoice> getPaidWritableInvoices()
 			throws TaxTableNotFoundException {

@@ -158,6 +158,10 @@ public class GnuCashWritableJobInvoiceImpl extends GnuCashWritableGenerInvoiceIm
 		} // for trx
 	}
 
+    public GnuCashWritableJobInvoiceImpl(final GnuCashJobInvoiceImpl invc) {
+    	super(invc.getJwsdpPeer(), invc.getGnuCashFile());
+    }
+    
 	// ---------------------------------------------------------------
 
 	/**

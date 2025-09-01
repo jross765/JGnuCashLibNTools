@@ -147,6 +147,10 @@ public class GnuCashWritableEmployeeVoucherImpl extends GnuCashWritableGenerInvo
 		} // for trx
 	}
 
+    public GnuCashWritableEmployeeVoucherImpl(final GnuCashEmployeeVoucherImpl invc) {
+    	super(invc.getJwsdpPeer(), invc.getGnuCashFile());
+    }
+    
 	// ---------------------------------------------------------------
 
 	/**
