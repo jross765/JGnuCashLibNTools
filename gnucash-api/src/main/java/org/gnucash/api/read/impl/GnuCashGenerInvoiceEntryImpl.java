@@ -1,5 +1,6 @@
 package org.gnucash.api.read.impl;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -904,7 +905,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getCustInvcSum_int();
     	}
 
-    	return getCustInvcSum_int().multiply(getCustInvcApplicableTaxPercent().add(1));
+    	return getCustInvcSum_int().multiply(getCustInvcApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     /**
@@ -925,7 +926,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getCustInvcSum_int();
     	}
 
-    	return getCustInvcSum_int().divide(getCustInvcApplicableTaxPercent().add(1));
+    	return getCustInvcSum_int().divide(getCustInvcApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     // ----------------------------
@@ -993,7 +994,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getVendBllSum_int();
     	}
 
-    	return getVendBllSum_int().multiply(getVendBllApplicableTaxPercent().add(1));
+    	return getVendBllSum_int().multiply(getVendBllApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     /**
@@ -1014,7 +1015,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
     		return getVendBllSum_int();
     	}
 
-    	return getVendBllSum_int().divide(getVendBllApplicableTaxPercent().add(1));
+    	return getVendBllSum_int().divide(getVendBllApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     // ----------------------------
@@ -1074,7 +1075,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 			return getVendBllSum();
 		}
 
-		return getEmplVchSum().multiply(getEmplVchApplicableTaxPercent().add(1));
+		return getEmplVchSum().multiply(getEmplVchApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     /**
@@ -1091,7 +1092,7 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
 			return getEmplVchSum();
 		}
 
-		return getEmplVchSum().divide(getEmplVchApplicableTaxPercent().add(1));
+		return getEmplVchSum().divide(getEmplVchApplicableTaxPercent().add(BigDecimal.ONE));
     }
 
     // ----------------------------
