@@ -86,13 +86,6 @@ public class GnuCashWritablePriceImpl extends GnuCashPriceImpl
 
     // ---------------------------------------------------------------
     
-    // ::TODO
-//  public GCshWritablePrice createWritablePrice(final GCshPrice prc) {
-//	GCshWritablePriceImpl splt = new GCshWritablePriceImpl(this, prc);
-//	addPrice(splt);
-//	return splt;
-//  }
-
     private static Price createPrice_int(
 	    final GnuCashWritableFileImpl file, 
 	    final GCshPrcID newID) {
