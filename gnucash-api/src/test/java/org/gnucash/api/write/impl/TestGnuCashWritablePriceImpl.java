@@ -51,6 +51,7 @@ public class TestGnuCashWritablePriceImpl {
 	public static final GCshPrcID PRC_17_ID = TestGnuCashPriceImpl.PRC_17_ID;
 	public static final GCshPrcID PRC_18_ID = TestGnuCashPriceImpl.PRC_18_ID;
 	public static final GCshPrcID PRC_19_ID = TestGnuCashPriceImpl.PRC_19_ID;
+	public static final GCshPrcID PRC_20_ID = TestGnuCashPriceImpl.PRC_20_ID;
 	
 	public static final String CMDTY_2_ID = TestGnuCashPriceImpl.CMDTY_2_ID;
 	public static final String CMDTY_2_ISIN = TestGnuCashPriceImpl.CMDTY_2_ISIN;
@@ -142,10 +143,10 @@ public class TestGnuCashWritablePriceImpl {
 		prcList.sort(Comparator.naturalOrder());
 
 		assertEquals(ConstTest.Stats.NOF_PRC, prcList.size());
-		assertEquals(PRC_10_ID, prcList.get(0).getID());
-		assertEquals(PRC_11_ID, prcList.get(1).getID());
-		assertEquals(PRC_12_ID, prcList.get(2).getID());
-		assertEquals(PRC_13_ID, prcList.get(3).getID());
+		assertEquals(PRC_20_ID, prcList.get(0).getID());
+		assertEquals(PRC_19_ID, prcList.get(1).getID());
+		assertEquals(PRC_17_ID, prcList.get(2).getID());
+		assertEquals(PRC_18_ID, prcList.get(3).getID());
 	}
 
 	@Test

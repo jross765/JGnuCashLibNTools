@@ -48,6 +48,7 @@ public class TestGnuCashPriceImpl {
 	public static final GCshPrcID PRC_17_ID = new GCshPrcID("861b7b820a644f48a9ebc32577ce9720"); // USD/EUR
 	public static final GCshPrcID PRC_18_ID = new GCshPrcID("f011f1d79cb844d88aa21a622ecebba8"); // USD/EUR
 	public static final GCshPrcID PRC_19_ID = new GCshPrcID("7c6ab10fde9943ccbfb1623d58a9448a"); // USD/EUR
+	public static final GCshPrcID PRC_20_ID = new GCshPrcID("037c268b47fb46d385360b1c9788a459"); // USD/EUR
 	
 	public static final String CMDTY_2_ID = TestGnuCashCommodityImpl.CMDTY_2_ID;
 	public static final String CMDTY_2_ISIN = TestGnuCashCommodityImpl.CMDTY_2_ISIN;
@@ -124,10 +125,10 @@ public class TestGnuCashPriceImpl {
 		//		System.err.println("=============");
 
 		assertEquals(ConstTest.Stats.NOF_PRC, prcList.size());
-		assertEquals(PRC_10_ID, prcList.get(0).getID());
-		assertEquals(PRC_11_ID, prcList.get(1).getID());
-		assertEquals(PRC_12_ID, prcList.get(2).getID()); // <-- CAUTION index!
-		assertEquals(PRC_13_ID, prcList.get(3).getID()); // <-- CAUTION index!
+		assertEquals(PRC_20_ID, prcList.get(0).getID());
+		assertEquals(PRC_19_ID, prcList.get(1).getID());
+		assertEquals(PRC_17_ID, prcList.get(2).getID());
+		assertEquals(PRC_18_ID, prcList.get(3).getID());
 	}
 
 	// ---------------------------------------------------------------

@@ -276,15 +276,13 @@ public class GnuCashPriceImpl extends GnuCashObjectImpl
     // -----------------------------------------------------------------
 
     @Override
-    // ::TODO ::CHECK Check the order yet again (and have it consistent
-    // with sister project)
 	public int compareTo(final GnuCashPrice otherPrc) {
-		int i = getDate().compareTo(otherPrc.getDate());
+		int i = getFromCmdtyCurrQualifID().toString().compareTo(otherPrc.getFromCmdtyCurrQualifID().toString());
 		if ( i != 0 ) {
 			return i;
 		}
 
-		i = getFromCmdtyCurrQualifID().toString().compareTo(otherPrc.getFromCmdtyCurrQualifID().toString());
+		i = getDate().compareTo(otherPrc.getDate());
 		if ( i != 0 ) {
 			return i;
 		}
