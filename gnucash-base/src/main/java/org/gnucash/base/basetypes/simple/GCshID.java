@@ -29,103 +29,103 @@ public class GCshID {
     // -----------------------------------------------------------------
 
     public GCshID() {
-	reset();
+    	reset();
     }
 
     public GCshID(String idStr) throws InvalidGCshIDException {
-   	set(idStr.replaceAll("-", ""));
+    	set(idStr.replaceAll("-", ""));
     }
 
     public GCshID(UUID uuid) throws InvalidGCshIDException {
-   	set(uuid.toString().replaceAll("-", ""));
+    	set(uuid.toString().replaceAll("-", ""));
     }
 
     // -----------------------------------------------------------------
 
     public void reset() {
-	gcshID = "";
-	isSet = false;
+    	gcshID = "";
+    	isSet = false;
     }
 
     public String get() throws GCshIDNotSetException {
-	if (!isSet)
-	    throw new GCshIDNotSetException();
+    	if (!isSet)
+    		throw new GCshIDNotSetException();
 
-	return gcshID;
+    	return gcshID;
     }
 
     public boolean isSet() {
-	return isSet;
+    	return isSet;
     }
 
     // -----------------------------------------------------------------
 
     public void set(GCshID value) throws GCshIDNotSetException {
-	set(value.get());
+    	set(value.get());
     }
 
     public void set(String idStr) throws InvalidGCshIDException {
-	this.gcshID = idStr;
-	standardize();
-	validate();
-	isSet = true;
+    	this.gcshID = idStr;
+    	standardize();
+    	validate();
+    	isSet = true;
     }
 
     // -----------------------------------------------------------------
 
     public void validate() throws InvalidGCshIDException {
-	if ( gcshID.length() != STANDARD_LENGTH )
-	    throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong string length");
+    	if ( gcshID.length() != STANDARD_LENGTH )
+    		throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong string length");
 
-	for ( int i = 0; i < STANDARD_LENGTH; i++ ) {
-	    if ( ! Character.isDigit(gcshID.charAt(i) ) &&
-		 gcshID.charAt(i) != 'a' &&
-		 gcshID.charAt(i) != 'b' &&
-		 gcshID.charAt(i) != 'c' &&
-		 gcshID.charAt(i) != 'd' &&
-		 gcshID.charAt(i) != 'e' &&
-		 gcshID.charAt(i) != 'f' ) 
-	    {
-		LOGGER.error("Char '" + gcshID.charAt(i) + "' is invalid in GCshID '" + gcshID + "'");
-		throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong character at pos " + i);
-	    }
-	}
+    	for ( int i = 0; i < STANDARD_LENGTH; i++ ) {
+    		if ( ! Character.isDigit(gcshID.charAt(i) ) &&
+    			 gcshID.charAt(i) != 'a' &&
+    			 gcshID.charAt(i) != 'b' &&
+    			 gcshID.charAt(i) != 'c' &&
+    			 gcshID.charAt(i) != 'd' &&
+    			 gcshID.charAt(i) != 'e' &&
+    			 gcshID.charAt(i) != 'f' ) 
+    		{
+    			LOGGER.error("Char '" + gcshID.charAt(i) + "' is invalid in GCshID '" + gcshID + "'");
+    			throw new InvalidGCshIDException("No valid GnuCash ID string: '" + gcshID + "': wrong character at pos " + i);
+    		}
+    	}
     }
 
     // -----------------------------------------------------------------
 
     public void standardize() {
-	gcshID = gcshID.trim().toLowerCase();
+    	gcshID = gcshID.trim().toLowerCase();
     }
 
     // -----------------------------------------------------------------
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + (isSet ? 1231 : 1237);
-	result = prime * result + ((gcshID == null) ? 0 : gcshID.hashCode());
-	return result;
+    	final int prime = 31;
+    	int result = 1;
+    	result = prime * result + (isSet ? 1231 : 1237);
+    	result = prime * result + ((gcshID == null) ? 0 : gcshID.hashCode());
+    	return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-	if (this == obj)
-	    return true;
-	if (obj == null)
-	    return false;
-	if (getClass() != obj.getClass())
-	    return false;
-	GCshID other = (GCshID) obj;
-	if (isSet != other.isSet)
-	    return false;
-	if (gcshID == null) {
-	    if (other.gcshID != null)
-		return false;
-	} else if (!gcshID.equals(other.gcshID))
-	    return false;
-	return true;
+    	if (this == obj)
+    		return true;
+    	if (obj == null)
+    		return false;
+    	if (getClass() != obj.getClass())
+    		return false;
+    	GCshID other = (GCshID) obj;
+    	if (isSet != other.isSet)
+    		return false;
+    	if (gcshID == null) {
+    		if (other.gcshID != null)
+    			return false;
+    	} else if (!gcshID.equals(other.gcshID))
+    		return false;
+    	return true;
     }
 
     // -----------------------------------------------------------------
@@ -134,31 +134,20 @@ public class GCshID {
      * create a GUID for a new element. (GUIDs are globally unique and not tied to a
      * specific kind of entity)
      * 
-     * ::TODO: Change implementation: use Apache commons UUID class.
-     *
      * @return the new GnuCash GUID
      */
     public static GCshID getNew() {
-
-	int len = NULL_ID.length();
-
-	StringBuffer buf = new StringBuffer(Long.toHexString(System.currentTimeMillis()));
-
-	while (buf.length() < len) {
-	    buf.append(Integer.toHexString((int) (Math.random() * HEX)).charAt(0));
-	}
-
-	return new GCshID(buf.toString());
+    	return new GCshID(UUID.randomUUID());
     }
 
     // -----------------------------------------------------------------
 
     @Override
     public String toString() {
-	if (isSet)
-	    return gcshID;
-	else
-	    return "(unset)";
+    	if (isSet)
+    		return gcshID;
+    	else
+    		return "(unset)";
     }
 
 }
