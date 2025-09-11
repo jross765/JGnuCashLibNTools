@@ -15,11 +15,13 @@ public class GCshID {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GCshID.class);
 
+    // ::TODO:
+    // More elegant way to do this, depending on STANDARD_LENGTH:
+    // https://stackoverflow.com/questions/2804827/create-a-string-with-n-characters
     public final static String NULL_ID = "00000000000000000000000000000000";
 
     // ::MAGIC
     private static final int STANDARD_LENGTH = 32;
-    private static final int HEX             = 16;
     
     // -----------------------------------------------------------------
 
