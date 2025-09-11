@@ -84,7 +84,7 @@ public class TestGCshID {
     		assertNotEquals(null, newID);
     		assertTrue(newID.isSet());
     		assertFalse(newID.toString().isEmpty());
-    		assertEquals(GCshID.STANDARD_LENGTH, newID.toString().length()); // GCshID.STANDARD_LENGTH is private
+    		assertEquals(GCshID.STANDARD_LENGTH, newID.toString().length());
     		assertEquals(GCshID.STANDARD_LENGTH, newID.get().length());
     		assertEquals(newID.toString(), newID.get());
     	} catch (Exception exc) {
