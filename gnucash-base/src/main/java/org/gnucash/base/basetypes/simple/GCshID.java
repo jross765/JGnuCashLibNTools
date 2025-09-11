@@ -21,7 +21,7 @@ public class GCshID {
     public final static String NULL_ID = "00000000000000000000000000000000";
 
     // ::MAGIC
-    private static final int STANDARD_LENGTH = 32;
+    static final int STANDARD_LENGTH = 32;
     
     // -----------------------------------------------------------------
 
