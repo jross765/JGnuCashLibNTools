@@ -539,15 +539,15 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return trxMgr.getTransactionSplitByID(spltID);
 	}
 
-	public Collection<GnuCashTransactionSplit> getTransactionSplits() {
+	public List<GnuCashTransactionSplit> getTransactionSplits() {
 		return trxMgr.getTransactionSplits();
 	}
 
-	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh() {
+	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh() {
 		return trxMgr.getTransactionSplits_readAfresh();
 	}
 
-	public Collection<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshTrxID trxID) {
+	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh(final GCshTrxID trxID) {
 		if ( trxID == null ) {
 			throw new IllegalArgumentException("argument <trxID> is null");
 		}
