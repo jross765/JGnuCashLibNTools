@@ -11,7 +11,10 @@ file.
   * New method `getReconcileInfo()`
   * New mehood `printTree()`
   * New method `getChldrenRecursive()` (symmetry with sister project)
-* `GnuCashFile(Impl)`: New method `dump()`.
+* `GnuCashFile(Impl)`: 
+  * Changed return type of `getAccountsXYZ()` from Collection to List.
+  * Dto. for `getTransactionsXYZ()`.
+  * New method `dump()`.
 * `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
 * Improved test coverage
 

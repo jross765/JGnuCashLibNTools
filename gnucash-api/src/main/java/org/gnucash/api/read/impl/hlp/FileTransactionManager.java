@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -207,12 +206,15 @@ public class FileTransactionManager {
 
 	// ---------------------------------------------------------------
 
-	public Collection<? extends GnuCashTransaction> getTransactions() {
+	public List<? extends GnuCashTransaction> getTransactions() {
 		if ( trxMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return Collections.unmodifiableCollection(trxMap.values());
+		ArrayList<GnuCashTransaction> temp = new ArrayList<GnuCashTransaction>(trxMap.values());
+		Collections.sort(temp);
+		
+		return Collections.unmodifiableList(temp);
 	}
 
 	public List<GnuCashTransactionImpl> getTransactions_readAfresh() {
@@ -258,12 +260,10 @@ public class FileTransactionManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 		
-		List<GnuCashTransactionSplit> result = new ArrayList<GnuCashTransactionSplit>();
-		for ( GnuCashTransactionSplit elt : trxSpltMap.values() ) {
-			result.add(elt);
-		}
+		ArrayList<GnuCashTransactionSplit> temp = new ArrayList<GnuCashTransactionSplit>(trxSpltMap.values());
+		Collections.sort(temp);
 		
-		return Collections.unmodifiableList(result);
+		return Collections.unmodifiableList(temp);
 	}
 
 	public List<GnuCashTransactionSplitImpl> getTransactionSplits_readAfresh() {

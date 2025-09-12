@@ -393,14 +393,9 @@ public class FileAccountManager {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		// Caution: Although, originally, we defined a Collection and not a List
-		// for the accounts in the interface of KMyMoneyAccount, we recently
-		// found out that sorting -- thus a list -- is kind of necessary, 
-		// because else, the recently-introduced method dump() in KMyMoneyFile(Impl)
-		// is not of much use.
-		// Cf. comment in KMyMoneyAccount.
 		ArrayList<GnuCashAccount> temp = new ArrayList<GnuCashAccount>(acctMap.values());
 		Collections.sort(temp);
+		
 		return Collections.unmodifiableList(temp);
 	}
 

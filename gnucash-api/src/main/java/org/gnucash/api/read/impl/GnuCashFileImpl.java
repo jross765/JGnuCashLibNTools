@@ -502,15 +502,15 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		return trxMgr.getTransactionByID(trxID);
 	}
 
-	public Collection<? extends GnuCashTransaction> getTransactions() {
+	public List<? extends GnuCashTransaction> getTransactions() {
 		return trxMgr.getTransactions();
 	}
 
-	public Collection<GnuCashTransactionImpl> getTransactions_readAfresh() {
+	public List<GnuCashTransactionImpl> getTransactions_readAfresh() {
 		return trxMgr.getTransactions_readAfresh();
 	}
 
-	public Collection<? extends GnuCashTransaction> getTransactions(final LocalDate fromDate, final LocalDate toDate) {
+	public List<? extends GnuCashTransaction> getTransactions(final LocalDate fromDate, final LocalDate toDate) {
 		ArrayList<GnuCashTransaction> result = new ArrayList<GnuCashTransaction>();
 		
 		for ( GnuCashTransaction trx : getTransactions() ) {
@@ -522,7 +522,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 			 }
 		}
 		
-		return Collections.unmodifiableCollection(result);
+		return Collections.unmodifiableList(result);
 	}
 
 	// ---------------------------------------------------------------

@@ -232,7 +232,7 @@ public interface GnuCashFile extends GnuCashObject,
      * 
      * @see #getTransactions(LocalDate, LocalDate)
      */
-    Collection<? extends GnuCashTransaction> getTransactions();
+    List<? extends GnuCashTransaction> getTransactions();
 
     /**
      * 
@@ -242,7 +242,7 @@ public interface GnuCashFile extends GnuCashObject,
      * 
      * @see #getTransactions()
      */
-    Collection<? extends GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
+    List<? extends GnuCashTransaction> getTransactions(LocalDate fromDate, LocalDate toDate);
 
     // ---------------------------------------------------------------
 
