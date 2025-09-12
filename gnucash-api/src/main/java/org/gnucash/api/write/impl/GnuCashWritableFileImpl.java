@@ -664,9 +664,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	 * @see org.gnucash.write.jwsdpimpl.GnuCashFileImpl#getRootAccounts()
 	 */
 	@Override
-	public Collection<? extends GnuCashAccount> getParentlessAccounts() {
+	public List<? extends GnuCashAccount> getParentlessAccounts() {
 		// TODO Auto-generated method stub
-		Collection<? extends GnuCashAccount> rootAcctList = super.getParentlessAccounts();
+		List<? extends GnuCashAccount> rootAcctList = super.getParentlessAccounts();
 		
 		if ( rootAcctList.size() > 1 ) {
 			GnuCashAccount root = null;

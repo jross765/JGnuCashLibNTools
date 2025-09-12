@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -389,7 +388,7 @@ public class FileAccountManager {
 
 	// ---------------------------------------------------------------
 
-	public Collection<GnuCashAccount> getAccounts() {
+	public List<GnuCashAccount> getAccounts() {
 		if ( acctMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
@@ -402,7 +401,7 @@ public class FileAccountManager {
 		// Cf. comment in KMyMoneyAccount.
 		ArrayList<GnuCashAccount> temp = new ArrayList<GnuCashAccount>(acctMap.values());
 		Collections.sort(temp);
-		return Collections.unmodifiableCollection(temp);
+		return Collections.unmodifiableList(temp);
 	}
 
 	public List<GnuCashAccountImpl> getAccounts_readAfresh() {

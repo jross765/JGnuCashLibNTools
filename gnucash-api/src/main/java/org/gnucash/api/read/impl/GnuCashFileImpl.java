@@ -367,7 +367,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getAccountsByName(final String name) {
+	public List<GnuCashAccount> getAccountsByName(final String name) {
 		return acctMgr.getAccountsByName(name);
 	}
 
@@ -375,7 +375,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @see GnuCashFile#getAccountsByName(java.lang.String)
 	 */
 	@Override
-	public Collection<GnuCashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
+	public List<GnuCashAccount> getAccountsByName(final String expr, boolean qualif, boolean relaxed) {
 		return acctMgr.getAccountsByName(expr, qualif, relaxed);
 	}
 
@@ -441,12 +441,12 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getAccountsByType(Type type) {
+	public List<GnuCashAccount> getAccountsByType(Type type) {
 		return acctMgr.getAccountsByType(type);
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getAccountsByTypeAndName(Type type, String acctName, boolean qualif,
+	public List<GnuCashAccount> getAccountsByTypeAndName(Type type, String acctName, boolean qualif,
 			boolean relaxed) {
 		return acctMgr.getAccountsByTypeAndName(type, acctName, qualif, relaxed);
 	}
@@ -455,7 +455,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * @return a read-only collection of all accounts
 	 */
 	@Override
-	public Collection<GnuCashAccount> getAccounts() {
+	public List<GnuCashAccount> getAccounts() {
 		return acctMgr.getAccounts();
 	}
 
@@ -482,17 +482,17 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 *         result is sorted)
 	 */
 	@Override
-	public Collection<? extends GnuCashAccount> getParentlessAccounts() {
+	public List<? extends GnuCashAccount> getParentlessAccounts() {
 		return acctMgr.getParentlessAccounts();
 	}
 
 	@Override
-	public Collection<GCshAcctID> getTopAccountIDs() {
+	public List<GCshAcctID> getTopAccountIDs() {
 		return acctMgr.getTopAccountIDs();
 	}
 
 	@Override
-	public Collection<GnuCashAccount> getTopAccounts() {
+	public List<GnuCashAccount> getTopAccounts() {
 		return acctMgr.getTopAccounts();
 	}
 

@@ -100,7 +100,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return null if not found
      * @see #getAccountByID(GCshAcctID)
      */
-    Collection<GnuCashAccount> getAccountsByName(String expr);
+    List<GnuCashAccount> getAccountsByName(String expr);
 
     /**
      * @param expr
@@ -108,7 +108,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param relaxed
      * @return Read-only account object specified by the given parameters
      */
-    Collection<GnuCashAccount> getAccountsByName(String expr, boolean qualif, boolean relaxed);
+    List<GnuCashAccount> getAccountsByName(String expr, boolean qualif, boolean relaxed);
 
     /**
      * @param expr
@@ -169,7 +169,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @param relaxed
      * @return list of read-only account objects of the given type
      */
-    Collection<GnuCashAccount> getAccountsByType(Type type);
+    List<GnuCashAccount> getAccountsByType(Type type);
     
     /**
      * @param type
@@ -179,12 +179,12 @@ public interface GnuCashFile extends GnuCashObject,
      * @return list of read-only account objects of the given type and
      *   matching the other parameters for the name. 
      */
-    Collection<GnuCashAccount> getAccountsByTypeAndName(Type type, String acctName, 
-		                                        boolean qualif, boolean relaxed);
+    List<GnuCashAccount> getAccountsByTypeAndName(Type type, String acctName, 
+		                                          boolean qualif, boolean relaxed);
     /**
      * @return all accounts
      */
-    Collection<GnuCashAccount> getAccounts();
+    List<GnuCashAccount> getAccounts();
 
     /**
      * @return ID of the root account
@@ -204,19 +204,19 @@ public interface GnuCashFile extends GnuCashObject,
      * @return a read-only collection of all accounts that have no parent (the
      *         result is sorted)
      */
-    Collection<? extends GnuCashAccount> getParentlessAccounts();
+    List<? extends GnuCashAccount> getParentlessAccounts();
 
     /**
      * @return collection of the IDs of all top-level accounts (i.e., 
      * one level under root) 
      */
-    Collection<GCshAcctID> getTopAccountIDs();
+    List<GCshAcctID> getTopAccountIDs();
 
     /**
      * @return collection of all top-level accounts (ro-objects) (i.e., 
      * one level under root)
      */
-    Collection<GnuCashAccount> getTopAccounts();
+    List<GnuCashAccount> getTopAccounts();
 
     // ---------------------------------------------------------------
 
