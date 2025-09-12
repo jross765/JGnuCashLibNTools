@@ -64,10 +64,6 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
     }
 
     private String getID() {
-    	if ( jwsdpPeer.getCmdtyId() == null ) {
-			return null;
-		}
-	
     	return jwsdpPeer.getCmdtyId();
     }
 
@@ -81,9 +77,7 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
 			return null;
 		}
 	
-    	GCshCmdtyCurrID result = new GCshCmdtyCurrID(getNameSpace(), getID());
-	
-    	return result;
+    	return new GCshCmdtyCurrID(getNameSpace(), getID());
     }
 
     /**
@@ -92,7 +86,7 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
     @Override
     public String getName() {
     	if ( jwsdpPeer.getCmdtyName() == null ) {
-			return null;
+			return ""; // sic, important for compareToByName()
 		}
 	
     	return jwsdpPeer.getCmdtyName();
@@ -111,10 +105,6 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
      */
     @Override
     public String getXCode() {
-    	if ( jwsdpPeer.getCmdtyXcode() == null ) {
-			return null;
-		}
-	
     	return jwsdpPeer.getCmdtyXcode();
     }
 
@@ -123,10 +113,6 @@ public class GnuCashCommodityImpl extends GnuCashObjectImpl
      */
     @Override
     public Integer getFraction() {
-    	if ( jwsdpPeer.getCmdtyFraction() == null ) {
-			return null;
-		}
-	
     	return jwsdpPeer.getCmdtyFraction();
     }
 

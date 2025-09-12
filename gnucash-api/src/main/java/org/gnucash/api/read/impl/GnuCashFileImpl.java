@@ -1019,7 +1019,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	}
 
 	@Override
-	public Collection<GnuCashCommodity> getCommodities() {
+	public List<GnuCashCommodity> getCommodities() {
 		return cmdtyMgr.getCommodities();
 	}
 

@@ -15,6 +15,7 @@ file.
   * Changed return type of `getAccountsXYZ()` from Collection to List.
   * Dto. for `getTransactionsXYZ()`.
   * Dto. for `getTransactionSplitsXYZ()`.
+  * Dto. for `getCommoditiesXYZ()`.
   * New method `dump()`.
 * `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
 * Improved test coverage

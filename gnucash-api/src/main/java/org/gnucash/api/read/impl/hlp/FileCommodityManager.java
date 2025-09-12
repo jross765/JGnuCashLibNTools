@@ -1,7 +1,6 @@
 package org.gnucash.api.read.impl.hlp;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -318,12 +317,15 @@ public class FileCommodityManager {
 			return cmdtyList.get(0);
 	}
 
-	public Collection<GnuCashCommodity> getCommodities() {
+	public List<GnuCashCommodity> getCommodities() {
 		if ( cmdtyMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		return Collections.unmodifiableCollection(cmdtyMap.values());
+		ArrayList<GnuCashCommodity> temp = new ArrayList<GnuCashCommodity>(cmdtyMap.values());
+		Collections.sort(temp);
+		
+		return Collections.unmodifiableList(temp);
 	}
 
 	// ---------------------------------------------------------------

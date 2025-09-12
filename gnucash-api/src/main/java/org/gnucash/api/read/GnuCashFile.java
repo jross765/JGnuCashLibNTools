@@ -896,7 +896,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return a (possibly read-only) collection of all currencies/securities/commodities Do not modify the
      *         returned collection!
      */
-    Collection<GnuCashCommodity> getCommodities();
+    List<GnuCashCommodity> getCommodities();
 
     // ---------------------------------------------------------------
 
