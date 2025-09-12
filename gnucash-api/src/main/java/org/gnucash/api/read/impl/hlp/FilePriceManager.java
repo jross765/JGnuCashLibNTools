@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
@@ -155,16 +154,15 @@ public class FilePriceManager {
 
 	// ---------------------------------------------------------------
 
-	public Collection<GnuCashPrice> getPrices() {
+	public List<GnuCashPrice> getPrices() {
 		if ( prcMap == null ) {
 			throw new IllegalStateException("no root-element loaded");
 		}
 
-		// Caution: Yes, sorting necessary.
-		// Cf. comment in FileAccountManager.getAccounts().
 		ArrayList<GnuCashPrice> temp = new ArrayList<GnuCashPrice>(prcMap.values());
 		Collections.sort(temp);
-		return Collections.unmodifiableCollection(temp);
+		
+		return Collections.unmodifiableList(temp);
 	}
 	
 	public List<GnuCashPrice> getPricesByCmdtyID(final GCshCmdtyID cmdtyID) {

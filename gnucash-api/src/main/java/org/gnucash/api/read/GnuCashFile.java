@@ -960,7 +960,7 @@ public interface GnuCashFile extends GnuCashObject,
      * @return all prices defined in the book
      * @link GCshPrice
      */
-    Collection<GnuCashPrice> getPrices();
+    List<GnuCashPrice> getPrices();
 
     // sic: List, not Collection
 	List<GnuCashPrice> getPricesByCmdtyID(GCshCmdtyID cmdtyID);

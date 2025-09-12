@@ -12,10 +12,11 @@ file.
   * New mehood `printTree()`
   * New method `getChldrenRecursive()` (symmetry with sister project)
 * `GnuCashFile(Impl)`: 
-  * Changed return type of `getAccountsXYZ()` from Collection to List.
+  * Changed return type of *all* `getAccountsXYZ()` from Collection to List.
   * Dto. for `getTransactionsXYZ()`.
   * Dto. for `getTransactionSplitsXYZ()`.
   * Dto. for `getCommoditiesXYZ()`.
+  * Dto. for `getPricesXYZ()`.
   * New method `dump()`.
 * `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
 * Improved test coverage

@@ -1112,7 +1112,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Collection<GnuCashPrice> getPrices() {
+	public List<GnuCashPrice> getPrices() {
 		return prcMgr.getPrices();
 	}
 
