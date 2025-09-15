@@ -6,11 +6,23 @@ file.
 
 ## Major Changes 
 ### V. 1.6 &rarr; 1.7
-* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project.
+* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project. (Inherited from module "Base" and also used in all downstream modules accordingly in order to fully leverage the measure).
+
+  Cf. module "Base"'s README file for the rationale.
+
+  The really imporant part, as mentioned there, was changing the interfaces:
+
+  `getAccountByID(GCshID acctID)` &rarr; `getAccountByID(GCshAcctID acctID)`
+
+  I decided *not* to keep the old methods as deprecated variants in the interfaces for a while, for it seems that not many people are actually using this lib apart from the current author at this point.
+
 * `GnuCashAccount(Impl)`: 
   * New method `getReconcileInfo()`
   * New mehood `printTree()`
   * New method `getChldrenRecursive()` (symmetry with sister project)
+
+* Got rid of ugly `Const_XY` classes, replaced them by `Const_Transl` and properties files instead.
+
 * `GnuCashFile(Impl)`: 
   * Changed return type of *all* `getAccountsXYZ()` from Collection to List.
   * Dto. for `getTransactionsXYZ()`.
@@ -18,7 +30,9 @@ file.
   * Dto. for `getCommoditiesXYZ()`.
   * Dto. for `getPricesXYZ()`.
   * New method `dump()`.
+
 * `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
+
 * Improved test coverage
 
 ### V. 1.5 &rarr; 1.6
@@ -219,19 +233,7 @@ It should go without saying, but the following items are of course subject to ch
 
 * Introduce special variant of transaction: Simple transaction (with just two splits).
 
-* (Here and in base, obviously): Improve type safety and overall robustness by introducing kind-of-dummy classes derived from `GCshID`, one per relevant entity. E.g.: `GCshAcctID` for accounts, `GCshTrxID` for transactions, etc. The really important part, then, is to then take those new types into the interfaces, e.g.: 
-
-  `getAccountByID(GCshID acctID)` --> `getAccountByID(GCshAcctID acctID)`
-
-  This will then look much like the according types in the sister project, but in contrast to there, there won't actually be any internal  difference between those types. 
-
-  In order to facilitate the transition, we also might keep the old methods in the interfaces for a while, marking them as deprecated (not necessarily, however, for it does not seem that many people are actually using this lib apart from the current author at this point).
-
-  I have been weighing over the pros and cons of this step for quite a while now (I admit, it seems exaggerated at first glance) and finally came to the conclusion: Yes, it should be done -- not so much for the symmetry between the two sister projects (one can also over-emphasize that), but for the (pseudo-)type safety and thus in order to significantly reduce the probability of making certain kinds of mistakes (and also to reduce the time finding them), fully leveraging Java's static type safety -- both for the developer(s) of this lib and for its users (after all, that was the rationale behind the introduction of GCshID in the first place, the original author handling e.t. just with strings -- yes, it works, but it's far too error-prone).
-
 * Get rid of ugly code redundancies here and there, esp. in the class `Gnucash(Writable)GenerInvoiceImpl`.
-
-* Configurable values in `Const` class.
 
 * Last not least: Provide user documentation.
 
