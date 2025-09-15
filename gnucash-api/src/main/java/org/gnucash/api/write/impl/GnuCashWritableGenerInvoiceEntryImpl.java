@@ -1048,18 +1048,34 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
     // -----------------------------------------------------------
 
     /**
+     * {@inheritDoc}
      */
     public void setAction(final Action act) {
-		if ( !this.getGenerInvoice().isModifiable() ) {
+		setActionStr(act.getLocaleString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setActionStr(final String actStr) {
+		if ( actStr == null ) {
+			throw new IllegalArgumentException("argument <actStr> is null");
+		}
+
+		if ( actStr.trim().length() == 0 ) {
+			throw new IllegalArgumentException("argument <actStr> is empty");
+		}
+
+		if ( ! this.getGenerInvoice().isModifiable() ) {
 			throw new IllegalStateException("This (generic) invoice has payments and is not modifiable");
 		}
 
-		Action oldAction = getAction();
-		getJwsdpPeer().setEntryAction(act.getLocaleString());
+		String oldActStr = getActionStr();
+		getJwsdpPeer().setEntryAction(actStr);
 
 		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 		if ( propertyChangeSupport != null ) {
-			propertyChangeSupport.firePropertyChange("action", oldAction, act);
+			propertyChangeSupport.firePropertyChange("generInvcEntrAction", oldActStr, actStr);
 		}
     }
 

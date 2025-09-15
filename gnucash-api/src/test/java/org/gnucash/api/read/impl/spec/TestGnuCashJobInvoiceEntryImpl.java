@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
+import java.util.Locale;
 
 import org.gnucash.api.ConstTest;
 import org.gnucash.api.read.GnuCashFile;
@@ -71,6 +72,7 @@ public class TestGnuCashJobInvoiceEntryImpl {
 		assertEquals(JOB_INVC_ENTR_4_ID, invcEntrSpec.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_JOB, invcEntrSpec.getType());
 		assertEquals("b1e981f796b94ca0b17a9dccb91fedc0", invcEntrSpec.getGenerInvoiceID().toString());
+		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB.getLocaleString(Locale.GERMAN), invcEntrSpec.getActionStr());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB, invcEntrSpec.getAction());
 		assertEquals("Item 1", invcEntrSpec.getDescription());
 

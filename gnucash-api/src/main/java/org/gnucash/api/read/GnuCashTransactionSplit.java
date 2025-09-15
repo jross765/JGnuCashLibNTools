@@ -1,8 +1,8 @@
 package org.gnucash.api.read;
 
-import java.lang.reflect.Field;
 import java.util.Locale;
 
+import org.gnucash.api.Const_LocSpec;
 import org.gnucash.api.generated.GncTransaction;
 import org.gnucash.api.read.hlp.HasUserDefinedAttributes;
 import org.gnucash.base.basetypes.simple.GCshAcctID;
@@ -110,6 +110,12 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
       // ---
 	
       Action(String code) {
+  		if ( code == null )
+			throw new IllegalArgumentException("argument <code> is null");
+		
+		if ( code.trim().length() == 0 )
+			throw new IllegalArgumentException("argument <code> is empty");
+		
     	  this.code = code;
       }
 
@@ -124,19 +130,61 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
       }
 
       public String getLocaleString(Locale lcl) {
+  		if ( lcl == null )
+			throw new IllegalArgumentException("argument <lcl> is null");
+		
+		if ( code.equals("UNSET") )
+			throw new IllegalStateException("<code> is not properly set");
+		
     	  try {
-    		  Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-    		  Field fld = cls.getDeclaredField(code);
-    		  return (String) fld.get(null);
+  			Locale oldLcl = Locale.getDefault();
+  			Locale.setDefault(lcl);
+  			String result = Const_LocSpec.getValue(code);
+  			Locale.setDefault(oldLcl);
+  			return result;
     	  } catch ( Exception exc ) {
     		  throw new MappingException("Could not map string '" + code + "' to locale-specific string");
     	  }
       }
 		
-      // no typo!
+      // No typo!
       public static Action valueOff(String code) {
+      	  if ( code == null ) {
+      		  throw new IllegalStateException("argument <code> is null");
+      	  }
+    		
+      	  if ( code.trim().length() == 0 ) {
+      		  throw new IllegalStateException("argument <code> is empty");
+      	  }
+    		
     	  for ( Action val : values() ) {
-    		  if ( val.getLocaleString().equals(code) ) {
+    		  if ( val.getCode().equals(code.trim()) ) {
+    			  return val;
+    		  }
+    	  }
+	    
+    	  return null;
+      }
+
+      // No typo!
+      public static Action valueOfff(String lclStr) {
+    	  return valueOfff(lclStr, Locale.getDefault());
+      }
+      
+      public static Action valueOfff(String lclStr, Locale lcl) {
+      	  if ( lclStr == null ) {
+      		  throw new IllegalArgumentException("argument <lclStr> is null");
+      	  }
+  		
+      	  if ( lclStr.trim().length() == 0 ) {
+      		  throw new IllegalArgumentException("argument <lclStr> is empty");
+      	  }
+  		
+    	  if ( lcl == null )
+    		  throw new IllegalArgumentException("argument <lcl> is null");
+    	  
+    	  for ( Action val : values() ) {
+    		  if ( val.getLocaleString(lcl).equals(lclStr.trim()) ) {
     			  return val;
     		  }
     	  }
@@ -271,10 +319,22 @@ public interface GnuCashTransactionSplit extends Comparable<GnuCashTransactionSp
     /**
      * Get the type of association this split has with
      * an invoice's lot.
+     * The result is not locale-specific.
+     * 
      * @return null, or one of the ACTION_xyz values defined
+     * 
+     * @see #getActionStr()
      */
     Action getAction();
 
+    /**
+     * The returned text is saved locale-specific. E.g. "Rechnung" instead of "Invoice"
+     * for Germany.
+     * 
+     * @return Locale-specific String such as 'Invoice', 'Facture', 'Factura', 'Rechnung', etc.
+     * 
+     * @see #getAction()
+     */
     String getActionStr();
 
 }

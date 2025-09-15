@@ -21,7 +21,6 @@ import org.gnucash.base.basetypes.simple.aux.GCshLotID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.schnorxoborx.base.beanbase.MappingException;
 import xyz.schnorxoborx.base.numbers.FixedPointNumber;
 
 /**
@@ -128,21 +127,19 @@ public class GnuCashTransactionSplitImpl extends GnuCashObjectImpl
      */
     @Override
     public Action getAction() {
-    	try {
-    		return Action.valueOff( getActionStr() );
-    	} catch (Exception e) {
-    		throw new MappingException("Could not map string '" + getActionStr() + "' to Action enum");
-    	}
+    	if ( getActionStr() == null )
+    		return null;
+    	
+    	if ( getActionStr().trim().length() == 0 )
+    		return null;
+
+    	return Action.valueOfff( getActionStr() );
     }
 
     /**
      * @see GnuCashTransactionSplit#getAction()
      */
     public String getActionStr() {
-    	if (getJwsdpPeer().getSplitAction() == null) {
-    		return "";
-    	}
-
     	return getJwsdpPeer().getSplitAction();
     }
 

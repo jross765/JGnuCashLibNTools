@@ -1,9 +1,9 @@
 package org.gnucash.api.read;
 
-import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.util.Locale;
 
+import org.gnucash.api.Const_LocSpec;
 import org.gnucash.api.generated.GncGncEntry;
 import org.gnucash.api.read.aux.GCshOwner;
 import org.gnucash.api.read.hlp.GnuCashGenerInvoiceEntry_Cust;
@@ -48,8 +48,7 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
                                                   HasUserDefinedAttributes
 {
 
-    // For the following enumerations cf.:
-    // https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
+    // Cf. https://github.com/GnuCash/gnucash/blob/stable/libgnucash/engine/gncEntry.h  
     public enum Action {
       
     	// ::MAGIC (actually kind of "half-magic")
@@ -64,6 +63,12 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
     	// ---
 	
     	Action(String code) {
+    		if ( code == null )
+    			throw new IllegalArgumentException("argument <code> is null");
+    		
+    		if ( code.trim().length() == 0 )
+    			throw new IllegalArgumentException("argument <code> is empty");
+    		
     		this.code = code;
     	}
 
@@ -78,25 +83,67 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
     	}
 
     	public String getLocaleString(Locale lcl) {
+    		if ( lcl == null )
+    			throw new IllegalArgumentException("argument <lcl> is null");
+    		
+    		if ( code.equals("UNSET") )
+    			throw new IllegalStateException("<code> is not properly set");
+    		
     		try {
-    			Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-    			Field fld = cls.getDeclaredField(code);
-    			return (String) fld.get(null);
+    			Locale oldLcl = Locale.getDefault();
+    			Locale.setDefault(lcl);
+      			String result = Const_LocSpec.getValue(code);
+    			Locale.setDefault(oldLcl);
+    			return result;
     		} catch ( Exception exc ) {
-    			throw new MappingException("Could not map string '" + code + "' to locale-specific string");
+    			throw new MappingException("Could not map code '" + code + "' to locale-specific string");
     		}
     	}
 		
-    	// no typo!
-    	public static Action valueOff(String code) {
-    		for ( Action val : values() ) {
-    			if ( val.getLocaleString().equals(code) ) {
-    				return val;
-    			}
-    		}
+        // No typo!
+        public static Action valueOff(String code) {
+      	  if ( code == null ) {
+      		  throw new IllegalStateException("argument <code> is null");
+      	  }
+    		
+      	  if ( code.trim().length() == 0 ) {
+      		  throw new IllegalStateException("argument <code> is empty");
+      	  }
+    		
+      	  for ( Action val : values() ) {
+      		  if ( val.getCode().equals(code.trim()) ) {
+      			  return val;
+      		  }
+      	  }
+  	    
+      	  return null;
+        }
 
-    		return null;
-    	}
+        // No typo!
+        public static Action valueOfff(String lclStr) {
+      	  return valueOfff(lclStr, Locale.getDefault());
+        }
+        
+        public static Action valueOfff(String lclStr, Locale lcl) {
+      	  if ( lclStr == null ) {
+      		  throw new IllegalArgumentException("argument <lclStr> is null");
+      	  }
+  		
+      	  if ( lclStr.trim().length() == 0 ) {
+      		  throw new IllegalArgumentException("argument <lclStr> is empty");
+      	  }
+  		
+      	  if ( lcl == null )
+      		  throw new IllegalArgumentException("argument <lcl> is null");
+      	  
+      	  for ( Action val : values() ) {
+      		  if ( val.getLocaleString(lcl).equals(lclStr.trim()) ) {
+      			  return val;
+      		  }
+      	  }
+  	    
+      	  return null;
+        }
     }
   
   // -----------------------------------------------------------------
@@ -128,13 +175,23 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
   // ---------------------------------------------------------------
 
   /**
-   * The returned text is saved locale-specific. E.g. "Stunden" instead of "hours"
-   * for Germany.
+   * The result is not locale-specific.
    * 
    * @return HOURS or ITEMS, ....
    * 
+   * @see #getActionStr()
    */
   Action getAction();
+
+  /**
+   * The returned text is saved locale-specific. E.g. "Stunden" instead of "hours"
+   * for Germany.
+   * 
+   * @return Locale-specific String such as 'Hours', 'Heures', 'Horas', 'Stunden', etc.
+   * 
+   * @see #getAction()
+   */
+  String getActionStr();
 
   /**
    * @return the number of items of price ${@link #getCustInvcPrice()} and type

@@ -1264,7 +1264,21 @@ public class GnuCashGenerInvoiceEntryImpl extends GnuCashObjectImpl
      * @see GnuCashGenerInvoiceEntry#getAction()
      */
     public Action getAction() {
-    	return Action.valueOff( jwsdpPeer.getEntryAction() );
+    	if ( getActionStr() == null )
+    		return null;
+    	
+    	if ( getActionStr().trim().length() == 0 )
+    		return null;
+
+    	return Action.valueOfff( getActionStr() );
+    }
+
+    /**
+     *  
+     * @see GnuCashGenerInvoiceEntry#getActionStr()
+     */
+    public String getActionStr() {
+    	return jwsdpPeer.getEntryAction();
     }
 
     /**

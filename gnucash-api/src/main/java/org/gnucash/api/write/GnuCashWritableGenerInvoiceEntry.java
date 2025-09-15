@@ -57,8 +57,18 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
      * @param act
      * 
      * @see #getAction()
+     * @see #setActionStr(String)
      */
     void setAction(Action act);
+    
+    /**
+     * 
+     * @param act
+     * 
+     * @see #getActionStr()
+     * @see #setAction(org.gnucash.api.read.GnuCashGenerInvoiceEntry.Action)
+     */
+    void setActionStr(String act);
 
     /**
      * 

@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.gnucash.api.Const;
+import org.gnucash.api.Const_LocSpec;
 import org.gnucash.api.generated.GncAccount;
 import org.gnucash.api.generated.GncGncInvoice;
 import org.gnucash.api.generated.GncTransaction;
@@ -1365,7 +1366,7 @@ public class GnuCashWritableGenerInvoiceImpl extends GnuCashGenerInvoiceImpl
 			SlotValue value = factory.createSlotValue();
 			slot.setSlotKey(Const.SLOT_KEY_INVC_TRX_READ_ONLY);
 			value.setType(Const.XML_DATA_TYPE_STRING);
-			value.getContent().add(Const.getLocaleString("INVC_READ_ONLY_SLOT_TEXT"));
+			value.getContent().add(Const_LocSpec.getValue("INVC_READ_ONLY_SLOT_TEXT"));
 
 			slot.setSlotValue(value);
 			slots.getSlot().add(slot);

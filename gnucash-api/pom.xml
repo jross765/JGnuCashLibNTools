@@ -170,7 +170,7 @@
 					<!-- The package of your generated sources -->
 					<packageName>org.gnucash.api.generated</packageName>
 					<sources>
-						<source>src/main/resources</source>
+						<source>src/main/resources/xsd</source>
 					</sources>
 				</configuration>
 			</plugin>

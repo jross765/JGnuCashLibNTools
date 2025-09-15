@@ -1,10 +1,5 @@
 package org.gnucash.api;
 
-import java.lang.reflect.Field;
-import java.util.Locale;
-
-import xyz.schnorxoborx.base.beanbase.MappingException;
-
 public class Const {
   
   public static final String XML_FORMAT_VERSION = "2.0.0";
@@ -75,21 +70,4 @@ public class Const {
   public static final int CMDTY_FRACTION_DEFAULT = 10000;
   public static final String CMDTY_XCODE_DEFAULT = "DE000000001"; // pseudo-ISIN
   
-  // -----------------------------------------------------------------
-  // Locale-specific string constants
-
-  public static String getLocaleString(String code) {
-	  return getLocaleString(code, Locale.getDefault());
-  }
-
-  public static String getLocaleString(String code, Locale lcl) {
-      try {
-	  Class<?> cls = Class.forName("org.gnucash.api.Const_" + lcl.getLanguage().toUpperCase());
-	  Field fld = cls.getDeclaredField(code);
-	  return (String) fld.get(null);
-      } catch ( Exception exc ) {
-	  throw new MappingException("Could not map code '" + code + "' to locale-specific string");
-      }
-  }
-
 }

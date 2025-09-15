@@ -373,15 +373,15 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
     }
 
     /**
-     * Set the type of association this split has with an invoice's lot.
-     *
-     * @param act null, or one of the defined ACTION_xyz values
-     * @throws IllegalTransactionSplitActionException
+     * {@inheritDoc}
      */
     public void setAction(final Action act) {
     	setActionStr(act.getLocaleString());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void setActionStr(final String actStr) throws IllegalTransactionSplitActionException {
 		if ( actStr == null ) {
 			throw new IllegalArgumentException("argument <actStr> is null");
@@ -391,13 +391,13 @@ public class GnuCashWritableTransactionSplitImpl extends GnuCashTransactionSplit
 			throw new IllegalArgumentException("argument <actStr> is empty");
 		}
 
-		String old = getJwsdpPeer().getSplitAction();
+		String oldActStr = getActionStr();
 		getJwsdpPeer().setSplitAction(actStr);
 		((GnuCashWritableFile) getGnuCashFile()).setModified(true);
 
-		if ( old == null || !old.equals(actStr) ) {
+		if ( oldActStr == null || !oldActStr.equals(actStr) ) {
 			if ( helper.getPropertyChangeSupport() != null ) {
-				helper.getPropertyChangeSupport().firePropertyChange("splitAction", old, actStr);
+				helper.getPropertyChangeSupport().firePropertyChange("splitAction", oldActStr, actStr);
 			}
 		}
     }

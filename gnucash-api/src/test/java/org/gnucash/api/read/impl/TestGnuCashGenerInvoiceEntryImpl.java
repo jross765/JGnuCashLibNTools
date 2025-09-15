@@ -90,6 +90,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(GENER_INVCENTR_1_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
 		assertEquals(GENER_INVC_2_ID.toString(), invcEntr.getGenerInvoiceID().toString());
+		assertEquals(null, invcEntr.getActionStr());
 		assertEquals(null, invcEntr.getAction());
 		assertEquals("Item 1", invcEntr.getDescription());
 
@@ -111,6 +112,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(GENER_INVCENTR_2_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_VENDOR, invcEntr.getType());
 		assertEquals(GENER_INVC_4_ID.toString(), invcEntr.getGenerInvoiceID().toString());
+		assertEquals("Stunden", invcEntr.getActionStr());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.HOURS, invcEntr.getAction());
 		assertEquals("Gefälligkeiten", invcEntr.getDescription());
 
@@ -134,6 +136,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(GENER_INVCENTR_3_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_CUSTOMER, invcEntr.getType());
 		assertEquals(GENER_INVC_6_ID.toString(), invcEntr.getGenerInvoiceID().toString());
+		assertEquals("Material", invcEntr.getActionStr());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
 		assertEquals("Posten 3", invcEntr.getDescription());
 
@@ -155,6 +158,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(GENER_INVCENTR_4_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_JOB, invcEntr.getType());
 		assertEquals("b1e981f796b94ca0b17a9dccb91fedc0", invcEntr.getGenerInvoiceID().toString());
+		assertEquals("Auftrag", invcEntr.getActionStr());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.JOB, invcEntr.getAction());
 		assertEquals("Item 1", invcEntr.getDescription());
 
@@ -177,6 +181,7 @@ public class TestGnuCashGenerInvoiceEntryImpl {
 		assertEquals(GENER_INVCENTR_5_ID, invcEntr.getID());
 		assertEquals(GnuCashGenerInvoice.TYPE_EMPLOYEE, invcEntr.getType());
 		assertEquals("8de4467c17e04bb2895fb68cc07fc4df", invcEntr.getGenerInvoiceID().toString());
+		assertEquals("Material", invcEntr.getActionStr());
 		assertEquals(GnuCashGenerInvoiceEntry.Action.MATERIAL, invcEntr.getAction());
 		assertEquals("Übernachtung", invcEntr.getDescription());
 
