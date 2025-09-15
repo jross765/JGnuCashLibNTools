@@ -33,6 +33,7 @@ import org.gnucash.api.read.spec.GnuCashJobInvoice;
 import org.gnucash.api.read.spec.GnuCashVendorBill;
 import org.gnucash.api.read.spec.GnuCashVendorJob;
 import org.gnucash.api.read.spec.WrongInvoiceTypeException;
+import org.gnucash.api.write.GnuCashWritableFile;
 import org.gnucash.api.write.GnuCashWritableGenerInvoice;
 import org.gnucash.api.write.GnuCashWritableGenerInvoiceEntry;
 import org.gnucash.api.write.impl.hlp.GnuCashWritableObjectImpl;
@@ -1072,6 +1073,7 @@ public class GnuCashWritableGenerInvoiceEntryImpl extends GnuCashGenerInvoiceEnt
 
 		String oldActStr = getActionStr();
 		getJwsdpPeer().setEntryAction(actStr);
+		((GnuCashWritableFile) getGnuCashFile()).setModified(true);
 
 		PropertyChangeSupport propertyChangeSupport = helper.getPropertyChangeSupport();
 		if ( propertyChangeSupport != null ) {

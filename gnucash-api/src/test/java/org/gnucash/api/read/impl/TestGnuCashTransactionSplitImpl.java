@@ -76,6 +76,7 @@ public class TestGnuCashTransactionSplitImpl {
 		assertEquals(TRXSPLT_1_ID, splt.getID());
 		assertEquals(TRX_4_ID, splt.getTransactionID());
 		assertEquals(ACCT_1_ID, splt.getAccountID());
+		assertEquals(null, splt.getActionStr());
 		assertEquals(null, splt.getAction());
 		assertEquals(-2253.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("-2.253,00 €", splt.getValueFormatted()); // ::TODO: locale-specific!
@@ -93,6 +94,7 @@ public class TestGnuCashTransactionSplitImpl {
 		assertEquals(TRXSPLT_2_ID, splt.getID());
 		assertEquals(TRX_5_ID, splt.getTransactionID());
 		assertEquals(ACCT_8_ID, splt.getAccountID());
+		assertEquals("Kauf", splt.getActionStr());
 		assertEquals(GnuCashTransactionSplit.Action.BUY, splt.getAction());
 		assertEquals(1875.00, splt.getValue().doubleValue(), ConstTest.DIFF_TOLERANCE);
 		assertEquals("1.875,00 €", splt.getValueFormatted()); // ::TODO: locale-specific!
