@@ -53,7 +53,8 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
     // ---------------------------------------------------------------
 
     /**
-     * 
+	 * Wrapper for {@link #setActionStr(String)}.
+	 * 
      * @param act
      * 
      * @see #getAction()
@@ -62,6 +63,12 @@ public interface GnuCashWritableGenerInvoiceEntry extends GnuCashGenerInvoiceEnt
     void setAction(Action act);
     
     /**
+     * <b>Using this method is discouraged.</b>
+     * Use {@link #setAction(org.gnucash.api.read.GnuCashGenerInvoiceEntry.Action)}
+     * whenever possible/applicable instead.
+     * <br>
+     * Cf. the comment in {@link #getActionStr()} and {@link #getAction()} for the reason
+     * (and why we still have this method in the interface).
      * 
      * @param act
      * 

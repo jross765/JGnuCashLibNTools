@@ -175,9 +175,15 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
   // ---------------------------------------------------------------
 
   /**
+   * Tries to map the result of {@link #getActionStr()} to the {@link Action} enum.
+   * <br>
+   * GnuCash encourages (but does not enforce) the use of quasi-standardized 
+   * values via drop-down box (as does this lib's maintainer), so that e.t.
+   * can be mapped to the enum if the user adheres to GnuCash's recommendation.
+   * <br>
    * The result is not locale-specific.
    * 
-   * @return HOURS or ITEMS, ....
+   * @return One of the enum values, or null, if it cannot be mapped.
    * 
    * @see #getActionStr()
    */
@@ -186,6 +192,17 @@ public interface GnuCashGenerInvoiceEntry extends Comparable<GnuCashGenerInvoice
   /**
    * The returned text is saved locale-specific. E.g. "Stunden" instead of "hours"
    * for Germany.
+   * <br>
+   * <b>Using this method is discouraged.</b>
+   * Use {@link #getAction()} whenever possible/applicable instead.
+   * <br>
+   * <b>Note</b>: One might think that having this function in the interface (as opposed
+   * to the implementation alone) is counter-productive, as the number of possible
+   * values seems to be limited -- in fact, is is not. To be precise, GnuCash <em>encourages</em>
+   * the user to use pre-defined values for the action (via drop-down box), but it does 
+   * not <em>enforce</em> it. This is why it is advisable to have it in the interface, 
+   * <em>combined</em> with the pseudo-standadized version that returns an enum value 
+   * (as opposed to the sister project).
    * 
    * @return Locale-specific String such as 'Hours', 'Heures', 'Horas', 'Stunden', etc.
    * 

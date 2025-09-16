@@ -130,10 +130,9 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	void setDescription(String desc);
 
 	/**
-	 * Set the type of association this split has with
-	 * an invoice's lot.
-	 * @param act null, or one of the ACTION_xyz values defined
-	 * @throws IllegalTransactionSplitActionException
+	 * Wrapper for {@link #setActionStr(String)}.
+	 * 
+	 * @param act 
 	 * 
 	 * @see #getAction()
 	 * @see #setActionStr(String)
@@ -141,7 +140,14 @@ public interface GnuCashWritableTransactionSplit extends GnuCashTransactionSplit
 	void setAction(Action act);
 
 	/**
-	 * 
+     * <b>Using this method is discouraged.</b>
+     * Use {@link #setAction(org.gnucash.api.read.GnuCashTransactionSplit.Action)}
+     * whenever possible/applicable instead.
+     * </b>
+     * <br>
+     * Cf. the comment in {@link #getActionStr()} and {@link #getAction()} for the reason
+     * (and why we still have this method in the interface).
+     * 
 	 * @param act
 	 * 
 	 * @throws IllegalTransactionSplitActionException
