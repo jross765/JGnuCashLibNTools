@@ -1,12 +1,16 @@
 # Technical Aspects
-The test file has been generated with Gnucash V. 5.4.
+The test file has been generated with 
+Gnucash V. 5.12.
 
 Please note that the file contains *german* data, and not only superficially (i.e., german account names etc.), but also under the hood: GnuCash stores some (semi-)internal information in locale-specific form. This file has been generated on a german system (locale de_DE), and it probably should not be used / changed on a system with another locale.
 
 [ In future releases, we will therefore probably provide one test data file per supported locale. ]
 
-When you change the test.gnucash file, please save it in 
-*uncompressed* XML format.
+When you change the test.xml file, please save it in *uncompressed* XML format 
+(by convention, compressed 
+GnuCash
+files have the extension 
+"gnucash").
 
 # Testing Aspects
 Please be careful when making changes on the file: All JUnit test cases heavily rely on it, and you might break things.

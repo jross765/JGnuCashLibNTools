@@ -126,6 +126,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
     private static final int GZIP_HEADER_BYTE_2 = -117;
 
     protected static final String FILE_EXT_ZIPPED_1 = ".gz";
+    protected static final String FILE_EXT_ZIPPED_2 = ".gnucash";
 
     // ---------------------------------------------------------------
 
@@ -215,8 +216,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 	 * loads the file and calls setRootElement.
 	 *
 	 * @param pFile the file to read
-	 * @throws IOException                   on low level reading-errors
-	 *                                       (FileNotFoundException if not found)
+	 * @throws IOException on low level reading-errors (FileNotFoundException if not found)
 	 * @see #setRootElement(GncV2)
 	 */
 	protected void loadFile(final File pFile) throws IOException {
@@ -233,7 +233,8 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		setFile(pFile);
 
 		InputStream in = new FileInputStream(pFile);
-		if ( pFile.getName().endsWith(FILE_EXT_ZIPPED_1) ) {
+		if ( pFile.getName().endsWith(FILE_EXT_ZIPPED_1) ||
+		     pFile.getName().endsWith(FILE_EXT_ZIPPED_2) ) {
 			in = new BufferedInputStream(in);
 			in = new GZIPInputStream(in);
 		} else {
@@ -253,7 +254,7 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		loadInputStream(in);
 
 		long end = System.currentTimeMillis();
-		LOGGER.info("loadFile: GnuCashFileImpl.loadFile took " + (end - start) + " ms (total) ");
+		LOGGER.info("loadFile: Took " + (end - start) + " ms (total) ");
 	}
 
 	protected void loadInputStream(InputStream in) throws UnsupportedEncodingException, IOException,
@@ -263,6 +264,10 @@ public class GnuCashFileImpl implements GnuCashFile, GnuCashPubIDManager {
 		NamespaceRemoverReader reader = new NamespaceRemoverReader(new InputStreamReader(in, "utf-8"));
 		try {
 			JAXBContext myContext = getJAXBContext();
+			if ( myContext == null ) {
+				LOGGER.error("loadInputStream: JAXB context cannot be found/generated");
+				throw new IOException("JAXB context cannot be found/generated");
+			}
 			Unmarshaller unmarshaller = myContext.createUnmarshaller();
 
 			GncV2 obj = (GncV2) unmarshaller.unmarshal(new InputSource(new BufferedReader(reader)));

@@ -157,14 +157,9 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 
 	// ---------------------------------------------------------------
 
-	/**
-	 * true if this file has been modified.
-	 */
+	// true if this file has been modified.
 	private boolean modified = false;
 
-	/**
-	 * @see {@link #getLastWriteTime()}
-	 */
 	private long lastWriteTime = 0;
 
 	// ---------------------------------------------------------------
@@ -178,6 +173,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		super(file);
 		setModified(false);
 
+    	// CAUTION: The order matters
 		acctMgr = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
 		trxMgr = new org.gnucash.api.write.impl.hlp.FileTransactionManager(this);
 
@@ -196,6 +192,7 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	public GnuCashWritableFileImpl(final InputStream is) throws IOException {
 		super(is);
 
+    	// CAUTION: The order matters
 		acctMgr = new org.gnucash.api.write.impl.hlp.FileAccountManager(this);
 		trxMgr = new org.gnucash.api.write.impl.hlp.FileTransactionManager(this);
 
@@ -280,15 +277,17 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	/**
-	 * @return true if this file has been modified
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isModified() {
 		return modified;
 	}
 
+	// ---------------------------------------------------------------
+
 	/**
-	 * @see {@link GnuCashFileImpl#loadFile(java.io.File)}
+	 * {@inheritDoc}
 	 */
 	@Override
 	protected void loadFile(final File pFile) throws IOException {
@@ -297,16 +296,18 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 	}
 
 	/**
-	 * @see GnuCashWritableFile#writeFile(java.io.File)
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void writeFile(final File file) throws IOException {
 		writeFile(file, CompressMode.GUESS_FROM_FILENAME);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void writeFile(final File file, CompressMode compMode) throws IOException {
-
 		if ( file == null ) {
 			throw new IllegalArgumentException("argument <file> is null");
 		}
@@ -325,7 +326,8 @@ public class GnuCashWritableFileImpl extends GnuCashFileImpl
 		if ( compMode == CompressMode.COMPRESS ) {
 			out = new GZIPOutputStream(out);
 		} else if ( compMode == CompressMode.GUESS_FROM_FILENAME ) {
-			if ( file.getName().endsWith(FILE_EXT_ZIPPED_1) ) {
+			if ( file.getName().endsWith(FILE_EXT_ZIPPED_1) ||
+				 file.getName().endsWith(FILE_EXT_ZIPPED_2) ) {
 				out = new GZIPOutputStream(out);
 			}
 		}

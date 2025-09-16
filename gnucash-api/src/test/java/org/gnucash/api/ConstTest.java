@@ -2,11 +2,11 @@ package org.gnucash.api;
 
 public class ConstTest extends Const {
 
-    public static final String GCSH_FILENAME     = "test.gnucash";
+    public static final String GCSH_FILENAME     = "test.xml";
 
     public static final String GCSH_FILENAME_IN  = GCSH_FILENAME;
 
-    public static final String GCSH_FILENAME_OUT = "test_out.gnucash";
+    public static final String GCSH_FILENAME_OUT = "test_out.xml";
     
     // ---------------------------------------------------------------
     // Stats for above-mentioned GnuCash test file (before write operations)
