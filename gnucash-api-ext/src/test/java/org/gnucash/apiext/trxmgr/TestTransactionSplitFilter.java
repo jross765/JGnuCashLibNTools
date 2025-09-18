@@ -24,10 +24,6 @@ public class TestTransactionSplitFilter {
 
     private static final GCshAcctID ACCT_1_ID = TestTransactionFilter.ACCT_1_ID;
     private static final GCshAcctID ACCT_2_ID = TestTransactionFilter.ACCT_2_ID;
-    private static final GCshAcctID ACCT_3_ID = TestTransactionFilter.ACCT_3_ID;
-    private static final GCshAcctID ACCT_4_ID = TestTransactionFilter.ACCT_4_ID;
-    private static final GCshAcctID ACCT_5_ID = TestTransactionFilter.ACCT_5_ID;
-    private static final GCshAcctID ACCT_6_ID = TestTransactionFilter.ACCT_6_ID;
     private static final GCshAcctID ACCT_7_ID = TestTransactionFilter.ACCT_7_ID;
     private static final GCshAcctID ACCT_8_ID = TestTransactionFilter.ACCT_8_ID;
 

@@ -1,6 +1,6 @@
 package org.gnucash.apiext;
 
-//On purpose redundant to according class in org.gnucash.api
+// On purpose redundant to according class in org.gnucash.api
 public class ConstTest {
 
     public static final String GCSH_FILENAME     = "test.xml";

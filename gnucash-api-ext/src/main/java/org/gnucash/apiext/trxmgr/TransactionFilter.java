@@ -92,7 +92,7 @@ public class TransactionFilter {
 			                       final SplitLogic splitLogic) {
 		
 		if ( trx == null ) {
-			throw new IllegalArgumentException("null transaction given");
+			throw new IllegalArgumentException("argument <trx> is null");
 		}
 		
 		// 1) Transaction Level

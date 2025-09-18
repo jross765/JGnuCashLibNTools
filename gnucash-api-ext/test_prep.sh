@@ -64,8 +64,20 @@ main()
   echo "=============="
 
   echo -n "Check for link to test data file: "
+  local linkExists=0
   readlink -s "target/test-classes/test.xml" > /dev/null 2>&1
   if [ "$?" = "0" ]
+  then
+    linkExists=1
+  fi
+  local linkNotBroken=0
+  if  [ -e "target/test-classes/test.xml" ]
+  then
+    linkNotBroken=1
+  fi
+
+  if [ "$linkExists" = "1" ] &&
+     [ "$linkNotBroken" = "1" ]
   then
     echo "[ OK ]"
   else
