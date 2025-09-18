@@ -1276,7 +1276,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID((GCshGenerJobID) getOwnerID());
+		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID(new GCshGenerJobID(getOwnerID()) );
 		return job.getOwnerID();
 	}
 
@@ -1305,7 +1305,7 @@ public class GnuCashGenerInvoiceImpl extends GnuCashObjectImpl
 		if ( getType() != TYPE_JOB )
 			throw new WrongInvoiceTypeException();
 
-		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID((GCshGenerJobID) getOwnerID());
+		GnuCashGenerJob job = getGnuCashFile().getGenerJobByID(new GCshGenerJobID(getOwnerID()) );
 		return job.getOwnerType();
 	}
 
