@@ -6,7 +6,7 @@ file.
 
 ## Major Changes 
 ### V. 1.6 &rarr; 1.7
-* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project. (Inherited from module "Base" and also used in all downstream modules accordingly in order to fully leverage the measure).
+* Introduced new (dummy) ID types (cf. module "Base") for type safety and better symmetry with sister project (inherited from module "Base" and also used in all downstream modules accordingly in order to fully leverage the measure).
 
   Cf. module "Base"'s README file for the rationale.
 
@@ -14,12 +14,15 @@ file.
 
   `getAccountByID(GCshID acctID)` &rarr; `getAccountByID(GCshAcctID acctID)`
 
+  It is worth noting that by this measure alone, the author has been
+  able to spot and fix a non-trivial and subtle bug.
+
   I decided *not* to keep the old methods as deprecated variants in the interfaces for a while, for it seems that not many people are actually using this lib apart from the current author at this point.
 
 * `GnuCashAccount(Impl)`: 
   * New method `getReconcileInfo()`
   * New mehood `printTree()`
-  * New method `getChldrenRecursive()` (symmetry with sister project)
+  * New method `getChildrenRecursive()` (symmetry with sister project)
 
 * Got rid of ugly `Const_XY` classes, replaced them by `Const_Transl` and properties files instead.
 
@@ -31,6 +34,12 @@ file.
   * Dto. for `getPricesXYZ()`.
   * New method `dump()`.
 
+* `GnuCash(Writable)FileImpl`: Implementation now honors the usual convention for guessing the file read/write option from the file name: "xml" &rarr; non-compressed; "gnucash" &rarr; compressed.
+
+  [ This makes sense and improves the symmetry with the sister project, although the author aknowledges that the original GnuCash software does not like to open files with other extensions than "gnucash". However, 
+  he has some more plans concerning (non-)compressed test data files
+  in the pipeline. ]
+
 * `GCsh(Writable)Address(Impl)`: Changed method names (kept old ones as deprecated variants for compatibility).
 
 * Improved test coverage
@@ -38,7 +47,7 @@ file.
 ### V. 1.5 &rarr; 1.6
 * Fixed a couple of bugs in write-branch of API (for various entities), esp. in object-deleting code.
 
-* Introduced `GCsh(Writable)AccountLot(Impl)`, which has a similar relationship to GnuCashAccount as `GnuCash(Writable)TransactionSplit` has to `GnuCash(Writable)Transaction`.
+* Introduced `GCsh(Writable)AccountLot(Impl)`, which has a similar relationship to `GnuCashAccount` as `GnuCash(Writable)TransactionSplit(Impl)` has to `GnuCashTransaction`.
     
   This is needed to report on lots in securities (stock) accounts,
   and that, in turn, is needed to prepare German tax filings (so-called "FIFO principle").
@@ -99,7 +108,7 @@ its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical 
 * Improved test coverage.
 
 ### V. 1.2 &rarr; 1.3
-* Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that are no "employee jobs" that one might expect):
+* Introduced interfaces/classes for employees, emloyee vouchers and employee jobs, completely analogous to the according structures for customers and vendors in V. 1.1 (except for the fact that there are no "employee jobs" that one might expect):
   * `Gnucash(Writable)Employee(Impl)` 
   * `Gnucash(Writable)EmployeeVoucher(Impl)` 
 
@@ -110,7 +119,7 @@ its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical 
   * German
 
 * Enhanced type safety by: 
-  * introducing package `org.gnucash.basetypes`, containing, among other things, the class GCshID as a wrapper for the UUIDs used throughout the system (instead of just treating them as unsafe strings).
+  * introducing package `org.gnucash.basetypes`, containing, among other things, the class `GCshID` as a wrapper for the UUIDs used throughout the system (instead of just treating them as unsafe strings).
   * introducing several enums where before we had string constants,
 
 * Partially re-wrote package `org.gnucash.currency`: Safer and clearer implementation, now leveraging newly introduced types from package `org.gnucash.basetypes`.
@@ -119,7 +128,7 @@ its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical 
 
 * Renamed `GCsh(Writable)Price(Impl)` to `Gnucash(Writable)Price(Impl)` and moved it from the "`aux`" sub-package up one level, as, in fact, price is a main entity.
 
-* Introduced new packages "`hlp`" (both for interfaces and implementations) for interfaces/classes that are purely internal. *Note: This is not the same as the "`aux`" packages, whose contents are auxiliary but public).*
+* Introduced new packages "`hlp`" (both for interfaces and implementations) for interfaces/classes that are purely internal. *Note: This is not the same as the "`aux`" packages, the contents of which are auxiliary but public).*
 
 * Significantly improved test coverage. In so doing, found and fixed a couple of bugs.
 
@@ -142,7 +151,7 @@ its derivatives `GnuCash[Customer|Vendor]JobImpl` so that it is now symmetrical 
   * A security's quote
   * A pseudo-security's price
 
-   (all of them usually noted in the default currency)
+   (all of them usually, but not necessarily, noted in the default currency)
 
   Given that we have several variants of `CmdtyCurrID` (cf. below), we also have several methods returning various types.
 
@@ -233,6 +242,8 @@ It should go without saying, but the following items are of course subject to ch
 
 * Introduce special variant of transaction: Simple transaction (with just two splits).
 
+* Possibly carve out a new module for all stuff in "`spec`" packages.
+
 * Get rid of ugly code redundancies here and there, esp. in the class `Gnucash(Writable)GenerInvoiceImpl`.
 
 * Last not least: Provide user documentation.
@@ -244,12 +255,14 @@ It should go without saying, but the following items are of course subject to ch
 
 * Generating new objects currently only works (reliably) when at least one object of the same type (a customer, say) is already in the file.
 
-* When generating invoices, you cannot/should not call the `post()`-method immediately after composing the object. The post-method will work, but the amount of the post-transaction will be wrong (thus, the transaction will be useless as it cannot be corrected manually in GnuCash; post-transactions are read-only). Instead, you should first write the results to the output file using the `GnucashWritableFile.writeFile()`-method, then re-load/re-parse the invoice generated before and then use the `post()`-method. Then, the amount will be correct.
+* When generating invoices, you cannot/should not call the `post()`-method immediately after composing the object. The post-method will work, but the amount of the post-transaction will be wrong (thus, the transaction will be useless as it cannot be corrected manually in GnuCash; post-transactions are read-only). 
+
+  Instead, you should first write the results to the output file using the `GnucashWritableFile.writeFile()`-method, then re-load/re-parse the invoice generated before and then use the `post()`-method. Then, the amount will be correct.
 
   Cf. test classes `TestGnucashWritableCustomerInvoiceImpl`, `TestGnucashWritableVendorBillImpl` and  `TestGnucashWritableJobInvoiceImpl`.
 
 * XSD schema file (the one used to generate the "base" code of the lib) is not suitable to validate the GnuCash files read and generated.
 
   Sure, one would expect that the files are valid when checked against the relevant XSD file, but this is not as dramatic as it sounds:
-    * For one, plenty of tests as well as real-life usage have proven that the libs works very well. 
-    * Additonally, oddly enough, it seems that the GnuCash developers themselves do not put too much emphasis on this aspect. They do not even maintain an official XSD file (the one used in this project has evolved from a file originally written/generated by the first author some 15 years ago and now is being mainained manually by re-engineering the GnuCash file format). They do, however, have a sort-of half-official RNC file, from which an XSD file can be generated, but a) the author has read somewhere in their documentation that it is not used "in earnest", but rather exists in the shadows, so to speak (it was not easy to find) and b) the generated (set of) XSD file(s) is *very* different from the one used right now, and the author hesitates to replace it at this point, and c) apart from previous two points: it is useless -- the original GnuCash-generated files are not valid according to the generated XSD files; so what's the point?
+    * For one, plenty of tests as well as real-life usage have proven that the lib works very well. 
+    * Additonally, oddly enough, it seems that the GnuCash developers themselves do not put too much emphasis on this aspect. They do not even maintain an official XSD file (the one used in this project has evolved from a file originally written/generated by the first author some 15 years ago and now is being mainained manually by re-engineering the GnuCash file format). They do, however, have a sort-of half-official RNC file, from which an XSD file can be generated, but a) the author has read somewhere in their documentation that it is not used "in earnest", but rather exists in the shadows, so to speak and b) the generated (set of) XSD file(s) is *very* different from the one used right now, and the author hesitates to replace it at this point, and c) apart from previous two points: it is useless -- the original GnuCash-generated files are not valid according to the generated XSD files; so what's the point?

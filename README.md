@@ -41,6 +41,7 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.7     | no               | "Medium" changes in interfaces |
 | 1.6     | almost           | Minor changes in interfaces, partially extensions |
 | 1.5     | almost           | Minor changes in interfaces    |
 | 1.4     | no               | Some substantial changes       |
@@ -64,7 +65,6 @@ cf. the README files of the resp. modules (links above).
   * New functionalities.
 
 * Module "API Extensions": 
-
   * New sub-module.
   * Expanded functionality of already-existing module.
 
@@ -95,8 +95,11 @@ Cf. the README file of modules "API" and "Example programs" (links below).
 This software is beta.
 
 It is worth noting, though, that the author has been using both the published tools 
-as well as some unpublished ones on a nearly daily basis for a couple of months now 
-to facilitate and part-automate his business' accounting. This proves that the 
+as well as some unpublished ones on a nearly daily basis 
+for a couple of months now 
+to facilitate and part-automate his 
+business' 
+accounting. This proves that the 
 software is well-tested and stable enough for a real-world setting (as opposed to 
 theoretical test cases and arbitrary examples).
 
@@ -108,8 +111,16 @@ In short: You are encouraged to use this software, but be advised to use it unde
 
 * As for the write-branch, take the usual precautions: 
 
-  * Do not just take the software and "wildly" change things in your valuable GnuCash files that you may have been building for years or possibly even decades. It still might contain some non-trivial bugs, and you should not assume that it works correctly in all conceivable edge and corner cases.
-  * If you write your own tools, do not *change* the GnuCash file but *generate a new one* instead (as done in the published tools) and keep the old version for a while.
+  * Do not just take the software and "wildly" change things in your valuable 
+    GnuCash 
+    files that you may have been building for years or possibly even decades. 
+    It still might contain some non-trivial bugs, and you should not assume that 
+    it works correctly in all conceivable edge and corner cases.
+  * If you write your own tools, be aware that the lib allows you to *change* the 
+    GnuCash 
+    file loaded. You are, however, advised not to do so in the beta stage, but 
+    rather to *generate a new one* instead (as done in the published tools) and 
+    keep the old version for a while.
   * If you have to change your file, **make backups before you use this lib/these tools!** Take your time and check the generated/changed files thoroughly before moving on.
 
 ## Compiling the Sources
@@ -121,15 +132,16 @@ To compile the sources, do the following:
 
 3) Clone this repository.
 
-4) Check out the latest version tag. In this case: `V_1_6_0`.
+4) Check out the latest version tag. In this case: `V_1_7_0`.
 
-   The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
-   who do not seem to understand the concept of version tags and configuration management, 
-   so please bear with him...
+      The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
+      who do not seem to understand the concept of version tags and configuration management, 
+      so please bear with him for telling you the seemlingly obvious...
 
 5) Compile the sources:
-    a) Adapt the path to your local repository in *all* pom.xml files (search for "`schnorxolib-base-systemPath`").
-    b) Type:
+
+      a) Adapt the path to your local repository in *all* pom.xml files (search for "`schnorxolib-base-systemPath`").
+      b) Type:
 
         `$ ./build.sh`
 
