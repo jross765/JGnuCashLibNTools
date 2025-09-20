@@ -1,8 +1,8 @@
-JGnuCashLibAPI
-JGnuCashLibAPIExamples
-JGnuCashLibAPIExt
-JGnuCashLibBase
-JGnuCashTools
+gnucash-api
+gnucash-api-examples
+gnucash-api-ext
+gnucash-base
+gnucash-tools
 #
 .classpath
 .directory
