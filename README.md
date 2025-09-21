@@ -23,7 +23,7 @@ GnuCash project.
 
 ## Compatibility
 ### System Compatibility
-Version 1.6 of the library has been tested with 
+Version 1.7 of the library has been tested with 
 GnuCash 5.12 on Linux (locale de_DE) and 
 OpenJDK 21.0.
 
