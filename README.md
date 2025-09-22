@@ -54,6 +54,32 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 Here, only the top-level changes on module-level are mentioned. For more Details, 
 cf. the README files of the resp. modules (links above).
 
+### V. 1.7 &rarr; 1.7 (RESTRUCT)
+Split up the all-encompassing repository into several ones: One per module plus one for the parent (this one).
+
+Apart from that, I have made *no relevant changes* (i.e. only small changes in the README-files etc., but not in the actual source code).
+
+*Rationale*:
+
+I know, that comes with some disadvantages, and there are quite a few people who would advise against it for valid reasons. 
+
+That being said, life's not black and white, and while I acknowledge that having everything in one single repository makes things easier in the early stages of development, I am convinced that in the long run, the advantages of doing so will outweigh the disadvantages for the following reasons:
+
+* The modules' rates of change will vary considerably (they already do, and they will problably do even more in the years to come).
+
+* It feels odd *not* to have "API Examples" and "Tools" in separate repositories (and that's just the most obvious example).
+
+* The measure will greatly facilitate accepting and managing future contributions from others (or possibly handing single modules completely over to others), which I currently would feel much more inclined to do for the modules "API Extensions" and "Tools" than for the other ones.
+  
+* Last not least, I manage some additional (unpublished) projects that way, and I would like to keep things consistent (you see, my day has only 24 hours just as yours, and I have other things to do...).
+
+*History*:
+
+I have made a clean cut:
+
+* The top-level repository (this one) contains the whole history up to V. 1.7. 
+* The newly-generated sub-repos contain no history until V. 1.7. But they will contain their respective module's history from that point onwards.
+
 ### V. 1.6 &rarr; 1.7
 * Overall:
   * Introduced new (dummy) ID types for type safety and better symmetry with sister project.
@@ -148,13 +174,6 @@ To compile the sources, do the following:
 ## Planned
 
 ### Overall
-* Split up the all-encompassing repository into several ones: One per module plus one for the parent.
-
-  I know, I know, that will come with some disadvantages, and there are people who would advise 
-  against it, for valid reasons. But life is not black and white, and while I acknowledge that 
-  having everything in one single repository makes things easier in the early stages of development, 
-  I am convinced that in the long run, the advantages of doing so will outweigh the disadvantages.
-
 * Possibly contribute some more Java tools / wrapper scripts that already exist in separate repositories that currently are not published.
 
 ### Module-Specific
