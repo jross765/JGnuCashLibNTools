@@ -11,15 +11,15 @@ GnuCash project.
 
 ## Modules and Further Details
 
-* [Base](https://github.com/jross765/JGnuCashLibNTools/tree/master/gnucash-base/README.md)
+* [Base](https://github.com/jross765/gnucash-base)
 
-* [API](https://github.com/jross765/JGnuCashLibNTools/tree/master/gnucash-api/README.md)
+* [API](https://github.com/jross765/gnucash-api)
 
-* [API Extensions](https://github.com/jross765/JGnuCashLibNTools/tree/master/gnucash-api-ext/README.md)
+* [API Extensions](https://github.com/jross765/gnucash-api-ext)
 
-* [Example Programs](https://github.com/jross765/JGnuCashLibNTools/tree/master/gnucash-api-examples/README.md)
+* [Example Programs](https://github.com/jross765/gnucash-api-examples)
 
-* [Tools](https://github.com/jross765/JGnuCashLibNTools/tree/master/gnucash-tools/README.md)
+* [Tools](https://github.com/jross765/gnucash-tools)
 
 ## Compatibility
 ### System Compatibility
