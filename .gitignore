@@ -3,6 +3,7 @@ gnucash-api-examples
 gnucash-api-ext
 gnucash-base
 gnucash-tools
+gnucash-viewer
 #
 .classpath
 .directory
