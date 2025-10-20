@@ -21,6 +21,8 @@ GnuCash project.
 
 * [Tools](https://github.com/jross765/gnucash-tools)
 
+* [Viewer](https://github.com/jross765/gnucash-viewer)
+
 ## Compatibility
 ### System Compatibility
 Version 1.7 of the library has been tested with 
@@ -216,6 +218,10 @@ Special thanks to:
 
     (Forked from http://sourceforge.net/projects/jgnucashlib / revived in 2017, after some years of enchanted sleep.)
 
-* **Deniss Larka** for kissing the beauty awake and taking care of her for a couple of years.
+* **Deniss Larka** for kissing the beauty awake and taking care of her for a couple of years (excluding the viewer).
 
   (Forked from https://github.com/DenissLarka/jgnucashlib in 2023)
+
+* **Roberto Bertolino** for contributing to Deniss' work and maintaining the viewer.
+
+  (Module "gnucash-viewer" forked from https://github.com/rbertoli/gnucash in 2025)
