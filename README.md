@@ -6,7 +6,7 @@ format of the
 GnuCash open source small-business accounting software 
 ([gnucash.org](https://gnucash.org)).
 
-This project is not directly affiliated with / sponsored or coordinated by the developers of the 
+This project is not affiliated with / sponsored or coordinated by the developers of the 
 GnuCash project.
 
 ## Modules and Further Details
@@ -25,8 +25,8 @@ GnuCash project.
 
 ## Compatibility
 ### System Compatibility
-Version 1.7 of the library has been tested with 
-GnuCash 5.12 on Linux (locale de_DE) and 
+Version 1.8 of the library has been tested with 
+GnuCash 5.13 on Linux (locale de_DE) and 
 OpenJDK 21.0.
 
 ### Locale/Language Compatibility
@@ -43,6 +43,7 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 | Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.8     | almost           | Minor changes in interfaces    |
 | 1.7     | no               | "Medium" changes in interfaces |
 | 1.6     | almost           | Minor changes in interfaces, partially extensions |
 | 1.5     | almost           | Minor changes in interfaces    |
@@ -53,8 +54,30 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 | 1.0.1   | yes              |                                |
 
 ## Major Changes
-Here, only the top-level changes on module-level are mentioned. For more Details, 
-cf. the README files of the resp. modules (links above).
+Here, only the top-level changes on module-level are mentioned. 
+For more details, cf. the README files of the resp. modules (links above).
+
+### V. 1.7 (RESTRUCT) &rarr; 1.8
+**Caution: Please note that, due to the changes in the last major release 
+(splitting up the one big repository in several smaller ones), 
+from now on, each module is versioned on its own, and the overall project's version 
+(1.8 in this case) 
+need not be/is not identical to the single modules' versions any more.**
+
+* Parent repo (this one): Finished restruct work, i.e. made the
+  (Maven) modules' repos Git sub-modules as well.
+
+* Module "Viewer" (V. 1.1.0): New.
+
+  Well, only technically new in this project; originally written by Marcus Wolschon and maintained by Roberto Bertolino for a while, I have taken it and adapted it to this fork. In short: Simplified it (viewer only, no editing) and I18N.
+
+* Module "API" (V. 1.7.0 &rarr; 1.7.1): Bug-fixes and mini-improvements.
+
+* The other modules remain unchanged:
+  * "Base": V. 1.7.0
+  * "API Examples": V. 1.7.0
+  * "API Extensions": V. 1.7.0
+  * "Tools": V. 1.7.0
 
 ### V. 1.7 &rarr; 1.7 (RESTRUCT)
 Split up the all-encompassing repository into several ones: One per module plus one for the parent (this one).
@@ -150,6 +173,7 @@ In short: You are encouraged to use this software, but be advised to use it unde
     rather to *generate a new one* instead (as done in the published tools) and 
     keep the old version for a while.
   * If you have to change your file, **make backups before you use this lib/these tools!** Take your time and check the generated/changed files thoroughly before moving on.
+    The `diff` tool is your friend as well as the provided `Dump` tool!
 
 ## Compiling the Sources
 To compile the sources, do the following:
@@ -159,13 +183,10 @@ To compile the sources, do the following:
 2) Build and install [`SchnorxoLib`](https://github.com/jross765/Schnorxolib) (cf. details there).
 
 3) Clone this repository as well as its sub-repositories. 
-   Place the sub-repos directories *under* this repo's cloned directory, 
-   just as it was until V. 1.7.
 
-      **Note**: We do *not* use Git modules for managing the hierarchy yet. 
-      That will come in a future release.
+      `$ git clone --recurse-submodules https://github.com/jross765/JGnuCashLibNTools`
 
-4) Check out the latest version tag. In this case: `V_1_7_0_RESTRUCT`.
+4) Check out the latest version tag. In this case: `V_1_8`.
 
       The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
       who do not seem to understand the concept of version tags and configuration management, 
