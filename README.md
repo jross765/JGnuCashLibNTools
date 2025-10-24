@@ -73,11 +73,11 @@ need not be/is not identical to the single modules' versions any more.**
 
 * Module "API" (V. 1.7.0 &rarr; 1.7.1): Bug-fixes and mini-improvements.
 
-* The other modules remain unchanged:
-  * "Base": V. 1.7.0
-  * "API Examples": V. 1.7.0
-  * "API Extensions": V. 1.7.0
-  * "Tools": V. 1.7.0
+* The other modules have changed only technically; essentially (i.e., code) unchanged:
+  * "Base": V. 1.7.1
+  * "API Examples": V. 1.7.1
+  * "API Extensions": V. 1.7.1
+  * "Tools": V. 1.7.1
 
 ### V. 1.7 &rarr; 1.7 (RESTRUCT)
 Split up the all-encompassing repository into several ones: One per module plus one for the parent (this one).
