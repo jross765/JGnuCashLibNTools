@@ -33,13 +33,26 @@ List of modules and other relevant stuff:
 
   * [Viewer (gnucash-viewer)](https://github.com/jross765/gnucash-viewer)
 
-* Miscellaneous:
-
   * [Example Programs (gnucash-api-examples)](https://github.com/jross765/gnucash-api-examples)
+    (actually not "officially" part of the 
+    JGnuCashTools, 
+    but we won't define a new category just for this one, and they are in the same ballpark...)
+
+* Miscellaneous:
 
   * [SchnorxoLib](https://github.com/jross765/schnorxolib)
 
   * [Apache Commons](https://commons.apache.org)
+    * [Configuration](https://commons.apache.org/proper/commons-configuration/)
+    * [IO](https://commons.apache.org/proper/commons-io/)
+    * [CLI](https://commons.apache.org/proper/commons-cli/)
+    * [Numbers](https://commons.apache.org/proper/commons-numbers/)
+
+  * [Joda Money](https://www.joda.org/joda-money/)
+
+  * [Jakarta XML Binding (JAXB)](https://eclipse-ee4j.github.io/jaxb-ri/)
+
+  * [Jakarta Activation API](https://jakartaee.github.io/jaf-api/)
 
 ## Compatibility
 ### System Compatibility
