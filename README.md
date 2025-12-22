@@ -11,17 +11,35 @@ GnuCash project.
 
 ## Modules and Further Details
 
-* [Base](https://github.com/jross765/gnucash-base)
+Here is a high-level overview:
 
-* [API](https://github.com/jross765/gnucash-api)
+![Module Architecture](doc/module-arch.png)
 
-* [API Extensions](https://github.com/jross765/gnucash-api-ext)
+List of modules and other relevant stuff:
 
-* [Example Programs](https://github.com/jross765/gnucash-api-examples)
+* JGnuCashLibs:
 
-* [Tools](https://github.com/jross765/gnucash-tools)
+  * [Base (gnucash-base)](https://github.com/jross765/gnucash-base)
 
-* [Viewer](https://github.com/jross765/gnucash-viewer)
+  * [API (gnucash-api)](https://github.com/jross765/gnucash-api)
+
+  * [API Specialized Entities (gnucash-spec)](https://github.com/jross765/gnucash-api-spec)
+
+  * [API Extensions (gnucash-ext)](https://github.com/jross765/gnucash-api-ext)
+
+* JGnuCashTools:
+
+  * [Tools (gnucash-tools)](https://github.com/jross765/gnucash-tools)
+
+  * [Viewer (gnucash-viewer)](https://github.com/jross765/gnucash-viewer)
+
+* Miscellaneous:
+
+  * [Example Programs (gnucash-api-examples)](https://github.com/jross765/gnucash-api-examples)
+
+  * [SchnorxoLib](https://github.com/jross765/schnorxolib)
+
+  * [Apache Commons](https://commons.apache.org)
 
 ## Compatibility
 ### System Compatibility
