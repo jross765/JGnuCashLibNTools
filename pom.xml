@@ -18,6 +18,7 @@
 
 		<module>gnucash-base</module>
 		<module>gnucash-api</module>
+		<module>gnucash-api-spec</module>
 		<module>gnucash-api-ext</module>
 		<module>gnucash-api-examples</module>
 		<module>gnucash-tools</module>

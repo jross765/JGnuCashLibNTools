@@ -4,15 +4,18 @@
 [submodule "gnucash-api"]
 	path = gnucash-api
 	url = https://github.com/jross765/gnucash-api.git
+[submodule "gnucash-api-ext"]
+        path = gnucash-api-ext
+        url = https://github.com/jross765/gnucash-api-ext.git
 [submodule "gnucash-api-examples"]
 	path = gnucash-api-examples
 	url = https://github.com/jross765/gnucash-api-examples.git
-[submodule "gnucash-api-ext"]
-	path = gnucash-api-ext
-	url = https://github.com/jross765/gnucash-api-ext.git
 [submodule "gnucash-tools"]
 	path = gnucash-tools
 	url = https://github.com/jross765/gnucash-tools.git
 [submodule "gnucash-viewer"]
 	path = gnucash-viewer
 	url = https://github.com/jross765/gnucash-viewer.git
+[submodule "gnucash-api-spec"]
+	path = gnucash-api-spec
+	url = https://github.com/jross765/gnucash-api-spec.git

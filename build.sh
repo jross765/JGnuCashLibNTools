@@ -40,6 +40,7 @@ JAVADOC_STATUS_ALL=0
 
 for module in gnucash-base \
               gnucash-api \
+              gnucash-api-spec \
               gnucash-api-ext
 do
   echo ""
