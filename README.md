@@ -17,32 +17,62 @@ Here is a high-level overview:
 
 List of modules and other relevant stuff:
 
-* JGnuCashLibs:
+* JGnuCashLibs (the API)
+
+  The four following together form the API:
 
   * [Base (gnucash-base)](https://github.com/jross765/gnucash-base)
 
+    Some basic data types and helper classes (project-specific).
+
   * [API (gnucash-api)](https://github.com/jross765/gnucash-api)
+
+    The Core API (read/write) -- no bells, no whistles, yet still providing a certain level 
+    of convenience as well as solid type safety and input-value checks.
+
+    "Good and well-tested wrappers for the the JAXB-generated classes".
 
   * [API Specialized Entities (gnucash-spec)](https://github.com/jross765/gnucash-api-spec)
 
+    Bells & whistles, part 1: Some specialized classes derived from the Core API.
+
   * [API Extensions (gnucash-ext)](https://github.com/jross765/gnucash-api-ext)
+
+    Bells & whistles, part 2: Some specialized helper classes providing
+    high-level functionalities based on low-level actions in of the Core API
+    (partially with the data specialized entities).
 
 * JGnuCashTools:
 
   * [Tools (gnucash-tools)](https://github.com/jross765/gnucash-tools)
 
+    CLI Tools (read/write).
+
   * [Viewer (gnucash-viewer)](https://github.com/jross765/gnucash-viewer)
 
+    The (read-only) GUI.
+
   * [Example Programs (gnucash-api-examples)](https://github.com/jross765/gnucash-api-examples)
-    (actually not "officially" part of the 
+
+
+    Some examples on how to use the API (all levels).
+
+    Actually not "officially" part of the 
     JGnuCashTools, 
-    but we won't define a new category just for this one, and they are in the same ballpark...)
+    but we won't define a new category just for this one, and they are in the same ballpark...
 
 * Miscellaneous:
 
   * [SchnorxoLib](https://github.com/jross765/schnorxolib)
 
+    Some basic data types and helper classes 
+    (used by this project as well as the sister project).
+
   * [Apache Commons](https://commons.apache.org)
+
+    Ye ole venerable collection of general-purpose Java libs.
+    The following ones are used:
+
     * [Configuration](https://commons.apache.org/proper/commons-configuration/)
     * [IO](https://commons.apache.org/proper/commons-io/)
     * [CLI](https://commons.apache.org/proper/commons-cli/)
@@ -52,12 +82,14 @@ List of modules and other relevant stuff:
 
   * [Jakarta XML Binding (JAXB)](https://eclipse-ee4j.github.io/jaxb-ri/)
 
-  * [Jakarta Activation API](https://jakartaee.github.io/jaf-api/)
+  * Progress Bar (xxx)
+
+  * JLine (xxx)
 
 ## Compatibility
-### System Compatibility
-Version 1.8 of the library has been tested with 
-GnuCash 5.13 on Linux (locale de_DE) and 
+### System and Format Compatibility
+Version 1.9 of the libs and tools has been tested with 
+GnuCash 5.14 on Linux (locale de_DE) and 
 OpenJDK 21.0.
 
 ### Locale/Language Compatibility
@@ -72,8 +104,9 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 ### Version Compatibility
 
-| Version | Backward Compat. | Note                           |
+| Overall Version | Backward Compat. | Note                           |
 |---------|------------------|--------------------------------|
+| 1.9     | ???              | ???                            |
 | 1.8     | almost           | Minor changes in interfaces    |
 | 1.7     | no               | "Medium" changes in interfaces |
 | 1.6     | almost           | Minor changes in interfaces, partially extensions |
@@ -88,27 +121,75 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 Here, only the top-level changes on module-level are mentioned. 
 For more details, cf. the README files of the resp. modules (links above).
 
+### V. 1.8 &rarr; 1.9
+
+* Parent repo (this one): xyz.
+
+* Module "API (Core)":
+  * Loading files now shows progress bars in console (optional).
+  * Maintenance.
+
+* Module "API Specialized Entities: New.
+
+* Module "API Extensions": Maintenance.
+
+* Module "API Examples": 
+  * New example program for API Specialized Entities".
+  * New package structure to better reflect different modules.
+
+* Module "Tools":
+  * All tools now load files showing progress bars (cf. Module "API (Core)").
+  * Maintenance.
+
+* Module "Viewer": xyz.
+
+* The other modules have changed only technically; essentially (i.e., code) unchanged:
+  * "Base"
+
+Module versions:
+
+| Name                     | Version |
+|--------------------------|---------|
+| Base                     | 1.7.2   |
+| API (Core)               | 1.8     |
+| API Specialized Entities | 0.2     |
+| API Extensions           | 1.8     |
+| API Examples             | 1.8     |
+| Tools                    | 1.8     |
+| Viewer                   | 1.2     |
+
 ### V. 1.7 (RESTRUCT) &rarr; 1.8
 **Caution: Please note that, due to the changes in the last major release 
 (splitting up the one big repository in several smaller ones), 
 from now on, each module is versioned on its own, and the overall project's version 
-(1.8 in this case) 
+(1.8, in this case) 
 need not be/is not identical to the single modules' versions any more.**
 
 * Parent repo (this one): Finished restruct work, i.e. made the
   (Maven) modules' repos Git sub-modules as well.
 
-* Module "Viewer" (V. 1.1.0): New.
+* Module "Viewer": New.
 
   Well, only technically new in this project; originally written by Marcus Wolschon and maintained by Roberto Bertolino for a while, I have taken it and adapted it to this fork. In short: Simplified it (viewer only, no editing) and I18N.
 
-* Module "API" (V. 1.7.0 &rarr; 1.7.1): Bug-fixes and mini-improvements.
+* Module "API": Bug-fixes and mini-improvements.
 
 * The other modules have changed only technically; essentially (i.e., code) unchanged:
-  * "Base": V. 1.7.1
-  * "API Examples": V. 1.7.1
-  * "API Extensions": V. 1.7.1
-  * "Tools": V. 1.7.1
+  * "Base"
+  * "API Examples"
+  * "API Extensions"
+  * "Tools"
+
+Module versions:
+
+| Name                     | Version |
+|--------------------------|---------|
+| Base                     | 1.7.1   |
+| API (Core)               | 1.7.1   |
+| API Extensions           | 1.7.1   |
+| API Examples             | 1.7.1   |
+| Tools                    | 1.7.1   |
+| Viewer                   | 1.1.0   |
 
 ### V. 1.7 &rarr; 1.7 (RESTRUCT)
 Split up the all-encompassing repository into several ones: One per module plus one for the parent (this one).
@@ -219,7 +300,7 @@ To compile the sources, do the following:
     $ git clone --recurse-submodules https://github.com/jross765/JGnuCashLibNTools
       ```
 
-4) Check out the latest version tag. In this case: `V_1_8`.
+4) Check out the latest version tag. In this case: `V_1_9`.
 
       The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
       who do not seem to understand the concept of version tags and configuration management, 
