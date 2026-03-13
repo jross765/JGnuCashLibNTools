@@ -5,7 +5,7 @@
 
 	<groupId>org.gnucash</groupId>
 	<artifactId>gnucash</artifactId>
-	<version>1.9</version>
+	<version>2026-03</version>
 	<packaging>pom</packaging>
 	<name>${project.title}</name>
 
