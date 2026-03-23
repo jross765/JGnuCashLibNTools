@@ -1,0 +1,2 @@
+https://stackoverflow.com/questions/9434536/how-do-i-make-a-reference-to-a-figure-in-markdown-using-pandoc
+https://github.com/tomduck/pandoc-fignos?tab=readme-ov-file

@@ -1,0 +1,49 @@
+Module "API (Core)"
+===================
+
+- [ OK ] Prüfen: Können Cust/Empl/Vend. *direkt* Trx haben?
+  Nö, oder? (Hintergrund: Vgl. Vendor/GCsh <-> Payee/KMM)
+
+  Antwort: nein, können sie nicht. Geht (nicht nur fachlich,
+  sondern auch technisch) nur indirekt via Rechnungen.
+
+  Könnte man natürlich aber trotzdem machen; sollte dann 
+  aber wohl eher unter "Spec. Entities" oder "Extensions" 
+  sein.
+
+- IF KMyMoneyFile_TrxSplt: Symmetrie zu Schwester.
+
+Module "API Specialized Entities"
+=================================
+
+./.
+
+Module "API Extensions"
+=======================
+
+./.
+
+Module "Tools"
+==============
+
+- GetPrcInfo: Da geht bessere Symmetrie mit Schwester
+  (vgl. auch CommandLineHelper)
+
+- [ OK ] GetSecInfo: Nochmal schauen, ob man das nicht etwas
+  symmetrischer zur Schwester hinkriegt.
+
+- UpdAcct: Noch nicht richtig symmetrisch mit Schwester
+  (AccountNotFoundException)
+
+- UpdPrc: Symmetrie kann bisschen verbessert werden.
+
+- [ OK ] UpdSec:
+  o [ OK ] Symmetrie verbessern
+  o [ OK ] Auswahl Cmdty-ID wie bei GetSecInfo
+  o [ OK ] Spez. Cmdty-ID: erweitern (vgl. GetCmdtyInfo)
+
+Module "Viewer"
+===============
+
+- Anzeige Acct. Balance: ist falsch bzw. erneut implementiert -->
+  umstellen auf das, was die API (Core) vorsieht.
