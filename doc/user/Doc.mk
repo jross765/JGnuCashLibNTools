@@ -9,7 +9,8 @@ TEXTS : select-securities.pdf
 ######################################################################
 # TEXTS
 
-select-securities.pdf : select-securities.md
+select-securities.pdf : select-securities.md \
+                        ../xsec/secid-logic.png
 	pandoc -f markdown -t pdf -i $< -o $@
 
 
