@@ -26,7 +26,7 @@ In a nutshell, it boils down to the following:
 
 ## Overview
 
-Figure \ref{fig:overview} shows the two levels of Security IDs in GnuCash.
+Figure \ref{fig:overview} shows the two levels of security IDs in GnuCash.
 
 ![ID layers in GnuCash \label{fig:overview}](../xsec/secid-logic.png)
 
@@ -123,9 +123,29 @@ Then, you have several options:
     and will thus lead to far more precise error logs in case of an error.
 
     There are three sub-modes to choose from: 
-    * INDIRECT_EXCHANGE_TICKER
-    * INDIRECT_MIC
-    * INDIRECT_SEC_ID_TYPE
+    * INDIRECT_EXCHANGE_TICKER:
+    
+      Here, `<namespace>:<code>` becomes `<exchange:ticker>`, where
+      `<exchange>` is the semi-formal, non-standardized but widely-used 
+      abbreviation of a major exchange
+      (e.g., "NYSE", "EURONEXT", "XETRA", "JPX", etc.),
+      and `<ticker>` is the exchange-specific ticker of the security.
+      
+    * INDIRECT_MIC:
+    
+      Here, `<namespace>:<code>` becomes `<mic:mic-code>`, where
+      `<mic>` is the formal Market Identifier Code (MIC), which has
+      been standardized in ISO 10383
+      (e.g., "XNYS", "XPAR", "XSHE" etc.),
+      and `<mic-code>` is the same as `<ticker>` above.
+      
+    * INDIRECT_SEC_ID_TYPE:
+    
+      Here, `<namespace>:<code>` becomes `<sec-id-type:sec-id>`, where
+      `<sec-id-type>` is the type of the public security ID
+      (e.g. "ISIN", "CUSIP", "SEDOL", "WKN" or similar),
+      and `<sec-id>` is the actual security ID under the security ID type's system 
+      (e.g., "DE0007100000" for "ISIN", "710000" for "WKN", etc.).
 
     Example:
 
@@ -149,11 +169,11 @@ Then, you have several options:
         -is DE000BASF111AP
     ```
 
-    Notice that the second example uses the ISIN, which in this case is used to specify the securitie's (pseudo-)technical ID (because the parameter `-ssm` is set to "INDIRECT_SEC_ID_TYPE").
-
     In essence, with the indirect method, we "acknowledge" the semantics of the 
-    pseudo-technical ID, as opposed the the direct method.
+    pseudo-technical ID, as opposed to the direct method.
   
+    Notice that the second example uses the ISIN, which in this case is used to specify the security's (pseudo-)technical ID (because the parameter `-ssm` is set to "INDIRECT_SEC_ID_TYPE").
+
     Also notice the parameters `-exch EURONEXT` and `-secid-type ISIN` in the examples. These are, as already
     stated, *pre-defined* values of `JGnuCashLib`, and strictly speaking, they have nothing to do with what you 
     actually have in your GnuCash file (obviously, it is strongly recommended that you use these pre-defined values when editing securities in GnuCash).[^3]
@@ -161,7 +181,7 @@ Then, you have several options:
     then you would not be able to retrieve that one with the above-mentioned indirect method. You would instead have to use 
     the direct method.
 
-    On the other hand, you don't need to make these kind of error: Just use the tool `GenSec`, and 
+    On the other hand, you don't need to make this kind of mistake: Just use the tool `GenSec`, and 
     `JGnuCashLib` will ensure that only the pre-defined values are used.
 
 * *Mode "ISIN"*:
