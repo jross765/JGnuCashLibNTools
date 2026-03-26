@@ -24,44 +24,11 @@ In a nutshell, it boils down to the following:
   
   If you have a global portfolio, it makes sense to use the ISIN.[^1]
 
-## Overview
-
-Figure \ref{fig:overview} shows the two levels of security IDs in GnuCash.
-
-![ID layers in GnuCash \label{fig:overview}](../xsec/secid-logic.png)
-
-In theory, the two layers are clearly separated, i.e. technical IDs and business-logic ID
-do not have anything to do with each other. However, the 
-GnuCash 
-developers chose to 
-make things a little more complicated: They intentionally blurred the line between
-the two layers, so that technical IDs are, in fact, pseudo-technical and quasi-business.
-
-If they had chosen to treat securties as any other entity in GnuCash, then the 
-technical ID would look something like this: `14305dc80e034834b3f531696d81b493`.
-This string obviously has no meaning, i.e. it cannot / shall not be "interpreted" 
-or "understood".
-
-Well, they chose another approach: In GnuCash, a (pseudo-)technical ID looks something
-like these:
-
-* EURONEXT:SAP
-* ISIN:DE000BASF111AP
-
-Just by glancing at these, you can see that they are essentially business-logic IDs 
-maskerading as technical ones; they do mean something (i.e., they have semantics) and 
-can thus very well be interpreted and understood.
-
-It is important to understand this (non-)difference between technical and business-logic IDs in
-GnuCash 
-before reading the next section; otherwise it will probably confuse you.
-
-You can also see that the two examples above are composed of two parts, which is no 
-coincidence but the system that GnuCash imposes: `<namespace>:<code>`. Whereas the 
-name space can, in theory, be freely chosen by the user, it makes sense not to do so 
-but instead choosing from a pre-defined set that `JGnuCashLib` provides. This then
-leads to the concept of providing IDs "indirectly", i.e. composing them: providing
-the name space and the code separately.
+Please read the document "ID Layers in GnuCash" (folder `xsec`) first before 
+you move on. It is important to understand the (non-)difference between 
+GnuCash's
+technical and business-logic security IDs described there before reading the next section; 
+otherwise it will probably confuse you.
 
 
 ## Using the Tools
@@ -69,7 +36,10 @@ the name space and the code separately.
 We use the test data file provided with module "API Extensions".[^2]
 For test and illustration purposes, we have put securities into this file using various different systems (i.e., name spaces) -- something you normally would not do in real life.
 
-We have provided a wrapper script for the according tool: ::TODO
+There are several tools where you will have to specify a security,
+but only one of them supports all variants that we will cover in this
+section: `GetSec`.
+We have provided a wrapper shell script for it: `gcsh_get_sec_info.sh`.
 
 Then, you have several options:
 
@@ -210,8 +180,34 @@ Then, you have several options:
 * *Mode "NAME"*:
   Specifying the security by its name.
   
-  ::TODO Select by name (not recommended but possible for get_sec_info, and not supported for upd_sec).
+  This method is generally *not* recommended, but the maintainer acknowledges that there
+  might be special use cases where it is appropriate.
+  (Apart from that, this method only works for `GetSec` anyway, not for `UpdSec`.)
+  
+  Example:
+  
+  ```bash
+  $ gcsh_get_sec_info.sh \
+      -f test.gnucash \
+      -ssm NAME \
+      -sn "Mercedes-Benz Group AG"
+  ```
 
+  Keep in mind, though, that the name has to be specified *completely* and *excatly* as it 
+  is stored in the GnuCash file -- it is case sensitive, has zero tolerance for leading 
+  or trailing empty spaces, etc. Thus, the following will *not* work:
+  
+  * `-sn "Merced"`
+  * `-sn "mercedes-benz group"`
+  * `-sn "Mercedes Benz"`
+
+  You can, however, use the tool `GetSecList` to search for a security the name and exact
+  spelling of which you do not know (i.e., what one usually would expect). This tool is 
+  tolerant against upper- vs. lower-case spelling, will accept only parts of the name, etc.
+  With it, you can get the (list of) matching security/ies (short info), and with this 
+  info (ID, X-Code), you can use one of the other methods above to get the security's
+  full information.
+  
 
 [^1]: This is how thes current maintainer does it in his own portfolio, and it's been working well
       for decades now.

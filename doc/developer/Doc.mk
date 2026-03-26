@@ -26,7 +26,7 @@ module-arch.pdf : module-arch.odg
 # TEXTS
 
 select-securities.pdf : select-securities.md
-	pandoc -f markdown -t pdf -i $< -o $@
+	pandoc -f markdown -t pdf -V geometry:a4paper -i $< -o $@
 
 
 ######################################################################
