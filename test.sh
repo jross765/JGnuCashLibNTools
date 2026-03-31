@@ -92,8 +92,7 @@ doInitPrepareScripts()
   for module in gnucash-base \
                 gnucash-api \
                 gnucash-api-spec \
-                gnucash-api-ext \
-                gnucash-tools
+                gnucash-api-ext
   do
     echo ""
     echo "=============================="

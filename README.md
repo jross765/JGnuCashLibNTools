@@ -6,14 +6,20 @@ format of the
 GnuCash open source small-business accounting software 
 ([gnucash.org](https://gnucash.org)).
 
-This project is not affiliated with / sponsored or coordinated by the developers of the 
-GnuCash project.
+This project is not affiliated with nor sponsored or coordinated by the developers of the 
+GnuCash 
+project.
+
+It began as a friendly fork of Deniss Larka's `jgnucashlib` (cf. section "Acknowledgements" at the end of this document).
+After initial cooperation, it has gone its own way (we are still on friendly terms). 
+Since then, the code has undergone a lot of changes, and the project has greatly expanded its scope as well as its 
+quality by introducing regression tests.
 
 ## Modules and Further Details
 
 Here is a high-level overview:
 
-![Module Architecture](doc/module-arch.png)
+![Module Architecture](doc/developer/module-arch_cut.png)
 
 List of modules and other relevant stuff:
 
@@ -39,8 +45,8 @@ List of modules and other relevant stuff:
   * [API Extensions (gnucash-ext)](https://github.com/jross765/gnucash-api-ext)
 
     Bells & whistles, part 2: Some specialized helper classes providing
-    high-level functionalities based on low-level actions in of the Core API
-    (partially with the data specialized entities).
+    high-level functionalities based on low-level actions in of both the Core API
+    and the Specialized Entities.
 
 * JGnuCashTools:
 
@@ -61,35 +67,49 @@ List of modules and other relevant stuff:
     JGnuCashTools, 
     but we won't define a new category just for this one, and they are in the same ballpark...
 
+* Project-specific basic stuff:
+
+  There is one project-specific pseudo-base-lib containing some semi-generic
+  stuff used by this project as well as by its sister:
+
+  [SchnorxoLib](https://github.com/jross765/schnorxolib)
+
+  It contains some basic data types and helper classes
+  used by both projects.
+
 * Miscellaneous:
 
-  * [SchnorxoLib](https://github.com/jross765/schnorxolib)
+  Of course, a couple of "real" libs are also used:
 
-    Some basic data types and helper classes 
-    (used by this project as well as the sister project).
+  * [Jakarta XML Binding (JAXB)](https://eclipse-ee4j.github.io/jaxb-ri/)
+
+    Obviously...
 
   * [Apache Commons](https://commons.apache.org)
 
-    Ye ole venerable collection of general-purpose Java libs.
+    Ye olde venerable collection of general-purpose Java libs.
     The following ones are used:
 
+    * [CLI](https://commons.apache.org/proper/commons-cli/)
     * [Configuration](https://commons.apache.org/proper/commons-configuration/)
     * [IO](https://commons.apache.org/proper/commons-io/)
-    * [CLI](https://commons.apache.org/proper/commons-cli/)
     * [Numbers](https://commons.apache.org/proper/commons-numbers/)
 
   * [Joda Money](https://www.joda.org/joda-money/)
 
-  * [Jakarta XML Binding (JAXB)](https://eclipse-ee4j.github.io/jaxb-ri/)
+    (Doesn't provide real added value in this project. We will therefore 
+    probably get rid of that dependency in the next release).
 
-  * Progress Bar (xxx)
+  * [Progress Bar](https://github.com/ctongfei/progressbar/)
 
-  * JLine (xxx)
+  * [JLine](https://jline.org/)
 
 ## Compatibility
 ### System and Format Compatibility
-Version 1.9 of the libs and tools has been tested with 
-GnuCash 5.14 on Linux (locale de_DE) and 
+Version 2026-03
+of the libs and tools has been tested with 
+GnuCash 5.14 
+on Linux (locale de_DE) and 
 OpenJDK 21.0.
 
 ### Locale/Language Compatibility
@@ -104,26 +124,31 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 ### Version Compatibility
 
-| Overall Version | Backward Compat. | Note                           |
+| Overall Version | Backward Compat. | Note                   |
 |---------|------------------|--------------------------------|
-| 1.9     | ???              | ???                            |
-| 1.8     | almost           | Minor changes in interfaces    |
-| 1.7     | no               | "Medium" changes in interfaces |
-| 1.6     | almost           | Minor changes in interfaces, partially extensions |
-| 1.5     | almost           | Minor changes in interfaces    |
-| 1.4     | no               | Some substantial changes       |
-| 1.3     | no               | "Medium" changes in interfaces |
-| 1.2     | almost           | Minor changes in interfaces    |
-| 1.1     | no               | Major changes in interfaces    |
-| 1.0.1   | yes              |                                |
+| 2026-03 | no      | "Medium" changes in interfaces |
+| 1.8     | almost  | Minor changes in interfaces    |
+| 1.7     | no      | "Medium" changes in interfaces |
+| 1.6     | almost  | Minor changes in interfaces, partially extensions |
+| 1.5     | almost  | Minor changes in interfaces    |
+| 1.4     | no      | Some substantial changes       |
+| 1.3     | no      | "Medium" changes in interfaces |
+| 1.2     | almost  | Minor changes in interfaces    |
+| 1.1     | no      | Major changes in interfaces    |
+| 1.0.1   | yes     | Fixed one bug in V. 1.0        |
 
 ## Major Changes
 Here, only the top-level changes on module-level are mentioned. 
 For more details, cf. the README files of the resp. modules (links above).
 
-### V. 1.8 &rarr; 1.9
+### V. 1.8 &rarr; 2026-03
+**Caution: With this release, the top-level version naming scheme has changed
+in order to avoid confusion with the single modules' version numbers.**
 
-* Parent repo (this one): xyz.
+* Parent repo (this one): Nothing special.
+
+* Module "Base": Changed class names, now finally fully honoring the GnuCash naming 
+  convention ("security" vs  "commodity").
 
 * Module "API (Core)":
   * Loading files now shows progress bars in console (optional).
@@ -143,16 +168,13 @@ For more details, cf. the README files of the resp. modules (links above).
 
 * Module "Viewer": xyz.
 
-* The other modules have changed only technically; essentially (i.e., code) unchanged:
-  * "Base"
-
 Module versions:
 
 | Name                     | Version |
 |--------------------------|---------|
-| Base                     | 1.7.2   |
+| Base                     | 1.8     |
 | API (Core)               | 1.8     |
-| API Specialized Entities | 0.2     |
+| API Specialized Entities | 0.3     |
 | API Extensions           | 1.8     |
 | API Examples             | 1.8     |
 | Tools                    | 1.8     |
@@ -170,7 +192,9 @@ need not be/is not identical to the single modules' versions any more.**
 
 * Module "Viewer": New.
 
-  Well, only technically new in this project; originally written by Marcus Wolschon and maintained by Roberto Bertolino for a while, I have taken it and adapted it to this fork. In short: Simplified it (viewer only, no editing) and I18N.
+  Well, only technically new in this project; originally written by Marcus Wolschon 
+  and maintained by Roberto Bertolino for a while, I have taken it and adapted it 
+  to this fork. In short: Simplified it (viewer only, no editing) and I18N.
 
 * Module "API": Bug-fixes and mini-improvements.
 
@@ -258,15 +282,21 @@ Cf. the README file of modules "API" and "Example programs" (links below).
 This software is beta.
 
 It is worth noting, though, that the author has been using both the published tools 
-as well as some unpublished ones on a nearly daily basis 
-for a couple of months now 
+as well as some unpublished ones (the latter ones also based on 
+`JGnuCashLibs`) 
+on a nearly daily basis 
+for a over a year now (march 2026)
 to facilitate and part-automate his 
 business' 
-accounting. This proves that the 
-software is well-tested and stable enough for a real-world setting (as opposed to 
-theoretical test cases and arbitrary examples).
+accounting. This proves that the software is well-tested and stable enough 
+for a real-world setting (as opposed to theoretical test cases and arbitrary examples).
 
-Therefore, the author now feels confident not just to use the software in his own particular productive environment, but also to encourage others to use it. However, he is experienced a developer enough to know that there are other production environments and other use cases out there, and that only by further usage and testing by at least a handful of other users in real-world scenarios for a year or so, the software can mature to finally attain genuine "production-ready" status.
+Therefore, the current maintainer now feels confident not just to use the software in 
+his own particular productive environment, but also to encourage others to use it. 
+However, he is experienced a developer enough to know that there are other production 
+environments and other use cases out there, and that only by further usage and testing 
+by at least a handful of other users in real-world scenarios for a year or so, the 
+software can mature to finally attain genuine "production-ready" status.
 
 In short: You are encouraged to use this software, but be advised to use it under the following principles:
 
@@ -300,21 +330,52 @@ To compile the sources, do the following:
     $ git clone --recurse-submodules https://github.com/jross765/JGnuCashLibNTools
       ```
 
-4) Check out the latest version tag. In this case: `V_1_9`.
+4) Check out the latest version tag. In this case: `V_2026-03`.
 
-      The author has, in the course of his professional career, met plenty of self-appointed super-pro developers 
-      who do not seem to understand the concept of version tags and configuration management, 
+      The author has, in the course of his professional career, met plenty of self-declared super-pro 
+      developers who do not seem to understand the concept of version tags and configuration management, 
       so please bear with him for telling you the seemlingly obvious...
 
 5) Compile the sources:
 
-      a) Adapt the path to your local repository in *all* pom.xml files (search for "`schnorxolib-base-systemPath`").
+      a) Adapt the path to your local repository in *all* pom.xml files 
+         (search for "`schnorxolib-base-systemPath`" and "`xxx`").
+         All other libs are drawn from Maven Central.
 
       b) Type:
 
+         ```console
+       $ ./build.sh
+         ```
+
+6) Perform the test cases (optional):
+
       ```console
-    $ ./build.sh
+    $ ./test.sh
       ```
+
+## Installing and Using the Software
+
+Installation is a manual process -- there is no "install" target
+in the build process (well, there actually is one, but only
+in the Maven sense, meaning its repository under `~/.m2`).
+
+Consequently, there is no pre-defined/default path for the software; 
+it does not really matter. But in case want to do it like the maintainer: 
+
+I have put the stuff into `~/Programme/finanzen/gnucash`.
+
+As always with Java libs, you will have to set the classpath file,
+preferrably in a file called `environment.sh` that you must source
+before starting one of the tools. Don't forget the basic libs used 
+(list above).
+
+For convenience, the build process also generates top-level JAR files 
+that contain all dependencies (modules 
+"gnucash-tools" and "gnucash-viewer").
+
+In short: Nothing special; just as it's usually done with Java software...
+
 
 ## Planned
 
@@ -331,8 +392,10 @@ This project has a sister project:
 By now, both projects have roughly the same level of maturity. 
 Obviously, the author strives to keep both projects symmetrical.
 
-What does "symmetry" mean in this context? It means that `JKMyMoneyLibNTools` has 
-literally evolved from a source-code copy of its sister, this project.
+What does "symmetry" mean in this context? It means that 
+this project's sister, `JKMyMoneyLibNTools`,
+has literally evolved from a source-code copy of
+this project.
 Meanwhile, changes and adaptations are going in both directions.
 Let's call this "coupled development". 
 Given that KMyMoney and GnuCash are two finance applications with quite a few 
@@ -342,9 +405,9 @@ and has been working well so far.
 Of course, this is a "10.000-metre bird's-eye view". As always in life, things are a little more
 complicated once you go into the details. Still, looking at the big picture and at least 
 up to the current state of development, the author has managed to keep both projects very 
-similar on a source code level -- so much so that you partially can use `diff`. 
-You will, however, also see some exceptions here and there where that "low-level-symmetry" 
-is not maintainable.
+similar on a source code level -- so much so that you throughout large parts of the code,
+you can use `diff`. You will, however, also see some exceptions here and there where that 
+"low-level-symmetry" is not maintainable.
 
 ## Acknowledgements
 
@@ -354,12 +417,12 @@ Special thanks to:
 
     This project is based on Marcus' work. There have been major changes and additions since then, but you still can see where it originated from.
 
-    (Forked from http://sourceforge.net/projects/jgnucashlib / revived in 2017, after some years of enchanted sleep.)
+    (Forked from `http://sourceforge.net/projects/jgnucashlib` and revived in 2017, after some years of enchanted sleep.)
 
 * **Deniss Larka** for kissing the beauty awake and taking care of her for a couple of years (excluding the viewer).
 
-  (Forked from https://github.com/DenissLarka/jgnucashlib in 2023)
+  (Forked from `https://github.com/DenissLarka/jgnucashlib` in 2023)
 
 * **Roberto Bertolino** for contributing to Deniss' work and maintaining the viewer.
 
-  (Module "gnucash-viewer" forked from https://github.com/rbertoli/gnucash in 2025)
+  (Module "gnucash-viewer" forked from `https://github.com/rbertoli/gnucash` in 2025)
