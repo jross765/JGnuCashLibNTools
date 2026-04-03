@@ -1,76 +1,142 @@
 # Selecting Securities (Programmers)
 
-Due to the specialness of securities (commodities), both on the technical level and on the business-logic level, there are several things you must understand/keep in mind before working with them.
+Due to the specialness of 
+securities (commodities), 
+both on the technical level and on the business-logic level, there are several 
+things you must understand/keep in mind before working with them.
 
 In a nutshell, it boils down to the following:
+There normally are technical IDs, and there are business logic IDs.
+And sometimes, as here, there are pseudo-technical IDs, which in fact
+are business-logic IDs.
 
-* *Technical level*: Securities have no technical IDs in GnuCash. Instead,
-  they are technically selected with a (pseudo-)technical ID, constisting of a namespace
-  and a code.
-
-* *Business-logic level*: In the real world out there, you normally would identify a security by its 
-  security code, which hopefully you have used when entering the security in the GnuCash file:
-  * If you live in the US or Canada, then you would typically use the 1-to-4-char ticker (such as "T" or "MSFT").
-    But strictly speaking, this is not enough. It always has to be qualified with the according exchange 
-    (such as "NYSE_AMERICAN" (formerly known as "AMEX") or "NASDAQ").
-    (The pros among you might use the CUSIP intead.)
-  * If you live outside of the US and Canada, then you would typically use something else.
-    In the EU, where the current maintainer lives, people typically use the ISIN (international).
-    In Germany, the nostalgic folks prefer the WKN.
-    Similarly, in the rest of Europe: The SEDOL (UK) or the VALOR (Switzerland), etc. etc.
-  
-  If you have a global portfolio, it makes sense to use the ISIN.[^1]
-
-## Overview
-
-Figure \ref{fig:overview} shows the two levels of Security IDs in GnuCash:
-
-![ID layers in GnuCash \label{fig:overview}](../xsec/secid-logic.png)
-
-In theory, the two layers are clearly separated, i.e. technical IDs and business-logic ID
-do not have anything to do with each other. However, the GnuCash developers chose to 
-make things a little more complicated: They intentionally blurred the line between
-the two layers, so that technical IDs are, in fact, pseudo-technical and quasi-business.
-
-If they had chosen to treat securties as any other entity in GnuCash, then the 
-technical ID would look something like this: `14305dc80e034834b3f531696d81b493`.
-This string, obviously has no meaning, i.e. it cannot / shall not be "interpreted" 
-or "understood".
-
-Well, they chose another approach: In GnuCash, a (pseudo-)technical ID looks something
-like these:
-
-* EURONEXT:SAP
-* ISIN:DE000BASF111AP
-
-Just by glancing at these, you can see that they are essentially business-logic IDs 
-maskerading as technical ones; they do mean something (i.e., they have semantics) and 
-can thus very well be interpreted and understood.
-
-It is important to understand this (non-)difference between technical and business-logic IDs 
-in GnuCash before reading the next section; otherwise it will probably confuse you.
-
-You can also see that the two examples above are composed of two parts, which is no 
-coincidence but the system that GnuCash imposes: `<namespace>:<code>`. Whereas the 
-name space can, in theory, be freely chosen by the user, it makes sense not to do so 
-but instead choosing from a pre-defined set that `JGnuCashLib` provides. This then
-leads to the concept of providing IDs "indirectly", i.e. composing them: providing
-the name space and the code separately.
+Please read the document "ID Layers in 
+GnuCash" 
+(folder `xsec`) first before 
+you move on. It is important to understand the (non-)difference between 
+GnuCash's
+technical and business-logic 
+security IDs 
+described there before reading the next section; 
+otherwise it will probably confuse you.
 
 
 ## Specifying IDs in the API
 
-::TODO: Follow priciple:
-  1) Search for security (using name, ISIN, whatever) in order to get its (pseudo-)technical ID `secID`
-  2) Use this technical ID to call `gcshFile.getSecurityByID(secID)`.
+I will be succint, because you are a developer and therefore should be
+able to read code.
 
-:: CAUTION "security" (as opp. to "commodity" only defined in "API Specialized Entities")
-  
-  The point being: Do as if you did not know what exactly the `secID` looks like; as if it were
-  a UUID just as with all other GnuCash objects. You don't "read" a UUID (like: "understand" or "interpret" it),
-  do you? You just know it's there, get it from one method's output and put it into another one's args.
+### ID Types
 
-   * First, search for a specific security with the various methods provided and then, once you have it, get its pseudo-technical ID object (`GCshSecID`) and use this one to 
+The module "Base" contains several ID types, most of them being
+genuine technical ones. 
 
-Details in programs of modules "API Examples" and "Tools".
+You will, however, also find: 
 
+* `GCshCmdtyID`
+  * `GCshCurrID` 
+  * `GCshSecID` 
+    * `GCshSecID_Exchange` 
+    * `GCshSecID_MIC`
+    * `GCshSecID_SecIDType`
+
+`GCshSecID_SecIDType`, e.g., might stand for something like. "ISIN:DE000BASF111",
+and `GCshSecID_Exchange`, might stand for something like. "EURONEXT:SAP".
+
+You will also find additional documentation about what they mean
+in the file `GCshCmdtyNameSpace.java`.
+
+The point I want to make is: 
+Do as if you did not know what exactly a
+`GCshSecID_xyz` 
+looks like; as if it were a 
+UUID 
+just as with all other 
+GnuCash 
+objects. 
+You don't "read" 
+`14305dc80e034834b3f531696d81b493` 
+(like: "understand" or "interpret" it),
+do you? You just know it's there, get it from one method's output and put it into 
+another one's args.
+In short: *ignore its semantics*!
+
+### Getting Security IDs
+
+In short: The lib does not provide methods which you can get
+*IDs* (yet). Instead, it provides methods which you can get 
+*objects* with, which in turn, obviously, have an ID.
+
+The class 
+`GnuCashFileImpl` 
+contains some methods for this:
+
+* Get *one* commodity object by something:
+
+  "Something" being an identifier, i.e. an ID object from above, 
+  or a list of its consituents, or another (usually unique) criterion.
+
+  * `getCommodityByID(...)`
+  * `getCommodityByQualifID(...)` (several variants)
+  * `getCommodityByNamSpcCode(...)` (several variants)
+  * `getCommodityByXCode(...)`
+  * `getCommodityByNameUniq(...)`
+
+  They all return one 
+  `GnuCashCommodity` 
+  object the ID of which you can get with the method 
+  `getQualifID()`.
+
+* Get *several* commodity objects by something:
+  * `getCommoditiesByName(...)` (two variants)
+  * `getCommodities()`
+
+  They all return a *list* of `
+  GnuCashCommodity` 
+  objects.
+
+In addition to this, in module "Specialized Entities", you will find the class 
+`GnuCashFileExtImpl` that contains specialized security-variants of the above-mentioned 
+methods:
+
+  * `getSecurityByID(...)`
+  * `getSecurityByNamSpcCode(...)` (several variants)
+  * `getSecurityByXCode(...)`
+  * `getSecurities()`
+
+Have a look at module "API Examples", program 
+`GetCmdtyInfo`
+for a simple example on how to use them.
+
+You will also find a more elaborate variant of it (with better code encapsulation)
+in module "Tools", program 
+`GetSecList`.
+
+Last not least: Have a look at the test cases for 
+`GnuCashCommodityImpl` and `GnuCashSecurityImpl`.
+
+### Selecting a Security Object with an ID
+
+This section overlaps with the previos one, and there is a reason for it:
+
+Once you have the 
+`GnuCashCommodity`/`GnuCashSecurity` 
+object (or its ID, resp.), things are just as easy and straight forward as with
+any other entity:
+Either you already have the object (congrats), or you just have its ID (from a
+mythical external source), and then you use:
+
+`GnuCashFileImpl.getCommodityByID(cmdtyID)` or
+
+`GnuCashFileExtImpl.getSecurityByID(secID)`.
+
+Look at the example program in module "API Examples",
+it is called
+`GetCmdtyInfo`.
+
+(You will also find a more elaborate version of it
+in module "Tools", called `GetSecInfo` there, as it is
+specialized on securities.)
+
+Notice that the entity "security" (as opposed to "commodity" which it
+inherits from) is only defined in the module "API Specialized Entities").

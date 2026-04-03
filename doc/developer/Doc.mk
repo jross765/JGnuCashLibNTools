@@ -9,13 +9,18 @@ DOC : PICS \
 
 ######################################################################
 
-PICS : module-arch.png
+PICS : module-arch_cut.png
 
 TEXTS : select-securities.pdf
 
 
 ######################################################################
 # PICS
+
+module-arch_cut.png : module-arch.png
+	convert $< -fuzz 45% -trim +repage temp.png && \
+        convert temp.png -alpha set -bordercolor White -border 50 $@ && \
+        rm -f temp.png
 
 module-arch.png : module-arch.pdf
 
