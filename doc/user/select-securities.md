@@ -1,33 +1,23 @@
 # Selecting Securities (Users)
 
-Due to the specialness of securities (commodities), both on the technical level and 
-on the business-logic level, there are several things you must understand/keep in mind 
-before working with them.
+Due to the specialness of 
+securities (commodities), 
+both on the technical level and on the business-logic level, there are several 
+things you must understand/keep in mind before working with them.
 
 In a nutshell, it boils down to the following:
+There normally are technical IDs, and there are business logic IDs.
+And sometimes, as here, there are pseudo-technical IDs, which in fact
+are business-logic IDs.
 
-* *Technical level*: Securities have no technical IDs in 
-  GnuCash. 
-  Instead, they are technically selected with a (pseudo-)technical ID, constisting of a 
-  namespace and a code.
-
-* *Business-logic level*: In the real world out there, you normally would identify a security by its 
-  public security code, which hopefully you have used when entering the security in the GnuCash file:
-  * If you live in the US or Canada, then you would typically use the 1-to-4-char ticker (such as "T" or "MSFT").
-    But strictly speaking, this is not enough. It always has to be qualified with the according exchange 
-    (such as "NYSE_AMERICAN" (formerly known as "AMEX") or "NASDAQ").
-    (The pros among you might use the CUSIP intead.)
-  * If you live outside of the US and Canada, then you would typically use something else.
-    In the EU, where the current maintainer lives, people typically use the ISIN (international).
-    In Germany, the nostalgic folks prefer the WKN.
-    Similarly, in the rest of Europe: The SEDOL (UK) or the VALOR (Switzerland), etc. etc.
-  
-  If you have a global portfolio, it makes sense to use the ISIN.[^1]
-
-Please read the document "ID Layers in GnuCash" (folder `xsec`) first before 
+Please read the document "ID Layers in 
+GnuCash" 
+(folder `xsec`) first before 
 you move on. It is important to understand the (non-)difference between 
 GnuCash's
-technical and business-logic security IDs described there before reading the next section; 
+technical and business-logic 
+security IDs 
+described there before reading the next section; 
 otherwise it will probably confuse you.
 
 
@@ -52,7 +42,9 @@ Then, you have several options:
     Specifying the (pseudo-)technical ID directly, using the syntax 
     `<namespace>:<code>`.
 
-    This approach always works, but does not leverage the pre-defined name spaces. In case of an error, you won't get precise logs and could possibly spend a lot of time finding it.
+    This approach always works, but does not leverage the pre-defined name spaces. In 
+    case of an error, you won't get precise logs and could possibly spend a lot of time 
+    finding it.
 
     Example:
 
@@ -156,7 +148,9 @@ Then, you have several options:
 
 * *Mode "ISIN"*:
   Specifying the security by its business logic ID (the field "X-Code" in GnuCash lingo), 
-  i.e. its ISIN, CUSIP, SEDOL, WKN or similar official security identifiers (without name-space prefix).
+  i.e. its ISIN, CUSIP, SEDOL, WKN or similar official security identifiers (without 
+  the name-space 
+  prefix).
 
   This approach obviously only works when you actually have filled the field 
   "X-Code", 
@@ -208,9 +202,6 @@ Then, you have several options:
   info (ID, X-Code), you can use one of the other methods above to get the security's
   full information.
   
-
-[^1]: This is how thes current maintainer does it in his own portfolio, and it's been working well
-      for decades now.
 
 [^2]: The test data files of the other modules will almost certainly work as well -- they all are very similar.
 
