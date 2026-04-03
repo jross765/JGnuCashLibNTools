@@ -5,13 +5,18 @@ all : DOC
 
 DOC : PICS TEXTS
 
-PICS : secid-logic.png
+PICS : secid-logic_cut.png
 
 TEXTS : id-layers.pdf
 
 
 ######################################################################
 # PICS
+
+secid-logic_cut.png : secid-logic.png
+	convert $< -fuzz 45% -trim +repage temp.png && \
+        convert temp.png -alpha set -bordercolor White -border 50 $@ && \
+        rm -f temp.png
 
 secid-logic.png : secid-logic.pdf
 
@@ -22,7 +27,7 @@ secid-logic.pdf : secid-logic.odg
 # TEXTS
 
 id-layers.pdf : id-layers.md \
-                secid-logic.png
+                secid-logic_cut.png
 	pandoc -f markdown -t pdf -V geometry:a4paper -i $< -o $@
 
 
