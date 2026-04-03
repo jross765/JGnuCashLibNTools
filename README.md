@@ -106,7 +106,7 @@ List of modules and other relevant stuff:
 
 ## Compatibility
 ### System and Format Compatibility
-Version 2026-03
+Version 2026-04
 of the libs and tools has been tested with 
 GnuCash 5.14 
 on Linux (locale de_DE) and 
@@ -126,7 +126,7 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 | Overall Version | Backward Compat. | Note                   |
 |---------|------------------|--------------------------------|
-| 2026-03 | no      | "Medium" changes in interfaces |
+| 2026-04 | no      | "Medium" changes in interfaces |
 | 1.8     | almost  | Minor changes in interfaces    |
 | 1.7     | no      | "Medium" changes in interfaces |
 | 1.6     | almost  | Minor changes in interfaces, partially extensions |
@@ -141,7 +141,7 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 Here, only the top-level changes on module-level are mentioned. 
 For more details, cf. the README files of the resp. modules (links above).
 
-### V. 1.8 &rarr; 2026-03
+### V. 1.8 &rarr; 2026-04
 **Caution: With this release, the top-level version naming scheme has changed
 in order to avoid confusion with the single modules' version numbers.**
 
@@ -166,7 +166,10 @@ in order to avoid confusion with the single modules' version numbers.**
   * All tools now load files showing progress bars (cf. Module "API (Core)").
   * Maintenance.
 
-* Module "Viewer": xyz.
+* Module "Viewer":
+  * Program now accepts various command line args, supporting start variants,
+    supporting various additonal use cases.
+  * Maintenance.
 
 Module versions:
 
@@ -330,11 +333,11 @@ To compile the sources, do the following:
     $ git clone --recurse-submodules https://github.com/jross765/JGnuCashLibNTools
       ```
 
-4) Check out the latest version tag. In this case: `V_2026-03`.
+4) Check out the latest version tag. In this case: `V_2026-04`.
 
-      The author has, in the course of his professional career, met plenty of self-declared super-pro 
-      developers who do not seem to understand the concept of version tags and configuration management, 
-      so please bear with him for telling you the seemlingly obvious...
+      The current maintainer has, in the course of his professional career, met plenty of self-declared 
+      super-pro developers who do not seem to understand the concept of version tags and configuration 
+      management, so please bear with him for telling you the seemlingly obvious...
 
 5) Compile the sources:
 
@@ -361,9 +364,7 @@ in the build process (well, there actually is one, but only
 in the Maven sense, meaning its repository under `~/.m2`).
 
 Consequently, there is no pre-defined/default path for the software; 
-it does not really matter. But in case want to do it like the maintainer: 
-
-I have put the stuff into `~/Programme/finanzen/gnucash`.
+it does not really matter.
 
 As always with Java libs, you will have to set the classpath file,
 preferrably in a file called `environment.sh` that you must source
@@ -373,6 +374,11 @@ before starting one of the tools. Don't forget the basic libs used
 For convenience, the build process also generates top-level JAR files 
 that contain all dependencies (modules 
 "gnucash-tools" and "gnucash-viewer").
+
+You will also have to write your own wrapper scripts for the tools (for now).
+(No, the maintainer cannot provide his own ones, at least not right now,
+for specific reasons which he won't dive into now.)
+You will find an example wrapper script in the folder `doc/user`.
 
 In short: Nothing special; just as it's usually done with Java software...
 
