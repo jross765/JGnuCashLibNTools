@@ -64,7 +64,7 @@ In short: *ignore its semantics*!
 ### Getting Security IDs
 
 In short: The lib does not provide methods which you can get
-*IDs* (yet). Instead, it provides methods which you can get 
+*IDs* with (yet). Instead, it provides methods which you can get 
 *objects* with, which in turn, obviously, have an ID.
 
 The class 

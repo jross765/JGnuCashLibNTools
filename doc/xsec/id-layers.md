@@ -77,9 +77,10 @@ ID looks something like these:
 * `EURONEXT:SAP`
 * `ISIN:DE000BASF111AP`
 
-Just by glancing at these, you can see that they are essentially business-logic IDs 
-maskerading as technical ones; they do mean something (i.e., they have semantics) and 
-can thus very well be interpreted and understood.
+Just by glancing at these, you can see that 
+they are essentially business-logic IDs maskerading as technical ones;
+they both do mean something (i.e., they have semantics) and can thus very well be interpreted 
+and understood.
 
 It is important to understand this (non-)difference between technical and business-logic IDs in
 GnuCash 
