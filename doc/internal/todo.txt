@@ -35,7 +35,7 @@ Module "Tools"
 - [ OK ] UpdAcct: Noch nicht richtig symmetrisch mit Schwester
   (AccountNotFoundException)
 
-- UpdPrc: Symmetrie kann bisschen verbessert werden.
+- [ OK ] UpdPrc: Symmetrie kann bisschen verbessert werden.
 
 - [ OK ] UpdSec:
   o [ OK ] Symmetrie verbessern
