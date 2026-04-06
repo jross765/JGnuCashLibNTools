@@ -45,5 +45,5 @@ Module "Tools"
 Module "Viewer"
 ===============
 
-- Anzeige Acct. Balance: ist falsch bzw. erneut implementiert -->
+- [ OK ] Anzeige Acct. Balance: ist falsch bzw. erneut implementiert -->
   umstellen auf das, was die API (Core) vorsieht.
