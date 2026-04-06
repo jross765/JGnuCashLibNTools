@@ -32,7 +32,7 @@ Module "Tools"
 - [ OK ] GetSecInfo: Nochmal schauen, ob man das nicht etwas
   symmetrischer zur Schwester hinkriegt.
 
-- UpdAcct: Noch nicht richtig symmetrisch mit Schwester
+- [ OK ] UpdAcct: Noch nicht richtig symmetrisch mit Schwester
   (AccountNotFoundException)
 
 - UpdPrc: Symmetrie kann bisschen verbessert werden.
