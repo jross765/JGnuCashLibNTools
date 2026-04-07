@@ -2,21 +2,32 @@ Module "API (Core)"
 ===================
 
 - [ OK ] Prüfen: Können Cust/Empl/Vend. *direkt* Trx haben?
-  Nö, oder? (Hintergrund: Vgl. Vendor/GCsh <-> Payee/KMM)
+  (Hintergrund: Vgl. Vendor/GCsh <-> Payee/KMM)
 
   Antwort: nein, können sie nicht. Geht (nicht nur fachlich,
   sondern auch technisch) nur indirekt via Rechnungen.
 
-  Könnte man natürlich aber trotzdem machen; sollte dann 
-  aber wohl eher unter "Spec. Entities" oder "Extensions" 
-  sein.
+  (Könnte man natürlich aber trotzdem machen; sollte dann aber 
+  dann nicht in diesem Modul sein, sonder in "Spec. Entities" 
+  oder ggf. auch "Extensions".)
 
-- IF KMyMoneyFile_TrxSplt: Symmetrie zu Schwester.
+- [ OK ] IF GnuCashFile_TrxSplt: Symmetrie zu Schwester.
+  --> Vgl. entspr. Punkt bei Modul "Spec. Entities".
+
+- [ OK ] Alle str.trim().length() == 0 durch isBlank() ersetzen.
+  Dto str.trim().equals("") u.ä. 
+
+- Es sind noch magische "gnc:-xyz" Strings im Code --> in Const auslagern.
+
 
 Module "API Specialized Entities"
 =================================
 
-./.
+- [ OK ] IF GnuCashFileExt_TrxSplt: Einführen, so dass zusammen mit
+  IF GnuCashFile_TrxSplt aus Modul "API (Core)" insgesamt
+  Symmetrie zur Schwester.
+  --> Vgl. entspr. Punkt bei Modul "API (Core)".
+
 
 Module "API Extensions"
 =======================
