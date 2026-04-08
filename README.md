@@ -328,7 +328,8 @@ To compile the sources, do the following:
 
 1) Make sure that you have Maven installed on your system.
 
-2) Build and install [`SchnorxoLib`](https://github.com/jross765/Schnorxolib) (cf. details there).
+2) Build and install [`SchnorxoLib`](https://github.com/jross765/Schnorxolib) V. 0.2
+   (cf. details there).
 
 3) Clone this repository as well as its sub-repositories. 
 
