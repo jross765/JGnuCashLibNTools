@@ -17,7 +17,7 @@ Module "API (Core)"
 - [ OK ] Alle str.trim().length() == 0 durch isBlank() ersetzen.
   Dto str.trim().equals("") u.ä. 
 
-- Es sind noch magische "gnc:-xyz" Strings im Code --> in Const auslagern.
+- [ OK ] Es sind noch "gnc:-xyz" und sonst. magische Strings im Code --> in Const auslagern.
 
 
 Module "API Specialized Entities"
