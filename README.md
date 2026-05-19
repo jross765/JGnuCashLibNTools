@@ -108,181 +108,10 @@ List of modules and other relevant stuff:
   * [JLine](https://jline.org/)
 
 ## Compatibility
-### System and Format Compatibility
-Version 2026-04
-of the libs and tools has been tested with 
-GnuCash 5.14 
-on Linux (locale de_DE) and 
-OpenJDK 21.0.
-
-### Locale/Language Compatibility
-**Caution:** Will only work on systems with the following locale languages:
-
-* English
-* Spanish
-* French
-* German
-
-However, it has **not** been thoroughly tested with all of them, but just on a system with locale de_DE (for details, cf. the API module documentation).
-
-### Version Compatibility
-
-| **Overall Version** | **Backward Compat.** | **Note**                   |
-|---------|------------------|--------------------------------|
-| 2026-04 | no      | "Medium" changes in interfaces |
-| 1.8     | almost  | Minor changes in interfaces    |
-| 1.7     | no      | "Medium" changes in interfaces |
-| 1.6     | almost  | Minor changes in interfaces, partially extensions |
-| 1.5     | almost  | Minor changes in interfaces    |
-| 1.4     | no      | Some substantial changes       |
-| 1.3     | no      | "Medium" changes in interfaces |
-| 1.2     | almost  | Minor changes in interfaces    |
-| 1.1     | no      | Major changes in interfaces    |
-| 1.0.1   | yes     | Fixed one bug in V. 1.0        |
+Cf. document "[Compatibility](https://github.com/jross765/JGnuCashLibNTools/compatibility.md)"
 
 ## Major Changes
-Here, only the top-level changes on module-level are mentioned. 
-For more details, cf. the README files of the resp. modules (links above).
-
-### V. 1.8 &rarr; 2026-04
-**Caution: With this release, the top-level version naming scheme has changed
-in order to avoid confusion with the single modules' version numbers.**
-
-* Parent repo (this one): Nothing special.
-
-* Module "Base": Changed class names, now finally fully honoring the GnuCash naming 
-  convention ("security" vs  "commodity").
-
-* Module "API (Core)":
-  * Loading files now shows progress bars in console (optional).
-  * Maintenance.
-
-* Module "API Specialized Entities: New.
-
-* Module "API Extensions": Maintenance.
-
-* Module "API Examples": 
-  * New example program for API Specialized Entities".
-  * New package structure to better reflect different modules.
-
-* Module "Tools":
-  * All tools now load files showing progress bars (cf. Module "API (Core)").
-  * Maintenance.
-
-* Module "Viewer":
-  * Program now accepts various command line args, supporting start variants,
-    supporting various additonal use cases.
-  * Maintenance.
-
-Module versions:
-
-| **Name**                 | **Version** |
-|--------------------------|---------|
-| Base                     | 1.8     |
-| API (Core)               | 1.8     |
-| API Specialized Entities | 0.3     |
-| API Extensions           | 1.8     |
-| API Examples             | 1.8     |
-| Tools                    | 1.8     |
-| Viewer                   | 1.2     |
-
-### V. 1.7 (RESTRUCT) &rarr; 1.8
-**Caution: Please note that, due to the changes in the last major release 
-(splitting up the one big repository in several smaller ones), 
-from now on, each module is versioned on its own, and the overall project's version 
-(1.8, in this case) 
-need not be/is not identical to the single modules' versions any more.**
-
-* Parent repo (this one): Finished restruct work, i.e. made the
-  (Maven) modules' repos Git sub-modules as well.
-
-* Module "Viewer": New.
-
-  Well, only technically new in this project; originally written by Marcus Wolschon 
-  and maintained by Roberto Bertolino for a while, I have taken it and adapted it 
-  to this fork. In short: Simplified it (viewer only, no editing) and I18N.
-
-* Module "API": Bug-fixes and mini-improvements.
-
-* The other modules have changed only technically; essentially (i.e., code) unchanged:
-  * "Base"
-  * "API Examples"
-  * "API Extensions"
-  * "Tools"
-
-Module versions:
-
-| **Name**                 | **Version** |
-|--------------------------|---------|
-| Base                     | 1.7.1   |
-| API (Core)               | 1.7.1   |
-| API Extensions           | 1.7.1   |
-| API Examples             | 1.7.1   |
-| Tools                    | 1.7.1   |
-| Viewer                   | 1.1.0   |
-
-### V. 1.7 &rarr; 1.7 (RESTRUCT)
-Split up the all-encompassing repository into several ones: One per module plus one for the parent (this one).
-
-Apart from that, I have made *no relevant changes* (i.e. only small changes in the README-files etc., but not in the actual source code).
-
-*Rationale*:
-
-I know, that comes with some disadvantages, and there are quite a few people who would advise against it for valid reasons. 
-
-That being said, life's not black and white, and while I acknowledge that having everything in one single repository makes things easier in the early stages of development, I am convinced that in the long run, the advantages of doing so will outweigh the disadvantages for the following reasons:
-
-* The modules' rates of change will vary considerably (they already do, and they will problably do even more in the years to come).
-
-* It feels odd *not* to have "API Examples" and "Tools" in separate repositories (and that's just the most obvious example).
-
-* The measure will greatly facilitate accepting and managing future contributions from others (or possibly handing single modules completely over to others), which I currently would feel much more inclined to do for the modules "API Extensions" and "Tools" than for the other ones.
-  
-* Last not least, I manage some additional (unpublished) projects that way, and I would like to keep things consistent (you see, my day has only 24 hours just as yours, and I have other things to do...).
-
-*History*:
-
-I have made a clean cut:
-
-* The top-level repository (this one) contains the whole history up to V. 1.7. 
-* The newly-generated sub-repos contain no history until V. 1.7. But they will contain their respective module's history from that point onwards.
-
-### V. 1.6 &rarr; 1.7
-* Overall:
-  * Introduced new (dummy) ID types for type safety and better symmetry with sister project.
-
-### V. 1.5 &rarr; 1.6
-* Module "API": 
- 
-  * Some bug-fixing and cleanup-work, making code more robust.
-  * New functionalities.
-
-* Module "API Extensions": 
-  * New sub-module.
-  * Expanded functionality of already-existing module.
-
-* Module "Tools": Maintenance.
-
-### V. 1.4 &rarr; 1.5
-* Added module "Tools".
-
-* New external dependency (outside of Maven central): 
-[`SchnorxoLib`](https://github.com/jross765/Schnorxolib), 
-a small library that contains some auxiliary stuff that is used both in this and the sister project. Some of the code in the module "Base" has moved there.
-
-### V. 1.3 &rarr; 1.4
-Changed project structure:
-
-* Introduced new module "Base" (spun off from "API").
-
-	This was necessary because the author is using the new module in other, external projects (not published).
-
-* Introduced new module "API Extensions"
-
-	Currently, this module it is very small. It will (hopefully) grow.
-
-### V. 1.2 &rarr; 1.3 and Before
-Cf. the README file of modules "API" and "Example programs" (links below).
+Cf. document "[Major Changes](https://github.com/jross765/JGnuCashLibNTools/major_changes.md)"
 
 ## Level of Maturity
 This software is beta.
@@ -291,7 +120,7 @@ It is worth noting, though, that the author has been using both the published to
 as well as some unpublished ones (the latter ones also based on 
 `JGnuCashLibs`) 
 on a nearly daily basis 
-for a over a year now (march 2026)
+for a over a year now (june 2026)
 to facilitate and part-automate his 
 business' 
 accounting. This proves that the software is well-tested and stable enough 
@@ -323,69 +152,8 @@ In short: You are encouraged to use this software, but be advised to use it unde
   * If you have to change your file, **make backups before you use this lib/these tools!** Take your time and check the generated/changed files thoroughly before moving on.
     The `diff` tool is your friend as well as the provided `Dump` tool!
 
-## Compiling the Sources
-To compile the sources, do the following:
-
-1) Make sure that you have Maven installed on your system.
-
-2) Build and install [`SchnorxoLib`](https://github.com/jross765/Schnorxolib) V. 0.2
-   (cf. details there).
-
-3) Clone this repository as well as its sub-repositories. 
-
-      ```console
-    $ git clone --recurse-submodules https://github.com/jross765/JGnuCashLibNTools
-      ```
-
-4) Check out the latest version tag. In this case: `V_2026-04`.
-
-      The current maintainer has, in the course of his professional career, met plenty of self-declared 
-      super-pro developers who do not seem to understand the concept of version tags and configuration 
-      management, so please bear with him for telling you the seemlingly obvious...
-
-5) Compile the sources:
-
-      a) Adapt the path to your local repository in *all* pom.xml files 
-         (search for "`schnorxolib-base-systemPath`" and "`xxx`").
-         All other libs are drawn from Maven Central.
-
-      b) Type:
-
-         ```console
-       $ ./build.sh
-         ```
-
-6) Perform the test cases (optional):
-
-      ```console
-    $ ./test.sh
-      ```
-
-## Installing and Using the Software
-
-Installation is a manual process -- there is no "install" target
-in the build process (well, there actually is one, but only
-in the Maven sense, meaning its repository under `~/.m2`).
-
-Consequently, there is no pre-defined/default path for the software; 
-it does not really matter.
-
-As always with Java libs, you will have to set the classpath file,
-preferrably in a file called `environment.sh` that you must source
-before starting one of the tools. Don't forget the basic libs used 
-(list above).
-
-For convenience, the build process also generates top-level JAR files 
-that contain all dependencies (modules 
-"gnucash-tools" and "gnucash-viewer").
-
-You will also have to write your own wrapper scripts for the tools (for now).
-(No, the maintainer cannot provide his own ones, at least not right now,
-for specific reasons which he won't dive into now.)
-You will find an example wrapper script in the folder `doc/user`.
-
-In short: Nothing special; just as it's usually done with Java software...
-
+## Compile and Install
+Cf. document "[Compile and Install](https://github.com/jross765/JGnuCashLibNTools/compile_install.md)"
 
 ## Planned
 
@@ -415,7 +183,7 @@ and has been working well so far.
 Of course, this is a "10.000-metre bird's-eye view". As always in life, things are a little more
 complicated once you go into the details. Still, looking at the big picture and at least 
 up to the current state of development, the author has managed to keep both projects very 
-similar on a source code level -- so much so that you throughout large parts of the code,
+similar on a source code level -- so much so that, throughout large parts of the code,
 you can use `diff`. You will, however, also see some exceptions here and there where that 
 "low-level-symmetry" is not maintainable.
 
