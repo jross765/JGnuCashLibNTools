@@ -101,24 +101,8 @@ doInitPrepareScripts()
   
     cd $module || return 1
 
-    # ** THE FOLLOWING LINES ARE "HALF-OBSOLETE" **
-    # ** NOT NECESSARILY (!) TO BE DELETED IN NEXT VERSION;
-    #    MIGHT BECOME RELEVANT AGAIN **
-    if [ -f "./test_prep.sh" ]
-    then
-      echo "Encoutered prep script"
-      echo "Calling it: "
-      ./test_prep.sh
-      if [ "$?" = "0" ]
-      then
-        echo "[ OK ]"
-      else
-        echo "[ NOT OK ]"
-        return 1
-      fi
-    else
-      echo "No prep script"
-    fi
+    # There used to be a preparatory step here.
+    # Possibly to come back in another form one day.
     
     cd ..
   done
@@ -137,22 +121,8 @@ doRunTests()
   echo "=============================================================="
   echo "=============================================================="
   
-  # ** THE FOLLOWING LINES ARE OBSOLETE **
-  # ** TO BE DELETED IN NEXT VERSION **
-  # Cf. notes in README file of module "API-Ext",
-  # folder src/rest/resources
-  # --------------------------------
-  # Check if symlink in module "API Extensions" is there
-  # echo -n "Check for link: "
-  # readlink -s "gnucash-api-ext/target/test-classes/test.xml" > /dev/null 2>&1
-  # if [ "$?" = "0" ]
-  # then
-  #   echo "[ OK ]"
-  # else
-  #   echo "[ NOT OK ]"
-  #   echo "Please call this script with arg 'INIT' first"
-  #   return 1
-  # fi
+  # There used to be some preparatory stuff here.
+  # Possibly to come back in another form one day.
   
   # mvn test
   mvn surefire-report:report
