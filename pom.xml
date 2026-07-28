@@ -5,7 +5,7 @@
 
 	<groupId>org.gnucash</groupId>
 	<artifactId>gnucash</artifactId>
-	<version>2026-06</version>
+	<version>2026-07</version>
 	<packaging>pom</packaging>
 	<name>${project.title}</name>
 
@@ -28,9 +28,9 @@
 
 	<dependencies>
 
-		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<!-- LOGGING -->
-		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
