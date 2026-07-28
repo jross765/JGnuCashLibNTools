@@ -1,9 +1,9 @@
 # Compatibility
 
 ## System and Format Compatibility
-Version 2026-06
+Version 2026-07
 of the libs and tools has been tested with 
-GnuCash 5.15 
+GnuCash 5.16 
 on Linux (locale de_DE) and 
 OpenJDK 21.0.
 
@@ -21,7 +21,7 @@ However, it has **not** been thoroughly tested with all of them, but just on a s
 
 | **Overall Version** | **Backward Compat.** | **Note**                   |
 |---------|------------------|--------------------------------|
-| 2026-06 | yes     | Only additions to and deprecations in interfaces |
+| 2026-07 | yes     | Only additions to and deprecations in interfaces |
 | 2026-04 | no      | "Medium" changes in interfaces |
 | 1.8     | almost  | Minor changes in interfaces    |
 | 1.7     | no      | "Medium" changes in interfaces |

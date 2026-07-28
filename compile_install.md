@@ -23,7 +23,7 @@ To compile the sources, do the following:
 5) Compile the sources:
 
       a) Adapt the path to your local repository in *all* pom.xml files 
-         (search for "`schnorxolib-base-systemPath`" and "`xxx`").
+         (search for "`schnorxolib-base-systemPath`").
          All other libs are drawn from Maven Central.
 
       b) Type:
