@@ -8,27 +8,37 @@ on Linux (locale de_DE) and
 OpenJDK 21.0.
 
 ## Locale/Language Compatibility
-**Caution:** Will only work on systems with the following locale languages:
 
-* English
-* Spanish
-* French
-* German
+* *API*:
+  **Caution:** Due to certain design decisions the GnuCash developers took, 
+  you will be able to fully leverage all the API's (Core) features *only* on 
+  systems with the following locale languages:
 
-However, it has **not** been thoroughly tested with all of them, but just on a system with locale de_DE (for details, cf. the API module documentation).
+  * English
+  * Spanish
+  * French
+  * German
+  
+  That affects certain string-enum-mappings (such as for a transaction
+  split's action). However, you will still be able to use the API on other
+  system locales, albeit with less convenience, and you will have to 
+  deal with strings in the locale's language.
+  
+  Please notice that the API has **not** been thoroughly tested with all of 
+  the above-mentioned languages (for details, cf. the API module documentation).
+
+* *Viewer*:
+  The viewer supports the following locale languages:
+
+  * English
+  * French 
+  * German
 
 ## Version Compatibility
 
-| **Overall Version** | **Backward Compat.** | **Note**                   |
-|---------|------------------|--------------------------------|
+| **Overall Version** | **Backward Compat.** | **Note**       |
+|---------|---------|-----------------------------------------|
 | 2026-07 | yes     | Only additions to and deprecations in interfaces |
-| 2026-04 | no      | "Medium" changes in interfaces |
-| 1.8     | almost  | Minor changes in interfaces    |
-| 1.7     | no      | "Medium" changes in interfaces |
-| 1.6     | almost  | Minor changes in interfaces, partially extensions |
-| 1.5     | almost  | Minor changes in interfaces    |
-| 1.4     | no      | Some substantial changes       |
-| 1.3     | no      | "Medium" changes in interfaces |
-| 1.2     | almost  | Minor changes in interfaces    |
-| 1.1     | no      | Major changes in interfaces    |
-| 1.0.1   | yes     | Fixed one bug in V. 1.0        |
+| 2026-04 | no      | "Medium" changes in interfaces          |
+| 1.8     | almost  | Minor changes in interfaces             |
+| (older) |         | (Cf. Git history)                       |

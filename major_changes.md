@@ -29,7 +29,8 @@ For more details, cf. the README files of the resp. modules (links above).
 
 * Module "Viewer":
   * Added french language files.
-  * Maintenance
+  * Generalized rendering of unbalanced and/or tagged transactions.
+  * Maintenance.
 
 Module versions:
 
