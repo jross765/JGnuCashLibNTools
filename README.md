@@ -1,3 +1,6 @@
+**!!! THIS REPO HAS MOVED !!!**
+[New site](https://codeberg.org/jross765/JGnuCashLibNTools)
+
 # Project "Java GnuCash Lib 'n' Tools"
 
 `JGnuCashLibNTools` 
